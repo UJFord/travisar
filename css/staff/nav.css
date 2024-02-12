@@ -1,0 +1,35 @@
+/* NAV */
+nav{
+    background: var(--mainBrand);
+}
+    /* light texts for inactive tabs */
+    .nav-link, #profile-drop-icon{
+        color: #d3d0d0;
+    }
+
+    /* profile icon */
+    #profile-container{
+        cursor: pointer;
+        filter: brightness(0.8);
+    }
+        #profile-container:hover{
+            filter: brightness(1);
+        }
+    #profile-icon{
+        width: 2rem;
+    }
+        .profile-thumbnail{
+            aspect-ratio: 1/1;
+            overflow: hidden;
+            background-position: center;
+            background-size: cover;
+        }
+
+        /* profile actions */
+        #profile-actions-container .dropdown-item:hover{
+            background: #c3c0c0;
+        }
+
+            #login-status-thumbnail{
+                width: 1.5rem;
+            }
