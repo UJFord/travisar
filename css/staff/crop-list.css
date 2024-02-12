@@ -1,0 +1,7 @@
+#chevron-dropdown{
+  transition: transform 0.2s ease-in-out;
+}
+
+.rotate-chevron {
+  transform: rotate(90deg);
+}

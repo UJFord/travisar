@@ -16,7 +16,7 @@
                     <a class="nav-link active " aria-current="page" href="#">Crop</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Users</a>
+                    <a class="nav-link" href="#">Contributors</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Approval</a>
@@ -32,7 +32,7 @@
                         </div>
                     </div>
                     <!-- caret icon -->
-                    <i id="profile-drop-icon" class="bi bi-caret-down"></i>
+                    <i id="profile-drop-icon" class="fa-solid fa-caret-down"></i>
                 </div>
                 <!-- dropdown actions -->
                 <ul id="profile-actions-container" class="overflow-hidden dropdown-menu dropdown-menu-end bg-white border border-secondary-subtle p-0">
