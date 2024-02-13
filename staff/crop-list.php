@@ -52,17 +52,19 @@
                             <input type="text" class="form-control" placeholder="Search Crops" aria-label="Search" aria-describedby="basic-addon1">
                         </div>
                     </div>
+                    <!-- <div class="row d-flex align-items-center">
+                                <i id="chevron-dropdown-btn" class="fas fa-chevron-down text-dark col-1"></i> <a class="fw-bold text-success col text-decoration-none">All Crops</a>
+                            </div> -->
 
                     <!-- all crops -->
-                    <div class="mt-1 mx-3 w-100">
-                        <a class="text-decoration-none w-100" data-bs-toggle="collapse" href="#crop-filters" role="button" aria-expanded="true" aria-controls="crop-filter">
-                            <div class="row d-flex align-items-center">
-                                <i id="chevron-dropdown-btn" class="fas fa-chevron-down text-dark col-1"></i> <span class="fw-bold text-success col">All Crops</span>
-                            </div>
-                        </a>
+                    <div class="mt-1 mb-2 pb-2 mx-3 w-100 border-bottom">
+                        <div class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#crop-filters" role="button" aria-expanded="true" aria-controls="crop-filters">
+                            <i id="chevron-dropdown-btn" class="fas fa-chevron-right text-dark col-1"></i>
+                            <a class="fw-bold text-success col text-decoration-none" href="">All Crops</a>
+                        </div>
 
                         <!-- crops filters -->
-                        <div id="crop-filters" class="collapse show w-100 mb-2">
+                        <div id="crop-filters" class="collapse w-100 mb-2">
                             <!-- rice -->
                             <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
                                 <i class="fa-solid fa-bowl-rice col-1"></i><span class="fw-normal col ms-2">Rice</span>
@@ -78,6 +80,75 @@
                         </div>
                     </div>
 
+                    <!-- all municipalities -->
+                    <div class="my-1 mx-3">
+                        <div class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#municipality-filters" role="button" aria-expanded="true" aria-controls="municipalty-filters">
+                            <i id="chevron-dropdown-btn" class="fas fa-chevron-right text-dark col-1"></i>
+                            <a class="fw-bold text-success col text-decoration-none" href="">All Municipalities</a>
+                        </div>
+
+                        <!-- municipality filters -->
+                        <div id="municipality-filters" class="collapse w-100 mb-2">
+                            <!-- alabel -->
+                            <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
+                                <i class="fa-solid fa-location-dot col-1"></i><span class="fw-normal col ms-2">Alabel</span>
+                            </a>
+                            <!-- glan -->
+                            <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
+                                <i class="fa-solid fa-location-dot col-1"></i><span class="fw-normal col ms-2">Glan</span>
+                            </a>
+                            <!-- kiamba -->
+                            <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
+                                <i class="fa-solid fa-location-dot col-1"></i><span class="fw-normal col ms-2">Kiamba</span>
+                            </a>
+                            <!-- maasim -->
+                            <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
+                                <i class="fa-solid fa-location-dot col-1"></i><span class="fw-normal col ms-2">Maasim</span>
+                            </a>
+                            <!-- maitum -->
+                            <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
+                                <i class="fa-solid fa-location-dot col-1"></i><span class="fw-normal col ms-2">Maitum</span>
+                            </a>
+                            <!-- malapatan -->
+                            <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
+                                <i class="fa-solid fa-location-dot col-1"></i><span class="fw-normal col ms-2">Malapatan</span>
+                            </a>
+                            <!-- malungon -->
+                            <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
+                                <i class="fa-solid fa-location-dot col-1"></i><span class="fw-normal col ms-2">Malungon</span>
+                            </a>
+                        </div>
+                    </div>
+
+                    <!-- all contributors -->
+                    <div class="mb-2 mx-3">
+                        <div class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#contributor-filters" role="button" aria-expanded="true" aria-controls="contributor-filters">
+                            <i id="chevron-dropdown-btn" class="fas fa-chevron-right text-dark col-1"></i>
+                            <a class="fw-bold text-success col text-decoration-none" href="">All Contributors</a>
+                        </div>
+
+                        <!-- crops filters -->
+                        <div id="contributor-filters" class="collapse mb-2">
+                            <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
+                                <i class="fa-solid fa-user col-1" style="padding-left: 0.9rem;"></i><span class="fw-normal col ms-2">Alex Miller</span>
+                            </a>
+                            <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
+                                <i class="fa-solid fa-users col-1"></i><span class="fw-normal col ms-2">TechStar</span>
+                            </a>
+                            <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
+                                <i class="fa-solid fa-user col-1" style="padding-left: 0.9rem;"></i><span class="fw-normal col ms-2">Ethan Campbell</span>
+                            </a>
+                            <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
+                                <i class="fa-solid fa-user col-1" style="padding-left: 0.9rem;"></i><span class="fw-normal col ms-2">Michael Jones</span>
+                            </a>
+                            <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
+                                <i class="fa-solid fa-users col-1"></i><span class="fw-normal col ms-2">Greenleaf Solutions</span>
+                            </a>
+                            <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
+                                <i class="fa-solid fa-users col-1"></i><span class="fw-normal col ms-2">Cozy Corner Cafe</span>
+                            </a>
+                        </div>
+                    </div>
 
                 </div>
             </div>

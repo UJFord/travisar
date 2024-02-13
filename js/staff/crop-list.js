@@ -1,5 +1,5 @@
-const btn = document.querySelector('#chevron-dropdown-btn'); // Select the element
+// const btn = document.querySelector('#chevron-dropdown-btn'); // Select the element
 
-btn.addEventListener('click', function() {
-  this.classList.toggle('collapse'); // Toggle the class
-});
+// btn.addEventListener('click', function() {
+//   document.querySelector("#crop-filters").classList.toggle('show'); // Toggle the class
+// });
