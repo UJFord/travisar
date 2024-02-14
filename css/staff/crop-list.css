@@ -1,7 +1,29 @@
+/* FILTER */
 .chevron-dropdown-btn{
   transition: transform 0.2s ease-in-out;
 }
 
 .rotate-chevron {
   transform: rotate(-90deg) translateX(-6px) translateY(8px);
+}
+
+/* TABLE */
+
+/* add button */
+#add-crop-btn{
+  background: var(--mainBrand);
+  border: none;
+}
+  #add-crop-btn:hover{
+    background: #068c93;
+  }
+
+/* table head */
+.thead-item{
+  color: white;
+}
+
+/* ellipsis icon */
+i.fa-solid.fa-ellipsis-vertical.btn:hover {
+  border: 1px solid #ccc; /* Customize border color here */
 }

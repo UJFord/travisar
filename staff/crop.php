@@ -40,51 +40,58 @@
                     <!-- heading -->
                     <div class="d-flex justify-content-between">
                         <!-- title -->
-                        <h4 class="fw-bold">All Crops</h4>
+                        <h4 class="fw-semibold" style="font-size: 1.5rem;">All Crops</h4>
                         <!-- add button -->
-                        <div class="dropdown">
+                        <div class="z-1 dropdown">
                             <!-- dropdown -->
-                            <button class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                Dropdown button
+                            <button id="add-crop-btn" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                New
                             </button>
                             <!-- list -->
-                            <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#">Crop</a></li>
+                            <ul class="dropdown-menu dropdown-menu-end p-0">
+                                <li class="p-0">
+                                    <a class="dropdown-item p-2" href="#"><i class="fa-solid fa-file-circle-plus me-2"></i>Crop</a>
+                                </li>
                             </ul>
                         </div>
                     </div>
 
-                    <table class="table table-hover">
+
+                    <!-- table -->
+                    <table class="table table-hover table-striped-columns">
+                        <!-- table head -->
                         <thead>
                             <tr>
-                                <th scope="col">
-                                    <input class="form-check-input" type="checkbox">
-                                    <label class="form-check-label">
+                                <th class="col-1 thead-item" scope="col">
+                                    <input class="form-check-input" type="checkbox" style="font-size: 0.8;">
+                                    <label class="form-check-label text-dark-emphasis">
                                         All
                                     </label>
                                 </th>
-                                <th scope=" col">Name</th>
-                                <th scope="col">Contributor</th>
-                                <th scope="col">Handle</th>
+                                <th class="col text-dark-emphasis" scope="col">Name</th>
+                                <th class="col-4 text-dark-emphasis" scope="col">Contributor</th>
+                                <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
+
                             </tr>
                         </thead>
-                        <tbody>
+                        <!-- table body -->
+                        <tbody class="table-group-divider">
                             <tr>
-                                <th scope="row">1</th>
+                                <th scope="row"><input class="form-check-input" type="checkbox"></th>
                                 <td>Mark</td>
                                 <td>Otto</td>
-                                <td>@mdo</td>
+                                <td class="d-flex justify-content-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                             </tr>
                             <tr>
-                                <th scope="row">2</th>
+                                <th scope="row"><input class="form-check-input" type="checkbox"></th>
                                 <td>Jacob</td>
                                 <td>Thornton</td>
-                                <td>@fat</td>
+                                <td class="d-flex justify-content-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                             </tr>
                             <tr>
-                                <th scope="row">3</th>
+                                <th scope="row"><input class="form-check-input" type="checkbox"></th>
                                 <td colspan="2">Larry the Bird</td>
-                                <td>@twitter</td>
+                                <td class="d-flex justify-content-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                             </tr>
                         </tbody>
                     </table>

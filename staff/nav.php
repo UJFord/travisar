@@ -3,7 +3,7 @@
 <link rel="stylesheet" href="../css/staff/nav.css">
 
 <!-- MARKUP -->
-<nav class="navbar navbar-expand-md border-bottom border-body" data-bs-theme="dark">
+<nav class="z-3 navbar navbar-expand-md border-bottom border-body" data-bs-theme="dark">
     <div class="container">
         <!-- brand and navs -->
         <a class="navbar-brand text-white" href="#"><i class="bi bi-crop"></i></a>
