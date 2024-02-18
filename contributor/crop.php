@@ -76,7 +76,7 @@
                         </thead>
                         <!-- table body -->
                         <tbody class="table-group-divider fw-bold overflow-scroll">
-                            <tr>
+                            <tr id="row1" data-target="#dataModal" data-name="Malgas" data-type="Corn" data-contributor="Alex Miller">
                                 <!-- checkbox -->
                                 <th scope="row"><input class="form-check-input" type="checkbox"></th>
                                 <td>
@@ -90,7 +90,7 @@
                                 <!-- ellipsis menu butn -->
                                 <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                             </tr>
-                            <tr>
+                            <tr id="row2" data-target="#dataModal" data-name="Lagfisan" data-type="Rice" data-contributor="TechStar">
                                 <th scope="row"><input class="form-check-input" type="checkbox"></th>
                                 <td>
                                     <!-- scientific name -->
@@ -101,7 +101,7 @@
                                 <td class="small-font"><span class="py-1 px-2 rounded org">TechStar</span></td>
                                 <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                             </tr>
-                            <tr>
+                            <tr id="row3" data-target="#dataModal" data-name="Moradu" data-type="Rice" data-contributor="Ethan Campbell">
                                 <th scope="row"><input class="form-check-input" type="checkbox"></th>
                                 <td>
                                     <!-- scientific name -->
@@ -126,6 +126,37 @@
                         </tbody>
                     </table>
                 </div>
+
+                <!-- modal -->
+                <div class="modal fade" id="dataModal" tabindex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
+                    <div class="modal-dialog">
+                        <div class="modal-content">
+                        </div>
+                    </div>
+                </div>
+
+                <script>
+                    const tableBody = document.querySelector('.table-group-divider');
+
+                    tableBody.addEventListener('click', (event) => {
+                        if (event.target.closest('.fa-solid.fa-ellipsis-vertical.btn')) {
+                            const clickedRow = event.target.closest('tr');
+                            const name = clickedRow.dataset.name;
+                            const type = clickedRow.dataset.type;
+                            const contributor = clickedRow.dataset.contributor;
+
+                            // Update modal content with retrieved data (e.g., using DOM manipulation)
+                            const modalContent = document.querySelector('.modal-content');
+                            // ... populate content ...
+
+                            // Show the modal
+                            const dataModal = document.getElementById('dataModal');
+                            dataModal.classList.add('show');
+                            dataModal.setAttribute('aria-modal', 'true');
+                        }
+                    });
+                </script>
+
 
 
             </div>
