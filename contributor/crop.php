@@ -18,7 +18,7 @@
     <!-- global declarations -->
     <link rel="stylesheet" href="../css/global-declarations.css">
     <!-- specific for this file -->
-    <link rel="stylesheet" href="../css/staff/crop-list.css">
+    <link rel="stylesheet" href="css/crop-list.css">
 </head>
 
 <body>
@@ -50,7 +50,7 @@
                             <!-- list -->
                             <ul class="dropdown-menu dropdown-menu-end p-0">
                                 <li class="p-0">
-                                    <a class="dropdown-item p-2" href="#"><i class="fa-solid fa-file-circle-plus me-2"></i>Crop</a>
+                                    <a class="dropdown-item p-2" href="#"><i class="fa-solid fa-file-circle-plus me-2"></i>Item</a>
                                 </li>
                             </ul>
                         </div>
@@ -58,40 +58,70 @@
 
 
                     <!-- table -->
-                    <table class="table table-hover table-striped-columns">
+                    <table class="table table-hover">
                         <!-- table head -->
                         <thead>
                             <tr>
                                 <th class="col-1 thead-item" scope="col">
-                                    <input class="form-check-input" type="checkbox" style="font-size: 0.8;">
-                                    <label class="form-check-label text-dark-emphasis">
+                                    <input class="form-check-input" type="checkbox">
+                                    <label class="form-check-label text-dark-emphasis small-font">
                                         All
                                     </label>
                                 </th>
-                                <th class="col text-dark-emphasis" scope="col">Name</th>
-                                <th class="col-4 text-dark-emphasis" scope="col">Contributor</th>
+                                <th class="col text-dark-emphasis small-font" scope="col">Name</th>
+                                <th class="col-4 text-dark-emphasis small-font" scope="col">Contributor</th>
                                 <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
 
                             </tr>
                         </thead>
                         <!-- table body -->
-                        <tbody class="table-group-divider">
+                        <tbody class="table-group-divider fw-bold overflow-scroll">
                             <tr>
+                                <!-- checkbox -->
                                 <th scope="row"><input class="form-check-input" type="checkbox"></th>
-                                <td>Mark</td>
-                                <td>Otto</td>
-                                <td class="d-flex justify-content-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
+                                <td>
+                                    <!-- scientific name -->
+                                    <a href="">Malgas</a>
+                                    <!-- crop type -->
+                                    <h6 class="text-secondary small-font m-0">Corn</h6>
+                                </td>
+                                <!-- contributor -->
+                                <td class="small-font"><span class="py-1 px-2 rounded indiv">Alex Miller</span></td>
+                                <!-- ellipsis menu butn -->
+                                <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                             </tr>
                             <tr>
                                 <th scope="row"><input class="form-check-input" type="checkbox"></th>
-                                <td>Jacob</td>
-                                <td>Thornton</td>
-                                <td class="d-flex justify-content-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
+                                <td>
+                                    <!-- scientific name -->
+                                    <a href="">Lagfisan</a>
+                                    <!-- crop type -->
+                                    <h6 class="text-secondary small-font m-0">Rice</h6>
+                                </td>
+                                <td class="small-font"><span class="py-1 px-2 rounded org">TechStar</span></td>
+                                <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                             </tr>
                             <tr>
                                 <th scope="row"><input class="form-check-input" type="checkbox"></th>
-                                <td colspan="2">Larry the Bird</td>
-                                <td class="d-flex justify-content-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
+                                <td>
+                                    <!-- scientific name -->
+                                    <a href="">Moradu</a>
+                                    <!-- crop type -->
+                                    <h6 class="text-secondary small-font m-0">Rice</h6>
+                                </td>
+                                <td class="small-font"><span class="py-1 px-2 rounded indiv">Ethan Campbell</span></td>
+                                <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
+                            </tr>
+                            <tr>
+                                <th scope="row"><input class="form-check-input" type="checkbox"></th>
+                                <td>
+                                    <!-- scientific name -->
+                                    <a href="">Masipag</a>
+                                    <!-- crop type -->
+                                    <h6 class="text-secondary small-font m-0">Kamote</h6>
+                                </td>
+                                <td class="small-font"><span class="py-1 px-2 rounded self">Me</span></td>
+                                <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                             </tr>
                         </tbody>
                     </table>

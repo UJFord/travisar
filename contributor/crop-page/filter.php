@@ -14,8 +14,8 @@
         <div class="d-flex py-3 px-3">
             <!-- search -->
             <div class="input-group">
-                <span class="input-group-text" id="basic-addon1"><i class="bi bi-search"></i></span>
-                <input type="text" class="form-control" placeholder="Search Crops" aria-label="Search" aria-describedby="basic-addon1">
+                <span class="input-group-text" id="filter-search"><i class="bi bi-search"></i></span>
+                <input type="text" class="form-control" placeholder="Search Crops" aria-label="Search" aria-describedby="filter-search">
             </div>
         </div>
 
@@ -23,7 +23,7 @@
         <div class="py-2 px-3 w-100 border-bottom">
             <div id="crop-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#crop-filters" role="button" aria-expanded="true" aria-controls="crop-filters">
                 <i id="cropChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">All Crops</a>
+                <a class="fw-bold text-success col text-decoration-none" href="">All Item</a>
             </div>
 
             <!-- crops filters -->

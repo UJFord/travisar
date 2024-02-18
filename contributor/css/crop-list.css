@@ -18,12 +18,38 @@
     background: #068c93;
   }
 
+/* small-font 0.8rem */
+.small-font{
+  font-size: 0.8rem;
+}
+
+/* td */
+th, td {
+  vertical-align: middle;
+}
+
+
 /* table head */
 .thead-item{
   color: white;
 }
 
 /* ellipsis icon */
+/* text align end */
+.td-menu{
+  text-align: end;
+}
 i.fa-solid.fa-ellipsis-vertical.btn:hover {
-  border: 1px solid #ccc; /* Customize border color here */
+  border: 1px solid #ccc;
+}
+
+/* user group bg colors */
+.self{
+  background: #af98f4;
+}
+.indiv{
+  background: #ffdb9a;
+}
+.org{
+  background: #a9b9ff;
 }
