@@ -1,6 +1,6 @@
 <!-- EDIT MODAL -->
 <div class="modal fade" id="edit-item-modal" tabindex="-1" aria-labelledby="edit-item-modal-label" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             <!-- header -->
@@ -10,14 +10,14 @@
             </div>
 
             <!-- body -->
-            <div class="modal-body">
+            <div class="modal-body edit-modal-body">
 
             </div>
 
             <!-- footer -->
             <div class="modal-footer d-flex justify-content-between">
                 <div class="">
-                    <button type="button" class="btn btn-primary">Save</button>
+                    <button type="button" class="btn btn-success">Save</button>
                     <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                 </div>
                 <button type="button" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
@@ -46,7 +46,7 @@
             const contributor = row.getAttribute('data-contributor');
 
             // Populate the modal content
-            const modalBody = document.querySelector('.modal-body');
+            const modalBody = document.querySelector('.edit-modal-body.modal-body');
             modalBody.textContent = `
                                 Name: ${name}<br>
                                 Type: ${type}<br>

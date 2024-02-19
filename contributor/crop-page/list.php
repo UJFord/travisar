@@ -1,7 +1,8 @@
 <!-- LIST -->
 <div class="col border">
     <div class="continer">
-        <!-- heading -->
+
+        <!-- HEADING -->
         <div class="d-flex justify-content-between">
             <!-- title -->
             <h4 class="fw-semibold" style="font-size: 1.5rem;">All Crops</h4>
@@ -12,11 +13,16 @@
                     New
                 </button>
                 <!-- list -->
-                <ul class="dropdown-menu dropdown-menu-end p-0">
+                <ul class="dropdown-menu dropdown-menu-end p-0 overflow-hidden">
                     <!-- add item -->
                     <li class="p-0">
-                        <button type="button" class="dropdown-item p-2" data-bs-toggle="modal" data-bs-target="#add-item-modal">
-                            <i class="fa-solid fa-file-circle-plus me-2"></i>Item
+                        <!-- single item -->
+                        <button type="button" class="dropdown-item p-2 btn" data-bs-toggle="modal" data-bs-target="#add-item-modal">
+                            <i class="fa-solid fa-circle-plus me-2 small-font"></i><span>Item</span>
+                        </button>
+                        <!-- import csv -->
+                        <button type="button" class="dropdown-item p-2 btn" data-bs-toggle="modal" data-bs-target="">
+                            <i class="fa-solid fa-file-circle-plus me-2 small-font"></i><span>Sheet</span>
                         </button>
 
                     </li>
@@ -25,7 +31,7 @@
         </div>
 
 
-        <!-- table -->
+        <!-- TABLE -->
         <table class="table table-hover">
             <!-- table head -->
             <thead>
