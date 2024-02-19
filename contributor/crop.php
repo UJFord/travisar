@@ -131,29 +131,51 @@
                 <div class="modal fade" id="dataModal" tabindex="-1" aria-labelledby="dataModalLabel" aria-hidden="true">
                     <div class="modal-dialog">
                         <div class="modal-content">
+                            <div class="modal-header">
+                                <h5 class="modal-title" id="dataModalLabel">Crop Information</h5>
+                                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                            </div>
+                            <div class="modal-body">
+                            </div>
+                            <div class="modal-footer">
+                                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                            </div>
                         </div>
                     </div>
                 </div>
 
                 <script>
-                    const tableBody = document.querySelector('.table-group-divider');
+                    const tableRows = document.querySelectorAll('.table tbody tr');
 
-                    tableBody.addEventListener('click', (event) => {
-                        if (event.target.closest('.fa-solid.fa-ellipsis-vertical.btn')) {
-                            const clickedRow = event.target.closest('tr');
-                            const name = clickedRow.dataset.name;
-                            const type = clickedRow.dataset.type;
-                            const contributor = clickedRow.dataset.contributor;
+                    tableRows.forEach(row => {
+                        // Prevent default click behavior on checkbox and ellipsis
+                        row.querySelector('.form-check-input').addEventListener('click', (event) => {
+                            event.stopPropagation();
+                        });
 
-                            // Update modal content with retrieved data (e.g., using DOM manipulation)
-                            const modalContent = document.querySelector('.modal-content');
-                            // ... populate content ...
+                        row.querySelector('.fa-solid.fa-ellipsis-vertical.btn').addEventListener('click', (event) => {
+                            event.stopPropagation();
+                        });
+
+                        row.addEventListener('click', () => {
+                            const name = row.getAttribute('data-name');
+                            const type = row.getAttribute('data-type');
+                            const contributor = row.getAttribute('data-contributor');
+
+                            // Populate the modal content
+                            const modalBody = document.querySelector('.modal-body');
+                            modalBody.textContent = `
+                                Name: ${name}<br>
+                                Type: ${type}<br>
+                                Contributor: ${contributor}
+                            `;
 
                             // Show the modal
-                            const dataModal = document.getElementById('dataModal');
-                            dataModal.classList.add('show');
-                            dataModal.setAttribute('aria-modal', 'true');
-                        }
+                            const dataModal = new bootstrap.Modal(document.getElementById('dataModal'), {
+                                keyboard: false
+                            });
+                            dataModal.show();
+                        });
                     });
                 </script>
 

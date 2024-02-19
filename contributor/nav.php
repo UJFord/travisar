@@ -1,6 +1,6 @@
 <!-- STYLESHEET -->
 <!-- custom -->
-<link rel="stylesheet" href="../css/staff/nav.css">
+<link rel="stylesheet" href="css/nav.css">
 
 <!-- MARKUP -->
 <nav class="z-3 navbar navbar-expand-md border-bottom border-body" data-bs-theme="dark">
