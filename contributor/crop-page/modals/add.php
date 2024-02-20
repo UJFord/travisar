@@ -10,26 +10,22 @@
 
             <!-- body -->
             <div class="modal-body">
+                <!-- TAB LIST NAVIGATION -->
+                <ul class="nav nav-tabs" id="myTab" role="tablist">
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link active small-font modal-tab" id="gen-tab" data-bs-toggle="tab" data-bs-target="#gen-tab-pane" type="button" role="tab" aria-controls="gen-tab-pane" aria-selected="true"><i class="fa-solid fa-info"></i></button>
+                    </li>
+                    <li class="nav-item" role="presentation">
+                        <button class="nav-link small-font modal-tab" id="loc-tab" data-bs-toggle="tab" data-bs-target="#loc-tab-pane" type="button" role="tab" aria-controls="loc-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot"></i> </button>
+                    </li>
+                </ul>
                 <div class="container">
 
-                    <!-- TAB LIST NAVIGATION -->
-                    <ul class="nav nav-tabs" id="myTab" role="tablist">
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active" id="gen-tab" data-bs-toggle="tab" data-bs-target="#gen-tab-pane" type="button" role="tab" aria-controls="gen-tab-pane" aria-selected="true">General</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="profile-tab" data-bs-toggle="tab" data-bs-target="#profile-tab-pane" type="button" role="tab" aria-controls="profile-tab-pane" aria-selected="false">Profile</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="contact-tab" data-bs-toggle="tab" data-bs-target="#contact-tab-pane" type="button" role="tab" aria-controls="contact-tab-pane" aria-selected="false">Contact</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link" id="disabled-tab" data-bs-toggle="tab" data-bs-target="#disabled-tab-pane" type="button" role="tab" aria-controls="disabled-tab-pane" aria-selected="false" disabled>Disabled</button>
-                        </li>
-                    </ul>
-                    <div class="tab-content">
+                    <div class="tab-content mt-2">
                         <!-- general -->
                         <?php require "tabs/gen.php" ?>
+                        <!-- location -->
+                        <?php require "tabs/loc.php" ?>
                     </div>
 
                 </div>
@@ -46,6 +42,12 @@
         </div>
     </div>
 </div>
+<!-- STYLE -->
+<style>
+    .modal-tab:hover {
+        color: grey;
+    }
+</style>
 
 <!-- SCRIPT -->
 <script>

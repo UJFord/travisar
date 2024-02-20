@@ -1,7 +1,6 @@
 <!-- GENERAL TAB -->
 <div class="fade show active" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
-
-
+    
     <!-- NAME AND TYPE -->
     <div class="row mb-3">
         <!-- name -->
@@ -22,7 +21,7 @@
     </div>
 
     <!-- IMAGE -->
-    <div class="row">
+    <div class="row mb-3">
         <div class="col">
             <div class="d-flex flex-column image-upload-container">
                 <!-- label -->
@@ -31,11 +30,25 @@
                     <span>Image</span>
                 </label>
                 <!-- image input -->
-                <input class="mb-1" type="file" id="imageInput" accept="image/*" multiple>
+                <input class="mb-1 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" multiple>
                 <!-- image preview -->
-                <div class="preview-container border overflow-scroll rounded p-2 col"></div>
+                <div class="preview-container custom-scrollbar overflow-scroll rounded border py-2" id="previewContainer"></div>
             </div>
+        </div>
+    </div>
 
+    <!-- DISCRIPTION -->
+    <div class="row mb-3">
+        <div class="col">
+            <label for="" class="form-label small-font">Description</label>
+            <textarea name="" id="" rows="2" class="form-control"></textarea>
+        </div>
+    </div>
+
+    <!-- STEP NAVIGATION -->
+    <div class="row">
+        <div class="col d-flex justify-content-end">
+            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc')"><i class="fa-solid fa-forward"></i></button>
         </div>
     </div>
 </div>
@@ -61,11 +74,19 @@
         max-height: 5rem;
         aspect-ratio: 1/1;
     }
+
+    /* hiding the scrollbar */
+    #previewContainer {
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* Internet Explorer 10+ */
+    }
 </style>
 
 
 <!-- SCRIPT -->
-<script>
+<script defer>
     // handling to show all image inputs
     const imageInput = document.getElementById('imageInput');
     const previewContainer = document.querySelector('.preview-container');
@@ -86,4 +107,29 @@
             reader.readAsDataURL(files[i]);
         }
     });
+
+    // to show the border only when there a picture inside
+    // const previewContainer = document.getElementById('previewContainer');
+
+    function checkForContent() {
+        if (previewContainer.hasChildNodes()) {
+            previewContainer.classList.add('border');
+        } else {
+            previewContainer.classList.remove('border');
+        }
+    }
+
+    // Call initially on page load
+    checkForContent();
+
+    // Call whenever content might change within the container
+    previewContainer.addEventListener('DOMNodeInserted', checkForContent);
+    previewContainer.addEventListener('DOMNodeRemoved', checkForContent);
+
+
+    // next button
+    function switchTab(tabName) {
+        document.getElementById(tabName + '-tab').click();
+        console.log(document.querySelector(tabName + '-tab'))
+    }
 </script>
