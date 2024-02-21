@@ -20,8 +20,7 @@
 
         </div>
 
-        <div id="map" class="col border">
-            <a href="https://www.maptiler.com" style="position:absolute;left:10px;bottom:10px;z-index:999;"><img src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo"></a>
+        <div id="map" class="col border rounded">
         </div>
     </div>
 
@@ -29,12 +28,11 @@
 
 <script>
     const key = 'nEVXtMGf5Q4NUT81g14m';
-    const map = L.map('map').setView([5.9267, 124.9948], 9); //starting position
+    const map = L.map('map').setView([6.1536, 124.993086], 9); //starting position
     L.tileLayer(`https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=${key}`, { //style URL
         tileSize: 512,
         zoomOffset: -1,
         minZoom: 1,
-        attribution: "\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\"\u003e\u0026copy; MapTiler\u003c/a\u003e \u003ca href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\"\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e",
         crossOrigin: true
     }).addTo(map);
 </script>
