@@ -56,7 +56,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="#" class="dropdown-item text-dark fs-6 d-flex justify-content-start align-items-center px-3 pe-3">
+                        <a href="../login/login-form.php" class="dropdown-item text-dark fs-6 d-flex justify-content-start align-items-center px-3 pe-3">
                             <i class="fa-solid fa-arrow-right-from-bracket me-2 fs-6 text-dark"></i>
                             <p class="m-0">Log Out</p>
                         </a>

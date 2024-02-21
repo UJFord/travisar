@@ -1,3 +1,7 @@
+<?php
+require('../functions/functions.php');
+require('../functions/connections.php');
+?>
 <!doctype html>
 <html lang="en">
 
@@ -11,8 +15,6 @@
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- CUSTOM -->
     <!-- global declarations -->
-
-
 
 </head>
 
@@ -39,15 +41,18 @@
                                 <button type="submit" class="btn btn-primary">Sign in</button>
                             </div>
                         </form>
+                        <!-- login form ends here -->
+                        <p class="text-center">Return to homepage? - <a href="../contributor/crop.php">Go Back</a></p>
+                        <p class="text-center">Want to signup? - <a href="signup.php">Sign Up</a></p>
                     </div>
                 </div>
             </div>
         </div>
     </div>
 
-        <!-- SCRIPTS -->
-        <!--bootstrap -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
+    <!-- SCRIPTS -->
+    <!--bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
 </body>
 
 </html>
