@@ -4,13 +4,6 @@
 
         <!-- HEADING -->
         <div class="d-flex justify-content-between">
-
-            <?php 
-            if (isset($_SESSION['rank'])){
-                
-                echo $_SESSION['rank'];
-            }
-            ?>
             <!-- title -->
             <h4 class="fw-semibold" style="font-size: 1.5rem;">All Crops</h4>
             <!-- add button -->
@@ -31,7 +24,6 @@
                         <button type="button" class="dropdown-item p-2 btn" data-bs-toggle="modal" data-bs-target="">
                             <i class="fa-solid fa-file-circle-plus me-2 small-font"></i><span>Sheet</span>
                         </button>
-
                     </li>
                 </ul>
             </div>

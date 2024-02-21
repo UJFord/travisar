@@ -1,21 +1,38 @@
 <!-- GENERAL TAB -->
-<div class="fade show active" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
-    
+<div class="fade tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
+
     <!-- NAME AND TYPE -->
     <div class="row mb-3">
-        <!-- name -->
+        <!-- variety name -->
         <div class="col">
-            <label for="Name" class="form-label small-font">Name</label>
-            <input type="text" class="form-control">
+            <label for="Name" class="form-label small-font">Variety Name <span style="color: red;">*</span></label>
+            <input id="Name" type="text" class="form-control" placeholder="Ex. Sinandomeng">
         </div>
+        <!-- locall name -->
+        <div class="col">
+            <label for="Name" class="form-label small-font">Local Name <span style="color: red;">*</span></label>
+            <input type="text" class="form-control" placeholder="Ex. Bugas">
+        </div>
+    </div>
+
+    <!-- NAME AND TYPE -->
+    <div class="row mb-3">
         <!-- type -->
         <div class="col">
-            <label for="Type" class="form-label small-font">What type of crop is this?</label>
-            <select name="" id="" class="form-select">
-                <option value=""></option>
+            <label for="Type" class="form-label small-font">What type of crop is this? <span style="color: red;">*</span></label>
+            <select name="" id="Type" class="form-select" placeholder="Ex. Rice">
                 <option value="">Rice</option>
                 <option value="">Corn</option>
                 <option value="">Carrot</option>
+            </select>
+        </div>
+        <!-- crop field -->
+        <div class="col">
+            <label for="CropField" class="form-label small-font">Where is this crop planted? <span style="color: red;">*</span></label>
+            <select name="" id="CropField" class="form-select">
+                <option value="">Lowland</option>
+                <option value="">Upland</option>
+                <option value="">Rice Field</option>
             </select>
         </div>
     </div>
@@ -27,7 +44,7 @@
                 <!-- label -->
                 <label for="imageInput" class="d-flex align-items-center rounded small-font mb-2">
                     <i class="fa-solid fa-image me-2"></i>
-                    <span>Image</span>
+                    <span>Image <span style="color: red;">*</span></span>
                 </label>
                 <!-- image input -->
                 <input class="mb-1 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" multiple>
@@ -41,7 +58,7 @@
     <div class="row mb-3">
         <div class="col">
             <label for="" class="form-label small-font">Description</label>
-            <textarea name="" id="" rows="2" class="form-control"></textarea>
+            <textarea name="" id="" rows="2" class="form-control" placeholder="Description ..."></textarea>
         </div>
     </div>
 

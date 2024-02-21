@@ -1,3 +1,8 @@
+<?php
+session_start();
+require "../functions/connections.php";
+require "../functions/functions.php";
+?>
 <!doctype html>
 <html lang="en">
 
@@ -9,12 +14,16 @@
     <title>Travisar</title>
 
     <!-- STYLESHEETS -->
+
+    <!-- leaflet -->
+
     <!-- bootstrap -->
     <!-- stylesheet -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
     <!-- icons -->
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
     <!-- custom -->
+
     <!-- global declarations -->
     <link rel="stylesheet" href="../css/global-declarations.css">
     <!-- specific for this file -->
@@ -22,12 +31,12 @@
 
     <!-- script for access control -->
     <script src="../js/access-control.js"></script>
-<!-- 
+
     <script>
         // Assume you have the userRole variable defined somewhere in your PHP code
         var userRole = "<?php echo isset($_SESSION['rank']) ? $_SESSION['rank'] : ''; ?>";
         checkAccess(userRole);
-    </script> -->
+    </script>
 </head>
 
 <body>
@@ -50,8 +59,6 @@
             <?php require "crop-page/modals/add.php"; ?>
             <!-- edit -->
             <?php require "crop-page/modals/edit.php"; ?>
-
-
 
         </div>
     </div>
