@@ -1,5 +1,5 @@
 <!-- GENERAL TAB -->
-<div class="fade show active" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
+<div class="fade tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
     
     <!-- NAME AND TYPE -->
     <div class="row mb-3">
