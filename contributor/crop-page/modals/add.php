@@ -1,3 +1,11 @@
+<!-- STYLE -->
+<style>
+    .modal-tab:hover {
+        color: grey;
+    }
+</style>
+
+<!-- HTML -->
 <div class="modal fade" id="add-item-modal" tabindex="-1" aria-labelledby="add-item-modal-label" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-fullscreen-sm-down">
         <div class="modal-content">
@@ -42,12 +50,6 @@
         </div>
     </div>
 </div>
-<!-- STYLE -->
-<style>
-    .modal-tab:hover {
-        color: grey;
-    }
-</style>
 
 <!-- SCRIPT -->
 <script>
