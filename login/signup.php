@@ -11,7 +11,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (count($errors) == 0) {
         $_SESSION['message'] = "<div class='success'>Signup successful wait for the verification in your email.</div>";
-        header("location: index.php");
+        header("location: login-form.php");
         die();
     }
 }
@@ -22,7 +22,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <head>
     <title>Login - Food Order System</title>
-    <link rel="stylesheet" href="../css/signup.css">
+    <link rel="stylesheet" href="css/signup.css">
 
 </head>
 
@@ -55,42 +55,42 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             <p class="message">Signup now and get to help us in our endeavor. </p>
             <div class="flex">
                 <label>
-                    <input class="input" type="text" placeholder="" required="">
+                    <input class="input" name="first_name" type="text" placeholder="" required="">
                     <span>Firstname</span>
                 </label>
 
                 <label>
-                    <input class="input" type="text" placeholder="" required="">
+                    <input class="input" name="last_name" type="text" placeholder="" required="">
                     <span>Lastname</span>
                 </label>
             </div>
 
             <label>
-                <input class="input" type="text" placeholder="" required="">
+                <input class="input" name="gender" type="text" placeholder="" required="">
                 <span>Gender</span>
             </label>
 
             <label>
-                <input class="input" type="text" placeholder="" required="">
+                <input class="input" name="username" type="text" placeholder="" required="">
                 <span>Username</span>
             </label>
 
             <label>
-                <input class="input" type="email" placeholder="" required="">
+                <input class="input" name="email" type="email" placeholder="" required="">
                 <span>Email</span>
             </label>
 
             <label>
-                <input class="input" type="password" placeholder="" required="">
+                <input class="input" name="password" type="password" placeholder="" required="">
                 <span>Password</span>
             </label>
             <label>
-                <input class="input" type="password" placeholder="" required="">
+                <input class="input" name="password2" type="password" placeholder="" required="">
                 <span>Confirm password</span>
             </label>
 
             <label>
-                <input class="input" type="text" placeholder="" required="">
+                <input class="input" name="affiliation" type="text" placeholder="" required="">
                 <span>Affiliation</span>
             </label>
             <input type="submit" name="submit" value="Signup" class="submit">

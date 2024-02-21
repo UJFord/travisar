@@ -4,6 +4,13 @@
 
         <!-- HEADING -->
         <div class="d-flex justify-content-between">
+
+            <?php 
+            if (isset($_SESSION['rank'])){
+                
+                echo $_SESSION['rank'];
+            }
+            ?>
             <!-- title -->
             <h4 class="fw-semibold" style="font-size: 1.5rem;">All Crops</h4>
             <!-- add button -->

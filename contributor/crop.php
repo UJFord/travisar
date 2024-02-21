@@ -19,6 +19,15 @@
     <link rel="stylesheet" href="../css/global-declarations.css">
     <!-- specific for this file -->
     <link rel="stylesheet" href="css/crop-list.css">
+
+    <!-- script for access control -->
+    <script src="../js/access-control.js"></script>
+<!-- 
+    <script>
+        // Assume you have the userRole variable defined somewhere in your PHP code
+        var userRole = "<?php echo isset($_SESSION['rank']) ? $_SESSION['rank'] : ''; ?>";
+        checkAccess(userRole);
+    </script> -->
 </head>
 
 <body>
@@ -29,7 +38,6 @@
     <!-- MAIN -->
     <div class="container">
         <div class="row mt-3">
-
 
             <!-- FILTERS -->
             <?php require "crop-page/filter.php"; ?>
