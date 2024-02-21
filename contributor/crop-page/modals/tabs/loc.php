@@ -1,40 +1,40 @@
-<!-- leaflet -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
 
-<!-- LOCATION TAB -->
+<style>
+    #map {
+        aspect-ratio: 1/1;
+    }
+</style>
+<!-- <style>
+    #map {
+        aspect-ratio: 1/1;
+    }
+</style> -->
+
 <div class="fade show active tab-pane" id="loc-tab-pane" role="tabpanel" aria-labelledby="loc-tab" tabindex="0">
 
     <div class="row">
 
-        <!-- form -->
         <div class="col-6 border">
 
         </div>
 
-        <!-- map -->
         <div id="map" class="col border">
-
+            <a href="https://www.maptiler.com" style="position:absolute;left:10px;bottom:10px;z-index:999;"><img src="https://api.maptiler.com/resources/logo.svg" alt="MapTiler logo"></a>
         </div>
     </div>
 
 </div>
 
-<!-- STYLES -->
-<style>
-    #map {
-        height: 400px;
-    }
-</style>
-
-<!-- SCRIPT -->
-
-<!-- leaflet requirement -->
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-<script defer>
-    // initialize the map on the "map" div with a given center and zoom
-    var map = L.map('map').setView([51.505, -0.09], 13);
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+<script>
+    const key = 'nEVXtMGf5Q4NUT81g14m';
+    const map = L.map('map').setView([5.9267, 124.9948], 9); //starting position
+    L.tileLayer(`https://api.maptiler.com/maps/basic-v2/{z}/{x}/{y}.png?key=${key}`, { //style URL
+        tileSize: 512,
+        zoomOffset: -1,
+        minZoom: 1,
+        attribution: "\u003ca href=\"https://www.maptiler.com/copyright/\" target=\"_blank\"\u003e\u0026copy; MapTiler\u003c/a\u003e \u003ca href=\"https://www.openstreetmap.org/copyright\" target=\"_blank\"\u003e\u0026copy; OpenStreetMap contributors\u003c/a\u003e",
+        crossOrigin: true
     }).addTo(map);
 </script>

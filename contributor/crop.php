@@ -59,6 +59,7 @@
     <script src="https://kit.fontawesome.com/57e83eb6e4.js" crossorigin="anonymous"></script>
     <!-- custom js -->
     <script src="../js/staff/crop-list.js"></script>
+    
 </body>
 
 </html>
