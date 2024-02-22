@@ -30,23 +30,77 @@
 </style>
 
 <!-- GENERAL TAB -->
-<div class="fade tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
-    
+<div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
+
     <!-- NAME AND TYPE -->
     <div class="row mb-3">
-        <!-- name -->
+        <!-- variety name -->
         <div class="col">
-            <label for="Name" class="form-label small-font">Name</label>
-            <input type="text" class="form-control">
+            <label for="Variety-Name" class="form-label small-font">Variety Name <span style="color: red;">*</span></label>
+            <input id="Variety-Name" type="text" name="crop_variety" class="form-control" placeholder="Ex. Sinandomeng">
         </div>
-        <!-- type -->
+        <!-- locall name -->
         <div class="col">
-            <label for="Type" class="form-label small-font">What type of crop is this?</label>
-            <select name="" id="" class="form-select">
-                <option value=""></option>
-                <option value="">Rice</option>
-                <option value="">Corn</option>
-                <option value="">Carrot</option>
+            <label for="Local-Name" class="form-label small-font">Local Name <span style="color: red;">*</span></label>
+            <input id="Local-Name" type="text" name="crop_local_name" class="form-control" placeholder="Ex. Bugas">
+        </div>
+    </div>
+
+    <!-- Category and Crop Field -->
+    <div class="row mb-3">
+        <!-- Category -->
+        <div class="col">
+            <label for="Category" class="form-label small-font">What type of crop is this? <span style="color: red;">*</span></label>
+            <select name="category_id" id="Category" class="form-select">
+                <?php
+                // get the data of category from DB
+                $queryCategory = "select * from category order by category_id asc";
+                $query_run = pg_query($conn, $queryCategory);
+
+                $count = pg_num_rows($query_run);
+
+                // if count is greater than 0 there is data
+                if ($count > 0) {
+                    // loop for displaying all categories
+                    while ($row = pg_fetch_assoc($query_run)) {
+                        $category_id = $row['category_id'];
+                        $category_name = $row['category_name'];
+                ?>
+                        <option value="<?= $category_id; ?>"><?= $category_name; ?></option>
+                    <?php
+                    }
+                    ?>
+                <?php
+                }
+                ?>
+            </select>
+
+        </div>
+        <!-- crop field -->
+        <div class="col">
+            <label for="CropField" class="form-label small-font">Where is this crop planted? <span style="color: red;">*</span></label>
+            <select name="field_id" id="CropField" class="form-select">
+                <?php
+                // get the data of category from DB
+                $queryCropField = "select * from field order by field_id asc";
+                $query_run = pg_query($conn, $queryCropField);
+
+                $count = pg_num_rows($query_run);
+
+                // if count is greater than 0 there is data
+                if ($count > 0) {
+                    // loop for displaying all fields
+                    while ($row = pg_fetch_assoc($query_run)) {
+                        $field_id = $row['field_id'];
+                        $field_name = $row['field_name'];
+                ?>
+                        <option value="<?= $field_id; ?>"><?= $field_name; ?></option>
+                    <?php
+                    }
+                    ?>
+                <?php
+                }
+                ?>
             </select>
         </div>
     </div>
@@ -58,10 +112,10 @@
                 <!-- label -->
                 <label for="imageInput" class="d-flex align-items-center rounded small-font mb-2">
                     <i class="fa-solid fa-image me-2"></i>
-                    <span>Image</span>
+                    <span>Image <span style="color: red;">*</span></span>
                 </label>
                 <!-- image input -->
-                <input class="mb-1 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" multiple>
+                <input class="mb-1 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_image[]" multiple>
                 <!-- image preview -->
                 <div class="preview-container custom-scrollbar overflow-scroll rounded border py-2" id="previewContainer"></div>
             </div>
@@ -71,8 +125,8 @@
     <!-- DISCRIPTION -->
     <div class="row mb-3">
         <div class="col">
-            <label for="" class="form-label small-font">Description</label>
-            <textarea name="" id="" rows="2" class="form-control"></textarea>
+            <label for="desc" class="form-label small-font">Description</label>
+            <textarea name="description" id="desc" rows="2" class="form-control" placeholder="Description ..."></textarea>
         </div>
     </div>
 
@@ -84,7 +138,33 @@
     </div>
 </div>
 
-
+<!-- STYLE -->
+<style>
+    .image-upload-container {
+        /* Adjust width and height as needed */
+        /* border: 1px solid #ccc;
+        border-radius: 5px; */
+        cursor: pointer;
+    }
+    .preview-container {
+        /* Adjust style of preview container */
+        display: flex;
+        /* flex-wrap: wrap; */
+    }
+    .img-thumbnail {
+        /* Customize styling of preview images */
+        max-width: 5rem;
+        max-height: 5rem;
+        aspect-ratio: 1/1;
+    }
+    /* hiding the scrollbar */
+    #previewContainer {
+        scrollbar-width: none;
+        /* Firefox */
+        -ms-overflow-style: none;
+        /* Internet Explorer 10+ */
+    }
+</style>
 
 <!-- SCRIPT -->
 <script defer>

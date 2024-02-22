@@ -39,7 +39,7 @@
         }
 
         // Retrieve account type
-        $accountTypeQuery = "SELECT * FROM account_type WHERE type_name = 'viewer'";
+        $accountTypeQuery = "SELECT * FROM account_type WHERE type_name = 'Encoder'";
         $accountTypeResult = database_run($accountTypeQuery);
 
         if ($accountTypeResult) {
@@ -215,12 +215,12 @@
     {
         if (isset($_SESSION['ACCESS']) && !$_SESSION["ACCESS"][$rank]) {
             $_SESSION['message'] = "<div class='text-center'>Access denied</div>";
-            header("location: ../crop/list.php");
+            header("location: ../login/login-form.php");
             die();
         }
     }
 
-    $_SESSION["ACCESS"]["VIEWER"] = isset($_SESSION['rank']) && $_SESSION['rank'] == "viewer";
+    $_SESSION["ACCESS"]["VIEWER"] = isset($_SESSION['rank']) && $_SESSION['rank'] == "encoder";
     $_SESSION["ACCESS"]["ADMIN"] = isset($_SESSION['rank']) && $_SESSION['rank'] == "admin";
     $_SESSION["ACCESS"]["CURATOR"] = isset($_SESSION['rank']) && $_SESSION['rank'] == "curator";
     ?>

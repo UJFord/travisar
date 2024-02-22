@@ -1,3 +1,8 @@
+<?php
+session_start();
+require "../functions/connections.php";
+require "../functions/functions.php";
+?>
 <!doctype html>
 <html lang="en">
 
@@ -19,10 +24,20 @@
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- custom -->
+
     <!-- global declarations -->
     <link rel="stylesheet" href="../css/global-declarations.css">
     <!-- specific for this file -->
     <link rel="stylesheet" href="css/crop-list.css">
+
+    <!-- script for access control -->
+    <script src="../js/access-control.js"></script>
+
+    <script>
+        // Assume you have the userRole variable defined somewhere in your PHP code
+        var userRole = "<?php echo isset($_SESSION['rank']) ? $_SESSION['rank'] : ''; ?>";
+        checkAccess(userRole);
+    </script>
 </head>
 
 <body>
@@ -33,7 +48,6 @@
     <!-- MAIN -->
     <div class="container">
         <div class="row mt-3">
-
 
             <!-- FILTERS -->
             <?php require "crop-page/filter.php"; ?>
@@ -47,8 +61,6 @@
             <!-- edit -->
             <?php require "crop-page/modals/edit.php"; ?>
 
-
-
         </div>
     </div>
 
@@ -59,7 +71,8 @@
     <script src="https://kit.fontawesome.com/57e83eb6e4.js" crossorigin="anonymous"></script>
     <!-- custom js -->
     <script src="../js/staff/crop-list.js"></script>
-    
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 </body>
 
 </html>
