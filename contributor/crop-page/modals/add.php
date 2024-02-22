@@ -29,7 +29,6 @@
                     </ul>
                     <div class="container">
 
-
                         <div class="tab-content mt-2">
                             <!-- general -->
                             <?php require "tabs/gen.php" ?>

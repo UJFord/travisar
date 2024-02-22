@@ -122,20 +122,40 @@
         </div>
     </div>
 
+    <!-- Role in Maintaining Upland Ecosystem and Unique Features -->
+    <div class="row mb-3">
+        <!-- Role in Maintaining Upland Ecosystem -->
+        <div class="col">
+            <label for="ScienceName" class="form-label small-font">Scientific Name</label>
+            <input id="ScienceName" type="text" name="scientific_name" class="form-control" placeholder="Scientific Name">
+        </div>
+        <!-- crop field -->
+        <div class="col">
+            <label for="UniqueFeat" class="form-label small-font">Unique Features</label>
+            <input id="UniqueFeat" type="text" name="unique_features" class="form-control" placeholder="Unique Features">
+        </div>
+    </div>
+
+    <!-- Role in Maintaining Upland Ecosystem -->
+    <div class="col">
+            <label for="MainEcosystem" class="form-label small-font">Role in Maintaining Upland Ecosystem</label>
+            <input id="MainEcosystem" type="text" name="role_in_maintaining_upland_ecosystem" class="form-control" placeholder="Role in maintaining upland ecosystem">
+        </div>
+
     <!-- DISCRIPTION -->
     <div class="row mb-3">
         <div class="col">
             <label for="desc" class="form-label small-font">Description</label>
-            <textarea name="description" id="desc" rows="2" class="form-control" placeholder="Description ..."></textarea>
+            <textarea name="crop_description" id="desc" rows="2" class="form-control" placeholder="Description ..."></textarea>
         </div>
     </div>
 
     <!-- STEP NAVIGATION -->
-    <div class="row">
+    <!-- <div class="row">
         <div class="col d-flex justify-content-end">
             <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc')"><i class="fa-solid fa-forward"></i></button>
         </div>
-    </div>
+    </div> -->
 </div>
 
 <!-- STYLE -->
@@ -146,17 +166,20 @@
         border-radius: 5px; */
         cursor: pointer;
     }
+
     .preview-container {
         /* Adjust style of preview container */
         display: flex;
         /* flex-wrap: wrap; */
     }
+
     .img-thumbnail {
         /* Customize styling of preview images */
         max-width: 5rem;
         max-height: 5rem;
         aspect-ratio: 1/1;
     }
+
     /* hiding the scrollbar */
     #previewContainer {
         scrollbar-width: none;
@@ -210,7 +233,15 @@
 
     // next button
     function switchTab(tabName) {
-        document.getElementById(tabName + '-tab').click();
-        console.log(document.querySelector(tabName + '-tab'))
+        // Get the tab content elements
+        var tabPanes = document.querySelectorAll('.tab-pane');
+
+        // Hide all tab content elements
+        tabPanes.forEach(function(tabPane) {
+            tabPane.classList.remove('show', 'active');
+        });
+
+        // Show the target tab content element
+        document.getElementById(tabName + '-tab-pane').classList.add('show', 'active');
     }
 </script>
