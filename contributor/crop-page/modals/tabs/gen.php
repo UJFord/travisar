@@ -37,12 +37,12 @@
         <!-- variety name -->
         <div class="col">
             <label for="Variety-Name" class="form-label small-font">Variety Name <span style="color: red;">*</span></label>
-            <input id="Variety-Name" type="text" name="crop_variety" class="form-control" placeholder="Ex. Sinandomeng">
+            <input id="Variety-Name" type="text" name="crop_variety" class="form-control">
         </div>
         <!-- locall name -->
         <div class="col">
             <label for="Local-Name" class="form-label small-font">Local Name <span style="color: red;">*</span></label>
-            <input id="Local-Name" type="text" name="crop_local_name" class="form-control" placeholder="Ex. Bugas">
+            <input id="Local-Name" type="text" name="crop_local_name" class="form-control">
         </div>
     </div>
 
@@ -127,26 +127,26 @@
         <!-- Role in Maintaining Upland Ecosystem -->
         <div class="col">
             <label for="ScienceName" class="form-label small-font">Scientific Name</label>
-            <input id="ScienceName" type="text" name="scientific_name" class="form-control" placeholder="Scientific Name">
+            <input id="ScienceName" type="text" name="scientific_name" class="form-control">
         </div>
         <!-- crop field -->
         <div class="col">
             <label for="UniqueFeat" class="form-label small-font">Unique Features</label>
-            <input id="UniqueFeat" type="text" name="unique_features" class="form-control" placeholder="Unique Features">
+            <input id="UniqueFeat" type="text" name="unique_features" class="form-control">
         </div>
     </div>
 
     <!-- Role in Maintaining Upland Ecosystem -->
     <div class="col">
             <label for="MainEcosystem" class="form-label small-font">Role in Maintaining Upland Ecosystem</label>
-            <input id="MainEcosystem" type="text" name="role_in_maintaining_upland_ecosystem" class="form-control" placeholder="Role in maintaining upland ecosystem">
+            <input id="MainEcosystem" type="text" name="role_in_maintaining_upland_ecosystem" class="form-control">
         </div>
 
     <!-- DISCRIPTION -->
     <div class="row mb-3">
         <div class="col">
             <label for="desc" class="form-label small-font">Description</label>
-            <textarea name="crop_description" id="desc" rows="2" class="form-control" placeholder="Description ..."></textarea>
+            <textarea name="crop_description" id="desc" rows="2" class="form-control"></textarea>
         </div>
     </div>
 

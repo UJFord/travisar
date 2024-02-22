@@ -69,10 +69,10 @@ if (isset($_POST['save'])) {
 
         // save into Crop Field Table
         $query_CropField = "INSERT into crop_field (crop_id, field_id) VALUES ($1, $2)";
-        $query_CropField = pg_query_params($conn, $query_CropField, array($crop_id, $field_id));
+        $query_run_CropField = pg_query_params($conn, $query_CropField, array($crop_id, $field_id));
 
-        if ($query_CropField){
-            $row_CropField = pg_fetch_row($query_CropField);
+        if ($query_run_CropField){
+            $row_CropField = pg_fetch_row($query_run_CropField);
             $crop_field_id = $row_CropField[0];
         }else{
             echo "Error: " . pg_last_error($conn);
@@ -80,6 +80,8 @@ if (isset($_POST['save'])) {
         }
 
         // Characteristics
+        $query_char = "INSERT into characteristics (taste, aroma, maturation, pest, disease) VALUES ($1, $2, $3, $4, $5)";
+        $query_run_char = pg_query_params($conn, $query_char, array($taste, $aroma, $maturation, $pest, $disease));
 
         // Cultural Aspect
 
