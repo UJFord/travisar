@@ -1,3 +1,11 @@
+<!-- STYLE -->
+<style>
+    .modal-tab:hover {
+        color: grey;
+    }
+</style>
+
+<!-- HTML -->
 <div class="modal fade" id="add-item-modal" tabindex="-1" aria-labelledby="add-item-modal-label" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-fullscreen-sm-down">
         <div class="modal-content">
@@ -21,6 +29,7 @@
                     </ul>
                     <div class="container">
 
+
                         <div class="tab-content mt-2">
                             <!-- general -->
                             <?php require "tabs/gen.php" ?>
@@ -43,12 +52,6 @@
         </div>
     </div>
 </div>
-<!-- STYLE -->
-<style>
-    .modal-tab:hover {
-        color: grey;
-    }
-</style>
 
 <!-- SCRIPT -->
 <script>
