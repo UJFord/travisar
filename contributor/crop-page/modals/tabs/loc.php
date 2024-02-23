@@ -1,6 +1,5 @@
-<!-- leaflet required -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" />
-<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js"></script>
+<!-- leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 
 <!-- STYLE -->
 <style>
@@ -9,13 +8,50 @@
     }
 </style>
 
-<!-- HTML -->
-<div class="fade show active tab-pane" id="loc-tab-pane" role="tabpanel" aria-labelledby="loc-tab" tabindex="0">
-
+<!-- LOCATION TAB -->
+<div class="fade tab-pane" id="loc-tab-pane" role="tabpanel" aria-labelledby="loc-tab" tabindex="0">
     <div class="row">
-
         <!-- form -->
-        <div class="col-6">
+        <div class="col-6 border">
+            <!-- Province dropdown -->
+            <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
+            <select name="province" id="Province" class="form-select">
+                <?php
+                // Fetch distinct province names from the location table
+                $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";
+                $query_run = pg_query($conn, $queryProvince);
+
+                $count = pg_num_rows($query_run);
+
+                // If there is data, display distinct province names
+                if ($count > 0) {
+                    while ($row = pg_fetch_assoc($query_run)) {
+                        $province_name = $row['province_name'];
+                ?>
+                        <option value="<?= $province_name; ?>"><?= $province_name; ?></option>
+                <?php
+                    }
+                }
+                ?>
+            </select>
+            <!-- Municipality dropdown -->
+            <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
+            <select id="Municipality" name="municipality" class="form-select">
+            </select>
+
+            <!-- latitude and longitude -->
+            <div class="row">
+                <!-- Latitude -->
+                <div class="col-6">
+                    <label for="latitude" class="form-label small-font">Latidue <span style="color: red;">*</span></label>
+                    <input id="latitude" type="text" name="latitude" class="form-control" placeholder="Ex. 38.8951">
+                </div>
+                <!-- longitude -->
+                <div class="col-6">
+                    <label for="longitude" class="form-label small-font">Longitude <span style="color: red;">*</span></label>
+                    <input id="longitude" type="text" name="longitude" class="form-control" placeholder="Ex. -77.0364">
+                </div>
+            </div>
 
             <!-- coordinates -->
             <label for="" class="form-label small-font mb-0">Coordinates</label>
@@ -26,53 +62,15 @@
             <label for="" class="form-label small-font mb-0">Street</label>
             <input type="text" class="form-control">
 
-            <!-- barangay -->
-            <label for="" class="form-label small-font mb-0">Barangay</label>
-            <select name="" id="" class="form-select">
-                <option value=""></option>
-                <option value="">Alegria</option>
-                <option value="">Baluntay</option>
-                <option value="">Bagacay</option>
-                <option value="">Concepcion</option>
-                <option value="">Datal Anggas</option>
-                <option value="">Domolok</option>
-                <option value="">Glanville</option>
-                <option value="">Kawas</option>
-                <option value="">Ladol</option>
-                <option value="">Mabini</option>
-                <option value="">Maribulan</option>
-                <option value="">New Glamorgan</option>
-                <option value="">Pag-asa</option>
-                <option value="">Paraiso</option>
-                <option value="">Poblacion</option>
-                <option value="">Spring</option>
-                <option value="">Tokawal</option>
-            </select>
-
-            <!-- Municipality -->
-            <label for="" class="form-label small-font mb-0">Municipality</label>
-            <select name="" id="" class="form-select">
-                <option value=""></option>
-                <option value="">Alabel</option>
-                <option value="">Glan</option>
-                <option value="">Kiamba</option>
-                <option value="">Maasim</option>
-                <option value="">Maitum</option>
-                <option value="">Malapatan</option>
-                <option value="">Malungon</option>
-            </select>
-
-            <!-- Province -->
-            <label for="" class="form-label small-font mb-0">Province</label>
-            <input type="text" class="form-control" value="Sarangani" readonly>
         </div>
-
         <!-- map -->
-        <div id="map" class="col rounded">
+        <div id="map" class="col border">
         </div>
     </div>
 </div>
 
+<!-- leaflet requirement -->
+<script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <!-- SCRIPT -->
 <script>
     // initializnig map
@@ -200,4 +198,5 @@
                 console.error('There was a problem with the fetch operation:', error);
             });
     }
+
 </script>

@@ -2,6 +2,43 @@
 <!-- custom -->
 <link rel="stylesheet" href="css/nav.css">
 
+<!-- Jquery -->
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
+<!-- function for notification fo approval -->
+<script>
+    // Define the load_unseen_notification function globally
+    function load_unseen_notification(view = '') {
+        $.ajax({
+            url: "fetch.php",
+            method: "POST",
+            data: {
+                view: view
+            },
+            dataType: "json",
+            success: function(data) {
+                // Access data1 and update HTML accordingly
+                $('.count').html(data.data1.notification);
+                if (data.data1.unseen_notification > 0) {
+                    $('.count').html(data.data1.unseen_notification);
+                }
+
+                // Access data2 and update HTML accordingly
+                // Adjust the selectors and HTML update based on your needs
+                $('.count2').html(data.data2.notification);
+                if (data.data2.unseen_notification > 0) {
+                    $('.count2').html(data.data2.unseen_notification);
+                }
+            }
+        });
+    }
+
+    // Call the function when the document is ready
+    $(document).ready(function() {
+        load_unseen_notification();
+    });
+</script>
+
 <!-- MARKUP -->
 <nav class="z-3 navbar navbar-expand-md border-bottom border-body" data-bs-theme="dark">
     <div class="container">
@@ -19,7 +56,7 @@
                     <a class="nav-link" href="#">Contributors</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Approval</a>
+                    <a class="nav-link" href="#">Approval <span class="count" style="color: red;"></span></a>
                 </li>
             </ul>
             <!-- profile -->
@@ -56,7 +93,7 @@
                         </a>
                     </li>
                     <li>
-                        <a href="../login/login-form.php" class="dropdown-item text-dark fs-6 d-flex justify-content-start align-items-center px-3 pe-3">
+                        <a href="../login/logout.php" class="dropdown-item text-dark fs-6 d-flex justify-content-start align-items-center px-3 pe-3">
                             <i class="fa-solid fa-arrow-right-from-bracket me-2 fs-6 text-dark"></i>
                             <p class="m-0">Log Out</p>
                         </a>
