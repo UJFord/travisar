@@ -30,7 +30,7 @@
 </style>
 
 <!-- GENERAL TAB -->
-<div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
+<div class="fade tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
 
     <input type="hidden" name="crop_local_name">
     <input type="hidden" name="field_id" value="1">
@@ -47,21 +47,13 @@
     <!-- NAME AND TYPE -->
     <div class="row mb-3">
         <!-- variety name -->
-        <div class="col">
-            <label for="Variety-Name" class="form-label small-font">Variety Name <span style="color: red;">*</span></label>
+        <div class="col-6">
+            <label for="Variety-Name" class="form-label small-font">Name<span style="color: red;">*</span></label>
             <input id="Variety-Name" type="text" name="crop_variety" class="form-control">
         </div>
-        <!-- local name -->
-        <!-- <div class="col">
-            <label for="Local-Name" class="form-label small-font">Local Name <span style="color: red;">*</span></label>
-            <input id="Local-Name" type="text" name="crop_local_name" class="form-control">
-        </div> -->
-    </div>
 
-    <!-- Category and Crop Field -->
-    <div class="row mb-3">
         <!-- Category -->
-        <div class="col">
+        <div class="col-6">
             <label for="Category" class="form-label small-font">What type of crop is this? <span style="color: red;">*</span></label>
             <select name="category_id" id="Category" class="form-select">
                 <?php
@@ -92,44 +84,10 @@
                 ?>
             </select>
         </div>
-
-        <!-- Input box for "other" category -->
-        <div class="col" id="otherCategoryInput" style="display: none;">
-            <label for="OtherCategory" class="form-label small-font">Please specify:</label>
-            <input type="text" name="other_category" id="OtherCategory" class="form-control">
-        </div>
-
-        <!-- crop field -->
-        <!-- <div class="col">
-            <label for="CropField" class="form-label small-font">Where is this crop planted? <span style="color: red;">*</span></label>
-            <select name="field_id" id="CropField" class="form-select">
-                <?php
-                // get the data of category from DB
-                $queryCropField = "select * from field order by field_id asc";
-                $query_run = pg_query($conn, $queryCropField);
-
-                $count = pg_num_rows($query_run);
-
-                // if count is greater than 0 there is data
-                if ($count > 0) {
-                    // loop for displaying all fields
-                    while ($row = pg_fetch_assoc($query_run)) {
-                        $field_id = $row['field_id'];
-                        $field_name = $row['field_name'];
-                ?>
-                        <option value="<?= $field_id; ?>"><?= $field_name; ?></option>
-                    <?php
-                    }
-                    ?>
-                <?php
-                }
-                ?>
-            </select>
-        </div> -->
     </div>
 
     <!-- IMAGE -->
-    <div class="row mb-3">
+    <div class="row mb-2">
         <div class="col">
             <div class="d-flex flex-column image-upload-container">
                 <!-- label -->
@@ -145,26 +103,6 @@
         </div>
     </div>
 
-    <!-- Role in Maintaining Upland Ecosystem and Unique Features -->
-    <div class="row mb-3">
-        <!-- Role in Maintaining Upland Ecosystem -->
-        <div class="col">
-            <label for="ScienceName" class="form-label small-font">Scientific Name</label>
-            <input id="ScienceName" type="text" name="scientific_name" class="form-control">
-        </div>
-        <!-- crop field -->
-        <div class="col">
-            <label for="UniqueFeat" class="form-label small-font">Unique Features</label>
-            <input id="UniqueFeat" type="text" name="unique_features" class="form-control">
-        </div>
-    </div>
-
-    <!-- Role in Maintaining Upland Ecosystem -->
-    <div class="col">
-        <label for="MainEcosystem" class="form-label small-font">Role in Maintaining Upland Ecosystem</label>
-        <input id="MainEcosystem" type="text" name="role_in_maintaining_upland_ecosystem" class="form-control">
-    </div>
-
     <!-- DISCRIPTION -->
     <div class="row mb-3">
         <div class="col">
@@ -174,43 +112,14 @@
     </div>
 
     <!-- STEP NAVIGATION -->
-    <!-- <div class="row">
+    <div class="row">
         <div class="col d-flex justify-content-end">
-            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc')"><i class="fa-solid fa-forward"></i></button>
+            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc',this)"><i class="fa-solid fa-forward"></i></button>
         </div>
-    </div> -->
+    </div>
 </div>
 
-<!-- STYLE -->
-<style>
-    .image-upload-container {
-        /* Adjust width and height as needed */
-        /* border: 1px solid #ccc;
-        border-radius: 5px; */
-        cursor: pointer;
-    }
 
-    .preview-container {
-        /* Adjust style of preview container */
-        display: flex;
-        /* flex-wrap: wrap; */
-    }
-
-    .img-thumbnail {
-        /* Customize styling of preview images */
-        max-width: 5rem;
-        max-height: 5rem;
-        aspect-ratio: 1/1;
-    }
-
-    /* hiding the scrollbar */
-    #previewContainer {
-        scrollbar-width: none;
-        /* Firefox */
-        -ms-overflow-style: none;
-        /* Internet Explorer 10+ */
-    }
-</style>
 
 <!-- SCRIPT -->
 <script defer>
@@ -256,28 +165,12 @@
 
     // next button
     function switchTab(tabName) {
+        // prevent submitting the form
+        event.preventDefault();
+
         // Get the tab content elements
         var tabPanes = document.querySelectorAll('.tab-pane');
-
-        // Hide all tab content elements
-        tabPanes.forEach(function(tabPane) {
-            tabPane.classList.remove('show', 'active');
-        });
-
-        // Show the target tab content element
-        document.getElementById(tabName + '-tab-pane').classList.add('show', 'active');
+        // Click the tab with id 'loc-tab'
+        document.getElementById('loc-tab').click();
     }
-</script>
-
-<!-- JavaScript to show or hide the input box -->
-<script>
-    document.getElementById('Category').addEventListener('change', function() {
-        var otherCategoryInput = document.getElementById('otherCategoryInput');
-        var selectedCategory = document.getElementById('Category').value;
-        if (selectedCategory === '3') {
-            otherCategoryInput.style.display = 'block';
-        } else {
-            otherCategoryInput.style.display = 'none';
-        }
-    });
 </script>
