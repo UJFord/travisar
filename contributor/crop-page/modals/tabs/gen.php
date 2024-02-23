@@ -211,6 +211,5 @@
     // next button
     function switchTab(tabName) {
         document.getElementById(tabName + '-tab').click();
-        console.log(document.querySelector(tabName + '-tab'))
     }
 </script>
