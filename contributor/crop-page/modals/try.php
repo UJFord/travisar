@@ -25,6 +25,9 @@ if (isset($_POST['save'])) {
         $crop_description = handleEmpty($_POST['crop_description']);
         $province_name = $_POST['province'];
         $municipality_name = $_POST['municipality'];
+        $threats = handleEmpty($_POST['threats']);
+
+        $user_id = $_POST['user_id'];
         $status = 'pending';
 
         // Other Category
@@ -38,22 +41,27 @@ if (isset($_POST['save'])) {
 
         // Cultural Aspect
         $query_CulturalAspect = "INSERT INTO cultural_aspect (cultural_significance, spiritual_significance, cultural_importance_and_traditional_knowledge, cultural_use) 
-                VALUES($1, $2, $3, $4)";
+        VALUES($1, $2, $3, $4) RETURNING cultural_aspect_id";
         $query_run_CulturalAspect = pg_query_params($conn, $query_CulturalAspect, array($cultural_significance, $spiritual_significance, $cultural_importance_and_traditional_knowledge, $cultural_use));
 
-        if ($query_run_CulturalAspect) {
+        if ($query_run_CulturalAspect !== false) {
             $row_CulturalAspect = pg_fetch_assoc($query_run_CulturalAspect);
-            $cultural_aspect_id = $row_CulturalAspect[0];
+            if ($row_CulturalAspect !== false && isset($row_CulturalAspect['cultural_aspect_id'])) {
+                $cultural_aspect_id = $row_CulturalAspect['cultural_aspect_id'];
+            } else {
+                echo "Error: Failed to fetch cultural aspect ID";
+                exit(0);
+            }
         } else {
             echo "Error: " . pg_last_error($conn);
             exit(0);
         }
 
         //insert into crop table
-        $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, role_in_maintaining_upland_ecosystem, scientific_name, unique_features, crop_description, status, cultural_aspect) 
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9) RETURNING crop_id";
+        $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, role_in_maintaining_upland_ecosystem, scientific_name, unique_features, crop_description, status, cultural_aspect_id, threats, user_id) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING crop_id";
 
-        $valueCrops = array($crop_variety, $crop_local_name, $category_id, $role_in_maintaining_upland_ecosystem, $scientific_name, $unique_features, $crop_description, $status, $cultural_aspect);
+        $valueCrops = array($crop_variety, $crop_local_name, $category_id, $role_in_maintaining_upland_ecosystem, $scientific_name, $unique_features, $crop_description, $status, $cultural_aspect_id, $threats, $user_id);
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
         if ($query_run_Crop) {
@@ -78,30 +86,43 @@ if (isset($_POST['save'])) {
         }
 
         // save into Crop Location Table
-        $query_CropLoc = "INSERT into crop_location (crop_id, location_id) VALUES ($1, $2)";
+        $query_CropLoc = "INSERT into crop_location (crop_id, location_id) VALUES ($1, $2) RETURNING crop_location_id";
         $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($crop_id, $location_id));
 
         if ($query_run_CropLoc) {
-            $row_CropLoc = pg_fetch_row($query_run_CropLoc);
-            $crop_location_id = $row_CropLoc[0];
+            // Check if any rows were affected
+            if (pg_affected_rows($query_run_CropLoc) > 0) {
+                $row_CropLoc = pg_fetch_row($query_run_CropLoc);
+                $crop_location_id = $row_CropLoc[0];
+            } else {
+                echo "Error: No rows affected";
+                exit(0);
+            }
         } else {
             echo "Error: " . pg_last_error($conn);
             exit(0);
         }
 
         // save into Crop Field Table
-        $query_CropField = "INSERT into crop_field (crop_id, field_id) VALUES ($1, $2)";
+        $query_CropField = "INSERT into crop_field (crop_id, field_id) VALUES ($1, $2) returning crop_field_id";
         $query_run_CropField = pg_query_params($conn, $query_CropField, array($crop_id, $field_id));
 
         if ($query_run_CropField) {
-            $row_CropField = pg_fetch_row($query_run_CropField);
-            $crop_field_id = $row_CropField[0];
+            // Check if any rows were affected
+            if (pg_affected_rows($query_run_CropField) > 0) {
+                $row_CropField = pg_fetch_row($query_run_CropField);
+                $crop_field_id = $row_CropField[0];
+            } else {
+                echo "Error: No rows affected";
+                exit(0);
+            }
         } else {
             echo "Error: " . pg_last_error($conn);
             exit(0);
         }
 
         // other category
+        // if nag select og other categoy ang user ma save ang name sa db if wala empty lang
         $query_OtherCategory = "INSERT INTO other_category (crop_id, other_category_name) VALUES ($1, $2)";
         $query_run_OtherCategory = pg_query_params($conn, $query_OtherCategory, array($crop_id, $other_category_name));
 
@@ -112,8 +133,6 @@ if (isset($_POST['save'])) {
             echo "Error: " . pg_last_error($conn);
             exit(0);
         }
-
-        // update crop table to insert other foreign keys
 
         // Commit the transaction if everything is successful
         pg_query($conn, "COMMIT");

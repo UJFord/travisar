@@ -10,9 +10,11 @@
             </div>
 
             <!-- body -->
-            <div class="modal-body edit-modal-body">
+            <form id="form-panel" name="Form" action="http://localhost/travisar/contributor/crop-page/modals/try.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+                <div class="modal-body edit-modal-body">
 
-            </div>
+                </div>
+            </form>
 
             <!-- footer -->
             <div class="modal-footer d-flex justify-content-between">
@@ -48,8 +50,8 @@
             // Populate the modal content
             const modalBody = document.querySelector('.edit-modal-body.modal-body');
             modalBody.textContent = `
-                                Name: ${name}<br>
-                                Type: ${type}<br>
+                                Name: ${name}
+                                Type: ${type}
                                 Contributor: ${contributor}
                             `;
 

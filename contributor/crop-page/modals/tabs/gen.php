@@ -32,6 +32,18 @@
 <!-- GENERAL TAB -->
 <div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
 
+    <input type="hidden" name="crop_local_name">
+    <input type="hidden" name="field_id" value="1">
+    <input type="hidden" name="cultural_significance">
+    <input type="hidden" name="spiritual_significance">
+    <input type="hidden" name="cultural_importance_and_traditional_knowledge">
+    <input type="hidden" name="cultural_use">
+    <input type="hidden" name="threats">
+
+    <input type="hidden" name="user_id" value="<?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) {
+                                                    echo $_SESSION['USER']['user_id'];
+                                                } ?>">
+
     <!-- NAME AND TYPE -->
     <div class="row mb-3">
         <!-- variety name -->
