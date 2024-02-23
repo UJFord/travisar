@@ -244,8 +244,16 @@
 
     // next button
     function switchTab(tabName) {
-        document.getElementById(tabName + '-tab').click();
-        console.log(document.querySelector(tabName + '-tab'))
+        // Get the tab content elements
+        var tabPanes = document.querySelectorAll('.tab-pane');
+
+        // Hide all tab content elements
+        tabPanes.forEach(function(tabPane) {
+            tabPane.classList.remove('show', 'active');
+        });
+
+        // Show the target tab content element
+        document.getElementById(tabName + '-tab-pane').classList.add('show', 'active');
     }
 </script>
 
