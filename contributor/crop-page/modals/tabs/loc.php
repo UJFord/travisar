@@ -76,7 +76,7 @@
 <!-- SCRIPT -->
 <script>
     // initializnig map
-    const map = L.map('map').setView([6.1536, 124.953086], 9); //starting position
+    const map = L.map('map').setView([6.403013, 124.725062], 9); //starting position
 
     // Declare marker globally
     let marker = null;
@@ -85,7 +85,7 @@
         // tilesize
         tileSize: 512,
         // maxzoom
-        maxZoom: 16,
+        maxZoom: 18,
         // i dont what this does but some says before different tile providers handle zoom differently
         zoomOffset: -1,
         // minzoom
@@ -113,6 +113,11 @@
 
         // Update the map and pin marker with the clicked coordinates
         updateMapAndPin(latitude, longitude);
+
+        // fetch data
+        console.log(latitude);
+        console.log(longitude);
+        fetchData(latitude, longitude);
     }
 
 
@@ -137,7 +142,7 @@
             marker.addTo(map);
 
             // Center the map on the new marker
-            map.setView(latLng, map.getZoom()); // Adjust zoom level as needed
+            // map.setView(latLng, map.getZoom()+1); // Adjust zoom level as needed
         } else {
             console.error("Invalid coordinates entered. Please enter valid latitude and longitude values.");
         }
@@ -178,7 +183,21 @@
     // Event listener for input changes
     coordInput.addEventListener('input', handleInputChange);
 
-    // Example usage (replace with your actual logic):
-    let initialCoords = [6.1536, 124.953086]; // Replace with desired initial coordinates
-    updateMapAndPin(initialCoords[0], initialCoords[1]);
+    // fetch data from openstreetmap nominatim
+    function fetchData(lat, lng) {
+        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}`)
+            .then(response => {
+                if (!response.ok) {
+                    throw new Error('Network response was not ok');
+                }
+                return response.text(); // Fetch response as text
+            })
+            .then(data => {
+                console.log('Fetched data:', data);
+                // Now you have the response data as text, you can parse it or process it further as needed
+            })
+            .catch(error => {
+                console.error('There was a problem with the fetch operation:', error);
+            });
+    }
 </script>
