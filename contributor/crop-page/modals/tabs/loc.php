@@ -9,59 +9,42 @@
 </style>
 
 <!-- LOCATION TAB -->
-<div class="fade tab-pane" id="loc-tab-pane" role="tabpanel" aria-labelledby="loc-tab" tabindex="0">
+<div class="fade show active tab-pane" id="loc-tab-pane" role="tabpanel" aria-labelledby="loc-tab" tabindex="0">
     <div class="row">
         <!-- form -->
-        <div class="col-6 border">
-            <!-- Province dropdown -->
-            <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
-            <select name="province" id="Province" class="form-select">
-                <?php
-                // Fetch distinct province names from the location table
-                $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";
-                $query_run = pg_query($conn, $queryProvince);
-
-                $count = pg_num_rows($query_run);
-
-                // If there is data, display distinct province names
-                if ($count > 0) {
-                    while ($row = pg_fetch_assoc($query_run)) {
-                        $province_name = $row['province_name'];
-                ?>
-                        <option value="<?= $province_name; ?>"><?= $province_name; ?></option>
-                <?php
-                    }
-                }
-                ?>
-            </select>
-            <!-- Municipality dropdown -->
-            <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
-            <select id="Municipality" name="municipality" class="form-select">
-            </select>
-
-            <!-- latitude and longitude -->
-            <div class="row">
-                <!-- Latitude -->
-                <div class="col-6">
-                    <label for="latitude" class="form-label small-font">Latidue <span style="color: red;">*</span></label>
-                    <input id="latitude" type="text" name="latitude" class="form-control">
-                </div>
-                <!-- longitude -->
-                <div class="col-6">
-                    <label for="longitude" class="form-label small-font">Longitude <span style="color: red;">*</span></label>
-                    <input id="longitude" type="text" name="longitude" class="form-control">
-                </div>
-            </div>
-
+        <div class="col-6">
             <!-- coordinates -->
             <label for="" class="form-label small-font mb-0">Coordinates</label>
             <input id="coordInput" type="text" class="form-control" aria-describedby="coords-help">
-            <div id="coords-help" class="form-text" style="font-size: 0.6rem;">Seperate latitude and longitude with a comma ( , )</div>
+            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Seperate latitude and longitude with a comma (latitude , longitude)</div>
+
 
             <!-- street -->
-            <label for="" class="form-label small-font mb-0">Street</label>
-            <input type="text" class="form-control">
+            <label for="" class="form-label small-font mb-0">Neighbourhood</label>
+            <input id="neighbourhood" type="text" class="form-control mb-2">
 
+            <!-- barangay -->
+            <label for="" class="form-label small-font mb-0">Barangay</label>
+            <select name="" id="barangay" class="form-select mb-2">
+                <option id="brgy-blank-option" value="" class="form-select"></option>
+            </select>
+
+            <!-- Municipality dropdown -->
+            <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
+            <select id="municipality" name="municipality" class="form-select mb-2">
+                <option id="muni-blank-option" value="" class="form-select"></option>
+                <option value="Alabel" class="form-select">Alabel</option>
+                <option value="Glan" class="form-select">Glan</option>
+                <option value="Kiamba" class="form-select">Kiamba</option>
+                <option value="Maasim" class="form-select">Maasim</option>
+                <option value="Maitum" class="form-select">Maitum</option>
+                <option value="Malapatan" class="form-select">Malapatan</option>
+                <option value="Malungon" class="form-select">Malungon</option>
+            </select>
+
+            <!-- Province dropdown -->
+            <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
+            <input type="text" class="form-control" value="Sarangani" readonly>
         </div>
         <!-- map -->
         <div id="map" class="col border">
@@ -73,6 +56,187 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 <!-- SCRIPT -->
 <script>
+    // FORMS SIDE
+    // Get references to the select elements
+    const neighbourhoodValue = document.getElementById('neighbourhood')
+    const municipalitySelect = document.getElementById('municipality');
+    const barangaySelect = document.getElementById('barangay');
+
+    // Define barangays for each municipality
+    const barangaysByMunicipality = {
+        'Alabel': [
+            'Alegria',
+            'Bagacay',
+            'Baluntay',
+            'Datal Anggas',
+            'Domolok',
+            'Kawas',
+            'Ladol',
+            'Maribulan',
+            'New Poblacion',
+            'Old Poblacion',
+            'Pag-Asa',
+            'Pangasahan',
+            'Spring',
+            'Tokawal'
+        ],
+        'Glan': [
+            'Bitoon',
+            'Burias',
+            'Calabanit',
+            'Calpidong',
+            'Congan',
+            'Crossing Rubber',
+            'Kaltuad',
+            'Kapatan',
+            'Laperian',
+            'Poblacion',
+            'Rio Del Pilar',
+            'San Vicente',
+            'Sangay',
+            'Small Margus',
+            'Sufatubo',
+            'Tampuan'
+        ],
+        'Kiamba': [
+            'Bagutong',
+            'Bonglacio',
+            'Kalemba',
+            'Kalusukan',
+            'Katubao',
+            'Lun Masla',
+            'Lun Padidu',
+            'Mongayang',
+            'Nalus',
+            'Salakit',
+            'Saloagan',
+            'Sinawal',
+            'Sufaat',
+            'Tinoto',
+            'Tuka',
+            'Upo'
+        ],
+        'Maasim': [
+            'Batulaki',
+            'Budac',
+            'Daliao',
+            'Kamanga',
+            'Kanalo',
+            'Kinam',
+            'Lomuyon',
+            'Pangi',
+            'Poblacion',
+            'Nomoh',
+            'Nalus',
+            'Tuanadatu',
+            'Tinoto'
+        ],
+        'Maitum': [
+            'Bati-An',
+            'Kalaong',
+            'Kiayap',
+            'Koronadal Proper',
+            'Old Poblacion',
+            'Pangi',
+            'Poblacion',
+            'Baguan',
+            'New Poblacion',
+            'Kalukbong',
+            'New La Union',
+            'Old La Union'
+        ],
+        'Malapatan': [
+            'Alkikan',
+            'Alsamin',
+            'B\'laan ',
+            'Crossing Rubber',
+            'Datu Danwata',
+            'Datu Dullen',
+            'Katubao',
+            'Lun Masla',
+            'Lun Padidu',
+            'Malkan',
+            'Nomoh',
+            'Poblacion',
+            'Sapu Masla',
+            'Sapu Padidu',
+            'Sarapen',
+            'Sufatubo',
+            'Tuyan',
+            'Kihan',
+            'Tuban'
+        ],
+        'Malungon': [
+            'Blao',
+            'Datalbatong',
+            'Kawayan',
+            'Kinam',
+            'Lun Padidu',
+            'Mabini',
+            'Malkan',
+            'Maloloy-on',
+            'Manansang',
+            'Poblacion',
+            'Patag',
+            'San Felipe',
+            'Sapu Masla',
+            'Sarangani',
+            'Tinagacan',
+            'Upper Biangan',
+            'Kihan'
+        ]
+    };
+
+
+    // Function to populate barangay dropdown based on selected municipality
+    function populateBarangays() {
+        const selectedMunicipality = municipalitySelect.value;
+
+        // If no municipality is selected, display all barangays
+        if (selectedMunicipality === '' || selectedMunicipality === null) {
+            let allBarangays = [];
+            for (const municipality in barangaysByMunicipality) {
+                allBarangays = allBarangays.concat(barangaysByMunicipality[municipality]);
+            }
+
+            // Remove duplicate barangay names
+            const uniqueBarangays = [...new Set(allBarangays)];
+
+            // Clear existing options
+            barangaySelect.innerHTML = '<option id="brgy-blank-option" value="" class="form-select"></option>';
+            // barangaySelect.value = "";
+
+            // Populate with new options
+            uniqueBarangays.forEach(barangay => {
+                const option = document.createElement('option');
+                option.textContent = barangay;
+                option.value = barangay;
+                barangaySelect.appendChild(option);
+            });
+        } else {
+            // If a municipality is selected, display barangays for that municipality
+            const barangays = barangaysByMunicipality[selectedMunicipality] || [];
+
+            // Clear existing options
+            barangaySelect.innerHTML = '<option id="brgy-blank-option" value="" class="form-select"></option>';
+            // barangaySelect.value = "";
+
+            // Populate with new options
+            barangays.forEach(barangay => {
+                const option = document.createElement('option');
+                option.textContent = barangay;
+                option.value = barangay;
+                barangaySelect.appendChild(option);
+            });
+        }
+    }
+
+    // Initial population of barangay dropdown
+    populateBarangays();
+
+    // Event listener for change in municipality dropdown
+    municipalitySelect.addEventListener('change', populateBarangays);
+
     // initializnig map
     const map = L.map('map').setView([6.403013, 124.725062], 9); //starting position
 
@@ -115,7 +279,31 @@
         // fetch data
         console.log(latitude);
         console.log(longitude);
-        fetchData(latitude, longitude);
+        let details = fetchData(latitude, longitude)
+            .then(details => {
+                // set neighbourhood
+                neighbourhoodValue.value = details.neighbourhood
+                // set municipality
+                municipalitySelect.value = details.town;
+                // set barangay
+                barangaySelect.value = details.village;
+
+
+                console.log('Country:', details.country);
+                console.log('State:', details.state);
+                console.log('County:', details.county);
+                console.log('City:', details.city);
+                console.log('Town:', details.town);
+                console.log('Borough:', details.borough);
+                console.log('Village:', details.village);
+                console.log('Suburb:', details.suburb);
+                console.log('Neighbourhood:', details.neighbourhood);
+                console.log('Settlement:', details.settlement);
+                console.log('Major Streets:', details.majorStreets);
+                console.log('Major and Minor Streets:', details.majorAndMinorStreets);
+                console.log('Building:', details.building);
+
+            });
     }
 
 
@@ -183,7 +371,7 @@
 
     // fetch data from openstreetmap nominatim
     function fetchData(lat, lng) {
-        fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}`)
+        return fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}`)
             .then(response => {
                 if (!response.ok) {
                     throw new Error('Network response was not ok');
@@ -191,12 +379,38 @@
                 return response.text(); // Fetch response as text
             })
             .then(data => {
-                console.log('Fetched data:', data);
-                // Now you have the response data as text, you can parse it or process it further as needed
+                // Parse the XML string into a DOM structure
+                const parser = new DOMParser();
+                const xmlDoc = parser.parseFromString(data, "text/xml");
+
+                // Access information in the XML document
+                const resultElement = xmlDoc.querySelector('result');
+                const addressPartsElement = xmlDoc.querySelector('addressparts');
+
+                // Extract details only if the tag exists
+                const details = {};
+                if (addressPartsElement) {
+                    details.country = addressPartsElement.querySelector('country')?.textContent || '';
+                    details.state = addressPartsElement.querySelector('state')?.textContent || '';
+                    details.county = addressPartsElement.querySelector('county')?.textContent || '';
+                    details.city = addressPartsElement.querySelector('city')?.textContent || '';
+                    details.town = addressPartsElement.querySelector('town')?.textContent || '';
+                    details.borough = addressPartsElement.querySelector('borough')?.textContent || '';
+                    details.village = addressPartsElement.querySelector('village')?.textContent || '';
+                    details.suburb = addressPartsElement.querySelector('suburb')?.textContent || '';
+                    details.neighbourhood = addressPartsElement.querySelector('neighbourhood')?.textContent || '';
+                    details.settlement = addressPartsElement.querySelector('settlement')?.textContent || '';
+                    details.majorStreets = addressPartsElement.querySelector('major_streets')?.textContent || '';
+                    details.majorAndMinorStreets = addressPartsElement.querySelector('major_and_minor_streets')?.textContent || '';
+                    details.building = addressPartsElement.querySelector('building')?.textContent || '';
+                }
+
+                return details;
             })
             .catch(error => {
                 console.error('There was a problem with the fetch operation:', error);
+                // Return null or handle error as needed
+                return null;
             });
     }
-
 </script>
