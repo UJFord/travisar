@@ -39,11 +39,11 @@
             <label for="Variety-Name" class="form-label small-font">Variety Name <span style="color: red;">*</span></label>
             <input id="Variety-Name" type="text" name="crop_variety" class="form-control">
         </div>
-        <!-- locall name -->
-        <div class="col">
+        <!-- local name -->
+        <!-- <div class="col">
             <label for="Local-Name" class="form-label small-font">Local Name <span style="color: red;">*</span></label>
             <input id="Local-Name" type="text" name="crop_local_name" class="form-control">
-        </div>
+        </div> -->
     </div>
 
     <!-- Category and Crop Field -->
@@ -54,7 +54,12 @@
             <select name="category_id" id="Category" class="form-select">
                 <?php
                 // get the data of category from DB
-                $queryCategory = "select * from category order by category_id asc";
+                $queryCategory = "SELECT * FROM category ORDER BY 
+                CASE
+                    WHEN category_name = 'Other' THEN 2
+                    ELSE 1
+                END, category_name ASC";
+                $query_run = pg_query($conn, $queryCategory);
                 $query_run = pg_query($conn, $queryCategory);
 
                 $count = pg_num_rows($query_run);
@@ -74,10 +79,16 @@
                 }
                 ?>
             </select>
-
         </div>
+
+        <!-- Input box for "other" category -->
+        <div class="col" id="otherCategoryInput" style="display: none;">
+            <label for="OtherCategory" class="form-label small-font">Please specify:</label>
+            <input type="text" name="other_category" id="OtherCategory" class="form-control">
+        </div>
+
         <!-- crop field -->
-        <div class="col">
+        <!-- <div class="col">
             <label for="CropField" class="form-label small-font">Where is this crop planted? <span style="color: red;">*</span></label>
             <select name="field_id" id="CropField" class="form-select">
                 <?php
@@ -102,7 +113,7 @@
                 }
                 ?>
             </select>
-        </div>
+        </div> -->
     </div>
 
     <!-- IMAGE -->
@@ -138,9 +149,9 @@
 
     <!-- Role in Maintaining Upland Ecosystem -->
     <div class="col">
-            <label for="MainEcosystem" class="form-label small-font">Role in Maintaining Upland Ecosystem</label>
-            <input id="MainEcosystem" type="text" name="role_in_maintaining_upland_ecosystem" class="form-control">
-        </div>
+        <label for="MainEcosystem" class="form-label small-font">Role in Maintaining Upland Ecosystem</label>
+        <input id="MainEcosystem" type="text" name="role_in_maintaining_upland_ecosystem" class="form-control">
+    </div>
 
     <!-- DISCRIPTION -->
     <div class="row mb-3">
@@ -244,4 +255,17 @@
         // Show the target tab content element
         document.getElementById(tabName + '-tab-pane').classList.add('show', 'active');
     }
+</script>
+
+<!-- JavaScript to show or hide the input box -->
+<script>
+    document.getElementById('Category').addEventListener('change', function() {
+        var otherCategoryInput = document.getElementById('otherCategoryInput');
+        var selectedCategory = document.getElementById('Category').value;
+        if (selectedCategory === '3') {
+            otherCategoryInput.style.display = 'block';
+        } else {
+            otherCategoryInput.style.display = 'none';
+        }
+    });
 </script>
