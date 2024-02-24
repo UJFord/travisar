@@ -32,6 +32,7 @@
 <!-- GENERAL TAB -->
 <div class="fade tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
 
+    <!-- para ma empty lang ang data sa db dili ra sya ma null -->
     <input type="hidden" name="crop_local_name">
     <input type="hidden" name="field_id" value="1">
     <input type="hidden" name="cultural_significance">
@@ -40,6 +41,7 @@
     <input type="hidden" name="cultural_use">
     <input type="hidden" name="threats">
 
+    <!-- to get the user_id of the logged in user -->
     <input type="hidden" name="user_id" value="<?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) {
                                                     echo $_SESSION['USER']['user_id'];
                                                 } ?>">
@@ -117,10 +119,8 @@
         <div class="col d-flex justify-content-end">
             <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc',this)"><i class="fa-solid fa-forward"></i></button>
         </div>
-    </div>
+    </div> -->
 </div>
-
-
 
 <!-- SCRIPT -->
 <script defer>
