@@ -71,6 +71,7 @@
     const barangaySelect = document.getElementById('barangay');
 
     // Define barangays for each municipality
+    // ! wala pud nako ni nagamit
     const barangaysByMunicipality = {
         'Alabel': [
             'Alegria',
@@ -257,6 +258,7 @@
     var selectedMunicipality = document.getElementById('Municipality').value;
     populateBarangay(selectedMunicipality);
 
+    // ! mao ni tung code nimo ford pero wala nako nagamit hahaha mb
     // Function to populate barangay dropdown based on selected municipality
     // function populateBarangays() {
     //     const selectedMunicipality = municipalitySelect.value;
