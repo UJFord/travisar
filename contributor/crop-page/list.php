@@ -83,11 +83,15 @@
                         $query_category = "SELECT * FROM category WHERE category_id = $1";
                         $query_run_category = pg_query_params($conn, $query_category, array($row['category_id']));
 
+                        // Fetch contributor name
+                        $query_user = "SELECT * FROM users WHERE user_id = $1";
+                        $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
+
                 ?>
-                        <tr id="row1" data-target="#dataModal" data-name="Malgas" data-type="Corn" data-contributor="Alex Miller">
+                        <tr id="row1" data-target="#dataModal" data-id="<?=$row['crop_id'];?>">
                             <!-- checkbox -->
                             <th scope="row"><input class="form-check-input" type="checkbox"></th>
-                            <input type="hidden" value="<?= $row['crop_id'];?>">
+                            <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
                             <td>
                                 <!-- scientific name -->
                                 <a href=""><?= $row['crop_variety']; ?></a>
@@ -100,9 +104,20 @@
                                     echo "No category added.";
                                 }
                                 ?>
-                            </td>   
+                            </td>
                             <!-- contributor -->
-                            <td class="small-font"><span class="py-1 px-2 rounded indiv"><?= $_SESSION['USER']['first_name']; ?></span></td>
+                            <td class="small-font">
+                                <span class="py-1 px-2 rounded indiv">
+                                    <?php
+                                    if (pg_num_rows($query_run_user)) {
+                                        $user = pg_fetch_assoc($query_run_user);
+                                        echo '<h6 class="text-secondary small-font m-0">' . $user['first_name'] . " " . $user['last_name'] . '</h6>';
+                                    } else {
+                                        echo "No contributor.";
+                                    }
+                                    ?>
+                                </span>
+                            </td>
                             <!-- ellipsis menu butn -->
                             <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                         </tr>
