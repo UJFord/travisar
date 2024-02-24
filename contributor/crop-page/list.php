@@ -1,6 +1,6 @@
 <!-- LIST -->
 <div class="col border">
-    <div class="continer">
+    <div class="container">
 
         <!-- HEADING -->
         <div class="d-flex justify-content-between">

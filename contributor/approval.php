@@ -47,9 +47,11 @@ require "../functions/functions.php";
 
     <!-- MAIN -->
     <div class="container">
-        <div class="row mt-3">
+        <div class="general_info row mt-3">
             <!-- LIST -->
             <?php require "approval-page/list.php"; ?>
+            <div>
+            </div>
 
         </div>
     </div>
@@ -69,8 +71,10 @@ require "../functions/functions.php";
             var input, filter, table, tr, td, i, j, txtValue;
             input = document.getElementById("searchInput");
             filter = input.value.toUpperCase();
-            table = document.getElementById("dataTable");
-            tr = table.getElementsByTagName("tr");
+
+            // Determine which table is currently active
+            var activeTable = document.querySelector('.gen_info.active table');
+            tr = activeTable.getElementsByTagName("tr");
 
             for (i = 0; i < tr.length; i++) {
                 var found = false;
@@ -95,41 +99,16 @@ require "../functions/functions.php";
         // Add event listener to search input
         document.getElementById('searchInput').addEventListener('keyup', filterTable);
 
-        // Add event listeners for filter options
-        document.querySelectorAll('.filter-option').forEach(function(option) {
-            option.addEventListener('click', function() {
-                var filterValue = this.dataset.filter;
-                filterTableBy(filterValue);
-            });
-        });
-
-        //! not yet working
-        //todo fix it to filter data
-        // Filter table by selected filter option
-        function filterTableBy(filterValue) {
-            var table, tr, td, i, j, txtValue;
-            table = document.getElementById("dataTable");
-            tr = table.getElementsByTagName("tr");
-
-            for (i = 0; i < tr.length; i++) {
-                if (i === 0) {
-                    tr[i].style.display = "";
-                    continue; // Skip the header row
-                }
-                var filterMatch = false;
-                for (j = 0; j < tr[i].getElementsByTagName("td").length; j++) {
-                    td = tr[i].getElementsByTagName("td")[j];
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filterValue.toUpperCase()) > -1) {
-                            filterMatch = true;
-                            break;
-                        }
-                    }
-                }
-                tr[i].style.display = filterMatch ? "" : "none";
-            }
+        // Reset search input when tab is switched
+        function resetSearchInput() {
+            document.getElementById("searchInput").value = "";
+            filterTable(); // Trigger filtering to show all rows
         }
+
+        // Add event listener to tab buttons to reset search input
+        document.querySelectorAll('.tab_btn').forEach(tab => {
+            tab.addEventListener('click', resetSearchInput);
+        });
     </script>
 </body>
 
