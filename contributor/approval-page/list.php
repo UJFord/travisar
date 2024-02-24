@@ -50,7 +50,7 @@
     .line {
         position: absolute;
         top: 62px;
-        left: 342px;
+        left: 323px;
         width: 100px;
         height: 5px;
         background-color: #7360ff;
@@ -65,9 +65,9 @@
         <!-- HEADING -->
         <div class="d-flex justify-content-between">
             <div class="tab_box">
-                <!-- Button -->
-                <button class="tab_btn active">Pending</button>
-                <button class="tab_btn">Approved</button>
+                <!-- Button Tabs -->
+                <button class="tab_btn active" id="pendingTab">Pending</button>
+                <button class="tab_btn" id="approvedTab">Approved</button>
                 <div class="line"></div>
             </div>
             <!-- filter actions -->
@@ -81,25 +81,33 @@
         </div>
 
         <?php
-        // Set the number of items to display per page
-        $items_per_page = 7;
+            // Set the number of items to display per page
+            $items_per_page = 10;
 
-        // Get the current page number
-        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+            // Get the current page number
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-        // Calculate the offset based on the current page and items per page
-        $offset = ($current_page - 1) * $items_per_page;
+            // Calculate the offset based on the current page and items per page
+            $offset = ($current_page - 1) * $items_per_page;
 
-        // Count the total number of rows for pagination
-        $total_rows_query = "SELECT COUNT(*) FROM crop WHERE status = 'approved'";
-        $total_rows_result = pg_query($conn, $total_rows_query);
-        $total_rows = pg_fetch_row($total_rows_result)[0];
+            // Count the total number of rows for pagination for approved crops
+            $total_rows_query_approved = "SELECT COUNT(*) FROM crop WHERE status = 'approved'";
+            $total_rows_result_approved = pg_query($conn, $total_rows_query_approved);
+            $total_rows_approved = pg_fetch_row($total_rows_result_approved)[0];
 
-        // Calculate the total number of pages
-        $total_pages = ceil($total_rows / $items_per_page);
+            // Calculate the total number of pages for approved crops
+            $total_pages_approved = ceil($total_rows_approved / $items_per_page);
+
+            // Count the total number of rows for pagination for pending crops
+            $total_rows_query_pending = "SELECT COUNT(*) FROM crop WHERE status = 'pending'";
+            $total_rows_result_pending = pg_query($conn, $total_rows_query_pending);
+            $total_rows_pending = pg_fetch_row($total_rows_result_pending)[0];
+
+            // Calculate the total number of pages for pending crops
+            $total_pages_pending = ceil($total_rows_pending / $items_per_page);
         ?>
 
-
+        <!-- dib ni sya para ma set ang mga tabs na data -->
         <div class="general_info">
             <!-- Pending tab Active -->
             <div class="gen_info active">
@@ -126,11 +134,11 @@
                     <!-- table body -->
                     <tbody class="table-group-divider fw-bold overflow-scroll">
                         <?php
-                        $query = "SELECT * FROM crop WHERE status = 'pending' ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
-                        $query_run = pg_query($conn, $query);
+                        $query_pending = "SELECT * FROM crop WHERE status = 'pending' ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
+                        $query_run_pending = pg_query($conn, $query_pending);
 
-                        if ($query_run) {
-                            while ($row = pg_fetch_array($query_run)) {
+                        if ($query_run_pending) {
+                            while ($row = pg_fetch_array($query_run_pending)) {
                                 // Convert the string to a DateTime object
                                 $date = new DateTime($row['input_date']);
                                 // Format the date to display up to the minute
@@ -231,11 +239,11 @@
                     <!-- table body -->
                     <tbody class="table-group-divider fw-bold overflow-scroll">
                         <?php
-                        $query = "SELECT * FROM crop WHERE status = 'approved' ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
-                        $query_run = pg_query($conn, $query);
+                        $query_approved = "SELECT * FROM crop WHERE status = 'approved' ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
+                        $query_run_approved = pg_query($conn, $query_approved);
 
-                        if ($query_run) {
-                            while ($row = pg_fetch_array($query_run)) {
+                        if ($query_run_approved) {
+                            while ($row = pg_fetch_array($query_run_approved)) {
                                 // Convert the string to a DateTime object
                                 $date = new DateTime($row['input_date']);
                                 // Format the date to display up to the minute
@@ -306,10 +314,21 @@
             </div>
         </div>
 
-
-
     </div>
 </div>
+<!-- 
+    Add pagination links 
+    if else statement para kung unsa na pagination gamitun kung sa pending or approved ba
+-->
+<?php
+    // checking if a tab parameter is present if not it defaults to pending
+    $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'pending';
+    if ($active_tab === 'pending') {
+        generatePaginationLinks($total_pages_pending, $current_page, 'page_pending');
+    } else {
+        generatePaginationLinks($total_pages_approved, $current_page, 'page_approved');
+    }
+?>
 
 <!-- script -->
 <!-- tabs script -->
