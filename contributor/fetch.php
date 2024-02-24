@@ -2,6 +2,7 @@
 //fetch.php;
 error_log("fetch.php accessed");
 
+// for fetching the crops and users where their status is pending and email is not verified
 if (isset($_POST["view"])) {
     include('../functions/connections.php');
 

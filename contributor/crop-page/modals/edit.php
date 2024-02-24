@@ -12,10 +12,9 @@
             event.stopPropagation();
         });
 
+        // Send the cropID value to a PHP script using AJAX
         row.addEventListener('click', () => {
             const cropID = row.getAttribute('data-id');
-
-            // Send the cropID value to a PHP script using AJAX
             fetch(`http://localhost/travisar/contributor/crop-page/modals/edit.php?cropID=${cropID}`)
                 .then(response => response.text())
                 .then(data => {
@@ -55,6 +54,7 @@
             <div class="modal-body edit-modal-body">
                 <?php
                 // Get the cropID value from the query parameters
+                // ! makita sya sa console pero wala sya ga output sa page
                 $cropID = $_GET['cropID'];
                 ?>
                 <input type='text' name='crop_id' value='<?= $cropID ?>'>

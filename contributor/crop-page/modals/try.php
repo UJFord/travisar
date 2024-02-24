@@ -4,6 +4,9 @@ session_start();
 require "../../../functions/connections.php";
 
 // if (isset($_POST['save']) && $_SESSION['rank'] == 'curator') {
+// trial code file ra nako ni
+// para diri rako mag edit2 kung naah koy i change
+// working nani sya pero kay naah may changes sa loc need ni sya i update
 if (isset($_POST['save'])) {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
