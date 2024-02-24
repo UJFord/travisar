@@ -50,13 +50,13 @@
         <div class="collapse navbar-collapse d-md-flex justify-content-md-between" id="navbarNav">
             <ul class="navbar-nav fw-bold">
                 <li class="nav-item">
-                    <a class="nav-link active " aria-current="page" href="#">Crop</a>
+                    <a class="nav-link active " aria-current="page" href="crop.php">Crop</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contributors</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Approval <span class="count" style="color: red;"></span></a>
+                    <a class="nav-link" href="approval.php">Approval <span class="count" style="color: red;"></span></a>
                 </li>
             </ul>
             <!-- profile -->
@@ -101,4 +101,5 @@
                 </ul>
             </div>
         </div>
+    </div>
 </nav>

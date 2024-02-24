@@ -5,13 +5,13 @@
         <!-- HEADING -->
         <div class="d-flex justify-content-between">
             <!-- title -->
-            <h4 class="fw-semibold" style="font-size: 1.5rem;">All Crops</h4>
+            <h4 class="fw-semibold" style="font-size: 1.5rem;">Items to Approve</h4>
             <!-- add button -->
             <div class="z-1 dropdown">
-                <!-- dropdown -->
-                <button id="add-crop-btn" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    New
-                </button>
+
+                <!-- Button -->
+                <button id="add-crop-btn" class="btn btn-secondary" type="button" aria-expanded="false">Approval</button>
+                <button id="add-crop-btn" class="btn btn-secondary" type="button" aria-expanded="false">Pending</button>
                 <!-- list -->
                 <ul class="dropdown-menu dropdown-menu-end p-0 overflow-hidden">
                     <!-- add item -->
@@ -62,16 +62,16 @@
                     <th class="col text-dark-emphasis small-font" scope="col">Variety Name</th>
                     <th class="col-4 text-dark-emphasis small-font" scope="col">Contributor</th>
                     <th class="col-4 text-dark-emphasis small-font" scope="col">Date Created</th>
+                    <th class="col-4 text-dark-emphasis small-font" scope="col">Status</th>
+                    <th class="col-4 text-dark-emphasis small-font" scope="col">Action</th>
                     <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
-
                 </tr>
             </thead>
 
             <!-- table body -->
             <tbody class="table-group-divider fw-bold overflow-scroll">
                 <?php
-                // get the data from crops. only approved data are shown and is limited per items per page
-                $query = "SELECT * FROM crop WHERE status = 'approved' ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
+                $query = "SELECT * FROM crop WHERE status = 'pending' ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
                 $query_run = pg_query($conn, $query);
 
                 if ($query_run) {
@@ -126,6 +126,20 @@
                                     <h6 class="text-secondary small-font m-0"><?= $formatted_date; ?></h6>
                                 </span>
                             </td>
+                            <!-- Status -->
+                            <td class="small-font">
+                                <span class="py-1 px-2">
+                                    <h6 class="text-secondary small-font m-0"><?= $row['status']; ?></h6>
+                                </span>
+                            </td>
+                            <!-- Action -->
+                            <form action="">
+                                <td>
+                                    <input type="hidden" name="email" value="<?php echo $row['crop_id']; ?>" />
+                                    <input type="submit" name="approve" value="approve">
+                                    <input type="submit" name="delete" value="delete">
+                                </td>
+                            </form>
                             <!-- ellipsis menu butn -->
                             <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                         </tr>
@@ -137,7 +151,6 @@
                 ?>
             </tbody>
         </table>
+
     </div>
 </div>
-<!-- Add pagination links -->
-<?php generatePaginationLinks($total_pages, $current_page, 'page'); ?>
