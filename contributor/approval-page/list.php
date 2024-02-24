@@ -322,6 +322,7 @@
 -->
 <?php
     // checking if a tab parameter is present if not it defaults to pending
+    // ! guba ang pagination sa page approved
     $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'pending';
     if ($active_tab === 'pending') {
         generatePaginationLinks($total_pages_pending, $current_page, 'page_pending');
