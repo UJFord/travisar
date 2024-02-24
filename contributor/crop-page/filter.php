@@ -15,7 +15,7 @@
             <!-- search -->
             <div class="input-group">
                 <span class="input-group-text" id="filter-search"><i class="bi bi-search"></i></span>
-                <input type="text" class="form-control" placeholder="Search Crops" aria-label="Search" aria-describedby="filter-search">
+                <input type="text" class="form-control" id="searchInput" placeholder="Search Crops" aria-label="Search" aria-describedby="filter-search">
             </div>
         </div>
 

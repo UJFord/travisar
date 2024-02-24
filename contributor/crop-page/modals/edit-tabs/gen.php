@@ -76,6 +76,8 @@
                     }
                     ?>
                 <?php
+                }else{
+                    echo "no category.";
                 }
                 ?>
             </select>
@@ -162,7 +164,7 @@
     </div>
 
     <!-- STEP NAVIGATION -->
-    <!-- //! gi comment out nako ni kay pag human og redirect ma adto ka sa try.php sa form ata ni sya sa action="try.php". -->
+    <!-- //*! gi comment out nako ni kay pag human og redirect ma adto ka sa try.php sa form ata ni sya sa action="try.php" -->
     <!-- <div class="row">
         <div class="col d-flex justify-content-end">
             <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc')"><i class="fa-solid fa-forward"></i></button>

@@ -73,6 +73,74 @@ require "../functions/functions.php";
     <script src="../js/staff/crop-list.js"></script>
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <!-- search function -->
+    <script>
+        function filterTable() {
+            var input, filter, table, tr, td, i, j, txtValue;
+            input = document.getElementById("searchInput");
+            filter = input.value.toUpperCase();
+            table = document.getElementById("dataTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                var found = false;
+                if (i === 0) {
+                    tr[i].style.display = "";
+                    continue; // Skip the header row
+                }
+                for (j = 0; j < tr[i].getElementsByTagName("td").length; j++) {
+                    td = tr[i].getElementsByTagName("td")[j];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
+                            found = true;
+                            break;
+                        }
+                    }
+                }
+                tr[i].style.display = found ? "" : "none";
+            }
+        }
+
+        // Add event listener to search input
+        document.getElementById('searchInput').addEventListener('keyup', filterTable);
+
+        // Add event listeners for filter options
+        document.querySelectorAll('.filter-option').forEach(function(option) {
+            option.addEventListener('click', function() {
+                var filterValue = this.dataset.filter;
+                filterTableBy(filterValue);
+            });
+        });
+
+        //! not yet working
+        //todo fix it to filter data
+        // Filter table by selected filter option
+        function filterTableBy(filterValue) {
+            var table, tr, td, i, j, txtValue;
+            table = document.getElementById("dataTable");
+            tr = table.getElementsByTagName("tr");
+
+            for (i = 0; i < tr.length; i++) {
+                if (i === 0) {
+                    tr[i].style.display = "";
+                    continue; // Skip the header row
+                }
+                var filterMatch = false;
+                for (j = 0; j < tr[i].getElementsByTagName("td").length; j++) {
+                    td = tr[i].getElementsByTagName("td")[j];
+                    if (td) {
+                        txtValue = td.textContent || td.innerText;
+                        if (txtValue.toUpperCase().indexOf(filterValue.toUpperCase()) > -1) {
+                            filterMatch = true;
+                            break;
+                        }
+                    }
+                }
+                tr[i].style.display = filterMatch ? "" : "none";
+            }
+        }
+    </script>
 </body>
 
 </html>
