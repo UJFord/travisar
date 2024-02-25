@@ -81,30 +81,30 @@
         </div>
 
         <?php
-            // Set the number of items to display per page
-            $items_per_page = 10;
+        // Set the number of items to display per page
+        $items_per_page = 10;
 
-            // Get the current page number
-            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+        // Get the current page number
+        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-            // Calculate the offset based on the current page and items per page
-            $offset = ($current_page - 1) * $items_per_page;
+        // Calculate the offset based on the current page and items per page
+        $offset = ($current_page - 1) * $items_per_page;
 
-            // Count the total number of rows for pagination for approved crops
-            $total_rows_query_approved = "SELECT COUNT(*) FROM crop WHERE status = 'approved'";
-            $total_rows_result_approved = pg_query($conn, $total_rows_query_approved);
-            $total_rows_approved = pg_fetch_row($total_rows_result_approved)[0];
+        // Count the total number of rows for pagination for approved crops
+        $total_rows_query_approved = "SELECT COUNT(*) FROM crop WHERE status = 'approved'";
+        $total_rows_result_approved = pg_query($conn, $total_rows_query_approved);
+        $total_rows_approved = pg_fetch_row($total_rows_result_approved)[0];
 
-            // Calculate the total number of pages for approved crops
-            $total_pages_approved = ceil($total_rows_approved / $items_per_page);
+        // Calculate the total number of pages for approved crops
+        $total_pages_approved = ceil($total_rows_approved / $items_per_page);
 
-            // Count the total number of rows for pagination for pending crops
-            $total_rows_query_pending = "SELECT COUNT(*) FROM crop WHERE status = 'pending'";
-            $total_rows_result_pending = pg_query($conn, $total_rows_query_pending);
-            $total_rows_pending = pg_fetch_row($total_rows_result_pending)[0];
+        // Count the total number of rows for pagination for pending crops
+        $total_rows_query_pending = "SELECT COUNT(*) FROM crop WHERE status = 'pending'";
+        $total_rows_result_pending = pg_query($conn, $total_rows_query_pending);
+        $total_rows_pending = pg_fetch_row($total_rows_result_pending)[0];
 
-            // Calculate the total number of pages for pending crops
-            $total_pages_pending = ceil($total_rows_pending / $items_per_page);
+        // Calculate the total number of pages for pending crops
+        $total_pages_pending = ceil($total_rows_pending / $items_per_page);
         ?>
 
         <!-- dib ni sya para ma set ang mga tabs na data -->
@@ -316,24 +316,24 @@
 
     </div>
 </div>
-<!-- 
-    Add pagination links 
-    if else statement para kung unsa na pagination gamitun kung sa pending or approved ba
--->
-<?php
+
+<div id="paginationContainer">
+    <?php
     // checking if a tab parameter is present if not it defaults to pending
     // ! guba ang pagination sa page approved
     $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'pending';
     if ($active_tab === 'pending') {
-        generatePaginationLinks($total_pages_pending, $current_page, 'page_pending');
+        generatePaginationLinks($total_pages_pending, $current_page, 'page_pending', 'tab=pending');
     } else {
-        generatePaginationLinks($total_pages_approved, $current_page, 'page_approved');
+        generatePaginationLinks($total_pages_approved, $current_page, 'page_approved', 'tab=approved');
     }
-?>
+    ?>
+</div>
 
 <!-- script -->
 <!-- tabs script -->
 <script>
+    // JavaScript for tab switching
     const tabs = document.querySelectorAll('.tab_btn');
     const all_content = document.querySelectorAll('.gen_info');
 
@@ -350,6 +350,31 @@
                 content.classList.remove('active')
             });
             all_content[index].classList.add('active');
+
+            // Update URL with tab parameter
+            const tabName = tab.id.replace('Tab', '').toLowerCase();
+            history.replaceState(null, null, `?tab=${tabName}`);
         })
     })
+
+    // for preventing the default action of pagination which is refreshing the page
+    // this sets it to load the content of the selected page number without the page
+    const paginationContainer = document.getElementById('paginationContainer');
+
+    if (paginationContainer) {
+        paginationContainer.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent default link behavior
+            if (e.target.tagName === 'A') {
+                const url = e.target.getAttribute('href');
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                        // Assuming each tab has a container with id "tabContent"
+                        const tabContent = document.getElementById('tabContent');
+                        tabContent.innerHTML = data; // Update tab content with loaded data
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        });
+    }
 </script>

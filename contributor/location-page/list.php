@@ -62,6 +62,11 @@
         background: var(--mainBrand);
         border: none;
     }
+
+    /* to only show the dedicated page for each tab */
+    .pagination-container.inactive {
+        display: none;
+    }
 </style>
 <!-- LIST -->
 <div class="col border">
@@ -115,7 +120,7 @@
         <!-- dib ni sya para ma set ang mga tabs na data -->
         <div class="general_info">
             <!-- Pending tab Active -->
-            <div class="gen_info active">
+            <div class="gen_info active" id="locationTabData">
                 <!-- TABLE -->
                 <table id="pendingTable" class="table table-hover">
                     <!-- table head -->
@@ -179,7 +184,7 @@
                 </table>
             </div>
             <!-- Approved Tab Unactive -->
-            <div class="gen_info">
+            <div class="gen_info" id="barangayTabData">
                 <!-- TABLE -->
                 <table id="approvedTable" class="table table-hover">
                     <!-- table head -->
@@ -191,10 +196,11 @@
                                     All
                                 </label>
                             </th>
-                            <th class="col text-dark-emphasis small-font" scope="col">Variety Name</th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Contributor</th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Date Created</th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Status</th>
+                            <th class="col-4 text-dark-emphasis small-font" scope="col">Municipality Name</th>
+                            <th class="col-4 text-dark-emphasis small-font" scope="col">Barangay Name</th>
+                            <th col-4>
+                                <button type="button" class="btn btn-secondary add-loc-btn" name="addProvince" value="Add">Add</button>
+                            </th>
                             <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
                         </tr>
                     </thead>
@@ -202,67 +208,32 @@
                     <!-- table body -->
                     <tbody class="table-group-divider fw-bold overflow-scroll">
                         <?php
-                        $query_approved = "SELECT * FROM crop WHERE status = 'approved' ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
-                        $query_run_approved = pg_query($conn, $query_approved);
+                        $query_barangay = "SELECT * FROM barangay ORDER BY barangay_id ASC LIMIT $items_per_page OFFSET $offset";
+                        $query_run_barangay = pg_query($conn, $query_barangay);
 
-                        if ($query_run_approved) {
-                            while ($row = pg_fetch_array($query_run_approved)) {
-                                // Convert the string to a DateTime object
-                                $date = new DateTime($row['input_date']);
-                                // Format the date to display up to the minute
-                                $formatted_date = $date->format('Y-m-d H:i');
-
-                                // Fetch category name
-                                $query_category = "SELECT * FROM category WHERE category_id = $1";
-                                $query_run_category = pg_query_params($conn, $query_category, array($row['category_id']));
-
-                                // Fetch contributor name
-                                $query_user = "SELECT * FROM users WHERE user_id = $1";
-                                $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
-
+                        if ($query_run_barangay) {
+                            while ($row = pg_fetch_array($query_run_barangay)) {
                         ?>
-                                <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">
+                                <tr id="row1" data-target="#dataModal" data-id="<?= $row['barangay_id']; ?>">
                                     <!-- checkbox -->
                                     <th scope="row"><input class="form-check-input" type="checkbox"></th>
-                                    <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
+                                    <input type="hidden" name="barangay_id" value="<?= $row['barangay_id']; ?>">
                                     <td>
-                                        <!-- scientific name -->
-                                        <a href=""><?= $row['crop_variety']; ?></a>
-                                        <!-- category -->
-                                        <?php
-                                        if (pg_num_rows($query_run_category)) {
-                                            $category = pg_fetch_assoc($query_run_category);
-                                            echo '<h6 class="text-secondary small-font m-0">' . $category['category_name'] . '</h6>';
-                                        } else {
-                                            echo "No category added.";
-                                        }
-                                        ?>
+                                        <!-- municipality name -->
+                                        <a href=""><?= $row['municipality_name']; ?></a>
                                     </td>
-                                    <!-- contributor -->
+                                    <!-- barangay -->
                                     <td class="small-font">
-                                        <span class="py-1 px-2">
-                                            <?php
-                                            if (pg_num_rows($query_run_user)) {
-                                                $user = pg_fetch_assoc($query_run_user);
-                                                echo '<h6 class="text-secondary small-font m-0">' . $user['first_name'] . " " . $user['last_name'] . '</h6>';
-                                            } else {
-                                                echo "No contributor.";
-                                            }
-                                            ?>
-                                        </span>
+                                        <h6 class="text-secondary small-font m-0"><?= $row['barangay_name']; ?></h6>
                                     </td>
-                                    <!-- Date Created -->
-                                    <td class="small-font">
-                                        <span class="py-1 px-2">
-                                            <h6 class="text-secondary small-font m-0"><?= $formatted_date; ?></h6>
-                                        </span>
-                                    </td>
-                                    <!-- Status -->
-                                    <td class="small-font">
-                                        <span class="py-1 px-2">
-                                            <h6 class="text-secondary small-font m-0"><?= $row['status']; ?></h6>
-                                        </span>
-                                    </td>
+                                    <!-- Action -->
+                                    <form action="">
+                                        <td>
+                                            <input type="hidden" name="email" value="<?php echo $row['barangay_id']; ?>" />
+                                            <input type="submit" name="edit" value="edit">
+                                            <input type="submit" name="delete" value="delete">
+                                        </td>
+                                    </form>
                                     <!-- ellipsis menu butn -->
                                     <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                                 </tr>
@@ -279,24 +250,23 @@
 
     </div>
 </div>
-<!-- 
-    Add pagination links 
-    if else statement para kung unsa na pagination gamitun kung sa pending or approved ba
--->
-<?php
-// checking if a tab parameter is present if not it defaults to pending
-// ! guba ang pagination sa page approved
-$active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'pending';
-if ($active_tab === 'pending') {
-    generatePaginationLinks($total_pages_barangay, $current_page, 'page_pending');
-} else {
-    generatePaginationLinks($total_pages_approved, $current_page, 'page_approved');
-}
-?>
+
+<div class="pagination-container location-pagination-container" id="locationPaginationContainer">
+    <?php
+    generatePaginationLinks($total_pages_location, $current_page, 'page_location', 'locationTabData', 'location');
+    ?>
+</div>
+
+<div class="pagination-container barangay-pagination-container" id="barangayPaginationContainer">
+    <?php
+    generatePaginationLinks($total_pages_barangay, $current_page, 'page_barangay', 'barangayTabData', 'barangay');
+    ?>
+</div>
 
 <!-- script -->
 <!-- tabs script -->
 <script>
+    // JavaScript for tab switching
     const tabs = document.querySelectorAll('.tab_btn');
     const all_content = document.querySelectorAll('.gen_info');
 
@@ -313,6 +283,13 @@ if ($active_tab === 'pending') {
                 content.classList.remove('active')
             });
             all_content[index].classList.add('active');
+
+
+            // Update URL with tab parameter
+            const tabName = tab.getAttribute('id');
+            const url = new URL(window.location.href);
+            url.searchParams.set('tab', tabName);
+            history.replaceState(null, null, url);
         })
     })
 </script>
