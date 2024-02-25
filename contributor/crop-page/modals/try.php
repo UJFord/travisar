@@ -3,6 +3,28 @@
 <head>
     <title>Multiple Image Upload</title>
     <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <style>
+        .image-preview {
+            position: relative;
+            display: inline-block;
+            margin-right: 10px;
+        }
+
+        .remove-image {
+            position: absolute; 
+            top: 0;
+            right: 0;
+            background: none;
+            border: none;
+            color: red;
+            font-weight: bold;
+            cursor: pointer;
+        }
+
+        .image-preview img {
+            max-width: 100px;
+        }
+    </style>
 </head>
 <body>
     <form method="post" enctype="multipart/form-data">
@@ -44,7 +66,7 @@ if ($_SERVER["REQUEST_METHOD"] == "POST" && isset($_POST["submit"])) {
             $.each(files, function(i, file) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    $('#preview').append('<div><img src="' + e.target.result + '" width="100"/><button class="remove-image" data-index="' + i + '">Remove</button></div>');
+                    $('#preview').append('<div class="image-preview"><img src="' + e.target.result + '" width="100"/><button class="remove-image" data-index="' + i + '">x</button></div>');
                 }
                 reader.readAsDataURL(file);
             });

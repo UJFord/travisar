@@ -20,23 +20,6 @@
         aspect-ratio: 1/1;
     }
 
-    .remove-image {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background: none;
-        border: none;
-        color: red;
-        font-weight: bold;
-        cursor: pointer;
-    }
-
-    .image-preview {
-        position: relative;
-        display: inline-block;
-        margin-right: 10px;
-    }
-
     /* hiding the scrollbar */
     #previewContainer {
         scrollbar-width: none;
@@ -107,11 +90,21 @@
     </div>
 
     <!-- IMAGE -->
-    <form method="post" enctype="multipart/form-data">
-        <input type="file" name="images[]" multiple>
-        <button type="submit" name="submit">Upload</button>
-    </form>
-    <div id="preview"></div>
+    <div class="row mb-2">
+        <div class="col">
+            <div class="d-flex flex-column image-upload-container">
+                <!-- label -->
+                <label for="imageInput" class="d-flex align-items-center rounded small-font mb-2">
+                    <i class="fa-solid fa-image me-2"></i>
+                    <span>Image <span style="color: red;">*</span></span>
+                </label>
+                <!-- image input -->
+                <input class="mb-1 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_image[]" multiple>
+                <!-- image preview -->
+                <div class="preview-container custom-scrollbar overflow-scroll rounded border py-2" id="previewContainer"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- DISCRIPTION -->
     <div class="row mb-3">
@@ -132,37 +125,45 @@
 
 <!-- SCRIPT -->
 <script defer>
-    $(document).ready(function() {
-        $('input[type="file"]').on("change", function() {
-            var files = $(this)[0].files;
-            $('#preview').empty();
-            $.each(files, function(i, file) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#preview').append('<div class="image-preview"><img src="' + e.target.result + '" width="100"/><button class="remove-image" data-index="' + i + '">x</button></div>');
-                }
-                reader.readAsDataURL(file);
-            });
-        });
+    // handling to show all image inputs
+    const imageInput = document.getElementById('imageInput');
+    const previewContainer = document.querySelector('.preview-container');
 
-        $(document).on("click", ".remove-image", function() {
-            var index = $(this).data("index");
-            var input = $('input[type="file"]')[0];
-            var files = input.files;
-            var newFiles = [];
-            for (var i = 0; i < files.length; i++) {
-                if (i !== index) {
-                    newFiles.push(files[i]);
-                }
-            }
-            var dataTransfer = new DataTransfer();
-            newFiles.forEach(function(file) {
-                dataTransfer.items.add(file);
-            });
-            input.files = dataTransfer.files;
-            $(this).parent().remove();
-        });
+    imageInput.addEventListener('change', (event) => {
+        // Clear existing previews
+        previewContainer.innerHTML = '';
+
+        const files = event.target.files;
+        for (let i = 0; i < files.length; i++) {
+            const reader = new FileReader();
+            reader.onload = (e) => {
+                const img = document.createElement('img');
+                img.src = e.target.result;
+                img.classList.add('img-thumbnail', 'mx-2'); // Add Bootstrap styling
+                previewContainer.appendChild(img);
+            };
+            reader.readAsDataURL(files[i]);
+        }
     });
+
+    // to show the border only when there a picture inside
+    // const previewContainer = document.getElementById('previewContainer');
+
+    function checkForContent() {
+        if (previewContainer.hasChildNodes()) {
+            previewContainer.classList.add('border');
+        } else {
+            previewContainer.classList.remove('border');
+        }
+    }
+
+    // Call initially on page load
+    checkForContent();
+
+    // Call whenever content might change within the container
+    previewContainer.addEventListener('DOMNodeInserted', checkForContent);
+    previewContainer.addEventListener('DOMNodeRemoved', checkForContent);
+
 
     // next button
     function switchTab(tabName) {
