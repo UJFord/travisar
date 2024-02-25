@@ -107,11 +107,21 @@
     </div>
 
     <!-- IMAGE -->
-    <form method="post" enctype="multipart/form-data">
-        <input type="file" name="images[]" multiple>
-        <button type="submit" name="submit">Upload</button>
-    </form>
-    <div id="preview"></div>
+    <div class="row mb-2">
+        <div class="col">
+            <div class="d-flex flex-column image-upload-container">
+                <!-- label -->
+                <label for="imageInput" class="d-flex align-items-center rounded small-font mb-2">
+                    <i class="fa-solid fa-image me-2"></i>
+                    <span>Image <span style="color: red;">*</span></span>
+                </label>
+                <!-- image input -->
+                <input class="mb-1 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_image[]" multiple>
+                <!-- image preview -->
+                <div class="preview-container custom-scrollbar overflow-scroll rounded border py-2" id="preview"></div>
+            </div>
+        </div>
+    </div>
 
     <!-- DISCRIPTION -->
     <div class="row mb-3">
@@ -132,6 +142,11 @@
 
 <!-- SCRIPT -->
 <script defer>
+    // handling to show all image inputs
+    const imageInput = document.getElementById('imageInput');
+    const previewContainer = document.querySelector('.preview-container');
+
+    // function to display and remove the image selected
     $(document).ready(function() {
         $('input[type="file"]').on("change", function() {
             var files = $(this)[0].files;
@@ -145,6 +160,9 @@
             });
         });
 
+        //* if you input muiltiple images and you added a wrong one you can delete it
+        //* this code will remove the one you deleted from existing image array
+        //* and the remaining images is transfered to another array and is considered as a new input
         $(document).on("click", ".remove-image", function() {
             var index = $(this).data("index");
             var input = $('input[type="file"]')[0];
@@ -164,7 +182,24 @@
         });
     });
 
+    // to show the border only when there a picture inside
+    // const previewContainer = document.getElementById('previewContainer');
+    function checkForContent() {
+        if (previewContainer.hasChildNodes()) {
+            previewContainer.classList.add('border');
+        } else {
+            previewContainer.classList.remove('border');
+        }
+    }
+
+    // Call initially on page load
+    checkForContent();
+
+    // Call whenever content might change within the container
+    previewContainer.addEventListener('DOMNodeInserted', checkForContent);
+    previewContainer.addEventListener('DOMNodeRemoved', checkForContent);
     // next button
+
     function switchTab(tabName) {
         // prevent submitting the form
         event.preventDefault();

@@ -15,7 +15,7 @@
         <div class="col-6">
             <!-- coordinates -->
             <label for="" class="form-label small-font mb-0">Coordinates</label>
-            <input id="coordInput" type="text" class="form-control" aria-describedby="coords-help">
+            <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help" disabled>
             <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Seperate latitude and longitude with a comma (latitude , longitude)</div>
 
             <!-- street -->
@@ -72,7 +72,7 @@
     const barangaySelect = document.getElementById('barangay');
 
     // Define barangays for each municipality
-    // ! wala pud nako ni nagamit
+    // ! wala pud nako ni nagamit kay gi fetxh nako ang data sa lahi na file tung fetc_barangay.php
     const barangaysByMunicipality = {
         'Alabel': [
             'Alegria',

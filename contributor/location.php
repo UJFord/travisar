@@ -49,10 +49,9 @@ require "../functions/functions.php";
     <div class="container">
         <div class="row mt-3">
             <!-- LIST -->
-            <?php require "approval-page/list.php"; ?>
+            <?php require "location-page/list.php"; ?>
             <div>
             </div>
-
         </div>
     </div>
 

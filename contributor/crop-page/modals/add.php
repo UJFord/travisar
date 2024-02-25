@@ -31,7 +31,7 @@
 
                         <div class="tab-content mt-2">
                             <!-- general -->
-                            <?php require "edit-tabs/gen.php" ?>
+                            <?php require "tabs/gen.php" ?>
                             <!-- location -->
                             <?php require "tabs/loc.php" ?>
                         </div>
