@@ -50,13 +50,13 @@
 <div class="fade tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
 
     <!-- para ma empty lang ang data sa db dili ra sya ma null -->
-    <input type="hidden" name="crop_local_name">
+    <input type="hidden" name="crop_local_name" value="">
     <input type="hidden" name="field_id" value="1">
-    <input type="hidden" name="cultural_significance">
-    <input type="hidden" name="spiritual_significance">
-    <input type="hidden" name="cultural_importance_and_traditional_knowledge">
+    <input type="hidden" name="cultural_significance" value="">
+    <input type="hidden" name="spiritual_significance" value="">
+    <input type="hidden" name="cultural_importance_and_traditional_knowledge" value="">
     <input type="hidden" name="cultural_use">
-    <input type="hidden" name="threats">
+    <input type="hidden" name="threats" value="">
 
     <!-- to get the user_id of the logged in user -->
     <input type="hidden" name="user_id" value="<?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) {
@@ -78,7 +78,7 @@
                 <?php
                 // get the data of category from DB
                 // gi set ra nako na permi last ang other nga category og ascending sya based sa catgory name
-                $queryCategory = "SELECT * FROM category ORDER BY 
+                $queryCategory = "SELECT * FROM category ORDER BY
                 CASE
                     WHEN category_name = 'Other' THEN 2
                     ELSE 1
@@ -173,6 +173,7 @@
                     newFiles.push(files[i]);
                 }
             }
+            //* mao ni tung mag transfer sa data to another input
             var dataTransfer = new DataTransfer();
             newFiles.forEach(function(file) {
                 dataTransfer.items.add(file);

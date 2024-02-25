@@ -1,8 +1,6 @@
 <?php
 session_start();
-// require "../mail.php";
-
-$con = pg_connect("host=localhost dbname=farm_crops user=postgres password=123") or die("Could not connect to server\n");
+require "../../../functions/connections.php";
 
 // if (isset($_POST['save']) && $_SESSION['rank'] == 'curator') {
 // working nani sya pero kay naah may changes sa loc need ni sya i update
@@ -21,9 +19,6 @@ if (isset($_POST['save'])) {
         $category_id = $_POST['category_id'];
         $field_id = $_POST['field_id'];
         // $crop_image = $_POST['crop_image[]'];
-        $role_in_maintaining_upland_ecosystem = $_POST['role_in_maintaining_upland_ecosystem'];
-        $scientific_name = $_POST['scientific_name'];
-        $unique_features = $_POST['unique_features'];
         $crop_description = handleEmpty($_POST['crop_description']);
         $province_name = $_POST['province'];
         $municipality_name = $_POST['municipality'];
@@ -32,8 +27,11 @@ if (isset($_POST['save'])) {
         $user_id = $_POST['user_id'];
         $status = 'pending';
 
-        // Other Category
-        $other_category_name = handleEmpty($_POST['other_category']);
+        // Check if the array keys are set before accessing them
+        $role_in_maintaining_upland_ecosystem = isset($_POST['role_in_maintaining_upland_ecosystem']) ? handleEmpty($_POST['role_in_maintaining_upland_ecosystem']) : "Empty";
+        $scientific_name = isset($_POST['scientific_name']) ? handleEmpty($_POST['scientific_name']) : "Empty";
+        $unique_features = isset($_POST['unique_features']) ? handleEmpty($_POST['unique_features']) : "Empty";
+        $other_category_name = isset($_POST['other_category_name']) ? handleEmpty($_POST['other_category_name']) : "Empty";
 
         // Cultural Aspect
         $cultural_significance = handleEmpty($_POST['cultural_significance']);
@@ -59,11 +57,83 @@ if (isset($_POST['save'])) {
             exit(0);
         }
 
-        //insert into crop table
-        $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, role_in_maintaining_upland_ecosystem, scientific_name, unique_features, crop_description, status, cultural_aspect_id, threats, user_id) 
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING crop_id";
+        // Array to store uploaded image names
+        $imageNamesArray = [];
 
-        $valueCrops = array($crop_variety, $crop_local_name, $category_id, $role_in_maintaining_upland_ecosystem, $scientific_name, $unique_features, $crop_description, $status, $cultural_aspect_id, $threats, $user_id);
+        // Check if the image is selected
+        if (isset($_FILES['crop_image']['name']) && is_array($_FILES['crop_image']['name'])) {
+            $extension = array('jpg', 'jpeg', 'png', 'gif');
+
+            foreach ($_FILES['crop_image']['name'] as $key => $value) {
+                $filename = $_FILES['crop_image']['name'][$key];
+                $filename_tmp = $_FILES['crop_image']['tmp_name'][$key];
+                $destination_path = "img/" . $filename;
+                $ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+                $finalimg = '';
+
+                if (in_array($ext, $extension)) {
+                    // Auto rename image
+                    $image = "Crop_image_" . rand(000, 999) . '.' . $ext;
+
+                    // Check if the image name already exists in the database
+                    while (true) {
+                        $query = "SELECT crop_image FROM crop WHERE crop_image = $1";
+                        $result = pg_query_params($conn, $query, array($image));
+
+                        if ($result === false) {
+                            break;
+                        }
+
+                        $count = pg_num_rows($result);
+
+                        if ($count == 0) {
+                            break;
+                        } else {
+                            // If the image name exists, generate a new one
+                            $image = "Crop_image_" . rand(000, 999) . '.' . $ext;
+                        }
+                    }
+
+                    $source_path = $_FILES['crop_image']['tmp_name'][$key];
+                    $destination_path = "img/" . $image;
+
+                    // Upload the image
+                    $upload = move_uploaded_file($source_path, $destination_path);
+
+                    // Check whether the image is uploaded or not
+                    if (!$upload) {
+                        echo "wala na upload ang image";
+                        echo "Error: " . pg_last_error($conn);
+                        die();
+                    }
+
+                    $finalimg = $image;
+                    $imageNamesArray[] = $finalimg; // Add image name to the array
+                } else {
+                    // Display error message for invalid file format
+                    echo "invalid ang file format image";
+                    echo "Error: " . pg_last_error($conn);
+                    die();
+                }
+            }
+        } else {
+            // Don't upload image and set the image value as blank
+            echo "wala image na select";
+            echo "Error: " . pg_last_error($conn);
+            die();
+        }
+
+        $imageNamesString = implode(',', $imageNamesArray);
+
+        //insert into crop table
+        $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, role_in_maintaining_upland_ecosystem,
+        scientific_name, unique_features, crop_description, status, cultural_aspect_id, threats, user_id, crop_image) 
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING crop_id";
+
+        $valueCrops = array(
+            $crop_variety, $crop_local_name, $category_id, $role_in_maintaining_upland_ecosystem,
+            $scientific_name, $unique_features, $crop_description, $status, $cultural_aspect_id, $threats, $user_id, $imageNamesString);
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
         if ($query_run_Crop) {
