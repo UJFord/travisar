@@ -43,6 +43,7 @@
                 }
                 ?>
             </select>
+
             <!-- Municipality dropdown -->
             <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
             <select id="Municipality" name="municipality" class="form-select">
