@@ -13,18 +13,10 @@
     <div class="row">
         <!-- form -->
         <div class="col-6">
-            <!-- coordinates -->
-            <label for="coordInput" class="form-label small-font mb-0">Coordinates</label>
-            <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help" disabled>
-            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Seperate latitude and longitude with a comma (latitude , longitude)</div>
-
-            <!-- street -->
-            <label for="neighbourhood" class="form-label small-font mb-0">Neighbourhood</label>
-            <input id="neighbourhood" type="text" class="form-control mb-2">
 
             <!-- Province dropdown -->
             <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
-            <select id="Province" name="province" class="form-select">
+            <select id="Province" name="province" class="form-select" readonly disabled >
                 <?php
                 // Fetch distinct province names from the location table
                 $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";
@@ -53,6 +45,16 @@
             <label for="Barangay" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
             <select id="Barangay" name="barangay" class="form-select mb-2">
             </select>
+
+            <!-- street -->
+            <label for="neighbourhood" class="form-label small-font mb-0">Neighbourhood</label>
+            <input id="neighbourhood" type="text" class="form-control mb-2">
+
+
+            <!-- coordinates -->
+            <label for="coordInput" class="form-label small-font mb-0">Coordinates</label>
+            <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
+            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Seperate latitude and longitude with a comma (latitude , longitude)</div>
 
         </div>
         <!-- map -->
