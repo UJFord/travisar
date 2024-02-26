@@ -20,10 +20,16 @@
         aspect-ratio: 1/1;
     }
 
+    .image-preview {
+        position: relative;
+        display: inline-block;
+        aspect-ratio: 1/1;
+    }
+
     .remove-image {
         position: absolute;
-        top: 0;
-        right: 0;
+        top: 0.3;
+        right: 0.3rem;
         background: none;
         border: none;
         color: red;
@@ -31,14 +37,9 @@
         cursor: pointer;
     }
 
-    .image-preview {
-        position: relative;
-        display: inline-block;
-        margin-right: 10px;
-    }
 
     /* hiding the scrollbar */
-    #previewContainer {
+    #preview {
         scrollbar-width: none;
         /* Firefox */
         -ms-overflow-style: none;
@@ -116,9 +117,9 @@
                     <span>Image <span style="color: red;">*</span></span>
                 </label>
                 <!-- image input -->
-                <input class="mb-1 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_image[]" multiple>
+                <input class="mb-2 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_image[]" multiple>
                 <!-- image preview -->
-                <div class="preview-container custom-scrollbar overflow-scroll rounded border py-2" id="preview"></div>
+                <div class="preview-container custom-scrollbar overflow-scroll rounded border p-1" id="preview"></div>
             </div>
         </div>
     </div>
@@ -132,7 +133,6 @@
     </div>
 
     <!-- STEP NAVIGATION -->
-    <!-- //! gi comment out nako ni kay pag human og redirect ma adto ka sa try.php sa form ata ni sya sa action="try.php". -->
     <div class="row">
         <div class="col d-flex justify-content-end">
             <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc',this)"><i class="fa-solid fa-forward"></i></button>
@@ -154,7 +154,7 @@
             $.each(files, function(i, file) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    $('#preview').append('<div class="image-preview"><img src="' + e.target.result + '" width="100"/><button class="remove-image" data-index="' + i + '">x</button></div>');
+                    $('#preview').append('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-image" data-index="' + i + '"><i class="fa-solid fa-xmark"></i></button></div>');
                 }
                 reader.readAsDataURL(file);
             });
