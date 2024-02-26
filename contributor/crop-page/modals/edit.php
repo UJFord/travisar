@@ -2,14 +2,19 @@
 <div class="modal fade" id="edit-item-modal" tabindex="-1" aria-labelledby="edit-item-modal-label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
+
             <!-- header -->
             <div class="modal-header">
                 <h5 class="modal-title" id="edit-item-modal-label">Edit Item</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
+
             <!-- body -->
             <div class="modal-body edit-modal-body">
+
+
             </div>
+            
             <!-- footer -->
             <div class="modal-footer d-flex justify-content-between">
                 <div class="">

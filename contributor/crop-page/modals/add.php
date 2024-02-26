@@ -27,7 +27,7 @@
                             <button class="nav-link active small-font modal-tab" id="loc-tab" data-bs-toggle="tab" data-bs-target="#loc-tab-pane" type="button" role="tab" aria-controls="loc-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot"></i> </button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="false"><i class="fa-solid fa-info"><i class="fa-solid fa-plus ps-1" style="font-size: 0.5rem;"></i></i></button>
+                            <button class="nav-link small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="false"><i class="fa-solid fa-ellipsis"></i></button>
                         </li>
                     </ul>
                     <div class="container">
@@ -37,6 +37,8 @@
                             <?php require "tabs/gen.php" ?>
                             <!-- location -->
                             <?php require "tabs/loc.php" ?>
+                            <!-- mroe optional info -->
+                            <?php require "tabs/more.php" ?>
                         </div>
 
                     </div>

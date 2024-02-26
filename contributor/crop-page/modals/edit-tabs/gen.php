@@ -76,7 +76,7 @@
                     }
                     ?>
                 <?php
-                }else{
+                } else {
                     echo "no category.";
                 }
                 ?>
@@ -171,37 +171,6 @@
         </div>
     </div> -->
 </div>
-
-<!-- STYLE -->
-<style>
-    .image-upload-container {
-        /* Adjust width and height as needed */
-        /* border: 1px solid #ccc;
-        border-radius: 5px; */
-        cursor: pointer;
-    }
-
-    .preview-container {
-        /* Adjust style of preview container */
-        display: flex;
-        /* flex-wrap: wrap; */
-    }
-
-    .img-thumbnail {
-        /* Customize styling of preview images */
-        max-width: 5rem;
-        max-height: 5rem;
-        aspect-ratio: 1/1;
-    }
-
-    /* hiding the scrollbar */
-    #previewContainer {
-        scrollbar-width: none;
-        /* Firefox */
-        -ms-overflow-style: none;
-        /* Internet Explorer 10+ */
-    }
-</style>
 
 <!-- SCRIPT -->
 <script defer>
