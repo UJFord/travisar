@@ -122,7 +122,7 @@
                                     All
                                 </label>
                             </th>
-                            <th class="col text-dark-emphasis small-font" scope="col">Variety Name</th>
+                            <th class="col-4 text-dark-emphasis small-font" scope="col">Variety Name</th>
                             <th class="col-4 text-dark-emphasis small-font" scope="col">Contributor</th>
                             <th class="col-4 text-dark-emphasis small-font" scope="col">Date Created</th>
                             <th class="col-4 text-dark-emphasis small-font" scope="col">Status</th>
