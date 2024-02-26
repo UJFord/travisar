@@ -119,10 +119,10 @@
 
         <!-- dib ni sya para ma set ang mga tabs na data -->
         <div class="general_info">
-            <!-- Pending tab Active -->
+            <!-- location tab Active -->
             <div class="gen_info active" id="locationTabData">
                 <!-- TABLE -->
-                <table id="pendingTable" class="table table-hover">
+                <table id="locationTable" class="table table-hover">
                     <!-- table head -->
                     <thead>
                         <tr>
@@ -182,11 +182,17 @@
                         ?>
                     </tbody>
                 </table>
+                <!-- Pagination container for Location -->
+                <div class="pagination-container location-pagination-container" id="locationPaginationContainer">
+                    <?php
+                    generatePaginationLinksTabs($total_pages_location, $current_page, 'page_location', 'locationTabData', 'location');
+                    ?>
+                </div>
             </div>
-            <!-- Approved Tab Unactive -->
+            <!-- barangay Tab Unactive -->
             <div class="gen_info" id="barangayTabData">
                 <!-- TABLE -->
-                <table id="approvedTable" class="table table-hover">
+                <table id="barangayTable" class="table table-hover">
                     <!-- table head -->
                     <thead>
                         <tr>
@@ -245,22 +251,16 @@
                         ?>
                     </tbody>
                 </table>
+                <!-- Pagination container for Barangay -->
+                <div class="pagination-container barangay-pagination-container" id="barangayPaginationContainer">
+                    <?php
+                    generatePaginationLinksTabs($total_pages_barangay, $current_page, 'page_barangay', 'barangayTabData', 'barangay');
+                    ?>
+                </div>
             </div>
         </div>
 
     </div>
-</div>
-
-<div class="pagination-container location-pagination-container" id="locationPaginationContainer">
-    <?php
-    generatePaginationLinksTabs($total_pages_location, $current_page, 'page_location', 'locationTabData', 'location');
-    ?>
-</div>
-
-<div class="pagination-container barangay-pagination-container" id="barangayPaginationContainer">
-    <?php
-    generatePaginationLinksTabs($total_pages_barangay, $current_page, 'page_barangay', 'barangayTabData', 'barangay');
-    ?>
 </div>
 
 <!-- script -->
@@ -292,4 +292,25 @@
             history.replaceState(null, null, url);
         })
     })
+
+    // for preventing the default action of pagination which is refreshing the page
+    // this sets it to load the content of the selected page number without the page
+    const paginationContainer = document.getElementById('paginationContainer');
+
+    if (paginationContainer) {
+        paginationContainer.addEventListener('click', (e) => {
+            e.preventDefault(); // Prevent default link behavior
+            if (e.target.tagName === 'A') {
+                const url = e.target.getAttribute('href');
+                fetch(url)
+                    .then(response => response.text())
+                    .then(data => {
+                        // Assuming each tab has a container with id "tabContent"
+                        const tabContent = document.getElementById('tabContent');
+                        tabContent.innerHTML = data; // Update tab content with loaded data
+                    })
+                    .catch(error => console.error('Error:', error));
+            }
+        });
+    }
 </script>

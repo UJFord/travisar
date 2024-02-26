@@ -51,25 +51,27 @@
             </div>
 
             <!-- body -->
-            <div class="modal-body edit-modal-body">
-                <?php
-                // Get the cropID value from the query parameters
-                // ! makita sya sa console pero wala sya ga output sa page
-                $cropID = $_GET['cropID'];
-                ?>
-                <input type='text' name='crop_id' value='<?= $cropID ?>'>
-                <?php
-                ?>
-            </div>
-
-            <!-- footer -->
-            <div class="modal-footer d-flex justify-content-between">
-                <div class="">
-                    <button type="button" class="btn btn-success">Save</button>
-                    <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
+            <form id="form-panel" name="Form" action="crop-page/modals/try.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+                <div class="modal-body edit-modal-body">
+                    <?php
+                    // Get the cropID value from the query parameters
+                    //! makita sya sa console pero wala sya ga output sa page
+                    $cropID = $_GET['cropID'];
+                    ?>
+                    <input type='text' name='crop_id' value='<?= $cropID ?>'>
+                    <?php
+                    ?>
                 </div>
-                <button type="button" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
-            </div>
+
+                <!-- footer -->
+                <div class="modal-footer d-flex justify-content-between">
+                    <div class="">
+                        <button type="button" class="btn btn-success">Save</button>
+                        <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                    <button type="button" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
+                </div>
+            </form>
         </div>
     </div>
 </div>

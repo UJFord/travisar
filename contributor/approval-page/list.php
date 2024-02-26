@@ -110,7 +110,7 @@
         <!-- dib ni sya para ma set ang mga tabs na data -->
         <div class="general_info">
             <!-- Pending tab Active -->
-            <div class="gen_info active">
+            <div class="gen_info active" id="pendingTabData">
                 <!-- TABLE -->
                 <table id="pendingTable" class="table table-hover">
                     <!-- table head -->
@@ -214,9 +214,14 @@
                         ?>
                     </tbody>
                 </table>
+                <div class="pagination-container pending-pagination-container" id="pendingPaginationContainer">
+                    <?php
+                    generatePaginationLinksTabs($total_pages_pending, $current_page, 'page_pending', 'pendingTabData', 'pending');
+                    ?>
+                </div>
             </div>
             <!-- Approved Tab Unactive -->
-            <div class="gen_info">
+            <div class="gen_info" id="approvedTabData">
                 <!-- TABLE -->
                 <table id="approvedTable" class="table table-hover">
                     <!-- table head -->
@@ -235,7 +240,6 @@
                             <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
                         </tr>
                     </thead>
-
                     <!-- table body -->
                     <tbody class="table-group-divider fw-bold overflow-scroll">
                         <?php
@@ -311,22 +315,15 @@
                         ?>
                     </tbody>
                 </table>
+                <div class="pagination-container approved-pagination-container" id="approvedPaginationContainer">
+                    <?php
+                    generatePaginationLinksTabs($total_pages_approved, $current_page, 'page_approved', 'approvedTabData', 'approved');
+                    ?>
+                </div>
             </div>
         </div>
 
     </div>
-</div>
-
-<div class="pagination-container pending-pagination-container" id="pendingPaginationContainer">
-    <?php
-    generatePaginationLinksTabs($total_pages_pending, $current_page, 'page_pending', 'pendingTabData', 'pending');
-    ?>
-</div>
-
-<div class="pagination-container approved-pagination-container" id="approvedPaginationContainer">
-    <?php
-    generatePaginationLinksTabs($total_pages_approved, $current_page, 'page_approved', 'approvedTabData', 'approved');
-    ?>
 </div>
 
 <!-- script -->
