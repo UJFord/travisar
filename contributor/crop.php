@@ -125,7 +125,7 @@ require "../functions/functions.php";
                     continue; // Skip the header row
                 }
                 var filterMatch = false;
-                for (j = 0; j < tr[i].getElementsByTagName("td").length; j++) {
+                for (j = 0; j <script tr[i].getElementsByTagName("td").length; j++) {
                     td = tr[i].getElementsByTagName("td")[j];
                     if (td) {
                         txtValue = td.textContent || td.innerText;
@@ -138,6 +138,8 @@ require "../functions/functions.php";
                 tr[i].style.display = filterMatch ? "" : "none";
             }
         }
+
+    </script>
 
         
 </body>
