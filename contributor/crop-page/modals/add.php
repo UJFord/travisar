@@ -26,6 +26,9 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active small-font modal-tab" id="loc-tab" data-bs-toggle="tab" data-bs-target="#loc-tab-pane" type="button" role="tab" aria-controls="loc-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot"></i> </button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="false"><i class="fa-solid fa-info"><i class="fa-solid fa-plus ps-1" style="font-size: 0.5rem;"></i></i></button>
+                        </li>
                     </ul>
                     <div class="container">
 
@@ -78,10 +81,6 @@
     function validateForm() {
         // Get the values from the form
         var cropName = document.forms["Form"]["crop_variety"].value;
-        // var imageInput = document.forms["Form"]["crop_image"].value;
-        // var category = document.forms["Form"].querySelector('input[name="category"]:checked');
-        // var localName = document.forms["Form"]["crop_local_name"].value;
-        // var uplandOrLowland = document.forms["Form"].querySelector('input[name="upland_or_lowland"]:checked');
 
         // Check if the required fields are not empty
         if (cropName === "") {
@@ -120,4 +119,16 @@
             });
         }
     }
+
+    // tab switching
+    // next button
+
+    function switchTab(tabName) {
+        // prevent submitting the form
+        event.preventDefault();
+
+        // Click the tab with id 'gen-tab'
+        document.getElementById(tabName + '-tab').click();
+    }
+</script>
 </script>
