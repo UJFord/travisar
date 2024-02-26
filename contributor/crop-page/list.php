@@ -90,7 +90,7 @@
                         $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
 
                 ?>
-                        <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">
+                        <tr id="row1" data-target="#dataModal" data-name="Malgas" data-type="Corn" data-contributor="Alex Miller">
                             <!-- checkbox -->
                             <th scope="row"><input class="form-check-input" type="checkbox"></th>
                             <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
