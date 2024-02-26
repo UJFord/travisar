@@ -60,12 +60,12 @@
 <!-- SCRIPT -->
 <script>
     // keep the modal on
-    window.onload = function() {
-        const dataModal = new bootstrap.Modal(document.getElementById('add-item-modal'), {
-            keyboard: false
-        });
-        dataModal.show();
-    };
+    // window.onload = function() {
+    //     const dataModal = new bootstrap.Modal(document.getElementById('add-item-modal'), {
+    //         keyboard: false
+    //     });
+    //     dataModal.show();
+    // };
 </script>
 
 <!-- for submission -->
