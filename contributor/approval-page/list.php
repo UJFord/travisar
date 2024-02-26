@@ -317,16 +317,15 @@
     </div>
 </div>
 
-<div id="paginationContainer">
+<div class="pagination-container pending-pagination-container" id="pendingPaginationContainer">
     <?php
-    // checking if a tab parameter is present if not it defaults to pending
-    // ! guba ang pagination sa page approved
-    $active_tab = isset($_GET['tab']) ? $_GET['tab'] : 'pending';
-    if ($active_tab === 'pending') {
-        generatePaginationLinks($total_pages_pending, $current_page, 'page_pending', 'tab=pending');
-    } else {
-        generatePaginationLinks($total_pages_approved, $current_page, 'page_approved', 'tab=approved');
-    }
+    generatePaginationLinksTabs($total_pages_pending, $current_page, 'page_pending', 'pendingTabData', 'pending');
+    ?>
+</div>
+
+<div class="pagination-container approved-pagination-container" id="approvedPaginationContainer">
+    <?php
+    generatePaginationLinksTabs($total_pages_approved, $current_page, 'page_approved', 'approvedTabData', 'approved');
     ?>
 </div>
 

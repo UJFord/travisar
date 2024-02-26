@@ -253,13 +253,13 @@
 
 <div class="pagination-container location-pagination-container" id="locationPaginationContainer">
     <?php
-    generatePaginationLinks($total_pages_location, $current_page, 'page_location', 'locationTabData', 'location');
+    generatePaginationLinksTabs($total_pages_location, $current_page, 'page_location', 'locationTabData', 'location');
     ?>
 </div>
 
 <div class="pagination-container barangay-pagination-container" id="barangayPaginationContainer">
     <?php
-    generatePaginationLinks($total_pages_barangay, $current_page, 'page_barangay', 'barangayTabData', 'barangay');
+    generatePaginationLinksTabs($total_pages_barangay, $current_page, 'page_barangay', 'barangayTabData', 'barangay');
     ?>
 </div>
 
