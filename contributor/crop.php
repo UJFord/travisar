@@ -138,6 +138,17 @@ require "../functions/functions.php";
                 tr[i].style.display = filterMatch ? "" : "none";
             }
         }
+
+        // tab switching
+        // next button
+
+        function switchTab(tabName) {
+            // prevent submitting the form
+            event.preventDefault();
+
+            // Click the tab with id 'gen-tab'
+            document.getElementById(tabName + '-tab').click();
+        }
     </script>
 </body>
 

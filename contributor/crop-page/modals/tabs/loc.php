@@ -10,13 +10,13 @@
 
 <!-- LOCATION TAB -->
 <div class="fade show active tab-pane" id="loc-tab-pane" role="tabpanel" aria-labelledby="loc-tab" tabindex="0">
-    <div class="row">
+    <div class="row mb-3">
         <!-- form -->
         <div class="col-6">
 
             <!-- Province dropdown -->
             <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
-            <select id="Province" name="province" class="form-select" readonly disabled >
+            <select id="Province" name="province" class="form-select mb-2" readonly disabled>
                 <?php
                 // Fetch distinct province names from the location table
                 $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";
@@ -59,6 +59,14 @@
         </div>
         <!-- map -->
         <div id="map" class="col border">
+        </div>
+    </div>
+
+    <!-- STEP NAVIGATION -->
+    <div class="row">
+        <div class="col d-flex justify-content-between">
+            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open General Info tab" onclick="switchTab('gen',this)"><i class="fa-solid fa-backward"></i></button>
+            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Additional Info tab" onclick="switchTab('other',this)"><i class="fa-solid fa-forward"></i></button>
         </div>
     </div>
 </div>

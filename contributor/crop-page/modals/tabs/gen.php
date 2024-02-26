@@ -135,7 +135,7 @@
     <!-- STEP NAVIGATION -->
     <div class="row">
         <div class="col d-flex justify-content-end">
-            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc',this)"><i class="fa-solid fa-forward"></i></button>
+            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc')"><i class="fa-solid fa-forward"></i></button>
         </div>
     </div>
 </div>
@@ -199,15 +199,4 @@
     // Call whenever content might change within the container
     previewContainer.addEventListener('DOMNodeInserted', checkForContent);
     previewContainer.addEventListener('DOMNodeRemoved', checkForContent);
-    // next button
-
-    function switchTab(tabName) {
-        // prevent submitting the form
-        event.preventDefault();
-
-        // Get the tab content elements
-        var tabPanes = document.querySelectorAll('.tab-pane');
-        // Click the tab with id 'loc-tab'
-        document.getElementById('loc-tab').click();
-    }
 </script>
