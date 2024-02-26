@@ -62,11 +62,6 @@
         background: var(--mainBrand);
         border: none;
     }
-
-    /* to only show the dedicated page for each tab */
-    .pagination-container.inactive {
-        display: none;
-    }
 </style>
 <!-- LIST -->
 <div class="col border">
