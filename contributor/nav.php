@@ -56,10 +56,10 @@
                     <a class="nav-link" href="#">Contributors</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="approval.php">Manage Approval <span class="count" style="color: red;"></span></a>
+                    <a class="nav-link" href="approval.php">Validation<span class="count" style="color: red;"></span></a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="location.php">Manage Location <span class="count" style="color: red;"></span></a>
+                    <a class="nav-link" href="location.php">Addresses<span class="count" style="color: red;"></span></a>
                 </li>
             </ul>
             <!-- profile -->
