@@ -116,18 +116,18 @@
                     <!-- table head -->
                     <thead>
                         <tr>
-                            <th class="col-1 thead-item" scope="col">
+                            <th class="border col-1 thead-item" scope="col">
                                 <input class="form-check-input" type="checkbox">
                                 <label class="form-check-label text-dark-emphasis small-font">
                                     All
                                 </label>
                             </th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Variety Name</th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Contributor</th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Date Created</th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Status</th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Action</th>
-                            <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
+                            <th class="border col text-dark-emphasis small-font" scope="col">Variety Name</th>
+                            <th class="border col-3 text-dark-emphasis small-font" scope="col">Contributor</th>
+                            <th class="border col-2 text-dark-emphasis text-center small-font" scope="col">Date Created</th>
+                            <th class="border col-1 text-dark-emphasis text-center small-font" scope="col">Status</th>
+                            <th class="border col-1 text-dark-emphasis text-center small-font" scope="col">Action</th>
+                            <th class="border col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
                         </tr>
                     </thead>
 
@@ -171,40 +171,38 @@
                                         ?>
                                     </td>
                                     <!-- contributor -->
-                                    <td class="small-font">
-                                        <span class="py-1 px-2">
+                                    <td class="text-secondary small-font fw-normal">
                                             <?php
                                             if (pg_num_rows($query_run_user)) {
                                                 $user = pg_fetch_assoc($query_run_user);
-                                                echo '<h6 class="text-secondary small-font m-0">' . $user['first_name'] . " " . $user['last_name'] . '</h6>';
+                                                echo $user['first_name'] . " " . $user['last_name'];
                                             } else {
-                                                echo "No contributor.";
+                                                echo "No contributor";
                                             }
                                             ?>
-                                        </span>
                                     </td>
+
                                     <!-- Date Created -->
-                                    <td class="small-font">
-                                        <span class="py-1 px-2">
-                                            <h6 class="text-secondary small-font m-0"><?= $formatted_date; ?></h6>
-                                        </span>
+                                    <td class=" text-secondary small-font text-center fw-normal">
+                                        <?= $formatted_date; ?>
                                     </td>
+
                                     <!-- Status -->
-                                    <td class="small-font">
-                                        <span class="py-1 px-2">
-                                            <h6 class="text-secondary small-font m-0"><?= $row['status']; ?></h6>
-                                        </span>
+                                    <td class="text-secondary small-font text-center fw-normal">
+                                        <?= $row['status']; ?>
                                     </td>
+
                                     <!-- Action -->
-                                    <form action="">
-                                        <td>
+                                    <td>
+                                        <form class="d-flex justify-content-center" action="">
                                             <input type="hidden" name="email" value="<?php echo $row['crop_id']; ?>" />
-                                            <input type="submit" name="approve" value="approve">
-                                            <input type="submit" name="delete" value="delete">
-                                        </td>
-                                    </form>
+                                            <button type="submit" name="approve" class="btn btn-success me-2"><i class="fa-solid fa-check"></i></button>
+                                            <button type="submit" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                        </form>
+                                    </td>
+
                                     <!-- ellipsis menu butn -->
-                                    <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
+                                    <td class="text-end"></td>
                                 </tr>
                         <?php
                             }
@@ -220,6 +218,11 @@
                     ?>
                 </div>
             </div>
+
+
+
+
+
             <!-- Approved Tab Unactive -->
             <div class="gen_info" id="approvedTabData">
                 <!-- TABLE -->
@@ -280,29 +283,23 @@
                                         ?>
                                     </td>
                                     <!-- contributor -->
-                                    <td class="small-font">
-                                        <span class="py-1 px-2">
-                                            <?php
-                                            if (pg_num_rows($query_run_user)) {
-                                                $user = pg_fetch_assoc($query_run_user);
-                                                echo '<h6 class="text-secondary small-font m-0">' . $user['first_name'] . " " . $user['last_name'] . '</h6>';
-                                            } else {
-                                                echo "No contributor.";
-                                            }
-                                            ?>
-                                        </span>
+                                    <td class="small-font text-secondary small-font m-0">
+                                        <?php
+                                        if (pg_num_rows($query_run_user)) {
+                                            $user = pg_fetch_assoc($query_run_user);
+                                            echo $user['first_name'] . " " . $user['last_name'];
+                                        } else {
+                                            echo 'No Contributor';
+                                        }
+                                        ?>
                                     </td>
                                     <!-- Date Created -->
                                     <td class="small-font">
-                                        <span class="py-1 px-2">
-                                            <h6 class="text-secondary small-font m-0"><?= $formatted_date; ?></h6>
-                                        </span>
+                                        <h6 class="text-secondary small-font m-0"><?= $formatted_date; ?></h6>
                                     </td>
                                     <!-- Status -->
                                     <td class="small-font">
-                                        <span class="py-1 px-2">
-                                            <h6 class="text-secondary small-font m-0"><?= $row['status']; ?></h6>
-                                        </span>
+                                        <h6 class="text-secondary small-font m-0"><?= $row['status']; ?></h6>
                                     </td>
                                     <!-- ellipsis menu butn -->
                                     <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
