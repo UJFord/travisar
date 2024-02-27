@@ -16,22 +16,22 @@
 
             <!-- Province dropdown -->
             <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
-            <select id="Province" name="province" class="form-select mb-2" readonly disabled>
+            <select id="Province" name="province_name" class="form-select mb-2" readonly disabled>
             </select>
 
             <!-- Municipality dropdown -->
             <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
-            <select id="Municipality" name="municipality" class="form-select">
+            <select id="Municipality" name="municipality_name" class="form-select">
             </select>
 
             <!-- barangay -->
             <label for="Barangay" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
-            <select id="Barangay" name="barangay" class="form-select mb-2">
+            <select id="Barangay" name="barangay_name" class="form-select mb-2">
             </select>
 
             <!-- street -->
             <label for="neighbourhood" class="form-label small-font mb-0">Neighbourhood</label>
-            <input id="neighbourhood" type="text" class="form-control mb-2">
+            <input id="neighbourhood" name="neighbourhood" type="text" class="form-control mb-2">
 
 
             <!-- coordinates -->

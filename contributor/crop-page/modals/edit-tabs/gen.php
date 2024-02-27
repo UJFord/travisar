@@ -36,8 +36,8 @@
     <div class="row mb-3">
         <!-- variety name -->
         <div class="col">
-            <label for="Variety-Name" class="form-label small-font">Variety Name <span style="color: red;">*</span></label>
-            <input id="Variety-Name" type="text" name="crop_variety" class="form-control">
+            <label for="crop_variety" class="form-label small-font">Variety Name <span style="color: red;">*</span></label>
+            <input id="crop_variety" type="text" name="crop_variety" class="form-control">
         </div>
         <!-- local name -->
         <!-- <div class="col">
@@ -63,14 +63,14 @@
         </div>
     </div>
 
-    <!-- Role in Maintaining Upland Ecosystem and Unique Features -->
+    <!-- Scientific Name and Unique Features -->
     <div class="row mb-3">
-        <!-- Role in Maintaining Upland Ecosystem -->
+        <!-- Scientific Name -->
         <div class="col">
             <label for="ScienceName" class="form-label small-font">Scientific Name</label>
             <input id="ScienceName" type="text" name="scientific_name" class="form-control">
         </div>
-        <!-- crop field -->
+        <!-- Unique Features -->
         <div class="col">
             <label for="UniqueFeat" class="form-label small-font">Unique Features</label>
             <input id="UniqueFeat" type="text" name="unique_features" class="form-control">
@@ -86,8 +86,8 @@
     <!-- DISCRIPTION -->
     <div class="row mb-3">
         <div class="col">
-            <label for="desc" class="form-label small-font">Description</label>
-            <textarea name="crop_description" id="desc" rows="2" class="form-control"></textarea>
+            <label for="description" class="form-label small-font">Description</label>
+            <textarea name="crop_description" id="description" rows="2" class="form-control"></textarea>
         </div>
     </div>
 

@@ -198,7 +198,7 @@
                                     <!-- Action -->
                                     <form action="">
                                         <td>
-                                            <input type="hidden" name="email" value="<?php echo $row['crop_id']; ?>" />
+                                            <input type="hidden" name="crop_id" value="<?php echo $row['crop_id']; ?>" />
                                             <input type="submit" name="approve" value="approve">
                                             <input type="submit" name="delete" value="delete">
                                         </td>
