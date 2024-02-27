@@ -138,10 +138,8 @@ require "../functions/functions.php";
                 tr[i].style.display = filterMatch ? "" : "none";
             }
         }
-
     </script>
 
-        
 </body>
 
 </html>

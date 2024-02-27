@@ -52,6 +52,12 @@ require "../functions/functions.php";
             <?php require "location-page/list.php"; ?>
             <div>
             </div>
+
+            <!-- MODAL -->
+            <!-- add Location -->
+            <?php require "location-page/modals/add-location.php"; ?>
+            <!-- add Barangay -->
+            <?php require "location-page/modals/add-barangay.php"; ?>
         </div>
     </div>
 

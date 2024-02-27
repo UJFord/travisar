@@ -130,7 +130,10 @@
                             <th class="col-4 text-dark-emphasis small-font" scope="col">Province Name</th>
                             <th class="col-4 text-dark-emphasis small-font" scope="col">Municipality Name</th>
                             <th col-4>
-                                <button type="button" class="btn btn-secondary add-loc-btn" name="addProvince" value="Add">Add</button>
+                                <!-- add button -->
+                                <button type="button" id="addProvince" class="btn btn-secondary add-loc-btn p-2 btn" name="addProvince" data-bs-toggle="modal" data-bs-target="#add-item-modal">
+                                    Add
+                                </button>
                             </th>
                             <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
                         </tr>
@@ -200,7 +203,10 @@
                             <th class="col-4 text-dark-emphasis small-font" scope="col">Municipality Name</th>
                             <th class="col-4 text-dark-emphasis small-font" scope="col">Barangay Name</th>
                             <th col-4>
-                                <button type="button" class="btn btn-secondary add-loc-btn" name="addProvince" value="Add">Add</button>
+                                <!-- add button -->
+                                <button type="button" id="addBarangay" class="btn btn-secondary add-loc-btn p-2 btn" name="addBarangay" data-bs-toggle="modal" data-bs-target="#add-item-modal">
+                                    Add
+                                </button>
                             </th>
                             <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
                         </tr>
@@ -254,7 +260,6 @@
                 </div>
             </div>
         </div>
-
     </div>
 </div>
 
