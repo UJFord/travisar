@@ -35,23 +35,22 @@
 
                         <div class="tab-content mt-2">
                             <?php
-                            if ($_SERVER["REQUEST_METHOD"] == "POST") {
-                                // Check if the crop_id field is set in the POST data
-                                if (isset($_POST["crop_id"])) {
-                                    // Retrieve the value of crop_id from the POST data
-                                    $crop_id = $_POST["crop_id"];
+                            if (isset($_POST['crop_id'])) {
+                                echo $crop_id = $_POST['crop_id'];
 
-                                    // Use the $crop_id variable as needed
-                                    echo "Crop ID: " . $crop_id;
-                                } else {
-                                    // crop_id is not set in the POST data
-                                    echo "Crop ID is not set";
-                                }
-                            }else{
-                                echo "nop isd";
+                                // Process the crop_id (e.g., fetch data from the database)
+                                // Example:
+                                // $result = fetch_crop_data($crop_id);
+
+                                // Return a response (e.g., JSON-encoded data)
+                                // Example:
+                                // echo json_encode($result);
+                            } else {
+                                // Handle the case where crop_id is not set
+                                echo "walay";
                             }
-
                             ?>
+
                             <!-- general -->
                             <?php require "edit-tabs/gen.php" ?>
                             <!-- location -->
@@ -96,8 +95,32 @@
             // Populate the modal content
             const modalBody = document.querySelector('.edit-modal-body.modal-body');
             modalBody.innerHTML += `
-                <input type="hidden" name="crop_id" value="${id}">
+                <input type="text" name="crop_id" value="${id}">
             `;
+
+            // Get the crop_id from the hidden input field
+            const cropIdInput = document.querySelector('input[name="crop_id"]');
+            const cropId = cropIdInput.value;
+
+            // Use the crop_id as needed
+            console.log("Crop ID: " + cropId);
+
+            // Assuming you have jQuery available
+            $.ajax({
+                url: 'crop-page/modals/edit.php',
+                type: 'POST',
+                data: {
+                    crop_id: cropId
+                },
+                success: function(response) {
+                    // Handle the response from the PHP script
+                    console.log('Response:', response);
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors
+                    console.error('Error:', error);
+                }
+            });
 
             // Show the modal
             const dataModal = new bootstrap.Modal(document.getElementById('edit-item-modal'), {

@@ -17,23 +17,6 @@
             <!-- Province dropdown -->
             <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
             <select id="Province" name="province" class="form-select mb-2" readonly disabled>
-                <?php
-                // Fetch distinct province names from the location table
-                $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";
-                $query_run = pg_query($conn, $queryProvince);
-
-                $count = pg_num_rows($query_run);
-
-                // If there is data, display distinct province names
-                if ($count > 0) {
-                    while ($row = pg_fetch_assoc($query_run)) {
-                        $province_name = $row['province_name'];
-                ?>
-                        <option value="<?= $province_name; ?>"><?= $province_name; ?></option>
-                <?php
-                    }
-                }
-                ?>
             </select>
 
             <!-- Municipality dropdown -->

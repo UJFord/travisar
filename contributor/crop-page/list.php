@@ -89,42 +89,40 @@
                         $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
 
                 ?>
-                        <form action="" method="post">
-                            <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">
-                                <!-- checkbox -->
-                                <th scope="row"><input class="form-check-input" type="checkbox"></th>
-                                <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
+                        <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">
+                            <!-- checkbox -->
+                            <th scope="row"><input class="form-check-input" type="checkbox"></th>
+                            <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
+                            <!-- Variety name -->
+                            <td>
                                 <!-- Variety name -->
-                                <td>
-                                    <!-- Variety name -->
-                                    <a href=""><?= $row['crop_variety']; ?></a>
-                                    <!-- category -->
+                                <a href=""><?= $row['crop_variety']; ?></a>
+                                <!-- category -->
+                                <?php
+                                if (pg_num_rows($query_run_category)) {
+                                    $category = pg_fetch_assoc($query_run_category);
+                                    echo '<h6 class="text-secondary small-font m-0">' . $category['category_name'] . '</h6>';
+                                } else {
+                                    echo "No category added.";
+                                }
+                                ?>
+                            </td>
+                            <!-- contributor -->
+                            <td class="small-font">
+                                <span class="py-1 px-2">
                                     <?php
-                                    if (pg_num_rows($query_run_category)) {
-                                        $category = pg_fetch_assoc($query_run_category);
-                                        echo '<h6 class="text-secondary small-font m-0">' . $category['category_name'] . '</h6>';
+                                    if (pg_num_rows($query_run_user)) {
+                                        $user = pg_fetch_assoc($query_run_user);
+                                        echo '<h6 class="text-secondary small-font m-0">' . $user['first_name'] . " " . $user['last_name'] . '</h6>';
                                     } else {
-                                        echo "No category added.";
+                                        echo "No contributor.";
                                     }
                                     ?>
-                                </td>
-                                <!-- contributor -->
-                                <td class="small-font">
-                                    <span class="py-1 px-2">
-                                        <?php
-                                        if (pg_num_rows($query_run_user)) {
-                                            $user = pg_fetch_assoc($query_run_user);
-                                            echo '<h6 class="text-secondary small-font m-0">' . $user['first_name'] . " " . $user['last_name'] . '</h6>';
-                                        } else {
-                                            echo "No contributor.";
-                                        }
-                                        ?>
-                                    </span>
-                                </td>
-                                <!-- ellipsis menu butn -->
-                                <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
-                            </tr>
-                        </form>
+                                </span>
+                            </td>
+                            <!-- ellipsis menu butn -->
+                            <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
+                        </tr>
                 <?php
                     }
                 } else {
