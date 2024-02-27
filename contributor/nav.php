@@ -5,7 +5,7 @@
 <!-- Jquery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
-<!-- function for notification fo approval -->
+<!-- function for notification for approval of crops and users -->
 <script>
     // Define the load_unseen_notification function globally
     function load_unseen_notification(view = '') {
@@ -50,13 +50,16 @@
         <div class="collapse navbar-collapse d-md-flex justify-content-md-between" id="navbarNav">
             <ul class="navbar-nav fw-bold">
                 <li class="nav-item">
-                    <a class="nav-link active " aria-current="page" href="#">Crop</a>
+                    <a class="nav-link active " aria-current="page" href="crop.php">Crop</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contributors</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Approval <span class="count" style="color: red;"></span></a>
+                    <a class="nav-link" href="approval.php">Manage Approval <span class="count" style="color: red;"></span></a>
+                </li>
+                <li class="nav-item">
+                    <a class="nav-link" href="location.php">Manage Location <span class="count" style="color: red;"></span></a>
                 </li>
             </ul>
             <!-- profile -->
@@ -101,4 +104,5 @@
                 </ul>
             </div>
         </div>
+    </div>
 </nav>

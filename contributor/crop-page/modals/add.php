@@ -16,7 +16,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="http://localhost/travisar/contributor/crop-page/modals/try.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/try.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -26,6 +26,9 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link active small-font modal-tab" id="loc-tab" data-bs-toggle="tab" data-bs-target="#loc-tab-pane" type="button" role="tab" aria-controls="loc-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot"></i> </button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="false"><i class="fa-solid fa-ellipsis"></i></button>
+                        </li>
                     </ul>
                     <div class="container">
 
@@ -34,6 +37,8 @@
                             <?php require "tabs/gen.php" ?>
                             <!-- location -->
                             <?php require "tabs/loc.php" ?>
+                            <!-- mroe optional info -->
+                            <?php require "tabs/more.php" ?>
                         </div>
 
                     </div>
@@ -55,12 +60,12 @@
 <!-- SCRIPT -->
 <script>
     // keep the modal on
-    window.onload = function() {
-        const dataModal = new bootstrap.Modal(document.getElementById('add-item-modal'), {
-            keyboard: false
-        });
-        dataModal.show();
-    };
+    // window.onload = function() {
+    //     const dataModal = new bootstrap.Modal(document.getElementById('add-item-modal'), {
+    //         keyboard: false
+    //     });
+    //     dataModal.show();
+    // };
 </script>
 
 <!-- for submission -->
@@ -78,10 +83,6 @@
     function validateForm() {
         // Get the values from the form
         var cropName = document.forms["Form"]["crop_variety"].value;
-        // var imageInput = document.forms["Form"]["crop_image"].value;
-        // var category = document.forms["Form"].querySelector('input[name="category"]:checked');
-        // var localName = document.forms["Form"]["crop_local_name"].value;
-        // var uplandOrLowland = document.forms["Form"].querySelector('input[name="upland_or_lowland"]:checked');
 
         // Check if the required fields are not empty
         if (cropName === "") {
@@ -120,4 +121,16 @@
             });
         }
     }
+
+    // tab switching
+    // next button
+
+    function switchTab(tabName) {
+        // prevent submitting the form
+        event.preventDefault();
+
+        // Click the tab with id 'gen-tab'
+        document.getElementById(tabName + '-tab').click();
+    }
+</script>
 </script>

@@ -142,7 +142,7 @@
         }
     }
 
-    // Function to generate pagination links
+    // Function to generate pagination links for the crop page
     function generatePaginationLinks($total_pages, $current_page, $pageQueryParam)
     {
         echo '<ul class="pagination justify-content-center">';
@@ -150,6 +150,19 @@
             $activeClass = ($current_page == $page) ? 'active' : '';
             echo '<li class="page-item ' . $activeClass . '">';
             echo '<a class="page-link" href="?' . $pageQueryParam . '=' . $page . '">' . $page . '</a>';
+            echo '</li>';
+        }
+        echo '</ul>';
+    }
+
+    // Function to generate pagination links for the tabs of manange approval ang location
+    function generatePaginationLinksTabs($total_pages, $current_page, $pageQueryParam, $tabId, $tab)
+    {
+        echo '<ul class="pagination justify-content-center">';
+        for ($page = 1; $page <= $total_pages; $page++) {
+            $activeClass = ($current_page == $page) ? 'active' : '';
+            echo '<li class="page-item ' . $activeClass . '">';
+            echo '<a class="page-link" href="?tab=' . $tab . '&' . $tabId . '=' . $tabId . '&' . $pageQueryParam . '=' . $page . '">' . $page . '</a>';
             echo '</li>';
         }
         echo '</ul>';
@@ -224,54 +237,4 @@
     $_SESSION["ACCESS"]["ADMIN"] = isset($_SESSION['rank']) && $_SESSION['rank'] == "admin";
     $_SESSION["ACCESS"]["CURATOR"] = isset($_SESSION['rank']) && $_SESSION['rank'] == "curator";
     ?>
-
-    function filterTable() {
-        var input, filter, table, tr, td, i, j, txtValue;
-        input = document.getElementById("searchInput");
-        filter = input.value.toUpperCase();
-        table = document.getElementById("dataTable");
-        tr = table.getElementsByTagName("tr");
-
-        for (i = 0; i < tr.length; i++) {
-            var found = false;
-            if (i === 0) {
-                tr[i].style.display = "";
-                continue; // Skip the header row
-            }
-            for (j = 0; j < tr[i].getElementsByTagName("td").length; j++) {
-                td = tr[i].getElementsByTagName("td")[j];
-                if (td) {
-                    txtValue = td.textContent || td.innerText;
-                    if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                        found = true;
-                        break;
-                    }
-                }
-            }
-            tr[i].style.display = found ? "" : "none";
-        }
-    }
-
-    function filterTableBox() {
-        var input, filter, rows, i, txtValue;
-        input = document.getElementById("searchInputBox");
-        filter = input.value.toUpperCase();
-        rows = document.getElementsByClassName("filterable-row");
-
-        for (i = 0; i < rows.length; i++) {
-            var found = false;
-            var cells = rows[i].getElementsByTagName("h4"); // Assuming the text to filter is inside an h4 element
-
-            for (var j = 0; j < cells.length; j++) {
-                txtValue = cells[j].textContent || cells[j].innerText;
-
-                if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                    found = true;
-                    break;
-                }
-            }
-
-            rows[i].style.display = found ? "" : "none";
-        }
-    }
 </script>

@@ -10,44 +10,63 @@
 
 <!-- LOCATION TAB -->
 <div class="fade show active tab-pane" id="loc-tab-pane" role="tabpanel" aria-labelledby="loc-tab" tabindex="0">
-    <div class="row">
+    <div class="row mb-3">
         <!-- form -->
         <div class="col-6">
-            <!-- coordinates -->
-            <label for="" class="form-label small-font mb-0">Coordinates</label>
-            <input id="coordInput" type="text" class="form-control" aria-describedby="coords-help">
-            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Seperate latitude and longitude with a comma (latitude , longitude)</div>
 
+            <!-- Province dropdown -->
+            <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
+            <select id="Province" name="province" class="form-select mb-2" readonly disabled>
+                <?php
+                // Fetch distinct province names from the location table
+                $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";
+                $query_run = pg_query($conn, $queryProvince);
 
-            <!-- street -->
-            <label for="" class="form-label small-font mb-0">Neighbourhood</label>
-            <input id="neighbourhood" type="text" class="form-control mb-2">
+                $count = pg_num_rows($query_run);
 
-            <!-- barangay -->
-            <label for="" class="form-label small-font mb-0">Barangay</label>
-            <select name="" id="barangay" class="form-select mb-2">
-                <option id="brgy-blank-option" value="" class="form-select"></option>
+                // If there is data, display distinct province names
+                if ($count > 0) {
+                    while ($row = pg_fetch_assoc($query_run)) {
+                        $province_name = $row['province_name'];
+                ?>
+                        <option value="<?= $province_name; ?>"><?= $province_name; ?></option>
+                <?php
+                    }
+                }
+                ?>
             </select>
 
             <!-- Municipality dropdown -->
             <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
-            <select id="municipality" name="municipality" class="form-select mb-2">
-                <option id="muni-blank-option" value="" class="form-select"></option>
-                <option value="Alabel" class="form-select">Alabel</option>
-                <option value="Glan" class="form-select">Glan</option>
-                <option value="Kiamba" class="form-select">Kiamba</option>
-                <option value="Maasim" class="form-select">Maasim</option>
-                <option value="Maitum" class="form-select">Maitum</option>
-                <option value="Malapatan" class="form-select">Malapatan</option>
-                <option value="Malungon" class="form-select">Malungon</option>
+            <select id="Municipality" name="municipality" class="form-select">
             </select>
 
-            <!-- Province dropdown -->
-            <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
-            <input type="text" class="form-control" value="Sarangani" readonly>
+            <!-- barangay -->
+            <label for="Barangay" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
+            <select id="Barangay" name="barangay" class="form-select mb-2">
+            </select>
+
+            <!-- street -->
+            <label for="neighbourhood" class="form-label small-font mb-0">Neighbourhood</label>
+            <input id="neighbourhood" type="text" class="form-control mb-2">
+
+
+            <!-- coordinates -->
+            <label for="coordInput" class="form-label small-font mb-0">Coordinates</label>
+            <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
+            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Seperate latitude and longitude with a comma (latitude , longitude)</div>
+
         </div>
         <!-- map -->
         <div id="map" class="col border">
+        </div>
+    </div>
+
+    <!-- STEP NAVIGATION -->
+    <div class="row">
+        <div class="col d-flex justify-content-between">
+            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open General Info tab" onclick="switchTab('gen',this)"><i class="fa-solid fa-backward"></i></button>
+            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Additional Info tab" onclick="switchTab('more',this)"><i class="fa-solid fa-forward"></i></button>
         </div>
     </div>
 </div>
@@ -62,180 +81,67 @@
     const municipalitySelect = document.getElementById('municipality');
     const barangaySelect = document.getElementById('barangay');
 
-    // Define barangays for each municipality
-    const barangaysByMunicipality = {
-        'Alabel': [
-            'Alegria',
-            'Bagacay',
-            'Baluntay',
-            'Datal Anggas',
-            'Domolok',
-            'Kawas',
-            'Ladol',
-            'Maribulan',
-            'New Poblacion',
-            'Old Poblacion',
-            'Pag-Asa',
-            'Pangasahan',
-            'Spring',
-            'Tokawal'
-        ],
-        'Glan': [
-            'Bitoon',
-            'Burias',
-            'Calabanit',
-            'Calpidong',
-            'Congan',
-            'Crossing Rubber',
-            'Kaltuad',
-            'Kapatan',
-            'Laperian',
-            'Poblacion',
-            'Rio Del Pilar',
-            'San Vicente',
-            'Sangay',
-            'Small Margus',
-            'Sufatubo',
-            'Tampuan'
-        ],
-        'Kiamba': [
-            'Bagutong',
-            'Bonglacio',
-            'Kalemba',
-            'Kalusukan',
-            'Katubao',
-            'Lun Masla',
-            'Lun Padidu',
-            'Mongayang',
-            'Nalus',
-            'Salakit',
-            'Saloagan',
-            'Sinawal',
-            'Sufaat',
-            'Tinoto',
-            'Tuka',
-            'Upo'
-        ],
-        'Maasim': [
-            'Batulaki',
-            'Budac',
-            'Daliao',
-            'Kamanga',
-            'Kanalo',
-            'Kinam',
-            'Lomuyon',
-            'Pangi',
-            'Poblacion',
-            'Nomoh',
-            'Nalus',
-            'Tuanadatu',
-            'Tinoto'
-        ],
-        'Maitum': [
-            'Bati-An',
-            'Kalaong',
-            'Kiayap',
-            'Koronadal Proper',
-            'Old Poblacion',
-            'Pangi',
-            'Poblacion',
-            'Baguan',
-            'New Poblacion',
-            'Kalukbong',
-            'New La Union',
-            'Old La Union'
-        ],
-        'Malapatan': [
-            'Alkikan',
-            'Alsamin',
-            'B\'laan ',
-            'Crossing Rubber',
-            'Datu Danwata',
-            'Datu Dullen',
-            'Katubao',
-            'Lun Masla',
-            'Lun Padidu',
-            'Malkan',
-            'Nomoh',
-            'Poblacion',
-            'Sapu Masla',
-            'Sapu Padidu',
-            'Sarapen',
-            'Sufatubo',
-            'Tuyan',
-            'Kihan',
-            'Tuban'
-        ],
-        'Malungon': [
-            'Blao',
-            'Datalbatong',
-            'Kawayan',
-            'Kinam',
-            'Lun Padidu',
-            'Mabini',
-            'Malkan',
-            'Maloloy-on',
-            'Manansang',
-            'Poblacion',
-            'Patag',
-            'San Felipe',
-            'Sapu Masla',
-            'Sarangani',
-            'Tinagacan',
-            'Upper Biangan',
-            'Kihan'
-        ]
-    };
+    // Function to populate municipalities dropdown based on selected province
+    function populateMunicipalities(selectedProvince) {
+        // Fetch municipalities based on the selected province
+        fetch('crop-page/modals/fetch-location/fetch_location.php?province=' + selectedProvince)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); // Log the response data
+                // Rest of your code
+                var municipalitiesDropdown = document.getElementById('Municipality');
+                municipalitiesDropdown.innerHTML = ''; // Clear existing options
 
-
-    // Function to populate barangay dropdown based on selected municipality
-    function populateBarangays() {
-        const selectedMunicipality = municipalitySelect.value;
-
-        // If no municipality is selected, display all barangays
-        if (selectedMunicipality === '' || selectedMunicipality === null) {
-            let allBarangays = [];
-            for (const municipality in barangaysByMunicipality) {
-                allBarangays = allBarangays.concat(barangaysByMunicipality[municipality]);
-            }
-
-            // Remove duplicate barangay names
-            const uniqueBarangays = [...new Set(allBarangays)];
-
-            // Clear existing options
-            barangaySelect.innerHTML = '<option id="brgy-blank-option" value="" class="form-select"></option>';
-            // barangaySelect.value = "";
-
-            // Populate with new options
-            uniqueBarangays.forEach(barangay => {
-                const option = document.createElement('option');
-                option.textContent = barangay;
-                option.value = barangay;
-                barangaySelect.appendChild(option);
+                // Add the fetched municipalities as options in the dropdown
+                data.forEach(municipality => {
+                    var option = document.createElement('option');
+                    option.value = municipality;
+                    option.text = municipality;
+                    municipalitiesDropdown.appendChild(option);
+                });
             });
-        } else {
-            // If a municipality is selected, display barangays for that municipality
-            const barangays = barangaysByMunicipality[selectedMunicipality] || [];
-
-            // Clear existing options
-            barangaySelect.innerHTML = '<option id="brgy-blank-option" value="" class="form-select"></option>';
-            // barangaySelect.value = "";
-
-            // Populate with new options
-            barangays.forEach(barangay => {
-                const option = document.createElement('option');
-                option.textContent = barangay;
-                option.value = barangay;
-                barangaySelect.appendChild(option);
-            });
-        }
     }
 
-    // Initial population of barangay dropdown
-    populateBarangays();
+    // Call the populateMunicipalities function when the province dropdown value changes
+    document.getElementById('Province').addEventListener('change', function() {
+        var selectedProvince = document.getElementById('Province').value;
+        populateMunicipalities(selectedProvince);
+    });
 
-    // Event listener for change in municipality dropdown
-    municipalitySelect.addEventListener('change', populateBarangays);
+    // Call the populateMunicipalities function initially to populate the municipalities dropdown based on the default selected province
+    var selectedProvince = document.getElementById('Province').value;
+    populateMunicipalities(selectedProvince);
+
+    // Function to populate municipalities dropdown based on selected province
+    function populateBarangay(selectedMunicipality) {
+        // Fetch municipalities based on the selected province
+        fetch('crop-page/modals/fetch-location/fetch_location.php?municipality=' + selectedMunicipality)
+            .then(response => response.json())
+            .then(data => {
+                console.log(data); // Log the response data
+
+                var barangayDropdown = document.getElementById('Barangay');
+                barangayDropdown.innerHTML = ''; // Clear existing options
+
+                // Add the fetched municipalities as options in the dropdown
+                data.forEach(barangay => {
+                    var option = document.createElement('option');
+                    option.value = barangay;
+                    option.text = barangay;
+                    barangayDropdown.appendChild(option);
+                });
+            });
+    }
+
+    // Call the populateBarangay function when the municipality dropdown value changes
+    document.getElementById('Municipality').addEventListener('change', function() {
+        var selectedMunicipality = document.getElementById('Municipality').value;
+        populateBarangay(selectedMunicipality);
+    });
+
+    // Call the populateBarangay function initially to populate the municipalities dropdown based on the default selected municipality
+    var selectedMunicipality = document.getElementById('Municipality').value;
+    populateBarangay(selectedMunicipality);
 
     // initializnig map
     const map = L.map('map').setView([6.403013, 124.725062], 9); //starting position
@@ -302,10 +208,8 @@
                 console.log('Major Streets:', details.majorStreets);
                 console.log('Major and Minor Streets:', details.majorAndMinorStreets);
                 console.log('Building:', details.building);
-
             });
     }
-
 
     map.on('click', onMapClick);
 

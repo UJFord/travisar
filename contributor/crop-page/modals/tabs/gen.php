@@ -20,8 +20,26 @@
         aspect-ratio: 1/1;
     }
 
+    .image-preview {
+        position: relative;
+        display: inline-block;
+        aspect-ratio: 1/1;
+    }
+
+    .remove-image {
+        position: absolute;
+        top: 0.3;
+        right: 0.3rem;
+        background: none;
+        border: none;
+        color: red;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+
     /* hiding the scrollbar */
-    #previewContainer {
+    #preview {
         scrollbar-width: none;
         /* Firefox */
         -ms-overflow-style: none;
@@ -31,6 +49,20 @@
 
 <!-- GENERAL TAB -->
 <div class="fade tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
+
+    <!-- para ma empty lang ang data sa db dili ra sya ma null -->
+    <input type="hidden" name="crop_local_name" value="">
+    <input type="hidden" name="field_id" value="1">
+    <input type="hidden" name="cultural_significance" value="">
+    <input type="hidden" name="spiritual_significance" value="">
+    <input type="hidden" name="cultural_importance_and_traditional_knowledge" value="">
+    <input type="hidden" name="cultural_use">
+    <input type="hidden" name="threats" value="">
+
+    <!-- to get the user_id of the logged in user -->
+    <input type="hidden" name="user_id" value="<?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) {
+                                                    echo $_SESSION['USER']['user_id'];
+                                                } ?>">
 
     <!-- NAME AND TYPE -->
     <div class="row mb-3">
@@ -46,7 +78,8 @@
             <select name="category_id" id="Category" class="form-select">
                 <?php
                 // get the data of category from DB
-                $queryCategory = "SELECT * FROM category ORDER BY 
+                // gi set ra nako na permi last ang other nga category og ascending sya based sa catgory name
+                $queryCategory = "SELECT * FROM category ORDER BY
                 CASE
                     WHEN category_name = 'Other' THEN 2
                     ELSE 1
@@ -84,9 +117,9 @@
                     <span>Image <span style="color: red;">*</span></span>
                 </label>
                 <!-- image input -->
-                <input class="mb-1 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_image[]" multiple>
+                <input class="mb-2 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_image[]" multiple>
                 <!-- image preview -->
-                <div class="preview-container custom-scrollbar overflow-scroll rounded border py-2" id="previewContainer"></div>
+                <div class="preview-container custom-scrollbar overflow-scroll rounded border p-1" id="preview"></div>
             </div>
         </div>
     </div>
@@ -102,12 +135,10 @@
     <!-- STEP NAVIGATION -->
     <div class="row">
         <div class="col d-flex justify-content-end">
-            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc',this)"><i class="fa-solid fa-forward"></i></button>
+            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc')"><i class="fa-solid fa-forward"></i></button>
         </div>
     </div>
 </div>
-
-
 
 <!-- SCRIPT -->
 <script defer>
@@ -115,26 +146,45 @@
     const imageInput = document.getElementById('imageInput');
     const previewContainer = document.querySelector('.preview-container');
 
-    imageInput.addEventListener('change', (event) => {
-        // Clear existing previews
-        previewContainer.innerHTML = '';
+    // function to display and remove the image selected
+    $(document).ready(function() {
+        $('input[type="file"]').on("change", function() {
+            var files = $(this)[0].files;
+            $('#preview').empty();
+            $.each(files, function(i, file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#preview').append('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-image" data-index="' + i + '"><i class="fa-solid fa-xmark"></i></button></div>');
+                }
+                reader.readAsDataURL(file);
+            });
+        });
 
-        const files = event.target.files;
-        for (let i = 0; i < files.length; i++) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.classList.add('img-thumbnail', 'mx-2'); // Add Bootstrap styling
-                previewContainer.appendChild(img);
-            };
-            reader.readAsDataURL(files[i]);
-        }
+        //* if you input muiltiple images and you added a wrong one you can delete it
+        //* this code will remove the one you deleted from existing image array
+        //* and the remaining images is transfered to another array and is considered as a new input
+        $(document).on("click", ".remove-image", function() {
+            var index = $(this).data("index");
+            var input = $('input[type="file"]')[0];
+            var files = input.files;
+            var newFiles = [];
+            for (var i = 0; i < files.length; i++) {
+                if (i !== index) {
+                    newFiles.push(files[i]);
+                }
+            }
+            //* mao ni tung mag transfer sa data to another input
+            var dataTransfer = new DataTransfer();
+            newFiles.forEach(function(file) {
+                dataTransfer.items.add(file);
+            });
+            input.files = dataTransfer.files;
+            $(this).parent().remove();
+        });
     });
 
     // to show the border only when there a picture inside
     // const previewContainer = document.getElementById('previewContainer');
-
     function checkForContent() {
         if (previewContainer.hasChildNodes()) {
             previewContainer.classList.add('border');
@@ -149,16 +199,4 @@
     // Call whenever content might change within the container
     previewContainer.addEventListener('DOMNodeInserted', checkForContent);
     previewContainer.addEventListener('DOMNodeRemoved', checkForContent);
-
-
-    // next button
-    function switchTab(tabName) {
-        // prevent submitting the form
-        event.preventDefault();
-
-        // Get the tab content elements
-        var tabPanes = document.querySelectorAll('.tab-pane');
-        // Click the tab with id 'loc-tab'
-        document.getElementById('loc-tab').click();
-    }
 </script>
