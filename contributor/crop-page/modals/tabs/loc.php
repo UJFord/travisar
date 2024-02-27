@@ -9,7 +9,7 @@
 </style>
 
 <!-- LOCATION TAB -->
-<div class="fade show active tab-pane" id="loc-tab-pane" role="tabpanel" aria-labelledby="loc-tab" tabindex="0">
+<div class="fade tab-pane" id="loc-tab-pane" role="tabpanel" aria-labelledby="loc-tab" tabindex="0">
     <div class="row mb-3">
         <!-- form -->
         <div class="col-6">

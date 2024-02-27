@@ -172,63 +172,6 @@
     </div> -->
 </div>
 
-<!-- SCRIPT -->
-<script defer>
-    // handling to show all image inputs
-    const imageInput = document.getElementById('imageInput');
-    const previewContainer = document.querySelector('.preview-container');
-
-    imageInput.addEventListener('change', (event) => {
-        // Clear existing previews
-        previewContainer.innerHTML = '';
-
-        const files = event.target.files;
-        for (let i = 0; i < files.length; i++) {
-            const reader = new FileReader();
-            reader.onload = (e) => {
-                const img = document.createElement('img');
-                img.src = e.target.result;
-                img.classList.add('img-thumbnail', 'mx-2'); // Add Bootstrap styling
-                previewContainer.appendChild(img);
-            };
-            reader.readAsDataURL(files[i]);
-        }
-    });
-
-    // to show the border only when there a picture inside
-    // const previewContainer = document.getElementById('previewContainer');
-
-    function checkForContent() {
-        if (previewContainer.hasChildNodes()) {
-            previewContainer.classList.add('border');
-        } else {
-            previewContainer.classList.remove('border');
-        }
-    }
-
-    // Call initially on page load
-    checkForContent();
-
-    // Call whenever content might change within the container
-    previewContainer.addEventListener('DOMNodeInserted', checkForContent);
-    previewContainer.addEventListener('DOMNodeRemoved', checkForContent);
-
-
-    // next button
-    function switchTab(tabName) {
-        // Get the tab content elements
-        var tabPanes = document.querySelectorAll('.tab-pane');
-
-        // Hide all tab content elements
-        tabPanes.forEach(function(tabPane) {
-            tabPane.classList.remove('show', 'active');
-        });
-
-        // Show the target tab content element
-        document.getElementById(tabName + '-tab-pane').classList.add('show', 'active');
-    }
-</script>
-
 <!-- JavaScript to show or hide the input box -->
 <script>
     document.getElementById('Category').addEventListener('change', function() {
