@@ -255,6 +255,7 @@ require "../functions/functions.php";
                 .then(details => {
                     // set neighbourhood
                     neighbourhoodValue.value = details.neighbourhood
+                    neighbourhoodValueEdit.value = details.neighbourhood
                     // set municipality
                     municipalitySelect.value = details.town;
                     // set barangay
@@ -269,6 +270,7 @@ require "../functions/functions.php";
                     console.log('Borough:', details.borough);
                     console.log('Village:', details.village);
                     console.log('Suburb:', details.suburb);
+                    console.log('Neighbourhood:', details.neighbourhood);
                     console.log('Neighbourhood:', details.neighbourhood);
                     console.log('Settlement:', details.settlement);
                     console.log('Major Streets:', details.majorStreets);
