@@ -150,7 +150,7 @@ require "../functions/functions.php";
         // Function to populate municipalities dropdown based on selected province
         function populateMunicipalities(selectedProvince) {
             // Fetch municipalities based on the selected province
-            fetch('crop-page/modals/fetch-location/fetch_location.php?province=' + selectedProvince)
+            fetch('crop-page/modals/fetch-location/fetch_location-add.php?province=' + selectedProvince)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data); // Log the response data
@@ -181,7 +181,7 @@ require "../functions/functions.php";
         // Function to populate municipalities dropdown based on selected province
         function populateBarangay(selectedMunicipality) {
             // Fetch municipalities based on the selected province
-            fetch('crop-page/modals/fetch-location/fetch_location.php?municipality=' + selectedMunicipality)
+            fetch('crop-page/modals/fetch-location/fetch_location-add.php?municipality=' + selectedMunicipality)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data); // Log the response data
@@ -195,6 +195,7 @@ require "../functions/functions.php";
                         option.value = barangay;
                         option.text = barangay;
                         barangayDropdown.appendChild(option);
+                        console.log('option');
                     });
                 });
         }
@@ -260,7 +261,6 @@ require "../functions/functions.php";
                     municipalitySelect.value = details.town;
                     // set barangay
                     barangaySelect.value = details.village;
-
 
                     console.log('Country:', details.country);
                     console.log('State:', details.state);

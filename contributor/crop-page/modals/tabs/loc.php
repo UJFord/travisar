@@ -16,7 +16,7 @@
 
             <!-- Province dropdown -->
             <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
-            <select id="Province" name="province" class="form-select mb-2" readonly disabled>
+            <select id="Province" name="province" class="form-select mb-2">
                 <?php
                 // Fetch distinct province names from the location table
                 $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";

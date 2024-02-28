@@ -15,7 +15,7 @@
         <div class="col-6">
             <!-- Province dropdown -->
             <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
-            <select id="Province" name="province" class="form-select mb-2" readonly disabled>
+            <select id="ProvinceEdit" name="province" class="form-select mb-2">
                 <?php
                 // Fetch distinct province names from the location table
                 $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";
@@ -72,72 +72,73 @@
 <!-- leaflet requirement -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
+<!-- SCRIPT for location tab -->
 <script>
     // FORMS SIDE
     // Get references to the select elements
-    const neighbourhoodValueEdit = document.getElementById('neighbourhoodEdit')
+    const neighbourhoodValueEdit = document.getElementById('neighbourhoodEdit');
     const municipalitySelectEdit = document.getElementById('MunicipalitySelect');
-    const barangaySelectEdit = document.getElementById('9');
+    const barangaySelectEdit = document.getElementById('BarangaySelect');
 
     // Function to populate municipalities dropdown based on selected province
-    function populateMunicipalities(selectedProvince) {
-        // Fetch municipalities based on the selected province
-        fetch('crop-page/modals/fetch-location/fetch_location.php?province=' + selectedProvince)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data); // Log the response data
-                // Rest of your code
-                var municipalitiesDropdown = document.getElementById('MunicipalitySelect');
-                municipalitiesDropdown.innerHTML = ''; // Clear existing options
+    const populateMunicipalitiesEdit = async (selectedProvince) => {
+        try {
+            const response = await fetch(`crop-page/modals/fetch-location/fetch_location-edit.php?province=${selectedProvince}`);
+            const data = await response.json();
+            console.log(data);
 
-                // Add the fetched municipalities as options in the dropdown
-                data.forEach(municipality => {
-                    var option = document.createElement('option');
-                    option.value = municipality;
-                    option.text = municipality;
-                    municipalitiesDropdown.appendChild(option);
-                });
+            const municipalitiesDropdown = document.getElementById('MunicipalitySelect');
+            municipalitiesDropdown.innerHTML = '';
+
+            data.forEach((municipality) => {
+                const option = document.createElement('option');
+                option.value = municipality;
+                option.text = municipality;
+                municipalitiesDropdown.appendChild(option);
             });
-    }
+        } catch (error) {
+            console.error('Error fetching municipalities:', error);
+        }
+    };
 
     // Call the populateMunicipalities function when the province dropdown value changes
-    document.getElementById('Province').addEventListener('change', function() {
-        var selectedProvince = document.getElementById('Province').value;
-        populateMunicipalities(selectedProvince);
+    document.getElementById('ProvinceEdit').addEventListener('change', function() {
+        var selectedProvince = document.getElementById('ProvinceEdit').value;
+        populateMunicipalitiesEdit(selectedProvince);
     });
 
     // Call the populateMunicipalities function initially to populate the municipalities dropdown based on the default selected province
-    var selectedProvince = document.getElementById('Province').value;
-    populateMunicipalities(selectedProvince);
+    var selectedProvince = document.getElementById('ProvinceEdit').value;
+    populateMunicipalitiesEdit(selectedProvince);
 
-    // Function to populate municipalities dropdown based on selected province
-    function populateBarangay(selectedMunicipality) {
-        // Fetch municipalities based on the selected province
-        fetch('crop-page/modals/fetch-location/fetch_location.php?municipality=' + selectedMunicipality)
-            .then(response => response.json())
-            .then(data => {
-                console.log(data); // Log the response data
+    // Function to populate barangay dropdown based on selected municipality
+    const populateBarangayEdit = async (selectedMunicipality) => {
+        try {
+            const response = await fetch(`crop-page/modals/fetch-location/fetch_location-edit.php?municipality=${selectedMunicipality}`);
+            const data = await response.json();
+            console.log(data);
 
-                var barangayDropdown = document.getElementById('BarangaySelect');
-                barangayDropdown.innerHTML = ''; // Clear existing options
+            const barangayDropdown = document.getElementById('BarangaySelect');
+            barangayDropdown.innerHTML = '';
 
-                // Add the fetched municipalities as options in the dropdown
-                data.forEach(barangay => {
-                    var option = document.createElement('option');
-                    option.value = barangay;
-                    option.text = barangay;
-                    barangayDropdown.appendChild(option);
-                });
+            data.forEach((barangay) => {
+                const option = document.createElement('option');
+                option.value = barangay;
+                option.text = barangay;
+                barangayDropdown.appendChild(option);
             });
-    }
+        } catch (error) {
+            console.error('Error fetching municipalities:', error);
+        }
+    };
 
     // Call the populateBarangay function when the municipality dropdown value changes
     document.getElementById('MunicipalitySelect').addEventListener('change', function() {
         var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
-        populateBarangay(selectedMunicipality);
+        populateBarangayEdit(selectedMunicipality);
     });
 
     // Call the populateBarangay function initially to populate the municipalities dropdown based on the default selected municipality
     var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
-    populateBarangay(selectedMunicipality);
+    populateBarangayEdit(selectedMunicipality);
 </script>

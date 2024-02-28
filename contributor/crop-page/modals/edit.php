@@ -92,14 +92,14 @@
                             text: value['crop_variety']
                         }));
                         // gi comment out sa nako kay kuwaon pa nako ang data sa db na ma show sa data sa loc
-                        // $('#BarangaySelect').append($('<option>', {
-                        //     value: value['barangay_name'],
-                        //     text: value['barangay_name']
-                        // }));
-                        // $('#MunicipalitySelect').append($('<option>', {
-                        //     value: value['municipality_name'],
-                        //     text: value['municipality_name']
-                        // }));
+                        $('#BarangaySelect').append($('<option>', {
+                            value: value['barangay_name'],
+                            text: value['barangay_name']
+                        }));
+                        $('#MunicipalitySelect').append($('<option>', {
+                            value: value['municipality_name'],
+                            text: value['municipality_name']
+                        }));
                         $('#crop_variety').val(value['crop_variety']);
                         $('#ScienceName').val(value['scientific_name']);
                         $('#UniqueFeat').val(value['unique_features']);
