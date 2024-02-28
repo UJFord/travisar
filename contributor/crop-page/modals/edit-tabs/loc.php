@@ -80,9 +80,13 @@
     const municipalitySelectEdit = document.getElementById('MunicipalitySelect');
     const barangaySelectEdit = document.getElementById('BarangaySelect');
 
+    let initialMunicipality = '';
+    let initialBarangay = '';
+
     // Function to populate municipalities dropdown based on selected province
-    const populateMunicipalitiesEdit = async (selectedProvince) => {
+    const populateMunicipalitiesEdit = async (selectedProvince, initialVal) => {
         try {
+            initialMunicipality = initialVal;
             const response = await fetch(`crop-page/modals/fetch-location/fetch_location-edit.php?province=${selectedProvince}`);
             const data = await response.json();
             console.log(data);
@@ -96,6 +100,12 @@
                 option.text = municipality;
                 municipalitiesDropdown.appendChild(option);
             });
+
+            // Set the initial value if available
+            if (initialMunicipality) {
+                municipalitiesDropdown.value = initialMunicipality;
+            }
+
         } catch (error) {
             console.error('Error fetching municipalities:', error);
         }
@@ -104,16 +114,17 @@
     // Call the populateMunicipalities function when the province dropdown value changes
     document.getElementById('ProvinceEdit').addEventListener('change', function() {
         var selectedProvince = document.getElementById('ProvinceEdit').value;
-        populateMunicipalitiesEdit(selectedProvince);
+        populateMunicipalitiesEdit(selectedProvince, initialMunicipality);
     });
 
     // Call the populateMunicipalities function initially to populate the municipalities dropdown based on the default selected province
     var selectedProvince = document.getElementById('ProvinceEdit').value;
-    populateMunicipalitiesEdit(selectedProvince);
+    populateMunicipalitiesEdit(selectedProvince, initialMunicipality);
 
     // Function to populate barangay dropdown based on selected municipality
-    const populateBarangayEdit = async (selectedMunicipality) => {
+    const populateBarangayEdit = async (selectedMunicipality, initialVal) => {
         try {
+            initialBarangay = initialVal;
             const response = await fetch(`crop-page/modals/fetch-location/fetch_location-edit.php?municipality=${selectedMunicipality}`);
             const data = await response.json();
             console.log(data);
@@ -127,18 +138,25 @@
                 option.text = barangay;
                 barangayDropdown.appendChild(option);
             });
+
+            // Set the initial value if available
+            if (initialBarangay) {
+                barangayDropdown.value = initialBarangay;
+            }
+
         } catch (error) {
             console.error('Error fetching municipalities:', error);
         }
+
     };
 
     // Call the populateBarangay function when the municipality dropdown value changes
     document.getElementById('MunicipalitySelect').addEventListener('change', function() {
         var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
-        populateBarangayEdit(selectedMunicipality);
+        populateBarangayEdit(selectedMunicipality, initialBarangay);
     });
 
     // Call the populateBarangay function initially to populate the municipalities dropdown based on the default selected municipality
     var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
-    populateBarangayEdit(selectedMunicipality);
+    populateBarangayEdit(selectedMunicipality, initialBarangay);
 </script>

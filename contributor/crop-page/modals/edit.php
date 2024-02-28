@@ -85,7 +85,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        // console.log(value['first_name']);
+                        console.log(value['municipality_name']);
 
                         $('#crop_variety_select').append($('<option>', {
                             value: value['crop_variety'],
@@ -107,6 +107,7 @@
                         $('#description').val(value['crop_description']);
                         $('#neighbourhood').val(value['neighbourhood']);
                         $('#coordInput').val(value['coordinates']);
+
                     });
 
                 },
