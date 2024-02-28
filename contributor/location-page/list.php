@@ -21,7 +21,7 @@
     }
 
     .tab_box .tab_btn.active {
-        color: #7360ff;
+        color: #555555;
     }
 
     /* for hiding data that is not active */
@@ -49,11 +49,9 @@
     /* the blue line for showing active tab */
     .line {
         position: absolute;
-        top: 62px;
-        left: 323px;
-        width: 100px;
+        width: 140px;
         height: 5px;
-        background-color: #7360ff;
+        background-color: #555555;
         border-radius: 10px;
         transition: all .3s ease-in-out;
     }
@@ -64,14 +62,13 @@
     }
 </style>
 <!-- LIST -->
-<div class="col border">
     <div class="container">
 
         <!-- HEADING -->
-        <div class="d-flex justify-content-between">
-            <div class="tab_box">
-                <!-- Button Tabs -->
-                <button class="tab_btn active" id="locationTab">Location</button>
+        <div class="tab_box d-flex justify-content-between">
+            <!-- Button Tabs -->
+            <div>
+                <button class="tab_btn active" id="locationTab">Municipality</button>
                 <button class="tab_btn" id="barangayTab">Barangay</button>
                 <div class="line"></div>
             </div>
@@ -114,154 +111,14 @@
 
         <!-- dib ni sya para ma set ang mga tabs na data -->
         <div class="general_info">
+
             <!-- location tab Active -->
-            <div class="gen_info active" id="locationTabData">
-                <!-- TABLE -->
-                <table id="locationTable" class="table table-hover">
-                    <!-- table head -->
-                    <thead>
-                        <tr>
-                            <th class="col-1 thead-item" scope="col">
-                                <input class="form-check-input" type="checkbox">
-                                <label class="form-check-label text-dark-emphasis small-font">
-                                    All
-                                </label>
-                            </th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Province Name</th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Municipality Name</th>
-                            <th col-4>
-                                <!-- add button -->
-                                <button type="button" id="addProvince" class="btn btn-secondary add-loc-btn p-2 btn" name="addProvince" data-bs-toggle="modal" data-bs-target="#add-item-modal">
-                                    Add
-                                </button>
-                            </th>
-                            <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
-                        </tr>
-                    </thead>
+            <?php require 'tabs/muni.php' ?>
 
-                    <!-- table body -->
-                    <tbody class="table-group-divider fw-bold overflow-scroll">
-                        <?php
-                        $query_pending = "SELECT * FROM location ORDER BY location_id ASC LIMIT $items_per_page OFFSET $offset";
-                        $query_run_location = pg_query($conn, $query_pending);
-
-                        if ($query_run_location) {
-                            while ($row = pg_fetch_array($query_run_location)) {
-
-                        ?>
-                                <tr id="row1" data-target="#dataModal" data-id="<?= $row['location_id']; ?>">
-                                    <!-- checkbox -->
-                                    <th scope="row"><input class="form-check-input" type="checkbox"></th>
-                                    <input type="hidden" name="location_id" value="<?= $row['location_id']; ?>">
-                                    <td>
-                                        <!-- Province name -->
-                                        <a href=""><?= $row['province_name']; ?></a>
-                                    </td>
-                                    <!-- Municipality -->
-                                    <td class="small-font">
-                                        <h6 class="text-secondary small-font m-0"><?= $row['municipality_name']; ?></h6>
-                                    </td>
-                                    <!-- Action -->
-                                    <form action="">
-                                        <td>
-                                            <input type="hidden" name="email" value="<?php echo $row['location_id']; ?>" />
-                                            <input type="submit" name="edit" value="edit">
-                                            <input type="submit" name="delete" value="delete">
-                                        </td>
-                                    </form>
-                                    <!-- ellipsis menu butn -->
-                                    <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
-                                </tr>
-                        <?php
-                            }
-                        } else {
-                            echo "No data found.";
-                        }
-                        ?>
-                    </tbody>
-                </table>
-                <!-- Pagination container for Location -->
-                <div class="pagination-container location-pagination-container" id="locationPaginationContainer">
-                    <?php
-                    generatePaginationLinksTabs($total_pages_location, $current_page, 'page_location', 'locationTabData', 'location');
-                    ?>
-                </div>
-            </div>
             <!-- barangay Tab Unactive -->
-            <div class="gen_info" id="barangayTabData">
-                <!-- TABLE -->
-                <table id="barangayTable" class="table table-hover">
-                    <!-- table head -->
-                    <thead>
-                        <tr>
-                            <th class="col-1 thead-item" scope="col">
-                                <input class="form-check-input" type="checkbox">
-                                <label class="form-check-label text-dark-emphasis small-font">
-                                    All
-                                </label>
-                            </th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Municipality Name</th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Barangay Name</th>
-                            <th col-4>
-                                <!-- add button -->
-                                <button type="button" id="addBarangay" class="btn btn-secondary add-loc-btn p-2 btn" name="addBarangay" data-bs-toggle="modal" data-bs-target="#add-item-modal">
-                                    Add
-                                </button>
-                            </th>
-                            <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
-                        </tr>
-                    </thead>
-
-                    <!-- table body -->
-                    <tbody class="table-group-divider fw-bold overflow-scroll">
-                        <?php
-                        $query_barangay = "SELECT * FROM barangay ORDER BY barangay_id ASC LIMIT $items_per_page OFFSET $offset";
-                        $query_run_barangay = pg_query($conn, $query_barangay);
-
-                        if ($query_run_barangay) {
-                            while ($row = pg_fetch_array($query_run_barangay)) {
-                        ?>
-                                <tr id="row1" data-target="#dataModal" data-id="<?= $row['barangay_id']; ?>">
-                                    <!-- checkbox -->
-                                    <th scope="row"><input class="form-check-input" type="checkbox"></th>
-                                    <input type="hidden" name="barangay_id" value="<?= $row['barangay_id']; ?>">
-                                    <td>
-                                        <!-- municipality name -->
-                                        <a href=""><?= $row['municipality_name']; ?></a>
-                                    </td>
-                                    <!-- barangay -->
-                                    <td class="small-font">
-                                        <h6 class="text-secondary small-font m-0"><?= $row['barangay_name']; ?></h6>
-                                    </td>
-                                    <!-- Action -->
-                                    <form action="">
-                                        <td>
-                                            <input type="hidden" name="email" value="<?php echo $row['barangay_id']; ?>" />
-                                            <input type="submit" name="edit" value="edit">
-                                            <input type="submit" name="delete" value="delete">
-                                        </td>
-                                    </form>
-                                    <!-- ellipsis menu butn -->
-                                    <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
-                                </tr>
-                        <?php
-                            }
-                        } else {
-                            echo "No data found.";
-                        }
-                        ?>
-                    </tbody>
-                </table>
-                <!-- Pagination container for Barangay -->
-                <div class="pagination-container barangay-pagination-container" id="barangayPaginationContainer">
-                    <?php
-                    generatePaginationLinksTabs($total_pages_barangay, $current_page, 'page_barangay', 'barangayTabData', 'barangay');
-                    ?>
-                </div>
-            </div>
+            <?php require 'tabs/brgy.php' ?>
         </div>
     </div>
-</div>
 
 <!-- script -->
 <!-- tabs script -->
