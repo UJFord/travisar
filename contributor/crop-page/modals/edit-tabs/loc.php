@@ -13,32 +13,47 @@
     <div class="row mb-3">
         <!-- form -->
         <div class="col-6">
-
             <!-- Province dropdown -->
             <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
-            <select id="Province" name="province_name" class="form-select mb-2" readonly disabled>
+            <select id="Province" name="province" class="form-select mb-2" readonly disabled>
+                <?php
+                // Fetch distinct province names from the location table
+                $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";
+                $query_run = pg_query($conn, $queryProvince);
+
+                $count = pg_num_rows($query_run);
+
+                // If there is data, display distinct province names
+                if ($count > 0) {
+
+                    while ($row = pg_fetch_assoc($query_run)) {
+                        $province_name = $row['province_name'];
+                ?>
+                        <option value="<?= $province_name; ?>"><?= $province_name; ?></option>
+                <?php
+                    }
+                }
+                ?>
             </select>
 
             <!-- Municipality dropdown -->
-            <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
-            <select id="Municipality" name="municipality_name" class="form-select">
+            <label for="MunicipalitySelect" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
+            <select id="MunicipalitySelect" name="municipality" class="form-select mb-2">
             </select>
 
             <!-- barangay -->
             <label for="Barangay" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
-            <select id="Barangay" name="barangay_name" class="form-select mb-2">
+            <select id="BarangaySelect" name="barangay" class="form-select mb-2">
             </select>
 
             <!-- street -->
             <label for="neighbourhood" class="form-label small-font mb-0">Neighbourhood</label>
             <input id="neighbourhood" name="neighbourhood" type="text" class="form-control mb-2">
 
-
             <!-- coordinates -->
             <label for="coordInput" class="form-label small-font mb-0">Coordinates</label>
             <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
             <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Seperate latitude and longitude with a comma (latitude , longitude)</div>
-
         </div>
         <!-- map -->
         <div id="map" class="col border">

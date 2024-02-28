@@ -17,32 +17,34 @@
             </div>
 
             <!-- body -->
-            <div class="modal-body edit-modal-body">
-                <!-- TAB LIST NAVIGATION -->
-                <ul class="nav nav-tabs" id="myTab" role="tablist">
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link active small-font modal-tab" id="gen-tab" data-bs-toggle="tab" data-bs-target="#gen-tab-pane" type="button" role="tab" aria-controls="gen-tab-pane" aria-selected="true"><i class="fa-solid fa-info"></i></button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link small-font modal-tab" id="loc-tab" data-bs-toggle="tab" data-bs-target="#loc-tab-pane" type="button" role="tab" aria-controls="loc-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot"></i> </button>
-                    </li>
-                    <li class="nav-item" role="presentation">
-                        <button class="nav-link small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="false"><i class="fa-solid fa-ellipsis"></i></button>
-                    </li>
-                </ul>
-                <div class="container">
+            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/try.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+                <div class="modal-body edit-modal-body">
+                    <!-- TAB LIST NAVIGATION -->
+                    <ul class="nav nav-tabs" id="myTab" role="tablist">
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active small-font modal-tab" id="gen-tab" data-bs-toggle="tab" data-bs-target="#gen-tab-pane" type="button" role="tab" aria-controls="gen-tab-pane" aria-selected="true"><i class="fa-solid fa-info"></i></button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link small-font modal-tab" id="loc-tab" data-bs-toggle="tab" data-bs-target="#loc-tab-pane" type="button" role="tab" aria-controls="loc-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot"></i> </button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="false"><i class="fa-solid fa-ellipsis"></i></button>
+                        </li>
+                    </ul>
+                    <div class="container">
 
-                    <div class="tab-content mt-2">
-                        <!-- general -->
-                        <?php require "edit-tabs/gen.php" ?>
-                        <!-- location -->
-                        <?php require "edit-tabs/loc.php" ?>
-                        <!-- mroe optional info -->
-                        <?php require "edit-tabs/more.php" ?>
+                        <div class="tab-content mt-2">
+                            <!-- general -->
+                            <?php require "edit-tabs/gen.php" ?>
+                            <!-- location -->
+                            <?php require "edit-tabs/loc.php" ?>
+                            <!-- mroe optional info -->
+                            <?php require "edit-tabs/more.php" ?>
+                        </div>
+
                     </div>
-
                 </div>
-            </div>
+            </form>
 
             <!-- footer -->
             <div class="modal-footer d-flex justify-content-between">
@@ -56,6 +58,7 @@
     </div>
 </div>
 
+<!-- script for getting the on the edit -->
 <script>
     // EDIT SCRIPT
     const tableRows = document.querySelectorAll('.edit_data');
@@ -78,23 +81,34 @@
                 },
                 success: function(response) {
                     // Handle the response from the PHP script
-                    console.log('Response:', response);
+                    // console.log('Response:', response);
 
-                    $.each(response, function (key, value){
-                        // console.log(value['crop_description']);
+                    $.each(response, function(key, value) {
+                        // Append options to select element
+                        // console.log(value['first_name']);
 
+                        $('#crop_variety_select').append($('<option>', {
+                            value: value['crop_variety'],
+                            text: value['crop_variety']
+                        }));
+                        // gi comment out sa nako kay kuwaon pa nako ang data sa db na ma show sa data sa loc
+                        // $('#BarangaySelect').append($('<option>', {
+                        //     value: value['barangay_name'],
+                        //     text: value['barangay_name']
+                        // }));
+                        // $('#MunicipalitySelect').append($('<option>', {
+                        //     value: value['municipality_name'],
+                        //     text: value['municipality_name']
+                        // }));
                         $('#crop_variety').val(value['crop_variety']);
-                        // $('#imageInput').val(value['crop_image']);
                         $('#ScienceName').val(value['scientific_name']);
                         $('#UniqueFeat').val(value['unique_features']);
                         $('#MainEcosystem').val(value['role_in_maintaining_upland_ecosystem']);
                         $('#description').val(value['crop_description']);
-                        $('#Province').val(value['province_name']);
-                        $('#Municipality').val(value['municipality_name']);
-                        $('#Barangay').val(value['barangay_name']);
                         $('#neighbourhood').val(value['neighbourhood']);
                         $('#coordInput').val(value['coordinates']);
                     });
+
                 },
                 error: function(xhr, status, error) {
                     // Handle errors
@@ -109,4 +123,14 @@
             dataModal.show();
         });
     });
+
+    // tab switching
+    // next button
+    function switchTab(tabName) {
+        // prevent submitting the form
+        event.preventDefault();
+
+        // Click the tab with id 'gen-tab'
+        document.getElementById(tabName + '-tab').click();
+    }
 </script>
