@@ -50,7 +50,7 @@
         <div class="collapse navbar-collapse d-md-flex justify-content-md-between" id="navbarNav">
             <ul class="navbar-nav fw-bold">
                 <li class="nav-item">
-                    <a class="nav-link active " aria-current="page" href="crop.php">Crop</a>
+                    <a class="nav-link active " aria-current="page" href="crop.php">Items</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="#">Contributors</a>
