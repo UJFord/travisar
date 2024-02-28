@@ -61,6 +61,7 @@
                     </th>
                     <th class="col text-dark-emphasis small-font" scope="col">Name</th>
                     <th class="col-4 text-dark-emphasis small-font" scope="col">Contributor</th>
+                    <th class="col-4 text-dark-emphasis small-font" scope="col">Action</th>
                     <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
 
                 </tr>
@@ -89,7 +90,7 @@
                         $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
 
                 ?>
-                        <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">
+                        <tr id="row1">
                             <!-- checkbox -->
                             <th scope="row"><input class="form-check-input" type="checkbox"></th>
                             <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
@@ -119,6 +120,9 @@
                                     }
                                     ?>
                                 </span>
+                            </td>
+                            <td>
+                                <a href="#" class="btn btn-success btn-sm edit_data" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">Edit</a>
                             </td>
                             <!-- ellipsis menu butn -->
                             <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
