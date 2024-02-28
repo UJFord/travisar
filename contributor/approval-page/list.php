@@ -21,7 +21,7 @@
     }
 
     .tab_box .tab_btn.active {
-        color: #7360ff;
+        color: #555555;
     }
 
     /* for hiding data that is not active */
@@ -49,23 +49,21 @@
     /* the blue line for showing active tab */
     .line {
         position: absolute;
-        top: 62px;
-        left: 323px;
         width: 100px;
         height: 5px;
-        background-color: #7360ff;
+        background-color: #555555;
         border-radius: 10px;
         transition: all .3s ease-in-out;
     }
 </style>
 <!-- LIST -->
-<div class="col border">
-    <div class="container">
+<div class="container">
+    <div class="row">
 
         <!-- HEADING -->
-        <div class="d-flex justify-content-between">
-            <div class="tab_box">
-                <!-- Button Tabs -->
+        <div class="tab_box d-flex justify-content-between">
+            <!-- Button Tabs -->
+            <div>
                 <button class="tab_btn active" id="pendingTab">Pending</button>
                 <button class="tab_btn" id="approvedTab">Approved</button>
                 <div class="line"></div>
@@ -122,11 +120,10 @@
                                     All
                                 </label>
                             </th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Variety Name</th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Contributor</th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Date Created</th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Status</th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Action</th>
+                            <th class="col text-dark-emphasis small-font" scope="col">Name</th>
+                            <th class="col-3 text-dark-emphasis small-font" scope="col">Contributor</th>
+                            <th class="col-2 text-dark-emphasis text-center small-font" scope="col">Date</th>
+                            <th class="col-1 text-dark-emphasis text-center small-font" scope="col">Status</th>
                             <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
                         </tr>
                     </thead>
@@ -171,40 +168,35 @@
                                         ?>
                                     </td>
                                     <!-- contributor -->
-                                    <td class="small-font">
-                                        <span class="py-1 px-2">
-                                            <?php
-                                            if (pg_num_rows($query_run_user)) {
-                                                $user = pg_fetch_assoc($query_run_user);
-                                                echo '<h6 class="text-secondary small-font m-0">' . $user['first_name'] . " " . $user['last_name'] . '</h6>';
-                                            } else {
-                                                echo "No contributor.";
-                                            }
-                                            ?>
-                                        </span>
+                                    <td class="text-secondary small-font fw-normal">
+                                        <?php
+                                        if (pg_num_rows($query_run_user)) {
+                                            $user = pg_fetch_assoc($query_run_user);
+                                            echo $user['first_name'] . " " . $user['last_name'];
+                                        } else {
+                                            echo "No contributor";
+                                        }
+                                        ?>
                                     </td>
+
                                     <!-- Date Created -->
-                                    <td class="small-font">
-                                        <span class="py-1 px-2">
-                                            <h6 class="text-secondary small-font m-0"><?= $formatted_date; ?></h6>
-                                        </span>
+                                    <td class=" text-secondary small-font text-center fw-normal">
+                                        <?= $formatted_date; ?>
                                     </td>
+
                                     <!-- Status -->
-                                    <td class="small-font">
-                                        <span class="py-1 px-2">
-                                            <h6 class="text-secondary small-font m-0"><?= $row['status']; ?></h6>
-                                        </span>
+                                    <td class="text-secondary small-font text-center fw-normal">
+                                        <?= $row['status']; ?>
                                     </td>
+
                                     <!-- Action -->
-                                    <form action="">
-                                        <td>
-                                            <input type="hidden" name="crop_id" value="<?php echo $row['crop_id']; ?>" />
-                                            <input type="submit" name="approve" value="approve">
-                                            <input type="submit" name="delete" value="delete">
-                                        </td>
-                                    </form>
-                                    <!-- ellipsis menu butn -->
-                                    <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
+                                    <td>
+                                        <form class="d-flex justify-content-center" action="">
+                                            <input type="hidden" name="email" value="<?php echo $row['crop_id']; ?>" />
+                                            <button type="submit" name="approve" class="btn btn-success me-2"><i class="fa-solid fa-check"></i></button>
+                                            <button type="submit" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                        </form>
+                                    </td>
                                 </tr>
                         <?php
                             }
@@ -220,6 +212,11 @@
                     ?>
                 </div>
             </div>
+
+
+
+
+
             <!-- Approved Tab Unactive -->
             <div class="gen_info" id="approvedTabData">
                 <!-- TABLE -->
@@ -233,10 +230,10 @@
                                     All
                                 </label>
                             </th>
-                            <th class="col text-dark-emphasis small-font" scope="col">Variety Name</th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Contributor</th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Date Created</th>
-                            <th class="col-4 text-dark-emphasis small-font" scope="col">Status</th>
+                            <th class="col text-dark-emphasis small-font" scope="col">Name</th>
+                            <th class="col-3 text-dark-emphasis small-font" scope="col">Contributor</th>
+                            <th class="col-2 text-dark-emphasis small-font text-center" scope="col">Date Created</th>
+                            <th class="col-1 text-dark-emphasis small-font text-center" scope="col">Status</th>
                             <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
                         </tr>
                     </thead>
@@ -262,10 +259,15 @@
                                 $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
 
                         ?>
-                                <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">
+                                <!-- <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>" class="class=" <?= ($row['status'] == 'approve') ? 'bg-success-subtle' : 'bg-danger-subtle'; ?>"> -->
+                                <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>" class="bg-success-subtle">
+
+
                                     <!-- checkbox -->
+
                                     <th scope="row"><input class="form-check-input" type="checkbox"></th>
                                     <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
+
                                     <td>
                                         <!-- scientific name -->
                                         <a href=""><?= $row['crop_variety']; ?></a>
@@ -279,31 +281,29 @@
                                         }
                                         ?>
                                     </td>
+
                                     <!-- contributor -->
-                                    <td class="small-font">
-                                        <span class="py-1 px-2">
-                                            <?php
-                                            if (pg_num_rows($query_run_user)) {
-                                                $user = pg_fetch_assoc($query_run_user);
-                                                echo '<h6 class="text-secondary small-font m-0">' . $user['first_name'] . " " . $user['last_name'] . '</h6>';
-                                            } else {
-                                                echo "No contributor.";
-                                            }
-                                            ?>
-                                        </span>
+                                    <td class="small-font text-secondary fw-normal">
+                                        <?php
+                                        if (pg_num_rows($query_run_user)) {
+                                            $user = pg_fetch_assoc($query_run_user);
+                                            echo $user['first_name'] . " " . $user['last_name'];
+                                        } else {
+                                            echo 'No Contributor';
+                                        }
+                                        ?>
                                     </td>
+
                                     <!-- Date Created -->
-                                    <td class="small-font">
-                                        <span class="py-1 px-2">
-                                            <h6 class="text-secondary small-font m-0"><?= $formatted_date; ?></h6>
-                                        </span>
+                                    <td class="text-secondary small-font fw-normal text-center">
+                                        <?= $formatted_date; ?>
                                     </td>
+
                                     <!-- Status -->
-                                    <td class="small-font">
-                                        <span class="py-1 px-2">
-                                            <h6 class="text-secondary small-font m-0"><?= $row['status']; ?></h6>
-                                        </span>
+                                    <td class="text-secondary small-font fw-normal text-center">
+                                        <?= $row['status']; ?>
                                     </td>
+
                                     <!-- ellipsis menu butn -->
                                     <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                                 </tr>
@@ -315,6 +315,8 @@
                         ?>
                     </tbody>
                 </table>
+
+                <!-- pagination -->
                 <div class="pagination-container approved-pagination-container" id="approvedPaginationContainer">
                     <?php
                     generatePaginationLinksTabs($total_pages_approved, $current_page, 'page_approved', 'approvedTabData', 'approved');
