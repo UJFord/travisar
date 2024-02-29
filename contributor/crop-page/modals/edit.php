@@ -83,23 +83,32 @@
                     // Handle the response from the PHP script
                     // console.log('Response:', response);
 
+                    // Clear the current preview
+                    $('#preview').empty();
+
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        // console.log(value['barangay_name']);
+                        // console.log(value['crop_image']);
 
+                        // Update the preview div with the new image
+                        $('#previewEdit').append(`<img id="current-crop-image" src="crop-page/modals/img/${value['crop_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+
+                        // Update the select and input elements with the new data
                         $('#crop_variety_select').append($('<option>', {
                             value: value['crop_variety'],
                             text: value['crop_variety']
                         }));
-                        // gi comment out sa nako kay kuwaon pa nako ang data sa db na ma show sa data sa loc
+
                         $('#BarangaySelect').append($('<option>', {
                             value: value['barangay_name'],
                             text: value['barangay_name']
                         }));
+
                         $('#MunicipalitySelect').append($('<option>', {
                             value: value['municipality_name'],
                             text: value['municipality_name']
                         }));
+
                         $('#crop_variety').val(value['crop_variety']);
                         $('#ScienceName').val(value['scientific_name']);
                         $('#UniqueFeat').val(value['unique_features']);
@@ -107,9 +116,7 @@
                         $('#description').val(value['crop_description']);
                         $('#neighbourhood').val(value['neighbourhood']);
                         $('#coordInput').val(value['coordinates']);
-
                     });
-
                 },
                 error: function(xhr, status, error) {
                     // Handle errors

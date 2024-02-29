@@ -7,7 +7,7 @@
         cursor: pointer;
     }
 
-    .preview-container {
+    .preview-containerEdit {
         /* Adjust style of preview container */
         display: flex;
         /* flex-wrap: wrap; */
@@ -21,7 +21,7 @@
     }
 
     /* hiding the scrollbar */
-    #previewContainer {
+    #previewEdit {
         scrollbar-width: none;
         /* Firefox */
         -ms-overflow-style: none;
@@ -80,14 +80,15 @@
         <div class="col">
             <div class="d-flex flex-column image-upload-container">
                 <!-- label -->
-                <label for="imageInput" class="d-flex align-items-center rounded small-font mb-2">
+                <label for="imageInputEdit" class="d-flex align-items-center rounded small-font mb-2">
                     <i class="fa-solid fa-image me-2"></i>
                     <span>Image <span style="color: red;">*</span></span>
                 </label>
                 <!-- image input -->
-                <input class="mb-2 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_image[]" multiple>
-                <!-- image preview -->
-                <div class="preview-container custom-scrollbar overflow-scroll rounded border p-1" id="preview"></div>
+                <input class="mb-2 form-control form-control-sm" type="file" id="imageInputEdit" accept="image/jpeg,image/png" name="crop_image[]" multiple>
+                <!-- current images -->
+                <div id="previewEdit" class="preview-containerEdit custom-scrollbar overflow-scroll rounded border p-1">
+                </div>
             </div>
         </div>
     </div>
@@ -119,4 +120,64 @@
             otherCategoryInput.style.display = 'none';
         }
     });
+</script>
+
+<script defer>
+    // handling to show all image inputs
+    const imageInputEdit = document.getElementById('imageInputEdit');
+    const previewContainerEdit = document.querySelector('.preview-containerEdit');
+
+    // function to display and remove the image selected
+    $(document).ready(function() {
+        $('input[type="file"]').on("change", function() {
+            var files = $(this)[0].files;
+            $('#previewEdit').empty();
+            $.each(files, function(i, file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#previewEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-image" data-index="' + i + '"><i class="fa-solid fa-xmark"></i></button></div>');
+                }
+                reader.readAsDataURL(file);
+            });
+        });
+
+        //* if you input muiltiple images and you added a wrong one you can delete it
+        //* this code will remove the one you deleted from existing image array
+        //* and the remaining images is transfered to another array and is considered as a new input
+        $(document).on("click", ".remove-image", function() {
+            var index = $(this).data("index");
+            var input = $('input[type="file"]')[0];
+            var files = input.files;
+            var newFiles = [];
+            for (var i = 0; i < files.length; i++) {
+                if (i !== index) {
+                    newFiles.push(files[i]);
+                }
+            }
+            //* mao ni tung mag transfer sa data to another input
+            var dataTransfer = new DataTransfer();
+            newFiles.forEach(function(file) {
+                dataTransfer.items.add(file);
+            });
+            input.files = dataTransfer.files;
+            $(this).parent().remove();
+        });
+    });
+
+    // to show the border only when there a picture inside
+    // const previewContainer = document.getElementById('previewContainer');
+    function checkForContent() {
+        if (previewContainerEdit.hasChildNodes()) {
+            previewContainerEdit.classList.add('border');
+        } else {
+            previewContainerEdit.classList.remove('border');
+        }
+    }
+
+    // Call initially on page load
+    checkForContent();
+
+    // Call whenever content might change within the container
+    previewContainerEdit.addEventListener('DOMNodeInserted', checkForContent);
+    previewContainerEdit.addEventListener('DOMNodeRemoved', checkForContent);
 </script>
