@@ -102,7 +102,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "http://localhost/travisar/contributor/crop-page/modals/try.php",
+                url: "crop-page/modals/crud-code/code.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,
@@ -124,7 +124,6 @@
 
     // tab switching
     // next button
-
     function switchTab(tabName) {
         // prevent submitting the form
         event.preventDefault();
@@ -132,5 +131,4 @@
         // Click the tab with id 'gen-tab'
         document.getElementById(tabName + '-tab').click();
     }
-</script>
 </script>

@@ -139,7 +139,313 @@ require "../functions/functions.php";
             }
         }
     </script>
+    <!-- SCRIPT for location tab -->
+    <script>
+        // FORMS SIDE
+        // Get references to the select elements
+        const neighbourhoodValue = document.getElementById('neighbourhood')
+        const municipalitySelect = document.getElementById('Municipality');
+        const barangaySelect = document.getElementById('Barangay');
 
+        // Function to populate municipalities dropdown based on selected province
+        function populateMunicipalities(selectedProvince) {
+            // Fetch municipalities based on the selected province
+            fetch('crop-page/modals/fetch-location/fetch_location-add.php?province=' + selectedProvince)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Log the response data
+                    // Rest of your code
+                    var municipalitiesDropdown = document.getElementById('Municipality');
+                    municipalitiesDropdown.innerHTML = ''; // Clear existing options
+
+                    // Add the fetched municipalities as options in the dropdown
+                    data.forEach(municipality => {
+                        var option = document.createElement('option');
+                        option.value = municipality;
+                        option.text = municipality;
+                        municipalitiesDropdown.appendChild(option);
+                    });
+                });
+        }
+
+        // Call the populateMunicipalities function when the province dropdown value changes
+        document.getElementById('Province').addEventListener('change', function() {
+            var selectedProvince = document.getElementById('Province').value;
+            populateMunicipalities(selectedProvince);
+        });
+
+        // Call the populateMunicipalities function initially to populate the municipalities dropdown based on the default selected province
+        var selectedProvince = document.getElementById('Province').value;
+        populateMunicipalities(selectedProvince);
+
+        // Function to populate municipalities dropdown based on selected province
+        function populateBarangay(selectedMunicipality) {
+            // Fetch municipalities based on the selected province
+            fetch('crop-page/modals/fetch-location/fetch_location-add.php?municipality=' + selectedMunicipality)
+                .then(response => response.json())
+                .then(data => {
+                    console.log(data); // Log the response data
+
+                    var barangayDropdown = document.getElementById('Barangay');
+                    barangayDropdown.innerHTML = ''; // Clear existing options
+
+                    // Add the fetched municipalities as options in the dropdown
+                    data.forEach(barangay => {
+                        var option = document.createElement('option');
+                        option.value = barangay;
+                        option.text = barangay;
+                        barangayDropdown.appendChild(option);
+                        console.log('option');
+                    });
+                });
+        }
+
+        // Call the populateBarangay function when the municipality dropdown value changes
+        document.getElementById('Municipality').addEventListener('change', function() {
+            var selectedMunicipality = document.getElementById('Municipality').value;
+            populateBarangay(selectedMunicipality);
+        });
+
+        // Call the populateBarangay function initially to populate the municipalities dropdown based on the default selected municipality
+        var selectedMunicipality = document.getElementById('Municipality').value;
+        populateBarangay(selectedMunicipality);
+
+        // initializnig map
+        const map = L.map('map').setView([6.403013, 124.725062], 9); //starting position
+
+        // Declare marker globally
+        let marker = null;
+
+        L.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, { //style URL
+            // tilesize
+            tileSize: 512,
+            // maxzoom
+            maxZoom: 18,
+            // i dont what this does but some says before different tile providers handle zoom differently
+            zoomOffset: -1,
+            // minzoom
+            minZoom: 9,
+            // copyright claim, because openstreetmaps require them
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            // i dont know what this does
+            crossOrigin: true
+        }).addTo(map);
+
+        // input dom
+        let coordInput = document.querySelector('#coordInput');
+
+        // managing map click
+        function onMapClick(e) {
+            // Extract latitude and longitude from the LatLng object
+            const latitude = e.latlng.lat;
+            const longitude = e.latlng.lng;
+
+            // Join the coordinates as a comma-separated string
+            const formattedCoords = latitude.toFixed(6) + ", " + longitude.toFixed(6);
+
+            // Set the input value to the formatted coordinates
+            coordInput.value = formattedCoords;
+
+            // Update the map and pin marker with the clicked coordinates
+            updateMapAndPin(latitude, longitude);
+
+            // fetch data
+            console.log(latitude);
+            console.log(longitude);
+            let details = fetchData(latitude, longitude)
+                .then(details => {
+                    // set neighbourhood
+                    neighbourhoodValue.value = details.neighbourhood
+                    neighbourhoodValueEdit.value = details.neighbourhood
+                    // set municipality
+                    municipalitySelect.value = details.town;
+                    // set barangay
+                    barangaySelect.value = details.village;
+
+                    console.log('Country:', details.country);
+                    console.log('State:', details.state);
+                    console.log('County:', details.county);
+                    console.log('City:', details.city);
+                    console.log('Town:', details.town);
+                    console.log('Borough:', details.borough);
+                    console.log('Village:', details.village);
+                    console.log('Suburb:', details.suburb);
+                    console.log('Neighbourhood:', details.neighbourhood);
+                    console.log('Neighbourhood:', details.neighbourhood);
+                    console.log('Settlement:', details.settlement);
+                    console.log('Major Streets:', details.majorStreets);
+                    console.log('Major and Minor Streets:', details.majorAndMinorStreets);
+                    console.log('Building:', details.building);
+                });
+        }
+
+        map.on('click', onMapClick);
+
+        function updateMapAndPin(latitude, longitude) {
+            // Remove potential existing marker
+            if (marker) {
+                map.removeLayer(marker);
+            }
+
+            // Convert input coordinates to Leaflet LatLng object
+            const latLng = L.latLng(latitude, longitude);
+
+            // Create a new marker if coordinates are valid
+            if (isValidLatLng(latLng)) {
+                marker = L.marker(latLng, {
+                    icon: icon // Use your preferred marker icon (e.g., redIcon)
+                });
+
+                // Add marker to the map
+                marker.addTo(map);
+
+                // Center the map on the new marker
+                // map.setView(latLng, map.getZoom()+1); // Adjust zoom level as needed
+            } else {
+                console.error("Invalid coordinates entered. Please enter valid latitude and longitude values.");
+            }
+        }
+
+        // Input handling function
+        function handleInputChange() {
+            const inputValue = coordInput.value.trim(); // Trim leading/trailing whitespace
+
+            // Ensure comma separation, handle different input formats
+            const parts = inputValue.split(/\s*,\s*/);
+            if (parts.length !== 2) {
+                console.error("Invalid input format. Please enter coordinates in the format 'latitude, longitude'.");
+                return;
+            }
+
+            const latitude = parseFloat(parts[0]);
+            const longitude = parseFloat(parts[1]);
+
+            updateMapAndPin(latitude, longitude);
+        }
+
+        // Utility function to validate LatLng object
+        function isValidLatLng(latLng) {
+            return !isNaN(latLng.lat) && !isNaN(latLng.lng) && -90 <= latLng.lat <= 90 && -180 <= latLng.lng <= 180;
+        }
+
+        // Marker initialization (adjust icon as needed)
+        const icon = L.icon({
+            iconUrl: 'img/location-pin-svgrepo-com.svg',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        // Event listener for input changes
+        coordInput.addEventListener('input', handleInputChange);
+
+        // fetch data from openstreetmap nominatim
+        function fetchData(lat, lng) {
+            return fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Fetch response as text
+                })
+                .then(data => {
+                    // Parse the XML string into a DOM structure
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(data, "text/xml");
+
+                    // Access information in the XML document
+                    const resultElement = xmlDoc.querySelector('result');
+                    const addressPartsElement = xmlDoc.querySelector('addressparts');
+
+                    // Extract details only if the tag exists
+                    const details = {};
+                    if (addressPartsElement) {
+                        details.country = addressPartsElement.querySelector('country')?.textContent || '';
+                        details.state = addressPartsElement.querySelector('state')?.textContent || '';
+                        details.county = addressPartsElement.querySelector('county')?.textContent || '';
+                        details.city = addressPartsElement.querySelector('city')?.textContent || '';
+                        details.town = addressPartsElement.querySelector('town')?.textContent || '';
+                        details.borough = addressPartsElement.querySelector('borough')?.textContent || '';
+                        details.village = addressPartsElement.querySelector('village')?.textContent || '';
+                        details.suburb = addressPartsElement.querySelector('suburb')?.textContent || '';
+                        details.neighbourhood = addressPartsElement.querySelector('neighbourhood')?.textContent || '';
+                        details.settlement = addressPartsElement.querySelector('settlement')?.textContent || '';
+                        details.majorStreets = addressPartsElement.querySelector('major_streets')?.textContent || '';
+                        details.majorAndMinorStreets = addressPartsElement.querySelector('major_and_minor_streets')?.textContent || '';
+                        details.building = addressPartsElement.querySelector('building')?.textContent || '';
+                    }
+
+                    return details;
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                    // Return null or handle error as needed
+                    return null;
+                });
+        }
+    </script>
+    <!-- SCRIPT for crop tab-->
+    <script defer>
+        // handling to show all image inputs
+        const imageInput = document.getElementById('imageInput');
+        const previewContainer = document.querySelector('.preview-container');
+
+        // function to display and remove the image selected
+        $(document).ready(function() {
+            $('input[type="file"]').on("change", function() {
+                var files = $(this)[0].files;
+                $('#preview').empty();
+                $.each(files, function(i, file) {
+                    var reader = new FileReader();
+                    reader.onload = function(e) {
+                        $('#preview').append('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-image" data-index="' + i + '"><i class="fa-solid fa-xmark"></i></button></div>');
+                    }
+                    reader.readAsDataURL(file);
+                });
+            });
+
+            //* if you input muiltiple images and you added a wrong one you can delete it
+            //* this code will remove the one you deleted from existing image array
+            //* and the remaining images is transfered to another array and is considered as a new input
+            $(document).on("click", ".remove-image", function() {
+                var index = $(this).data("index");
+                var input = $('input[type="file"]')[0];
+                var files = input.files;
+                var newFiles = [];
+                for (var i = 0; i < files.length; i++) {
+                    if (i !== index) {
+                        newFiles.push(files[i]);
+                    }
+                }
+                //* mao ni tung mag transfer sa data to another input
+                var dataTransfer = new DataTransfer();
+                newFiles.forEach(function(file) {
+                    dataTransfer.items.add(file);
+                });
+                input.files = dataTransfer.files;
+                $(this).parent().remove();
+            });
+        });
+
+        // to show the border only when there a picture inside
+        // const previewContainer = document.getElementById('previewContainer');
+        function checkForContent() {
+            if (previewContainer.hasChildNodes()) {
+                previewContainer.classList.add('border');
+            } else {
+                previewContainer.classList.remove('border');
+            }
+        }
+
+        // Call initially on page load
+        checkForContent();
+
+        // Call whenever content might change within the container
+        previewContainer.addEventListener('DOMNodeInserted', checkForContent);
+        previewContainer.addEventListener('DOMNodeRemoved', checkForContent);
+    </script>
 </body>
 
 </html>

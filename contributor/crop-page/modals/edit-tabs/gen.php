@@ -35,19 +35,48 @@
     <!-- NAME AND TYPE -->
     <div class="row mb-3">
         <!-- variety name -->
-        <div class="col">
-            <label for="crop_variety" class="form-label small-font">Variety Name <span style="color: red;">*</span></label>
+        <div class="col-6">
+            <label for="crop_variety" class="form-label small-font">Name<span style="color: red;">*</span></label>
             <input id="crop_variety" type="text" name="crop_variety" class="form-control">
         </div>
-        <!-- local name -->
-        <!-- <div class="col">
-            <label for="Local-Name" class="form-label small-font">Local Name <span style="color: red;">*</span></label>
-            <input id="Local-Name" type="text" name="crop_local_name" class="form-control">
+
+        <!-- Category -->
+        <!-- <div class="col-6">
+            <label for="Category" class="form-label small-font">What type of crop is this? <span style="color: red;">*</span></label>
+            <select name="category_id" id="Category" class="form-select">
+                <?php
+                // get the data of category from DB
+                // gi set ra nako na permi last ang other nga category og ascending sya based sa catgory name
+                $queryCategory = "SELECT * FROM category ORDER BY
+                CASE
+                    WHEN category_name = 'Other' THEN 2
+                    ELSE 1
+                END, category_name ASC";
+                $query_run = pg_query($conn, $queryCategory);
+                $query_run = pg_query($conn, $queryCategory);
+
+                $count = pg_num_rows($query_run);
+
+                // if count is greater than 0 there is data
+                if ($count > 0) {
+                    // loop for displaying all categories
+                    while ($row = pg_fetch_assoc($query_run)) {
+                        $category_id = $row['category_id'];
+                        $category_name = $row['category_name'];
+                ?>
+                        <option value="<?= $category_id; ?>"><?= $category_name; ?></option>
+                    <?php
+                    }
+                    ?>
+                <?php
+                }
+                ?>
+            </select>
         </div> -->
     </div>
 
     <!-- IMAGE -->
-    <div class="row mb-3">
+    <div class="row mb-2">
         <div class="col">
             <div class="d-flex flex-column image-upload-container">
                 <!-- label -->
@@ -56,31 +85,11 @@
                     <span>Image <span style="color: red;">*</span></span>
                 </label>
                 <!-- image input -->
-                <input class="mb-1 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_image[]" multiple>
+                <input class="mb-2 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_image[]" multiple>
                 <!-- image preview -->
-                <div class="preview-container custom-scrollbar overflow-scroll rounded border py-2" id="previewContainer"></div>
+                <div class="preview-container custom-scrollbar overflow-scroll rounded border p-1" id="preview"></div>
             </div>
         </div>
-    </div>
-
-    <!-- Scientific Name and Unique Features -->
-    <div class="row mb-3">
-        <!-- Scientific Name -->
-        <div class="col">
-            <label for="ScienceName" class="form-label small-font">Scientific Name</label>
-            <input id="ScienceName" type="text" name="scientific_name" class="form-control">
-        </div>
-        <!-- Unique Features -->
-        <div class="col">
-            <label for="UniqueFeat" class="form-label small-font">Unique Features</label>
-            <input id="UniqueFeat" type="text" name="unique_features" class="form-control">
-        </div>
-    </div>
-
-    <!-- Role in Maintaining Upland Ecosystem -->
-    <div class="col">
-        <label for="MainEcosystem" class="form-label small-font">Role in Maintaining Upland Ecosystem</label>
-        <input id="MainEcosystem" type="text" name="role_in_maintaining_upland_ecosystem" class="form-control">
     </div>
 
     <!-- DISCRIPTION -->
@@ -92,7 +101,6 @@
     </div>
 
     <!-- STEP NAVIGATION -->
-    <!-- //*! gi comment out nako ni kay pag human og redirect ma adto ka sa try.php sa form ata ni sya sa action="try.php" -->
     <!-- <div class="row">
         <div class="col d-flex justify-content-end">
             <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc')"><i class="fa-solid fa-forward"></i></button>
