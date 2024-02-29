@@ -44,12 +44,25 @@ if (isset($_POST['edit'])) {
         $cultural_use = handleEmpty($_POST['cultural_use']);
 
         // Update Cultural Aspect
-        $query_CulturalAspect = "UPDATE cultural_aspect set (cultural_significance, spiritual_significance, cultural_importance_and_traditional_knowledge, cultural_use) 
-            VALUES($1, $2, $3, $4) where cultural_aspect_id = $5";
-        $query_run_CulturalAspect = pg_query_params($conn, $query_CulturalAspect, array($cultural_significance, $spiritual_significance, $cultural_importance_and_traditional_knowledge, $cultural_use, $crop_id));
+        $query_CulturalAspect = "UPDATE cultural_aspect 
+        SET cultural_significance = $1, 
+            spiritual_significance = $2, 
+            cultural_importance_and_traditional_knowledge = $3, 
+            cultural_use = $4
+        WHERE cultural_aspect_id = $5";
+        $query_run_CulturalAspect = pg_query_params($conn, $query_CulturalAspect, array(
+            $cultural_significance,
+            $spiritual_significance, $cultural_importance_and_traditional_knowledge, $cultural_use, $cultural_aspect_id
+        ));
 
-        if ($query_run_CulturalAspect !== false) {  
-            echo 'scultural aspect succcessfully updated';
+        if ($query_run_CulturalAspect !== false) {
+            $affected_rows = pg_affected_rows($query_run_CulturalAspect);
+            if ($affected_rows > 0) {
+                echo "Cultural aspect updated successfully";
+            } else {
+                echo "Error: Cultural aspect ID not found";
+                exit(0);
+            }
         } else {
             echo "Error: " . pg_last_error($conn);
             exit(0);
@@ -120,6 +133,70 @@ if (isset($_POST['edit'])) {
             echo "wala image na select";
             echo "Error: " . pg_last_error($conn);
             die();
+        }
+
+        // Function to generate a unique image name
+        function generate_unique_image_name($ext)
+        {
+            return "Crop_Image_" . rand(000, 999) . '.' . $ext;
+        }
+
+        if (isset($_FILES['crop_image']['name'][0]) && is_array($_FILES['crop_image']['name']) && $_FILES['crop_image']['name'][0] != "") {
+            $extension = array('jpg', 'jpeg', 'png', 'gif');
+            $uploadedImages = array();
+
+            foreach ($_FILES['crop_image']['name'] as $key => $value) {
+                $filename = $_FILES['crop_image']['name'][$key];
+                $filename_tmp = $_FILES['crop_image']['tmp_name'][$key];
+                $destination_path = "img/" . $filename;
+                $ext = pathinfo($filename, PATHINFO_EXTENSION);
+
+                if (in_array($ext, $extension)) {
+                    // Auto rename image
+                    $image = generate_unique_image_name($ext);
+
+                    // Check if the image name already exists in the database
+                    while (true) {
+                        $query = "SELECT crop_image FROM crop WHERE crop_image = $1";
+                        $result = pg_query_params($con, $query, array($image));
+
+                        if ($result === false) {
+                            break;
+                        }
+
+                        $count = pg_num_rows($result);
+
+                        if ($count == 0) {
+                            break;
+                        } else {
+                            // If the image name exists, generate a new one
+                            $image = generate_unique_image_name($ext);
+                        }
+                    }
+
+                    $source_path = $_FILES['crop_image']['tmp_name'][$key];
+                    $destination_path = "../img/" . $image;
+
+                    // Upload the image
+                    $upload = move_uploaded_file($source_path, $destination_path);
+
+                    // Check whether the image is uploaded or not
+                    if (!$upload) {
+                        echo "Image upload failed";
+                        die();
+                    }
+
+                    $uploadedImages[] = $image; // Add image name to the array
+
+                } else {
+                    // Display error message for invalid file format
+                }
+            }
+
+            $finalimg = implode(',', $uploadedImages);
+        } else {
+            // No new images selected, use the current ones
+            $finalimg = $current_crop_image;
         }
 
         $imageNamesString = implode(',', $imageNamesArray);

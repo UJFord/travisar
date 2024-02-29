@@ -138,6 +138,12 @@
                     // Clear the current preview
                     $('#preview').empty();
 
+                    // Extract the current image URL
+                    const currentImageUrl = $('#previewEdit img').attr('src');
+
+                    // Add the current image to the currentImages array
+                    currentImages.push(currentImageUrl);
+
                     $.each(response, function(key, value) {
                         // Append options to select element
                         // console.log(value['crop_id']);
