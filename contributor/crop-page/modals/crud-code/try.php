@@ -46,16 +46,10 @@ if (isset($_POST['edit'])) {
         // Update Cultural Aspect
         $query_CulturalAspect = "UPDATE cultural_aspect set (cultural_significance, spiritual_significance, cultural_importance_and_traditional_knowledge, cultural_use) 
             VALUES($1, $2, $3, $4) where cultural_aspect_id = $5";
-        $query_run_CulturalAspect = pg_query_params($conn, $query_CulturalAspect, array($cultural_significance, $spiritual_significance, $cultural_importance_and_traditional_knowledge, $cultural_use));
+        $query_run_CulturalAspect = pg_query_params($conn, $query_CulturalAspect, array($cultural_significance, $spiritual_significance, $cultural_importance_and_traditional_knowledge, $cultural_use, $crop_id));
 
         if ($query_run_CulturalAspect !== false) {  
-            $row_CulturalAspect = pg_fetch_assoc($query_run_CulturalAspect);
-            if ($row_CulturalAspect !== false && isset($row_CulturalAspect['cultural_aspect_id'])) {
-                $cultural_aspect_id = $row_CulturalAspect['cultural_aspect_id'];
-            } else {
-                echo "Error: Failed to fetch cultural aspect ID";
-                exit(0);
-            }
+            echo 'scultural aspect succcessfully updated';
         } else {
             echo "Error: " . pg_last_error($conn);
             exit(0);
