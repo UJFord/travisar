@@ -135,7 +135,7 @@
     </div>
 </div>
 
-<!-- SCRIPT for crop tab-->
+<!-- SCRIPT for add tab-->
 <script defer>
     // handling to show all image inputs
     const imageInput = document.getElementById('imageInput');
@@ -175,6 +175,14 @@
             });
             input.files = dataTransfer.files;
             $(this).parent().remove();
+        });
+
+        // Add event listener for the hidden.bs.modal event
+        $('#add-item-modal, #edit-item-modal').on('hidden.bs.modal', function() {
+            // Clear the image input field
+            $('#imageInput, #imageInputEdit').val('');
+            // Clear the image preview container
+            $('#preview, #previewEdit').empty();
         });
     });
 
