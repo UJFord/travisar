@@ -34,6 +34,21 @@
 
     <!-- NAME AND TYPE -->
     <div class="row mb-3">
+        <!-- crop_id -->
+        <input id="crop_id" type="hidden" name="crop_id" class="form-control">
+        <!-- cultural_aspect_id -->
+        <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
+
+        <!-- para ma empty lang ang data sa db dili ra sya ma null -->
+        <input type="hidden" name="crop_local_name" value="">
+        <input type="hidden" name="field_id" value="1">
+        <input type="hidden" name="cultural_significance" value="">
+        <input type="hidden" name="spiritual_significance" value="">
+        <input type="hidden" name="cultural_importance_and_traditional_knowledge" value="">
+        <input type="hidden" name="cultural_use" value="">
+        <input type="hidden" name="threats" value="">
+        <input type="hidden" name="category_id" value="">
+
         <!-- variety name -->
         <div class="col-6">
             <label for="crop_variety" class="form-label small-font">Name<span style="color: red;">*</span></label>

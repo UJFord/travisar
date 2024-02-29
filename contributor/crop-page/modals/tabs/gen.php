@@ -56,7 +56,7 @@
     <input type="hidden" name="cultural_significance" value="">
     <input type="hidden" name="spiritual_significance" value="">
     <input type="hidden" name="cultural_importance_and_traditional_knowledge" value="">
-    <input type="hidden" name="cultural_use">
+    <input type="hidden" name="cultural_use" value="">
     <input type="hidden" name="threats" value="">
 
     <!-- NAME AND TYPE -->

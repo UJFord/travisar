@@ -73,6 +73,8 @@ require "../functions/functions.php";
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <!-- search function -->
     <script>
+        // search sa search bar
+        // kung mag search ka tung mga makita lang na data sa table/list ang ma search dili tung sa db
         function filterTable() {
             var input, filter, table, tr, td, i, j, txtValue;
             input = document.getElementById("searchInput");
@@ -139,7 +141,7 @@ require "../functions/functions.php";
             }
         }
     </script>
-    <!-- SCRIPT for location tab -->
+    <!-- SCRIPT for add location tab -->
     <script>
         // FORMS SIDE
         // Get references to the select elements
@@ -150,7 +152,7 @@ require "../functions/functions.php";
         // Function to populate municipalities dropdown based on selected province
         function populateMunicipalities(selectedProvince) {
             // Fetch municipalities based on the selected province
-            fetch('crop-page/modals/fetch-location/fetch_location-add.php?province=' + selectedProvince)
+            fetch('crop-page/modals/fetch/fetch_location-add.php?province=' + selectedProvince)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data); // Log the response data
@@ -181,7 +183,7 @@ require "../functions/functions.php";
         // Function to populate municipalities dropdown based on selected province
         function populateBarangay(selectedMunicipality) {
             // Fetch municipalities based on the selected province
-            fetch('crop-page/modals/fetch-location/fetch_location-add.php?municipality=' + selectedMunicipality)
+            fetch('crop-page/modals/fetch/fetch_location-add.php?municipality=' + selectedMunicipality)
                 .then(response => response.json())
                 .then(data => {
                     console.log(data); // Log the response data

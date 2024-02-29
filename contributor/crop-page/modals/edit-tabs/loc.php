@@ -87,7 +87,7 @@
     const populateMunicipalitiesEdit = async (selectedProvince, initialVal) => {
         try {
             initialMunicipality = initialVal;
-            const response = await fetch(`crop-page/modals/fetch-location/fetch_location-edit.php?province=${selectedProvince}`);
+            const response = await fetch(`crop-page/modals/fetch/fetch_location-edit.php?province=${selectedProvince}`);
             const data = await response.json();
             console.log(data);
 
@@ -125,7 +125,7 @@
     const populateBarangayEdit = async (selectedMunicipality, initialVal) => {
         try {
             initialBarangay = initialVal;
-            const response = await fetch(`crop-page/modals/fetch-location/fetch_location-edit.php?municipality=${selectedMunicipality}`);
+            const response = await fetch(`crop-page/modals/fetch/fetch_location-edit.php?municipality=${selectedMunicipality}`);
             const data = await response.json();
             console.log(data);
 
