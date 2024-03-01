@@ -13,6 +13,7 @@
     <div class="row mb-3">
         <!-- form -->
         <div class="col-6">
+            <input type="hidden" name="crop_location_id" id="crop_location_id">
             <!-- Province dropdown -->
             <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
             <select id="ProvinceEdit" name="province" class="form-select mb-2">

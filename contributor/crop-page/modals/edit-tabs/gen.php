@@ -47,7 +47,10 @@
         <input type="hidden" name="cultural_importance_and_traditional_knowledge" value="">
         <input type="hidden" name="cultural_use" value="">
         <input type="hidden" name="threats" value="">
-        <input type="hidden" name="category_id" value="">
+        <input type="hidden" name="category_id" value="1">
+        <input type="hidden" name="crop_field_id" id="crop_field_id">
+        <input type="hidden" name="other_category_id" id="other_category_id">
+
 
         <!-- variety name -->
         <div class="col-6">

@@ -140,7 +140,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        // console.log(value['neighborhood']);
+                        // console.log(value['crop_field_id']);
 
                         // for gen.php image preview
                         $('#previewEdit').append(`<img id="current-crop-image" src="crop-page/modals/img/${value['crop_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
@@ -166,6 +166,12 @@
                         $('#crop_id').val(value['crop_id']);
                         // cultural_aspect_id
                         $('#cultural_aspect_id').val(value['cultural_aspect_id']);
+                        // crop_location_id
+                        $('#crop_location_id').val(value['crop_location_id']);
+                        // crop_field_id
+                        $('#crop_field_id').val(value['crop_field_id']);
+                        // other_category_id
+                        $('#other_category_id').val(value['other_category_id']);
 
                         // input elements with the new data on gen.php and loc.php
                         $('#crop_variety').val(value['crop_variety']);
