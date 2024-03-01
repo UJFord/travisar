@@ -162,7 +162,7 @@
 
             // If there's an old image, append it to the preview container and set the value of the hidden input field
             if (oldImage) {
-                $('#previewEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="crop-page/modals/img/' + oldImage + '" class="img-thumbnail"/><button class="remove-image" data-index="-1"><i class="fa-solid fa-xmark"></i></button></div>');
+                $('#previewEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="crop-page/modals/img/' + oldImage + '" class="img-thumbnail"/><button class="remove-image" data-index="0"><i class="fa-solid fa-xmark"></i></button></div>');
 
                 // Add the old image name to the file name with a delimiter
                 var oldImageFileName = 'old_image_' + oldImage;
@@ -180,7 +180,7 @@
                 // Set the files in the input element to the new DataTransfer object
                 imageInputEdit.files = dataTransfer.files;
             }
-
+            console.log("Remaining images after change:", imageInputEdit.files);
         });
 
         //* if you input multiple images and you added a wrong one you can delete it
@@ -188,6 +188,8 @@
         //* and the remaining images is transfered to another array and is considered as a new input
         $(document).on("click", ".remove-image", function() {
             var index = $(this).data("index");
+            console.log("Removing image at index:", index);
+
             var files = imageInputEdit.files;
             var newFiles = [];
             for (var i = 0; i < files.length; i++) {
@@ -195,6 +197,7 @@
                     newFiles.push(files[i]);
                 }
             }
+
             //* mao ni tung mag transfer sa data to another input
             var dataTransfer = new DataTransfer();
             newFiles.forEach(function(file) {
@@ -202,6 +205,7 @@
             });
             imageInputEdit.files = dataTransfer.files;
             $(this).parent().remove();
+            console.log("New files array after removal:", imageInputEdit.files);
         });
 
         // Add event listener for the hidden.bs.modal event

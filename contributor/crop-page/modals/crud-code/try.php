@@ -78,7 +78,7 @@ if (isset($_POST['edit'])) {
             foreach ($_FILES['crop_image']['name'] as $key => $value) {
                 $filename = $_FILES['crop_image']['name'][$key];
                 $filename_tmp = $_FILES['crop_image']['tmp_name'][$key];
-                $destination_path = "img/" . $filename;
+                $destination_path = "../img/" . $filename;
                 $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
                 $finalimg = '';
