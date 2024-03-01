@@ -24,6 +24,7 @@ if (isset($_POST['edit'])) {
         $threats = handleEmpty($_POST['threats']);
         $neighborhood = handleEmpty($_POST['neighborhood']);
         $coordinates = handleEmpty($_POST['coordinates']);
+        $current_crop_image = handleEmpty($_POST['old_image']);
 
         $status = 'pending';
 
@@ -148,8 +149,7 @@ if (isset($_POST['edit'])) {
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
         if ($query_run_Crop) {
-            $row_crop = pg_fetch_row($query_run_Crop);
-            $crop_id = $row_crop[0];
+            echo 'success crop id';
         } else {
             echo "Error: " . pg_last_error($conn);
             exit(0);
@@ -175,8 +175,7 @@ if (isset($_POST['edit'])) {
         if ($query_run_CropLoc) {
             // Check if any rows were affected
             if (pg_affected_rows($query_run_CropLoc) > 0) {
-                $row_CropLoc = pg_fetch_row($query_run_CropLoc);
-                $crop_location_id = $row_CropLoc[0];
+                echo 'sucessfully crop loc';
             } else {
                 echo "Error: No rows affected";
                 exit(0);
@@ -193,8 +192,7 @@ if (isset($_POST['edit'])) {
         if ($query_run_CropField) {
             // Check if any rows were affected
             if (pg_affected_rows($query_run_CropField) > 0) {
-                $row_CropField = pg_fetch_row($query_run_CropField);
-                $crop_field_id = $row_CropField[0];
+                echo "success crop field";
             } else {
                 echo "Error: No rows affected";
                 exit(0);
