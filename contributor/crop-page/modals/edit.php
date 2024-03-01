@@ -60,9 +60,6 @@
 
 <!-- script for getting the on the edit -->
 <script>
-    // EDIT SCRIPT
-    const tableRows = document.querySelectorAll('.edit_data');
-
     // Function to validate input and submit the form
     function validateAndSubmitForm() {
         // Validate the form
@@ -115,6 +112,9 @@
         }
     }
 
+    // EDIT SCRIPT
+    const tableRows = document.querySelectorAll('.edit_data');
+
     tableRows.forEach(row => {
 
         row.addEventListener('click', () => {
@@ -138,19 +138,15 @@
                     // Clear the current preview
                     $('#preview').empty();
 
-                    // Extract the current image URL
-                    const currentImageUrl = $('#previewEdit img').attr('src');
-
-                    // Add the current image to the currentImages array
-                    currentImages.push(currentImageUrl);
-
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        // console.log(value['crop_id']);
+                        // console.log(value['neighborhood']);
 
-                        // Update the preview div with the new image
                         // for gen.php image preview
                         $('#previewEdit').append(`<img id="current-crop-image" src="crop-page/modals/img/${value['crop_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+
+                        // Fetch the old image and pass it to the fetchOldImage function
+                        fetchOldImage(value.crop_image);
 
                         // Update the select data of loc.php locations
                         $('#crop_variety_select').append($('<option>', {
@@ -177,7 +173,7 @@
                         $('#UniqueFeat').val(value['unique_features']);
                         $('#MainEcosystem').val(value['role_in_maintaining_upland_ecosystem']);
                         $('#description').val(value['crop_description']);
-                        $('#neighbourhood').val(value['neighbourhood']);
+                        $('#neighborhood').val(value['neighborhood']);
                         $('#coordInput').val(value['coordinates']);
                     });
                 },

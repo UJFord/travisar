@@ -47,13 +47,13 @@
             </select>
 
             <!-- street -->
-            <label for="neighbourhood" class="form-label small-font mb-0">Neighbourhood</label>
-            <input id="neighbourhoodEdit" name="neighbourhood" type="text" class="form-control mb-2">
+            <label for="neighborhoodEdit" class="form-label small-font mb-0">Neighborhood</label>
+            <input id="neighborhoodEdit" name="neighborhood" type="text" class="form-control mb-2">
 
             <!-- coordinates -->
             <label for="coordInput" class="form-label small-font mb-0">Coordinates</label>
             <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
-            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Seperate latitude and longitude with a comma (latitude , longitude)</div>
+            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (latitude , longitude)</div>
         </div>
         <!-- map -->
         <div id="map" class="col border">
@@ -76,7 +76,7 @@
 <script>
     // FORMS SIDE
     // Get references to the select elements
-    const neighbourhoodValueEdit = document.getElementById('neighbourhoodEdit');
+    const neighborhoodValueEdit = document.getElementById('neighborhoodEdit');
     const municipalitySelectEdit = document.getElementById('MunicipalitySelect');
     const barangaySelectEdit = document.getElementById('BarangaySelect');
 

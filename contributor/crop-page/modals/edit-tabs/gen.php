@@ -99,11 +99,12 @@
                     <i class="fa-solid fa-image me-2"></i>
                     <span>Image <span style="color: red;">*</span></span>
                 </label>
+                <!-- old/current image -->
+                <input type="hidden" name="old_image" id="oldImageInput">
                 <!-- image input -->
                 <input class="mb-2 form-control form-control-sm" type="file" id="imageInputEdit" accept="image/jpeg,image/png" name="crop_image[]" multiple>
                 <!-- current images -->
-                <div id="previewEdit" class="preview-containerEdit custom-scrollbar overflow-scroll rounded border p-1">
-                </div>
+                <div id="previewEdit" class="preview-containerEdit custom-scrollbar overflow-scroll rounded border p-1"></div>
             </div>
         </div>
     </div>
@@ -142,12 +143,15 @@
     // handling to show all image inputs
     const imageInputEdit = document.getElementById('imageInputEdit');
     const previewContainerEdit = document.querySelector('.preview-containerEdit');
+    let oldImage = ''; // Variable to store the old image URL or filename
 
     // function to display and remove the image selected
     $(document).ready(function() {
         $('input[type="file"]').on("change", function() {
             var files = $(this)[0].files;
             $('#previewEdit').empty();
+
+            // Loop through the files and append them to the preview container
             $.each(files, function(i, file) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
@@ -155,15 +159,36 @@
                 }
                 reader.readAsDataURL(file);
             });
+
+            // If there's an old image, append it to the preview container and set the value of the hidden input field
+            if (oldImage) {
+                $('#previewEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="crop-page/modals/img/' + oldImage + '" class="img-thumbnail"/><button class="remove-image" data-index="-1"><i class="fa-solid fa-xmark"></i></button></div>');
+
+                // Add the old image name to the file name with a delimiter
+                var oldImageFileName = 'old_image_' + oldImage;
+                var file = new File([null], oldImageFileName, {
+                    type: 'text/plain'
+                });
+
+                // Create a new DataTransfer object and add the old image file and new image files to it
+                var dataTransfer = new DataTransfer();
+                dataTransfer.items.add(file);
+                Array.from(imageInputEdit.files).forEach(function(file) {
+                    dataTransfer.items.add(file);
+                });
+
+                // Set the files in the input element to the new DataTransfer object
+                imageInputEdit.files = dataTransfer.files;
+            }
+
         });
 
-        //* if you input muiltiple images and you added a wrong one you can delete it
+        //* if you input multiple images and you added a wrong one you can delete it
         //* this code will remove the one you deleted from existing image array
         //* and the remaining images is transfered to another array and is considered as a new input
         $(document).on("click", ".remove-image", function() {
             var index = $(this).data("index");
-            var input = $('input[type="file"]')[0];
-            var files = input.files;
+            var files = imageInputEdit.files;
             var newFiles = [];
             for (var i = 0; i < files.length; i++) {
                 if (i !== index) {
@@ -175,7 +200,7 @@
             newFiles.forEach(function(file) {
                 dataTransfer.items.add(file);
             });
-            input.files = dataTransfer.files;
+            imageInputEdit.files = dataTransfer.files;
             $(this).parent().remove();
         });
 
@@ -187,6 +212,11 @@
             $('#preview, #previewEdit').empty();
         });
     });
+
+    // Function to fetch the old image when editing an item
+    function fetchOldImage(image) {
+        oldImage = image; // Store the old image URL or filename
+    }
 
     // to show the border only when there a picture inside
     // const previewContainer = document.getElementById('previewContainer');

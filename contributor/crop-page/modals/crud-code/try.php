@@ -22,7 +22,7 @@ if (isset($_POST['edit'])) {
         $municipality_name = $_POST['municipality'];
         $barangay_name = $_POST['barangay'];
         $threats = handleEmpty($_POST['threats']);
-        $neighbourhood = handleEmpty($_POST['neighbourhood']);
+        $neighborhood = handleEmpty($_POST['neighborhood']);
         $coordinates = handleEmpty($_POST['coordinates']);
 
         $status = 'pending';

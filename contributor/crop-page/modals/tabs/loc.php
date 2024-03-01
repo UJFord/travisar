@@ -47,13 +47,13 @@
             </select>
 
             <!-- street -->
-            <label for="neighbourhood" class="form-label small-font mb-0">Neighbourhood</label>
-            <input id="neighbourhood" name="neighbourhood" type="text" class="form-control mb-2">
+            <label for="neighborhood" class="form-label small-font mb-0">Neighborhood</label>
+            <input id="neighborhood" name="neighborhood" type="text" class="form-control mb-2">
 
             <!-- coordinates -->
             <label for="coordInput" class="form-label small-font mb-0">Coordinates</label>
             <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
-            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Seperate latitude and longitude with a comma (latitude , longitude)</div>
+            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (latitude , longitude)</div>
 
         </div>
         <!-- map -->
