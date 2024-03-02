@@ -26,7 +26,7 @@ if (isset($_POST['edit'])) {
         $coordinates = handleEmpty($_POST['coordinates']);
         $current_crop_image = handleEmpty($_POST['old_image']);
 
-        $status = 'pending';
+        $status = 'approved';
 
         // Id's
         $crop_id = handleEmpty($_POST['crop_id']);
@@ -78,7 +78,14 @@ if (isset($_POST['edit'])) {
         // Function to generate a unique image name
         function generate_unique_image_name($ext)
         {
-            return "Crop_Image_" . rand(000, 999) . '.' . $ext;
+            $image = "Crop_Image_" . rand(000, 999) . '.' . $ext;
+
+            // Check if the image with the same name already exists in the directory
+            while (file_exists("../img/" . $image)) {
+                $image = "Crop_Image_" . rand(000, 999) . '.' . $ext;
+            }
+
+            return $image;
         }
 
         // function to update images
@@ -115,6 +122,20 @@ if (isset($_POST['edit'])) {
                     $source_path = $_FILES['crop_image']['tmp_name'][$key];
                     $destination_path = "../img/" . $image;
 
+                    // Delete the old image if it exists
+                    if (!empty($current_crop_image)) {
+                        // Split the old image filenames by comma
+                        $old_image_filenames = explode(',', $current_crop_image);
+
+                        // Iterate over each filename and delete the file
+                        foreach ($old_image_filenames as $filename) {
+                            $old_image_path = "../img/" . trim($filename);
+                            if (file_exists($old_image_path)) {
+                                unlink($old_image_path);
+                            }
+                        }
+                    }
+
                     // Upload the image
                     $upload = move_uploaded_file($source_path, $destination_path);
 
@@ -140,7 +161,7 @@ if (isset($_POST['edit'])) {
         // update crop table
         $queryCrop = "UPDATE crop SET crop_variety = $1, crop_local_name = $2, category_id = $3, role_in_maintaining_upland_ecosystem = $4,
         scientific_name = $5, unique_features = $6, crop_description = $7, status = $8, cultural_aspect_id = $9, threats = $10, crop_image = $11
-        WHERE crop_id = $12";    
+        WHERE crop_id = $12";
 
         $valueCrops = array(
             $crop_variety, $crop_local_name, $category_id, $role_in_maintaining_upland_ecosystem,

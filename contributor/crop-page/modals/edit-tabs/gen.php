@@ -148,6 +148,20 @@
     const previewContainerEdit = document.querySelector('.preview-containerEdit');
     let oldImage = ''; // Variable to store the old image URL or filename
 
+    // Function to add the old image file to the files array
+    function addOldImageFile(oldImageFilename) {
+        var dataTransfer = new DataTransfer();
+        var oldImageFile = new File([null], oldImageFilename, {
+            type: 'image/png'
+        });
+        dataTransfer.items.add(oldImageFile);
+        var files = imageInputEdit.files;
+        Array.from(files).forEach(function(file) {
+            dataTransfer.items.add(file);
+        });
+        imageInputEdit.files = dataTransfer.files;
+    }
+
     // function to display and remove the image selected
     $(document).ready(function() {
         $('input[type="file"]').on("change", function() {
@@ -165,24 +179,18 @@
 
             // If there's an old image, append it to the preview container and set the value of the hidden input field
             if (oldImage) {
-                $('#previewEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="crop-page/modals/img/' + oldImage + '" class="img-thumbnail"/><button class="remove-image" data-index="0"><i class="fa-solid fa-xmark"></i></button></div>');
+                // Split the oldImage value by comma
+                var oldImageFilenames = oldImage.split(',');
 
-                // Add the old image name to the file name with a delimiter
-                var oldImageFileName = 'old_image_' + oldImage;
-                var file = new File([null], oldImageFileName, {
-                    type: 'text/plain'
+                // Iterate over each filename and append an image preview with a remove button
+                oldImageFilenames.forEach(function(filename, index) {
+                    $('#previewEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="crop-page/modals/img/' + filename.trim() + '" class="img-thumbnail"/><button class="remove-image" data-index="' + index + '"><i class="fa-solid fa-xmark"></i></button></div>');
                 });
 
-                // Create a new DataTransfer object and add the old image file and new image files to it
-                var dataTransfer = new DataTransfer();
-                dataTransfer.items.add(file);
-                Array.from(imageInputEdit.files).forEach(function(file) {
-                    dataTransfer.items.add(file);
-                });
-
-                // Set the files in the input element to the new DataTransfer object
-                imageInputEdit.files = dataTransfer.files;
+                // Add the old image file to the files array
+                addOldImageFile('old_image_' + oldImageFilenames[0].trim());
             }
+
             console.log("Remaining images after change:", imageInputEdit.files);
         });
 

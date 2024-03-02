@@ -38,7 +38,7 @@
                             <?php require "edit-tabs/gen.php" ?>
                             <!-- location -->
                             <?php require "edit-tabs/loc.php" ?>
-                            <!-- mroe optional info -->
+                            <!-- more optional info -->
                             <?php require "edit-tabs/more.php" ?>
                         </div>
 
@@ -142,8 +142,13 @@
                         // Append options to select element
                         // console.log(id);
 
-                        // for gen.php image preview
-                        $('#previewEdit').append(`<img id="current-crop-image" src="crop-page/modals/img/${value['crop_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                        // Split the image filenames by comma
+                        var imageFilenames = value['crop_image'].split(',');
+
+                        // Iterate over each filename and append an image element to the preview container
+                        imageFilenames.forEach(function(filename) {
+                            $('#previewEdit').append(`<img src="crop-page/modals/img/${filename.trim()}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                        });
 
                         // Fetch the old image and pass it to the fetchOldImage function
                         fetchOldImage(value.crop_image);
@@ -172,6 +177,9 @@
                         $('#crop_field_id').val(value['crop_field_id']);
                         // other_category_id
                         $('#other_category_id').val(value['other_category_id']);
+
+                        // old image/current image
+                        $('#oldImageInput').val(value['crop_image']);
 
                         // input elements with the new data on gen.php and loc.php
                         $('#crop_variety').val(value['crop_variety']);
