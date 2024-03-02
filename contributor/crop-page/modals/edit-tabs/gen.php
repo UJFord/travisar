@@ -7,7 +7,7 @@
         cursor: pointer;
     }
 
-    .preview-container {
+    .preview-containerEdit {
         /* Adjust style of preview container */
         display: flex;
         /* flex-wrap: wrap; */
@@ -21,7 +21,7 @@
     }
 
     /* hiding the scrollbar */
-    #previewContainer {
+    #previewEdit {
         scrollbar-width: none;
         /* Firefox */
         -ms-overflow-style: none;
@@ -34,6 +34,24 @@
 
     <!-- NAME AND TYPE -->
     <div class="row mb-3">
+        <!-- crop_id -->
+        <input id="crop_id" type="hidden" name="crop_id" class="form-control">
+        <!-- cultural_aspect_id -->
+        <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
+
+        <!-- para ma empty lang ang data sa db dili ra sya ma null -->
+        <input type="hidden" name="crop_local_name" value="">
+        <input type="hidden" name="field_id" value="1">
+        <input type="hidden" name="cultural_significance" value="">
+        <input type="hidden" name="spiritual_significance" value="">
+        <input type="hidden" name="cultural_importance_and_traditional_knowledge" value="">
+        <input type="hidden" name="cultural_use" value="">
+        <input type="hidden" name="threats" value="">
+        <input type="hidden" name="category_id" value="1">
+        <input type="hidden" name="crop_field_id" id="crop_field_id">
+        <input type="hidden" name="other_category_id" id="other_category_id">
+
+
         <!-- variety name -->
         <div class="col-6">
             <label for="crop_variety" class="form-label small-font">Name<span style="color: red;">*</span></label>
@@ -80,14 +98,16 @@
         <div class="col">
             <div class="d-flex flex-column image-upload-container">
                 <!-- label -->
-                <label for="imageInput" class="d-flex align-items-center rounded small-font mb-2">
+                <label for="imageInputEdit" class="d-flex align-items-center rounded small-font mb-2">
                     <i class="fa-solid fa-image me-2"></i>
                     <span>Image <span style="color: red;">*</span></span>
                 </label>
+                <!-- old/current image -->
+                <input type="hidden" name="old_image" id="oldImageInput">
                 <!-- image input -->
-                <input class="mb-2 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_image[]" multiple>
-                <!-- image preview -->
-                <div class="preview-container custom-scrollbar overflow-scroll rounded border p-1" id="preview"></div>
+                <input class="mb-2 form-control form-control-sm" type="file" id="imageInputEdit" accept="image/jpeg,image/png" name="crop_image[]" multiple>
+                <!-- current images -->
+                <div id="previewEdit" class="preview-containerEdit custom-scrollbar overflow-scroll rounded border p-1"></div>
             </div>
         </div>
     </div>
@@ -119,4 +139,114 @@
             otherCategoryInput.style.display = 'none';
         }
     });
+</script>
+
+<!-- SCRIPT for edit tab-->
+<script defer>
+    // handling to show all image inputs
+    const imageInputEdit = document.getElementById('imageInputEdit');
+    const previewContainerEdit = document.querySelector('.preview-containerEdit');
+    let oldImage = ''; // Variable to store the old image URL or filename
+
+    // Function to add the old image file to the files array
+    function addOldImageFile(oldImageFilename) {
+        var dataTransfer = new DataTransfer();
+        var oldImageFile = new File([null], oldImageFilename, {
+            type: 'image/png'
+        });
+        dataTransfer.items.add(oldImageFile);
+        var files = imageInputEdit.files;
+        Array.from(files).forEach(function(file) {
+            dataTransfer.items.add(file);
+        });
+        imageInputEdit.files = dataTransfer.files;
+    }
+
+    // function to display and remove the image selected
+    $(document).ready(function() {
+        $('input[type="file"]').on("change", function() {
+            var files = $(this)[0].files;
+            $('#previewEdit').empty();
+
+            // Loop through the files and append them to the preview container
+            $.each(files, function(i, file) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#previewEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-image" data-index="' + i + '"><i class="fa-solid fa-xmark"></i></button></div>');
+                }
+                reader.readAsDataURL(file);
+            });
+
+            // If there's an old image, append it to the preview container and set the value of the hidden input field
+            if (oldImage) {
+                // Split the oldImage value by comma
+                var oldImageFilenames = oldImage.split(',');
+
+                // Iterate over each filename and append an image preview with a remove button
+                oldImageFilenames.forEach(function(filename, index) {
+                    $('#previewEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="crop-page/modals/img/' + filename.trim() + '" class="img-thumbnail"/><button class="remove-image" data-index="' + index + '"><i class="fa-solid fa-xmark"></i></button></div>');
+                });
+
+                // Add the old image file to the files array
+                addOldImageFile('old_image_' + oldImageFilenames[0].trim());
+            }
+
+            console.log("Remaining images after change:", imageInputEdit.files);
+        });
+
+        //* if you input multiple images and you added a wrong one you can delete it
+        //* this code will remove the one you deleted from existing image array
+        //* and the remaining images is transfered to another array and is considered as a new input
+        $(document).on("click", ".remove-image", function() {
+            var index = $(this).data("index");
+            console.log("Removing image at index:", index);
+
+            var files = imageInputEdit.files;
+            var newFiles = [];
+            for (var i = 0; i < files.length; i++) {
+                if (i !== index) {
+                    newFiles.push(files[i]);
+                }
+            }
+
+            //* mao ni tung mag transfer sa data to another input
+            var dataTransfer = new DataTransfer();
+            newFiles.forEach(function(file) {
+                dataTransfer.items.add(file);
+            });
+            imageInputEdit.files = dataTransfer.files;
+            $(this).parent().remove();
+            console.log("New files array after removal:", imageInputEdit.files);
+        });
+
+        // Add event listener for the hidden.bs.modal event
+        $('#add-item-modal, #edit-item-modal').on('hidden.bs.modal', function() {
+            // Clear the image input field
+            $('#imageInput, #imageInputEdit').val('');
+            // Clear the image preview container
+            $('#preview, #previewEdit').empty();
+        });
+    });
+
+    // Function to fetch the old image when editing an item
+    function fetchOldImage(image) {
+        oldImage = image; // Store the old image URL or filename
+    }
+
+    // to show the border only when there a picture inside
+    // const previewContainer = document.getElementById('previewContainer');
+    function checkForContent() {
+        if (previewContainerEdit.hasChildNodes()) {
+            previewContainerEdit.classList.add('border');
+        } else {
+            previewContainerEdit.classList.remove('border');
+        }
+    }
+
+    // Call initially on page load
+    checkForContent();
+
+    // Call whenever content might change within the container
+    previewContainerEdit.addEventListener('DOMNodeInserted', checkForContent);
+    previewContainerEdit.addEventListener('DOMNodeRemoved', checkForContent);
 </script>

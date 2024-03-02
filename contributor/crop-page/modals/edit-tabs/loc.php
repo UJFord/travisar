@@ -13,6 +13,7 @@
     <div class="row mb-3">
         <!-- form -->
         <div class="col-6">
+            <input type="hidden" name="crop_location_id" id="crop_location_id">
             <!-- Province dropdown -->
             <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
             <select id="ProvinceEdit" name="province" class="form-select mb-2">
@@ -47,13 +48,13 @@
             </select>
 
             <!-- street -->
-            <label for="neighbourhood" class="form-label small-font mb-0">Neighbourhood</label>
-            <input id="neighbourhoodEdit" name="neighbourhood" type="text" class="form-control mb-2">
+            <label for="neighborhoodEdit" class="form-label small-font mb-0">Neighborhood</label>
+            <input id="neighborhoodEdit" name="neighborhood" type="text" class="form-control mb-2">
 
             <!-- coordinates -->
             <label for="coordInput" class="form-label small-font mb-0">Coordinates</label>
             <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
-            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Seperate latitude and longitude with a comma (latitude , longitude)</div>
+            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (latitude , longitude)</div>
         </div>
         <!-- map -->
         <div id="map" class="col border">
@@ -76,7 +77,7 @@
 <script>
     // FORMS SIDE
     // Get references to the select elements
-    const neighbourhoodValueEdit = document.getElementById('neighbourhoodEdit');
+    const neighborhoodValueEdit = document.getElementById('neighborhoodEdit');
     const municipalitySelectEdit = document.getElementById('MunicipalitySelect');
     const barangaySelectEdit = document.getElementById('BarangaySelect');
 
@@ -87,7 +88,7 @@
     const populateMunicipalitiesEdit = async (selectedProvince, initialVal) => {
         try {
             initialMunicipality = initialVal;
-            const response = await fetch(`crop-page/modals/fetch-location/fetch_location-edit.php?province=${selectedProvince}`);
+            const response = await fetch(`crop-page/modals/fetch/fetch_location-edit.php?province=${selectedProvince}`);
             const data = await response.json();
             console.log(data);
 
@@ -125,7 +126,7 @@
     const populateBarangayEdit = async (selectedMunicipality, initialVal) => {
         try {
             initialBarangay = initialVal;
-            const response = await fetch(`crop-page/modals/fetch-location/fetch_location-edit.php?municipality=${selectedMunicipality}`);
+            const response = await fetch(`crop-page/modals/fetch/fetch_location-edit.php?municipality=${selectedMunicipality}`);
             const data = await response.json();
             console.log(data);
 

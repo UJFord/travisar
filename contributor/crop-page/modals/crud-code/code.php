@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "../../../functions/connections.php";
+require "../../../../functions/connections.php";
 
 // if (isset($_POST['save']) && $_SESSION['rank'] == 'curator') {
 // working nani sya pero kay naah may changes sa loc need ni sya i update
@@ -24,7 +24,7 @@ if (isset($_POST['save'])) {
         $municipality_name = $_POST['municipality'];
         $threats = handleEmpty($_POST['threats']);
 
-        $user_id = $_POST['user_id'];
+        $user_id = 3;
         $status = 'pending';
 
         // Check if the array keys are set before accessing them
@@ -39,17 +39,15 @@ if (isset($_POST['save'])) {
         $cultural_importance_and_traditional_knowledge = handleEmpty($_POST['cultural_importance_and_traditional_knowledge']);
         $cultural_use = handleEmpty($_POST['cultural_use']);
 
-        // Cultural Aspect
-        $query_CulturalAspect = "INSERT INTO cultural_aspect (cultural_significance, spiritual_significance, cultural_importance_and_traditional_knowledge, cultural_use) 
-            VALUES($1, $2, $3, $4) RETURNING cultural_aspect_id";
+        $query_CulturalAspect = "INSERT into cultural_aspect (cultural_significance, spiritual_significance, cultural_importance_and_traditional_knowledge, cultural_use) VALUES ($1, $2, $3, $4) returning cultural_aspect_id";
         $query_run_CulturalAspect = pg_query_params($conn, $query_CulturalAspect, array($cultural_significance, $spiritual_significance, $cultural_importance_and_traditional_knowledge, $cultural_use));
 
         if ($query_run_CulturalAspect !== false) {
-            $row_CulturalAspect = pg_fetch_assoc($query_run_CulturalAspect);
-            if ($row_CulturalAspect !== false && isset($row_CulturalAspect['cultural_aspect_id'])) {
-                $cultural_aspect_id = $row_CulturalAspect['cultural_aspect_id'];
+            $affected_rows = pg_affected_rows($query_run_CulturalAspect);
+            if ($affected_rows > 0) {
+                echo "Cultural aspect updated successfully";
             } else {
-                echo "Error: Failed to fetch cultural aspect ID";
+                echo "Error: Cultural aspect ID not found";
                 exit(0);
             }
         } else {
@@ -67,7 +65,7 @@ if (isset($_POST['save'])) {
             foreach ($_FILES['crop_image']['name'] as $key => $value) {
                 $filename = $_FILES['crop_image']['name'][$key];
                 $filename_tmp = $_FILES['crop_image']['tmp_name'][$key];
-                $destination_path = "img/" . $filename;
+                $destination_path = "../img/" . $filename;
                 $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
                 $finalimg = '';
@@ -96,7 +94,7 @@ if (isset($_POST['save'])) {
                     }
 
                     $source_path = $_FILES['crop_image']['tmp_name'][$key];
-                    $destination_path = "img/" . $image;
+                    $destination_path = "../img/" . $image;
 
                     // Upload the image
                     $upload = move_uploaded_file($source_path, $destination_path);
@@ -133,7 +131,8 @@ if (isset($_POST['save'])) {
 
         $valueCrops = array(
             $crop_variety, $crop_local_name, $category_id, $role_in_maintaining_upland_ecosystem,
-            $scientific_name, $unique_features, $crop_description, $status, $cultural_aspect_id, $threats, $user_id, $imageNamesString);
+            $scientific_name, $unique_features, $crop_description, $status, $cultural_aspect_id, $threats, $user_id, $imageNamesString
+        );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
         if ($query_run_Crop) {
@@ -209,7 +208,7 @@ if (isset($_POST['save'])) {
         // Commit the transaction if everything is successful
         pg_query($conn, "COMMIT");
         $_SESSION['message'] = "Crop Created Successfully";
-        header("Location: ../../crop.php");
+        header("Location: ../../../crop.php");
         exit(0);
     } catch (Exception $e) {
         // Rollback the transaction if an error occurs

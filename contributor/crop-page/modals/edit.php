@@ -38,28 +38,80 @@
                             <?php require "edit-tabs/gen.php" ?>
                             <!-- location -->
                             <?php require "edit-tabs/loc.php" ?>
-                            <!-- mroe optional info -->
+                            <!-- more optional info -->
                             <?php require "edit-tabs/more.php" ?>
                         </div>
 
                     </div>
                 </div>
-            </form>
 
-            <!-- footer -->
-            <div class="modal-footer d-flex justify-content-between">
-                <div class="">
-                    <button type="button" class="btn btn-success">Save</button>
-                    <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
+                <!-- footer -->
+                <div class="modal-footer d-flex justify-content-between">
+                    <div class="">
+                        <button type="submit" name="edit" onclick="validateAndSubmitForm()" class="btn btn-success">Edit</button>
+                        <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
+                    </div>
+                    <button type="button" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
                 </div>
-                <button type="button" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
-            </div>
+            </form>
         </div>
     </div>
 </div>
 
 <!-- script for getting the on the edit -->
 <script>
+    // Function to validate input and submit the form
+    function validateAndSubmitForm() {
+        // Validate the form
+        if (validateForm()) {
+            // If validation succeeds, submit the form
+            submitForm();
+        }
+    }
+
+    // Function to validate input
+    function validateForm() {
+        // Get the values from the form
+        var cropName = document.forms["Form"]["crop_variety"].value;
+
+        // Check if the required fields are not empty
+        if (cropName === "") {
+            alert("Please fill out all required fields.");
+            return false; // Prevent form submission
+        }
+        // You can add more validation checks if needed
+        return true; // Allow form submission
+    }
+
+    // Function to submit the form and refresh notifications
+    function submitForm() {
+        console.log('submitForm function called');
+        // Get the form reference
+        var form = document.getElementById('form-panel');
+        // Trigger the form submission
+        if (form) {
+            // Perform AJAX submission or other necessary actions
+            $.ajax({
+                url: "crop-page/modals/crud-code/try.php",
+                method: "POST",
+                data: new FormData(form),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    // Reset the form
+                    form.reset();
+                    // Reload unseen notifications
+                    load_unseen_notification();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Form submission error:", textStatus, errorThrown);
+                    // Handle error if needed
+                }
+            });
+        }
+    }
+
     // EDIT SCRIPT
     const tableRows = document.querySelectorAll('.edit_data');
 
@@ -73,7 +125,7 @@
 
             // Assuming you have jQuery available
             $.ajax({
-                url: 'crop-page/modals/crud-code/try.php',
+                url: 'crop-page/modals/fetch/fetch_crop-edit.php',
                 type: 'POST',
                 data: {
                     'click_edit_btn': true,
@@ -83,15 +135,29 @@
                     // Handle the response from the PHP script
                     // console.log('Response:', response);
 
+                    // Clear the current preview
+                    $('#preview').empty();
+
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        // console.log(value['barangay_name']);
+                        // console.log(id);
 
+                        // Split the image filenames by comma
+                        var imageFilenames = value['crop_image'].split(',');
+
+                        // Iterate over each filename and append an image element to the preview container
+                        imageFilenames.forEach(function(filename) {
+                            $('#previewEdit').append(`<img src="crop-page/modals/img/${filename.trim()}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                        });
+
+                        // Fetch the old image and pass it to the fetchOldImage function
+                        fetchOldImage(value.crop_image);
+
+                        // Update the select data of loc.php locations
                         $('#crop_variety_select').append($('<option>', {
                             value: value['crop_variety'],
                             text: value['crop_variety']
                         }));
-                        // gi comment out sa nako kay kuwaon pa nako ang data sa db na ma show sa data sa loc
                         $('#BarangaySelect').append($('<option>', {
                             value: value['barangay_name'],
                             text: value['barangay_name']
@@ -100,16 +166,30 @@
                             value: value['municipality_name'],
                             text: value['municipality_name']
                         }));
+
+                        // crop_id
+                        $('#crop_id').val(id);
+                        // cultural_aspect_id
+                        $('#cultural_aspect_id').val(value['cultural_aspect_id']);
+                        // crop_location_id
+                        $('#crop_location_id').val(value['crop_location_id']);
+                        // crop_field_id
+                        $('#crop_field_id').val(value['crop_field_id']);
+                        // other_category_id
+                        $('#other_category_id').val(value['other_category_id']);
+
+                        // old image/current image
+                        $('#oldImageInput').val(value['crop_image']);
+
+                        // input elements with the new data on gen.php and loc.php
                         $('#crop_variety').val(value['crop_variety']);
                         $('#ScienceName').val(value['scientific_name']);
                         $('#UniqueFeat').val(value['unique_features']);
                         $('#MainEcosystem').val(value['role_in_maintaining_upland_ecosystem']);
                         $('#description').val(value['crop_description']);
-                        $('#neighbourhood').val(value['neighbourhood']);
+                        $('#neighborhood').val(value['neighborhood']);
                         $('#coordInput').val(value['coordinates']);
-
                     });
-
                 },
                 error: function(xhr, status, error) {
                     // Handle errors

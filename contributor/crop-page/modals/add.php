@@ -16,7 +16,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/try.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -31,7 +31,6 @@
                         </li>
                     </ul>
                     <div class="container">
-
                         <div class="tab-content mt-2">
                             <!-- general -->
                             <?php require "tabs/gen.php" ?>
@@ -40,7 +39,6 @@
                             <!-- mroe optional info -->
                             <?php require "tabs/more.php" ?>
                         </div>
-
                     </div>
                 </div>
 
