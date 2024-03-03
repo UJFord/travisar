@@ -32,6 +32,10 @@
 
             if ($query_run_location) {
                 while ($row = pg_fetch_array($query_run_location)) {
+                    // // Convert the string to a DateTime object
+                    // $date = new DateTime($row['input_date']);
+                    // // Format the date to display up to the minute
+                    // $formatted_date = $date->format('Y-m-d H:i');
 
             ?>
                     <tr id="row1" data-target="#dataModal" data-id="<?= $row['location_id']; ?>">
@@ -50,13 +54,13 @@
                         <!-- date added -->
                         <td class="small-font text-center text-secondary fw-normal">
                             12-123-51
+                            <!-- <?= $formatted_date; ?> -->
                         </td>
 
                         <!-- Action -->
                         <td class="text-center">
-                            <form action="">
+                            <form class="d-flex justify-content-center" action="location-page/code/code.php" method="post">
                                 <input type="hidden" name="email" value="<?php echo $row['location_id']; ?>" />
-
                                 <!-- edit -->
                                 <button type="submit" name="edit" class="btn btn-primary me-1"><i class="fa-regular fa-pen-to-square"></i></button>
                                 <!-- delete -->

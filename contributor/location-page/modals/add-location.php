@@ -13,7 +13,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/try.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel" name="Form" action="location-page/code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
                     <div>
                         <button type="button" id="add-row" class="btn btn-secondary">Add</button>
@@ -25,13 +25,13 @@
                                 <!-- province name -->
                                 <div class="col-5">
                                     <label for="province-Name" class="form-label small-font">Province Name<span style="color: red;">*</span></label>
-                                    <input type="text" name="province_name_1" class="form-control">
+                                    <input type="text" name="province_name[]" class="form-control">
                                 </div>
 
                                 <!-- municipality name -->
                                 <div class="col-5">
                                     <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
-                                    <input type="text" name="municipality_name_1" class="form-control">
+                                    <input type="text" name="municipality_name[]" class="form-control">
                                 </div>
 
                                 <div class="col-2">
@@ -132,7 +132,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "http://localhost/travisar/contributor/crop-page/modals/try.php",
+                url: "location-page/code/code.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,

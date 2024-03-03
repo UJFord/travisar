@@ -47,16 +47,16 @@
                             12-123-51
                         </td>
                         <!-- Action -->
-                        <form action="">
-                            <td>
+                        <td>
+                            <form class="d-flex justify-content-center" action="location-page/code/code.php" method="post">
                                 <input type="hidden" name="email" value="<?php echo $row['barangay_id']; ?>" />
                                 <!-- edit -->
                                 <button type="submit" name="edit" class="btn btn-primary me-1"><i class="fa-regular fa-pen-to-square"></i></button>
                                 <!-- delete -->
                                 <button type="submit" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                            </td>
-                        </form>
-                        <!-- ellipsis menu butn -->
+                            </form>
+                        </td>
+                        <!-- ellipsis menu button -->
                         <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                     </tr>
             <?php
