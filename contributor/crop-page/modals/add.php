@@ -93,7 +93,7 @@
 
     // Function to submit the form and refresh notifications
     function submitForm() {
-        console.log('submitForm function called');
+        // console.log('submitForm function called');
         // Get the form reference
         var form = document.getElementById('form-panel');
         // Trigger the form submission

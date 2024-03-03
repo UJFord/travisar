@@ -155,7 +155,7 @@ require "../functions/functions.php";
             fetch('crop-page/modals/fetch/fetch_location-add.php?province=' + selectedProvince)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data); // Log the response data
+                    // console.log(data); // Log the response data
                     // Rest of your code
                     var municipalitiesDropdown = document.getElementById('Municipality');
                     municipalitiesDropdown.innerHTML = ''; // Clear existing options
@@ -186,7 +186,7 @@ require "../functions/functions.php";
             fetch('crop-page/modals/fetch/fetch_location-add.php?municipality=' + selectedMunicipality)
                 .then(response => response.json())
                 .then(data => {
-                    console.log(data); // Log the response data
+                    // console.log(data); // Log the response data
 
                     var barangayDropdown = document.getElementById('Barangay');
                     barangayDropdown.innerHTML = ''; // Clear existing options
@@ -197,7 +197,7 @@ require "../functions/functions.php";
                         option.value = barangay;
                         option.text = barangay;
                         barangayDropdown.appendChild(option);
-                        console.log('option');
+                        // console.log('option');
                     });
                 });
         }

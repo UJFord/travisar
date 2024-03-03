@@ -85,7 +85,7 @@
 
     // Function to submit the form and refresh notifications
     function submitForm() {
-        console.log('submitForm function called');
+        // console.log('submitForm function called');
         // Get the form reference
         var form = document.getElementById('form-panel');
         // Trigger the form submission
@@ -140,7 +140,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        // console.log(id);
+                        // console.log(value['category_name']);
 
                         // Split the image filenames by comma
                         var imageFilenames = value['crop_image'].split(',');
@@ -165,6 +165,10 @@
                         $('#MunicipalitySelect').append($('<option>', {
                             value: value['municipality_name'],
                             text: value['municipality_name']
+                        }));
+                        $('#CategoryEdit').append($('<option>', {
+                            value: value['category_id'],
+                            text: value['category_name']
                         }));
 
                         // crop_id
@@ -195,6 +199,7 @@
                     // Handle errors
                     console.error('Error:', error);
                 }
+
             });
 
             // Show the modal

@@ -47,7 +47,6 @@
         <input type="hidden" name="cultural_importance_and_traditional_knowledge" value="">
         <input type="hidden" name="cultural_use" value="">
         <input type="hidden" name="threats" value="">
-        <input type="hidden" name="category_id" value="1">
         <input type="hidden" name="crop_field_id" id="crop_field_id">
         <input type="hidden" name="other_category_id" id="other_category_id">
 
@@ -59,38 +58,16 @@
         </div>
 
         <!-- Category -->
-        <!-- <div class="col-6">
-            <label for="Category" class="form-label small-font">What type of crop is this? <span style="color: red;">*</span></label>
-            <select name="category_id" id="Category" class="form-select">
-                <?php
-                // get the data of category from DB
-                // gi set ra nako na permi last ang other nga category og ascending sya based sa catgory name
-                $queryCategory = "SELECT * FROM category ORDER BY
-                CASE
-                    WHEN category_name = 'Other' THEN 2
-                    ELSE 1
-                END, category_name ASC";
-                $query_run = pg_query($conn, $queryCategory);
-                $query_run = pg_query($conn, $queryCategory);
-
-                $count = pg_num_rows($query_run);
-
-                // if count is greater than 0 there is data
-                if ($count > 0) {
-                    // loop for displaying all categories
-                    while ($row = pg_fetch_assoc($query_run)) {
-                        $category_id = $row['category_id'];
-                        $category_name = $row['category_name'];
-                ?>
-                        <option value="<?= $category_id; ?>"><?= $category_name; ?></option>
-                    <?php
-                    }
-                    ?>
-                <?php
-                }
-                ?>
+        <div class="col-4">
+            <label for="CategoryEdit" class="form-label small-font">What type of crop is this? <span style="color: red;">*</span></label>
+            <select name="category_id" id="CategoryEdit" class="form-select mb-2">
             </select>
-        </div> -->
+        </div>
+        <!-- Input box for "other" category -->
+        <div class="col" id="otherCategoryInputEdit" style="display: none;">
+            <label for="OtherCategoryEdit" class="form-label small-font">Please specify:</label>
+            <input type="text" name="other_category" id="OtherCategoryEdit" class="form-control">
+        </div>
     </div>
 
     <!-- IMAGE -->
@@ -130,13 +107,13 @@
 
 <!-- JavaScript to show or hide the input box -->
 <script>
-    document.getElementById('Category').addEventListener('change', function() {
-        var otherCategoryInput = document.getElementById('otherCategoryInput');
-        var selectedCategory = document.getElementById('Category').value;
+    document.getElementById('CategoryEdit').addEventListener('change', function() {
+        var otherCategoryInputEdit = document.getElementById('otherCategoryInputEdit');
+        var selectedCategory = document.getElementById('CategoryEdit').value;
         if (selectedCategory === '3') {
-            otherCategoryInput.style.display = 'block';
+            otherCategoryInputEdit.style.display = 'block';
         } else {
-            otherCategoryInput.style.display = 'none';
+            otherCategoryInputEdit.style.display = 'none';
         }
     });
 </script>
@@ -249,4 +226,47 @@
     // Call whenever content might change within the container
     previewContainerEdit.addEventListener('DOMNodeInserted', checkForContent);
     previewContainerEdit.addEventListener('DOMNodeRemoved', checkForContent);
+</script>
+
+<!-- script for getting the category data to the select field -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Select the category dropdown
+        const categorySelect = document.getElementById('CategoryEdit');
+
+        // Function to fetch and display category data
+        function fetchAndDisplayCategories() {
+            // Fetch all categories from the server
+            fetch('crop-page/modals/fetch/fetch_category.php')
+                .then(response => response.json())
+                .then(data => {
+                    console.log('Fetched Category Data:', data);
+
+                    // Get the currently selected category_id
+                    const selectedCategoryId = categorySelect.value;
+
+                    // Clear previous options
+                    categorySelect.innerHTML = '';
+
+                    // Add options for each category
+                    data.forEach(category => {
+                        const option = document.createElement('option');
+                        option.value = category.category_id;
+                        option.text = category.category_name;
+                        categorySelect.add(option);
+
+                        // Set the selected option if it matches the current category
+                        if (category.category_id == selectedCategoryId) {
+                            option.selected = true;
+                        }
+                    });
+                })
+                .catch(error => {
+                    console.error('Error fetching categories:', error);
+                });
+        }
+
+        // Initial fetch and display of categories
+        fetchAndDisplayCategories();
+    });
 </script>
