@@ -50,7 +50,6 @@
         <input type="hidden" name="crop_field_id" id="crop_field_id">
         <input type="hidden" name="other_category_id" id="other_category_id">
 
-
         <!-- variety name -->
         <div class="col-6">
             <label for="crop_variety" class="form-label small-font">Name<span style="color: red;">*</span></label>
@@ -240,7 +239,7 @@
             fetch('crop-page/modals/fetch/fetch_category.php')
                 .then(response => response.json())
                 .then(data => {
-                    console.log('Fetched Category Data:', data);
+                    // console.log('Fetched Category Data:', data);
 
                     // Get the currently selected category_id
                     const selectedCategoryId = categorySelect.value;

@@ -65,7 +65,7 @@
             <!-- Button Tabs -->
             <div>
                 <button class="tab_btn active" id="pendingTab">Pending</button>
-                <button class="tab_btn" id="approvedTab">Approved</button>
+                <button class="tab_btn" id="approvedTab">History</button>
                 <div class="line"></div>
             </div>
             <!-- filter actions -->

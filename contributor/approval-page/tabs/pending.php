@@ -84,10 +84,10 @@
 
                         <!-- Action -->
                         <td>
-                            <form class="d-flex justify-content-center" action="">
-                                <input type="hidden" name="email" value="<?php echo $row['crop_id']; ?>" />
+                            <form class="d-flex justify-content-center" action="approval-page/code/code.php" method="post">
+                                <input type="hidden" name="crop_id" value="<?php echo $row['crop_id']; ?>" />
                                 <button type="submit" name="approve" class="btn btn-success me-2"><i class="fa-solid fa-check"></i></button>
-                                <button type="submit" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                <button type="submit" name="rejected" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                             </form>
                         </td>
                     </tr>
