@@ -13,7 +13,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="location-page/code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel" name="Form" action="location-page/code/code-muni.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
                     <div>
                         <button type="button" id="add-row" class="btn btn-secondary">Add</button>
@@ -25,13 +25,13 @@
                                 <!-- province name -->
                                 <div class="col-5">
                                     <label for="province-Name" class="form-label small-font">Province Name<span style="color: red;">*</span></label>
-                                    <input type="text" name="province_name[]" class="form-control">
+                                    <input type="text" name="province_name_1" class="form-control">
                                 </div>
 
                                 <!-- municipality name -->
                                 <div class="col-5">
                                     <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
-                                    <input type="text" name="municipality_name[]" class="form-control">
+                                    <input type="text" name="municipality_name_1" class="form-control">
                                 </div>
 
                                 <div class="col-2">
@@ -71,20 +71,21 @@
             const newRow = document.createElement('div');
             newRow.classList.add('row', 'mb-3', 'location-row');
             newRow.innerHTML = `
-            <div class="col-5">
-                <label for="province-Name" class="form-label small-font">Province Name<span style="color: red;">*</span></label>
-                <input type="text" name="province_name_${rowCounter}" class="form-control">
-            </div>
-            <div class="col-5">
-                <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
-                <input type="text" name="municipality_name_${rowCounter}" class="form-control">
-            </div>
-            <div class="col-2">
-                <button type="button" class="btn btn-secondary remove-row">Remove</button>
-            </div>
-        `;
+                <div class="col-5">
+                    <label for="province-Name" class="form-label small-font">Province Name<span style="color: red;">*</span></label>
+                    <input type="text" name="province_name_${rowCounter}" class="form-control">
+                </div>
+                <div class="col-5">
+                    <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
+                    <input type="text" name="municipality_name_${rowCounter}" class="form-control">
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-secondary remove-row">Remove</button>
+                </div>
+            `;
             locationData.appendChild(newRow);
         });
+
 
         locationData.addEventListener('click', function(e) {
             if (e.target.classList.contains('remove-row')) {
@@ -132,7 +133,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "location-page/code/code.php",
+                url: "location-page/code/code-muni.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,

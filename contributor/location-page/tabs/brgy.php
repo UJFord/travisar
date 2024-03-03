@@ -15,7 +15,7 @@
                 <th class="col-3 text-dark-emphasis text-center small-font" scope="col">Date Added</th>
                 <th col-4 class="col-1 text-center">
                     <!-- add button -->
-                    <button type=" button" id="addBarangay" class="btn btn-secondary add-loc-btn p-2 btn small-font" name="addBarangay" data-bs-toggle="modal" data-bs-target="#add-item-modal">
+                    <button type=" button" id="addBarangay" class="btn btn-secondary add-loc-btn p-2 btn small-font" name="addBarangay" data-bs-toggle="modal" data-bs-target="#add-item-modal-brgy">
                         New
                         <i class="fa-solid fa-plus"></i>
                     </button>
@@ -48,7 +48,7 @@
                         </td>
                         <!-- Action -->
                         <td>
-                            <form class="d-flex justify-content-center" action="location-page/code/code.php" method="post">
+                            <form class="d-flex justify-content-center" action="location-page/code/code-brgy.php" method="post">
                                 <input type="hidden" name="email" value="<?php echo $row['barangay_id']; ?>" />
                                 <!-- edit -->
                                 <button type="submit" name="edit" class="btn btn-primary me-1"><i class="fa-regular fa-pen-to-square"></i></button>

@@ -3,7 +3,7 @@
 </style>
 
 <!-- HTML -->
-<div class="modal fade" id="add-item-modal" tabindex="-1" aria-labelledby="add-item-modal-label" aria-hidden="true">
+<div class="modal fade" id="add-item-modal-brgy" tabindex="-1" aria-labelledby="add-item-modal-label" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-fullscreen-sm-down">
         <div class="modal-content">
             <!-- header -->
@@ -13,15 +13,15 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/try.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel" name="Form" action="location-page/code/code-brgy.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
                     <div>
-                        <button type="button" id="add-row" class="btn btn-secondary">Add</button>
+                        <button type="button" id="add-row-brgy" class="btn btn-secondary">Add</button>
                     </div>
                     <div class="container">
-                        <div id="locationData">
+                        <div id="locationDataBrgy">
                             <!-- Municipality AND Barangay -->
-                            <div class="row mb-3 location-row">
+                            <div class="row mb-3 location-brgy">
                                 <!-- municipality name -->
                                 <div class="col-5">
                                     <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
@@ -61,7 +61,43 @@
     // i set the names for each input field to be unique name attribute 
     // (province_name_1, municipality_name_1, province_name_2, municipality_name_2, and so on)
     // for when the form is submitted hiwalay ang pag save
+    document.addEventListener('DOMContentLoaded', function() {
+        const addRowButton = document.getElementById('add-row-brgy');
+        const locationDataBrgy = document.getElementById('locationDataBrgy');
+        let rowCounter = 1;
 
+        addRowButton.addEventListener('click', function() {
+            rowCounter++;
+            const newRow = document.createElement('div');
+            newRow.classList.add('row', 'mb-3', 'location-brgy');
+            newRow.innerHTML = `
+                <div class="col-5">
+                    <label for="Municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
+                    <input type="text" name="municipality_name_${rowCounter}" class="form-control">
+                </div>
+                <div class="col-5">
+                    <label for="Barangay-Name" class="form-label small-font">Barangay Name<span style="color: red;">*</span></label>
+                    <input type="text" name="barangay_name_${rowCounter}" class="form-control">
+                </div>
+                <div class="col-2">
+                    <button type="button" class="btn btn-secondary remove-row">Remove</button>
+                </div>
+            `;
+            locationDataBrgy.appendChild(newRow);
+        });
+
+        locationDataBrgy.addEventListener('click', function(e) {
+            if (e.target.classList.contains('remove-row')) {
+                e.target.closest('.location-brgy').remove();
+            }
+        });
+
+        window.addEventListener('beforeunload', function(e) {
+            // Reset the form data here
+            locationDataBrgy.innerHTML = '';
+            rowCounter = 1; // Reset the row counter
+        });
+    });
     // Function to validate input and submit the form
     function validateAndSubmitForm() {
         // Validate the form
@@ -94,7 +130,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "http://localhost/travisar/contributor/crop-page/modals/try.php",
+                url: "location-page/code/code-brgy.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,

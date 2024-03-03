@@ -2,8 +2,17 @@
 require "../../../functions/connections.php";
 
 if (isset($_POST['save'])) {
-    $province_names = $_POST['province_name'];
-    $municipality_names = $_POST['municipality_name'];
+    $province_names = [];
+    $municipality_names = [];
+
+    // Loop through the $_POST data to extract province and municipality names
+    foreach ($_POST as $key => $value) {
+        if (strpos($key, 'province_name_') !== false) {
+            $province_names[] = $value;
+        } elseif (strpos($key, 'municipality_name_') !== false) {
+            $municipality_names[] = $value;
+        }
+    }
 
     // Ensure that the arrays have the same length
     if (count($province_names) === count($municipality_names)) {
@@ -14,7 +23,7 @@ if (isset($_POST['save'])) {
 
         // Generate placeholders and parameters for each location
         for ($i = 0; $i < count($province_names); $i++) {
-            $valueStrings[] = "($".($i*2+1).", $".($i*2+2).")";
+            $valueStrings[] = "($" . ($i * 2 + 1) . ", $" . ($i * 2 + 2) . ")";
             $params[] = $province_names[$i];
             $params[] = $municipality_names[$i];
         }

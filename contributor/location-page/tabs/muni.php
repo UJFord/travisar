@@ -59,7 +59,7 @@
 
                         <!-- Action -->
                         <td class="text-center">
-                            <form class="d-flex justify-content-center" action="location-page/code/code.php" method="post">
+                            <form class="d-flex justify-content-center" action="location-page/code/code-muni.php" method="post">
                                 <input type="hidden" name="email" value="<?php echo $row['location_id']; ?>" />
                                 <!-- edit -->
                                 <button type="submit" name="edit" class="btn btn-primary me-1"><i class="fa-regular fa-pen-to-square"></i></button>
