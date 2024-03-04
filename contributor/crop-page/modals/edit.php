@@ -142,7 +142,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['municipality_name']);
+                        console.log(value['category_name']);
 
                         // Split the image filenames by comma
                         var imageFilenames = value['crop_image'].split(',');
@@ -198,6 +198,7 @@
                         $('#oldImageInput').val(value['crop_image']);
 
                         // input elements with the new data on gen.php and loc.php
+                        $('#CategoryEdit').val(value['category_name']);
                         $('#crop_variety').val(value['crop_variety']);
                         $('#ScienceName').val(value['scientific_name']);
                         $('#UniqueFeat').val(value['unique_features']);

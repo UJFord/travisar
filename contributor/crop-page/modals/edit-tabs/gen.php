@@ -55,8 +55,8 @@
         <!-- Category -->
         <div class="col-4">
             <label for="CategoryEdit" class="form-label small-font">What type of crop is this? <span style="color: red;">*</span></label>
-            <select name="category_id" id="CategoryEdit" class="form-select mb-2">
-            </select>
+            <input name="category_id" id="CategoryEdit" class="form-select mb-2">
+            </input>
         </div>
         <!-- Input box for "other" category -->
         <div class="col" id="otherCategoryInputEdit" style="display: none;">
@@ -101,7 +101,7 @@
 </div>
 
 <!-- JavaScript to show or hide the input box -->
-<script>
+<!-- <script>
     document.getElementById('CategoryEdit').addEventListener('change', function() {
         var otherCategoryInputEdit = document.getElementById('otherCategoryInputEdit');
         var selectedCategory = document.getElementById('CategoryEdit').value;
@@ -111,7 +111,7 @@
             otherCategoryInputEdit.style.display = 'none';
         }
     });
-</script>
+</script> -->
 
 <!-- SCRIPT for edit tab-->
 <script defer>
@@ -224,7 +224,7 @@
 </script>
 
 <!-- script for getting the category data to the select field -->
-<script>
+<!-- <script>
     document.addEventListener('DOMContentLoaded', function() {
         // Select the category dropdown
         const categorySelect = document.getElementById('CategoryEdit');
@@ -264,4 +264,4 @@
         // Initial fetch and display of categories
         fetchAndDisplayCategories();
     });
-</script>
+</script> -->
