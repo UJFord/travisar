@@ -32,6 +32,9 @@
                     </ul>
                     <div class="container">
                         <div class="tab-content mt-2">
+                            <input type="hidden" name="user_id" value="<?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) {
+                                                                            echo $_SESSION['USER']['user_id'];
+                                                                        } ?>">
                             <!-- general -->
                             <?php require "tabs/gen.php" ?>
                             <!-- location -->

@@ -42,10 +42,6 @@
         <!-- para ma empty lang ang data sa db dili ra sya ma null -->
         <input type="hidden" name="crop_local_name" value="">
         <input type="hidden" name="field_id" value="1">
-        <input type="hidden" name="cultural_significance" value="">
-        <input type="hidden" name="spiritual_significance" value="">
-        <input type="hidden" name="cultural_importance_and_traditional_knowledge" value="">
-        <input type="hidden" name="cultural_use" value="">
         <input type="hidden" name="threats" value="">
         <input type="hidden" name="crop_field_id" id="crop_field_id">
         <input type="hidden" name="other_category_id" id="other_category_id">

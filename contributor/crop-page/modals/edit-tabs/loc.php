@@ -87,7 +87,6 @@
     // Function to populate municipalities dropdown based on selected province
     const populateMunicipalitiesEdit = async (selectedProvince, initialVal) => {
         try {
-            initialMunicipality = initialVal;
             const response = await fetch(`crop-page/modals/fetch/fetch_location-edit.php?province=${selectedProvince}`);
             const data = await response.json();
             // console.log(data);
@@ -103,8 +102,8 @@
             });
 
             // Set the initial value if available
-            if (initialMunicipality) {
-                municipalitiesDropdown.value = initialMunicipality;
+            if (initialVal) {
+                municipalitiesDropdown.value = initialVal;
             }
 
         } catch (error) {
@@ -112,20 +111,9 @@
         }
     };
 
-    // Call the populateMunicipalities function when the province dropdown value changes
-    document.getElementById('ProvinceEdit').addEventListener('change', function() {
-        var selectedProvince = document.getElementById('ProvinceEdit').value;
-        populateMunicipalitiesEdit(selectedProvince, initialMunicipality);
-    });
-
-    // Call the populateMunicipalities function initially to populate the municipalities dropdown based on the default selected province
-    var selectedProvince = document.getElementById('ProvinceEdit').value;
-    populateMunicipalitiesEdit(selectedProvince, initialMunicipality);
-
     // Function to populate barangay dropdown based on selected municipality
     const populateBarangayEdit = async (selectedMunicipality, initialVal) => {
         try {
-            initialBarangay = initialVal;
             const response = await fetch(`crop-page/modals/fetch/fetch_location-edit.php?municipality=${selectedMunicipality}`);
             const data = await response.json();
             // console.log(data);
@@ -141,21 +129,30 @@
             });
 
             // Set the initial value if available
-            if (initialBarangay) {
-                barangayDropdown.value = initialBarangay;
+            if (initialVal) {
+                barangayDropdown.value = initialVal;
             }
 
         } catch (error) {
-            console.error('Error fetching municipalities:', error);
+            console.error('Error fetching barangays:', error);
         }
-
     };
+
+    // Call the populateMunicipalities function when the province dropdown value changes
+    document.getElementById('ProvinceEdit').addEventListener('change', function() {
+        var selectedProvince = document.getElementById('ProvinceEdit').value;
+        populateMunicipalitiesEdit(selectedProvince, initialMunicipality);
+    });
 
     // Call the populateBarangay function when the municipality dropdown value changes
     document.getElementById('MunicipalitySelect').addEventListener('change', function() {
         var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
         populateBarangayEdit(selectedMunicipality, initialBarangay);
     });
+
+    // Call the populateMunicipalities function initially to populate the municipalities dropdown based on the default selected province
+    var selectedProvince = document.getElementById('ProvinceEdit').value;
+    populateMunicipalitiesEdit(selectedProvince, initialMunicipality);
 
     // Call the populateBarangay function initially to populate the municipalities dropdown based on the default selected municipality
     var selectedMunicipality = document.getElementById('MunicipalitySelect').value;

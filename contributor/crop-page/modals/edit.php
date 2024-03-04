@@ -114,6 +114,8 @@
 
     // EDIT SCRIPT
     const tableRows = document.querySelectorAll('.edit_data');
+    // Define an array to store municipalities
+    var municipalities = [];
 
     tableRows.forEach(row => {
 
@@ -140,7 +142,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        // console.log(value['category_name']);
+                        console.log(value['municipality_name']);
 
                         // Split the image filenames by comma
                         var imageFilenames = value['crop_image'].split(',');
@@ -159,17 +161,23 @@
                             text: value['crop_variety']
                         }));
                         $('#BarangaySelect').append($('<option>', {
-                            value: value['barangay_name'],
+                            value: value['barangay_id'],
                             text: value['barangay_name']
                         }));
                         $('#MunicipalitySelect').append($('<option>', {
                             value: value['municipality_name'],
                             text: value['municipality_name']
                         }));
-                        $('#CategoryEdit').append($('<option>', {
-                            value: value['category_id'],
-                            text: value['category_name']
-                        }));
+
+                        // Add municipality to the array
+                        municipalities.push(value['municipality_name']);
+
+                        // Append options to MunicipalitySelect
+                        $('#MunicipalitySelect').empty(); // Clear previous options
+                        municipalities.forEach(function(municipality) {
+                            var selected = (municipality === value['municipality_name']) ? 'selected' : '';
+                            $('#MunicipalitySelect').append('<option value="' + municipality + '" ' + selected + '>' + municipality + '</option>');
+                        });
 
                         // crop_id
                         $('#crop_id').val(id);
@@ -181,6 +189,10 @@
                         $('#crop_field_id').val(value['crop_field_id']);
                         // other_category_id
                         $('#other_category_id').val(value['other_category_id']);
+                        // characteristics_id
+                        $('#Char_id').val(value['characteristics_id']);
+                        // cultural_aspect_id
+                        $('#cultural_aspect-Edit').val(value['cultural_aspect_id']);
 
                         // old image/current image
                         $('#oldImageInput').val(value['crop_image']);
@@ -191,8 +203,20 @@
                         $('#UniqueFeat').val(value['unique_features']);
                         $('#MainEcosystem').val(value['role_in_maintaining_upland_ecosystem']);
                         $('#description').val(value['crop_description']);
-                        $('#neighborhood').val(value['neighborhood']);
+                        $('#neighborhoodEdit').val(value['neighborhood']);
                         $('#coordInput').val(value['coordinates']);
+
+                        $('#TasteEdit').val(value['taste']);
+                        $('#AromaEdit').val(value['aroma']);
+                        $('#MaturationEdit').val(value['maturation']);
+                        $('#PestEdit').val(value['pest']);
+                        $('#DiseaseEdit').val(value['diseases']);
+
+                        // cultural aspect
+                        $('#Cultural-SignificanceEdit').val(value['cultural_significance']);
+                        $('#Spiritual-SignificanceEdit').val(value['spiritual_significance']);
+                        $('#Cultural-ImportanceEdit').val(value['cultural_importance']);
+                        $('#Cultural-UseEdit').val(value['cultural_use']);
                     });
                 },
                 error: function(xhr, status, error) {

@@ -72,4 +72,4 @@
         generatePaginationLinksTabs($total_pages_barangay, $current_page, 'page_barangay', 'barangayTabData', 'barangay');
         ?>
     </div>
-</div>
+</div>  

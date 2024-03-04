@@ -4,6 +4,9 @@
 
     <!-- Taste and Aroma-->
     <div class="row mb-3">
+        <input id="Char_id" type="hidden" name="characteristics_id" class="form-control">
+        <input id="cultural_aspect-Edit" type="hidden" name="cultural_aspect_id" class="form-control">
+
         <!-- Taste -->
         <div class="col-4">
             <label for="TasteEdit" class="form-label small-font">Taste</label>
@@ -34,7 +37,7 @@
         <!-- Disease -->
         <div class="col-6">
             <label for="DiseaseEdit" class="form-label small-font">Disease</label>
-            <input id="DiseaseEdit" type="text" name="disease" class="form-control">
+            <input id="DiseaseEdit" type="text" name="diseases" class="form-control">
         </div>
     </div>
 

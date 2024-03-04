@@ -77,30 +77,45 @@
                 <!-- dropdown actions -->
                 <ul id="profile-actions-container" class="overflow-hidden dropdown-menu dropdown-menu-end bg-white border border-secondary-subtle p-0">
                     <!-- login status -->
-                    <li>
-                        <a href="#" class="dropdown-item border-bottom px-3 pe-3 d-flex align-items-center">
-                            <!-- profile thumnail -->
-                            <div id="login-status-thumbnail" class="profile-thumbnail rounded-circle me-2" style="background-image: url('https://images.unsplash.com/photo-1504473114289-43f5e302d6bb?q=80&w=2151&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
-                            <!-- login status -->
-                            <div class="d-flex flex-column justify-content-center text-dark">
-                                <span class="fs-6 fw-semibold">Logged in as</span>
-                                <!-- username -->
-                                <span id="actions-username" class=" fs-6 text-secondary">John Doe</span>
-                            </div>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="#" class="dropdown-item border-bottom text-dark fs-6 d-flex justify-content-start align-items-center px-3 pe-3">
-                            <i class="fa-regular fa-user me-2 fs-6 text-dark"></i>
-                            <p class="m-0">Account settings</p>
-                        </a>
-                    </li>
-                    <li>
-                        <a href="../login/logout.php" class="dropdown-item text-dark fs-6 d-flex justify-content-start align-items-center px-3 pe-3">
-                            <i class="fa-solid fa-arrow-right-from-bracket me-2 fs-6 text-dark"></i>
-                            <p class="m-0">Log Out</p>
-                        </a>
-                    </li>
+                    <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
+                        <!-- User is logged in, display the first name -->
+                        <li>
+                            <a href="#" class="dropdown-item border-bottom px-3 pe-3 d-flex align-items-center">
+                                <!-- profile thumnail -->
+                                <div id="login-status-thumbnail" class="profile-thumbnail rounded-circle me-2" style="background-image: url('https://images.unsplash.com/photo-1504473114289-43f5e302d6bb?q=80&w=2151&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');"></div>
+                                <!-- login status -->
+                                <div class="d-flex flex-column justify-content-center text-dark">
+                                    <span class="fs-6 fw-semibold">Logged in as</span>
+                                    <!-- username -->
+                                    <span id="actions-username" class=" fs-6 text-secondary"> <strong><?= $_SESSION['USER']['first_name']; ?></strong></span>
+                                </div>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="#" class="dropdown-item border-bottom text-dark fs-6 d-flex justify-content-start align-items-center px-3 pe-3">
+                                <i class="fa-regular fa-user me-2 fs-6 text-dark"></i>
+                                <p class="m-0">Account settings</p>
+                            </a>
+                        </li>
+                        <li>
+                            <a href="../login/logout.php" class="dropdown-item text-dark fs-6 d-flex justify-content-start align-items-center px-3 pe-3">
+                                <i class="fa-solid fa-arrow-right-from-bracket me-2 fs-6 text-dark"></i>
+                                <p class="m-0">Log Out</p>
+                            </a>
+                        </li>
+                    <?php else : ?>
+                        <!-- User is not logged in, display a link to the login page -->
+                        <?php
+                        // Unset session
+                        if (isset($_SESSION['USER'])) {
+                            unset($_SESSION['USER']);
+                        }
+                        if (isset($_SESSION['LOGGED_IN'])) {
+                            unset($_SESSION['LOGGED_IN']);
+                        }
+                        ?>
+                        <a href="../../login/index.php" class="text-white text-decoration-none">Login</a>
+                    <?php endif; ?>
                 </ul>
             </div>
         </div>
