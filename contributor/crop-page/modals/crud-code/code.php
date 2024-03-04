@@ -24,7 +24,8 @@ if (isset($_POST['save'])) {
         $municipality_name = $_POST['municipality'];
         $threats = handleEmpty($_POST['threats']);
 
-        $user_id = 3;
+        $barangay_id = $_POST['barangay_id'];
+        $user_id = $_POST['user_id'];
         $status = 'pending';
 
         // Check if the array keys are set before accessing them
@@ -36,11 +37,18 @@ if (isset($_POST['save'])) {
         // Cultural Aspect
         $cultural_significance = handleEmpty($_POST['cultural_significance']);
         $spiritual_significance = handleEmpty($_POST['spiritual_significance']);
-        $cultural_importance_and_traditional_knowledge = handleEmpty($_POST['cultural_importance_and_traditional_knowledge']);
+        $cultural_importance = handleEmpty($_POST['cultural_importance']);
         $cultural_use = handleEmpty($_POST['cultural_use']);
 
-        $query_CulturalAspect = "INSERT into cultural_aspect (cultural_significance, spiritual_significance, cultural_importance_and_traditional_knowledge, cultural_use) VALUES ($1, $2, $3, $4) returning cultural_aspect_id";
-        $query_run_CulturalAspect = pg_query_params($conn, $query_CulturalAspect, array($cultural_significance, $spiritual_significance, $cultural_importance_and_traditional_knowledge, $cultural_use));
+        // Characteristics
+        $taste = handleEmpty($_POST['taste']);
+        $aroma = handleEmpty($_POST['aroma']);
+        $maturation = handleEmpty($_POST['maturation']);
+        $pest = handleEmpty($_POST['pest']);
+        $diseases = handleEmpty($_POST['diseases']);
+
+        $query_CulturalAspect = "INSERT into cultural_aspect (cultural_significance, spiritual_significance, cultural_importance, cultural_use) VALUES ($1, $2, $3, $4) returning cultural_aspect_id";
+        $query_run_CulturalAspect = pg_query_params($conn, $query_CulturalAspect, array($cultural_significance, $spiritual_significance, $cultural_importance, $cultural_use));
 
         if ($query_run_CulturalAspect !== false) {
             $affected_rows = pg_affected_rows($query_run_CulturalAspect);
@@ -143,6 +151,24 @@ if (isset($_POST['save'])) {
             exit(0);
         }
 
+        // characteristics table
+        $query_charac = "INSERT into characteristics (crop_id, taste, aroma, maturation, pest, diseases) VALUES ($1, $2, $3, $4, $5, $6) RETURNING characteristics_id";
+        $query_run_charac = pg_query_params($conn, $query_charac, array($crop_id, $taste, $aroma, $maturation, $pest, $diseases));
+
+        if ($query_run_charac) {
+            // Check if any rows were affected
+            if (pg_affected_rows($query_run_charac) > 0) {
+                $row_charac = pg_fetch_row($query_run_charac);
+                $characteristics_id = $row_charac[0];
+            } else {
+                echo "Error: No rows affected";
+                exit(0);
+            }
+        } else {
+            echo "Error: " . pg_last_error($conn);
+            exit(0);
+        }
+
         // Location Table
         // Get the location id
         $queryLoc = "SELECT location_id from location where province_name = $1 and municipality_name = $2";
@@ -157,8 +183,8 @@ if (isset($_POST['save'])) {
         }
 
         // save into Crop Location Table
-        $query_CropLoc = "INSERT into crop_location (crop_id, location_id) VALUES ($1, $2) RETURNING crop_location_id";
-        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($crop_id, $location_id));
+        $query_CropLoc = "INSERT into crop_location (crop_id, location_id, barangay_id) VALUES ($1, $2, $3) RETURNING crop_location_id";
+        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($crop_id, $location_id, $barangay_id));
 
         if ($query_run_CropLoc) {
             // Check if any rows were affected

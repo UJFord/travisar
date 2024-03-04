@@ -32,9 +32,13 @@
 
             if ($query_run_location) {
                 while ($row = pg_fetch_array($query_run_location)) {
+                    // // Convert the string to a DateTime object
+                    // $date = new DateTime($row['input_date']);
+                    // // Format the date to display up to the minute
+                    // $formatted_date = $date->format('Y-m-d H:i');
 
             ?>
-                    <tr id="row1" data-target="#dataModal" data-id="<?= $row['location_id']; ?>">
+                    <tr id="row1">
                         <!-- checkbox -->
                         <th scope="row"><input class="form-check-input" type="checkbox"></th>
 
@@ -50,15 +54,14 @@
                         <!-- date added -->
                         <td class="small-font text-center text-secondary fw-normal">
                             12-123-51
+                            <!-- <?= $formatted_date; ?> -->
                         </td>
 
                         <!-- Action -->
-                        <td class="text-center">
-                            <form action="">
-                                <input type="hidden" name="email" value="<?php echo $row['location_id']; ?>" />
-
+                        <td>
+                            <form class="d-flex justify-content-center">
                                 <!-- edit -->
-                                <button type="submit" name="edit" class="btn btn-primary me-1"><i class="fa-regular fa-pen-to-square"></i></button>
+                                <a href="#" class="btn btn-primary me-1 edit_data" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['location_id']; ?>"><i class="fa-regular fa-pen-to-square"></i></a>
                                 <!-- delete -->
                                 <button type="submit" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                             </form>

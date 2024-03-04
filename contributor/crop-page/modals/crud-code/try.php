@@ -34,6 +34,7 @@ if (isset($_POST['edit'])) {
         $crop_location_id = handleEmpty($_POST['crop_location_id']);
         $crop_field_id = handleEmpty($_POST['crop_field_id']);
         $other_category_id = handleEmpty($_POST['other_category_id']);
+        $characteristics_id = handleEmpty($_POST['characteristics_id']);
 
         // Check if the array keys are set before accessing them
         $role_in_maintaining_upland_ecosystem = isset($_POST['role_in_maintaining_upland_ecosystem']) ? handleEmpty($_POST['role_in_maintaining_upland_ecosystem']) : "Empty";
@@ -44,19 +45,26 @@ if (isset($_POST['edit'])) {
         // Cultural Aspect
         $cultural_significance = handleEmpty($_POST['cultural_significance']);
         $spiritual_significance = handleEmpty($_POST['spiritual_significance']);
-        $cultural_importance_and_traditional_knowledge = handleEmpty($_POST['cultural_importance_and_traditional_knowledge']);
+        $cultural_importance = handleEmpty($_POST['cultural_importance']);
         $cultural_use = handleEmpty($_POST['cultural_use']);
+
+        // Characteristics
+        $taste = handleEmpty($_POST['taste']);
+        $aroma = handleEmpty($_POST['aroma']);
+        $maturation = handleEmpty($_POST['maturation']);
+        $pest = handleEmpty($_POST['pest']);
+        $diseases = handleEmpty($_POST['diseases']);
 
         // Update Cultural Aspect
         $query_CulturalAspect = "UPDATE cultural_aspect 
         SET cultural_significance = $1, 
             spiritual_significance = $2, 
-            cultural_importance_and_traditional_knowledge = $3, 
+            cultural_importance = $3, 
             cultural_use = $4
         WHERE cultural_aspect_id = $5";
         $query_run_CulturalAspect = pg_query_params($conn, $query_CulturalAspect, array(
             $cultural_significance,
-            $spiritual_significance, $cultural_importance_and_traditional_knowledge, $cultural_use, $cultural_aspect_id
+            $spiritual_significance, $cultural_importance, $cultural_use, $cultural_aspect_id
         ));
 
         if ($query_run_CulturalAspect !== false) {
@@ -176,6 +184,25 @@ if (isset($_POST['edit'])) {
             exit(0);
         }
 
+        // characteristics table
+        $query_charac = "UPDATE characteristics SET taste = $2, aroma = $3, maturation = $4, pest = $5, diseases = $6 WHERE characteristics_id = $1 RETURNING characteristics_id";
+        $query_run_charac = pg_query_params($conn, $query_charac, array($characteristics_id, $taste, $aroma, $maturation, $pest, $diseases));
+
+        if ($query_run_charac) {
+            // Check if any rows were affected
+            if (pg_affected_rows($query_run_charac) > 0) {
+                $row_charac = pg_fetch_row($query_run_charac);
+                $characteristics_id = $row_charac[0];
+            } else {
+                echo "Error: No rows affected";
+                exit(0);
+            }
+        } else {
+            echo "Error: " . pg_last_error($conn);
+            exit(0);
+        }
+
+
         // Location Table
         // Get the location id
         $queryLoc = "SELECT location_id from location where province_name = $1 and municipality_name = $2";
@@ -189,9 +216,22 @@ if (isset($_POST['edit'])) {
             exit(0);
         }
 
+        // Barangay table
+        //get the barangay id
+        $querybrgy = "SELECT barangay_id from barangay where barangay_name = $1";
+        $query_run_brgy = pg_query_params($conn, $querybrgy, array($barangay_name));
+
+        if ($query_run_brgy) {
+            $row_brgy = pg_fetch_row(($query_run_brgy));
+            $barangay_id = $row_brgy[0];
+        } else {
+            echo "Error: " . pg_last_error($conn);
+            exit(0);
+        }
+
         // update Crop Location Table
-        $query_CropLoc = "UPDATE crop_location set crop_id = $1, location_id = $2 where crop_location_id = $3";
-        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($crop_id, $location_id, $crop_location_id));
+        $query_CropLoc = "UPDATE crop_location set crop_id = $1, location_id = $2, barangay_id = $3 where crop_location_id = $4";
+        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($crop_id, $location_id, $barangay_id, $crop_location_id));
 
         if ($query_run_CropLoc) {
             // Check if any rows were affected

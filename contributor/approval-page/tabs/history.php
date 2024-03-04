@@ -22,7 +22,7 @@
         <!-- table body -->
         <tbody class="table-group-divider fw-bold overflow-scroll">
             <?php
-            $query_approved = "SELECT * FROM crop WHERE status = 'approved' ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
+            $query_approved = "SELECT * FROM crop WHERE status IN ('approved', 'rejected') ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
             $query_run_approved = pg_query($conn, $query_approved);
 
             if ($query_run_approved) {
@@ -42,11 +42,9 @@
 
             ?>
                     <!-- <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>" class="class=" <?= ($row['status'] == 'approve') ? 'bg-success-subtle' : 'bg-danger-subtle'; ?>"> -->
-                    <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>" class="bg-success-subtle">
-
+                    <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>" style="background-color: <?= ($row['status'] == 'approved') ? 'green' : 'red'; ?>">
 
                         <!-- checkbox -->
-
                         <th scope="row"><input class="form-check-input" type="checkbox"></th>
                         <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
 

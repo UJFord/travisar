@@ -58,6 +58,10 @@ require "../functions/functions.php";
             <?php require "location-page/modals/add-location.php"; ?>
             <!-- add Barangay -->
             <?php require "location-page/modals/add-barangay.php"; ?>
+            <!-- edit location -->
+            <?php require "location-page/modals/edit-location.php"; ?>
+            <!-- edit barangay -->
+            <?php require "location-page/modals/edit-barangay.php"; ?>
         </div>
     </div>
 
@@ -111,6 +115,80 @@ require "../functions/functions.php";
         // Add event listener to tab buttons to reset search input
         document.querySelectorAll('.tab_btn').forEach(tab => {
             tab.addEventListener('click', resetSearchInput);
+        });
+    </script>
+    <!-- script for edit data -->
+    <script>
+        // EDIT SCRIPT
+        const tableRows = document.querySelectorAll('.edit_data_brgy, .edit_data');
+
+        tableRows.forEach(row => {
+
+            row.addEventListener('click', () => {
+                const id = row.getAttribute('data-id');
+
+                let url = '';
+                let dataKey = '';
+                let modalId = '';
+
+                if (row.classList.contains('edit_data_brgy')) {
+                    url = 'location-page/code/code-brgy.php';
+                    dataKey = 'barangay_id';
+                    modalId = 'edit-item-modal-brgy';
+                } else {
+                    url = 'location-page/code/code-muni.php';
+                    dataKey = 'location_id';
+                    modalId = 'edit-item-modal';
+                }
+
+                // Assuming you have jQuery available
+                $.ajax({
+                    url: url,
+                    type: 'POST',
+                    data: {
+                        'click_edit_btn': true,
+                        [dataKey]: id, // Make sure barangay_id or location_id is included
+                    },
+
+                    success: function(response) {
+                        // Handle the response from the PHP script
+                        // console.log('Response:', response);
+
+                        // Clear the current preview
+                        $('#preview').empty();
+
+                        $.each(response, function(key, value) {
+                            // Append options to select element
+                            // console.log(value['province_name']);
+
+                            // crop_id
+                            $('#crop_id').val(id);
+
+                            // data of location table
+                            $('#province-Name').val(value['province_name']);
+                            $('#municipality-Name').val(value['municipality_name']);
+
+                            // data of barangay table
+                            $('#municipality-Name-Edit').val(value['municipality_name']);
+                            $('#barangay-Name').val(value['barangay_name']);
+
+                            // setting the the value of the id of location and barangay depending on the tab
+                            $('#' + dataKey + '-Edit').val(value[dataKey]);
+                        });
+                    },
+                    error: function(xhr, status, error) {
+                        // Handle errors
+                        console.error('Error:', error);
+                    }
+
+                });
+
+                // Show the modal
+                const dataModal = new bootstrap.Modal(document.getElementById(modalId), {
+                    keyboard: false
+                });
+                dataModal.show();
+            });
         });
     </script>
 </body>

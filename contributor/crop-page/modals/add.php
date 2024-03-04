@@ -32,6 +32,9 @@
                     </ul>
                     <div class="container">
                         <div class="tab-content mt-2">
+                            <input type="hidden" name="user_id" value="<?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) {
+                                                                            echo $_SESSION['USER']['user_id'];
+                                                                        } ?>">
                             <!-- general -->
                             <?php require "tabs/gen.php" ?>
                             <!-- location -->
@@ -93,7 +96,7 @@
 
     // Function to submit the form and refresh notifications
     function submitForm() {
-        console.log('submitForm function called');
+        // console.log('submitForm function called');
         // Get the form reference
         var form = document.getElementById('form-panel');
         // Trigger the form submission

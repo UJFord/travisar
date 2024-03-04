@@ -68,7 +68,7 @@
         </div>
 
         <!-- Category -->
-        <div class="col-6">
+        <div class="col-4">
             <label for="Category" class="form-label small-font">What type of crop is this? <span style="color: red;">*</span></label>
             <select name="category_id" id="Category" class="form-select">
                 <?php
@@ -100,6 +100,11 @@
                 ?>
             </select>
         </div>
+        <!-- Input box for "other" category -->
+        <div class="col" id="otherCategoryInput" style="display: none;">
+            <label for="OtherCategory" class="form-label small-font">Please specify:</label>
+            <input type="text" name="other_category" id="OtherCategory" class="form-control">
+        </div>
     </div>
 
     <!-- IMAGE -->
@@ -119,7 +124,7 @@
         </div>
     </div>
 
-    <!-- DISCRIPTION -->
+    <!-- DESCRIPTION -->
     <div class="row mb-3">
         <div class="col">
             <label for="desc" class="form-label small-font">Description</label>
@@ -202,4 +207,17 @@
     // Call whenever content might change within the container
     previewContainer.addEventListener('DOMNodeInserted', checkForContent);
     previewContainer.addEventListener('DOMNodeRemoved', checkForContent);
+</script>
+
+<!-- JavaScript to show or hide the input box -->
+<script>
+    document.getElementById('Category').addEventListener('change', function() {
+        var otherCategoryInput = document.getElementById('otherCategoryInput');
+        var selectedCategory = document.getElementById('Category').value;
+        if (selectedCategory === '3') {
+            otherCategoryInput.style.display = 'block';
+        } else {
+            otherCategoryInput.style.display = 'none';
+        }
+    });
 </script>
