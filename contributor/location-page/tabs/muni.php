@@ -38,7 +38,7 @@
                     // $formatted_date = $date->format('Y-m-d H:i');
 
             ?>
-                    <tr id="row1" data-target="#dataModal" data-id="<?= $row['location_id']; ?>">
+                    <tr id="row1">
                         <!-- checkbox -->
                         <th scope="row"><input class="form-check-input" type="checkbox"></th>
 
@@ -58,11 +58,10 @@
                         </td>
 
                         <!-- Action -->
-                        <td class="text-center">
-                            <form class="d-flex justify-content-center" action="location-page/code/code-muni.php" method="post">
-                                <input type="hidden" name="email" value="<?php echo $row['location_id']; ?>" />
+                        <td>
+                            <form class="d-flex justify-content-center">
                                 <!-- edit -->
-                                <button type="submit" name="edit" class="btn btn-primary me-1"><i class="fa-regular fa-pen-to-square"></i></button>
+                                <a href="#" class="btn btn-primary me-1 edit_data" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['location_id']; ?>"><i class="fa-regular fa-pen-to-square"></i></a>
                                 <!-- delete -->
                                 <button type="submit" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                             </form>

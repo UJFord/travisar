@@ -44,6 +44,30 @@ if (isset($_POST['save'])) {
     }
 }
 
+if (isset($_POST['update'])) {
+    $location_id = $_POST['location_id'];
+    $province_name = $_POST['province_name'];
+    $municipality_name = $_POST['municipality_name'];
+
+    $query = "UPDATE location set province_name = $1, municipality_name = $2 where location_id = $3";
+    $query_run = pg_query_params($conn, $query, array($province_name, $municipality_name, $location_id));
+
+    if ($query_run !== false) {
+        $affected_rows = pg_affected_rows($query_run);
+        if ($affected_rows > 0) {
+            echo "Location updated successfully";
+            header("location: ../../location.php");
+            exit; // Ensure that the script stops executing after the redirect header
+        } else {
+            echo "Error: Location ID not found";
+            exit(0);
+        }
+    } else {
+        echo "Error: " . pg_last_error($conn);
+        exit(0);
+    }
+}
+
 if (isset($_POST['rejected'])) {
     $crop_id = $_POST['crop_id'];
     $select = "UPDATE crop SET status = 'rejected' WHERE crop_id = '$crop_id' ";
@@ -54,5 +78,30 @@ if (isset($_POST['rejected'])) {
         exit; // Ensure that the script stops executing after the redirect header
     } else {
         echo "Error updating record"; // Display an error message if the query fails
+    }
+}
+
+if (isset($_POST['click_edit_btn'])) {
+    if (isset($_POST["location_id"])) {
+        $location_id = $_POST["location_id"];
+        $arrayresult = [];
+
+        // Fetch data from the location table
+        $query = "SELECT * FROM location WHERE location_id = $1";
+        $query_run = pg_query_params($conn, $query, array($location_id));
+
+        if (pg_num_rows($query_run) > 0) {
+            while ($row = pg_fetch_assoc($query_run)) {
+
+                $arrayresult[] = $row;
+            }
+
+            header('Content-Type: application/json');
+            echo json_encode($arrayresult);
+        } else {
+            echo '<h4>No record found</h4>';
+        }
+    } else {
+        echo "Location ID not set";
     }
 }

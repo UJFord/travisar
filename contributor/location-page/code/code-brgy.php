@@ -44,6 +44,29 @@ if (isset($_POST['save'])) {
     }
 }
 
+if (isset($_POST['update'])) {
+    $barangay_id = $_POST['barangay_id'];
+    $barangay_name = $_POST['barangay_name'];
+
+    $query = "UPDATE barangay set barangay_name = $1 where barangay_id = $2";
+    $query_run = pg_query_params($conn, $query, array($barangay_name, $barangay_id));
+
+    if ($query_run !== false) {
+        $affected_rows = pg_affected_rows($query_run);
+        if ($affected_rows > 0) {
+            echo "Barangay updated successfully";
+            header("location: ../../location.php");
+            exit; // Ensure that the script stops executing after the redirect header
+        } else {
+            echo "Error: Barangay ID not found";
+            exit(0);
+        }
+    } else {
+        echo "Error: " . pg_last_error($conn);
+        exit(0);
+    }
+}
+
 if (isset($_POST['rejected'])) {
     $crop_id = $_POST['crop_id'];
     $select = "UPDATE crop SET status = 'rejected' WHERE crop_id = '$crop_id' ";
@@ -54,5 +77,30 @@ if (isset($_POST['rejected'])) {
         exit; // Ensure that the script stops executing after the redirect header
     } else {
         echo "Error updating record"; // Display an error message if the query fails
+    }
+}
+
+if (isset($_POST['click_edit_btn'])) {
+    if (isset($_POST["barangay_id"])) {
+        $barangay_id = $_POST["barangay_id"];
+        $arrayresult = [];
+
+        // Fetch data from the barangay table
+        $query = "SELECT * FROM barangay WHERE barangay_id = $1";
+        $query_run = pg_query_params($conn, $query, array($barangay_id));
+
+        if (pg_num_rows($query_run) > 0) {
+            while ($row = pg_fetch_assoc($query_run)) {
+
+                $arrayresult[] = $row;
+            }
+
+            header('Content-Type: application/json');
+            echo json_encode($arrayresult);
+        } else {
+            echo '<h4>No record found</h4>';
+        }
+    } else {
+        echo "barangay ID not set";
     }
 }
