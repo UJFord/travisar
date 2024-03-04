@@ -3,6 +3,8 @@
     <h3>Characteristics</h3>
 
     <!-- Taste and Aroma-->
+
+<div class="fade tab-pane" id="edit-more-tab-pane" role="tabpanel" aria-labelledby="edit-more-tab" tabindex="0">
     <div class="row mb-3">
         <input id="Char_id" type="hidden" name="characteristics_id" class="form-control">
         <input id="cultural_aspect-Edit" type="hidden" name="cultural_aspect_id" class="form-control">
@@ -51,6 +53,7 @@
             <label for="Cultural-SignificanceEdit" class="form-label small-font">Cultural-Significance</label>
             <input id="Cultural-SignificanceEdit" type="text" name="cultural_significance" class="form-control">
         </div>
+
 
         <!-- Spiritual-Significance -->
         <div class="col-6">

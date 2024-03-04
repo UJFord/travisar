@@ -90,14 +90,17 @@
                         $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
 
                 ?>
-                        <tr id="row1">
+                        <tr id="row1" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">
+
                             <!-- checkbox -->
                             <th scope="row"><input class="form-check-input" type="checkbox"></th>
+
                             <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
+
                             <!-- Variety name -->
                             <td>
                                 <!-- Variety name -->
-                                <a href=""><?= $row['crop_variety']; ?></a>
+                                <a href="#" class="modal-trigger" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>"><?= $row['crop_variety']; ?></a>
                                 <!-- category -->
                                 <?php
                                 if (pg_num_rows($query_run_category)) {
@@ -108,6 +111,7 @@
                                 }
                                 ?>
                             </td>
+
                             <!-- contributor -->
                             <td class="small-font">
                                 <span class="py-1 px-2">
@@ -121,9 +125,12 @@
                                     ?>
                                 </span>
                             </td>
+
+                            <!-- edit -->
                             <td>
                                 <a href="#" class="btn btn-success btn-sm edit_data" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">Edit</a>
                             </td>
+
                             <!-- ellipsis menu butn -->
                             <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                         </tr>
@@ -139,3 +146,22 @@
 </div>
 <!-- Add pagination links -->
 <?php generatePaginationLinks($total_pages, $current_page, 'page'); ?>
+
+<!-- jquery -->
+<script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script>
+    // make clicking table rows open edit ui
+    $(document).ready(function() {
+        $('#dataTable tr').click(function() {
+            console.log('clicked')
+            // Get the crop ID from the clicked row or anchor tag
+            var cropId = $(this).data('id') || $(this).find('a').data('id');
+
+            // Optionally, use the crop ID to fetch additional data and populate the modal
+            // ...
+
+            // Open the modal
+            $('#dataModal').modal('show');
+        });
+    });
+</script>
