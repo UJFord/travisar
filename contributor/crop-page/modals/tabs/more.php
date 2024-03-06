@@ -1,5 +1,5 @@
 <!-- MORE TAB -->
-<div class="fade active tab-pane" id="more-tab-pane" role="tabpanel" aria-labelledby="more-tab" tabindex="0">
+<div class="fade tab-pane" id="more-tab-pane" role="tabpanel" aria-labelledby="more-tab" tabindex="0">
     <h3>Characteristics</h3>
 
     <!-- Taste and Aroma-->
