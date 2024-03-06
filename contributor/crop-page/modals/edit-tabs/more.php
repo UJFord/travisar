@@ -1,10 +1,8 @@
 <!-- MORE TAB -->
-<div class="fade show active tab-pane" id="more-tab-pane" role="tabpanel" aria-labelledby="more-tab" tabindex="0">
+<div class="fade tab-pane" id="edit-more-tab-pane" role="tabpanel" aria-labelledby="edit-more-tab" tabindex="0">
     <h3>Characteristics</h3>
 
     <!-- Taste and Aroma-->
-
-<div class="fade tab-pane" id="edit-more-tab-pane" role="tabpanel" aria-labelledby="edit-more-tab" tabindex="0">
     <div class="row mb-3">
         <input id="Char_id" type="hidden" name="characteristics_id" class="form-control">
         <input id="cultural_aspect-Edit" type="hidden" name="cultural_aspect_id" class="form-control">
