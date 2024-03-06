@@ -48,7 +48,7 @@
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-between">
                     <div class="">
-                        <button type="submit" name="edit" onclick="validateAndSubmitForm()" class="btn btn-success">Edit</button>
+                        <button type="submit" name="edit" onclick="validateAndSubmitForm()" class="btn btn-success">Save</button>
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                     </div>
                     <button type="button" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
