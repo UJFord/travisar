@@ -1,7 +1,5 @@
 <!-- MORE TAB -->
 <div class="fade tab-pane" id="more-tab-pane" role="tabpanel" aria-labelledby="more-tab" tabindex="0">
-    <h3>Characteristics</h3>
-
     <!-- Taste and Aroma-->
     <div class="row mb-3">
         <!-- Taste -->
@@ -37,10 +35,6 @@
             <input id="Disease" type="text" name="disease" class="form-control">
         </div>
     </div>
-
-    <br>
-
-    <h3>Cultural Aspect</h3>
     <!-- Cultural and Spiritual Significance-->
     <div class="row mb-3">
         <!-- Cultural-Significance -->
@@ -73,7 +67,8 @@
     <!-- STEP NAVIGATION -->
     <div class="row">
         <div class="col d-flex justify-content-start">
-            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc')"><i class="fa-solid fa-backward"></i></button>
+
+            <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc', this)">Previous</button>
         </div>
     </div>
 </div>

@@ -37,6 +37,10 @@
         cursor: pointer;
     }
 
+    /* step navigation icon colors */
+    .lighter-color {
+        color: #4e5663;
+    }
 
     /* hiding the scrollbar */
     #preview {
@@ -61,15 +65,38 @@
 
     <!-- NAME AND TYPE -->
     <div class="row mb-3">
+
         <!-- variety name -->
-        <div class="col-6">
+        <div class="col-6 mb-2">
             <label for="Variety-Name" class="form-label small-font">Name<span style="color: red;">*</span></label>
             <input id="Variety-Name" type="text" name="crop_variety" class="form-control">
         </div>
 
+        <!-- scientific name -->
+        <div class="col-6 mb-2">
+            <label class="form-label small-font">Scientific Name<span style="color: red;">*</span></label>
+            <input type="text" class="form-control fst-italic">
+        </div>
+
+        <!-- local name -->
+        <div class="col-6 mb-2">
+            <label class="form-label small-font">Local Name</label>
+            <input type="text" class="form-control">
+        </div>
+
+        <!-- name origin -->
+        <div class="col-6 mb-2">
+            <label class="form-label small-font">Name Origin</label>
+            <input type="text" class="form-control">
+        </div>
+    </div>
+
+
+
+    <div class="row mb-4">
         <!-- Category -->
-        <div class="col-4">
-            <label for="Category" class="form-label small-font">What type of crop is this? <span style="color: red;">*</span></label>
+        <div class="col-6">
+            <label for="Category" class="form-label small-font">Type<span style="color: red;">*</span></label>
             <select name="category_id" id="Category" class="form-select">
                 <?php
                 // get the data of category from DB
@@ -100,6 +127,7 @@
                 ?>
             </select>
         </div>
+
         <!-- Input box for "other" category -->
         <div class="col" id="otherCategoryInput" style="display: none;">
             <label for="OtherCategory" class="form-label small-font">Please specify:</label>
@@ -135,7 +163,7 @@
     <!-- STEP NAVIGATION -->
     <div class="row">
         <div class="col d-flex justify-content-end">
-            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc')"><i class="fa-solid fa-forward"></i></button>
+            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc')">Next</button>
         </div>
     </div>
 </div>

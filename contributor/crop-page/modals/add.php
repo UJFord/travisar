@@ -21,13 +21,13 @@
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active small-font modal-tab" id="gen-tab" data-bs-toggle="tab" data-bs-target="#gen-tab-pane" type="button" role="tab" aria-controls="gen-tab-pane" aria-selected="true"><i class="fa-solid fa-info me-1 text-primary"></i>General</button>
+                            <button class="nav-link active small-font modal-tab" id="gen-tab" data-bs-toggle="tab" data-bs-target="#gen-tab-pane" type="button" role="tab" aria-controls="gen-tab-pane" aria-selected="true"><i class="fa-solid fa-info me-1"></i>General</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="loc-tab" data-bs-toggle="tab" data-bs-target="#loc-tab-pane" type="button" role="tab" aria-controls="loc-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot me-1 text-danger"></i>Location</button>
+                            <button class="nav-link small-font modal-tab" id="loc-tab" data-bs-toggle="tab" data-bs-target="#loc-tab-pane" type="button" role="tab" aria-controls="loc-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot me-1"></i>Location</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="false"><i class="fa-solid fa-ellipsis me-1 text-tertiary"></i>More</button>
+                            <button class="nav-link small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="false"><i class="fa-solid fa-ellipsis me-1"></i>More</button>
                         </li>
                     </ul>
                     <div class="container">
@@ -51,7 +51,6 @@
                         <button type="submit" name="save" onclick="validateAndSubmitForm()" class="btn btn-success">Save</button>
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                     </div>
-                    <button type="button" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
                 </div>
             </form>
         </div>
@@ -61,12 +60,12 @@
 <!-- SCRIPT -->
 <script>
     // keep the modal on
-    // window.onload = function() {
-    //     const dataModal = new bootstrap.Modal(document.getElementById('add-item-modal'), {
-    //         keyboard: false
-    //     });
-    //     dataModal.show();
-    // };
+    window.onload = function() {
+        const dataModal = new bootstrap.Modal(document.getElementById('add-item-modal'), {
+            keyboard: false
+        });
+        dataModal.show();
+    };
 </script>
 
 <!-- for submission -->

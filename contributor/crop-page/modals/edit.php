@@ -22,13 +22,13 @@
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active small-font modal-tab" id="edit-gen-tab" data-bs-toggle="tab" data-bs-target="#edit-gen-tab-pane" type="button" role="tab" aria-controls="edit-gen-tab-pane" aria-selected="true"><i class="fa-solid fa-info me-1 text-primary"></i>General</button>
+                            <button class="nav-link active small-font modal-tab" id="edit-gen-tab" data-bs-toggle="tab" data-bs-target="#edit-gen-tab-pane" type="button" role="tab" aria-controls="edit-gen-tab-pane" aria-selected="true"><i class="fa-solid fa-info me-1"></i>General</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-loc-tab" data-bs-toggle="tab" data-bs-target="#edit-loc-tab-pane" type="button" role="tab" aria-controls="edit-loc-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot me-1 text-danger"></i>Location</button>
+                            <button class="nav-link small-font modal-tab" id="edit-loc-tab" data-bs-toggle="tab" data-bs-target="#edit-loc-tab-pane" type="button" role="tab" aria-controls="edit-loc-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot me-1"></i>Location</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-more-tab" data-bs-toggle="tab" data-bs-target="#edit-more-tab-pane" type="button" role="tab" aria-controls="edit-more-tab-pane" aria-selected="false"><i class="fa-solid fa-ellipsis me-1 text-tertiary"></i>More</button>
+                            <button class="nav-link small-font modal-tab" id="edit-more-tab" data-bs-toggle="tab" data-bs-target="#edit-more-tab-pane" type="button" role="tab" aria-controls="edit-more-tab-pane" aria-selected="false"><i class="fa-solid fa-ellipsis me-1"></i>More</button>
                         </li>
                     </ul>
                     <div class="container">

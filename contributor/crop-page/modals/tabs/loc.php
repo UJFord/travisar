@@ -46,10 +46,6 @@
             <select id="Barangay" name="barangay" class="form-select mb-2">
             </select>
 
-            <!-- street -->
-            <label for="neighborhood" class="form-label small-font mb-0">Neighborhood</label>
-            <input id="neighborhood" name="neighborhood" type="text" class="form-control mb-2">
-
             <!-- coordinates -->
             <label for="coordInput" class="form-label small-font mb-0">Coordinates</label>
             <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
@@ -64,8 +60,8 @@
     <!-- STEP NAVIGATION -->
     <div class="row">
         <div class="col d-flex justify-content-between">
-            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open General Info tab" onclick="switchTab('gen',this)"><i class="fa-solid fa-backward"></i></button>
-            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Additional Info tab" onclick="switchTab('more',this)"><i class="fa-solid fa-forward"></i></button>
+            <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('gen', this)">Previous</button>
+            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('more', this)">Next</button>
         </div>
     </div>
 </div>
