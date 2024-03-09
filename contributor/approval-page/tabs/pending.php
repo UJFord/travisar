@@ -1,7 +1,6 @@
 <!-- Pending tab Active -->
 <div class="gen_info active" id="pendingTabData">
 
-
     <!-- TABLE -->
     <table id="pendingTable" class="table table-hover">
         <!-- table head -->

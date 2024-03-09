@@ -53,7 +53,7 @@
                     <a class="nav-link active " aria-current="page" href="crop.php">Items</a>
                 </li>
                 <li class="nav-item">
-                    <a class="nav-link" href="#">Contributors</a>
+                    <a class="nav-link" href="contributor.php">Contributors</a>
                 </li>
                 <li class="nav-item">
                     <a class="nav-link" href="approval.php">Validation<span class="count" style="color: red;"></span></a>
