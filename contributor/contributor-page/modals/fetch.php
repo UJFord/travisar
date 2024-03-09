@@ -12,13 +12,13 @@ if (isset($_POST['click_view_btn'])) {
 
     if (pg_num_rows($query_run) > 0) {
         while ($row = pg_fetch_assoc($query_run)) {
-
             $arrayresult[] = $row;
         }
 
         header('Content-Type: application/json');
         echo json_encode($arrayresult);
     } else {
-        echo '<h4>No record found</h4>';
+        http_response_code(404); // Set HTTP response code to indicate not found
+        echo json_encode(array('message' => 'No records found'));
     }
 }
