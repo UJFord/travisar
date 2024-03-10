@@ -142,7 +142,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['category_name']);
+                        console.log(value['coordinates']);
 
                         // Split the image filenames by comma
                         var imageFilenames = value['crop_image'].split(',');
@@ -155,6 +155,45 @@
                         // Fetch the old image and pass it to the fetchOldImage function
                         fetchOldImage(value.crop_image);
 
+                        // crop_id
+                        $('#crop_id').val(id);
+                        // cultural_aspect_id
+                        $('#cultural_aspect_id').val(value['cultural_aspect_id']);
+                        // crop_location_id
+                        $('#crop_location_id').val(value['crop_location_id']);
+                        // crop_field_id
+                        $('#crop_field_id').val(value['crop_field_id']);
+                        // characteristics_id
+                        $('#Char_id').val(value['characteristics_id']);
+                        // cultural_aspect_id
+                        $('#cultural_aspect-Edit').val(value['cultural_aspect_id']);
+
+                        // old image/current image
+                        $('#oldImageInput').val(value['crop_image']);
+                        // Format the input_date
+                        $('#input_dateEdit').text(moment(value['input_date']).format('YYYY-MM-DD HH:mm'));
+
+                        // Check if the category is 'other' and show/hide the otherCategoryInputEdit div accordingly
+                        if (value['category_name'] === 'Other') {
+                            $('#otherCategoryInputEdit').css('display', 'block');
+                            $('#otherCategoryEdit').text(value['other_category_name']);
+                        } else {
+                            $('#otherCategoryInputEdit').css('display', 'none');
+                        }
+                        $('#CategoryEdit').text(value['category_name']);
+
+                        // input elements with the new data on gen.php and loc.php
+                        //gen.php
+                        $('#crop_variety').val(value['crop_variety']);
+                        $('#ScienceName').val(value['scientific_name']);
+                        $('#LocalName').val(value['crop_local_name']);
+                        $('#NameOrigin').val(value['name_origin']);
+                        $('#description').val(value['crop_description']);
+
+                        //loc.php
+                        $('#neighborhoodEdit').val(value['neighborhood']);
+                        // coordInput
+                        $('#coordEdit').val(value['coordinates']);
                         // Update the select data of loc.php locations
                         $('#crop_variety_select').append($('<option>', {
                             value: value['crop_variety'],
@@ -179,34 +218,7 @@
                             $('#MunicipalitySelect').append('<option value="' + municipality + '" ' + selected + '>' + municipality + '</option>');
                         });
 
-                        // crop_id
-                        $('#crop_id').val(id);
-                        // cultural_aspect_id
-                        $('#cultural_aspect_id').val(value['cultural_aspect_id']);
-                        // crop_location_id
-                        $('#crop_location_id').val(value['crop_location_id']);
-                        // crop_field_id
-                        $('#crop_field_id').val(value['crop_field_id']);
-                        // other_category_id
-                        $('#other_category_id').val(value['other_category_id']);
-                        // characteristics_id
-                        $('#Char_id').val(value['characteristics_id']);
-                        // cultural_aspect_id
-                        $('#cultural_aspect-Edit').val(value['cultural_aspect_id']);
-
-                        // old image/current image
-                        $('#oldImageInput').val(value['crop_image']);
-
-                        // input elements with the new data on gen.php and loc.php
-                        $('#CategoryEdit').val(value['category_name']);
-                        $('#crop_variety').val(value['crop_variety']);
-                        $('#ScienceName').val(value['scientific_name']);
-                        $('#UniqueFeat').val(value['unique_features']);
-                        $('#MainEcosystem').val(value['role_in_maintaining_upland_ecosystem']);
-                        $('#description').val(value['crop_description']);
-                        $('#neighborhoodEdit').val(value['neighborhood']);
-                        $('#coordInput').val(value['coordinates']);
-
+                        // characteristics
                         $('#TasteEdit').val(value['taste']);
                         $('#AromaEdit').val(value['aroma']);
                         $('#MaturationEdit').val(value['maturation']);

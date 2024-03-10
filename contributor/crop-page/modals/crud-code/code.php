@@ -225,10 +225,9 @@ if (isset($_POST['save'])) {
             exit(0);
         }
 
-
         // save into Crop Location Table
-        $query_CropLoc = "INSERT into crop_location (crop_id, location_id, barangay_id) VALUES ($1, $2, $3) RETURNING crop_location_id";
-        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($crop_id, $location_id, $barangay_id));
+        $query_CropLoc = "INSERT into crop_location (crop_id, location_id, barangay_id, coordinates) VALUES ($1, $2, $3, $4) RETURNING crop_location_id";
+        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($crop_id, $location_id, $barangay_id, $coordinates));
 
         if ($query_run_CropLoc) {
             // Check if any rows were affected

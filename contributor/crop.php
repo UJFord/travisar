@@ -24,11 +24,12 @@ require "../functions/functions.php";
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- custom -->
-
     <!-- global declarations -->
     <link rel="stylesheet" href="../css/global-declarations.css">
     <!-- specific for this file -->
     <link rel="stylesheet" href="css/crop-list.css">
+    <!-- script for moment js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
     <!-- script for access control -->
     <script src="../js/access-control.js"></script>

@@ -55,7 +55,6 @@
 <div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
 
     <!-- para ma empty lang ang data sa db dili ra sya ma null -->
-    <input type="hidden" name="crop_local_name" value="">
     <input type="hidden" name="field_id" value="1">
     <input type="hidden" name="cultural_use" value="">
     <input type="hidden" name="threats" value="">
@@ -78,7 +77,7 @@
         <!-- local name -->
         <div class="col-6 mb-2">
             <label class="form-label small-font">Local Name</label>
-            <input type="text" name="local_name" class="form-control">
+            <input type="text" name="crop_local_name" class="form-control">
         </div>
 
         <!-- name origin -->
@@ -163,7 +162,7 @@
             <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc')">Next</button>
         </div>
     </div>
-    
+
 </div>
 
 <!-- SCRIPT for add tab-->

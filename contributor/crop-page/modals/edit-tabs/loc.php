@@ -15,7 +15,7 @@
         <div class="col-6">
             <input type="hidden" name="crop_location_id" id="crop_location_id">
             <!-- Province dropdown -->
-            <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
+            <label for="ProvinceEdit" class="form-label small-font">Province <span style="color: red;">*</span></label>
             <select id="ProvinceEdit" name="province" class="form-select mb-2">
                 <?php
                 // Fetch distinct province names from the location table
@@ -43,17 +43,13 @@
             </select>
 
             <!-- barangay -->
-            <label for="Barangay" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
+            <label for="BarangaySelect" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
             <select id="BarangaySelect" name="barangay" class="form-select mb-2">
             </select>
 
-            <!-- street -->
-            <label for="neighborhoodEdit" class="form-label small-font mb-0">Neighborhood</label>
-            <input id="neighborhoodEdit" name="neighborhood" type="text" class="form-control mb-2">
-
             <!-- coordinates -->
-            <label for="coordInput" class="form-label small-font mb-0">Coordinates</label>
-            <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
+            <label for="coordEdit" class="form-label small-font mb-0">Coordinates</label>
+            <input id="coordEdit" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
             <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (latitude , longitude)</div>
         </div>
         <!-- map -->
