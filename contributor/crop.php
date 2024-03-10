@@ -144,7 +144,7 @@ require "../functions/functions.php";
     <script>
         // FORMS SIDE
         // Get references to the select elements
-        const neighbourhoodValue = document.getElementById('neighbourhood')
+        // const neighbourhoodValue = document.getElementById('neighbourhood')
         const municipalitySelect = document.getElementById('Municipality');
         const barangaySelect = document.getElementById('Barangay');
 

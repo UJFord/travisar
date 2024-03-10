@@ -25,7 +25,7 @@ if (isset($_POST['save'])) {
         $threats = handleEmpty($_POST['threats']);
         $coordinates = handleEmpty($_POST['coordinates']);
 
-        $barangay_id = $_POST['barangay_id'];
+        $barangay_name = $_POST['barangay'];
         $user_id = $_POST['user_id'];
         $status = 'pending';
 
@@ -47,17 +47,30 @@ if (isset($_POST['save'])) {
         $diseases = handleEmpty($_POST['diseases']);
 
         // Validate the form data
-        if (empty($crop_variety) || empty($scientific_name) || empty($category_id) || empty($crop_image)) {
+        if (empty($crop_variety) || empty($scientific_name) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
             throw new Exception("All fields are required.");
         }
 
+        // Check if the image is selected
+        if (!isset($_FILES['crop_image']['name']) || !is_array($_FILES['crop_image']['name'])) {
+            throw new Exception("Please select an image.");
+        }
+
+        // Check for upload errors
+        foreach ($_FILES['crop_image']['error'] as $key => $error) {
+            if ($error !== UPLOAD_ERR_OK) {
+                throw new Exception("Image upload error: " . $error);
+            }
+        }
+
+        // query to save the cultural aspect
         $query_CulturalAspect = "INSERT into cultural_aspect (cultural_significance, spiritual_significance, cultural_importance, cultural_use) VALUES ($1, $2, $3, $4) returning cultural_aspect_id";
         $query_run_CulturalAspect = pg_query_params($conn, $query_CulturalAspect, array($cultural_significance, $spiritual_significance, $cultural_importance, $cultural_use));
 
         if ($query_run_CulturalAspect !== false) {
-            $affected_rows = pg_affected_rows($query_run_CulturalAspect);
+            $affected_rows = pg_fetch_row($query_run_CulturalAspect);
             if ($affected_rows > 0) {
-                echo "Cultural aspect updated successfully";
+                $cultural_aspect_id = $affected_rows[0];
             } else {
                 echo "Error: Cultural aspect ID not found";
                 exit(0);
@@ -150,15 +163,13 @@ if (isset($_POST['save'])) {
         $newUniqueCode = 'TCV' . $newCounter;
 
         //insert into crop table
-        $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, role_in_maintaining_upland_ecosystem,
-        scientific_name, unique_features, crop_description, status, cultural_aspect_id, threats, user_id, crop_image, unique_code,
-        name_origin)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14) RETURNING crop_id";
+        $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
+        scientific_name, name_origin, crop_description, status, cultural_aspect_id, threats, user_id, crop_image)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING crop_id";
 
         $valueCrops = array(
-            $crop_variety, $crop_local_name, $category_id, $role_in_maintaining_upland_ecosystem,
-            $scientific_name, $unique_features, $crop_description, $status, $cultural_aspect_id, $threats, $user_id, $imageNamesString,
-            $newUniqueCode, $name_origin
+            $crop_variety, $crop_local_name, $category_id, $newUniqueCode,
+            $scientific_name, $name_origin, $crop_description, $status, $cultural_aspect_id, $threats, $user_id, $imageNamesString
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -200,6 +211,20 @@ if (isset($_POST['save'])) {
             echo "Error: " . pg_last_error($conn);
             exit(0);
         }
+
+        // Barangay Tab
+        // get the barangay id
+        $querybrgy = "SELECT barangay_id from barangay where barangay_name = $1";
+        $query_run_brgy = pg_query_params($conn, $querybrgy, array($barangay_name));
+
+        if ($query_run_brgy) {
+            $row_brgy = pg_fetch_row(($query_run_brgy));
+            $barangay_id = $row_brgy[0];
+        } else {
+            echo "Error: " . pg_last_error($conn);
+            exit(0);
+        }
+
 
         // save into Crop Location Table
         $query_CropLoc = "INSERT into crop_location (crop_id, location_id, barangay_id) VALUES ($1, $2, $3) RETURNING crop_location_id";

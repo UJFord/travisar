@@ -32,7 +32,7 @@
         <!-- Disease -->
         <div class="col-6">
             <label for="Disease" class="form-label small-font">Disease</label>
-            <input id="Disease" type="text" name="disease" class="form-control">
+            <input id="Disease" type="text" name="diseases" class="form-control">
         </div>
     </div>
     <!-- Cultural and Spiritual Significance-->
@@ -67,7 +67,6 @@
     <!-- STEP NAVIGATION -->
     <div class="row">
         <div class="col d-flex justify-content-start">
-
             <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc', this)">Previous</button>
         </div>
     </div>

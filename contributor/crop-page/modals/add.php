@@ -48,7 +48,7 @@
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-between">
                     <div class="">
-                        <button type="button" name="save" onclick="validateAndSubmitForm()" class="btn btn-success">Save</button>
+                        <button type="submit" name="save" class="btn btn-success">Save</button>
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </div>
@@ -71,41 +71,31 @@
 <!-- for submission -->
 <script>
     document.getElementById('form-panel').addEventListener('submit', function(event) {
-        if (!validateForm()) {
-            event.preventDefault(); // Prevent the form from being submitted
-            alert("Please fill out all required fields.");
+        var isValid = true;
+        // Check if any required fields are empty
+        var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+        requiredFields.forEach(function(field) {
+            if (!field.value.trim()) {
+                isValid = false;
+                field.classList.add('is-invalid');
+            } else {
+                field.classList.remove('is-invalid');
+            }
+        });
+
+        if (!isValid) {
+            // Prevent the form from submitting
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
         }
+
+        // Form is valid, submit the form
+        submitForm();
     });
-
-    // Function to validate input and submit the form
-    function validateAndSubmitForm() {
-        // Validate the form
-        if (validateForm()) {
-            // If validation succeeds, submit the form
-            document.forms["Form"].submit();
-        } else {
-            return false; // Prevent form submission
-        }
-    }
-
-    // Function to validate input
-    function validateForm() {
-        var cropName = document.forms["Form"]["crop_variety"].value;
-        var scientificName = document.forms["Form"]["scientific_name"].value;
-        var category = document.forms["Form"]["category_id"].value;
-        var cropImage = document.forms["Form"]["crop_image"].value;
-
-        // Check if the required fields are not empty
-        if (cropName === "" || cropImage === "" || scientificName === "" || category === "") {
-            alert("Please fill out all required fields.");
-            return false; // Prevent form submission
-        }
-        return true; // Allow form submission
-    }
 
     // Function to submit the form and refresh notifications
     function submitForm() {
-        // console.log('submitForm function called');
         // Get the form reference
         var form = document.getElementById('form-panel');
         // Trigger the form submission
