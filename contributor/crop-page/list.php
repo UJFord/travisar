@@ -9,7 +9,7 @@
             <!-- add button -->
             <div class="z-1 dropdown">
                 <!-- dropdown -->
-                <button id="add-crop-btn" class="btn btn-secondary dropdown-toggle" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button id="add-crop-btn" class="btn btn-secondary dropdown-toggle encoder-only" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                     New
                 </button>
                 <!-- list -->
@@ -128,7 +128,7 @@
 
                             <!-- edit -->
                             <td>
-                                <a href="#" class="btn btn-success btn-sm edit_data" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">Edit</a>
+                                <a href="#" class="btn btn-success btn-sm edit_data curator-only admin-only" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">Edit</a>
                             </td>
 
                             <!-- ellipsis menu butn -->
