@@ -64,7 +64,7 @@
 
         <!-- variety name -->
         <div class="col-6 mb-2">
-            <label for="Variety-Name" class="form-label small-font">Name<span style="color: red;">*</span></label>
+            <label for="Variety-Name" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
             <input id="Variety-Name" type="text" name="crop_variety" class="form-control" required>
         </div>
 
