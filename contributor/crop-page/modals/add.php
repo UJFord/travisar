@@ -48,7 +48,7 @@
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-between">
                     <div class="">
-                        <button type="submit" name="save" onclick="validateAndSubmitForm()" class="btn btn-success">Save</button>
+                        <button type="button" name="save" onclick="validateAndSubmitForm()" class="btn btn-success">Save</button>
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
 </div>
 
 <!-- SCRIPT -->
-<script>
+<!-- <script>
     // keep the modal on
     window.onload = function() {
         const dataModal = new bootstrap.Modal(document.getElementById('add-item-modal'), {
@@ -66,30 +66,40 @@
         });
         dataModal.show();
     };
-</script>
+</script> -->
 
 <!-- for submission -->
 <script>
+    document.getElementById('form-panel').addEventListener('submit', function(event) {
+        if (!validateForm()) {
+            event.preventDefault(); // Prevent the form from being submitted
+            alert("Please fill out all required fields.");
+        }
+    });
+
     // Function to validate input and submit the form
     function validateAndSubmitForm() {
         // Validate the form
         if (validateForm()) {
             // If validation succeeds, submit the form
-            submitForm();
+            document.forms["Form"].submit();
+        } else {
+            return false; // Prevent form submission
         }
     }
 
     // Function to validate input
     function validateForm() {
-        // Get the values from the form
         var cropName = document.forms["Form"]["crop_variety"].value;
+        var scientificName = document.forms["Form"]["scientific_name"].value;
+        var category = document.forms["Form"]["category_id"].value;
+        var cropImage = document.forms["Form"]["crop_image"].value;
 
         // Check if the required fields are not empty
-        if (cropName === "") {
+        if (cropName === "" || cropImage === "" || scientificName === "" || category === "") {
             alert("Please fill out all required fields.");
             return false; // Prevent form submission
         }
-        // You can add more validation checks if needed
         return true; // Allow form submission
     }
 

@@ -256,12 +256,11 @@ require "../functions/functions.php";
             let details = fetchData(latitude, longitude)
                 .then(details => {
                     // set neighbourhood
-                    neighbourhoodValue.value = details.neighbourhood
-                    neighbourhoodValueEdit.value = details.neighbourhood
+                    // neighbourhoodValueEdit.value = details.neighbourhood
                     // set municipality
-                    municipalitySelect.value = details.town;
+                    // municipalitySelect.value = details.town;
                     // set barangay
-                    barangaySelect.value = details.village;
+                    // barangaySelect.value = details.village;
 
                     console.log('Country:', details.country);
                     console.log('State:', details.state);
@@ -271,8 +270,8 @@ require "../functions/functions.php";
                     console.log('Borough:', details.borough);
                     console.log('Village:', details.village);
                     console.log('Suburb:', details.suburb);
-                    console.log('Neighbourhood:', details.neighbourhood);
-                    console.log('Neighbourhood:', details.neighbourhood);
+                    // console.log('Neighbourhood:', details.neighbourhood);
+                    // console.log('Neighbourhood:', details.neighbourhood);
                     console.log('Settlement:', details.settlement);
                     console.log('Major Streets:', details.majorStreets);
                     console.log('Major and Minor Streets:', details.majorAndMinorStreets);

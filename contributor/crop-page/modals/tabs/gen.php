@@ -57,9 +57,6 @@
     <!-- para ma empty lang ang data sa db dili ra sya ma null -->
     <input type="hidden" name="crop_local_name" value="">
     <input type="hidden" name="field_id" value="1">
-    <input type="hidden" name="cultural_significance" value="">
-    <input type="hidden" name="spiritual_significance" value="">
-    <input type="hidden" name="cultural_importance_and_traditional_knowledge" value="">
     <input type="hidden" name="cultural_use" value="">
     <input type="hidden" name="threats" value="">
 
@@ -75,19 +72,19 @@
         <!-- scientific name -->
         <div class="col-6 mb-2">
             <label class="form-label small-font">Scientific Name<span style="color: red;">*</span></label>
-            <input type="text" class="form-control fst-italic">
+            <input type="text" name="scientific_name" class="form-control fst-italic">
         </div>
 
         <!-- local name -->
         <div class="col-6 mb-2">
             <label class="form-label small-font">Local Name</label>
-            <input type="text" class="form-control">
+            <input type="text" name="local_name" class="form-control">
         </div>
 
         <!-- name origin -->
         <div class="col-6 mb-2">
             <label class="form-label small-font">Name Origin</label>
-            <input type="text" class="form-control">
+            <input type="text" name="name_origin" class="form-control">
         </div>
     </div>
 
