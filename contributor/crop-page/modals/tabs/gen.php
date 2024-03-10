@@ -55,11 +55,7 @@
 <div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
 
     <!-- para ma empty lang ang data sa db dili ra sya ma null -->
-    <input type="hidden" name="crop_local_name" value="">
     <input type="hidden" name="field_id" value="1">
-    <input type="hidden" name="cultural_significance" value="">
-    <input type="hidden" name="spiritual_significance" value="">
-    <input type="hidden" name="cultural_importance_and_traditional_knowledge" value="">
     <input type="hidden" name="cultural_use" value="">
     <input type="hidden" name="threats" value="">
 
@@ -69,25 +65,25 @@
         <!-- variety name -->
         <div class="col-6 mb-2">
             <label for="Variety-Name" class="form-label small-font">Name<span style="color: red;">*</span></label>
-            <input id="Variety-Name" type="text" name="crop_variety" class="form-control">
+            <input id="Variety-Name" type="text" name="crop_variety" class="form-control" required>
         </div>
 
         <!-- scientific name -->
         <div class="col-6 mb-2">
             <label class="form-label small-font">Scientific Name<span style="color: red;">*</span></label>
-            <input type="text" class="form-control fst-italic">
+            <input type="text" name="scientific_name" class="form-control fst-italic" required>
         </div>
 
         <!-- local name -->
         <div class="col-6 mb-2">
             <label class="form-label small-font">Local Name</label>
-            <input type="text" class="form-control">
+            <input type="text" name="crop_local_name" class="form-control">
         </div>
 
         <!-- name origin -->
         <div class="col-6 mb-2">
             <label class="form-label small-font">Name Origin</label>
-            <input type="text" class="form-control">
+            <input type="text" name="name_origin" class="form-control">
         </div>
     </div>
 
@@ -97,7 +93,7 @@
         <!-- Category -->
         <div class="col-6">
             <label for="Category" class="form-label small-font">Type<span style="color: red;">*</span></label>
-            <select name="category_id" id="Category" class="form-select">
+            <select name="category_id" id="Category" class="form-select" required>
                 <?php
                 // get the data of category from DB
                 // gi set ra nako na permi last ang other nga category og ascending sya based sa catgory name
@@ -145,7 +141,7 @@
                     <span>Image <span style="color: red;">*</span></span>
                 </label>
                 <!-- image input -->
-                <input class="mb-2 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_image[]" multiple>
+                <input class="mb-2 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_image[]" multiple required>
                 <!-- image preview -->
                 <div class="preview-container custom-scrollbar overflow-scroll rounded border p-1" id="preview"></div>
             </div>
@@ -166,6 +162,7 @@
             <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc')">Next</button>
         </div>
     </div>
+
 </div>
 
 <!-- SCRIPT for add tab-->

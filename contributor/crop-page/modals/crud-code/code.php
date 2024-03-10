@@ -18,20 +18,19 @@ if (isset($_POST['save'])) {
         $crop_local_name = handleEmpty($_POST['crop_local_name']);
         $category_id = $_POST['category_id'];
         $field_id = $_POST['field_id'];
-        // $crop_image = $_POST['crop_image[]'];
         $crop_description = handleEmpty($_POST['crop_description']);
         $province_name = $_POST['province'];
         $municipality_name = $_POST['municipality'];
+        $name_origin = $_POST['name_origin'];
         $threats = handleEmpty($_POST['threats']);
+        $coordinates = handleEmpty($_POST['coordinates']);
 
-        $barangay_id = $_POST['barangay_id'];
+        $barangay_name = $_POST['barangay'];
         $user_id = $_POST['user_id'];
         $status = 'pending';
 
         // Check if the array keys are set before accessing them
-        $role_in_maintaining_upland_ecosystem = isset($_POST['role_in_maintaining_upland_ecosystem']) ? handleEmpty($_POST['role_in_maintaining_upland_ecosystem']) : "Empty";
         $scientific_name = isset($_POST['scientific_name']) ? handleEmpty($_POST['scientific_name']) : "Empty";
-        $unique_features = isset($_POST['unique_features']) ? handleEmpty($_POST['unique_features']) : "Empty";
         $other_category_name = isset($_POST['other_category_name']) ? handleEmpty($_POST['other_category_name']) : "Empty";
 
         // Cultural Aspect
@@ -47,13 +46,31 @@ if (isset($_POST['save'])) {
         $pest = handleEmpty($_POST['pest']);
         $diseases = handleEmpty($_POST['diseases']);
 
+        // Validate the form data
+        if (empty($crop_variety) || empty($scientific_name) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
+            throw new Exception("All fields are required.");
+        }
+
+        // Check if the image is selected
+        if (!isset($_FILES['crop_image']['name']) || !is_array($_FILES['crop_image']['name'])) {
+            throw new Exception("Please select an image.");
+        }
+
+        // Check for upload errors
+        foreach ($_FILES['crop_image']['error'] as $key => $error) {
+            if ($error !== UPLOAD_ERR_OK) {
+                throw new Exception("Image upload error: " . $error);
+            }
+        }
+
+        // query to save the cultural aspect
         $query_CulturalAspect = "INSERT into cultural_aspect (cultural_significance, spiritual_significance, cultural_importance, cultural_use) VALUES ($1, $2, $3, $4) returning cultural_aspect_id";
         $query_run_CulturalAspect = pg_query_params($conn, $query_CulturalAspect, array($cultural_significance, $spiritual_significance, $cultural_importance, $cultural_use));
 
         if ($query_run_CulturalAspect !== false) {
-            $affected_rows = pg_affected_rows($query_run_CulturalAspect);
+            $affected_rows = pg_fetch_row($query_run_CulturalAspect);
             if ($affected_rows > 0) {
-                echo "Cultural aspect updated successfully";
+                $cultural_aspect_id = $affected_rows[0];
             } else {
                 echo "Error: Cultural aspect ID not found";
                 exit(0);
@@ -132,14 +149,27 @@ if (isset($_POST['save'])) {
 
         $imageNamesString = implode(',', $imageNamesArray);
 
+        // for creating a unique code for each crops
+        // Get the latest unique_code from the crop table
+        $queryLatestCode = "SELECT unique_code FROM crop ORDER BY unique_code DESC LIMIT 1";
+        $resultLatestCode = pg_query($conn, $queryLatestCode);
+        $latestCode = pg_fetch_assoc($resultLatestCode)['unique_code'];
+
+        // Extract the numeric part of the latest code
+        $latestCounter = intval(preg_replace('/[^0-9]/', '', $latestCode));
+
+        // Generate the new unique code
+        $newCounter = $latestCounter + 1;
+        $newUniqueCode = 'TCV' . $newCounter;
+
         //insert into crop table
-        $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, role_in_maintaining_upland_ecosystem,
-        scientific_name, unique_features, crop_description, status, cultural_aspect_id, threats, user_id, crop_image) 
+        $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
+        scientific_name, name_origin, crop_description, status, cultural_aspect_id, threats, user_id, crop_image)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING crop_id";
 
         $valueCrops = array(
-            $crop_variety, $crop_local_name, $category_id, $role_in_maintaining_upland_ecosystem,
-            $scientific_name, $unique_features, $crop_description, $status, $cultural_aspect_id, $threats, $user_id, $imageNamesString
+            $crop_variety, $crop_local_name, $category_id, $newUniqueCode,
+            $scientific_name, $name_origin, $crop_description, $status, $cultural_aspect_id, $threats, $user_id, $imageNamesString
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -182,9 +212,22 @@ if (isset($_POST['save'])) {
             exit(0);
         }
 
+        // Barangay Tab
+        // get the barangay id
+        $querybrgy = "SELECT barangay_id from barangay where barangay_name = $1";
+        $query_run_brgy = pg_query_params($conn, $querybrgy, array($barangay_name));
+
+        if ($query_run_brgy) {
+            $row_brgy = pg_fetch_row(($query_run_brgy));
+            $barangay_id = $row_brgy[0];
+        } else {
+            echo "Error: " . pg_last_error($conn);
+            exit(0);
+        }
+
         // save into Crop Location Table
-        $query_CropLoc = "INSERT into crop_location (crop_id, location_id, barangay_id) VALUES ($1, $2, $3) RETURNING crop_location_id";
-        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($crop_id, $location_id, $barangay_id));
+        $query_CropLoc = "INSERT into crop_location (crop_id, location_id, barangay_id, coordinates) VALUES ($1, $2, $3, $4) RETURNING crop_location_id";
+        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($crop_id, $location_id, $barangay_id, $coordinates));
 
         if ($query_run_CropLoc) {
             // Check if any rows were affected
@@ -219,7 +262,7 @@ if (isset($_POST['save'])) {
         }
 
         // other category
-        // if nag select og other categoy ang user ma save ang name sa db if wala empty lang
+        // if nag select og other category ang user ma save ang name sa db if wala empty lang
         $query_OtherCategory = "INSERT INTO other_category (crop_id, other_category_name) VALUES ($1, $2)";
         $query_run_OtherCategory = pg_query_params($conn, $query_OtherCategory, array($crop_id, $other_category_name));
 

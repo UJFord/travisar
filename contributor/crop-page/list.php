@@ -153,7 +153,7 @@
     // make clicking table rows open edit ui
     $(document).ready(function() {
         $('#dataTable tr').click(function() {
-            console.log('clicked')
+            // console.log('clicked')
             // Get the crop ID from the clicked row or anchor tag
             var cropId = $(this).data('id') || $(this).find('a').data('id');
 

@@ -48,7 +48,7 @@
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-between">
                     <div class="">
-                        <button type="submit" name="save" onclick="validateAndSubmitForm()" class="btn btn-success">Save</button>
+                        <button type="submit" name="save" class="btn btn-success">Save</button>
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
 </div>
 
 <!-- SCRIPT -->
-<script>
+<!-- <script>
     // keep the modal on
     window.onload = function() {
         const dataModal = new bootstrap.Modal(document.getElementById('add-item-modal'), {
@@ -66,36 +66,36 @@
         });
         dataModal.show();
     };
-</script>
+</script> -->
 
 <!-- for submission -->
 <script>
-    // Function to validate input and submit the form
-    function validateAndSubmitForm() {
-        // Validate the form
-        if (validateForm()) {
-            // If validation succeeds, submit the form
-            submitForm();
-        }
-    }
+    document.getElementById('form-panel').addEventListener('submit', function(event) {
+        var isValid = true;
+        // Check if any required fields are empty
+        var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+        requiredFields.forEach(function(field) {
+            if (!field.value.trim()) {
+                isValid = false;
+                field.classList.add('is-invalid');
+            } else {
+                field.classList.remove('is-invalid');
+            }
+        });
 
-    // Function to validate input
-    function validateForm() {
-        // Get the values from the form
-        var cropName = document.forms["Form"]["crop_variety"].value;
-
-        // Check if the required fields are not empty
-        if (cropName === "") {
-            alert("Please fill out all required fields.");
-            return false; // Prevent form submission
+        if (!isValid) {
+            // Prevent the form from submitting
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
         }
-        // You can add more validation checks if needed
-        return true; // Allow form submission
-    }
+
+        // Form is valid, submit the form
+        submitForm();
+    });
 
     // Function to submit the form and refresh notifications
     function submitForm() {
-        // console.log('submitForm function called');
         // Get the form reference
         var form = document.getElementById('form-panel');
         // Trigger the form submission

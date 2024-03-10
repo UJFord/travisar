@@ -16,7 +16,7 @@
 
             <!-- Province dropdown -->
             <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
-            <select id="Province" name="province" class="form-select mb-2">
+            <select id="Province" name="province" class="form-select mb-2" readonly>
                 <?php
                 // Fetch distinct province names from the location table
                 $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";
@@ -38,17 +38,17 @@
 
             <!-- Municipality dropdown -->
             <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
-            <select id="Municipality" name="municipality" class="form-select">
+            <select id="Municipality" name="municipality" class="form-select" required>
             </select>
 
             <!-- barangay -->
             <label for="Barangay" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
-            <select id="Barangay" name="barangay" class="form-select mb-2">
+            <select id="Barangay" name="barangay" class="form-select mb-2" required>
             </select>
 
             <!-- coordinates -->
             <label for="coordInput" class="form-label small-font mb-0">Coordinates</label>
-            <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
+            <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help" required>
             <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (latitude , longitude)</div>
 
         </div>

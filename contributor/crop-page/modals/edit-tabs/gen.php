@@ -31,7 +31,6 @@
 
 <!-- GENERAL TAB -->
 <div class="fade show active tab-pane" id="edit-gen-tab-pane" role="tabpanel" aria-labelledby="edit-gen-tab" tabindex="0">
-
     <!-- NAME AND TYPE -->
     <div class="row mb-3">
         <!-- crop_id -->
@@ -44,7 +43,6 @@
         <input type="hidden" name="field_id" value="1">
         <input type="hidden" name="threats" value="">
         <input type="hidden" name="crop_field_id" id="crop_field_id">
-        <input type="hidden" name="other_category_id" id="other_category_id">
 
         <!-- variety name -->
         <div class="col-6">
@@ -52,16 +50,48 @@
             <input id="crop_variety" type="text" name="crop_variety" class="form-control">
         </div>
 
-        <!-- Category -->
+        <!-- scientific name -->
+        <div class="col-6">
+            <label for="ScienceName" class="form-label small-font">Scientific Name<span style="color: red;">*</span></label>
+            <input id="ScienceName" type="text" name="scientific_name" class="form-control">
+        </div>
+    </div>
+
+    <!-- local name AND name origin -->
+    <div class="row mb-3">
+        <!-- local name -->
+        <div class="col-6">
+            <label for="LocalName" class="form-label small-font">Local Name<span style="color: red;">*</span></label>
+            <input id="LocalName" type="text" name="local_name" class="form-control">
+        </div>
+
+        <!-- Name Origin -->
         <div class="col-4">
-            <label for="CategoryEdit" class="form-label small-font">What type of crop is this? <span style="color: red;">*</span></label>
-            <input name="category_id" id="CategoryEdit" class="form-select mb-2">
+            <label for="NameOrigin" class="form-label small-font">Name Origin <span style="color: red;">*</span></label>
+            <input name="name_origin" id="NameOrigin" class="form-control">
             </input>
         </div>
-        <!-- Input box for "other" category -->
+    </div>
+
+    <!-- Categories, Other Category, and Date Created -->
+    <div class="row mb-3">
+        <!-- Category -->
+        <div class="col-4">
+            <label for="CategoryEdit" class="form-label small-font">Category Type:</label>
+            <h6 name="category_id" id="CategoryEdit"></h6>
+            </input>
+        </div>
+
+        <!-- other category name if exist -->
         <div class="col" id="otherCategoryInputEdit" style="display: none;">
-            <label for="OtherCategoryEdit" class="form-label small-font">Please specify:</label>
-            <input type="text" name="other_category" id="OtherCategoryEdit" class="form-control">
+            <label for="otherCategoryInputEdit" class="form-label small-font">Other Category Name:</label>
+            <h6 name="other_category_name" id="otherCategoryEdit"></h6>
+        </div>
+
+        <!-- Date created -->
+        <div class="col">
+            <label for="input_dateEdit" class="form-label small-font">Date Created:</label>
+            <h6 name="input_date" id="input_dateEdit"></h6>
         </div>
     </div>
 
@@ -84,7 +114,7 @@
         </div>
     </div>
 
-    <!-- DISCRIPTION -->
+    <!-- DESCRIPTION -->
     <div class="row mb-3">
         <div class="col">
             <label for="description" class="form-label small-font">Description</label>

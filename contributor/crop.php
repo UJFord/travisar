@@ -24,11 +24,12 @@ require "../functions/functions.php";
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- custom -->
-
     <!-- global declarations -->
     <link rel="stylesheet" href="../css/global-declarations.css">
     <!-- specific for this file -->
     <link rel="stylesheet" href="css/crop-list.css">
+    <!-- script for moment js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
     <!-- script for access control -->
     <script src="../js/access-control.js"></script>
@@ -144,7 +145,7 @@ require "../functions/functions.php";
     <script>
         // FORMS SIDE
         // Get references to the select elements
-        const neighbourhoodValue = document.getElementById('neighbourhood')
+        // const neighbourhoodValue = document.getElementById('neighbourhood')
         const municipalitySelect = document.getElementById('Municipality');
         const barangaySelect = document.getElementById('Barangay');
 
@@ -256,12 +257,11 @@ require "../functions/functions.php";
             let details = fetchData(latitude, longitude)
                 .then(details => {
                     // set neighbourhood
-                    neighbourhoodValue.value = details.neighbourhood
-                    neighbourhoodValueEdit.value = details.neighbourhood
+                    // neighbourhoodValueEdit.value = details.neighbourhood
                     // set municipality
-                    municipalitySelect.value = details.town;
+                    // municipalitySelect.value = details.town;
                     // set barangay
-                    barangaySelect.value = details.village;
+                    // barangaySelect.value = details.village;
 
                     console.log('Country:', details.country);
                     console.log('State:', details.state);
@@ -271,8 +271,8 @@ require "../functions/functions.php";
                     console.log('Borough:', details.borough);
                     console.log('Village:', details.village);
                     console.log('Suburb:', details.suburb);
-                    console.log('Neighbourhood:', details.neighbourhood);
-                    console.log('Neighbourhood:', details.neighbourhood);
+                    // console.log('Neighbourhood:', details.neighbourhood);
+                    // console.log('Neighbourhood:', details.neighbourhood);
                     console.log('Settlement:', details.settlement);
                     console.log('Major Streets:', details.majorStreets);
                     console.log('Major and Minor Streets:', details.majorAndMinorStreets);
