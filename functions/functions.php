@@ -226,14 +226,15 @@
 
     function access($rank)
     {
-        if (isset($_SESSION['ACCESS']) && !$_SESSION["ACCESS"][$rank]) {
+        if (isset($_SESSION['ACCESS'][$rank]) && !$_SESSION['ACCESS'][$rank]) {
             $_SESSION['message'] = "<div class='text-center'>Access denied</div>";
             header("location: ../login/login-form.php");
             die();
         }
     }
 
-    $_SESSION["ACCESS"]["VIEWER"] = isset($_SESSION['rank']) && $_SESSION['rank'] == "encoder";
+    // Initialize access levels
+    $_SESSION["ACCESS"]["ENCODER"] = isset($_SESSION['rank']) && $_SESSION['rank'] == "encoder";
     $_SESSION["ACCESS"]["ADMIN"] = isset($_SESSION['rank']) && $_SESSION['rank'] == "admin";
     $_SESSION["ACCESS"]["CURATOR"] = isset($_SESSION['rank']) && $_SESSION['rank'] == "curator";
     ?>

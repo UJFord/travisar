@@ -5,6 +5,17 @@
 <!-- Jquery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
+<!-- script for access control -->
+<script src="../js/access-control.js"></script>
+
+<!-- script for access view  -->
+<!-- script for access js -->
+<script src="../js/access.js" defer></script>
+<script>
+    var none_user = "not_a_user";
+    var userRole = <?php echo (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) ? '"' . $_SESSION['rank'] . '"' : 'none_user'; ?>;
+</script>
+
 <!-- function for notification for approval of crops and users -->
 <script>
     // Define the load_unseen_notification function globally
@@ -55,12 +66,19 @@
                 <li class="nav-item">
                     <a class="nav-link" href="contributor.php">Contributors</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="approval.php">Validation<span class="count" style="color: red;"></span></a>
-                </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="location.php">Addresses<span class="count" style="color: red;"></span></a>
-                </li>
+
+                <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
+                    <li class="nav-item curator-only admin-only">
+                        <a class="nav-link" href="approval.php">Validation<span class="count" style="color: red;"></span></a>
+                    </li>
+                <?php endif; ?>
+
+                <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
+                    <li class="nav-item curator-only admin-only">
+                        <a class="nav-link" href="location.php">Addresses<span class="count" style="color: red;"></span></a>
+                    </li>
+                <?php endif; ?>
+
             </ul>
             <!-- profile -->
             <div id="profile-container" class="dropdown">
@@ -105,19 +123,16 @@
                         </li>
                     <?php else : ?>
                         <!-- User is not logged in, display a link to the login page -->
-                        <?php
-                        // Unset session
-                        if (isset($_SESSION['USER'])) {
-                            unset($_SESSION['USER']);
-                        }
-                        if (isset($_SESSION['LOGGED_IN'])) {
-                            unset($_SESSION['LOGGED_IN']);
-                        }
-                        ?>
-                        <a href="../../login/index.php" class="text-white text-decoration-none">Login</a>
+                        <li>
+                            <a href="../login/login-form.php" class="dropdown-item text-dark fs-6 d-flex justify-content-start align-items-center px-3 pe-3">
+                                <i class="fa-solid fa-arrow-right-from-bracket me-2 fs-6 text-dark"></i>
+                                <p class="m-0">Login</p>
+                            </a>
+                        </li>
                     <?php endif; ?>
                 </ul>
             </div>
+
         </div>
     </div>
 </nav>

@@ -31,14 +31,11 @@ require "../functions/functions.php";
     <!-- script for moment js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
-    <!-- script for access control -->
-    <script src="../js/access-control.js"></script>
-
-    <script>
+    <!-- <script>
         // Assume you have the userRole variable defined somewhere in your PHP code
         var userRole = "<?php echo isset($_SESSION['rank']) ? $_SESSION['rank'] : ''; ?>";
         checkAccess(userRole);
-    </script>
+    </script> -->
 </head>
 
 <body>

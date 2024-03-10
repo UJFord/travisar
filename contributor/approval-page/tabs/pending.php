@@ -1,3 +1,11 @@
+<?php
+// Check if user is logged in and their role is "Encoder"
+if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] !== 'Encoder') {
+    // stop the code
+    exit();
+}
+?>
+
 <!-- Pending tab Active -->
 <div class="gen_info active" id="pendingTabData">
 
