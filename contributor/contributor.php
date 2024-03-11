@@ -111,7 +111,6 @@ require "../functions/functions.php";
         });
     </script>
     <!-- script for viewing -->
-
     <script>
         // EDIT SCRIPT
         const tableRows = document.querySelectorAll('.view-item-modal-contributor');

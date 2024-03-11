@@ -2,13 +2,6 @@
 session_start();
 require "../functions/connections.php";
 require "../functions/functions.php";
-
-// Check if user is logged in and their role is "Encoder"
-if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] !== 'Encoder') {
-    header("Location: crop.php");
-    // stop the code
-    exit();
-}
 ?>
 <!doctype html>
 <html lang="en">
@@ -63,6 +56,15 @@ if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] !== 'Encoder') {
 
         </div>
     </div>
+
+    <!-- check for access level -->
+    <?php
+    // Check if user is logged in and their role is "Encoder"
+    if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] == 'Encoder') {
+        // stop the code
+        exit();
+    }
+    ?>
 
     <!-- SCRIPTS -->
     <!-- bootstrap -->

@@ -1,11 +1,3 @@
-<?php
-// Check if user is logged in and their role is "Encoder"
-if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] !== 'Encoder') {
-    // stop the code
-    exit();
-}
-?>
-
 <!-- Pending tab Active -->
 <div class="gen_info active" id="pendingTabData">
 
@@ -106,6 +98,7 @@ if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] !== 'Encoder') {
             ?>
         </tbody>
     </table>
+
     <div class="pagination-container pending-pagination-container" id="pendingPaginationContainer">
         <?php
         generatePaginationLinksTabs($total_pages_pending, $current_page, 'page_pending', 'pendingTabData', 'pending');

@@ -5,14 +5,6 @@
     }
 </style>
 
-<?php
-// Check if user is logged in and their role is "Encoder"
-if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] !== 'Encoder') {
-    // stop the code
-    exit();
-}
-?>
-
 <!-- EDIT MODAL -->
 <div class="modal fade" id="edit-item-modal" tabindex="-1" aria-labelledby="edit-item-modal-label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
@@ -65,6 +57,14 @@ if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] !== 'Encoder') {
         </div>
     </div>
 </div>
+
+<?php
+// Check if user is logged in and their role is "Encoder"
+if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] == 'Encoder') {
+    // stop the code
+    exit();
+}
+?>
 
 <!-- script for getting the on the edit -->
 <script>
