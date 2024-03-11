@@ -33,7 +33,7 @@ document.addEventListener("DOMContentLoaded", function () {
         // Redirect to a different page or show an access denied message
         window.location.replace("../login/login-form.php");
         // Or show a message
-        document.body.innerHTML = "<h1>Access Denied</h1>";
+        // document.body.innerHTML = "<h1>Access Denied</h1>";
     } else {
         console.error("Unexpected user role:", userRole);
     }

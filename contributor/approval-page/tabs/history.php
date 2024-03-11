@@ -1,11 +1,3 @@
-<?php
-// Check if user is logged in and their role is "Encoder"
-if (!isset($_SESSION['userRole']) || $_SESSION['userRole'] !== 'Encoder') {
-    // stop the code
-    exit();
-}
-?>
-
 <!-- Approved Tab Unactive -->
 <div class="gen_info" id="approvedTabData">
     <!-- TABLE -->

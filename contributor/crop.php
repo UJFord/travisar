@@ -2,6 +2,14 @@
 session_start();
 require "../functions/connections.php";
 require "../functions/functions.php";
+
+// Set the default user role
+$userRole = "not_a_user";
+
+// Check if the user is logged in and update the user role if they are
+if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) {
+    $userRole = isset($_SESSION['rank']) ? $_SESSION['rank'] : "";
+}
 ?>
 <!doctype html>
 <html lang="en">
@@ -30,16 +38,9 @@ require "../functions/functions.php";
     <link rel="stylesheet" href="css/crop-list.css">
     <!-- script for moment js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-
-    <!-- <script>
-        // Assume you have the userRole variable defined somewhere in your PHP code
-        var userRole = "<?php echo isset($_SESSION['rank']) ? $_SESSION['rank'] : ''; ?>";
-        checkAccess(userRole);
-    </script> -->
 </head>
 
 <body>
-
     <!-- NAV -->
     <?php require "nav.php"; ?>
 
@@ -60,6 +61,15 @@ require "../functions/functions.php";
             <?php require "crop-page/modals/edit.php"; ?>
         </div>
     </div>
+
+    <!-- script for checking user access level -->
+    <script>
+        // Use the PHP variable $userRole to set the JavaScript variable userRole
+        var userRole = "<?php echo $userRole; ?>";
+
+        // Assuming checkAccess is a JavaScript function that uses the userRole variable
+        checkAccess(userRole);
+    </script>
 
     <!-- SCRIPTS -->
     <!-- bootstrap -->
