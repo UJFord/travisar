@@ -55,7 +55,6 @@
 <div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
 
     <!-- para ma empty lang ang data sa db dili ra sya ma null -->
-    <input type="hidden" name="field_id" value="1">
     <input type="hidden" name="cultural_use" value="">
     <input type="hidden" name="threats" value="">
 
@@ -87,10 +86,9 @@
         </div>
     </div>
 
-
-
+    <!-- Category and Crop Field -->
     <div class="row mb-4">
-        <!-- Category -->
+        <!-- Category Name -->
         <div class="col-6">
             <label for="Category" class="form-label small-font">Type<span style="color: red;">*</span></label>
             <select name="category_id" id="Category" class="form-select" required>
@@ -128,6 +126,36 @@
         <div class="col" id="otherCategoryInput" style="display: none;">
             <label for="OtherCategory" class="form-label small-font">Please specify:</label>
             <input type="text" name="other_category" id="OtherCategory" class="form-control">
+        </div>
+
+        <!-- Crop Field -->
+        <div class="col">
+            <label for="cropField" class="form-label small-font">Crop Field<span style="color: red;">*</span></label>
+            <select name="field_id" id="cropField" class="form-select" required>
+                <?php
+                // get the data of category from DB
+                // gi set ra nako na permi last ang other nga category og ascending sya based sa catgory name
+                $queryField = "SELECT * FROM field ORDER BY field_id ASC";
+                $query_runField = pg_query($conn, $queryField);
+                $query_runField = pg_query($conn, $queryField);
+
+                $count = pg_num_rows($query_runField);
+
+                // if count is greater than 0 there is data
+                if ($count > 0) {
+                    // loop for displaying all categories
+                    while ($row = pg_fetch_assoc($query_runField)) {
+                        $field_id = $row['field_id'];
+                        $field_name = $row['field_name'];
+                ?>
+                        <option value="<?= $field_id; ?>"><?= $field_name; ?></option>
+                    <?php
+                    }
+                    ?>
+                <?php
+                }
+                ?>
+            </select>
         </div>
     </div>
 
