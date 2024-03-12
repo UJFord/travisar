@@ -17,7 +17,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel-edit" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body edit-modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -60,7 +60,7 @@
 
 <!-- script for getting the on the edit -->
 <script>
-    document.getElementById('form-panel-edit').addEventListener('submit', function(event) {
+    document.getElementById('form-panel').addEventListener('submit', function(event) {
         var isValid = true;
         // Check if any required fields are empty
         var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
@@ -81,14 +81,14 @@
         }
 
         // Form is valid, submit the form
-        submitFormEdit();
+        submitForm();
     });
 
     // Function to submit the form and refresh notifications
-    function submitFormEdit() {
+    function submitForm() {
         // console.log('submitForm function called');
         // Get the form reference
-        var form = document.getElementById('form-panel-edit');
+        var form = document.getElementById('form-panel');
         // Trigger the form submission
         if (form) {
             // Perform AJAX submission or other necessary actions
@@ -182,10 +182,15 @@
                         $('#CategoryEdit').text(value['category_name']);
                         $('#fieldEdit').text(value['field_name']);
                         $('#firstName').text(value['first_name']);
+                        $('#uniqueCode').text(value['unique_code']);
 
                         // input elements with the new data on gen.php and loc.php
                         //gen.php
-                        $('#crop_variety').val(value['unique_code'] + '(' + value['crop_variety'] + ') ');
+
+                        // example ni sya kung gusto nimo i dikit ang duwa ka value
+                        // $('#crop_variety').val(value['unique_code'] + '(' + value['crop_variety'] + ') ');
+
+                        $('#crop_variety').val(value['crop_variety']);
                         $('#ScienceName').val(value['scientific_name']);
                         $('#LocalName').val(value['crop_local_name']);
                         $('#NameOrigin').val(value['name_origin']);
@@ -201,7 +206,7 @@
                             text: value['crop_variety']
                         }));
                         $('#BarangaySelect').append($('<option>', {
-                            value: value['barangay_id'],
+                            value: value['barangay_name'],
                             text: value['barangay_name']
                         }));
                         $('#MunicipalitySelect').append($('<option>', {
