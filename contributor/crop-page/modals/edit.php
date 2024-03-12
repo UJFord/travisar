@@ -17,7 +17,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/try.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body edit-modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -48,7 +48,7 @@
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-between">
                     <div class="">
-                        <button type="submit" name="edit" onclick="validateAndSubmitForm()" class="btn btn-success">Save</button>
+                        <button type="submit" name="edit" class="btn btn-success">Save</button>
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                     </div>
                     <button type="button" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
@@ -60,28 +60,29 @@
 
 <!-- script for getting the on the edit -->
 <script>
-    // Function to validate input and submit the form
-    function validateAndSubmitForm() {
-        // Validate the form
-        if (validateForm()) {
-            // If validation succeeds, submit the form
-            submitForm();
-        }
-    }
+    document.getElementById('form-panel').addEventListener('submit', function(event) {
+        var isValid = true;
+        // Check if any required fields are empty
+        var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+        requiredFields.forEach(function(field) {
+            if (!field.value.trim()) {
+                isValid = false;
+                field.classList.add('is-invalid');
+            } else {
+                field.classList.remove('is-invalid');
+            }
+        });
 
-    // Function to validate input
-    function validateForm() {
-        // Get the values from the form
-        var cropName = document.forms["Form"]["crop_variety"].value;
-
-        // Check if the required fields are not empty
-        if (cropName === "") {
-            alert("Please fill out all required fields.");
-            return false; // Prevent form submission
+        if (!isValid) {
+            // Prevent the form from submitting
+            event.preventDefault();
+            event.stopPropagation();
+            return false;
         }
-        // You can add more validation checks if needed
-        return true; // Allow form submission
-    }
+
+        // Form is valid, submit the form
+        submitForm();
+    });
 
     // Function to submit the form and refresh notifications
     function submitForm() {
@@ -92,7 +93,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "crop-page/modals/crud-code/try.php",
+                url: "crop-page/modals/crud-code/code.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,
@@ -142,7 +143,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['coordinates']);
+                        console.log(value['field_name']);
 
                         // Split the image filenames by comma
                         var imageFilenames = value['crop_image'].split(',');
@@ -157,8 +158,6 @@
 
                         // crop_id
                         $('#crop_id').val(id);
-                        // cultural_aspect_id
-                        $('#cultural_aspect_id').val(value['cultural_aspect_id']);
                         // crop_location_id
                         $('#crop_location_id').val(value['crop_location_id']);
                         // crop_field_id
@@ -181,6 +180,8 @@
                             $('#otherCategoryInputEdit').css('display', 'none');
                         }
                         $('#CategoryEdit').text(value['category_name']);
+                        $('#fieldEdit').text(value['field_name']);
+                        $('#firstName').text(value['first_name']);
 
                         // input elements with the new data on gen.php and loc.php
                         //gen.php
