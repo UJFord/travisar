@@ -50,6 +50,8 @@ require "../functions/functions.php";
     include "../functions/message.php";
     ?>
 
+    <div id="error-container"></div>
+
     <!-- MAIN -->
     <div class="container">
         <div class="row mt-3">

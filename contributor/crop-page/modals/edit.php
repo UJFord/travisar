@@ -81,11 +81,11 @@
         }
 
         // Form is valid, submit the form
-        submitForm();
+        submitFormEdit();
     });
 
     // Function to submit the form and refresh notifications
-    function submitForm() {
+    function submitFormEdit() {
         // console.log('submitForm function called');
         // Get the form reference
         var form = document.getElementById('form-panel-edit');
@@ -143,7 +143,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['field_name']);
+                        console.log(value['unique_code']);
 
                         // Split the image filenames by comma
                         var imageFilenames = value['crop_image'].split(',');
@@ -185,7 +185,7 @@
 
                         // input elements with the new data on gen.php and loc.php
                         //gen.php
-                        $('#crop_variety').val(value['crop_variety']);
+                        $('#crop_variety').val(value['unique_code'] + '(' + value['crop_variety'] + ') ');
                         $('#ScienceName').val(value['scientific_name']);
                         $('#LocalName').val(value['crop_local_name']);
                         $('#NameOrigin').val(value['name_origin']);

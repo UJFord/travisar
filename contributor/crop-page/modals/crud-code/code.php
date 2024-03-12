@@ -21,7 +21,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $crop_description = handleEmpty($_POST['crop_description']);
         $province_name = $_POST['province'];
         $municipality_name = $_POST['municipality'];
-        $name_origin = $_POST['name_origin'];
+        $name_origin = handleEmpty($_POST['name_origin']);
         $threats = handleEmpty($_POST['threats']);
         $coordinates = handleEmpty($_POST['coordinates']);
 
@@ -153,8 +153,10 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         // Get the latest unique_code from the crop table
         $queryLatestCode = "SELECT category_name FROM category WHERE category_id = $1";
         $resultLatestCode = pg_query_params($conn, $queryLatestCode, array($category_id));
+
         if ($resultLatestCode) {
-            $latestCode = pg_fetch_assoc($resultLatestCode)['category_name'];
+            $latestCodeRow = pg_fetch_assoc($resultLatestCode);
+            $latestCode = $latestCodeRow['category_name'];
 
             // Extract the first letter of each word in the category name
             $prefix = '';
@@ -163,8 +165,28 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $prefix .= strtoupper(substr($word, 0, 1));
             }
 
+            // Fetch all existing unique codes from the crop table
+            $queryUniqueCodes = "SELECT unique_code FROM crop WHERE unique_code LIKE '$prefix%'";
+            $resultUniqueCodes = pg_query($conn, $queryUniqueCodes);
+
+            // Extract the highest number from the existing codes
+            $existingNumbers = [];
+            while ($row = pg_fetch_assoc($resultUniqueCodes)) {
+                preg_match('/(\d+)$/', $row['unique_code'], $matches);
+                if (isset($matches[1])) {
+                    $existingNumbers[] = intval($matches[1]);
+                }
+            }
+
+            if (empty($existingNumbers)) {
+                // If no existing codes, set the current number to 0
+                $currentNumber = 0;
+            } else {
+                $currentNumber = max($existingNumbers);
+            }
+
             // Generate the new unique code
-            $newUniqueCode = $prefix . 'V' . +1;
+            $newUniqueCode = $prefix . 'V' . ($currentNumber + 1);
         }
 
         //insert into crop table
@@ -294,9 +316,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
         // Display the error message
         echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
-        // Redirect to the error page with the error message
-        header("Location: ../../../error.php?message=" . urlencode($e->getMessage()));
-
         exit(0);
     }
 } else {
@@ -317,7 +336,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $crop_description = handleEmpty($_POST['crop_description']);
             $province_name = $_POST['province'];
             $municipality_name = $_POST['municipality'];
-            $name_origin = $_POST['name_origin'];
+            $name_origin = handleEmpty($_POST['name_origin']);
             $threats = handleEmpty($_POST['threats']);
             $coordinates = handleEmpty($_POST['coordinates']);
 
@@ -447,16 +466,43 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
             // for creating a unique code for each crops
             // Get the latest unique_code from the crop table
-            $queryLatestCode = "SELECT unique_code FROM crop ORDER BY unique_code DESC LIMIT 1";
-            $resultLatestCode = pg_query($conn, $queryLatestCode);
-            $latestCode = pg_fetch_assoc($resultLatestCode)['unique_code'];
+            $queryLatestCode = "SELECT category_name FROM category WHERE category_id = $1";
+            $resultLatestCode = pg_query_params($conn, $queryLatestCode, array($category_id));
 
-            // Extract the numeric part of the latest code
-            $latestCounter = intval(preg_replace('/[^0-9]/', '', $latestCode));
+            if ($resultLatestCode) {
+                $latestCodeRow = pg_fetch_assoc($resultLatestCode);
+                $latestCode = $latestCodeRow['category_name'];
 
-            // Generate the new unique code
-            $newCounter = $latestCounter + 1;
-            $newUniqueCode = 'TCV' . $newCounter;
+                // Extract the first letter of each word in the category name
+                $prefix = '';
+                $words = explode(' ', $latestCode);
+                foreach ($words as $word) {
+                    $prefix .= strtoupper(substr($word, 0, 1));
+                }
+
+                // Fetch all existing unique codes from the crop table
+                $queryUniqueCodes = "SELECT unique_code FROM crop WHERE unique_code LIKE '$prefix%'";
+                $resultUniqueCodes = pg_query($conn, $queryUniqueCodes);
+
+                // Extract the highest number from the existing codes
+                $existingNumbers = [];
+                while ($row = pg_fetch_assoc($resultUniqueCodes)) {
+                    preg_match('/(\d+)$/', $row['unique_code'], $matches);
+                    if (isset($matches[1])) {
+                        $existingNumbers[] = intval($matches[1]);
+                    }
+                }
+
+                if (empty($existingNumbers)) {
+                    // If no existing codes, set the current number to 0
+                    $currentNumber = 0;
+                } else {
+                    $currentNumber = max($existingNumbers);
+                }
+
+                // Generate the new unique code
+                $newUniqueCode = $prefix . 'V' . ($currentNumber + 1);
+            }
 
             //insert into crop table
             $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
@@ -584,9 +630,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             echo "Error: " . $e->getMessage();
             // Display the error message
             echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
-            // Redirect to the error page with the error message
-            // Redirect to the error page with the error message
-            header("Location: ../../../error.php?message=" . urlencode($e->getMessage()));
             exit(0);
         }
     } else {
