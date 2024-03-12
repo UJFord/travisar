@@ -36,6 +36,10 @@ require "../functions/functions.php";
     <!-- NAV -->
     <?php require "nav.php"; ?>
 
+    <?php
+    include "../functions/message.php";
+    ?>
+
     <!-- MAIN -->
     <div class="container">
         <div class="row mt-3">
@@ -109,4 +113,5 @@ if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
     exit();
 }
 ?>
+
 </html>
