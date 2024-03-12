@@ -16,7 +16,7 @@
             <input type="hidden" name="crop_location_id" id="crop_location_id">
             <!-- Province dropdown -->
             <label for="ProvinceEdit" class="form-label small-font">Province <span style="color: red;">*</span></label>
-            <select id="ProvinceEdit" name="province" class="form-select mb-2">
+            <select id="ProvinceEdit" name="province" class="form-control mb-2">
                 <?php
                 // Fetch distinct province names from the location table
                 $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";

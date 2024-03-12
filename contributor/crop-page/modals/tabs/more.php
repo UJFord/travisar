@@ -41,28 +41,25 @@
         <!-- Cultural-Significance -->
         <div class="col-12 mb-2">
             <label for="Cultural-Significance" class="form-label small-font">Cultural-Significance</label>
-            <!-- <input id="Cultural-Significance" type="text" name="cultural_significance" class="form-control"> -->
             <textarea name="cultural_significance" id="Cultural-Significance" cols="30" rows="2" class="form-control"></textarea>
         </div>
 
         <!-- Spiritual-Significance -->
         <div class="col-12 mb-2">
             <label for="Spiritual-Significance" class="form-label small-font">Spiritual-Significance</label>
-            <!-- <input id="Spiritual-Significance" type="text" name="spiritual_significance" class="form-control"> -->
-            <textarea name="cultural_significance" id="Cultural-Significance" cols="30" rows="2" class="form-control"></textarea>
+            <textarea name="spiritual_significance" id="Spiritual-Significance" cols="30" rows="2" class="form-control"></textarea>
         </div>
 
         <!-- cultural_importance -->
         <div class="col-12 mb-2">
             <label for="Cultural-Importance" class="form-label small-font">Cultural Importance</label>
-            <!-- <input id="Cultural-Importance" type="text" name="cultural_importance" class="form-control"> -->
-            <textarea name="cultural_significance" id="Cultural-Significance" cols="30" rows="2" class="form-control"></textarea>
+            <textarea name="cultural_importance" id="Cultural-Importance" cols="30" rows="2" class="form-control"></textarea>
         </div>
+
         <!-- cultural_use-->
         <div class="col-12 mb-2">
             <label for="Cultural-Use" class="form-label small-font">Cultural Use</label>
-            <!-- <input id="Cultural-Use" type="text" name="cultural_use" class="form-control"> -->
-            <textarea name="cultural_significance" id="Cultural-Significance" cols="30" rows="2" class="form-control"></textarea>
+            <textarea name="cultural_use" id="Cultural-Use" cols="30" rows="2" class="form-control"></textarea>
         </div>
     </div>
 

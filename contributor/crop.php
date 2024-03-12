@@ -46,6 +46,10 @@ require "../functions/functions.php";
     <!-- NAV -->
     <?php require "nav.php"; ?>
 
+    <?php
+    include "../functions/message.php";
+    ?>
+
     <!-- MAIN -->
     <div class="container">
         <div class="row mt-3">
