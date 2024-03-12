@@ -164,7 +164,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             }
 
             // Generate the new unique code
-            $newUniqueCode = $prefix . 'CV' . +1;
+            $newUniqueCode = $prefix . 'V' . +1;
         }
 
         //insert into crop table

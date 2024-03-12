@@ -17,7 +17,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel-edit" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body edit-modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -60,7 +60,7 @@
 
 <!-- script for getting the on the edit -->
 <script>
-    document.getElementById('form-panel').addEventListener('submit', function(event) {
+    document.getElementById('form-panel-edit').addEventListener('submit', function(event) {
         var isValid = true;
         // Check if any required fields are empty
         var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
@@ -88,7 +88,7 @@
     function submitForm() {
         // console.log('submitForm function called');
         // Get the form reference
-        var form = document.getElementById('form-panel');
+        var form = document.getElementById('form-panel-edit');
         // Trigger the form submission
         if (form) {
             // Perform AJAX submission or other necessary actions

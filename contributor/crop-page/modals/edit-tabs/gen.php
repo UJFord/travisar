@@ -45,6 +45,28 @@
         </div>
     </dv>
 
+    <!-- Categories, Other Category, and Date Created -->
+    <div class="row mb-3">
+        <!-- Category -->
+        <div class="col">
+            <label for="CategoryEdit" class="form-label small-font">Category Type:</label>
+            <h6 name="category_id" id="CategoryEdit"></h6>
+            </input>
+        </div>
+
+        <!-- other category name if exist -->
+        <div class="col" id="otherCategoryInputEdit" style="display: none;">
+            <label for="otherCategoryInputEdit" class="form-label small-font">Other Category Name:</label>
+            <h6 name="other_category_name" id="otherCategoryEdit"></h6>
+        </div>
+
+        <!-- Crop Field -->
+        <div class="col">
+            <label for="fieldEdit" class="form-label small-font">Crop Field:</label>
+            <h6 name="field_id" id="fieldEdit"></h6>
+        </div>
+    </div>
+
     <!-- NAME AND TYPE -->
     <div class="row mb-3">
         <!-- crop_id -->
@@ -84,28 +106,6 @@
             <label for="NameOrigin" class="form-label small-font">Name Origin <span style="color: red;">*</span></label>
             <input name="name_origin" id="NameOrigin" class="form-control">
             </input>
-        </div>
-    </div>
-
-    <!-- Categories, Other Category, and Date Created -->
-    <div class="row mb-3">
-        <!-- Category -->
-        <div class="col-4">
-            <label for="CategoryEdit" class="form-label small-font">Category Type:</label>
-            <h6 name="category_id" id="CategoryEdit"></h6>
-            </input>
-        </div>
-
-        <!-- other category name if exist -->
-        <div class="col" id="otherCategoryInputEdit" style="display: none;">
-            <label for="otherCategoryInputEdit" class="form-label small-font">Other Category Name:</label>
-            <h6 name="other_category_name" id="otherCategoryEdit"></h6>
-        </div>
-
-        <!-- Crop Field -->
-        <div class="col">
-            <label for="fieldEdit" class="form-label small-font">Crop Field:</label>
-            <h6 name="field_id" id="fieldEdit"></h6>
         </div>
     </div>
 
