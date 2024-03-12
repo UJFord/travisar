@@ -47,7 +47,7 @@
             </select>
 
             <!-- coordinates -->
-            <label for="coordInput" class="form-label small-font mb-0">Coordinates</label>
+            <label for="coordInput" class="form-label small-font mb-0">Coordinates <span style="color: red;">*</span></label>
             <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help" required>
             <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (latitude , longitude)</div>
 
