@@ -10,10 +10,6 @@
 <!-- script for access view  -->
 <!-- script for access js -->
 <script src="../js/access.js" defer></script>
-<script>
-    var userRole = <?php echo (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) ? '"' . $_SESSION['rank'] . '"' : 'none_user'; ?>;
-    checkAccess(userRole);
-</script>
 <!-- function for notification for approval of crops and users -->
 <script>
     // Define the load_unseen_notification function globally
