@@ -29,21 +29,16 @@ require "../functions/functions.php";
     <link rel="stylesheet" href="../css/global-declarations.css">
     <!-- specific for this file -->
     <link rel="stylesheet" href="css/crop-list.css">
-
-    <!-- script for access control -->
-    <script src="../js/access-control.js"></script>
-
-    <script>
-        // Assume you have the userRole variable defined somewhere in your PHP code
-        var userRole = "<?php echo isset($_SESSION['rank']) ? $_SESSION['rank'] : ''; ?>";
-        checkAccess(userRole);
-    </script>
 </head>
 
 <body>
 
     <!-- NAV -->
     <?php require "nav.php"; ?>
+
+    <?php
+    include "../functions/message.php";
+    ?>
 
     <!-- MAIN -->
     <div class="container">
@@ -192,5 +187,14 @@ require "../functions/functions.php";
         });
     </script>
 </body>
+<?php
+if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
+    // Output JavaScript code to redirect back to the original page
+    echo '<script>window.history.go(-1);</script>';
+    $_SESSION['message'] = 'Access Not Granted Not Enough Authority.';
+    // stop the code
+    exit();
+}
+?>
 
 </html>

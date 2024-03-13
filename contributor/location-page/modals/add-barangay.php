@@ -25,7 +25,28 @@
                                 <!-- municipality name -->
                                 <div class="col-5">
                                     <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
-                                    <input type="text" name="municipality_name_1" class="form-control">
+                                    <select name="municipality_name_1" id="municipality-Name" class="form-select">
+                                        <?php
+                                        $queryMuni = "SELECT municipality_name from location where province_name = 'Sarangani' order by municipality_name ASC";
+                                        $query_run = pg_query($conn, $queryMuni);
+
+                                        $count = pg_num_rows($query_run);
+
+                                        // if count is greater than 0 there is data
+                                        if ($count > 0) {
+                                            // loop for displaying all categories
+                                            while ($row = pg_fetch_assoc($query_run)) {
+                                                $location_id = $row['location_id'];
+                                                $municipality_name = $row['municipality_name'];
+                                        ?>
+                                                <option value="<?= $municipality_name; ?>"><?= $municipality_name; ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
 
                                 <!-- barangay name -->
