@@ -107,11 +107,12 @@
 
         <!-- dib ni sya para ma set ang mga tabs na data -->
         <div class="general_info">
+            <div id="pageContent"></div>
             <!-- pending tab -->
-            <?php require 'tabs/pending.php'?>
-            
+            <?php require 'tabs/pending.php' ?>
+
             <!-- history tab -->
-            <?php require 'tabs/history.php'?>          
+            <?php require 'tabs/history.php' ?>
         </div>
 
     </div>
@@ -144,23 +145,41 @@
         })
     })
 
-    // for preventing the default action of pagination which is refreshing the page
-    // this sets it to load the content of the selected page number without the page
-    const paginationContainer = document.getElementById('paginationContainer');
+    $pageQueryParam = 'page_approved';
 
-    if (paginationContainer) {
-        paginationContainer.addEventListener('click', (e) => {
-            e.preventDefault(); // Prevent default link behavior
-            if (e.target.tagName === 'A') {
-                const url = e.target.getAttribute('href');
-                fetch(url)
-                    .then(response => response.text())
-                    .then(data => {
-                        // Assuming each tab has a container with id "tabContent"
-                        const tabContent = document.getElementById('tabContent');
-                        tabContent.innerHTML = data; // Update tab content with loaded data
-                    })
-                    .catch(error => console.error('Error:', error));
+    $(document).ready(function() {
+        $('.pagination-link').click(function(e) {
+            e.preventDefault(); // Prevent the default link behavior
+
+            // Get the URL parameters from the clicked link
+            const tab = $(this).data('tab');
+            const tabId = $(this).data('tabid');
+            const page = $(this).data('page');
+
+            // Update the URL without reloading the page
+            history.pushState(null, null, `?tab=${tab}&${tabId}=${tabId}&${$pageQueryParam}=${page}`);
+
+            // Update the content based on the new page
+            updateContent(tab, tabId, page);
+        });
+    });
+
+    function updateContent(tab, tabId, page) {
+        // Make an AJAX request to fetch the new content
+        $.ajax({
+            url: 'approval-page/tabs/history.php',
+            type: 'GET',
+            data: {
+                tab: tab,
+                tabId: tabId,
+                page: page
+            },
+            success: function(response) {
+                // Replace the current content with the new content
+                $('.general_info').html(response);
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
             }
         });
     }

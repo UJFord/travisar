@@ -162,7 +162,7 @@
         for ($page = 1; $page <= $total_pages; $page++) {
             $activeClass = ($current_page == $page) ? 'active' : '';
             echo '<li class="page-item ' . $activeClass . '">';
-            echo '<a class="page-link" href="?tab=' . $tab . '&' . $tabId . '=' . $tabId . '&' . $pageQueryParam . '=' . $page . '">' . $page . '</a>';
+            echo '<a class="page-link pagination-link" href="?tab=' . $tab . '&' . $tabId . '=' . $tabId . '&' . $pageQueryParam . '=' . ($page + 1) . '">' . ($page + 1) . '</a>';
             echo '</li>';
         }
         echo '</ul>';
