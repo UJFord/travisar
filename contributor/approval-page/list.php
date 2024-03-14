@@ -107,7 +107,6 @@
 
         <!-- dib ni sya para ma set ang mga tabs na data -->
         <div class="general_info">
-            <div id="pageContent"></div>
             <!-- pending tab -->
             <?php require 'tabs/pending.php' ?>
 
@@ -145,42 +144,16 @@
         })
     })
 
-    $pageQueryParam = 'page_approved';
-
-    $(document).ready(function() {
-        $('.pagination-link').click(function(e) {
-            e.preventDefault(); // Prevent the default link behavior
-
-            // Get the URL parameters from the clicked link
-            const tab = $(this).data('tab');
-            const tabId = $(this).data('tabid');
-            const page = $(this).data('page');
-
-            // Update the URL without reloading the page
-            history.pushState(null, null, `?tab=${tab}&${tabId}=${tabId}&${$pageQueryParam}=${page}`);
-
-            // Update the content based on the new page
-            updateContent(tab, tabId, page);
-        });
-    });
-
-    function updateContent(tab, tabId, page) {
-        // Make an AJAX request to fetch the new content
-        $.ajax({
-            url: 'approval-page/tabs/history.php',
-            type: 'GET',
-            data: {
-                tab: tab,
-                tabId: tabId,
-                page: page
-            },
-            success: function(response) {
-                // Replace the current content with the new content
-                $('.general_info').html(response);
-            },
-            error: function(xhr, status, error) {
-                console.error(error);
-            }
-        });
+    function loadPage(page, tab) {
+        // Perform AJAX request to fetch new page content
+        fetch('approval.php?page=' + page + '&tab=' + tab)
+            .then(response => response.text())
+            .then(data => {
+                // Update the table body of the active tab with the new page content
+                document.querySelector('.gen_info.active tbody').innerHTML = data;
+            })
+            .catch(error => {
+                console.error('Error:', error);
+            });
     }
 </script>

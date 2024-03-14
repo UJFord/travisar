@@ -1,5 +1,5 @@
 <!-- Approved Tab Unactive -->
-<div class="gen_info" id="approvedTabData">
+<div class="gen_info" id="approvedTabData" style="max-height: 400px; overflow-y: auto;">
     <!-- TABLE -->
     <table id="approvedTable" class="table table-hover">
         <!-- table head -->

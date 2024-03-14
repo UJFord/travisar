@@ -1,5 +1,5 @@
 <!-- Pending tab Active -->
-<div class="gen_info active" id="pendingTabData">
+<div class="gen_info active" id="pendingTabData" style="max-height: 400px; overflow-y: auto;">
 
     <!-- TABLE -->
     <table id="pendingTable" class="table table-hover">

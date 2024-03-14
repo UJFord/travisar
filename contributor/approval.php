@@ -54,9 +54,6 @@ require "../functions/functions.php";
         <div class="row mt-3">
             <!-- LIST -->
             <?php require "approval-page/list.php"; ?>
-            <div>
-            </div>
-
         </div>
     </div>
     <!-- SCRIPTS -->
