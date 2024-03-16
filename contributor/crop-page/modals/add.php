@@ -29,6 +29,9 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="false"><i class="fa-solid fa-ellipsis me-1"></i>More</button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link small-font modal-tab" id="other_info-tab" data-bs-toggle="tab" data-bs-target="#other_info-tab-pane" type="button" role="tab" aria-controls="other_info-tab-pane" aria-selected="false">other info</button>
+                        </li>
                     </ul>
                     <div class="container">
                         <div class="tab-content mt-2">
@@ -39,8 +42,10 @@
                             <?php require "tabs/gen.php" ?>
                             <!-- location -->
                             <?php require "tabs/loc.php" ?>
-                            <!-- mroe optional info -->
+                            <!-- more optional info -->
                             <?php require "tabs/more.php" ?>
+                            <!-- other info info -->
+                            <?php require "tabs/other_info.php" ?>
                         </div>
                     </div>
                 </div>

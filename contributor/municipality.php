@@ -141,7 +141,7 @@ require "../functions/functions.php";
                 <!-- dib ni sya para ma set ang mga tabs na data -->
                 <div class="general_info">
                     <!-- location tab Active -->
-                    <div class="gen_info active" id="locationTabData">
+                    <div class="gen_info active" id="locationTabData" style="max-height: 500px; overflow-y: auto;">
                         <!-- TABLE -->
                         <table id="locationTable" class="table table-hover">
                             <!-- table head -->
@@ -361,6 +361,10 @@ require "../functions/functions.php";
         });
     </script>
 </body>
+<!-- 
+    to check if the user is logged in and has a rank of Encoder
+    if Encoder and rank i redirect sya pabalik kung asa sya gaina before niya ni gi try access
+-->
 <?php
 if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
     // Output JavaScript code to redirect back to the original page

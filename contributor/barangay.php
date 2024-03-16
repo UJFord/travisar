@@ -44,7 +44,7 @@ require "../functions/functions.php";
     <!-- NAV -->
     <?php require "nav.php"; ?>
 
-    <?php
+<?php
     include "../functions/message.php";
     ?>
 
@@ -111,36 +111,36 @@ require "../functions/functions.php";
                 </div>
 
                 <?php
-                // Set the number of items to display per page
-                $items_per_page = 10;
+                    // Set the number of items to display per page
+                    $items_per_page = 10;
 
-                // Get the current page number
-                $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+                    // Get the current page number
+                    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-                // Calculate the offset based on the current page and items per page
-                $offset = ($current_page - 1) * $items_per_page;
+                    // Calculate the offset based on the current page and items per page
+                    $offset = ($current_page - 1) * $items_per_page;
 
-                // Count the total number of rows for pagination for approved crops
-                $total_rows_query_location = "SELECT COUNT(*) FROM location";
-                $total_rows_result_location = pg_query($conn, $total_rows_query_location);
-                $total_row_location = pg_fetch_row($total_rows_result_location)[0];
+                    // Count the total number of rows for pagination for approved crops
+                    $total_rows_query_location = "SELECT COUNT(*) FROM location";
+                    $total_rows_result_location = pg_query($conn, $total_rows_query_location);
+                    $total_row_location = pg_fetch_row($total_rows_result_location)[0];
 
-                // Calculate the total number of pages for approved crops
-                $total_pages_location = ceil($total_row_location / $items_per_page);
+                    // Calculate the total number of pages for approved crops
+                    $total_pages_location = ceil($total_row_location / $items_per_page);
 
-                // Count the total number of rows for pagination for pending crops
-                $total_rows_query_barangay = "SELECT COUNT(*) FROM barangay";
-                $total_rows_result_barangay = pg_query($conn, $total_rows_query_barangay);
-                $total_rows_barangay = pg_fetch_row($total_rows_result_barangay)[0];
+                    // Count the total number of rows for pagination for pending crops
+                    $total_rows_query_barangay = "SELECT COUNT(*) FROM barangay";
+                    $total_rows_result_barangay = pg_query($conn, $total_rows_query_barangay);
+                    $total_rows_barangay = pg_fetch_row($total_rows_result_barangay)[0];
 
-                // Calculate the total number of pages for pending crops
-                $total_pages_barangay = ceil($total_rows_barangay / $items_per_page);
+                    // Calculate the total number of pages for pending crops
+                    $total_pages_barangay = ceil($total_rows_barangay / $items_per_page);
                 ?>
 
                 <!-- dib ni sya para ma set ang mga tabs na data -->
                 <div class="general_info">
                     <!-- barangay Tab Unactive -->
-                    <div class="gen_info" id="barangayTabData">
+                    <div class="gen_info" id="barangayTabData" style="max-height: 500px; overflow-y: auto;">
                         <!-- TABLE -->
                         <table id="barangayTable" class="table table-hover">
                             <!-- table head -->
@@ -348,6 +348,11 @@ require "../functions/functions.php";
         });
     </script>
 </body>
+
+<!-- 
+    to check if the user is logged in and has a rank of Encoder
+    if Encoder and rank i redirect sya pabalik kung asa sya gaina before niya ni gi try access
+-->
 <?php
 if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
     // Output JavaScript code to redirect back to the original page
