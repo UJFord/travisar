@@ -63,7 +63,7 @@
 
                 <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
                     <!-- Dropdown for Validation -->
-                    <li class="nav-item dropdown">
+                    <li class="nav-item dropdown curator-only admin-only">
                         <div class="dropdown">
                             <button class="btn btn-secondary dropdown-toggle" type="button" id="validationDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: var(--mainBrand); border: none;">
                                 Validation
@@ -77,8 +77,17 @@
                 <?php endif; ?>
 
                 <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
-                    <li class="nav-item curator-only admin-only">
-                        <a class="nav-link" href="location.php">Addresses<span class="count" style="color: red;"></span></a>
+                    <!-- Dropdown for Adresses -->
+                    <li class="nav-item dropdown curator-only admin-only">
+                        <div class="dropdown">
+                            <button class="btn btn-secondary dropdown-toggle" type="button" id="validationDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: var(--mainBrand); border: none;">
+                                Addresses
+                            </button>
+                            <ul class="dropdown-menu" aria-labelledby="validationDropdown">
+                                <li><a class="dropdown-item" href="barangay.php">Barangay</a></li>
+                                <li><a class="dropdown-item" href="municipality.php">Municipality</a></li>
+                            </ul>
+                        </div>
                     </li>
                 <?php endif; ?>
             </ul>
