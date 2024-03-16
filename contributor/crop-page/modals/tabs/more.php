@@ -65,8 +65,9 @@
 
     <!-- STEP NAVIGATION -->
     <div class="row">
-        <div class="col d-flex justify-content-start">
+        <div class="col d-flex justify-content-between">
             <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc', this)">Previous</button>
+            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('other_info', this)">Next</button>
         </div>
     </div>
 </div>

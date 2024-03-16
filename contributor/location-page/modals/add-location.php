@@ -53,10 +53,6 @@
                                     <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
                                     <input type="text" name="municipality_name_1" class="form-control">
                                 </div>
-
-                                <div class="col-2" style="padding-top: 25px;">
-                                    <button type="button" class="btn btn-secondary remove-row" style="background-color: #dc3545;">Remove</button>
-                                </div>
                             </div>
                         </div>
                     </div>
