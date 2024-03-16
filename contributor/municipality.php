@@ -361,6 +361,10 @@ require "../functions/functions.php";
         });
     </script>
 </body>
+<!-- 
+    to check if the user is logged in and has a rank of Encoder
+    if Encoder and rank i redirect sya pabalik kung asa sya gaina before niya ni gi try access
+-->
 <?php
 if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
     // Output JavaScript code to redirect back to the original page

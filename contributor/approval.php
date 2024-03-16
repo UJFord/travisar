@@ -3,41 +3,6 @@ session_start();
 require "../functions/connections.php";
 require "../functions/functions.php";
 ?>
-
-<!-- CSS -->
-<style>
-    /* CSS for tabs */
-    .tab_box {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-bottom: 2px solid rgba(229, 229, 229);
-        position: relative;
-    }
-
-    .tab_box .tab_btn {
-        font-size: 18px;
-        font-weight: 600;
-        color: #919191;
-        background: none;
-        border: none;
-        padding: 18px;
-    }
-
-    @keyframes moving {
-        from {
-            transform: translateX(50px);
-            opacity: 0;
-        }
-
-        to {
-            transform: translateX(0px);
-            opacity: 1;
-        }
-    }
-</style>
-
 <!doctype html>
 <html lang="en">
 
@@ -87,6 +52,39 @@ require "../functions/functions.php";
     <!-- MAIN -->
     <div class="container">
         <div class="row mt-3">
+            <!-- CSS -->
+            <style>
+                /* CSS for tabs */
+                .tab_box {
+                    width: 100%;
+                    display: flex;
+                    align-items: center;
+                    justify-content: center;
+                    border-bottom: 2px solid rgba(229, 229, 229);
+                    position: relative;
+                }
+
+                .tab_box .tab_btn {
+                    font-size: 18px;
+                    font-weight: 600;
+                    color: #919191;
+                    background: none;
+                    border: none;
+                    padding: 18px;
+                }
+
+                @keyframes moving {
+                    from {
+                        transform: translateX(50px);
+                        opacity: 0;
+                    }
+
+                    to {
+                        transform: translateX(0px);
+                        opacity: 1;
+                    }
+                }
+            </style>
             <!-- LIST -->
             <div class="container">
                 <div class="row">
@@ -297,7 +295,10 @@ require "../functions/functions.php";
         });
     </script>
 </body>
-<!-- access level for approval -->
+<!-- 
+    to check if the user is logged in and has a rank of Encoder
+    if Encoder ang rank i redirect sya pabalik kung asa sya gaina before niya ni gi try access
+-->
 <?php
 if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
     // Output JavaScript code to redirect back to the original page
@@ -307,5 +308,4 @@ if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
     exit();
 }
 ?>
-
 </html>
