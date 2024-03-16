@@ -154,18 +154,5 @@
         }
         echo '</ul>';
     }
-
-    function generatePaginationLinksTabs($total_pages, $current_page, $paueryParam, $tabId, $tab)
-    {
-        echo '<ul class="pagination justify-content-center">';
-        for ($page = 1; $page <= $total_pages; $page++) {
-            $activeClass = ($current_page == $page) ? 'active' : '';
-            echo '<li class="page-item ' . $activeClass . '">';
-            echo '<a class="page-link" href="javascript:void(0);" onclick="loadPage(' . $page . ', \'' . $tab . '\')">' . $page . '</a>';
-            echo '</li>';
-        }
-        echo '</ul>';
-    }
-
     ?>
 </script>
