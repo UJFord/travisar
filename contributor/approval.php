@@ -137,7 +137,7 @@ require "../functions/functions.php";
                     <!-- dib ni sya para ma set ang mga tabs na data -->
                     <div class="general_info">
                         <!-- Pending tab Active -->
-                        <div class="gen_info" id="pendingTabData" style="max-height: 400px; overflow-y: auto;">
+                        <div class="gen_info" id="pendingTabData" style="max-height: 500px; overflow-y: auto;">
 
                             <!-- TABLE -->
                             <table id="pendingTable" class="table table-hover">

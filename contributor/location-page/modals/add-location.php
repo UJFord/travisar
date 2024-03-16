@@ -16,7 +16,7 @@
             <form id="form-panel" name="Form" action="location-page/code/code-muni.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
                     <div>
-                        <button type="button" id="add-row" class="btn btn-secondary">Add</button>
+                        <button type="button" id="add-row" class="btn btn-secondary" style="margin-left: 10px; background-color: var(--mainBrand);">Add</button>
                     </div>
                     <div class="container">
                         <div id="locationData">
@@ -25,7 +25,27 @@
                                 <!-- province name -->
                                 <div class="col-5">
                                     <label for="province-Name" class="form-label small-font">Province Name<span style="color: red;">*</span></label>
-                                    <input type="text" name="province_name_1" class="form-control">
+                                    <select name="province_name_1" id="province-Name" class="form-select">
+                                        <?php
+                                        $queryProv = "SELECT DISTINCT province_name from location order by province_name ASC";
+                                        $query_run = pg_query($conn, $queryProv);
+
+                                        $count = pg_num_rows($query_run);
+
+                                        // if count is greater than 0 there is data
+                                        if ($count > 0) {
+                                            // loop for displaying all categories
+                                            while ($row = pg_fetch_assoc($query_run)) {
+                                                $province_name = $row['province_name'];
+                                        ?>
+                                                <option value="<?= $province_name; ?>"><?= $province_name; ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
 
                                 <!-- municipality name -->
@@ -34,8 +54,8 @@
                                     <input type="text" name="municipality_name_1" class="form-control">
                                 </div>
 
-                                <div class="col-2">
-                                    <button type="button" class="btn btn-secondary remove-row">Remove</button>
+                                <div class="col-2" style="padding-top: 25px;">
+                                    <button type="button" class="btn btn-secondary remove-row" style="background-color: #dc3545;">Remove</button>
                                 </div>
                             </div>
                         </div>
@@ -73,14 +93,34 @@
             newRow.innerHTML = `
                 <div class="col-5">
                     <label for="province-Name" class="form-label small-font">Province Name<span style="color: red;">*</span></label>
-                    <input type="text" name="province_name_${rowCounter}" class="form-control">
+                    <select name="province_name_${rowCounter}" id="province-Name" class="form-select">
+                        <?php
+                        $queryProv = "SELECT DISTINCT province_name from location order by province_name ASC";
+                        $query_run = pg_query($conn, $queryProv);
+
+                        $count = pg_num_rows($query_run);
+
+                        // if count is greater than 0 there is data
+                        if ($count > 0) {
+                            // loop for displaying all categories
+                            while ($row = pg_fetch_assoc($query_run)) {
+                                $province_name = $row['province_name'];
+                        ?>
+                                <option value="<?= $province_name; ?>"><?= $province_name; ?></option>
+                            <?php
+                            }
+                            ?>
+                        <?php
+                        }
+                        ?>
+                    </select>
                 </div>
                 <div class="col-5">
                     <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
                     <input type="text" name="municipality_name_${rowCounter}" class="form-control">
                 </div>
-                <div class="col-2">
-                    <button type="button" class="btn btn-secondary remove-row">Remove</button>
+                <div class="col-2" style="padding-top: 25px;">
+                    <button type="button" class="btn btn-secondary remove-row" style="background-color: #dc3545;">Remove</button>
                 </div>
             `;
             locationData.appendChild(newRow);

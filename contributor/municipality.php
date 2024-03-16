@@ -141,7 +141,7 @@ require "../functions/functions.php";
                 <!-- dib ni sya para ma set ang mga tabs na data -->
                 <div class="general_info">
                     <!-- location tab Active -->
-                    <div class="gen_info active" id="locationTabData">
+                    <div class="gen_info active" id="locationTabData" style="max-height: 500px; overflow-y: auto;">
                         <!-- TABLE -->
                         <table id="locationTable" class="table table-hover">
                             <!-- table head -->
