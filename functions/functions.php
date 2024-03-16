@@ -154,18 +154,5 @@
         }
         echo '</ul>';
     }
-
-    // Function to generate pagination links for the tabs of manange approval ang location
-    function generatePaginationLinksTabs($total_pages, $current_page, $pageQueryParam, $tabId, $tab)
-    {
-        echo '<ul class="pagination justify-content-center">';
-        for ($page = 1; $page <= $total_pages; $page++) {
-            $activeClass = ($current_page == $page) ? 'active' : '';
-            echo '<li class="page-item ' . $activeClass . '">';
-            echo '<a class="page-link" href="?tab=' . $tab . '&' . $tabId . '=' . $tabId . '&' . $pageQueryParam . '=' . $page . '">' . $page . '</a>';
-            echo '</li>';
-        }
-        echo '</ul>';
-    }
     ?>
 </script>

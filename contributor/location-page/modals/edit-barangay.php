@@ -23,7 +23,7 @@
                                 <div class="col-5">
                                     <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
                                     <input type="text" id="municipality-Name-Edit" name="municipality_name" class="form-control" readonly disabled>
-                                </div>w
+                                </div>
 
                                 <!-- barangay name -->
                                 <div class="col-5">
