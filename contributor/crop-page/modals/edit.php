@@ -30,9 +30,6 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link small-font modal-tab" id="edit-more-tab" data-bs-toggle="tab" data-bs-target="#edit-more-tab-pane" type="button" role="tab" aria-controls="edit-more-tab-pane" aria-selected="false"><i class="fa-solid fa-ellipsis me-1"></i>More</button>
                         </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-other_info-tab" data-bs-toggle="tab" data-bs-target="#edit-other_info-tab-pane" type="button" role="tab" aria-controls="edit-other_info-tab-pane" aria-selected="false">Other Info</button>
-                        </li>
                     </ul>
                     <div class="container">
 
@@ -43,8 +40,6 @@
                             <?php require "edit-tabs/loc.php" ?>
                             <!-- more optional info -->
                             <?php require "edit-tabs/more.php" ?>
-                            <!-- other info -->
-                            <?php require "edit-tabs/other_info.php" ?>
                         </div>
 
                     </div>
@@ -240,12 +235,6 @@
                         $('#Spiritual-SignificanceEdit').val(value['spiritual_significance']);
                         $('#Cultural-ImportanceEdit').val(value['cultural_importance']);
                         $('#Cultural-UseEdit').val(value['cultural_use']);
-
-                        // other info
-                        $('#Type-Edit').val(value['other_info_type']);
-                        $('#Other-Name-Edit').val(value['other_info_name']);
-                        $('#Other-Info-Desc-Edit').val(value['other_info_desc']);
-                        $('#other_id').val(value['other_info_id']);
                     });
                 },
                 error: function(xhr, status, error) {
