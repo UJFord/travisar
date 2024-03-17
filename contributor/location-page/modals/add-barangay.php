@@ -16,7 +16,7 @@
             <form id="form-panel" name="Form" action="location-page/code/code-brgy.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
                     <div>
-                        <button type="button" id="add-row-brgy" class="btn btn-secondary">Add</button>
+                        <button type="button" id="add-row-brgy" class="btn btn-secondary" style="margin-left: 10px; background-color: var(--mainBrand);">Add</button>
                     </div>
                     <div class="container">
                         <div id="locationDataBrgy">
@@ -54,10 +54,6 @@
                                     <label for="barangay-Name" class="form-label small-font">Barangay Name<span style="color: red;">*</span></label>
                                     <input type="text" name="barangay_name_1" class="form-control">
                                 </div>
-
-                                <div class="col-2">
-                                    <button type="button" class="btn btn-secondary remove-row">Remove</button>
-                                </div>
                             </div>
                         </div>
                     </div>
@@ -94,14 +90,34 @@
             newRow.innerHTML = `
                 <div class="col-5">
                     <label for="Municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
-                    <input type="text" name="municipality_name_${rowCounter}" class="form-control">
+                    <select name="municipality_name_${rowCounter}" class="form-select">
+                            <?php
+                            $queryMuni = "SELECT municipality_name from location where province_name = 'Sarangani' order by municipality_name ASC";
+                            $query_run = pg_query($conn, $queryMuni);
+
+                            $count = pg_num_rows($query_run);
+
+                            // if count is greater than 0 there is data
+                            if ($count > 0) {
+                                // loop for displaying all categories
+                                while ($row = pg_fetch_assoc($query_run)) {
+                                    $municipality_name = $row['municipality_name'];
+                            ?>
+                                    <option value="<?= $municipality_name; ?>"><?= $municipality_name; ?></option>
+                                <?php
+                                }
+                                ?>
+                            <?php
+                            }
+                            ?>
+                    </select>
                 </div>
                 <div class="col-5">
                     <label for="Barangay-Name" class="form-label small-font">Barangay Name<span style="color: red;">*</span></label>
                     <input type="text" name="barangay_name_${rowCounter}" class="form-control">
                 </div>
-                <div class="col-2">
-                    <button type="button" class="btn btn-secondary remove-row">Remove</button>
+                <div class="col-2" style="padding-top: 25px;">
+                    <button type="button" class="btn btn-secondary remove-row" style="background-color: #dc3545;">Remove</button>
                 </div>
             `;
             locationDataBrgy.appendChild(newRow);
@@ -119,6 +135,7 @@
             rowCounter = 1; // Reset the row counter
         });
     });
+
     // Function to validate input and submit the form
     function validateAndSubmitForm() {
         // Validate the form

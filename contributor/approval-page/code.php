@@ -1,5 +1,5 @@
 <?php
-require "../../../functions/connections.php";
+require "../../functions/connections.php";
 
 if (isset($_POST['approve'])) {
     $crop_id = $_POST['crop_id'];
@@ -7,7 +7,7 @@ if (isset($_POST['approve'])) {
     $result = pg_query($conn, $select);
     if ($result) {
 
-        header("location: ../../approval.php");
+        header("location: ../approval.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {
         echo "Error updating record"; // Display an error message if the query fails
@@ -20,7 +20,7 @@ if (isset($_POST['rejected'])) {
     $result = pg_query($conn, $select);
     if ($result) {
 
-        header("location: ../../approval.php");
+        header("location: ../approval.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {
         echo "Error updating record"; // Display an error message if the query fails

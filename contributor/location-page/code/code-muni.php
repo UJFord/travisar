@@ -34,7 +34,7 @@ if (isset($_POST['save'])) {
         $query_run = pg_query_params($conn, $query, $params);
 
         if ($query_run) {
-            header("location: ../../location.php");
+            header("location: ../../municipality.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
             echo "Error updating record"; // Display an error message if the query fails
@@ -56,7 +56,7 @@ if (isset($_POST['update'])) {
         $affected_rows = pg_affected_rows($query_run);
         if ($affected_rows > 0) {
             echo "Location updated successfully";
-            header("location: ../../location.php");
+            header("location: ../../municipality.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
             echo "Error: Location ID not found";
@@ -74,7 +74,7 @@ if (isset($_POST['rejected'])) {
     $result = pg_query($conn, $select);
     if ($result) {
 
-        header("location: ../../approval.php");
+        header("location: ../../municipality.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {
         echo "Error updating record"; // Display an error message if the query fails
