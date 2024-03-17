@@ -2,8 +2,6 @@
 session_start();
 require "../../../../functions/connections.php";
 
-// if (isset($_POST['save']) && $_SESSION['rank'] == 'curator') {
-// working nani sya pero kay naah may changes sa loc need ni sya i update
 if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
@@ -299,6 +297,53 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         } else {
             echo "Error: " . pg_last_error($conn);
             exit(0);
+        }
+
+        // for other info data
+        $other_info_type = [];
+        $other_info_name = [];
+        $other_info_desc = [];
+
+        // Loop through the $_POST data to extract province, municipality, and other_info_desc names
+        foreach ($_POST as $key => $value) {
+            if (strpos($key, 'other_info_type_') !== false) {
+                $other_info_type[] = $value;
+            } elseif (strpos($key, 'other_info_name_') !== false) {
+                $other_info_name[] = $value;
+            } elseif (strpos($key, 'other_info_desc_') !== false) {
+                $other_info_desc[] = $value;
+            }
+        }
+
+        // Ensure that the arrays have the same length
+        if (count($other_info_type) === count($other_info_name) && count($other_info_type) === count($other_info_desc)) {
+            // Prepare the query
+            $query = "INSERT INTO other_info (crop_id, other_info_type, other_info_name, other_info_desc) VALUES ";
+            $params = [];
+            $valueStrings = [];
+
+            // Generate placeholders and parameters for each location
+            for ($i = 0; $i < count($other_info_type); $i++) {
+                $valueStrings[] = "($" . ($i * 4 + 1) . ", $" . ($i * 4 + 2) . ", $" . ($i * 4 + 3) . ", $" . ($i * 4 + 4) . ")";
+                $params[] = $crop_id;
+                $params[] = $other_info_type[$i];
+                $params[] = $other_info_name[$i];
+                $params[] = $other_info_desc[$i];
+            }
+
+            $query .= implode(", ", $valueStrings);
+
+            // Execute the query with parameters
+            $query_run = pg_query_params($conn, $query, $params);
+
+            if ($query_run) {
+                header("location: ../../../crop.php");
+                exit; // Ensure that the script stops executing after the redirect header
+            } else {
+                echo "Error updating record"; // Display an error message if the query fails
+            }
+        } else {
+            echo "Error: Number of other_info_type, other_info_name, and other_info_desc do not match";
         }
 
         // Commit the transaction if everything is successful
@@ -616,12 +661,60 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 exit(0);
             }
 
+            // for other info data
+            $other_info_type = [];
+            $other_info_name = [];
+            $other_info_desc = [];
+
+            // Loop through the $_POST data to extract province, municipality, and other_info_desc names
+            foreach ($_POST as $key => $value) {
+                if (strpos($key, 'other_info_type_') !== false) {
+                    $other_info_type[] = $value;
+                } elseif (strpos($key, 'other_info_name_') !== false) {
+                    $other_info_name[] = $value;
+                } elseif (strpos($key, 'other_info_desc_') !== false) {
+                    $other_info_desc[] = $value;
+                }
+            }
+
+            // Ensure that the arrays have the same length
+            if (count($other_info_type) === count($other_info_name) && count($other_info_type) === count($other_info_desc)) {
+                // Prepare the query
+                $query = "INSERT INTO other_info (crop_id, other_info_type, other_info_name, other_info_desc) VALUES ";
+                $params = [];
+                $valueStrings = [];
+
+                // Generate placeholders and parameters for each location
+                for ($i = 0; $i < count($other_info_type); $i++) {
+                    $valueStrings[] = "($" . ($i * 4 + 1) . ", $" . ($i * 4 + 2) . ", $" . ($i * 4 + 3) . ", $" . ($i * 4 + 4) . ")";
+                    $params[] = $crop_id;
+                    $params[] = $other_info_type[$i];
+                    $params[] = $other_info_name[$i];
+                    $params[] = $other_info_desc[$i];
+                }
+
+                $query .= implode(", ", $valueStrings);
+
+                // Execute the query with parameters
+                $query_run = pg_query_params($conn, $query, $params);
+
+                if ($query_run) {
+                    echo 'saved';
+                } else {
+                    echo "Error updating record"; // Display an error message if the query fails
+                }
+            } else {
+                echo "Error: Number of other_info_type, other_info_name, and other_info_desc do not match";
+            }
+
             // Commit the transaction if everything is successful
-            pg_query($conn, "COMMIT");
             $_SESSION['message'] = "Crop Created Successfully";
+            pg_query($conn, "COMMIT");
             header("Location: ../../../crop.php");
             exit(0);
         } catch (Exception $e) {
+            // message for error
+            $_SESSION['message'] = 'Crop not Saved';
             // Rollback the transaction if an error occurs
             pg_query($conn, "ROLLBACK");
             // Log the error message
@@ -893,4 +986,4 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             exit(0);
         }
     }
-} 
+}

@@ -133,27 +133,21 @@
     <!-- NAME AND TYPE -->
     <div class="row mb-3">
         <!-- variety name -->
-        <div class="col-6 mb-2">
-            <label for="Variety-Name" class="form-label small-font">Name<span style="color: red;">*</span></label>
+        <div class="col mb-2">
+            <label for="Variety-Name" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
             <input id="Variety-Name" type="text" name="crop_variety" class="form-control" required>
         </div>
 
+        <!-- Meaning of Name -->
+        <div class="col mb-2">
+            <label class="form-label small-font">Meaning of Name(if any)</label>
+            <input type="text" name="meaning_of_name" class="form-control fst-italic">
+        </div>
+
         <!-- scientific name -->
-        <div class="col-6 mb-2">
+        <div class="col mb-2">
             <label class="form-label small-font">Scientific Name<span style="color: red;">*</span></label>
             <input type="text" name="scientific_name" class="form-control fst-italic" required>
-        </div>
-
-        <!-- local name -->
-        <div class="col-6 mb-2">
-            <label class="form-label small-font">Local Name</label>
-            <input type="text" name="crop_local_name" class="form-control">
-        </div>
-
-        <!-- name origin -->
-        <div class="col-6 mb-2">
-            <label class="form-label small-font">Name Origin</label>
-            <input type="text" name="name_origin" class="form-control">
         </div>
     </div>
 
@@ -171,6 +165,21 @@
                 <!-- image preview -->
                 <div class="preview-container custom-scrollbar overflow-scroll rounded border p-1" id="preview"></div>
             </div>
+        </div>
+    </div>
+
+    <!-- local Name and name origin -->
+    <div class="row mb-3">
+        <!-- local name -->
+        <div class="col-6 mb-2">
+            <label class="form-label small-font">Local Name</label>
+            <input type="text" name="crop_local_name" class="form-control">
+        </div>
+
+        <!-- name origin -->
+        <div class="col-6 mb-2">
+            <label class="form-label small-font">Name Origin</label>
+            <input type="text" name="name_origin" class="form-control">
         </div>
     </div>
 
@@ -245,10 +254,13 @@
     // to show the border only when there a picture inside
     // const previewContainer = document.getElementById('previewContainer');
     function checkForContent() {
+        var previewContainer = document.querySelector('.preview-container');
         if (previewContainer.hasChildNodes()) {
-            previewContainer.classList.add('border');
+            previewContainer.style.display = 'block'; // Show the preview container
+            previewContainer.classList.add('border'); // Add border to the container
         } else {
-            previewContainer.classList.remove('border');
+            previewContainer.style.display = 'none'; // Hide the preview container
+            previewContainer.classList.remove('border'); // Remove border from the container
         }
     }
 

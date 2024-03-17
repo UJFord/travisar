@@ -6,7 +6,7 @@
             <!-- Type -->
             <div class="col-4">
                 <label for="Type" class="form-label small-font">Type</label>
-                <input id="Type" type="text" name="other_type_1" class="form-control">
+                <input id="Type" type="text" name="other_info_type_1" class="form-control">
             </div>
 
             <!-- Aroma -->
@@ -54,7 +54,7 @@
                 <!-- Type -->
                 <div class="col-4">
                     <label for="Type" class="form-label small-font">Type</label>
-                    <input id="Type" type="text" name="other_type_${rowCounter}" class="form-control">
+                    <input id="Type" type="text" name="other_info_type_${rowCounter}" class="form-control">
                 </div>
 
                 <!-- Aroma -->
