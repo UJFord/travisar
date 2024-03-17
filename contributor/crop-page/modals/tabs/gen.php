@@ -52,7 +52,7 @@
 </style>
 
 <!-- GENERAL TAB -->
-<div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
+<div class="fade tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
 
     <!-- para ma empty lang ang data sa db dili ra sya ma null -->
     <input type="hidden" name="threats" value="">

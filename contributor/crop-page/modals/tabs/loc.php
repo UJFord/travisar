@@ -9,7 +9,47 @@
 </style>
 
 <!-- LOCATION TAB -->
-<div class="fade tab-pane" id="loc-tab-pane" role="tabpanel" aria-labelledby="loc-tab" tabindex="0">
+<div class="fade show active tab-pane" id="loc-tab-pane" role="tabpanel" aria-labelledby="loc-tab" tabindex="0">
+
+    <div class="row mb-3">
+        <!-- inputs -->
+        <div class="col">
+            <div class="row">
+                <!-- Province -->
+                <div class="col-6 mb-1">
+                    <label for="" class="form-label small-font mb-0">Province</label>
+                    <input type="text" class="form-control form-text small-font mt-0" value="Sarangani" disabled>
+                </div>
+
+                <!-- municipality -->
+                <div class="col-6">
+                    <label for="" class="form-label small-font mb-0">Municipality</label>
+                    <input type="text" class="form-control form-text small-font mt-0" value="Alabel" disabled>
+                </div>
+
+                <!-- barangay -->
+                <div class="col-6">
+                    <label for="" class="form-label small-font mb-0">Barangay</label>
+                    <input type="text" class="form-control form-text small-font mt-0" value="Poblacion" disabled>
+                </div>
+
+                <!-- municipality -->
+                <div class="col-6">
+                    <label for="" class="form-label small-font mb-0">Coordinates</label>
+                    <input type="text" class="form-control form-text small-font mt-0" value="12.213, 31.312" disabled>
+                </div>
+            </div>
+
+        </div>
+
+        <!-- actions -->
+        <div class="col-3">
+            <!-- edit -->
+
+        </div>
+    </div>
+
+
     <div class="row mb-3">
         <!-- form -->
         <div class="col-6">
@@ -37,8 +77,8 @@
             </select>
 
             <!-- Municipality dropdown -->
-            <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
-            <select id="Municipality" name="municipality" class="form-select" required>
+            <label for="Municipality" class="form-label small-font mb-0">Municipality <span style="color: red;">*</span></label>
+            <select id="Municipality" name="municipality" class="form-select mb-2" required>
             </select>
 
             <!-- barangay -->
@@ -52,6 +92,7 @@
             <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (latitude , longitude)</div>
 
         </div>
+
         <!-- map -->
         <div id="map" class="col border">
         </div>
