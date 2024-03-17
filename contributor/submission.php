@@ -174,7 +174,7 @@ require "../functions/functions.php";
                                             $query_category = "SELECT * FROM category WHERE category_id = $1";
                                             $query_run_category = pg_query_params($conn, $query_category, array($row['category_id']));
                                     ?>
-                                            <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>" style="background-color: <?= ($row['status'] == 'approved') ? 'green' : 'red'; ?>">
+                                            <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>" style="background-color: <?= ($row['status'] == 'approved') ? 'green' : ($row['status'] == 'pending' ? 'yellow' : 'red'); ?>">
                                                 <td>
                                                     <!-- crop variety name -->
                                                     <a href=""><?= $row['crop_variety']; ?></a>

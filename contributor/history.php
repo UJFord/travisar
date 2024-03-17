@@ -172,8 +172,7 @@ require "../functions/functions.php";
                                             $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
 
                                     ?>
-                                            <!-- <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>" class="class=" <?= ($row['status'] == 'approve') ? 'bg-success-subtle' : 'bg-danger-subtle'; ?>"> -->
-                                            <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>" style="background-color: <?= ($row['status'] == 'approved') ? 'green' : 'red'; ?>">
+                                            <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>" style="background-color: <?= ($row['status'] == 'approved') ? 'green' : ($row['status'] == 'pending' ? 'yellow' : 'red'); ?>">
 
                                                 <!-- checkbox -->
                                                 <th scope="row"><input class="form-check-input" type="checkbox"></th>
