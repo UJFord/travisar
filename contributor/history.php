@@ -125,14 +125,6 @@ require "../functions/functions.php";
 
                     // Calculate the total number of pages for approved crops
                     $total_pages_approved = ceil($total_rows_approved / $items_per_page);
-
-                    // Count the total number of rows for pagination for pending crops
-                    $total_rows_query_pending = "SELECT COUNT(*) FROM crop WHERE status = 'pending'";
-                    $total_rows_result_pending = pg_query($conn, $total_rows_query_pending);
-                    $total_rows_pending = pg_fetch_row($total_rows_result_pending)[0];
-
-                    // Calculate the total number of pages for pending crops
-                    $total_pages_pending = ceil($total_rows_pending / $items_per_page);
                     ?>
 
                     <!-- dib ni sya para ma set ang mga tabs na data -->

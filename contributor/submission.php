@@ -3,6 +3,41 @@ session_start();
 require "../functions/connections.php";
 require "../functions/functions.php";
 ?>
+
+<!-- CSS -->
+<style>
+    /* CSS for tabs */
+    .tab_box {
+        width: 100%;
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        border-bottom: 2px solid rgba(229, 229, 229);
+        position: relative;
+    }
+
+    .tab_box .tab_btn {
+        font-size: 18px;
+        font-weight: 600;
+        color: #919191;
+        background: none;
+        border: none;
+        padding: 18px;
+    }
+
+    @keyframes moving {
+        from {
+            transform: translateX(50px);
+            opacity: 0;
+        }
+
+        to {
+            transform: translateX(0px);
+            opacity: 1;
+        }
+    }
+</style>
+
 <!doctype html>
 <html lang="en">
 
@@ -52,39 +87,6 @@ require "../functions/functions.php";
     <!-- MAIN -->
     <div class="container">
         <div class="row mt-3">
-            <!-- CSS -->
-            <style>
-                /* CSS for tabs */
-                .tab_box {
-                    width: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-bottom: 2px solid rgba(229, 229, 229);
-                    position: relative;
-                }
-
-                .tab_box .tab_btn {
-                    font-size: 18px;
-                    font-weight: 600;
-                    color: #919191;
-                    background: none;
-                    border: none;
-                    padding: 18px;
-                }
-
-                @keyframes moving {
-                    from {
-                        transform: translateX(50px);
-                        opacity: 0;
-                    }
-
-                    to {
-                        transform: translateX(0px);
-                        opacity: 1;
-                    }
-                }
-            </style>
             <!-- LIST -->
             <div class="container">
                 <div class="row">
@@ -93,7 +95,8 @@ require "../functions/functions.php";
                     <div class="tab_box d-flex justify-content-between">
                         <!-- Button Tabs -->
                         <div>
-                            <button class="tab_btn active" id="pendingTab" disabled>Pending</button>
+                            <button class="tab_btn" id="approvedTab" disabled>Submission</button>
+                            <div class="line"></div>
                         </div>
                         <!-- filter actions -->
                         <div class="d-flex py-3 px-3">
@@ -115,6 +118,14 @@ require "../functions/functions.php";
                     // Calculate the offset based on the current page and items per page
                     $offset = ($current_page - 1) * $items_per_page;
 
+                    // Count the total number of rows for pagination for approved crops
+                    $total_rows_query_approved = "SELECT COUNT(*) FROM crop WHERE status = 'approved'";
+                    $total_rows_result_approved = pg_query($conn, $total_rows_query_approved);
+                    $total_rows_approved = pg_fetch_row($total_rows_result_approved)[0];
+
+                    // Calculate the total number of pages for approved crops
+                    $total_pages_approved = ceil($total_rows_approved / $items_per_page);
+
                     // Count the total number of rows for pagination for pending crops
                     $total_rows_query_pending = "SELECT COUNT(*) FROM crop WHERE status = 'pending'";
                     $total_rows_result_pending = pg_query($conn, $total_rows_query_pending);
@@ -122,40 +133,38 @@ require "../functions/functions.php";
 
                     // Calculate the total number of pages for pending crops
                     $total_pages_pending = ceil($total_rows_pending / $items_per_page);
+
+                    $user_id = null; // Initialize the variable
+
+                    if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) {
+                        $user_id = $_SESSION['USER']['user_id']; // Assign the user ID if the user is logged in
+                    }
                     ?>
 
                     <!-- dib ni sya para ma set ang mga tabs na data -->
                     <div class="general_info">
-                        <!-- Pending tab Active -->
-                        <div class="gen_info" id="pendingTabData" style="max-height: 500px; overflow-y: auto;">
-
+                        <!-- Submission Tab -->
+                        <div class="gen_info" id="submissionTab" style="max-height: 400px; overflow-y: auto;">
                             <!-- TABLE -->
-                            <table id="pendingTable" class="table table-hover">
+                            <table id="submissionTable" class="table table-hover">
                                 <!-- table head -->
                                 <thead>
                                     <tr>
-                                        <th class="col-1 thead-item" scope="col">
-                                            <input class="form-check-input" type="checkbox">
-                                            <label class="form-check-label text-dark-emphasis small-font">
-                                                All
-                                            </label>
-                                        </th>
                                         <th class="col text-dark-emphasis small-font" scope="col">Name</th>
-                                        <th class="col-3 text-dark-emphasis small-font" scope="col">Contributor</th>
-                                        <th class="col-2 text-dark-emphasis text-center small-font" scope="col">Date</th>
-                                        <th class="col-1 text-dark-emphasis text-center small-font" scope="col">Status</th>
-                                        <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
+                                        <th class="col text-dark-emphasis small-font text-center" scope="col">Date Created</th>
+                                        <th class="col text-dark-emphasis small-font text-center" scope="col">Status</th>
+                                        <th class="col text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
                                     </tr>
-                                </thead>
 
+                                </thead>
                                 <!-- table body -->
                                 <tbody class="table-group-divider fw-bold overflow-scroll">
                                     <?php
-                                    $query_pending = "SELECT * FROM crop WHERE status = 'pending' ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
-                                    $query_run_pending = pg_query($conn, $query_pending);
+                                    $query_approved = "SELECT * FROM crop WHERE status IN ('approved', 'rejected', 'pending') AND user_id = $user_id ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
+                                    $query_run_approved = pg_query($conn, $query_approved);
 
-                                    if ($query_run_pending) {
-                                        while ($row = pg_fetch_array($query_run_pending)) {
+                                    if ($query_run_approved) {
+                                        while ($row = pg_fetch_array($query_run_approved)) {
                                             // Convert the string to a DateTime object
                                             $date = new DateTime($row['input_date']);
                                             // Format the date to display up to the minute
@@ -164,18 +173,10 @@ require "../functions/functions.php";
                                             // Fetch category name
                                             $query_category = "SELECT * FROM category WHERE category_id = $1";
                                             $query_run_category = pg_query_params($conn, $query_category, array($row['category_id']));
-
-                                            // Fetch contributor name
-                                            $query_user = "SELECT * FROM users WHERE user_id = $1";
-                                            $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
-
                                     ?>
-                                            <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">
-                                                <!-- checkbox -->
-                                                <th scope="row"><input class="form-check-input" type="checkbox"></th>
-                                                <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
+                                            <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>" style="background-color: <?= ($row['status'] == 'approved') ? 'green' : 'red'; ?>">
                                                 <td>
-                                                    <!-- scientific name -->
+                                                    <!-- crop variety name -->
                                                     <a href=""><?= $row['crop_variety']; ?></a>
                                                     <!-- category -->
                                                     <?php
@@ -187,36 +188,19 @@ require "../functions/functions.php";
                                                     }
                                                     ?>
                                                 </td>
-                                                <!-- contributor -->
-                                                <td class="text-secondary small-font fw-normal">
-                                                    <?php
-                                                    if (pg_num_rows($query_run_user)) {
-                                                        $user = pg_fetch_assoc($query_run_user);
-                                                        echo $user['first_name'] . " " . $user['last_name'];
-                                                    } else {
-                                                        echo "No contributor";
-                                                    }
-                                                    ?>
-                                                </td>
 
                                                 <!-- Date Created -->
-                                                <td class=" text-secondary small-font text-center fw-normal">
+                                                <td class="text-secondary small-font fw-normal text-center">
                                                     <?= $formatted_date; ?>
                                                 </td>
 
                                                 <!-- Status -->
-                                                <td class="text-secondary small-font text-center fw-normal">
+                                                <td class="text-secondary small-font fw-normal text-center">
                                                     <?= $row['status']; ?>
                                                 </td>
 
-                                                <!-- Action -->
-                                                <td>
-                                                    <form class="d-flex justify-content-center" action="approval-page/code.php" method="post">
-                                                        <input type="hidden" name="crop_id" value="<?php echo $row['crop_id']; ?>" />
-                                                        <button type="submit" name="approve" class="btn btn-success me-2"><i class="fa-solid fa-check"></i></button>
-                                                        <button type="submit" name="rejected" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                    </form>
-                                                </td>
+                                                <!-- ellipsis menu butn -->
+                                                <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                                             </tr>
                                     <?php
                                         }
@@ -227,9 +211,10 @@ require "../functions/functions.php";
                                 </tbody>
                             </table>
                         </div>
-                        <!-- Add pagination links -->
-                        <?php generatePaginationLinks($total_pages_pending, $current_page, 'page'); ?>
+                        <!-- pagination -->
+                        <?php generatePaginationLinks($total_pages_approved, $current_page, 'page'); ?>
                     </div>
+
                 </div>
             </div>
         </div>
@@ -287,17 +272,5 @@ require "../functions/functions.php";
         });
     </script>
 </body>
-<!-- 
-    to check if the user is logged in and has a rank of Encoder
-    if Encoder ang rank i redirect sya pabalik kung asa sya gaina before niya ni gi try access
--->
-<?php
-if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
-    // Output JavaScript code to redirect back to the original page
-    echo '<script>window.history.go(-1);</script>';
-    $_SESSION['message'] = 'Access Not Granted Not Enough Authority.';
-    // stop the code
-    exit();
-}
-?>
+
 </html>
