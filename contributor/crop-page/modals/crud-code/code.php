@@ -972,6 +972,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 header("Location: ../../../crop.php");
                 exit(0);
             } catch (Exception $e) {
+                $_SESSION['message'] = "Crop not edited";
                 // Rollback the transaction if an error occurs
                 pg_query($conn, "ROLLBACK");
                 // Handle the error
