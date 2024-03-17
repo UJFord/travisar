@@ -101,7 +101,7 @@
 
         <!-- Crop Field -->
         <div class="col">
-            <label for="cropField" class="form-label small-font">Crop Field<span style="color: red;">*</span></label>
+            <label for="cropField" class="form-label small-font">Crop Ecosystem<span style="color: red;">*</span></label>
             <select name="field_id" id="cropField" class="form-select" required>
                 <?php
                 // get the data of category from DB
