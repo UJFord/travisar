@@ -240,7 +240,7 @@
                         var coordinates = value['coordinates'].split(',');
                         var lat = parseFloat(coordinates[0]);
                         var lng = parseFloat(coordinates[1]);
-                        var marker = L.marker([lat, lng]).addTo(mapEdit);
+                        var markerEdit = L.marker([lat, lng]).addTo(mapEdit);
                     });
                 },
                 error: function(xhr, status, error) {

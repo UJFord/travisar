@@ -435,7 +435,7 @@ require "../functions/functions.php";
             // fetch data
             console.log(latitude);
             console.log(longitude);
-            let details = fetchData(latitude, longitude)
+            let details = fetchDataEdit(latitude, longitude)
                 .then(details => {
                     // set neighbourhood
                     // neighbourhoodValueEdit.value = details.neighbourhood
@@ -524,7 +524,7 @@ require "../functions/functions.php";
         coordInputEdit.addEventListener('input', handleInputChange);
 
         // fetch data from openstreetmap nominatim
-        function fetchData(lat, lng) {
+        function fetchDataEdit(lat, lng) {
             return fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}`)
                 .then(response => {
                     if (!response.ok) {
