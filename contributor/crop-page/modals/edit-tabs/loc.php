@@ -51,19 +51,20 @@
             <label for="coordEdit" class="form-label small-font mb-0">Coordinates</label>
             <input id="coordEdit" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
             <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (latitude , longitude)</div>
+            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">The blue Marker is for the old/current location</div>
         </div>
         <!-- map -->
-        <div id="map" class="col border">
+        <div id="mapEdit" class="col border">
         </div>
     </div>
 
     <!-- STEP NAVIGATION -->
-    <!-- <div class="row">
+    <div class="row">
         <div class="col d-flex justify-content-between">
             <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open General Info tab" onclick="switchTab('gen',this)"><i class="fa-solid fa-backward"></i></button>
             <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Additional Info tab" onclick="switchTab('more',this)"><i class="fa-solid fa-forward"></i></button>
         </div>
-    </div> -->
+    </div>
 </div>
 
 <!-- leaflet requirement -->
@@ -153,4 +154,14 @@
     // Call the populateBarangay function initially to populate the municipalities dropdown based on the default selected municipality
     var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
     populateBarangayEdit(selectedMunicipality, initialBarangay);
+</script>
+
+<!-- script for limiting the input in coordinates just to numbers, commas, periods, and spaces -->
+<script>
+    document.getElementById('coordEdit').addEventListener('input', function(event) {
+        const regex = /^[0-9.,\s]*$/;
+        if (!regex.test(event.target.value)) {
+            event.target.value = event.target.value.replace(/[^0-9.,\s]/g, '');
+        }
+    });
 </script>

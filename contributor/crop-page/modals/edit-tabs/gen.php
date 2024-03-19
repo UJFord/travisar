@@ -143,11 +143,11 @@
     </div>
 
     <!-- STEP NAVIGATION -->
-    <!-- <div class="row">
+    <div class="row">
         <div class="col d-flex justify-content-end">
             <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc')"><i class="fa-solid fa-forward"></i></button>
         </div>
-    </div> -->
+    </div>
 </div>
 
 <!-- SCRIPT for edit tab for the image-->

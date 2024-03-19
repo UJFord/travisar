@@ -235,6 +235,12 @@
                         $('#Spiritual-SignificanceEdit').val(value['spiritual_significance']);
                         $('#Cultural-ImportanceEdit').val(value['cultural_importance']);
                         $('#Cultural-UseEdit').val(value['cultural_use']);
+
+                        // Add a marker to the map based on the coordinates
+                        var coordinates = value['coordinates'].split(',');
+                        var lat = parseFloat(coordinates[0]);
+                        var lng = parseFloat(coordinates[1]);
+                        var marker = L.marker([lat, lng]).addTo(mapEdit);
                     });
                 },
                 error: function(xhr, status, error) {

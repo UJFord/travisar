@@ -393,7 +393,180 @@ require "../functions/functions.php";
     </script>
     <!-- Script nf or the map for edit tab -->
     <script>
-        
+        // initializnig map
+        const mapEdit = L.map('mapEdit').setView([6.403013, 124.725062], 9); //starting position
+
+        // Declare marker globally
+        let markerEdit = null;
+
+        L.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, { //style URL
+            // tilesize
+            tileSize: 512,
+            // maxzoom
+            maxZoom: 18,
+            // i dont what this does but some says before different tile providers handle zoom differently
+            zoomOffset: -1,
+            // minzoom
+            minZoom: 9,
+            // copyright claim, because openstreetmaps require them
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            // i dont know what this does
+            crossOrigin: true
+        }).addTo(mapEdit);
+
+        // input dom
+        let coordInputEdit = document.querySelector('#coordEdit');
+
+        // managing map click
+        function onMapClickEdit(e) {
+            // Extract latitude and longitude from the LatLng object
+            const latitude = e.latlng.lat;
+            const longitude = e.latlng.lng;
+
+            // Join the coordinates as a comma-separated string
+            const formattedCoords = latitude.toFixed(6) + ", " + longitude.toFixed(6);
+
+            // Set the input value to the formatted coordinates
+            coordInputEdit.value = formattedCoords;
+
+            // Update the map and pin marker with the clicked coordinates
+            updateMapAndPin(latitude, longitude);
+
+            // fetch data
+            console.log(latitude);
+            console.log(longitude);
+            let details = fetchData(latitude, longitude)
+                .then(details => {
+                    // set neighbourhood
+                    // neighbourhoodValueEdit.value = details.neighbourhood
+                    // set municipality
+                    // municipalitySelect.value = details.town;
+                    // set barangay
+                    // barangaySelect.value = details.village;
+
+                    console.log('Country:', details.country);
+                    console.log('State:', details.state);
+                    console.log('County:', details.county);
+                    console.log('City:', details.city);
+                    console.log('Town:', details.town);
+                    console.log('Borough:', details.borough);
+                    console.log('Village:', details.village);
+                    console.log('Suburb:', details.suburb);
+                    // console.log('Neighbourhood:', details.neighbourhood);
+                    // console.log('Neighbourhood:', details.neighbourhood);
+                    console.log('Settlement:', details.settlement);
+                    console.log('Major Streets:', details.majorStreets);
+                    console.log('Major and Minor Streets:', details.majorAndMinorStreets);
+                    console.log('Building:', details.building);
+                });
+        }
+
+        mapEdit.on('click', onMapClickEdit);
+
+        function updateMapAndPin(latitude, longitude) {
+            // Remove potential existing marker
+            if (markerEdit) {
+                mapEdit.removeLayer(markerEdit);
+            }
+
+            // Convert input coordinates to Leaflet LatLng object
+            const latLng = L.latLng(latitude, longitude);
+
+            // Create a new marker if coordinates are valid
+            if (isValidLatLng(latLng)) {
+                markerEdit = L.marker(latLng, {
+                    icon: iconEdit // Use your preferred marker icon (e.g., redIcon)
+                });
+
+                // Add marker to the map
+                markerEdit.addTo(mapEdit);
+
+                // Center the map on the new marker
+                // map.setView(latLng, map.getZoom()+1); // Adjust zoom level as needed
+            } else {
+                console.error("Invalid coordinates entered. Please enter valid latitude and longitude values.");
+            }
+        }
+
+        // Input handling function
+        function handleInputChange() {
+            const inputValue = coordInputEdit.value.trim(); // Trim leading/trailing whitespace
+
+            // Ensure comma separation, handle different input formats
+            const parts = inputValue.split(/\s*,\s*/);
+            if (parts.length !== 2) {
+                console.error("Invalid input format. Please enter coordinates in the format 'latitude, longitude'.");
+                return;
+            }
+
+            const latitude = parseFloat(parts[0]);
+            const longitude = parseFloat(parts[1]);
+
+            updateMapAndPin(latitude, longitude);
+        }
+
+        // Utility function to validate LatLng object
+        function isValidLatLng(latLng) {
+            return !isNaN(latLng.lat) && !isNaN(latLng.lng) && -90 <= latLng.lat <= 90 && -180 <= latLng.lng <= 180;
+        }
+
+        // Marker initialization (adjust icon as needed)
+        const iconEdit = L.icon({
+            iconUrl: 'img/location-pin-svgrepo-com.svg',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        // Event listener for input changes
+        coordInputEdit.addEventListener('input', handleInputChange);
+
+        // fetch data from openstreetmap nominatim
+        function fetchData(lat, lng) {
+            return fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Fetch response as text
+                })
+                .then(data => {
+                    // Parse the XML string into a DOM structure
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(data, "text/xml");
+
+                    // Access information in the XML document
+                    const resultElement = xmlDoc.querySelector('result');
+                    const addressPartsElement = xmlDoc.querySelector('addressparts');
+
+                    // Extract details only if the tag exists
+                    const details = {};
+                    if (addressPartsElement) {
+                        details.country = addressPartsElement.querySelector('country')?.textContent || '';
+                        details.state = addressPartsElement.querySelector('state')?.textContent || '';
+                        details.county = addressPartsElement.querySelector('county')?.textContent || '';
+                        details.city = addressPartsElement.querySelector('city')?.textContent || '';
+                        details.town = addressPartsElement.querySelector('town')?.textContent || '';
+                        details.borough = addressPartsElement.querySelector('borough')?.textContent || '';
+                        details.village = addressPartsElement.querySelector('village')?.textContent || '';
+                        details.suburb = addressPartsElement.querySelector('suburb')?.textContent || '';
+                        details.neighbourhood = addressPartsElement.querySelector('neighbourhood')?.textContent || '';
+                        details.settlement = addressPartsElement.querySelector('settlement')?.textContent || '';
+                        details.majorStreets = addressPartsElement.querySelector('major_streets')?.textContent || '';
+                        details.majorAndMinorStreets = addressPartsElement.querySelector('major_and_minor_streets')?.textContent || '';
+                        details.building = addressPartsElement.querySelector('building')?.textContent || '';
+                    }
+
+                    return details;
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                    // Return null or handle error as needed
+                    return null;
+                });
+        }
     </script>
 </body>
 
