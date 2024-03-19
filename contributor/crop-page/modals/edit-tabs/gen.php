@@ -88,7 +88,7 @@
 
         <!-- variety name -->
         <div class="col-6">
-            <label for="crop_variety" class="form-label small-font">Name<span style="color: red;">*</span></label>
+            <label for="crop_variety" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
             <input id="crop_variety" type="text" name="crop_variety" class="form-control">
         </div>
 
@@ -96,22 +96,6 @@
         <div class="col-6">
             <label for="ScienceName" class="form-label small-font">Scientific Name<span style="color: red;">*</span></label>
             <input id="ScienceName" type="text" name="scientific_name" class="form-control">
-        </div>
-    </div>
-
-    <!-- local name AND name origin -->
-    <div class="row mb-3">
-        <!-- local name -->
-        <div class="col-6">
-            <label for="LocalName" class="form-label small-font">Local Name<span style="color: red;">*</span></label>
-            <input id="LocalName" type="text" name="local_name" class="form-control">
-        </div>
-
-        <!-- Name Origin -->
-        <div class="col-4">
-            <label for="NameOrigin" class="form-label small-font">Name Origin <span style="color: red;">*</span></label>
-            <input name="name_origin" id="NameOrigin" class="form-control">
-            </input>
         </div>
     </div>
 
@@ -134,6 +118,22 @@
         </div>
     </div>
 
+    <!-- local name AND name origin -->
+    <div class="row mb-3">
+        <!-- local name -->
+        <div class="col-6">
+            <label for="LocalName" class="form-label small-font">Local Name</label>
+            <input id="LocalName" type="text" name="local_name" class="form-control">
+        </div>
+
+        <!-- Name Origin -->
+        <div class="col-4">
+            <label for="NameOrigin" class="form-label small-font">Name Origin</label>
+            <input name="name_origin" id="NameOrigin" class="form-control">
+            </input>
+        </div>
+    </div>
+
     <!-- DESCRIPTION -->
     <div class="row mb-3">
         <div class="col">
@@ -150,25 +150,17 @@
     </div> -->
 </div>
 
-<!-- JavaScript to show or hide the input box -->
-<!-- <script>
-    document.getElementById('CategoryEdit').addEventListener('change', function() {
-        var otherCategoryInputEdit = document.getElementById('otherCategoryInputEdit');
-        var selectedCategory = document.getElementById('CategoryEdit').value;
-        if (selectedCategory === '3') {
-            otherCategoryInputEdit.style.display = 'block';
-        } else {
-            otherCategoryInputEdit.style.display = 'none';
-        }
-    });
-</script> -->
-
-<!-- SCRIPT for edit tab-->
+<!-- SCRIPT for edit tab for the image-->
 <script defer>
     // handling to show all image inputs
     const imageInputEdit = document.getElementById('imageInputEdit');
     const previewContainerEdit = document.querySelector('.preview-containerEdit');
     let oldImage = ''; // Variable to store the old image URL or filename
+
+    // Function to fetch the old image when editing an item
+    function fetchOldImage(image) {
+        oldImage = image; // Store the old image URL or filename
+    }
 
     // Function to add the old image file to the files array
     function addOldImageFile(oldImageFilename) {
@@ -250,11 +242,6 @@
         });
     });
 
-    // Function to fetch the old image when editing an item
-    function fetchOldImage(image) {
-        oldImage = image; // Store the old image URL or filename
-    }
-
     // to show the border only when there a picture inside
     // const previewContainer = document.getElementById('previewContainer');
     function checkForContent() {
@@ -272,46 +259,3 @@
     previewContainerEdit.addEventListener('DOMNodeInserted', checkForContent);
     previewContainerEdit.addEventListener('DOMNodeRemoved', checkForContent);
 </script>
-
-<!-- script for getting the category data to the select field -->
-<!-- <script>
-    document.addEventListener('DOMContentLoaded', function() {
-        // Select the category dropdown
-        const categorySelect = document.getElementById('CategoryEdit');
-
-        // Function to fetch and display category data
-        function fetchAndDisplayCategories() {
-            // Fetch all categories from the server
-            fetch('crop-page/modals/fetch/fetch_category.php')
-                .then(response => response.json())
-                .then(data => {
-                    // console.log('Fetched Category Data:', data);
-
-                    // Get the currently selected category_id
-                    const selectedCategoryId = categorySelect.value;
-
-                    // Clear previous options
-                    categorySelect.innerHTML = '';
-
-                    // Add options for each category
-                    data.forEach(category => {
-                        const option = document.createElement('option');
-                        option.value = category.category_id;
-                        option.text = category.category_name;
-                        categorySelect.add(option);
-
-                        // Set the selected option if it matches the current category
-                        if (category.category_id == selectedCategoryId) {
-                            option.selected = true;
-                        }
-                    });
-                })
-                .catch(error => {
-                    console.error('Error fetching categories:', error);
-                });
-        }
-
-        // Initial fetch and display of categories
-        fetchAndDisplayCategories();
-    });
-</script> -->

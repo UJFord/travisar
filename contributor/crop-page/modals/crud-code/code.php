@@ -16,6 +16,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $crop_local_name = handleEmpty($_POST['crop_local_name']);
         $category_id = $_POST['category_id'];
         $field_id = $_POST['field_id'];
+        $rarity = $_POST['rarity'];
         $crop_description = handleEmpty($_POST['crop_description']);
         $province_name = $_POST['province'];
         $municipality_name = $_POST['municipality'];
@@ -45,7 +46,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $diseases = handleEmpty($_POST['diseases']);
 
         // Validate the form data
-        if (empty($crop_variety) || empty($scientific_name) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
+        if (empty($crop_variety) || empty($rarity) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
             throw new Exception("All fields are required.");
         }
 
@@ -189,12 +190,12 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
         //insert into crop table
         $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
-            scientific_name, name_origin, crop_description, status, cultural_aspect_id, threats, user_id, crop_image)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING crop_id";
+            scientific_name, name_origin, crop_description, status, cultural_aspect_id, threats, user_id, crop_image, rarity)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING crop_id";
 
         $valueCrops = array(
             $crop_variety, $crop_local_name, $category_id, $newUniqueCode,
-            $scientific_name, $name_origin, $crop_description, $status, $cultural_aspect_id, $threats, $user_id, $imageNamesString
+            $scientific_name, $name_origin, $crop_description, $status, $cultural_aspect_id, $threats, $user_id, $imageNamesString, $rarity
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -332,6 +333,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $category_id = $_POST['category_id'];
             $field_id = $_POST['field_id'];
             $crop_description = handleEmpty($_POST['crop_description']);
+            $rarity = handleEmpty($_POST['rarity']);
             $province_name = $_POST['province'];
             $municipality_name = $_POST['municipality'];
             $name_origin = handleEmpty($_POST['name_origin']);
@@ -360,7 +362,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $diseases = handleEmpty($_POST['diseases']);
 
             // Validate the form data
-            if (empty($crop_variety) || empty($scientific_name) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
+            if (empty($crop_variety) || empty($rarity) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
                 throw new Exception("All fields are required.");
             }
 
@@ -504,12 +506,12 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
             //insert into crop table
             $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
-                    scientific_name, name_origin, crop_description, status, cultural_aspect_id, threats, user_id, crop_image)
-                        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING crop_id";
+                    scientific_name, name_origin, crop_description, status, cultural_aspect_id, threats, user_id, crop_image, rarity)
+                        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING crop_id";
 
             $valueCrops = array(
                 $crop_variety, $crop_local_name, $category_id, $newUniqueCode,
-                $scientific_name, $name_origin, $crop_description, $status, $cultural_aspect_id, $threats, $user_id, $imageNamesString
+                $scientific_name, $name_origin, $crop_description, $status, $cultural_aspect_id, $threats, $user_id, $imageNamesString, $rarity
             );
             $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 

@@ -138,16 +138,29 @@
             <input id="Variety-Name" type="text" name="crop_variety" class="form-control" required>
         </div>
 
+        <!-- Rarity -->
+        <div class="col mb-2">
+            <label for="Rarity" class="form-label small-font">Rarity<span style="color: red;">*</span></label>
+            <select id="Rarity" name="rarity" class="form-select" required>
+                <option value="common">Common</option>
+                <option value="endangered">Endangered</option>
+                <option value="extinct">Extinct</option>
+            </select>
+        </div>
+    </div>
+
+    <!-- Meaning of name and Rarity -->
+    <div class="row mb-3">
         <!-- Meaning of Name -->
         <div class="col mb-2">
             <label class="form-label small-font">Meaning of Name(if any)</label>
             <input type="text" name="meaning_of_name" class="form-control fst-italic">
         </div>
 
-        <!-- scientific name -->
-        <div class="col mb-2">
-            <label class="form-label small-font">Scientific Name<span style="color: red;">*</span></label>
-            <input type="text" name="scientific_name" class="form-control fst-italic" required>
+        <!-- name origin -->
+        <div class="col-6 mb-2">
+            <label class="form-label small-font">Name Origin(if any)</label>
+            <input type="text" name="name_origin" class="form-control">
         </div>
     </div>
 
@@ -176,10 +189,10 @@
             <input type="text" name="crop_local_name" class="form-control">
         </div>
 
-        <!-- name origin -->
-        <div class="col-6 mb-2">
-            <label class="form-label small-font">Name Origin</label>
-            <input type="text" name="name_origin" class="form-control">
+        <!-- scientific name -->
+        <div class="col mb-2">
+            <label class="form-label small-font">Scientific Name</label>
+            <input type="text" name="scientific_name" class="form-control fst-italic">
         </div>
     </div>
 
