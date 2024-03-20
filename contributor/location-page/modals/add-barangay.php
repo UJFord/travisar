@@ -190,7 +190,6 @@
 
     // tab switching
     // next button
-
     function switchTab(tabName) {
         // prevent submitting the form
         event.preventDefault();
