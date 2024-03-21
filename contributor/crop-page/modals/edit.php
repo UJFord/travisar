@@ -142,7 +142,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['unique_code']);
+                        console.log(value['rarity']);
 
                         // Split the image filenames by comma
                         var imageFilenames = value['crop_image'].split(',');
@@ -194,6 +194,8 @@
                         $('#LocalName').val(value['crop_local_name']);
                         $('#NameOrigin').val(value['name_origin']);
                         $('#description').val(value['crop_description']);
+                        $('#nameMeaning').val(value['meaning_of_name']);
+                        $('#rarityEdit').text(value['rarity']);
 
                         //loc.php
                         $('#neighborhoodEdit').val(value['neighborhood']);

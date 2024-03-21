@@ -55,7 +55,7 @@
     <div class="row mb-3">
         <!-- Category -->
         <div class="col">
-            <label for="CategoryEdit" class="form-label small-font">Category Type:</label>
+            <label for="CategoryEdit" class="form-label small-font">Category:</label>
             <h6 name="category_id" id="CategoryEdit"></h6>
             </input>
         </div>
@@ -81,21 +81,34 @@
         <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
 
         <!-- para ma empty lang ang data sa db dili ra sya ma null -->
-        <input type="hidden" name="crop_local_name" value="">
-        <input type="hidden" name="field_id" value="1">
         <input type="hidden" name="threats" value="">
-        <input type="hidden" name="crop_field_id" id="crop_field_id">
 
         <!-- variety name -->
-        <div class="col-6">
+        <div class="col">
             <label for="crop_variety" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
             <input id="crop_variety" type="text" name="crop_variety" class="form-control">
         </div>
 
-        <!-- scientific name -->
-        <div class="col-6">
-            <label for="ScienceName" class="form-label small-font">Scientific Name<span style="color: red;">*</span></label>
-            <input id="ScienceName" type="text" name="scientific_name" class="form-control">
+        <!-- Rarity -->
+        <div class="col mb-2">
+            <label for="rarityEdit" class="form-label small-font">Rarity:</label>
+            <h6 name="rarity" id="rarityEdit"></h6>
+        </div>
+    </div>
+
+    <!-- Meaning of name and Rarity -->
+    <div class="row mb-3">
+        <!-- Meaning of Name -->
+        <div class="col mb-2">
+            <label class="form-label small-font">Meaning of Name(if any)</label>
+            <input type="text" if="nameMeaning" name="meaning_of_name" class="form-control fst-italic">
+        </div>
+
+        <!-- Name Origin -->
+        <div class="col mb-2">
+            <label for="NameOrigin" class="form-label small-font">Name Origin</label>
+            <input name="name_origin" id="NameOrigin" class="form-control">
+            </input>
         </div>
     </div>
 
@@ -126,11 +139,10 @@
             <input id="LocalName" type="text" name="local_name" class="form-control">
         </div>
 
-        <!-- Name Origin -->
-        <div class="col-4">
-            <label for="NameOrigin" class="form-label small-font">Name Origin</label>
-            <input name="name_origin" id="NameOrigin" class="form-control">
-            </input>
+        <!-- scientific name -->
+        <div class="col-6">
+            <label for="ScienceName" class="form-label small-font">Scientific Name</label>
+            <input id="ScienceName" type="text" name="scientific_name" class="form-control">
         </div>
     </div>
 

@@ -61,7 +61,7 @@
     <div class="row mb-4">
         <!-- Category Name -->
         <div class="col">
-            <label for="Category" class="form-label small-font">Type<span style="color: red;">*</span></label>
+            <label for="Category" class="form-label small-font">Category<span style="color: red;">*</span></label>
             <select name="category_id" id="Category" class="form-select" required>
                 <?php
                 // get the data of category from DB

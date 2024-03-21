@@ -146,7 +146,7 @@
 
         locationData.addEventListener('click', function(e) {
             if (e.target.classList.contains('remove-row')) {
-                e.target.closest('.location-brgy').remove();
+                e.target.closest('.location-Data').remove();
             }
         });
 
