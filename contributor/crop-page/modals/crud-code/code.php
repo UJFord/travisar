@@ -723,8 +723,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 // Function to check if an image name already exists in the database
                 function image_name_exists($conn, $image)
                 {
-                    $query = "SELECT crop_image FROM crop WHERE crop_image = $1";
-                    $result = pg_query_params($conn, $query, array($image));
+                    $query = "SELECT crop_image FROM crop WHERE crop_image LIKE $1";
+                    $result = pg_query_params($conn, $query, array('%' . $image . '%'));
+
 
                     if ($result === false) {
                         return false;
@@ -773,7 +774,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $finalimg = implode(',', $uploadedImages);
                 } else {
                     // No new images selected, use the current ones
-                    $finalimg = $current_crop_image;
+                    $currentImages = explode(',', $current_crop_image);
+                    $uploadedImages = array_merge($uploadedImages, $currentImages);
+                    $finalimg = implode(',', $uploadedImages);
                 }
 
                 // update crop table
