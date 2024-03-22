@@ -53,10 +53,6 @@
 
 <!-- GENERAL TAB -->
 <div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
-
-    <!-- para ma empty lang ang data sa db dili ra sya ma null -->
-    <input type="hidden" name="threats" value="">
-
     <!-- Category and Crop Field -->
     <div class="row mb-4">
         <!-- Category Name -->
@@ -130,7 +126,7 @@
         </div>
     </div>
 
-    <!-- NAME AND TYPE -->
+    <!-- NAME AND Rarity -->
     <div class="row mb-3">
         <!-- variety name -->
         <div class="col mb-2">
@@ -154,7 +150,7 @@
         <!-- Meaning of Name -->
         <div class="col mb-2">
             <label class="form-label small-font">Meaning of Name(if any)</label>
-            <input type="text" name="meaning_of_name" class="form-control fst-italic">
+            <input type="text" name="meaning_of_name" class="form-control">
         </div>
 
         <!-- name origin -->

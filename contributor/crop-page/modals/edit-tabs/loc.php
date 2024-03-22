@@ -12,7 +12,7 @@
 <div class="fade tab-pane" id="edit-loc-tab-pane" role="tabpanel" aria-labelledby="edit-loc-tab" tabindex="0">
     <div class="row mb-3">
         <!-- form -->
-        <div class="col-6">
+        <div class="col-6"> 
             <input type="hidden" name="crop_location_id" id="crop_location_id">
             <!-- Province dropdown -->
             <label for="ProvinceEdit" class="form-label small-font">Province <span style="color: red;">*</span></label>

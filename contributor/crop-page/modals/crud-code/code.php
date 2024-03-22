@@ -21,7 +21,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $province_name = $_POST['province'];
         $municipality_name = $_POST['municipality'];
         $name_origin = handleEmpty($_POST['name_origin']);
-        $threats = handleEmpty($_POST['threats']);
+        $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
         $coordinates = handleEmpty($_POST['coordinates']);
 
         $barangay_name = $_POST['barangay'];
@@ -190,12 +190,12 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
         //insert into crop table
         $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
-            scientific_name, name_origin, crop_description, status, cultural_aspect_id, threats, user_id, crop_image, rarity)
+            scientific_name, name_origin, crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image, rarity)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING crop_id";
 
         $valueCrops = array(
             $crop_variety, $crop_local_name, $category_id, $newUniqueCode,
-            $scientific_name, $name_origin, $crop_description, $status, $cultural_aspect_id, $threats, $user_id, $imageNamesString, $rarity
+            $scientific_name, $name_origin, $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString, $rarity
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -337,7 +337,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $province_name = $_POST['province'];
             $municipality_name = $_POST['municipality'];
             $name_origin = handleEmpty($_POST['name_origin']);
-            $threats = handleEmpty($_POST['threats']);
+            $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
             $coordinates = handleEmpty($_POST['coordinates']);
 
             $barangay_name = $_POST['barangay'];
@@ -506,12 +506,12 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
             //insert into crop table
             $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
-                scientific_name, name_origin, crop_description, status, cultural_aspect_id, threats, user_id, crop_image, rarity)
+                scientific_name, name_origin, crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image, rarity)
                 VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING crop_id";
 
             $valueCrops = array(
                 $crop_variety, $crop_local_name, $category_id, $newUniqueCode,
-                $scientific_name, $name_origin, $crop_description, $status, $cultural_aspect_id, $threats, $user_id, $imageNamesString, $rarity
+                $scientific_name, $name_origin, $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString, $rarity
             );
             $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -653,9 +653,10 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $province_name = $_POST['province'];
                 $municipality_name = $_POST['municipality'];
                 $barangay_name = $_POST['barangay'];
-                $threats = handleEmpty($_POST['threats']);
+                $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
                 $coordinates = handleEmpty($_POST['coordinates']);
                 $current_crop_image = handleEmpty($_POST['old_image']);
+                $name_origin = handleEmpty($_POST['name_origin']);
 
                 $status = 'approved';
 
@@ -798,12 +799,12 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
                 // update crop table
                 $queryCrop = "UPDATE crop SET crop_variety = $1, crop_local_name = $2, name_origin = $3,
-                scientific_name = $4, crop_description = $5, cultural_aspect_id = $6, threats = $7, crop_image = $8
+                scientific_name = $4, crop_description = $5, cultural_aspect_id = $6, meaning_of_name = $7, crop_image = $8
                 WHERE crop_id = $9";
 
                 $valueCrops = array(
-                    $crop_variety, $crop_local_name, $name_origin,
-                    $scientific_name, $crop_description, $cultural_aspect_id, $threats, $finalimg, $crop_id
+                    $crop_variety, $crop_local_name, $name_origin, $scientific_name, $crop_description,
+                    $cultural_aspect_id, $meaning_of_name, $finalimg, $crop_id
                 );
                 $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 

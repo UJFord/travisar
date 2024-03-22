@@ -10,7 +10,7 @@
 
 <!-- LOCATION TAB -->
 <div class="fade tab-pane" id="loc-tab-pane" role="tabpanel" aria-labelledby="loc-tab" tabindex="0">
-    <div id="locationData" class="row mb-3">\
+    <div id="locationData" class="row mb-3">
         <!-- form -->
         <div class="col-6 location-Data">
             <!-- Province dropdown -->

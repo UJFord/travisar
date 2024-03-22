@@ -142,7 +142,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['rarity']);
+                        console.log(value['meaning_of_name']);
 
                         // Split the image filenames by comma
                         var imageFilenames = value['crop_image'].split(',');

@@ -31,6 +31,7 @@
 
 <!-- GENERAL TAB -->
 <div class="fade show active tab-pane" id="edit-gen-tab-pane" role="tabpanel" aria-labelledby="edit-gen-tab" tabindex="0">
+    <!-- Contributed, Unique Code, and Date Created -->
     <dv class="row mb-3">
         <!-- Contributed By -->
         <div class="col">
@@ -51,7 +52,7 @@
         </div>
     </dv>
 
-    <!-- Categories, Other Category, and Date Created -->
+    <!-- Categories, Other Category, and Crop Field -->
     <div class="row mb-3">
         <!-- Category -->
         <div class="col">
@@ -80,9 +81,6 @@
         <!-- cultural_aspect_id -->
         <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
 
-        <!-- para ma empty lang ang data sa db dili ra sya ma null -->
-        <input type="hidden" name="threats" value="">
-
         <!-- variety name -->
         <div class="col">
             <label for="crop_variety" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
@@ -101,7 +99,7 @@
         <!-- Meaning of Name -->
         <div class="col mb-2">
             <label class="form-label small-font">Meaning of Name(if any)</label>
-            <input type="text" if="nameMeaning" name="meaning_of_name" class="form-control fst-italic">
+            <input type="text" id="nameMeaning" name="meaning_of_name" class="form-control">
         </div>
 
         <!-- Name Origin -->
@@ -142,7 +140,7 @@
         <!-- scientific name -->
         <div class="col-6">
             <label for="ScienceName" class="form-label small-font">Scientific Name</label>
-            <input id="ScienceName" type="text" name="scientific_name" class="form-control">
+            <input id="ScienceName" type="text" name="scientific_name" class="form-control fst-italic">
         </div>
     </div>
 
