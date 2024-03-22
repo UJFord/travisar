@@ -134,7 +134,7 @@
         <!-- local name -->
         <div class="col-6">
             <label for="LocalName" class="form-label small-font">Local Name</label>
-            <input id="LocalName" type="text" name="local_name" class="form-control">
+            <input id="LocalName" type="text" name="crop_local_name" class="form-control">
         </div>
 
         <!-- scientific name -->
@@ -209,10 +209,10 @@
                 // Iterate over each filename and append an image preview with a remove button
                 oldImageFilenames.forEach(function(filename, index) {
                     $('#previewEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="crop-page/modals/img/' + filename.trim() + '" class="img-thumbnail"/><button class="remove-image" data-index="' + index + '"><i class="fa-solid fa-xmark"></i></button></div>');
-                });
 
-                // Add the old image file to the files array
-                addOldImageFile('old_image_' + oldImageFilenames[0].trim());
+                    // Add the old image file to the files array
+                    addOldImageFile(filename.trim());
+                });
             }
 
             console.log("Remaining images after change:", imageInputEdit.files);

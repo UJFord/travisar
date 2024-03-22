@@ -717,14 +717,21 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 // Function to generate a unique image name
                 function generate_unique_image_name($ext)
                 {
-                    $image = "Crop_Image_" . rand(000, 999) . '.' . $ext;
+                    return "Crop_Image_" . rand(000, 999) . '.' . $ext;
+                }
 
-                    // Check if the image with the same name already exists in the directory
-                    while (file_exists("../img/" . $image)) {
-                        $image = "Crop_Image_" . rand(000, 999) . '.' . $ext;
+                // Function to check if an image name already exists in the database
+                function image_name_exists($conn, $image)
+                {
+                    $query = "SELECT crop_image FROM crop WHERE crop_image = $1";
+                    $result = pg_query_params($conn, $query, array($image));
+
+                    if ($result === false) {
+                        return false;
                     }
 
-                    return $image;
+                    $count = pg_num_rows($result);
+                    return $count > 0;
                 }
 
                 // function to update images
@@ -736,56 +743,28 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                         $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
                         if (in_array($ext, $extension)) {
-                            // Auto rename image
-                            $image = generate_unique_image_name($ext);
-
                             // Check if the image name already exists in the database
-                            while (true) {
-                                $query = "SELECT crop_image FROM crop WHERE crop_image = $1";
-                                $result = pg_query_params($conn, $query, array($image));
+                            $image = $filename;
+                            if (image_name_exists($conn, $image)) {
+                                // If the image name exists, use the original name
+                                $uploadedImages[] = $image;
+                            } else {
+                                // Auto rename image if it doesn't exist in the database
+                                $new_image = generate_unique_image_name($ext);
+                                $source_path = $_FILES['crop_image']['tmp_name'][$key];
+                                $destination_path = "../img/" . $new_image;
 
-                                if ($result === false) {
-                                    break;
+                                // Upload the image
+                                $upload = move_uploaded_file($source_path, $destination_path);
+
+                                // Check whether the image is uploaded or not
+                                if (!$upload) {
+                                    echo "Image upload failed";
+                                    die();
                                 }
 
-                                $count = pg_num_rows($result);
-
-                                if ($count == 0) {
-                                    break;
-                                } else {
-                                    // If the image name exists, generate a new one
-                                    $image = generate_unique_image_name($ext);
-                                }
+                                $uploadedImages[] = $new_image; // Add image name to the array
                             }
-
-                            $source_path = $_FILES['crop_image']['tmp_name'][$key];
-                            $destination_path = "../img/" . $image;
-
-                            // Delete the old image if it exists
-                            if (!empty($current_crop_image)) {
-                                // Split the old image filenames by comma
-                                $old_image_filenames = explode(',', $current_crop_image);
-
-                                // Iterate over each filename and delete the file
-                                foreach ($old_image_filenames as $filename) {
-                                    $old_image_path = "../img/" . trim($filename);
-                                    if (file_exists($old_image_path)) {
-                                        unlink($old_image_path);
-                                    }
-                                }
-                            }
-
-                            // Upload the image
-                            $upload = move_uploaded_file($source_path, $destination_path);
-
-                            // Check whether the image is uploaded or not
-                            if (!$upload) {
-                                echo "Image upload failed";
-                                die();
-                            }
-
-                            $uploadedImages[] = $image; // Add image name to the array
-
                         } else {
                             // Display error message for invalid file format
                         }
