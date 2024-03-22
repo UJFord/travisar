@@ -1,9 +1,8 @@
 <!-- MORE TAB -->
 <div class="fade tab-pane" id="edit-more-tab-pane" role="tabpanel" aria-labelledby="edit-more-tab" tabindex="0">
-    <h3>Characteristics</h3>
 
     <!-- Taste and Aroma-->
-    <div class="row mb-3">
+    <div class="row mb-4">
         <input id="Char_id" type="hidden" name="characteristics_id" class="form-control">
         <input id="cultural_aspect-Edit" type="hidden" name="cultural_aspect_id" class="form-control">
 
@@ -27,50 +26,44 @@
     </div>
 
     <!-- Pest and Disease -->
-    <div class="row mb-3">
+    <div class="row mb-4">
         <!-- Pest -->
         <div class="col-6">
-            <label for="PestEdit" class="form-label small-font">Pest</label>
+            <label for="PestEdit" class="form-label small-font">Pest Resistance</label>
             <input id="PestEdit" type="text" name="pest" class="form-control">
         </div>
 
         <!-- Disease -->
         <div class="col-6">
-            <label for="DiseaseEdit" class="form-label small-font">Disease</label>
+            <label for="DiseaseEdit" class="form-label small-font">Disease Resistance</label>
             <input id="DiseaseEdit" type="text" name="diseases" class="form-control">
         </div>
     </div>
 
-    <br>
-
-    <h3>Cultural Aspect</h3>
     <!-- Cultural and Spiritual Significance-->
-    <div class="row mb-3">
+    <div class="row mb-4">
         <!-- Cultural-Significance -->
-        <div class="col-6">
+        <div class="col-12 mb-2">
             <label for="Cultural-SignificanceEdit" class="form-label small-font">Cultural-Significance</label>
-            <input id="Cultural-SignificanceEdit" type="text" name="cultural_significance" class="form-control">
+            <textarea name="cultural_significance" id="Cultural-SignificanceEdit" cols="30" rows="2" class="form-control"></textarea>
         </div>
-
 
         <!-- Spiritual-Significance -->
-        <div class="col-6">
+        <div class="col-12 mb-2">
             <label for="Spiritual-SignificanceEdit" class="form-label small-font">Spiritual-Significance</label>
-            <input id="Spiritual-SignificanceEdit" type="text" name="spiritual_significance" class="form-control">
+            <textarea name="spiritual_significance" id="Spiritual-SignificanceEdit" cols="30" rows="2" class="form-control"></textarea>
         </div>
-    </div>
 
-    <!--  -->
-    <div class="row mb-3">
         <!-- cultural_importance -->
-        <div class="col-6">
+        <div class="col-12 mb-2">
             <label for="Cultural-ImportanceEdit" class="form-label small-font">Cultural Importance</label>
-            <input id="Cultural-ImportanceEdit" type="text" name="cultural_importance" class="form-control">
+            <textarea name="cultural_importance" id="Cultural-ImportanceEdit" cols="30" rows="2" class="form-control"></textarea>
         </div>
+
         <!-- cultural_use-->
-        <div class="col-6">
+        <div class="col-12 mb-2">
             <label for="Cultural-UseEdit" class="form-label small-font">Cultural Use</label>
-            <input id="Cultural-UseEdit" type="text" name="cultural_use" class="form-control">
+            <textarea name="cultural_use" id="Cultural-UseEdit" cols="30" rows="2" class="form-control"></textarea>
         </div>
     </div>
 
