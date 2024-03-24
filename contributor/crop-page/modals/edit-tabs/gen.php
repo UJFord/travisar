@@ -172,17 +172,16 @@
         oldImage = image; // Store the old image URL or filename
     }
 
-    // Function to add the old image file to the files array
+    // Function to add the old image file to the files array at the end
     function addOldImageFile(oldImageFilename) {
         var dataTransfer = new DataTransfer();
+        Array.from(imageInputEdit.files).forEach(function(file) {
+            dataTransfer.items.add(file);
+        });
         var oldImageFile = new File([null], oldImageFilename, {
             type: 'image/png'
         });
         dataTransfer.items.add(oldImageFile);
-        var files = imageInputEdit.files;
-        Array.from(files).forEach(function(file) {
-            dataTransfer.items.add(file);
-        });
         imageInputEdit.files = dataTransfer.files;
     }
 
@@ -196,19 +195,16 @@
             $.each(files, function(i, file) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    $('#previewEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-image" data-index="' + i + '"><i class="fa-solid fa-xmark"></i></button></div>');
+                    $('#previewEdit').prepend('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-image" data-index="' + i + '"><i class="fa-solid fa-xmark"></i></button></div>');
                 }
                 reader.readAsDataURL(file);
             });
 
             // If there's an old image, append it to the preview container and set the value of the hidden input field
             if (oldImage) {
-                // Split the oldImage value by comma
                 var oldImageFilenames = oldImage.split(',');
-
-                // Iterate over each filename and append an image preview with a remove button
                 oldImageFilenames.forEach(function(filename, index) {
-                    $('#previewEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="crop-page/modals/img/' + filename.trim() + '" class="img-thumbnail"/><button class="remove-image" data-index="' + index + '"><i class="fa-solid fa-xmark"></i></button></div>');
+                    $('#previewEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="crop-page/modals/img/' + filename.trim() + '" class="img-thumbnail"/><button class="remove-image" data-index="' + (files.length + index) + '"><i class="fa-solid fa-xmark"></i></button></div>');
 
                     // Add the old image file to the files array
                     addOldImageFile(filename.trim());
@@ -216,6 +212,7 @@
             }
 
             console.log("Remaining images after change:", imageInputEdit.files);
+            checkForContent();
         });
 
         //* if you input multiple images and you added a wrong one you can delete it
@@ -225,30 +222,32 @@
             var index = $(this).data("index");
             console.log("Removing image at index:", index);
 
-            var files = imageInputEdit.files;
-            var newFiles = [];
-            for (var i = 0; i < files.length; i++) {
-                if (i !== index) {
-                    newFiles.push(files[i]);
-                }
-            }
-
-            //* mao ni tung mag transfer sa data to another input
+            var newFiles = Array.from(imageInputEdit.files).filter((_, i) => i !== index);
             var dataTransfer = new DataTransfer();
             newFiles.forEach(function(file) {
                 dataTransfer.items.add(file);
             });
+
+            // Update the input files and reset the indexes
             imageInputEdit.files = dataTransfer.files;
-            $(this).parent().remove();
+            $('#previewEdit').empty();
+            Array.from(imageInputEdit.files).forEach(function(file, index) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#previewEdit').prepend('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-image" data-index="' + index + '"><i class="fa-solid fa-xmark"></i></button></div>');
+                }
+                reader.readAsDataURL(file);
+            });
+
             console.log("New files array after removal:", imageInputEdit.files);
+            checkForContent();
         });
 
         // Add event listener for the hidden.bs.modal event
         $('#add-item-modal, #edit-item-modal').on('hidden.bs.modal', function() {
-            // Clear the image input field
-            $('#imageInput, #imageInputEdit').val('');
-            // Clear the image preview container
-            $('#preview, #previewEdit').empty();
+            imageInputEdit.value = ''; // Reset file input
+            $('#previewEdit').empty(); // Clear preview container
+            checkForContent();
         });
     });
 

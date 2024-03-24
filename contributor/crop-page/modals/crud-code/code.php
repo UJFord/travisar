@@ -726,7 +726,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $query = "SELECT crop_image FROM crop WHERE crop_image LIKE $1";
                     $result = pg_query_params($conn, $query, array('%' . $image . '%'));
 
-
                     if ($result === false) {
                         return false;
                     }
