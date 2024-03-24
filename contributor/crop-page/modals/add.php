@@ -42,8 +42,6 @@
                             <?php require "tabs/gen.php" ?>
                             <!-- location -->
                             <?php require "tabs/loc.php" ?>
-                            <!-- location edit modal -->
-                            <?php require "tabs/loc-modal.php" ?>
                             <!-- more optional info -->
                             <?php require "tabs/more.php" ?>
                             <!-- other info info -->
@@ -63,6 +61,10 @@
         </div>
     </div>
 </div>
+
+
+<!-- location edit modal -->
+<?php require "tabs/loc-modal.php" ?>
 
 <!-- SCRIPT -->
 <script>
