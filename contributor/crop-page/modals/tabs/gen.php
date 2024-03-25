@@ -139,7 +139,7 @@
             <label for="Rarity" class="form-label small-font">Rarity<span style="color: red;">*</span></label>
             <select id="Rarity" name="rarity" class="form-select" required>
                 <option value="common">Common</option>
-                <option value="endangered">Endangered</option>
+                <option value="rare">Rare</option>
                 <option value="extinct">Extinct</option>
             </select>
         </div>

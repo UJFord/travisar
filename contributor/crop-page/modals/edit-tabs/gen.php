@@ -217,7 +217,7 @@
 
         //* if you input multiple images and you added a wrong one you can delete it
         //* this code will remove the one you deleted from existing image array
-        //* and the remaining images is transfered to another array and is considered as a new input
+        //* and the remaining images is transferred to another array and is considered as a new input
         $(document).on("click", ".remove-image", function() {
             var index = $(this).data("index");
             console.log("Removing image at index:", index);
