@@ -55,9 +55,9 @@
         <div id="map" class="col border">
         </div>
 
-        <div>
+        <!-- <div>
             <button type="button" id="add-row-loc" class="btn btn-secondary" style="margin-left: 10px; background-color: var(--mainBrand);">Add</button>
-        </div>
+        </div> -->
     </div>
 
     <!-- STEP NAVIGATION -->
