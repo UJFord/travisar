@@ -190,12 +190,12 @@
                         // example ni sya kung gusto nimo i dikit ang duwa ka value
                         // $('#crop_variety').val(value['unique_code'] + '(' + value['crop_variety'] + ') ');
 
-                        $('#crop_variety').val(value['crop_variety']);
-                        $('#ScienceName').val(value['scientific_name']);
-                        $('#LocalName').val(value['crop_local_name']);
-                        $('#NameOrigin').val(value['name_origin']);
+                        $('#crop_variety').text(value['crop_variety']);
+                        $('#ScienceName').text(value['scientific_name']);
+                        $('#LocalName').text(value['crop_local_name']);
+                        $('#NameOrigin').text(value['name_origin']);
                         $('#description').val(value['crop_description']);
-                        $('#nameMeaning').val(value['meaning_of_name']);
+                        $('#nameMeaning').text(value['meaning_of_name']);
                         $('#rarityEdit').text(value['rarity']);
 
                         //loc.php
@@ -227,11 +227,11 @@
                         });
 
                         // characteristics
-                        $('#TasteEdit').val(value['taste']);
-                        $('#AromaEdit').val(value['aroma']);
-                        $('#MaturationEdit').val(value['maturation']);
-                        $('#PestEdit').val(value['pest']);
-                        $('#DiseaseEdit').val(value['diseases']);
+                        $('#TasteEdit').text(value['taste']);
+                        $('#AromaEdit').text(value['aroma']);
+                        $('#MaturationEdit').text(value['maturation']);
+                        $('#PestEdit').text(value['pest']);
+                        $('#DiseaseEdit').text(value['diseases']);
 
                         // cultural aspect
                         $('#Cultural-SignificanceEdit').val(value['cultural_significance']);
