@@ -157,9 +157,6 @@
             // Get the crop ID from the clicked row or anchor tag
             var cropId = $(this).data('id') || $(this).find('a').data('id');
 
-            // Optionally, use the crop ID to fetch additional data and populate the modal
-            // ...
-
             // Open the modal
             $('#dataModal').modal('show');
         });
