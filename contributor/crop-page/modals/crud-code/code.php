@@ -16,6 +16,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $crop_local_name = handleEmpty($_POST['crop_local_name']);
         $category_id = $_POST['category_id'];
         $field_id = $_POST['field_id'];
+        $category_variety_id = handleEmpty($_POST['category_variety_id']);
         $crop_description = handleEmpty($_POST['crop_description']);
         $province_name = $_POST['province'];
         $municipality_name = $_POST['municipality'];
@@ -43,7 +44,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $diseases = handleEmpty($_POST['diseases']);
 
         // Validate the form data
-        if (empty($crop_variety) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
+        if (empty($crop_variety) || empty($category_variety_id) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
             throw new Exception("All fields are required.");
         }
 
@@ -187,12 +188,13 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
         //insert into crop table
         $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
-            crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING crop_id";
+            crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image, category_variety_id)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING crop_id";
 
         $valueCrops = array(
             $crop_variety, $crop_local_name, $category_id, $newUniqueCode,
-            $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString);
+            $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString, $category_variety_id
+        );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
         if ($query_run_Crop) {
@@ -328,6 +330,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $crop_local_name = handleEmpty($_POST['crop_local_name']);
             $category_id = $_POST['category_id'];
             $field_id = $_POST['field_id'];
+            $category_variety_id = handleEmpty($_POST['category_variety_id']);
             $crop_description = handleEmpty($_POST['crop_description']);
             $province_name = $_POST['province'];
             $municipality_name = $_POST['municipality'];
@@ -355,7 +358,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $diseases = handleEmpty($_POST['diseases']);
 
             // Validate the form data
-            if (empty($crop_variety) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
+            if (empty($crop_variety) || empty($category_variety_id) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
                 throw new Exception("All fields are required.");
             }
 
@@ -499,12 +502,13 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
             //insert into crop table
             $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
-                crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING crop_id";
+                crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image, category_variety_id)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING crop_id";
 
             $valueCrops = array(
                 $crop_variety, $crop_local_name, $category_id, $newUniqueCode,
-                $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString);
+                $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString, $category_variety_id
+            );
             $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
             if ($query_run_Crop) {
@@ -640,6 +644,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $crop_variety = handleEmpty($_POST['crop_variety']);
                 $crop_local_name = handleEmpty($_POST['crop_local_name']);
                 $field_id = $_POST['field_id'];
+                $category_variety_id = handleEmpty($_POST['category_variety_id']);
                 // $crop_image = $_POST['crop_image[]'];
                 $crop_description = handleEmpty($_POST['crop_description']);
                 $province_name = $_POST['province'];
@@ -769,12 +774,12 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
                 // update crop table
                 $queryCrop = "UPDATE crop SET crop_variety = $1, crop_local_name = $2, crop_description = $3,
-                cultural_aspect_id = $4, meaning_of_name = $5, crop_image = $6
+                cultural_aspect_id = $4, meaning_of_name = $5, crop_image = $6, category_variety_id = $7
                 WHERE crop_id = $8";
 
                 $valueCrops = array(
                     $crop_variety, $crop_local_name, $crop_description,
-                    $cultural_aspect_id, $meaning_of_name, $finalimg, $crop_id
+                    $cultural_aspect_id, $meaning_of_name, $finalimg, $category_variety_id, $crop_id
                 );
                 $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -786,8 +791,12 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 }
 
                 // characteristics table
-                $query_charac = "UPDATE characteristics SET taste = $2, aroma = $3, maturation = $4, pest = $5, diseases = $6 WHERE characteristics_id = $1 RETURNING characteristics_id";
-                $query_run_charac = pg_query_params($conn, $query_charac, array($characteristics_id, $taste, $aroma, $maturation, $pest, $diseases));
+                $query_charac = "UPDATE characteristics SET taste = $2, aroma = $3, maturation = $4, pest = $5, diseases = 
+                                $6 WHERE characteristics_id = $1 RETURNING characteristics_id";
+                $query_run_charac = pg_query_params($conn, $query_charac, array(
+                    $characteristics_id, $taste, $aroma,
+                    $maturation, $pest, $diseases
+                ));
 
                 if ($query_run_charac) {
                     // Check if any rows were affected

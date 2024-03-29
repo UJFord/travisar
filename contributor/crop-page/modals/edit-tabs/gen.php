@@ -31,6 +31,12 @@
 
 <!-- GENERAL TAB -->
 <div class="fade show active tab-pane" id="edit-gen-tab-pane" role="tabpanel" aria-labelledby="edit-gen-tab" tabindex="0">
+    <!-- hidden data -->
+    <!-- crop_id -->
+    <input id="crop_id" type="hidden" name="crop_id" class="form-control">
+    <!-- cultural_aspect_id -->
+    <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
+
     <!-- Contributed, Unique Code, and Date Created -->
     <dv class="row mb-3">
         <!-- Contributed By -->
@@ -52,7 +58,7 @@
         </div>
     </dv>
 
-    <!-- Categories, Other Category, and Crop Field -->
+    <!-- Categories, Other Category, and Category Variety -->
     <div class="row mb-3">
         <!-- Category -->
         <div class="col">
@@ -67,33 +73,31 @@
             <h6 name="other_category_name" id="otherCategoryEdit"></h6>
         </div>
 
-        <!-- Crop Field -->
+        <!-- Category Variety -->
         <div class="col">
-            <label for="fieldEdit" class="form-label small-font">Crop Field:</label>
-            <h6 name="field_id" id="fieldEdit"></h6>
+            <label for="categoryVarietyEdit" class="form-label small-font">Category Variety:</label>
+            <h6 name="category_variety_name" id="categoryVarietyEdit"></h6>
         </div>
     </div>
 
-    <!-- NAME AND TYPE -->
+    <!-- variety name, meaning of name, and local name -->
     <div class="row mb-3">
-        <!-- crop_id -->
-        <input id="crop_id" type="hidden" name="crop_id" class="form-control">
-        <!-- cultural_aspect_id -->
-        <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
-
         <!-- variety name -->
         <div class="col">
             <label for="crop_variety" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
-            <input id="crop_variety" type="text" name="crop_variety" class="form-control">
+            <input id="crop_variety" type="text" name="crop_variety" class="form-control" required>
         </div>
-    </div>
 
-    <!-- Meaning of name -->
-    <div class="row mb-3">
         <!-- Meaning of Name -->
-        <div class="col mb-2">
+        <div class="col">
             <label class="form-label small-font">Meaning of Name(if any)</label>
             <input type="text" id="nameMeaning" name="meaning_of_name" class="form-control">
+        </div>
+
+        <!-- local name -->
+        <div class="col">
+            <label for="LocalName" class="form-label small-font">Local Name</label>
+            <input id="LocalName" type="text" name="crop_local_name" class="form-control">
         </div>
     </div>
 
@@ -113,15 +117,6 @@
                 <!-- current images -->
                 <div id="previewEdit" class="preview-containerEdit custom-scrollbar overflow-scroll rounded border p-1"></div>
             </div>
-        </div>
-    </div>
-
-    <!-- local name AND name -->
-    <div class="row mb-3">
-        <!-- local name -->
-        <div class="col-6">
-            <label for="LocalName" class="form-label small-font">Local Name</label>
-            <input id="LocalName" type="text" name="crop_local_name" class="form-control">
         </div>
     </div>
 

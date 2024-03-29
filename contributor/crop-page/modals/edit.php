@@ -32,7 +32,6 @@
                         </li>
                     </ul>
                     <div class="container">
-
                         <div class="tab-content mt-2">
                             <!-- general -->
                             <?php require "edit-tabs/gen.php" ?>
@@ -41,7 +40,6 @@
                             <!-- more optional info -->
                             <?php require "edit-tabs/more.php" ?>
                         </div>
-
                     </div>
                 </div>
 
@@ -142,7 +140,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['meaning_of_name']);
+                        console.log(value['category_variety_name']);
 
                         // Split the image filenames by comma
                         var imageFilenames = value['crop_image'].split(',');
@@ -179,7 +177,7 @@
                             $('#otherCategoryInputEdit').css('display', 'none');
                         }
                         $('#CategoryEdit').text(value['category_name']);
-                        $('#fieldEdit').text(value['field_name']);
+                        $('#categoryVarietyEdit').text(value['category_variety_name']);
                         $('#firstName').text(value['first_name']);
                         $('#uniqueCode').text(value['unique_code']);
 
@@ -238,11 +236,18 @@
                         $('#Cultural-ImportanceEdit').val(value['cultural_importance']);
                         $('#Cultural-UseEdit').val(value['cultural_use']);
 
-                        // Add a marker to the map based on the coordinates
-                        var coordinates = value['coordinates'].split(',');
-                        var lat = parseFloat(coordinates[0]);
-                        var lng = parseFloat(coordinates[1]);
-                        var markerEdit = L.marker([lat, lng]).addTo(mapEdit);
+                        // Add a marker to the map based on the coordinates if they exist
+                        if (value['coordinates']) {
+                            var coordinates = value['coordinates'].split(',');
+                            var lat = parseFloat(coordinates[0]);
+                            var lng = parseFloat(coordinates[1]);
+
+                            if (!isNaN(lat) && !isNaN(lng)) {
+                                var markerEdit = L.marker([lat, lng]).addTo(mapEdit);
+                            } else {
+                                console.log('Invalid coordinates or no coordinates available');
+                            }
+                        }
                     });
                 },
                 error: function(xhr, status, error) {

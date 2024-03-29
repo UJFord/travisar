@@ -1,5 +1,36 @@
 <!-- MORE TAB -->
 <div class="fade tab-pane" id="edit-more-tab-pane" role="tabpanel" aria-labelledby="edit-more-tab" tabindex="0">
+    <!-- Cultural and Spiritual Significance-->
+    <div class="row mb-4">
+        <!-- Cultural-Significance -->
+        <div class="col-12 mb-2">
+            <label for="Cultural-SignificanceEdit" class="form-label small-font">Cultural-Significance</label>
+            <textarea name="cultural_significance" id="Cultural-SignificanceEdit" cols="30" rows="2" class="form-control"></textarea>
+        </div>
+
+        <!-- Spiritual-Significance -->
+        <div class="col-12 mb-2">
+            <label for="Spiritual-SignificanceEdit" class="form-label small-font">Spiritual-Significance</label>
+            <textarea name="spiritual_significance" id="Spiritual-SignificanceEdit" cols="30" rows="2" class="form-control"></textarea>
+        </div>
+
+        <!-- cultural_importance -->
+        <div class="col-12 mb-2">
+            <label for="Cultural-ImportanceEdit" class="form-label small-font">Cultural Importance</label>
+            <textarea name="cultural_importance" id="Cultural-ImportanceEdit" cols="30" rows="2" class="form-control"></textarea>
+        </div>
+
+        <!-- cultural_use-->
+        <div class="col-12 mb-2">
+            <label for="Cultural-UseEdit" class="form-label small-font">Cultural Use</label>
+            <textarea name="cultural_use" id="Cultural-UseEdit" cols="30" rows="2" class="form-control"></textarea>
+        </div>
+    </div>
+
+    <br>
+    <hr>
+    <div id="more-help-edit" class="form-text mb-2" style="font-size: 0.6rem;">the data below is based on farmers knowledge.</div>
+    <br>
 
     <!-- Taste and Aroma-->
     <div class="row mb-4">
@@ -37,33 +68,6 @@
         <div class="col-6">
             <label for="DiseaseEdit" class="form-label small-font">Disease Resistance</label>
             <input id="DiseaseEdit" type="text" name="diseases" class="form-control">
-        </div>
-    </div>
-
-    <!-- Cultural and Spiritual Significance-->
-    <div class="row mb-4">
-        <!-- Cultural-Significance -->
-        <div class="col-12 mb-2">
-            <label for="Cultural-SignificanceEdit" class="form-label small-font">Cultural-Significance</label>
-            <textarea name="cultural_significance" id="Cultural-SignificanceEdit" cols="30" rows="2" class="form-control"></textarea>
-        </div>
-
-        <!-- Spiritual-Significance -->
-        <div class="col-12 mb-2">
-            <label for="Spiritual-SignificanceEdit" class="form-label small-font">Spiritual-Significance</label>
-            <textarea name="spiritual_significance" id="Spiritual-SignificanceEdit" cols="30" rows="2" class="form-control"></textarea>
-        </div>
-
-        <!-- cultural_importance -->
-        <div class="col-12 mb-2">
-            <label for="Cultural-ImportanceEdit" class="form-label small-font">Cultural Importance</label>
-            <textarea name="cultural_importance" id="Cultural-ImportanceEdit" cols="30" rows="2" class="form-control"></textarea>
-        </div>
-
-        <!-- cultural_use-->
-        <div class="col-12 mb-2">
-            <label for="Cultural-UseEdit" class="form-label small-font">Cultural Use</label>
-            <textarea name="cultural_use" id="Cultural-UseEdit" cols="30" rows="2" class="form-control"></textarea>
         </div>
     </div>
 

@@ -13,6 +13,7 @@ if (isset($_POST['click_edit_btn'])) {
     left join other_category on other_category.crop_id = crop.crop_id left join category on category.category_id = crop.category_id
     left join cultural_aspect on cultural_aspect.cultural_aspect_id = crop.cultural_aspect_id
     left join characteristics on characteristics.crop_id = crop.crop_id left join field on crop_field.field_id = field.field_id
+    left join category_variety on crop.category_variety_id = category_variety.category_variety_id
     WHERE crop.crop_id = $1";
     $query_run = pg_query_params($conn, $query, array($crop_id));
 

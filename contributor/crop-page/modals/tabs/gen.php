@@ -96,7 +96,7 @@
         </div>
 
         <!-- Category Variety -->
-        <div class="col" id="category-Variety" style="display: none;">
+        <div class="col" id="category-Variety">
             <label for="categoryVariety" class="form-label small-font">Category Variety<span style="color: red;">*</span></label>
             <select name="category_variety_id" id="categoryVariety" class="form-select" required>
                 <!-- Options will be dynamically added here based on the category selected -->
@@ -246,8 +246,15 @@
 
 <!-- JavaScript for the select for category variety -->
 <script>
+    // JavaScript for the select for category variety
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fetch varieties for the initial selected category
+        var initialCategoryId = document.getElementById('Category').value;
+        fetchVarieties(initialCategoryId);
+    });
+
     document.getElementById('Category').addEventListener('change', function() {
-        var categoryId = document.getElementById('Category').value;
+        var categoryId = this.value;
         var categoryVarietySelect = document.getElementById('category-Variety');
         if (categoryId === '3') {
             categoryVarietySelect.style.display = 'none';
