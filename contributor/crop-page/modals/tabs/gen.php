@@ -56,7 +56,7 @@
     <!-- Category and Crop Field -->
     <div class="row mb-4">
         <!-- Category Name -->
-        <div class="col">
+        <div class="col-6">
             <label for="Category" class="form-label small-font">Category<span style="color: red;">*</span></label>
             <select name="category_id" id="Category" class="form-select" required>
                 <?php
@@ -95,38 +95,16 @@
             <input type="text" name="other_category" id="OtherCategory" class="form-control">
         </div>
 
-        <!-- Crop Field -->
-        <div class="col">
-            <label for="cropField" class="form-label small-font">Crop Field<span style="color: red;">*</span></label>
-            <select name="field_id" id="cropField" class="form-select" required>
-                <?php
-                // get the data of category from DB
-                // gi set ra nako na permi last ang other nga category og ascending sya based sa catgory name
-                $queryField = "SELECT * FROM field ORDER BY field_id ASC";
-                $query_runField = pg_query($conn, $queryField);
-                $query_runField = pg_query($conn, $queryField);
-
-                $count = pg_num_rows($query_runField);
-
-                // if count is greater than 0 there is data
-                if ($count > 0) {
-                    // loop for displaying all categories
-                    while ($row = pg_fetch_assoc($query_runField)) {
-                        $field_id = $row['field_id'];
-                        $field_name = $row['field_name'];
-                ?>
-                        <option value="<?= $field_id; ?>"><?= $field_name; ?></option>
-                    <?php
-                    }
-                    ?>
-                <?php
-                }
-                ?>
+        <!-- Category Variety -->
+        <div class="col" id="category-Variety" style="display: none;">
+            <label for="categoryVariety" class="form-label small-font">Category Variety<span style="color: red;">*</span></label>
+            <select name="category_variety_id" id="categoryVariety" class="form-select" required>
+                <!-- Options will be dynamically added here based on the category selected -->
             </select>
         </div>
     </div>
 
-    <!-- NAME AND Rarity -->
+    <!-- variety name, meaning of name, and local name -->
     <div class="row mb-3">
         <!-- variety name -->
         <div class="col mb-2">
@@ -134,29 +112,16 @@
             <input id="Variety-Name" type="text" name="crop_variety" class="form-control" required>
         </div>
 
-        <!-- Rarity -->
-        <div class="col mb-2">
-            <label for="Rarity" class="form-label small-font">Rarity<span style="color: red;">*</span></label>
-            <select id="Rarity" name="rarity" class="form-select" required>
-                <option value="common">Common</option>
-                <option value="rare">Rare</option>
-                <option value="extinct">Extinct</option>
-            </select>
-        </div>
-    </div>
-
-    <!-- Meaning of name and Rarity -->
-    <div class="row mb-3">
         <!-- Meaning of Name -->
         <div class="col mb-2">
             <label class="form-label small-font">Meaning of Name(if any)</label>
             <input type="text" name="meaning_of_name" class="form-control">
         </div>
 
-        <!-- name origin -->
-        <div class="col-6 mb-2">
-            <label class="form-label small-font">Name Origin(if any)</label>
-            <input type="text" name="name_origin" class="form-control">
+        <!-- local name -->
+        <div class="col mb-2">
+            <label class="form-label small-font">Local Name</label>
+            <input type="text" name="crop_local_name" class="form-control">
         </div>
     </div>
 
@@ -174,21 +139,6 @@
                 <!-- image preview -->
                 <div class="preview-container custom-scrollbar overflow-scroll rounded border p-1" id="preview"></div>
             </div>
-        </div>
-    </div>
-
-    <!-- local Name and name origin -->
-    <div class="row mb-3">
-        <!-- local name -->
-        <div class="col-6 mb-2">
-            <label class="form-label small-font">Local Name</label>
-            <input type="text" name="crop_local_name" class="form-control">
-        </div>
-
-        <!-- scientific name -->
-        <div class="col mb-2">
-            <label class="form-label small-font">Scientific Name</label>
-            <input type="text" name="scientific_name" class="form-control fst-italic">
         </div>
     </div>
 
@@ -292,4 +242,42 @@
             otherCategoryInput.style.display = 'none';
         }
     });
+</script>
+
+<!-- JavaScript for the select for category variety -->
+<script>
+    document.getElementById('Category').addEventListener('change', function() {
+        var categoryId = document.getElementById('Category').value;
+        var categoryVarietySelect = document.getElementById('category-Variety');
+        if (categoryId === '3') {
+            categoryVarietySelect.style.display = 'none';
+        } else {
+            categoryVarietySelect.style.display = 'block';
+            fetchVarieties(categoryId);
+        }
+    });
+
+    function fetchVarieties(categoryId) {
+        // Make an AJAX request to fetch the varieties
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                var varieties = JSON.parse(this.responseText);
+                populateVarieties(varieties);
+            }
+        };
+        xhr.open('GET', 'crop-page/modals/fetch/fetch_varieties.php?category_id=' + categoryId, true);
+        xhr.send();
+    }
+
+    function populateVarieties(varieties) {
+        var categoryVarietySelect = document.getElementById('categoryVariety');
+        categoryVarietySelect.innerHTML = ''; // Clear existing options
+        varieties.forEach(function(variety) {
+            var option = document.createElement('option');
+            option.value = variety.category_variety_id;
+            option.text = variety.category_variety_name;
+            categoryVarietySelect.appendChild(option);
+        });
+    }
 </script>

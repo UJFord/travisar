@@ -86,27 +86,14 @@
             <label for="crop_variety" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
             <input id="crop_variety" type="text" name="crop_variety" class="form-control">
         </div>
-
-        <!-- Rarity -->
-        <div class="col mb-2">
-            <label for="rarityEdit" class="form-label small-font">Rarity:</label>
-            <h6 name="rarity" id="rarityEdit"></h6>
-        </div>
     </div>
 
-    <!-- Meaning of name and Rarity -->
+    <!-- Meaning of name -->
     <div class="row mb-3">
         <!-- Meaning of Name -->
         <div class="col mb-2">
             <label class="form-label small-font">Meaning of Name(if any)</label>
             <input type="text" id="nameMeaning" name="meaning_of_name" class="form-control">
-        </div>
-
-        <!-- Name Origin -->
-        <div class="col mb-2">
-            <label for="NameOrigin" class="form-label small-font">Name Origin</label>
-            <input name="name_origin" id="NameOrigin" class="form-control">
-            </input>
         </div>
     </div>
 
@@ -129,18 +116,12 @@
         </div>
     </div>
 
-    <!-- local name AND name origin -->
+    <!-- local name AND name -->
     <div class="row mb-3">
         <!-- local name -->
         <div class="col-6">
             <label for="LocalName" class="form-label small-font">Local Name</label>
             <input id="LocalName" type="text" name="crop_local_name" class="form-control">
-        </div>
-
-        <!-- scientific name -->
-        <div class="col-6">
-            <label for="ScienceName" class="form-label small-font">Scientific Name</label>
-            <input id="ScienceName" type="text" name="scientific_name" class="form-control fst-italic">
         </div>
     </div>
 

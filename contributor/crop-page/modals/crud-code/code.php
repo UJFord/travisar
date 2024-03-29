@@ -16,11 +16,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $crop_local_name = handleEmpty($_POST['crop_local_name']);
         $category_id = $_POST['category_id'];
         $field_id = $_POST['field_id'];
-        $rarity = $_POST['rarity'];
         $crop_description = handleEmpty($_POST['crop_description']);
         $province_name = $_POST['province'];
         $municipality_name = $_POST['municipality'];
-        $name_origin = handleEmpty($_POST['name_origin']);
         $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
         $coordinates = handleEmpty($_POST['coordinates']);
 
@@ -29,7 +27,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $status = 'pending';
 
         // Check if the array keys are set before accessing them
-        $scientific_name = isset($_POST['scientific_name']) ? handleEmpty($_POST['scientific_name']) : "Empty";
         $other_category_name = isset($_POST['other_category_name']) ? handleEmpty($_POST['other_category_name']) : "Empty";
 
         // Cultural Aspect
@@ -46,7 +43,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $diseases = handleEmpty($_POST['diseases']);
 
         // Validate the form data
-        if (empty($crop_variety) || empty($rarity) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
+        if (empty($crop_variety) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
             throw new Exception("All fields are required.");
         }
 
@@ -190,13 +187,12 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
         //insert into crop table
         $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
-            scientific_name, name_origin, crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image, rarity)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING crop_id";
+            crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING crop_id";
 
         $valueCrops = array(
             $crop_variety, $crop_local_name, $category_id, $newUniqueCode,
-            $scientific_name, $name_origin, $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString, $rarity
-        );
+            $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString);
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
         if ($query_run_Crop) {
@@ -333,10 +329,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $category_id = $_POST['category_id'];
             $field_id = $_POST['field_id'];
             $crop_description = handleEmpty($_POST['crop_description']);
-            $rarity = handleEmpty($_POST['rarity']);
             $province_name = $_POST['province'];
             $municipality_name = $_POST['municipality'];
-            $name_origin = handleEmpty($_POST['name_origin']);
             $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
             $coordinates = handleEmpty($_POST['coordinates']);
 
@@ -345,7 +339,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $status = 'approved';
 
             // Check if the array keys are set before accessing them
-            $scientific_name = isset($_POST['scientific_name']) ? handleEmpty($_POST['scientific_name']) : "Empty";
             $other_category_name = isset($_POST['other_category_name']) ? handleEmpty($_POST['other_category_name']) : "Empty";
 
             // Cultural Aspect
@@ -362,7 +355,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $diseases = handleEmpty($_POST['diseases']);
 
             // Validate the form data
-            if (empty($crop_variety) || empty($rarity) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
+            if (empty($crop_variety) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
                 throw new Exception("All fields are required.");
             }
 
@@ -506,13 +499,12 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
             //insert into crop table
             $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
-                scientific_name, name_origin, crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image, rarity)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING crop_id";
+                crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING crop_id";
 
             $valueCrops = array(
                 $crop_variety, $crop_local_name, $category_id, $newUniqueCode,
-                $scientific_name, $name_origin, $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString, $rarity
-            );
+                $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString);
             $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
             if ($query_run_Crop) {
@@ -656,8 +648,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
                 $coordinates = handleEmpty($_POST['coordinates']);
                 $current_crop_image = handleEmpty($_POST['old_image']);
-                $name_origin = handleEmpty($_POST['name_origin']);
-
                 $status = 'approved';
 
                 // Id's
@@ -669,7 +659,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
                 // Check if the array keys are set before accessing them
                 $role_in_maintaining_upland_ecosystem = isset($_POST['role_in_maintaining_upland_ecosystem']) ? handleEmpty($_POST['role_in_maintaining_upland_ecosystem']) : "Empty";
-                $scientific_name = isset($_POST['scientific_name']) ? handleEmpty($_POST['scientific_name']) : "Empty";
                 $unique_features = isset($_POST['unique_features']) ? handleEmpty($_POST['unique_features']) : "Empty";
                 $other_category_name = isset($_POST['other_category_name']) ? handleEmpty($_POST['other_category_name']) : "Empty";
 
@@ -779,12 +768,12 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 }
 
                 // update crop table
-                $queryCrop = "UPDATE crop SET crop_variety = $1, crop_local_name = $2, name_origin = $3,
-                scientific_name = $4, crop_description = $5, cultural_aspect_id = $6, meaning_of_name = $7, crop_image = $8
-                WHERE crop_id = $9";
+                $queryCrop = "UPDATE crop SET crop_variety = $1, crop_local_name = $2, crop_description = $3,
+                cultural_aspect_id = $4, meaning_of_name = $5, crop_image = $6
+                WHERE crop_id = $8";
 
                 $valueCrops = array(
-                    $crop_variety, $crop_local_name, $name_origin, $scientific_name, $crop_description,
+                    $crop_variety, $crop_local_name, $crop_description,
                     $cultural_aspect_id, $meaning_of_name, $finalimg, $crop_id
                 );
                 $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
