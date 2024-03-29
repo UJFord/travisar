@@ -15,13 +15,13 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $crop_variety = handleEmpty($_POST['crop_variety']);
         $crop_local_name = handleEmpty($_POST['crop_local_name']);
         $category_id = $_POST['category_id'];
-        $field_id = $_POST['field_id'];
         $category_variety_id = handleEmpty($_POST['category_variety_id']);
         $crop_description = handleEmpty($_POST['crop_description']);
         $province_name = $_POST['province'];
         $municipality_name = $_POST['municipality'];
         $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
         $coordinates = handleEmpty($_POST['coordinates']);
+        $terrain_id = handleEmpty($_POST['terrain_id']);
 
         $barangay_name = $_POST['barangay'];
         $user_id = $_POST['user_id'];
@@ -268,14 +268,14 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         }
 
         // save into Crop Field Table
-        $query_CropField = "INSERT into crop_field (crop_id, field_id) VALUES ($1, $2) returning crop_field_id";
-        $query_run_CropField = pg_query_params($conn, $query_CropField, array($crop_id, $field_id));
+        $query_cropTerrain = "INSERT into terrain (crop_id, terrain_id) VALUES ($1, $2) returning terrain_id";
+        $query_run_cropTerrain = pg_query_params($conn, $query_cropTerrain, array($crop_id, $terrain_id));
 
-        if ($query_run_CropField) {
+        if ($query_run_cropTerrain) {
             // Check if any rows were affected
-            if (pg_affected_rows($query_run_CropField) > 0) {
-                $row_CropField = pg_fetch_row($query_run_CropField);
-                $crop_field_id = $row_CropField[0];
+            if (pg_affected_rows($query_run_cropTerrain) > 0) {
+                $row_cropTerrain = pg_fetch_row($query_run_cropTerrain);
+                $crop_terrain_id = $row_cropTerrain[0];
             } else {
                 echo "Error: No rows affected";
                 exit(0);
@@ -329,13 +329,13 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $crop_variety = handleEmpty($_POST['crop_variety']);
             $crop_local_name = handleEmpty($_POST['crop_local_name']);
             $category_id = $_POST['category_id'];
-            $field_id = $_POST['field_id'];
             $category_variety_id = handleEmpty($_POST['category_variety_id']);
             $crop_description = handleEmpty($_POST['crop_description']);
             $province_name = $_POST['province'];
             $municipality_name = $_POST['municipality'];
             $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
             $coordinates = handleEmpty($_POST['coordinates']);
+            $terrain = handleEmpty($_POST['terrain']);
 
             $barangay_name = $_POST['barangay'];
             $user_id = $_POST['user_id'];
@@ -582,14 +582,14 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             }
 
             // save into Crop Field Table
-            $query_CropField = "INSERT into crop_field (crop_id, field_id) VALUES ($1, $2) returning crop_field_id";
-            $query_run_CropField = pg_query_params($conn, $query_CropField, array($crop_id, $field_id));
+            $query_cropTerrain = "INSERT into terrain (crop_id, terrain_id) VALUES ($1, $2) returning terrain_id";
+            $query_run_cropTerrain = pg_query_params($conn, $query_cropTerrain, array($crop_id, $terrain_id));
 
-            if ($query_run_CropField) {
+            if ($query_run_cropTerrain) {
                 // Check if any rows were affected
-                if (pg_affected_rows($query_run_CropField) > 0) {
-                    $row_CropField = pg_fetch_row($query_run_CropField);
-                    $crop_field_id = $row_CropField[0];
+                if (pg_affected_rows($query_run_cropTerrain) > 0) {
+                    $row_cropTerrain = pg_fetch_row($query_run_cropTerrain);
+                    $terrain_id = $row_cropTerrain[0];
                 } else {
                     echo "Error: No rows affected";
                     exit(0);
@@ -643,7 +643,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 // get all the data in the form
                 $crop_variety = handleEmpty($_POST['crop_variety']);
                 $crop_local_name = handleEmpty($_POST['crop_local_name']);
-                $field_id = $_POST['field_id'];
                 $category_variety_id = handleEmpty($_POST['category_variety_id']);
                 // $crop_image = $_POST['crop_image[]'];
                 $crop_description = handleEmpty($_POST['crop_description']);
@@ -659,7 +658,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $crop_id = handleEmpty($_POST['crop_id']);
                 $cultural_aspect_id = handleEmpty($_POST['cultural_aspect_id']);
                 $crop_location_id = handleEmpty($_POST['crop_location_id']);
-                $crop_field_id = handleEmpty($_POST['crop_field_id']);
                 $characteristics_id = handleEmpty($_POST['characteristics_id']);
 
                 // Check if the array keys are set before accessing them

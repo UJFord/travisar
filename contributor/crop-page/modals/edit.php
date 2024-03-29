@@ -140,7 +140,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['category_variety_name']);
+                        console.log(value['terrain_name']);
 
                         // Split the image filenames by comma
                         var imageFilenames = value['crop_image'].split(',');
@@ -157,8 +157,8 @@
                         $('#crop_id').val(id);
                         // crop_location_id
                         $('#crop_location_id').val(value['crop_location_id']);
-                        // crop_field_id
-                        $('#crop_field_id').val(value['crop_field_id']);
+                        // terrain name
+                        $('#categoryTerrainEdit').text(value['terrain_name']);
                         // characteristics_id
                         $('#Char_id').val(value['characteristics_id']);
                         // cultural_aspect_id

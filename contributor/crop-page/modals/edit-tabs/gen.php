@@ -78,6 +78,12 @@
             <label for="categoryVarietyEdit" class="form-label small-font">Category Variety:</label>
             <h6 name="category_variety_name" id="categoryVarietyEdit"></h6>
         </div>
+
+        <!-- Terrain -->
+        <div class="col">
+            <label for="categoryTerrainEdit" class="form-label small-font">Terrain:</label>
+            <h6 name="terrain_id" id="categoryTerrainEdit"></h6>
+        </div>
     </div>
 
     <!-- variety name, meaning of name, and local name -->

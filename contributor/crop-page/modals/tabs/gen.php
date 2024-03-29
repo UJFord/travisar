@@ -68,7 +68,6 @@
                     ELSE 1
                 END, category_name ASC";
                 $query_run = pg_query($conn, $queryCategory);
-                $query_run = pg_query($conn, $queryCategory);
 
                 $count = pg_num_rows($query_run);
 
@@ -104,7 +103,7 @@
         </div>
     </div>
 
-    <!-- variety name, meaning of name, and local name -->
+    <!-- variety name,  -->
     <div class="row mb-3">
         <!-- variety name -->
         <div class="col mb-2">
@@ -112,6 +111,38 @@
             <input id="Variety-Name" type="text" name="crop_variety" class="form-control" required>
         </div>
 
+        <!-- terrain -->
+        <div class="col mb-2">
+            <label for="terrain" class="form-label small-font">Terrain<span style="color: red;">*</span></label>
+            <select name="terrain_id" id="terrain" class="form-select" required>
+                <?php
+                // get the data of terrain from DB
+                // gi set ra nako na permi last ang other nga terrain og ascending sya based sa catgory name
+                $queryterrain = "SELECT * FROM terrain ORDER BY terrain_name ASC";
+                $query_run = pg_query($conn, $queryterrain);
+
+                $count = pg_num_rows($query_run);
+
+                // if count is greater than 0 there is data
+                if ($count > 0) {
+                    // loop for displaying all categories
+                    while ($row = pg_fetch_assoc($query_run)) {
+                        $terrain_id = $row['terrain_id'];
+                        $terrain_name = $row['terrain_name'];
+                ?>
+                        <option value="<?= $terrain_id; ?>"><?= $terrain_name; ?></option>
+                    <?php
+                    }
+                    ?>
+                <?php
+                }
+                ?>
+            </select>
+        </div>
+    </div>
+
+    <!-- meaning of name and local name -->
+    <div class="row mb-3">
         <!-- Meaning of Name -->
         <div class="col mb-2">
             <label class="form-label small-font">Meaning of Name(if any)</label>

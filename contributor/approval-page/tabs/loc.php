@@ -42,8 +42,8 @@
             <select id="MunicipalitySelect" name="municipality" class="form-select mb-2" disabled>
             </select>
 
-            <!-- barangay -->
-            <label for="BarangaySelect" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
+            <!-- sityo -->
+            <label for="BarangaySelect" class="form-label small-font mb-0">Sityo <span style="color: red;">*</span></label>
             <select id="BarangaySelect" name="barangay" class="form-select mb-2" disabled>
             </select>
 

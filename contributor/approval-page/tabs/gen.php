@@ -31,6 +31,12 @@
 
 <!-- GENERAL TAB -->
 <div class="fade show active tab-pane" id="edit-gen-tab-pane" role="tabpanel" aria-labelledby="edit-gen-tab" tabindex="0">
+    <!-- hidden data -->
+    <!-- crop_id -->
+    <input id="crop_id" type="hidden" name="crop_id" class="form-control">
+    <!-- cultural_aspect_id -->
+    <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
+
     <!-- Contributed, Unique Code, and Date Created -->
     <dv class="row mb-3">
         <!-- Contributed By -->
@@ -52,7 +58,7 @@
         </div>
     </dv>
 
-    <!-- Categories, Other Category, and Crop Field -->
+    <!-- Categories, Other Category, and Terrain -->
     <div class="row mb-3">
         <!-- Category -->
         <div class="col">
@@ -67,45 +73,35 @@
             <h6 name="other_category_name" id="otherCategoryEdit"></h6>
         </div>
 
-        <!-- Crop Field -->
+        <!-- Category Variety -->
         <div class="col">
-            <label for="fieldEdit" class="form-label small-font">Crop Field:</label>
-            <h6 name="field_id" id="fieldEdit"></h6>
+            <label for="categoryVarietyEdit" class="form-label small-font">Category Variety:</label>
+            <h6 name="category_variety_name" id="categoryVarietyEdit"></h6>
+        </div>
+
+        <!-- Terrain -->
+        <div class="col">
+            <label for="terrainEdit" class="form-label small-font">Terrain:</label>
+            <h6 name="terrain_name" id="terrainEdit"></h6>
         </div>
     </div>
 
-    <!-- NAME AND TYPE -->
+    <!-- variety name, meaning of name, and local name -->
     <div class="row mb-3">
-        <!-- crop_id -->
-        <input id="crop_id" type="hidden" name="crop_id" class="form-control">
-        <!-- cultural_aspect_id -->
-        <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
-
         <!-- variety name -->
         <div class="col">
             <label for="crop_variety" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
             <h6 name="crop_variety" id="crop_variety"></h6>
         </div>
-
-        <!-- Rarity -->
-        <div class="col mb-2">
-            <label for="rarityEdit" class="form-label small-font">Rarity:</label>
-            <h6 name="rarity" id="rarityEdit"></h6>
-        </div>
-    </div>
-
-    <!-- Meaning of name and Rarity -->
-    <div class="row mb-3">
         <!-- Meaning of Name -->
-        <div class="col mb-2">
+        <div class="col">
             <label class="form-label small-font">Meaning of Name(if any)</label>
             <h6 name="meaning_of_name" id="nameMeaning"></h6>
         </div>
-
-        <!-- Name Origin -->
-        <div class="col mb-2">
-            <label for="NameOrigin" class="form-label small-font">Name Origin</label>
-            <h6 name="name_origin" id="NameOrigin"></h6>
+        <!-- local name -->
+        <div class="col">
+            <label for="LocalName" class="form-label small-font">Local Name</label>
+            <h6 name="crop_local_name" id="LocalName"></h6>
         </div>
     </div>
 
@@ -125,21 +121,6 @@
                 <!-- current images -->
                 <div id="previewEdit" class="preview-containerEdit custom-scrollbar overflow-scroll rounded border p-1"></div>
             </div>
-        </div>
-    </div>
-
-    <!-- local name AND name origin -->
-    <div class="row mb-3">
-        <!-- local name -->
-        <div class="col-6">
-            <label for="LocalName" class="form-label small-font">Local Name</label>
-            <h6 name="crop_local_name" id="LocalName"></h6>
-        </div>
-
-        <!-- scientific name -->
-        <div class="col-6">
-            <label for="ScienceName" class="form-label small-font">Scientific Name</label>
-            <h6 name="scientific_name" id="ScienceName"></h6>
         </div>
     </div>
 

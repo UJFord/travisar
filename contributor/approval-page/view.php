@@ -47,7 +47,7 @@
 
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-between">
-                    <input type="hidden" name="crop_id" id="crop_id-view"/>
+                    <input type="hidden" name="crop_id" id="crop_id-view" />
                     <div class="">
                         <button type="submit" name="approve" class="btn btn-success me-2"><i class="fa-solid fa-check"></i></button>
                     </div>
@@ -160,8 +160,10 @@
                         $('#crop_id-view').val(id);
                         // crop_location_id
                         $('#crop_location_id').val(value['crop_location_id']);
-                        // crop_field_id
-                        $('#crop_field_id').val(value['crop_field_id']);
+                        // categoryVarietyEdit
+                        $('#categoryVarietyEdit').text(value['crop_category_name']);
+                        // terrainEdit
+                        $('#terrainEdit').text(value['terrain_name']);
                         // characteristics_id
                         $('#Char_id').val(value['characteristics_id']);
                         // cultural_aspect_id
@@ -180,7 +182,6 @@
                             $('#otherCategoryInputEdit').css('display', 'none');
                         }
                         $('#CategoryEdit').text(value['category_name']);
-                        $('#fieldEdit').text(value['field_name']);
                         $('#firstName').text(value['first_name']);
                         $('#uniqueCode').text(value['unique_code']);
 
@@ -191,9 +192,7 @@
                         // $('#crop_variety').val(value['unique_code'] + '(' + value['crop_variety'] + ') ');
 
                         $('#crop_variety').text(value['crop_variety']);
-                        $('#ScienceName').text(value['scientific_name']);
                         $('#LocalName').text(value['crop_local_name']);
-                        $('#NameOrigin').text(value['name_origin']);
                         $('#description').val(value['crop_description']);
                         $('#nameMeaning').text(value['meaning_of_name']);
                         $('#rarityEdit').text(value['rarity']);
