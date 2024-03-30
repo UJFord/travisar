@@ -2,60 +2,22 @@
 <!-- custom -->
 <link rel="stylesheet" href="css/nav.css">
 
-<!-- Jquery -->
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-<!-- script for access control -->
-<script src="../js/access-control.js"></script>
 
-<!-- script for access view  -->
-<!-- script for access js -->
-<script src="../js/access.js" defer></script>
-<!-- function for notification for approval of crops and users -->
-<script>
-    // Define the load_unseen_notification function globally
-    function load_unseen_notification(view = '') {
-        $.ajax({
-            url: "fetch.php",
-            method: "POST",
-            data: {
-                view: view
-            },
-            dataType: "json",
-            success: function(data) {
-                // Access data1 and update HTML accordingly
-                $('.count').html(data.data1.notification);
-                if (data.data1.unseen_notification > 0) {
-                    $('.count').html(data.data1.unseen_notification);
-                }
-
-                // Access data2 and update HTML accordingly
-                // Adjust the selectors and HTML update based on your needs
-                $('.count2').html(data.data2.notification);
-                if (data.data2.unseen_notification > 0) {
-                    $('.count2').html(data.data2.unseen_notification);
-                }
-            }
-        });
-    }
-
-    // Call the function when the document is ready
-    $(document).ready(function() {
-        load_unseen_notification();
-    });
-</script>
 
 <!-- MARKUP -->
-<nav class="z-3 navbar navbar-expand-md border-bottom border-body" data-bs-theme="dark">
+<nav class="z-3 navbar navbar-expand-md border-bottom border-body">
     <div class="container">
         <!-- brand and navs -->
         <a class="navbar-brand text-white" href="#"><i class="bi bi-crop"></i></a>
+
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
         </button>
+
         <div class="collapse navbar-collapse d-md-flex justify-content-md-between" id="navbarNav">
             <ul class="navbar-nav fw-bold">
                 <li class="nav-item">
-                    <a class="nav-link active " aria-current="page" href="crop.php">Items</a>
+                    <a class="nav-link active text-light" aria-current="page" href="crop.php">Items</a>
                 </li>
 
                 <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
@@ -71,34 +33,27 @@
                 <?php endif; ?>
 
                 <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
-                    <!-- Dropdown for Validation -->
                     <li class="nav-item dropdown curator-only admin-only">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="validationDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: var(--mainBrand); border: none;">
-                                Validation
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="validationDropdown">
-                                <li><a class="dropdown-item" href="approval.php">Approval</a></li>
-                                <li><a class="dropdown-item" href="history.php">History</a></li>
-                            </ul>
-                        </div>
+                        <a class="nav-link dropdown-toggle" role="button" id="validationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Validation
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="validationDropdown">
+                            <li><a class="dropdown-item" href="approval.php">Approval</a></li>
+                            <li><a class="dropdown-item" href="history.php">History</a></li>
+                        </ul>
+                    </li>
+
+                    <li class="nav-item dropdown curator-only admin-only">
+                        <a class="dropdown-toggle nav-link" role="button" id="addressesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Addresses
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="addressesDropdown">
+                            <li><a class="dropdown-item" href="barangay.php">Barangay</a></li>
+                            <li><a class="dropdown-item" href="municipality.php">Municipality</a></li>
+                        </ul>
                     </li>
                 <?php endif; ?>
 
-                <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
-                    <!-- Dropdown for Adresses -->
-                    <li class="nav-item dropdown curator-only admin-only">
-                        <div class="dropdown">
-                            <button class="btn btn-secondary dropdown-toggle" type="button" id="validationDropdown" data-bs-toggle="dropdown" aria-expanded="false" style="background-color: var(--mainBrand); border: none;">
-                                Addresses
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="validationDropdown">
-                                <li><a class="dropdown-item" href="barangay.php">Barangay</a></li>
-                                <li><a class="dropdown-item" href="municipality.php">Municipality</a></li>
-                            </ul>
-                        </div>
-                    </li>
-                <?php endif; ?>
             </ul>
             <!-- profile -->
             <div id="profile-container" class="dropdown">
@@ -155,3 +110,47 @@
         </div>
     </div>
 </nav>
+
+
+
+<!-- Jquery -->
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<!-- script for access control -->
+<script src="../js/access-control.js"></script>
+
+<!-- script for access view  -->
+<!-- script for access js -->
+<script src="../js/access.js" defer></script>
+<!-- function for notification for approval of crops and users -->
+<script>
+    // Define the load_unseen_notification function globally
+    function load_unseen_notification(view = '') {
+        $.ajax({
+            url: "fetch.php",
+            method: "POST",
+            data: {
+                view: view
+            },
+            dataType: "json",
+            success: function(data) {
+                // Access data1 and update HTML accordingly
+                $('.count').html(data.data1.notification);
+                if (data.data1.unseen_notification > 0) {
+                    $('.count').html(data.data1.unseen_notification);
+                }
+
+                // Access data2 and update HTML accordingly
+                // Adjust the selectors and HTML update based on your needs
+                $('.count2').html(data.data2.notification);
+                if (data.data2.unseen_notification > 0) {
+                    $('.count2').html(data.data2.unseen_notification);
+                }
+            }
+        });
+    }
+
+    // Call the function when the document is ready
+    $(document).ready(function() {
+        load_unseen_notification();
+    });
+</script>
