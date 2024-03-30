@@ -95,7 +95,7 @@ require "../functions/functions.php";
                     <div class="tab_box d-flex justify-content-between">
                         <!-- Button Tabs -->
                         <div>
-                            <button class="tab_btn" id="approvedTab" disabled>History</button>
+                            <button class="tab_btn" id="approvedTab" disabled>Submission</button>
                             <div class="line"></div>
                         </div>
                         <!-- filter actions -->
@@ -125,35 +125,42 @@ require "../functions/functions.php";
 
                     // Calculate the total number of pages for approved crops
                     $total_pages_approved = ceil($total_rows_approved / $items_per_page);
+
+                    // Count the total number of rows for pagination for pending crops
+                    $total_rows_query_pending = "SELECT COUNT(*) FROM crop WHERE status = 'pending'";
+                    $total_rows_result_pending = pg_query($conn, $total_rows_query_pending);
+                    $total_rows_pending = pg_fetch_row($total_rows_result_pending)[0];
+
+                    // Calculate the total number of pages for pending crops
+                    $total_pages_pending = ceil($total_rows_pending / $items_per_page);
+
+                    $user_id = null; // Initialize the variable
+
+                    if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) {
+                        $user_id = $_SESSION['USER']['user_id']; // Assign the user ID if the user is logged in
+                    }
                     ?>
 
                     <!-- dib ni sya para ma set ang mga tabs na data -->
                     <div class="general_info">
-                        <!-- Approved Tab Unactive -->
-                        <div class="gen_info" id="approvedTabData" style="max-height: 400px; overflow-y: auto;">
+                        <!-- Submission Tab -->
+                        <div class="gen_info" id="submissionTab" style="max-height: 400px; overflow-y: auto;">
                             <!-- TABLE -->
-                            <table id="approvedTable" class="table table-hover">
+                            <table id="submissionTable" class="table table-hover">
                                 <!-- table head -->
                                 <thead>
                                     <tr>
-                                        <th class="col-1 thead-item" scope="col">
-                                            <input class="form-check-input" type="checkbox">
-                                            <label class="form-check-label text-dark-emphasis small-font">
-                                                All
-                                            </label>
-                                        </th>
                                         <th class="col text-dark-emphasis small-font" scope="col">Name</th>
-                                        <th class="col-3 text-dark-emphasis small-font" scope="col">Contributor</th>
-                                        <th class="col-2 text-dark-emphasis small-font text-center" scope="col">Date Created</th>
-                                        <th class="col-1 text-dark-emphasis small-font text-center" scope="col">Status</th>
-                                        <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
+                                        <th class="col text-dark-emphasis small-font text-center" scope="col">Date Created</th>
+                                        <th class="col text-dark-emphasis small-font text-center" scope="col">Status</th>
+                                        <th class="col text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
                                     </tr>
 
                                 </thead>
                                 <!-- table body -->
                                 <tbody class="table-group-divider fw-bold overflow-scroll">
                                     <?php
-                                    $query_approved = "SELECT * FROM crop WHERE status IN ('approved', 'rejected') ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
+                                    $query_approved = "SELECT * FROM crop WHERE status IN ('approved', 'rejected', 'pending') AND user_id = $user_id ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
                                     $query_run_approved = pg_query($conn, $query_approved);
 
                                     if ($query_run_approved) {
@@ -166,20 +173,10 @@ require "../functions/functions.php";
                                             // Fetch category name
                                             $query_category = "SELECT * FROM category WHERE category_id = $1";
                                             $query_run_category = pg_query_params($conn, $query_category, array($row['category_id']));
-
-                                            // Fetch contributor name
-                                            $query_user = "SELECT * FROM users WHERE user_id = $1";
-                                            $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
-
                                     ?>
                                             <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>" style="background-color: <?= ($row['status'] == 'approved') ? 'green' : ($row['status'] == 'pending' ? 'yellow' : 'red'); ?>">
-
-                                                <!-- checkbox -->
-                                                <th scope="row"><input class="form-check-input" type="checkbox"></th>
-                                                <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
-
                                                 <td>
-                                                    <!-- scientific name -->
+                                                    <!-- crop variety name -->
                                                     <a href=""><?= $row['crop_variety']; ?></a>
                                                     <!-- category -->
                                                     <?php
@@ -188,18 +185,6 @@ require "../functions/functions.php";
                                                         echo '<h6 class="text-secondary small-font m-0">' . $category['category_name'] . '</h6>';
                                                     } else {
                                                         echo "No category added.";
-                                                    }
-                                                    ?>
-                                                </td>
-
-                                                <!-- contributor -->
-                                                <td class="small-font text-secondary fw-normal">
-                                                    <?php
-                                                    if (pg_num_rows($query_run_user)) {
-                                                        $user = pg_fetch_assoc($query_run_user);
-                                                        echo $user['first_name'] . " " . $user['last_name'];
-                                                    } else {
-                                                        echo 'No Contributor';
                                                     }
                                                     ?>
                                                 </td>
@@ -287,18 +272,5 @@ require "../functions/functions.php";
         });
     </script>
 </body>
-<!-- 
-    to check if the user is logged in and has a rank of Encoder
-    if Encoder and rank i redirect sya pabalik kung asa sya gaina before niya ni gi try access
--->
-<?php
-if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
-    // Output JavaScript code to redirect back to the original page
-    echo '<script>window.history.go(-1);</script>';
-    $_SESSION['message'] = 'Access Not Granted Not Enough Authority.';
-    // stop the code
-    exit();
-}
-?>
 
 </html>

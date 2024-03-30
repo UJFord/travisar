@@ -52,16 +52,12 @@
 </style>
 
 <!-- GENERAL TAB -->
-<div class="fade tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
-
-    <!-- para ma empty lang ang data sa db dili ra sya ma null -->
-    <input type="hidden" name="threats" value="">
-
+<div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
     <!-- Category and Crop Field -->
     <div class="row mb-4">
         <!-- Category Name -->
-        <div class="col">
-            <label for="Category" class="form-label small-font">Type<span style="color: red;">*</span></label>
+        <div class="col-6">
+            <label for="Category" class="form-label small-font">Category<span style="color: red;">*</span></label>
             <select name="category_id" id="Category" class="form-select" required>
                 <?php
                 // get the data of category from DB
@@ -71,7 +67,6 @@
                     WHEN category_name = 'Other' THEN 2
                     ELSE 1
                 END, category_name ASC";
-                $query_run = pg_query($conn, $queryCategory);
                 $query_run = pg_query($conn, $queryCategory);
 
                 $count = pg_num_rows($query_run);
@@ -99,27 +94,43 @@
             <input type="text" name="other_category" id="OtherCategory" class="form-control">
         </div>
 
-        <!-- Crop Field -->
-        <div class="col">
-            <label for="cropField" class="form-label small-font">Crop Ecosystem<span style="color: red;">*</span></label>
-            <select name="field_id" id="cropField" class="form-select" required>
-                <?php
-                // get the data of category from DB
-                // gi set ra nako na permi last ang other nga category og ascending sya based sa catgory name
-                $queryField = "SELECT * FROM field ORDER BY field_id ASC";
-                $query_runField = pg_query($conn, $queryField);
-                $query_runField = pg_query($conn, $queryField);
+        <!-- Category Variety -->
+        <div class="col" id="category-Variety">
+            <label for="categoryVariety" class="form-label small-font">Category Variety<span style="color: red;">*</span></label>
+            <select name="category_variety_id" id="categoryVariety" class="form-select" required>
+                <!-- Options will be dynamically added here based on the category selected -->
+            </select>
+        </div>
+    </div>
 
-                $count = pg_num_rows($query_runField);
+    <!-- variety name,  -->
+    <div class="row mb-3">
+        <!-- variety name -->
+        <div class="col mb-2">
+            <label for="Variety-Name" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
+            <input id="Variety-Name" type="text" name="crop_variety" class="form-control" required>
+        </div>
+
+        <!-- terrain -->
+        <div class="col mb-2">
+            <label for="terrain" class="form-label small-font">Terrain<span style="color: red;">*</span></label>
+            <select name="terrain_id" id="terrain" class="form-select" required>
+                <?php
+                // get the data of terrain from DB
+                // gi set ra nako na permi last ang other nga terrain og ascending sya based sa catgory name
+                $queryterrain = "SELECT * FROM terrain ORDER BY terrain_name ASC";
+                $query_run = pg_query($conn, $queryterrain);
+
+                $count = pg_num_rows($query_run);
 
                 // if count is greater than 0 there is data
                 if ($count > 0) {
                     // loop for displaying all categories
-                    while ($row = pg_fetch_assoc($query_runField)) {
-                        $field_id = $row['field_id'];
-                        $field_name = $row['field_name'];
+                    while ($row = pg_fetch_assoc($query_run)) {
+                        $terrain_id = $row['terrain_id'];
+                        $terrain_name = $row['terrain_name'];
                 ?>
-                        <option value="<?= $field_id; ?>"><?= $field_name; ?></option>
+                        <option value="<?= $terrain_id; ?>"><?= $terrain_name; ?></option>
                     <?php
                     }
                     ?>
@@ -130,30 +141,18 @@
         </div>
     </div>
 
-    <!-- NAME AND TYPE -->
+    <!-- meaning of name and local name -->
     <div class="row mb-3">
-        <!-- variety name -->
-        <div class="col-6 mb-2">
-            <label for="Variety-Name" class="form-label small-font">Name<span style="color: red;">*</span></label>
-            <input id="Variety-Name" type="text" name="crop_variety" class="form-control" required>
-        </div>
-
-        <!-- scientific name -->
-        <div class="col-6 mb-2">
-            <label class="form-label small-font">Scientific Name<span style="color: red;">*</span></label>
-            <input type="text" name="scientific_name" class="form-control fst-italic" required>
+        <!-- Meaning of Name -->
+        <div class="col mb-2">
+            <label class="form-label small-font">Meaning of Name(if any)</label>
+            <input type="text" name="meaning_of_name" class="form-control">
         </div>
 
         <!-- local name -->
-        <div class="col-6 mb-2">
+        <div class="col mb-2">
             <label class="form-label small-font">Local Name</label>
             <input type="text" name="crop_local_name" class="form-control">
-        </div>
-
-        <!-- name origin -->
-        <div class="col-6 mb-2">
-            <label class="form-label small-font">Name Origin</label>
-            <input type="text" name="name_origin" class="form-control">
         </div>
     </div>
 
@@ -245,10 +244,13 @@
     // to show the border only when there a picture inside
     // const previewContainer = document.getElementById('previewContainer');
     function checkForContent() {
+        var previewContainer = document.querySelector('.preview-container');
         if (previewContainer.hasChildNodes()) {
-            previewContainer.classList.add('border');
+            previewContainer.style.display = 'block'; // Show the preview container
+            previewContainer.classList.add('border'); // Add border to the container
         } else {
-            previewContainer.classList.remove('border');
+            previewContainer.style.display = 'none'; // Hide the preview container
+            previewContainer.classList.remove('border'); // Remove border from the container
         }
     }
 
@@ -271,4 +273,49 @@
             otherCategoryInput.style.display = 'none';
         }
     });
+</script>
+
+<!-- JavaScript for the select for category variety -->
+<script>
+    // JavaScript for the select for category variety
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fetch varieties for the initial selected category
+        var initialCategoryId = document.getElementById('Category').value;
+        fetchVarieties(initialCategoryId);
+    });
+
+    document.getElementById('Category').addEventListener('change', function() {
+        var categoryId = this.value;
+        var categoryVarietySelect = document.getElementById('category-Variety');
+        if (categoryId === '3') {
+            categoryVarietySelect.style.display = 'none';
+        } else {
+            categoryVarietySelect.style.display = 'block';
+            fetchVarieties(categoryId);
+        }
+    });
+
+    function fetchVarieties(categoryId) {
+        // Make an AJAX request to fetch the varieties
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (this.readyState === 4 && this.status === 200) {
+                var varieties = JSON.parse(this.responseText);
+                populateVarieties(varieties);
+            }
+        };
+        xhr.open('GET', 'crop-page/modals/fetch/fetch_varieties.php?category_id=' + categoryId, true);
+        xhr.send();
+    }
+
+    function populateVarieties(varieties) {
+        var categoryVarietySelect = document.getElementById('categoryVariety');
+        categoryVarietySelect.innerHTML = ''; // Clear existing options
+        varieties.forEach(function(variety) {
+            var option = document.createElement('option');
+            option.value = variety.category_variety_id;
+            option.text = variety.category_variety_name;
+            categoryVarietySelect.appendChild(option);
+        });
+    }
 </script>

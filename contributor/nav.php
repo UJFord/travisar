@@ -19,9 +19,18 @@
                 <li class="nav-item">
                     <a class="nav-link active text-light" aria-current="page" href="crop.php">Items</a>
                 </li>
-                <li class="nav-item">
-                    <a class="nav-link" href="contributor.php">Contributors</a>
-                </li>
+
+                <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
+                    <li class="nav-item">
+                        <a class="nav-link" href="submission.php">Submitted</a>
+                    </li>
+                <?php endif; ?>
+
+                <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
+                    <li class="nav-item curator-only admin-only">
+                        <a class="nav-link" href="contributor.php">Contributors</a>
+                    </li>
+                <?php endif; ?>
 
                 <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
                     <li class="nav-item dropdown curator-only admin-only">

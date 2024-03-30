@@ -1,8 +1,8 @@
 <?php
 session_start();
-require "../../../../functions/connections.php";
+require "../../../functions/connections.php";
 
-if (isset($_POST['click_edit_btn'])) {
+if (isset($_POST['click_view_btn'])) {
     $crop_id = $_POST["crop_id"];
     $arrayresult = [];
 

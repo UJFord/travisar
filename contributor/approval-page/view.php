@@ -6,18 +6,18 @@
 </style>
 
 <!-- EDIT MODAL -->
-<div class="modal fade" id="edit-item-modal" tabindex="-1" aria-labelledby="edit-item-modal-label" aria-hidden="true">
+<div class="modal fade" id="view-item-modal" tabindex="-1" aria-labelledby="view-item-modal-label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="edit-item-modal-label">Edit Item</h5>
+                <h5 class="modal-title" id="view-item-modal-label">View Item</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel" name="Form" action="approval-page/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body edit-modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -32,24 +32,26 @@
                         </li>
                     </ul>
                     <div class="container">
+
                         <div class="tab-content mt-2">
                             <!-- general -->
-                            <?php require "edit-tabs/gen.php" ?>
+                            <?php require "tabs/gen.php" ?>
                             <!-- location -->
-                            <?php require "edit-tabs/loc.php" ?>
+                            <?php require "tabs/loc.php" ?>
                             <!-- more optional info -->
-                            <?php require "edit-tabs/more.php" ?>
+                            <?php require "tabs/more.php" ?>
                         </div>
+
                     </div>
                 </div>
 
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-between">
+                    <input type="hidden" name="crop_id" id="crop_id-view" />
                     <div class="">
-                        <button type="submit" name="edit" class="btn btn-success">Save</button>
-                        <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" name="approve" class="btn btn-success me-2"><i class="fa-solid fa-check"></i></button>
                     </div>
-                    <button type="button" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
+                    <button type="submit" name="rejected" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                 </div>
             </form>
         </div>
@@ -111,7 +113,7 @@
     }
 
     // EDIT SCRIPT
-    const tableRows = document.querySelectorAll('.edit_data');
+    const tableRows = document.querySelectorAll('.view_data');
     // Define an array to store municipalities
     var municipalities = [];
 
@@ -125,10 +127,10 @@
 
             // Assuming you have jQuery available
             $.ajax({
-                url: 'crop-page/modals/fetch/fetch_crop-edit.php',
+                url: 'approval-page/fetch/fetch_crop-edit.php',
                 type: 'POST',
                 data: {
-                    'click_edit_btn': true,
+                    'click_view_btn': true,
                     'crop_id': id,
                 },
                 success: function(response) {
@@ -140,14 +142,14 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['terrain_name']);
+                        console.log(value['meaning_of_name']);
 
                         // Split the image filenames by comma
                         var imageFilenames = value['crop_image'].split(',');
 
                         // Iterate over each filename and append an image element to the preview container
                         imageFilenames.forEach(function(filename) {
-                            $('#previewEdit').append(`<img src="crop-page/modals/img/${filename.trim()}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                            $('#previewEdit').append(`<img src="../contributor/crop-page/modals/img/${filename.trim()}" class="m-2 img-thumbnail" style="height: 200px;">`);
                         });
 
                         // Fetch the old image and pass it to the fetchOldImage function
@@ -155,10 +157,13 @@
 
                         // crop_id
                         $('#crop_id').val(id);
+                        $('#crop_id-view').val(id);
                         // crop_location_id
                         $('#crop_location_id').val(value['crop_location_id']);
-                        // terrain name
-                        $('#categoryTerrainEdit').text(value['terrain_name']);
+                        // categoryVarietyEdit
+                        $('#categoryVarietyEdit').text(value['crop_category_name']);
+                        // terrainEdit
+                        $('#terrainEdit').text(value['terrain_name']);
                         // characteristics_id
                         $('#Char_id').val(value['characteristics_id']);
                         // cultural_aspect_id
@@ -177,7 +182,6 @@
                             $('#otherCategoryInputEdit').css('display', 'none');
                         }
                         $('#CategoryEdit').text(value['category_name']);
-                        $('#categoryVarietyEdit').text(value['category_variety_name']);
                         $('#firstName').text(value['first_name']);
                         $('#uniqueCode').text(value['unique_code']);
 
@@ -187,12 +191,10 @@
                         // example ni sya kung gusto nimo i dikit ang duwa ka value
                         // $('#crop_variety').val(value['unique_code'] + '(' + value['crop_variety'] + ') ');
 
-                        $('#crop_variety').val(value['crop_variety']);
-                        $('#ScienceName').val(value['scientific_name']);
-                        $('#LocalName').val(value['crop_local_name']);
-                        $('#NameOrigin').val(value['name_origin']);
+                        $('#crop_variety').text(value['crop_variety']);
+                        $('#LocalName').text(value['crop_local_name']);
                         $('#description').val(value['crop_description']);
-                        $('#nameMeaning').val(value['meaning_of_name']);
+                        $('#nameMeaning').text(value['meaning_of_name']);
                         $('#rarityEdit').text(value['rarity']);
 
                         //loc.php
@@ -224,11 +226,11 @@
                         });
 
                         // characteristics
-                        $('#TasteEdit').val(value['taste']);
-                        $('#AromaEdit').val(value['aroma']);
-                        $('#MaturationEdit').val(value['maturation']);
-                        $('#PestEdit').val(value['pest']);
-                        $('#DiseaseEdit').val(value['diseases']);
+                        $('#TasteEdit').text(value['taste']);
+                        $('#AromaEdit').text(value['aroma']);
+                        $('#MaturationEdit').text(value['maturation']);
+                        $('#PestEdit').text(value['pest']);
+                        $('#DiseaseEdit').text(value['diseases']);
 
                         // cultural aspect
                         $('#Cultural-SignificanceEdit').val(value['cultural_significance']);
@@ -236,18 +238,11 @@
                         $('#Cultural-ImportanceEdit').val(value['cultural_importance']);
                         $('#Cultural-UseEdit').val(value['cultural_use']);
 
-                        // Add a marker to the map based on the coordinates if they exist
-                        if (value['coordinates']) {
-                            var coordinates = value['coordinates'].split(',');
-                            var lat = parseFloat(coordinates[0]);
-                            var lng = parseFloat(coordinates[1]);
-
-                            if (!isNaN(lat) && !isNaN(lng)) {
-                                var markerEdit = L.marker([lat, lng]).addTo(mapEdit);
-                            } else {
-                                console.log('Invalid coordinates or no coordinates available');
-                            }
-                        }
+                        // Add a marker to the map based on the coordinates
+                        var coordinates = value['coordinates'].split(',');
+                        var lat = parseFloat(coordinates[0]);
+                        var lng = parseFloat(coordinates[1]);
+                        var markerEdit = L.marker([lat, lng]).addTo(mapEdit);
                     });
                 },
                 error: function(xhr, status, error) {
@@ -258,7 +253,7 @@
             });
 
             // Show the modal
-            const dataModal = new bootstrap.Modal(document.getElementById('edit-item-modal'), {
+            const dataModal = new bootstrap.Modal(document.getElementById('view-item-modal'), {
                 keyboard: false
             });
             dataModal.show();

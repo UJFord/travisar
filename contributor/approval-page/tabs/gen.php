@@ -58,7 +58,7 @@
         </div>
     </dv>
 
-    <!-- Categories, Other Category, and Category Variety -->
+    <!-- Categories, Other Category, and Terrain -->
     <div class="row mb-3">
         <!-- Category -->
         <div class="col">
@@ -81,8 +81,8 @@
 
         <!-- Terrain -->
         <div class="col">
-            <label for="categoryTerrainEdit" class="form-label small-font">Terrain:</label>
-            <h6 name="terrain_id" id="categoryTerrainEdit"></h6>
+            <label for="terrainEdit" class="form-label small-font">Terrain:</label>
+            <h6 name="terrain_name" id="terrainEdit"></h6>
         </div>
     </div>
 
@@ -91,19 +91,17 @@
         <!-- variety name -->
         <div class="col">
             <label for="crop_variety" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
-            <input id="crop_variety" type="text" name="crop_variety" class="form-control" required>
+            <h6 name="crop_variety" id="crop_variety"></h6>
         </div>
-
         <!-- Meaning of Name -->
         <div class="col">
             <label class="form-label small-font">Meaning of Name(if any)</label>
-            <input type="text" id="nameMeaning" name="meaning_of_name" class="form-control">
+            <h6 name="meaning_of_name" id="nameMeaning"></h6>
         </div>
-
         <!-- local name -->
         <div class="col">
             <label for="LocalName" class="form-label small-font">Local Name</label>
-            <input id="LocalName" type="text" name="crop_local_name" class="form-control">
+            <h6 name="crop_local_name" id="LocalName"></h6>
         </div>
     </div>
 
@@ -119,7 +117,7 @@
                 <!-- old/current image -->
                 <input type="hidden" name="old_image" id="oldImageInput">
                 <!-- image input -->
-                <input class="mb-2 form-control form-control-sm" type="file" id="imageInputEdit" accept="image/jpeg,image/png" name="crop_image[]" multiple>
+                <input class="mb-2 form-control form-control-sm" type="file" id="imageInputEdit" accept="image/jpeg,image/png" name="crop_image[]" multiple disabled>
                 <!-- current images -->
                 <div id="previewEdit" class="preview-containerEdit custom-scrollbar overflow-scroll rounded border p-1"></div>
             </div>
@@ -130,7 +128,7 @@
     <div class="row mb-3">
         <div class="col">
             <label for="description" class="form-label small-font">Description</label>
-            <textarea name="crop_description" id="description" rows="2" class="form-control"></textarea>
+            <textarea name="crop_description" id="description" rows="2" class="form-control" disabled></textarea>
         </div>
     </div>
 

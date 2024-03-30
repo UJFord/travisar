@@ -16,7 +16,7 @@
             <input type="hidden" name="crop_location_id" id="crop_location_id">
             <!-- Province dropdown -->
             <label for="ProvinceEdit" class="form-label small-font">Province <span style="color: red;">*</span></label>
-            <select id="ProvinceEdit" name="province" class="form-control mb-2">
+            <select id="ProvinceEdit" name="province" class="form-control mb-2" disabled>
                 <?php
                 // Fetch distinct province names from the location table
                 $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";
@@ -39,17 +39,17 @@
 
             <!-- Municipality dropdown -->
             <label for="MunicipalitySelect" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
-            <select id="MunicipalitySelect" name="municipality" class="form-select mb-2">
+            <select id="MunicipalitySelect" name="municipality" class="form-select mb-2" disabled>
             </select>
 
-            <!-- barangay -->
+            <!-- sityo -->
             <label for="BarangaySelect" class="form-label small-font mb-0">Sityo <span style="color: red;">*</span></label>
-            <select id="BarangaySelect" name="barangay" class="form-select mb-2">
+            <select id="BarangaySelect" name="barangay" class="form-select mb-2" disabled>
             </select>
 
             <!-- coordinates -->
             <label for="coordEdit" class="form-label small-font mb-0">Coordinates</label>
-            <input id="coordEdit" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
+            <input id="coordEdit" name="coordinates" type="text" class="form-control" aria-describedby="coords-help" disabled>
             <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (latitude , longitude)</div>
             <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">The blue Marker is for the old/current location</div>
         </div>
