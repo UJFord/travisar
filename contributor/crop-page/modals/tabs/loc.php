@@ -32,45 +32,6 @@
 <!-- LOCATION TAB -->
 <div class="fade tab-pane" id="loc-tab-pane" role="tabpanel" aria-labelledby="loc-tab" tabindex="0">
     <div id="locationData" class="row mb-3">
-        <!-- form -->
-        <div class="col-6 location-Data">
-            <!-- Province dropdown -->
-            <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
-            <select id="Province" name="province" class="form-select mb-2" readonly>
-                <?php
-                // Fetch distinct province names from the location table
-                $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";
-                $query_run = pg_query($conn, $queryProvince);
-
-                $count = pg_num_rows($query_run);
-
-                // If there is data, display distinct province names
-                if ($count > 0) {
-                    while ($row = pg_fetch_assoc($query_run)) {
-                        $province_name = $row['province_name'];
-                ?>
-                        <option value="<?= $province_name; ?>"><?= $province_name; ?></option>
-                <?php
-                    }
-                }
-                ?>
-            </select>
-
-            <!-- Municipality dropdown -->
-            <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
-            <select id="Municipality" name="municipality" class="form-select mb-2" required>
-            </select>
-
-            <!-- barangay -->
-            <label for="Barangay" class="form-label small-font mb-0">Sityo <span style="color: red;">*</span></label>
-            <select id="Barangay" name="barangay" class="form-select mb-2" required>
-            </select>
-
-            <!-- coordinates -->
-            <label for="coordInput" class="form-label small-font mb-0">Coordinates(if any)</label>
-            <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
-            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (latitude , longitude)</div>
-
         <!-- accordion -->
         <div class="accordion" id="accordionExample">
             <div class="accordion-item">
@@ -87,29 +48,29 @@
                                 <!-- Province -->
                                 <div class="col-6 mb-1">
                                     <label for="" class="form-label small-font mb-0">Province</label>
-                                    <input type="text" class="form-control form-text small-font mt-0" value="Sarangani" disabled>
+                                    <input type="text" class="form-control form-text small-font mt-0" name="province_name" readonly>
                                 </div>
                                 <!-- municipality -->
                                 <div class="col-6">
                                     <label for="" class="form-label small-font mb-0">Municipality</label>
-                                    <input type="text" class="form-control form-text small-font mt-0" value="Alabel" disabled>
+                                    <input type="text" class="form-control form-text small-font mt-0" name="municipality_name" readonly>
                                 </div>
-                                <!-- barangay -->
+                                <!-- Sityo -->
                                 <div class="col-6">
-                                    <label for="" class="form-label small-font mb-0">Barangay</label>
-                                    <input type="text" class="form-control form-text small-font mt-0" value="Poblacion" disabled>
+                                    <label for="" class="form-label small-font mb-0">Sityo</label>
+                                    <input type="text" class="form-control form-text small-font mt-0" name="barangay_name" readonly>
                                 </div>
                                 <!-- Coordinates -->
                                 <div class="col-6">
                                     <label for="" class="form-label small-font mb-0">Coordinates</label>
-                                    <input type="text" class="form-control form-text small-font mt-0" value="12.213, 31.312" disabled>
+                                    <input type="text" class="form-control form-text small-font mt-0" name="coordinates" readonly>
                                 </div>
                             </div>
                         </div>
                         <!-- Actions for Accordion Item #1 -->
-                        <div class="col-3">
-                            <!-- Edit Button -->
-                        </div>
+                        <!-- <div class="col-3">
+                            Edit Button
+                        </div> -->
                     </div>
                 </div>
             </div>
@@ -124,13 +85,7 @@
         </a>
     </div>
 
-
     <button id="addAccordionItemBtn">Add Accordion Item</button>
-
-
-    <div class="row mb-3">
-       
-    </div>
 
     <!-- STEP NAVIGATION -->
     <div class="row">
@@ -145,8 +100,6 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 <script>
-
-
     // Counter to keep track of the number of items added
     let accordionItemCount = 1;
 
@@ -155,57 +108,57 @@
         accordionItemCount++;
 
         return `
-<div class="accordion-item">
-    <h2 class="accordion-header">
-        <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${accordionItemCount}" aria-expanded="true" aria-controls="collapse${accordionItemCount}">
-            Accordion Item #${accordionItemCount}
-        </button>
-    </h2>
-    <div id="collapse${accordionItemCount}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
-        <div class="accordion-body">
-            <!-- Inputs for Accordion Item #${accordionItemCount} -->
-            <div class="col">
-                <div class="row">
-                    <!-- Province -->
-                    <div class="col-6 mb-1">
-                        <label for="" class="form-label small-font mb-0">Province</label>
-                        <input type="text" class="form-control form-text small-font mt-0" value="" disabled>
+        <div class="accordion-item">
+            <h2 class="accordion-header">
+                <button class="accordion-button" type="button" data-bs-toggle="collapse" data-bs-target="#collapse${accordionItemCount}" aria-expanded="true" aria-controls="collapse${accordionItemCount}">
+                    Accordion Item #${accordionItemCount}
+                </button>
+            </h2>
+            <div id="collapse${accordionItemCount}" class="accordion-collapse collapse" data-bs-parent="#accordionExample">
+                <div class="accordion-body">
+                    <!-- Inputs for Accordion Item #${accordionItemCount} -->
+                    <div class="col">
+                        <div class="row">
+                            <!-- Province -->
+                            <div class="col-6 mb-1">
+                                <label for="" class="form-label small-font mb-0">Province</label>
+                                <input type="text" class="form-control form-text small-font mt-0" value="" disabled>
+                            </div>
+                            <!-- municipality -->
+                            <div class="col-6">
+                                <label for="" class="form-label small-font mb-0">Municipality</label>
+                                <input type="text" class="form-control form-text small-font mt-0" value="" disabled>
+                            </div>
+                            <!-- barangay -->
+                            <div class="col-6">
+                                <label for="" class="form-label small-font mb-0">Barangay</label>
+                                <input type="text" class="form-control form-text small-font mt-0" value="" disabled>
+                            </div>
+                            <!-- Coordinates -->
+                            <div class="col-6">
+                                <label for="" class="form-label small-font mb-0">Coordinates</label>
+                                <input type="text" class="form-control form-text small-font mt-0" value="" disabled>
+                            </div>
+                        </div>
                     </div>
-                    <!-- municipality -->
-                    <div class="col-6">
-                        <label for="" class="form-label small-font mb-0">Municipality</label>
-                        <input type="text" class="form-control form-text small-font mt-0" value="" disabled>
-                    </div>
-                    <!-- barangay -->
-                    <div class="col-6">
-                        <label for="" class="form-label small-font mb-0">Barangay</label>
-                        <input type="text" class="form-control form-text small-font mt-0" value="" disabled>
-                    </div>
-                    <!-- Coordinates -->
-                    <div class="col-6">
-                        <label for="" class="form-label small-font mb-0">Coordinates</label>
-                        <input type="text" class="form-control form-text small-font mt-0" value="" disabled>
+                    <!-- Actions for Accordion Item #${accordionItemCount} -->
+                    <div class="col-3">
+                        <!-- Edit Button -->
                     </div>
                 </div>
             </div>
-            <!-- Actions for Accordion Item #${accordionItemCount} -->
-            <div class="col-3">
-                <!-- Edit Button -->
-            </div>
         </div>
-    </div>
-</div>
-`;
+        `;
     }
 
     document.getElementById('addAccordionItemBtn').addEventListener('click', function(event) {
         event.preventDefault(); // Prevent form submission
 
-        console.log("Button clicked!"); // Log to console to verify the button click event
+        // console.log("Button clicked!"); // Log to console to verify the button click event
 
         var accordion = document.getElementById('accordionExample');
         var newAccordionItemHtml = generateAccordionItem();
-        console.log("New accordion item HTML: ", newAccordionItemHtml); // Log the generated HTML for the new accordion item
+        // console.log("New accordion item HTML: ", newAccordionItemHtml); // Log the generated HTML for the new accordion item
 
         // Create a temporary div element to hold the generated HTML
         var tempDiv = document.createElement('div');
@@ -213,20 +166,12 @@
 
         // Append the new accordion item to the accordion container
         accordion.innerHTML += tempDiv.innerHTML;
-        console.log("Accordion HTML after appending: ", accordion.innerHTML); // Log the HTML content of the accordion container
+        // console.log("Accordion HTML after appending: ", accordion.innerHTML); // Log the HTML content of the accordion container
 
         // Manually trigger the collapse initialization for the new accordion item
         var newAccordionItem = accordion.querySelector('.accordion-item:last-child');
         new bootstrap.Collapse(newAccordionItem.querySelector('.accordion-collapse'), {
             toggle: false
         });
-    });
-  
-<!-- script for limiting the input in coordinates just to numbers, commas, periods, and spaces -->
-    document.getElementById('coordInput').addEventListener('input', function(event) {
-        const regex = /^[0-9.,\s-]*$/; // Updated regex to allow "-" sign
-        if (!regex.test(event.target.value)) {
-            event.target.value = event.target.value.replace(/[^0-9.,\s-]/g, '');
-        }
     });
 </script>

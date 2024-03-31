@@ -228,9 +228,9 @@ require "../functions/functions.php";
 
             <!-- MODAL -->
             <!-- add Location -->
-            <?php require "location-page/modals/add-location.php"; ?>
+            <?php require "location-page/modals/add-municipality.php"; ?>
             <!-- edit location -->
-            <?php require "location-page/modals/edit-location.php"; ?>
+            <?php require "location-page/modals/edit-municipality.php"; ?>
         </div>
     </div>
 
@@ -328,7 +328,7 @@ require "../functions/functions.php";
 
                         $.each(response, function(key, value) {
                             // Append options to select element
-                            // console.log(value['province_name']);
+                            console.log(value['province_name']);
 
                             // crop_id
                             $('#crop_id').val(id);
