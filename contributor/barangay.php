@@ -193,7 +193,7 @@ require "../functions/functions.php";
                                                     <!-- edit -->
                                                     <a href="#" class="btn btn-primary me-1 edit_data_brgy" data-toggle="modal" data-target="#dataModalEdit" data-id="<?= $row['barangay_id']; ?>"><i class="fa-regular fa-pen-to-square"></i></a>
                                                     <!-- delete -->
-                                                    <button type="submit" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                                                    <button type="submit" name="delete" class="btn btn-danger curator-only"><i class="fa-solid fa-trash"></i></button>
                                                 </form>
                                             </td>
                                             <!-- ellipsis menu button -->
