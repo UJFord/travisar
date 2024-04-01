@@ -57,9 +57,6 @@
     </div>
 </div>
 
-<!-- location edit modal -->
-<?php require "tabs/loc-modal.php" ?>
-
 <!-- SCRIPT -->
 <script>
     // keep the modal on
