@@ -27,7 +27,7 @@
 
                                 <!-- barangay name -->
                                 <div class="col-5">
-                                    <label for="barangay-Name" class="form-label small-font">Barangay Name<span style="color: red;">*</span></label>
+                                    <label for="barangay-Name" class="form-label small-font">Sitio Name<span style="color: red;">*</span></label>
                                     <input type="text" id="barangay-Name" name="barangay_name" class="form-control">
                                 </div>
                             </div>

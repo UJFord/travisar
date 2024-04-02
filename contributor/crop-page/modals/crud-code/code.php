@@ -643,7 +643,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 // get all the data in the form
                 $crop_variety = handleEmpty($_POST['crop_variety']);
                 $crop_local_name = handleEmpty($_POST['crop_local_name']);
-                $category_variety_id = handleEmpty($_POST['category_variety_id']);
                 // $crop_image = $_POST['crop_image[]'];
                 $crop_description = handleEmpty($_POST['crop_description']);
                 $province_name = $_POST['province'];
@@ -772,12 +771,12 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
                 // update crop table
                 $queryCrop = "UPDATE crop SET crop_variety = $1, crop_local_name = $2, crop_description = $3,
-                cultural_aspect_id = $4, meaning_of_name = $5, crop_image = $6, category_variety_id = $7
-                WHERE crop_id = $8";
+                cultural_aspect_id = $4, meaning_of_name = $5, crop_image = $6
+                WHERE crop_id = $7";
 
                 $valueCrops = array(
                     $crop_variety, $crop_local_name, $crop_description,
-                    $cultural_aspect_id, $meaning_of_name, $finalimg, $category_variety_id, $crop_id
+                    $cultural_aspect_id, $meaning_of_name, $finalimg, $crop_id
                 );
                 $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 

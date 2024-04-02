@@ -245,7 +245,7 @@
                             if (!isNaN(lat) && !isNaN(lng)) {
                                 var markerEdit = L.marker([lat, lng]).addTo(mapEdit);
                             } else {
-                                console.log('Invalid coordinates or no coordinates available');
+                                // console.error('Invalid coordinates or no coordinates available');
                             }
                         }
                     });

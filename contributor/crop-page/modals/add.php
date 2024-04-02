@@ -122,6 +122,35 @@
         }
     }
 
+    document.getElementById('form-panel').addEventListener('submit', function(event) {
+        var selectedCategory = document.getElementById('Category').value;
+        var cornMorph = document.getElementById('cornMorph');
+        var riceMorph = document.getElementById('riceMorph');
+        var rootCropMorph = document.getElementById('root_cropMorph');
+
+        if (selectedCategory !== '4') {
+            // Disable inputs in the cornMorph section
+            disableInputs(cornMorph);
+        }
+
+        if (selectedCategory !== '1') {
+            // Disable inputs in the riceMorph section
+            disableInputs(riceMorph);
+        }
+
+        if (selectedCategory !== '2') {
+            // Disable inputs in the rootCropMorph section
+            disableInputs(rootCropMorph);
+        }
+    });
+
+    function disableInputs(container) {
+        var inputs = container.getElementsByTagName('input');
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].disabled = true;
+        }
+    }
+
     // tab switching
     // next button
     function switchTab(tabName) {
