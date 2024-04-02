@@ -488,27 +488,3 @@
         }
     }
 </script>
-
-<!-- JavaScript to show/hide morphological characteristics based on selected category -->
-<!-- <script>
-    document.getElementById('Category').addEventListener('change', function() {
-        var selectedCategory = document.getElementById('Category').value;
-        var cornMorph = document.getElementById('cornMorph');
-        var riceMorph = document.getElementById('riceMorph');
-        var rootCropMorph = document.getElementById('root_cropMorph');
-
-        // Hide all morphological characteristics sections
-        cornMorph.style.display = 'none';
-        riceMorph.style.display = 'none';
-        rootCropMorph.style.display = 'none';
-
-        // Show the relevant morphological characteristics section based on selected category
-        if (selectedCategory === '4') {
-            cornMorph.style.display = 'block';
-        } else if (selectedCategory === '1') {
-            riceMorph.style.display = 'block';
-        } else if (selectedCategory === '2') {
-            rootCropMorph.style.display = 'block';
-        }
-    });
-</script> -->

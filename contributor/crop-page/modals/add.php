@@ -15,8 +15,9 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
+            <form action=""></form>
             <!-- body -->
-            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
                 <div class="modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -154,8 +155,6 @@
     // tab switching
     // next button
     function switchTab(tabName) {
-        // prevent submitting the form
-        event.preventDefault();
 
         // Click the tab with id 'gen-tab'
         document.getElementById(tabName + '-tab').click();
