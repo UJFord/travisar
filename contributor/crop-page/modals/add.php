@@ -15,7 +15,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <form action=""></form>
             <!-- body -->
             <form id="form-panel" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
                 <div class="modal-body">
@@ -59,7 +58,7 @@
 </div>
 
 <!-- SCRIPT -->
-<script>
+<!-- <script>
     // keep the modal on
     window.onload = function() {
         const dataModal = new bootstrap.Modal(document.getElementById('add-item-modal'), {
@@ -67,11 +66,12 @@
         });
         dataModal.show();
     };
-</script>
+</script> -->
 
 <!-- for submission -->
 <script>
     document.getElementById('form-panel').addEventListener('submit', function(event) {
+        console.log('Form submission event listener triggered');
         var isValid = true;
         // Check if any required fields are empty
         var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
@@ -91,12 +91,32 @@
             return false;
         }
 
+        // Get the selected category
+        var selectedCategory = document.getElementById('Category').value;
+        var cornMorph = document.getElementById('cornMorph');
+        var riceMorph = document.getElementById('riceMorph');
+        var rootCropMorph = document.getElementById('root_cropMorph');
+
+        // Disable inputs based on the selected category
+        if (selectedCategory !== '4') {
+            disableInputs(cornMorph);
+        }
+
+        if (selectedCategory !== '1') {
+            disableInputs(riceMorph);
+        }
+
+        if (selectedCategory !== '2') {
+            disableInputs(rootCropMorph);
+        }
+
         // Form is valid, submit the form
         submitForm();
     });
 
     // Function to submit the form and refresh notifications
-    function submitForm() {
+    function submitForm() {m
+        console.log('submitForm function called');
         // Get the form reference
         var form = document.getElementById('form-panel');
         // Trigger the form submission
@@ -110,6 +130,7 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
+                    console.log("Form submitted successfully", data);
                     // Reset the form
                     form.reset();
                     // Reload unseen notifications
@@ -123,28 +144,6 @@
         }
     }
 
-    document.getElementById('form-panel').addEventListener('submit', function(event) {
-        var selectedCategory = document.getElementById('Category').value;
-        var cornMorph = document.getElementById('cornMorph');
-        var riceMorph = document.getElementById('riceMorph');
-        var rootCropMorph = document.getElementById('root_cropMorph');
-
-        if (selectedCategory !== '4') {
-            // Disable inputs in the cornMorph section
-            disableInputs(cornMorph);
-        }
-
-        if (selectedCategory !== '1') {
-            // Disable inputs in the riceMorph section
-            disableInputs(riceMorph);
-        }
-
-        if (selectedCategory !== '2') {
-            // Disable inputs in the rootCropMorph section
-            disableInputs(rootCropMorph);
-        }
-    });
-
     function disableInputs(container) {
         var inputs = container.getElementsByTagName('input');
         for (var i = 0; i < inputs.length; i++) {
@@ -155,6 +154,8 @@
     // tab switching
     // next button
     function switchTab(tabName) {
+        // prevent submitting the form
+        event.preventDefault();
 
         // Click the tab with id 'gen-tab'
         document.getElementById(tabName + '-tab').click();

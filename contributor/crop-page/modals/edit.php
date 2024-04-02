@@ -17,7 +17,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
                 <div class="modal-body edit-modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -83,7 +83,7 @@
 
     // Function to submit the form and refresh notifications
     function submitForm() {
-        // console.log('submitForm function called');
+        console.log('submitForm function called');
         // Get the form reference
         var form = document.getElementById('form-panel');
         // Trigger the form submission
@@ -97,6 +97,7 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
+                    console.log("Form submitted successfully", data);
                     // Reset the form
                     form.reset();
                     // Reload unseen notifications

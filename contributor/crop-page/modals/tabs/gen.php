@@ -154,7 +154,10 @@
                 ?>
             </select>
         </div>
+    </div>
 
+    <div class="row mb-3">
+        <!-- image -->
         <div class="col">
             <div class="d-flex flex-column image-upload-container">
                 <!-- label -->
@@ -168,11 +171,6 @@
                 <div class="preview-container custom-scrollbar overflow-scroll rounded border p-1" id="preview"></div>
             </div>
         </div>
-    </div>
-
-    <!-- IMAGE -->
-    <div class="row mb-2">
-
     </div>
 
     <!-- DESCRIPTION -->
@@ -432,29 +430,39 @@
         showMorphologicalCharacteristics(selectedCategory);
     });
 
-    document.getElementById('Category').addEventListener('change', function() {
-        var categoryId = this.value;
-        var categoryVarietySelect = document.getElementById('category-Variety');
-        if (categoryId === '3') {
-            categoryVarietySelect.style.display = 'none';
-        } else {
-            categoryVarietySelect.style.display = 'block';
-            fetchVarieties(categoryId);
-        }
-    });
-
     function fetchVarieties(categoryId) {
-        // Make an AJAX request to fetch the varieties
         var xhr = new XMLHttpRequest();
         xhr.onreadystatechange = function() {
-            if (this.readyState === 4 && this.status === 200) {
-                var varieties = JSON.parse(this.responseText);
-                populateVarieties(varieties);
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    var varieties = JSON.parse(this.responseText);
+                    populateVarieties(varieties);
+                } else {
+                    console.error('Failed to fetch varieties. Status:', this.status);
+                }
             }
+        };
+        xhr.onerror = function() {
+            console.error('An error occurred during the request.');
         };
         xhr.open('GET', 'crop-page/modals/fetch/fetch_varieties.php?category_id=' + categoryId, true);
         xhr.send();
     }
+
+    document.getElementById('Category').addEventListener('change', function() {
+        var categoryId = this.value;
+        var categoryVarietySelect = document.getElementById('categoryVariety');
+        var categoryVarietySelectContainer = document.getElementById('category-Variety');
+        if (categoryId === '3') {
+            categoryVarietySelectContainer.style.display = 'none';
+        } else {
+            categoryVarietySelectContainer.style.display = 'block';
+            fetchVarieties(categoryId);
+        }
+
+        // Call the function to display the corresponding morphological characteristics
+        showMorphologicalCharacteristics(categoryId);
+    });
 
     function populateVarieties(varieties) {
         var categoryVarietySelect = document.getElementById('categoryVariety');
@@ -466,7 +474,10 @@
             categoryVarietySelect.appendChild(option);
         });
     }
+</script>
 
+<!-- script for the morphological characteristics display -->
+<script>
     // Function to display the morphological characteristics based on the selected category
     function showMorphologicalCharacteristics(categoryId) {
         var cornMorph = document.getElementById('cornMorph');

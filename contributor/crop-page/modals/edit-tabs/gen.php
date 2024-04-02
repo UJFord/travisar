@@ -64,7 +64,6 @@
         <div class="col">
             <label for="CategoryEdit" class="form-label small-font">Category:</label>
             <h6 name="category_id" id="CategoryEdit"></h6>
-            </input>
         </div>
 
         <!-- other category name if exist -->
