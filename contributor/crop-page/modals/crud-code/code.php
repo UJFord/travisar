@@ -188,13 +188,13 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
         //insert into crop table
         $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
-            crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image, category_variety_id)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING crop_id";
+            crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image, category_variety_id, terrain_id)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING crop_id";
 
         $valueCrops = array(
             $crop_variety, $crop_local_name, $category_id, $newUniqueCode,
-            $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString, $category_variety_id
-        );
+            $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString, $category_variety_id,
+            $terrain_id);
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
         if ($query_run_Crop) {
@@ -267,24 +267,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             exit(0);
         }
 
-        // save into Crop Field Table
-        $query_cropTerrain = "INSERT into terrain (crop_id, terrain_id) VALUES ($1, $2) returning terrain_id";
-        $query_run_cropTerrain = pg_query_params($conn, $query_cropTerrain, array($crop_id, $terrain_id));
-
-        if ($query_run_cropTerrain) {
-            // Check if any rows were affected
-            if (pg_affected_rows($query_run_cropTerrain) > 0) {
-                $row_cropTerrain = pg_fetch_row($query_run_cropTerrain);
-                $crop_terrain_id = $row_cropTerrain[0];
-            } else {
-                echo "Error: No rows affected";
-                exit(0);
-            }
-        } else {
-            echo "Error: " . pg_last_error($conn);
-            exit(0);
-        }
-
         // other category
         // if nag select og other category ang user ma save ang name sa db if wala empty lang
         $query_OtherCategory = "INSERT INTO other_category (crop_id, other_category_name) VALUES ($1, $2)";
@@ -335,7 +317,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $municipality_name = $_POST['municipality'];
             $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
             $coordinates = handleEmpty($_POST['coordinates']);
-            $terrain = handleEmpty($_POST['terrain']);
+            $terrain_id = handleEmpty($_POST['terrain_id']);
 
             $barangay_name = $_POST['barangay'];
             $user_id = $_POST['user_id'];
@@ -502,13 +484,13 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
             //insert into crop table
             $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
-                crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image, category_variety_id)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING crop_id";
+                crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image, category_variety_id, terrain_id)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING crop_id";
 
             $valueCrops = array(
                 $crop_variety, $crop_local_name, $category_id, $newUniqueCode,
-                $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString, $category_variety_id
-            );
+                $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString, $category_variety_id,
+                $terrain_id);
             $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
             if ($query_run_Crop) {
@@ -572,24 +554,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 if (pg_affected_rows($query_run_CropLoc) > 0) {
                     $row_CropLoc = pg_fetch_row($query_run_CropLoc);
                     $crop_location_id = $row_CropLoc[0];
-                } else {
-                    echo "Error: No rows affected";
-                    exit(0);
-                }
-            } else {
-                echo "Error: " . pg_last_error($conn);
-                exit(0);
-            }
-
-            // save into Crop Field Table
-            $query_cropTerrain = "INSERT into terrain (crop_id, terrain_id) VALUES ($1, $2) returning terrain_id";
-            $query_run_cropTerrain = pg_query_params($conn, $query_cropTerrain, array($crop_id, $terrain_id));
-
-            if ($query_run_cropTerrain) {
-                // Check if any rows were affected
-                if (pg_affected_rows($query_run_cropTerrain) > 0) {
-                    $row_cropTerrain = pg_fetch_row($query_run_cropTerrain);
-                    $terrain_id = $row_cropTerrain[0];
                 } else {
                     echo "Error: No rows affected";
                     exit(0);

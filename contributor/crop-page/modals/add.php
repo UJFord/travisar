@@ -16,7 +16,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
+            <form id="form-panel-add" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
                 <div class="modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -70,26 +70,28 @@
 
 <!-- for submission -->
 <script>
-    document.getElementById('form-panel').addEventListener('submit', function(event) {
+    document.getElementById('form-panel-add').addEventListener('submit', function(event) {
         console.log('Form submission event listener triggered');
-        var isValid = true;
-        // Check if any required fields are empty
-        var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
-        requiredFields.forEach(function(field) {
-            if (!field.value.trim()) {
-                isValid = false;
-                field.classList.add('is-invalid');
-            } else {
-                field.classList.remove('is-invalid');
-            }
-        });
+        //! wala ni sya gagana yawa nadugayan ko tungod ani tangalun guro ni lahion guro
+        // var isValid = true;
+        // // Check if any required fields are empty
+        // var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+        // requiredFields.forEach(function(field) {
+        //     if (!field.value.trim()) {
+        //         isValid = false;
+        //         field.classList.add('is-invalid');
+        //     } else {
+        //         field.classList.remove('is-invalid');
+        //     }
+        // });
 
-        if (!isValid) {
-            // Prevent the form from submitting
-            event.preventDefault();
-            event.stopPropagation();
-            return false;
-        }
+        // if (!isValid) {
+        //     // Prevent the form from submitting
+        //     console.log('not valid');
+        //     event.preventDefault();
+        //     event.stopPropagation();
+        //     return false;
+        // }
 
         // Get the selected category
         var selectedCategory = document.getElementById('Category').value;
@@ -110,6 +112,7 @@
             disableInputs(rootCropMorph);
         }
 
+        console.log('submit the form');
         // Form is valid, submit the form
         submitForm();
     });
@@ -118,7 +121,7 @@
     function submitForm() {m
         console.log('submitForm function called');
         // Get the form reference
-        var form = document.getElementById('form-panel');
+        var form = document.getElementById('form-panel-add');
         // Trigger the form submission
         if (form) {
             // Perform AJAX submission or other necessary actions
@@ -130,7 +133,6 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
-                    console.log("Form submitted successfully", data);
                     // Reset the form
                     form.reset();
                     // Reload unseen notifications
