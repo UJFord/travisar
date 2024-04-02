@@ -57,7 +57,7 @@
     <div class="row mb-4">
         <!-- Category Name -->
         <div class="col-6">
-            <label for="Category" class="form-label small-font">Category<span style="color: red;">*</span></label>
+            <label for="Category" class="form-label small-font">Crop Category<span style="color: red;">*</span></label>
             <select name="category_id" id="Category" class="form-select" required>
                 <?php
                 // get the data of category from DB
@@ -96,7 +96,7 @@
 
         <!-- Category Variety -->
         <div class="col" id="category-Variety">
-            <label for="categoryVariety" class="form-label small-font">Category Variety<span style="color: red;">*</span></label>
+            <label for="categoryVariety" class="form-label small-font">Variety<span style="color: red;">*</span></label>
             <select name="category_variety_id" id="categoryVariety" class="form-select" required>
                 <!-- Options will be dynamically added here based on the category selected -->
             </select>
