@@ -156,6 +156,7 @@
         </div>
     </div>
 
+    <!-- image -->
     <div class="row mb-3">
         <!-- image -->
         <div class="col">
@@ -181,7 +182,8 @@
         </div>
     </div>
 
-    <h3>Morphological Characteristics</h3>
+    <br>
+    <h4>Morphological Characteristics</h4>
 
     <!-- Morphological Characteristics for corn -->
     <div class="row mb-3" id="cornMorph">
@@ -191,24 +193,23 @@
                 <label class="form-label small-font">Plant Structure</label>
                 <input type="text" name="plant_structure" class="form-control">
             </div>
-            <div class="col-6">
-                <label class="form-label small-font">leaves</label>
-                <input type="text" name="leaves" class="form-control">
-            </div>
-        </div>
-        <!-- Shape -->
-        <div class="row">
-            <div class="col-6">
-                <label class="form-label small-font">Shape</label>
-                <input type="text" name="shape" class="form-control">
-            </div>
             <!-- Root System -->
             <div class="col-6">
                 <label class="form-label small-font">Root System</label>
                 <input type="text" name="root_system" class="form-control">
             </div>
         </div>
-
+        <!-- leaves and fruit -->
+        <div class="row">
+            <div class="col-6">
+                <label class="form-label small-font">leaves</label>
+                <input type="text" name="leaves" class="form-control">
+            </div>
+            <div class="col">
+                <label class="form-label small-font">Fruit</label>
+                <input type="text" name="fruits" class="form-control">
+            </div>
+        </div>
         <!-- Inflorescence -->
         <div class="row">
             <div class="col">
@@ -216,12 +217,15 @@
                 <input type="text" name="inflorescence" class="form-control">
             </div>
             <div class="col">
-                <label class="form-label small-font">Flowers</label>
-                <input type="text" name="flowers" class="form-control">
+                <label class="form-label small-font">Flower</label>
+                <input type="text" name="flower" class="form-control">
             </div>
-            <div class="col">
-                <label class="form-label small-font">Fruit</label>
-                <input type="text" name="fruits" class="form-control">
+        </div>
+        <!-- Shape -->
+        <div class="row">
+            <div class="col-6">
+                <label class="form-label small-font">Shape</label>
+                <input type="text" name="shape" class="form-control">
             </div>
         </div>
     </div>
@@ -253,8 +257,8 @@
                 <input type="text" name="inflorescence" class="form-control">
             </div>
             <div class="col">
-                <label class="form-label small-font">Flowers</label>
-                <input type="text" name="flowers" class="form-control">
+                <label class="form-label small-font">Flower</label>
+                <input type="text" name="flower" class="form-control">
             </div>
         </div>
 
@@ -292,17 +296,20 @@
             </div>
         </div>
 
-        <!-- Root Characteristics -->
+        <!-- Root and stem and leaf Characteristics -->
         <div class="row">
-            <div class="col">
-                <label class="form-label small-font">Root Characteristics</label>
-                <input type="text" name="root_characteristics" class="form-control">
-            </div>
             <!-- Stem and leaf Characteristics -->
             <div class="col">
                 <label class="form-label small-font">Stem and leaf Characteristics</label>
                 <input type="text" name="stem_leaf_characteristics" class="form-control">
             </div>
+            <!-- root characteristics -->
+            <div class="col">
+                <label class="form-label small-font">Root Characteristics</label>
+                <input type="text" name="root_characteristics" class="form-control">
+            </div>
+        </div>
+        <div class="row">
             <!-- Growth Habit -->
             <div class="col">
                 <label class="form-label small-font">Growth Habit</label>

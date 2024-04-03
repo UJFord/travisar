@@ -141,7 +141,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['terrain_name']);
+                        console.log(value['leaves']);
 
                         // Split the image filenames by comma
                         var imageFilenames = value['crop_image'].split(',');
@@ -182,9 +182,6 @@
                         $('#firstName').text(value['first_name']);
                         $('#uniqueCode').text(value['unique_code']);
 
-                        // input elements with the new data on gen.php and loc.php
-                        //gen.php
-
                         // example ni sya kung gusto nimo i dikit ang duwa ka value
                         // $('#crop_variety').val(value['unique_code'] + '(' + value['crop_variety'] + ') ');
 
@@ -195,6 +192,24 @@
                         $('#description').val(value['crop_description']);
                         $('#nameMeaning').val(value['meaning_of_name']);
                         $('#rarityEdit').text(value['rarity']);
+
+                        // morph characters
+                        $('#plantStructure').val(value['plant_structure']);
+                        $('#rootSystem').val(value['root_system']);
+                        $('#leavesEdit').val(value['leaves']);
+                        $('#fruitEdit').val(value['fruits']);
+                        $('#inflorescenceEdit').val(value['inflorescence']);
+                        $('#flowersEdit').val(value['flower']);
+                        $('#shapeEdit').val(value['shape']);
+                        $('#plantHeight').val(value['plant_height']);
+                        $('#rootsEdit').val(value['roots']);
+                        $('#grainEdit').val(value['grain']);
+                        $('#huskEdit').val(value['husk']);
+                        $('#plantSize').val(value['plant_size']);
+                        $('#colorEdit').val(value['color']);
+                        $('#rootChar').val(value['root_characteristics']);
+                        $('#stemLeaf').val(value['stem_leaf_characteristics']);
+                        $('#growthHeight').val(value['growth_height']);
 
                         //loc.php
                         $('#neighborhoodEdit').val(value['neighborhood']);
