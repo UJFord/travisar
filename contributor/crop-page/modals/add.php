@@ -16,7 +16,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel-add" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
                 <div class="modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -57,11 +57,8 @@
     </div>
 </div>
 
-<!-- location edit modal -->
-<?php require "tabs/loc-modal.php" ?>
-
 <!-- SCRIPT -->
-<script>
+<!-- <script>
     // keep the modal on
     window.onload = function() {
         const dataModal = new bootstrap.Modal(document.getElementById('add-item-modal'), {
@@ -69,38 +66,62 @@
         });
         dataModal.show();
     };
-</script>
+</script> -->
 
 <!-- for submission -->
 <script>
-    document.getElementById('form-panel').addEventListener('submit', function(event) {
-        var isValid = true;
-        // Check if any required fields are empty
-        var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
-        requiredFields.forEach(function(field) {
-            if (!field.value.trim()) {
-                isValid = false;
-                field.classList.add('is-invalid');
-            } else {
-                field.classList.remove('is-invalid');
-            }
-        });
+    document.getElementById('form-panel-add').addEventListener('submit', function(event) {
+        console.log('Form submission event listener triggered');
+        //! wala ni sya gagana yawa nadugayan ko tungod ani tangalun guro ni lahion guro
+        // var isValid = true;
+        // // Check if any required fields are empty
+        // var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
+        // requiredFields.forEach(function(field) {
+        //     if (!field.value.trim()) {
+        //         isValid = false;
+        //         field.classList.add('is-invalid');
+        //     } else {
+        //         field.classList.remove('is-invalid');
+        //     }
+        // });
 
-        if (!isValid) {
-            // Prevent the form from submitting
-            event.preventDefault();
-            event.stopPropagation();
-            return false;
+        // if (!isValid) {
+        //     // Prevent the form from submitting
+        //     console.log('not valid');
+        //     event.preventDefault();
+        //     event.stopPropagation();
+        //     return false;
+        // }
+
+        // Get the selected category
+        var selectedCategory = document.getElementById('Category').value;
+        var cornMorph = document.getElementById('cornMorph');
+        var riceMorph = document.getElementById('riceMorph');
+        var rootCropMorph = document.getElementById('root_cropMorph');
+
+        // Disable inputs based on the selected category
+        if (selectedCategory !== '4') {
+            disableInputs(cornMorph);
         }
 
+        if (selectedCategory !== '1') {
+            disableInputs(riceMorph);
+        }
+
+        if (selectedCategory !== '2') {
+            disableInputs(rootCropMorph);
+        }
+
+        console.log('submit the form');
         // Form is valid, submit the form
         submitForm();
     });
 
     // Function to submit the form and refresh notifications
-    function submitForm() {
+    function submitForm() {m
+        console.log('submitForm function called');
         // Get the form reference
-        var form = document.getElementById('form-panel');
+        var form = document.getElementById('form-panel-add');
         // Trigger the form submission
         if (form) {
             // Perform AJAX submission or other necessary actions
@@ -122,6 +143,13 @@
                     // Handle error if needed
                 }
             });
+        }
+    }
+
+    function disableInputs(container) {
+        var inputs = container.getElementsByTagName('input');
+        for (var i = 0; i < inputs.length; i++) {
+            inputs[i].disabled = true;
         }
     }
 

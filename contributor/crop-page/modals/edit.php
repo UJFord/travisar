@@ -17,7 +17,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
                 <div class="modal-body edit-modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -83,7 +83,7 @@
 
     // Function to submit the form and refresh notifications
     function submitForm() {
-        // console.log('submitForm function called');
+        console.log('submitForm function called');
         // Get the form reference
         var form = document.getElementById('form-panel');
         // Trigger the form submission
@@ -97,6 +97,7 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
+                    console.log("Form submitted successfully", data);
                     // Reset the form
                     form.reset();
                     // Reload unseen notifications
@@ -140,7 +141,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['terrain_name']);
+                        console.log(value['leaves']);
 
                         // Split the image filenames by comma
                         var imageFilenames = value['crop_image'].split(',');
@@ -181,9 +182,6 @@
                         $('#firstName').text(value['first_name']);
                         $('#uniqueCode').text(value['unique_code']);
 
-                        // input elements with the new data on gen.php and loc.php
-                        //gen.php
-
                         // example ni sya kung gusto nimo i dikit ang duwa ka value
                         // $('#crop_variety').val(value['unique_code'] + '(' + value['crop_variety'] + ') ');
 
@@ -194,6 +192,24 @@
                         $('#description').val(value['crop_description']);
                         $('#nameMeaning').val(value['meaning_of_name']);
                         $('#rarityEdit').text(value['rarity']);
+
+                        // morph characters
+                        $('#plantStructure').val(value['plant_structure']);
+                        $('#rootSystem').val(value['root_system']);
+                        $('#leavesEdit').val(value['leaves']);
+                        $('#fruitEdit').val(value['fruits']);
+                        $('#inflorescenceEdit').val(value['inflorescence']);
+                        $('#flowersEdit').val(value['flower']);
+                        $('#shapeEdit').val(value['shape']);
+                        $('#plantHeight').val(value['plant_height']);
+                        $('#rootsEdit').val(value['roots']);
+                        $('#grainEdit').val(value['grain']);
+                        $('#huskEdit').val(value['husk']);
+                        $('#plantSize').val(value['plant_size']);
+                        $('#colorEdit').val(value['color']);
+                        $('#rootChar').val(value['root_characteristics']);
+                        $('#stemLeaf').val(value['stem_leaf_characteristics']);
+                        $('#growthHeight').val(value['growth_height']);
 
                         //loc.php
                         $('#neighborhoodEdit').val(value['neighborhood']);
@@ -245,7 +261,7 @@
                             if (!isNaN(lat) && !isNaN(lng)) {
                                 var markerEdit = L.marker([lat, lng]).addTo(mapEdit);
                             } else {
-                                console.log('Invalid coordinates or no coordinates available');
+                                // console.error('Invalid coordinates or no coordinates available');
                             }
                         }
                     });

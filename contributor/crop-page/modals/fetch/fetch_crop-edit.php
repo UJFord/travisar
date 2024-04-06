@@ -9,11 +9,11 @@ if (isset($_POST['click_edit_btn'])) {
     // Fetch data from the crop table and join with crop_location
     $query = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join location 
     on crop_location.location_id = location.location_id left join users on crop.user_id = users.user_id left join barangay
-    on crop_location.barangay_id = barangay.barangay_id left join crop_terrain on crop_terrain.crop_id = crop.crop_id
+    on crop_location.barangay_id = barangay.barangay_id left join category_variety on crop.category_variety_id = category_variety.category_variety_id
     left join other_category on other_category.crop_id = crop.crop_id left join category on category.category_id = crop.category_id
     left join cultural_aspect on cultural_aspect.cultural_aspect_id = crop.cultural_aspect_id
-    left join characteristics on characteristics.crop_id = crop.crop_id left join terrain on crop_terrain.terrain_id = terrain.terrain_id
-    left join category_variety on crop.category_variety_id = category_variety.category_variety_id
+    left join characteristics on characteristics.crop_id = crop.crop_id left join terrain on crop.terrain_id = terrain.terrain_id
+    left join morphological_characteristics on morphological_characteristics.morphological_characteristics_id = crop.morphological_characteristics_id
     WHERE crop.crop_id = $1";
     $query_run = pg_query_params($conn, $query, array($crop_id));
 

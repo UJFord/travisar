@@ -43,7 +43,7 @@
             </select>
 
             <!-- barangay -->
-            <label for="BarangaySelect" class="form-label small-font mb-0">Sityo <span style="color: red;">*</span></label>
+            <label for="BarangaySelect" class="form-label small-font mb-0">Sitio <span style="color: red;">*</span></label>
             <select id="BarangaySelect" name="barangay" class="form-select mb-2">
             </select>
 

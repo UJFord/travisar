@@ -36,6 +36,24 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $cultural_importance = handleEmpty($_POST['cultural_importance']);
         $cultural_use = handleEmpty($_POST['cultural_use']);
 
+        // morphological characteristics
+        $plant_structure = isset($_POST['plant_structure']) ? handleEmpty($_POST['plant_structure']) : "Empty";
+        $leaves = isset($_POST['leaves']) ? handleEmpty($_POST['leaves']) : "Empty";
+        $shape = isset($_POST['shape']) ? handleEmpty($_POST['shape']) : "Empty";
+        $root_system = isset($_POST['root_system']) ? handleEmpty($_POST['root_system']) : "Empty";
+        $inflorescence = isset($_POST['inflorescence']) ? handleEmpty($_POST['inflorescence']) : "Empty";
+        $flower = isset($_POST['flower']) ? handleEmpty($_POST['flower']) : "Empty";
+        $fruits = isset($_POST['fruits']) ? handleEmpty($_POST['fruits']) : "Empty";
+        $plant_height = isset($_POST['plant_height']) ? handleEmpty($_POST['plant_height']) : "Empty";
+        $roots = isset($_POST['roots']) ? handleEmpty($_POST['roots']) : "Empty";
+        $grain = isset($_POST['grain']) ? handleEmpty($_POST['grain']) : "Empty";
+        $husk = isset($_POST['husk']) ? handleEmpty($_POST['husk']) : "Empty";
+        $plant_size = isset($_POST['plant_size']) ? handleEmpty($_POST['plant_size']) : "Empty";
+        $color = isset($_POST['color']) ? handleEmpty($_POST['color']) : "Empty";
+        $root_characteristics = isset($_POST['root_characteristics']) ? handleEmpty($_POST['root_characteristics']) : "Empty";
+        $stem_leaf_characteristics = isset($_POST['stem_leaf_characteristics']) ? handleEmpty($_POST['stem_leaf_characteristics']) : "Empty";
+        $growth_habit = isset($_POST['growth_habit']) ? handleEmpty($_POST['growth_habit']) : "Empty";
+
         // Characteristics
         $taste = handleEmpty($_POST['taste']);
         $aroma = handleEmpty($_POST['aroma']);
@@ -70,6 +88,28 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $cultural_aspect_id = $affected_rows[0];
             } else {
                 echo "Error: Cultural aspect ID not found";
+                exit(0);
+            }
+        } else {
+            echo "Error: " . pg_last_error($conn);
+            exit(0);
+        }
+
+        // query to save the Morphological Characteristics
+        $query_morphCharac = "INSERT into morphological_characteristics (plant_structure, leaves, shape, root_system, inflorescence, flower, fruits, plant_height, 
+                    roots, grain, husk, plant_size, color, root_characteristics, stem_leaf_characteristics, growth_habit) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
+                    $14, $15, $16) returning morphological_characteristics_id";
+        $query_run_morphCharac = pg_query_params($conn, $query_morphCharac, array(
+            $plant_structure, $leaves, $shape, $root_system, $inflorescence, $flower, $fruits,
+            $plant_height, $roots, $grain, $husk, $plant_size, $color, $root_characteristics, $stem_leaf_characteristics, $growth_habit
+        ));
+
+        if ($query_run_morphCharac !== false) {
+            $affected_rows = pg_fetch_row($query_run_morphCharac);
+            if ($affected_rows > 0) {
+                $morphological_characteristics_id = $affected_rows[0];
+            } else {
+                echo "Error: Morphological Characteristics ID not found";
                 exit(0);
             }
         } else {
@@ -188,12 +228,13 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
         //insert into crop table
         $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
-            crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image, category_variety_id)
-            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING crop_id";
+            crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image, category_variety_id, terrain_id)
+            VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING crop_id";
 
         $valueCrops = array(
             $crop_variety, $crop_local_name, $category_id, $newUniqueCode,
-            $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString, $category_variety_id
+            $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString, $category_variety_id,
+            $terrain_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -267,24 +308,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             exit(0);
         }
 
-        // save into Crop Field Table
-        $query_cropTerrain = "INSERT into terrain (crop_id, terrain_id) VALUES ($1, $2) returning terrain_id";
-        $query_run_cropTerrain = pg_query_params($conn, $query_cropTerrain, array($crop_id, $terrain_id));
-
-        if ($query_run_cropTerrain) {
-            // Check if any rows were affected
-            if (pg_affected_rows($query_run_cropTerrain) > 0) {
-                $row_cropTerrain = pg_fetch_row($query_run_cropTerrain);
-                $crop_terrain_id = $row_cropTerrain[0];
-            } else {
-                echo "Error: No rows affected";
-                exit(0);
-            }
-        } else {
-            echo "Error: " . pg_last_error($conn);
-            exit(0);
-        }
-
         // other category
         // if nag select og other category ang user ma save ang name sa db if wala empty lang
         $query_OtherCategory = "INSERT INTO other_category (crop_id, other_category_name) VALUES ($1, $2)";
@@ -335,7 +358,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $municipality_name = $_POST['municipality'];
             $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
             $coordinates = handleEmpty($_POST['coordinates']);
-            $terrain = handleEmpty($_POST['terrain']);
+            $terrain_id = handleEmpty($_POST['terrain_id']);
 
             $barangay_name = $_POST['barangay'];
             $user_id = $_POST['user_id'];
@@ -343,6 +366,24 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
             // Check if the array keys are set before accessing them
             $other_category_name = isset($_POST['other_category_name']) ? handleEmpty($_POST['other_category_name']) : "Empty";
+
+            // morphological characteristics
+            $plant_structure = isset($_POST['plant_structure']) ? handleEmpty($_POST['plant_structure']) : "Empty";
+            $leaves = isset($_POST['leaves']) ? handleEmpty($_POST['leaves']) : "Empty";
+            $shape = isset($_POST['shape']) ? handleEmpty($_POST['shape']) : "Empty";
+            $root_system = isset($_POST['root_system']) ? handleEmpty($_POST['root_system']) : "Empty";
+            $inflorescence = isset($_POST['inflorescence']) ? handleEmpty($_POST['inflorescence']) : "Empty";
+            $flower = isset($_POST['flower']) ? handleEmpty($_POST['flower']) : "Empty";
+            $fruits = isset($_POST['fruits']) ? handleEmpty($_POST['fruits']) : "Empty";
+            $plant_height = isset($_POST['plant_height']) ? handleEmpty($_POST['plant_height']) : "Empty";
+            $roots = isset($_POST['roots']) ? handleEmpty($_POST['roots']) : "Empty";
+            $grain = isset($_POST['grain']) ? handleEmpty($_POST['grain']) : "Empty";
+            $husk = isset($_POST['husk']) ? handleEmpty($_POST['husk']) : "Empty";
+            $plant_size = isset($_POST['plant_size']) ? handleEmpty($_POST['plant_size']) : "Empty";
+            $color = isset($_POST['color']) ? handleEmpty($_POST['color']) : "Empty";
+            $root_characteristics = isset($_POST['root_characteristics']) ? handleEmpty($_POST['root_characteristics']) : "Empty";
+            $stem_leaf_characteristics = isset($_POST['stem_leaf_characteristics']) ? handleEmpty($_POST['stem_leaf_characteristics']) : "Empty";
+            $growth_habit = isset($_POST['growth_habit']) ? handleEmpty($_POST['growth_habit']) : "Empty";
 
             // Cultural Aspect
             $cultural_significance = handleEmpty($_POST['cultural_significance']);
@@ -384,6 +425,28 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $cultural_aspect_id = $affected_rows[0];
                 } else {
                     echo "Error: Cultural aspect ID not found";
+                    exit(0);
+                }
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+
+            // query to save the Morphological Characteristics
+            $query_morphCharac = "INSERT into morphological_characteristics (plant_structure, leaves, shape, root_system, inflorescence, flower, fruits, plant_height, 
+            roots, grain, husk, plant_size, color, root_characteristics, stem_leaf_characteristics, growth_habit) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
+            $14, $15, $16) returning morphological_characteristics_id";
+            $query_run_morphCharac = pg_query_params($conn, $query_morphCharac, array(
+                $plant_structure, $leaves, $shape, $root_system, $inflorescence, $flower, $fruits,
+                $plant_height, $roots, $grain, $husk, $plant_size, $color, $root_characteristics, $stem_leaf_characteristics, $growth_habit
+            ));
+
+            if ($query_run_morphCharac !== false) {
+                $affected_rows = pg_fetch_row($query_run_morphCharac);
+                if ($affected_rows > 0) {
+                    $morphological_characteristics_id = $affected_rows[0];
+                } else {
+                    echo "Error: Morphological Characteristics ID not found";
                     exit(0);
                 }
             } else {
@@ -502,12 +565,13 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
             //insert into crop table
             $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
-                crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image, category_variety_id)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING crop_id";
+                crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image, category_variety_id, terrain_id, morphological_characteristics_id)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING crop_id";
 
             $valueCrops = array(
                 $crop_variety, $crop_local_name, $category_id, $newUniqueCode,
-                $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString, $category_variety_id
+                $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString, $category_variety_id,
+                $terrain_id, $morphological_characteristics_id
             );
             $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -581,24 +645,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 exit(0);
             }
 
-            // save into Crop Field Table
-            $query_cropTerrain = "INSERT into terrain (crop_id, terrain_id) VALUES ($1, $2) returning terrain_id";
-            $query_run_cropTerrain = pg_query_params($conn, $query_cropTerrain, array($crop_id, $terrain_id));
-
-            if ($query_run_cropTerrain) {
-                // Check if any rows were affected
-                if (pg_affected_rows($query_run_cropTerrain) > 0) {
-                    $row_cropTerrain = pg_fetch_row($query_run_cropTerrain);
-                    $terrain_id = $row_cropTerrain[0];
-                } else {
-                    echo "Error: No rows affected";
-                    exit(0);
-                }
-            } else {
-                echo "Error: " . pg_last_error($conn);
-                exit(0);
-            }
-
             // other category
             // if nag select og other category ang user ma save ang name sa db if wala empty lang
             $query_OtherCategory = "INSERT INTO other_category (crop_id, other_category_name) VALUES ($1, $2)";
@@ -643,7 +689,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 // get all the data in the form
                 $crop_variety = handleEmpty($_POST['crop_variety']);
                 $crop_local_name = handleEmpty($_POST['crop_local_name']);
-                $category_variety_id = handleEmpty($_POST['category_variety_id']);
                 // $crop_image = $_POST['crop_image[]'];
                 $crop_description = handleEmpty($_POST['crop_description']);
                 $province_name = $_POST['province'];
@@ -772,12 +817,12 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
                 // update crop table
                 $queryCrop = "UPDATE crop SET crop_variety = $1, crop_local_name = $2, crop_description = $3,
-                cultural_aspect_id = $4, meaning_of_name = $5, crop_image = $6, category_variety_id = $7
-                WHERE crop_id = $8";
+                cultural_aspect_id = $4, meaning_of_name = $5, crop_image = $6
+                WHERE crop_id = $7";
 
                 $valueCrops = array(
                     $crop_variety, $crop_local_name, $crop_description,
-                    $cultural_aspect_id, $meaning_of_name, $finalimg, $category_variety_id, $crop_id
+                    $cultural_aspect_id, $meaning_of_name, $finalimg, $crop_id
                 );
                 $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
