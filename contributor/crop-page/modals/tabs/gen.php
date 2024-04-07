@@ -52,7 +52,7 @@
 </style>
 
 <!-- GENERAL TAB -->
-<div class="fade tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
+<div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
     <!-- Category and Crop Field -->
     <div class="row mb-4">
         <!-- Category Name -->
@@ -160,7 +160,7 @@
                 <!-- label -->
                 <label for="imageInput" class="d-flex align-items-center rounded small-font mb-2">
                     <i class="fa-solid fa-image me-2"></i>
-                    <span>Seed Image</span>
+                    <span>Seed</span>
                 </label>
                 <!-- image input -->
                 <input class="mb-2 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_seed_image" single>
@@ -169,13 +169,13 @@
             </div>
         </div>
 
-        <!-- standing plant during vegetative stage image -->
+        <!-- vegetative stage image -->
         <div class="col-6">
             <div class="d-flex flex-column image-upload-container">
                 <!-- label -->
                 <label for="imageInput" class="d-flex align-items-center rounded small-font mb-2">
                     <i class="fa-solid fa-image me-2"></i>
-                    <span>standing plant during vegetative stage Image</span>
+                    <span>Vegetative Stage</span>
                 </label>
                 <!-- image input -->
                 <input class="mb-2 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_vegetative_image" single>
@@ -184,13 +184,13 @@
             </div>
         </div>
 
-        <!-- Standing Plant during reproductive stage image -->
+        <!-- reproductive stage image -->
         <div class="col">
             <div class="d-flex flex-column image-upload-container">
                 <!-- label -->
                 <label for="imageInput" class="d-flex align-items-center rounded small-font mb-2">
                     <i class="fa-solid fa-image me-2"></i>
-                    <span>Standing Plant during reproductive stage Image</span>
+                    <span>Reproductive Stage</span>
                 </label>
                 <!-- image input -->
                 <input class="mb-2 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_reproductive_image" single>
