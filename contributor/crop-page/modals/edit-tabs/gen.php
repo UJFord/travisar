@@ -41,19 +41,19 @@
     <dv class="row mb-3">
         <!-- Contributed By -->
         <div class="col">
-            <label for="firstName" class="form-label small-font">Contributed By:</label>
+            <label class="form-label small-font">Contributed By:</label>
             <h6 name="first_name" id="firstName"></h6>
         </div>
 
         <!-- Unique Code -->
         <div class="col">
-            <label for="firstName" class="form-label small-font">Unique Code:</label>
+            <label class="form-label small-font">Unique Code:</label>
             <h6 name="unique_code" id="uniqueCode"></h6>
         </div>
 
         <!-- Date created -->
         <div class="col">
-            <label for="input_dateEdit" class="form-label small-font">Date Created:</label>
+            <label class="form-label small-font">Date Created:</label>
             <h6 name="input_date" id="input_dateEdit"></h6>
         </div>
     </dv>
@@ -62,25 +62,25 @@
     <div class="row mb-3">
         <!-- Category -->
         <div class="col">
-            <label for="CategoryEdit" class="form-label small-font">Category:</label>
+            <label class="form-label small-font">Category:</label>
             <h6 name="category_id" id="CategoryEdit"></h6>
         </div>
 
         <!-- other category name if exist -->
         <div class="col" id="otherCategoryInputEdit" style="display: none;">
-            <label for="otherCategoryInputEdit" class="form-label small-font">Other Category Name:</label>
+            <label class="form-label small-font">Other Category Name:</label>
             <h6 name="other_category_name" id="otherCategoryEdit"></h6>
         </div>
 
         <!-- Category Variety -->
         <div class="col">
-            <label for="categoryVarietyEdit" class="form-label small-font">Category Variety:</label>
+            <label class="form-label small-font">Category Variety:</label>
             <h6 name="category_variety_name" id="categoryVarietyEdit"></h6>
         </div>
 
         <!-- Terrain -->
         <div class="col">
-            <label for="categoryTerrainEdit" class="form-label small-font">Terrain:</label>
+            <label class="form-label small-font">Terrain:</label>
             <h6 name="terrain_id" id="categoryTerrainEdit"></h6>
         </div>
     </div>
@@ -130,145 +130,6 @@
         <div class="col">
             <label for="description" class="form-label small-font">Description</label>
             <textarea name="crop_description" id="description" rows="2" class="form-control"></textarea>
-        </div>
-    </div>
-
-    <!-- Morphological Characteristics for corn -->
-    <div class="row mb-3" id="cornMorphEdit">
-        <!-- Plant Structure -->
-        <div class="row">
-            <div class="col-6">
-                <label for="plantStructure" class="form-label small-font">Plant Structure</label>
-                <input id="plantStructure" type="text" name="plant_structure" class="form-control">
-            </div>
-            <!-- Root System -->
-            <div class="col-6">
-                <label for="rootSystem" class="form-label small-font">Root System</label>
-                <input id="rootSystem" type="text" name="root_system" class="form-control">
-            </div>
-        </div>
-        <!-- leaves and fruit -->
-        <div class="row">
-            <div class="col-6">
-                <label for="leavesEdit" class="form-label small-font">leaves</label>
-                <input id="leavesEdit" type="text" name="leaves" class="form-control">
-            </div>
-            <div class="col">
-                <label id="fruitEdit" class="form-label small-font">Fruit</label>
-                <input id="fruitEdit" type="text" name="fruits" class="form-control">
-            </div>
-        </div>
-        <!-- Inflorescence -->
-        <div class="row">
-            <div class="col">
-                <label for="inflorescenceEdit" class="form-label small-font">Inflorescence</label>
-                <input id="inflorescenceEdit" type="text" name="inflorescence" class="form-control">
-            </div>
-            <div class="col">
-                <label for="flowersEdit" class="form-label small-font">Flowers</label>
-                <input id="flowersEdit" type="text" name="flowers" class="form-control">
-            </div>
-        </div>
-        <!-- Shape -->
-        <div class="row">
-            <div class="col-6">
-                <label for="shapeEdit" class="form-label small-font">Shape</label>
-                <input id="shapeEdit" type="text" name="shape" class="form-control">
-            </div>
-        </div>
-    </div>
-
-    
-
-    <br>
-
-    <!-- Morphological Characteristics for rice -->
-    <div class="row mb-3" id="riceMorph">
-        <!-- Plant Height -->
-        <div class="row">
-            <div class="col">
-                <label for="plantHeight" class="form-label small-font">Plant Height</label>
-                <input id="plantHeight" type="text" name="plant_height" class="form-control">
-            </div>
-            <!-- leaves -->
-            <div class="col">
-                <label for="leavesEdit" class="form-label small-font">leaves</label>
-                <input id="leavesEdit" type="text" name="leaves" class="form-control">
-            </div>
-            <!-- Roots -->
-            <div class="col">
-                <label for="rootsEdit" class="form-label small-font">Roots</label>
-                <input id="rootsEdit" type="text" name="roots" class="form-control">
-            </div>
-        </div>
-
-        <!-- Inflorescence -->
-        <div class="row">
-            <div class="col">
-                <label for="inflorescenceEdit" class="form-label small-font">Inflorescence</label>
-                <input id="inflorescenceEdit" type="text" name="inflorescence" class="form-control">
-            </div>
-            <div class="col">
-                <label for="flowersEdit" class="form-label small-font">Flowers</label>
-                <input id="flowersEdit" type="text" name="flowers" class="form-control">
-            </div>
-        </div>
-
-        <!-- Grain -->
-        <div class="row">
-            <div class="col">
-                <label for="grainEdit" class="form-label small-font">Grain</label>
-                <input id="grainEdit" type="text" name="grain" class="form-control">
-            </div>
-            <!-- Husk -->
-            <div class="col">
-                <label for="huskEdit" class="form-label small-font">Husk</label>
-                <input id="huskEdit" type="text" name="husk" class="form-control">
-            </div>
-        </div>
-    </div>
-
-    <br>
-
-    <!-- Morphological Characteristics for root crop -->
-    <div class="row mb-3" id="root_cropMorph">
-        <!-- Plant Size -->
-        <div class="row">
-            <div class="col">
-                <label for="plantSize" class="form-label small-font">Plant Size</label>
-                <input id="plantSize" type="text" name="plant_size" class="form-control">
-            </div>
-            <!-- Shape -->
-            <div class="col">
-                <label for="shapeEdit" class="form-label small-font">Shape</label>
-                <input id="shapeEdit" type="text" name="shape" class="form-control">
-            </div>
-            <!-- Color -->
-            <div class="col">
-                <label for="colorEdit" class="form-label small-font">Color</label>
-                <input id="colorEdit" type="text" name="color" class="form-control">
-            </div>
-        </div>
-
-        <!-- Root and stem and leaf Characteristics -->
-        <div class="row">
-            <!-- Stem and leaf Characteristics -->
-            <div class="col">
-                <label for="stemLeaf" class="form-label small-font">Stem and leaf Characteristics</label>
-                <input id="stemLeaf" type="text" name="stem_leaf_characteristics" class="form-control">
-            </div>
-            <!-- root characteristics -->
-            <div class="col">
-                <label for="rootChar" class="form-label small-font">Root Characteristics</label>
-                <input id="rootChar" type="text" name="root_characteristics" class="form-control">
-            </div>
-        </div>
-        <div class="row">
-            <!-- Growth Habit -->
-            <div class="col">
-                <label for="growthHabit" class="form-label small-font">Growth Habit</label>
-                <input id="growthHabit" type="text" name="growth_habit" class="form-control">
-            </div>
         </div>
     </div>
 

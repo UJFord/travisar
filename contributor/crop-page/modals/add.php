@@ -118,7 +118,8 @@
     });
 
     // Function to submit the form and refresh notifications
-    function submitForm() {m
+    function submitForm() {
+        m
         console.log('submitForm function called');
         // Get the form reference
         var form = document.getElementById('form-panel-add');
@@ -161,5 +162,100 @@
 
         // Click the tab with id 'gen-tab'
         document.getElementById(tabName + '-tab').click();
+    }
+</script>
+
+<!-- JavaScript for the select for category variety -->
+<script>
+    // JavaScript for the select for category variety
+    // Function to fetch and display initial category variety based on the initial category
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fetch varieties for the initial selected category
+        var initialCategoryId = document.getElementById('Category').value;
+        fetchVarieties(initialCategoryId);
+    });
+
+    // Function to fetch and display initial morphological characteristics based on the initial category
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fetch the initial category value
+        var initialCategoryId = document.getElementById('Category').value;
+        // Call the function to display the corresponding morphological characteristics
+        showMorphologicalCharacteristics(initialCategoryId);
+    });
+
+    // Event listener for changing the category select element
+    document.getElementById('Category').addEventListener('change', function() {
+        var selectedCategory = this.value;
+        // Call the function to display the corresponding morphological characteristics
+        showMorphologicalCharacteristics(selectedCategory);
+    });
+
+    function fetchVarieties(categoryId) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    var varieties = JSON.parse(this.responseText);
+                    populateVarieties(varieties);
+                } else {
+                    console.error('Failed to fetch varieties. Status:', this.status);
+                }
+            }
+        };
+        xhr.onerror = function() {
+            console.error('An error occurred during the request.');
+        };
+        xhr.open('GET', 'crop-page/modals/fetch/fetch_varieties.php?category_id=' + categoryId, true);
+        xhr.send();
+    }
+
+    document.getElementById('Category').addEventListener('change', function() {
+        var categoryId = this.value;
+        var categoryVarietySelect = document.getElementById('categoryVariety');
+        var categoryVarietySelectContainer = document.getElementById('category-Variety');
+        if (categoryId === '3') {
+            categoryVarietySelectContainer.style.display = 'none';
+        } else {
+            categoryVarietySelectContainer.style.display = 'block';
+            fetchVarieties(categoryId);
+        }
+
+        // Call the function to display the corresponding morphological characteristics
+        showMorphologicalCharacteristics(categoryId);
+    });
+
+    function populateVarieties(varieties) {
+        var categoryVarietySelect = document.getElementById('categoryVariety');
+        categoryVarietySelect.innerHTML = ''; // Clear existing options
+        varieties.forEach(function(variety) {
+            var option = document.createElement('option');
+            option.value = variety.category_variety_id;
+            option.text = variety.category_variety_name;
+            categoryVarietySelect.appendChild(option);
+        });
+    }
+</script>
+
+<!-- script for the morphological characteristics display -->
+<script>
+    // Function to display the morphological characteristics based on the selected category
+    function showMorphologicalCharacteristics(categoryId) {
+        var cornMorph = document.getElementById('cornMorph');
+        var riceMorph = document.getElementById('riceMorph');
+        var rootCropMorph = document.getElementById('root_cropMorph');
+
+        // Hide all morphological characteristics sections
+        cornMorph.style.display = 'none';
+        riceMorph.style.display = 'none';
+        rootCropMorph.style.display = 'none';
+
+        // Show the relevant morphological characteristics section based on selected category
+        if (categoryId === '4') {
+            cornMorph.style.display = 'block';
+        } else if (categoryId === '1') {
+            riceMorph.style.display = 'block';
+        } else if (categoryId === '2') {
+            rootCropMorph.style.display = 'block';
+        }
     }
 </script>

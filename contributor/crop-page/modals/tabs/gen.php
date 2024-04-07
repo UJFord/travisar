@@ -156,6 +156,14 @@
         </div>
     </div>
 
+    <!-- DESCRIPTION -->
+    <div class="row mb-3">
+        <div class="col">
+            <label for="desc" class="form-label small-font">Description</label>
+            <textarea name="crop_description" id="desc" rows="2" class="form-control"></textarea>
+        </div>
+    </div>
+
     <!-- image -->
     <div class="row mb-3">
         <!-- image -->
@@ -170,150 +178,6 @@
                 <input class="mb-2 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_image[]" multiple required>
                 <!-- image preview -->
                 <div class="preview-container custom-scrollbar overflow-scroll rounded border p-1" id="preview"></div>
-            </div>
-        </div>
-    </div>
-
-    <!-- DESCRIPTION -->
-    <div class="row mb-3">
-        <div class="col">
-            <label for="desc" class="form-label small-font">Description</label>
-            <textarea name="crop_description" id="desc" rows="2" class="form-control"></textarea>
-        </div>
-    </div>
-
-    <br>
-    <h4>Morphological Characteristics</h4>
-
-    <!-- Morphological Characteristics for corn -->
-    <div class="row mb-3" id="cornMorph">
-        <!-- Plant Structure -->
-        <div class="row">
-            <div class="col-6">
-                <label class="form-label small-font">Plant Structure</label>
-                <input type="text" name="plant_structure" class="form-control">
-            </div>
-            <!-- Root System -->
-            <div class="col-6">
-                <label class="form-label small-font">Root System</label>
-                <input type="text" name="root_system" class="form-control">
-            </div>
-        </div>
-        <!-- leaves and fruit -->
-        <div class="row">
-            <div class="col-6">
-                <label class="form-label small-font">leaves</label>
-                <input type="text" name="leaves" class="form-control">
-            </div>
-            <div class="col">
-                <label class="form-label small-font">Fruit</label>
-                <input type="text" name="fruits" class="form-control">
-            </div>
-        </div>
-        <!-- Inflorescence -->
-        <div class="row">
-            <div class="col">
-                <label class="form-label small-font">Inflorescence</label>
-                <input type="text" name="inflorescence" class="form-control">
-            </div>
-            <div class="col">
-                <label class="form-label small-font">Flower</label>
-                <input type="text" name="flower" class="form-control">
-            </div>
-        </div>
-        <!-- Shape -->
-        <div class="row">
-            <div class="col-6">
-                <label class="form-label small-font">Shape</label>
-                <input type="text" name="shape" class="form-control">
-            </div>
-        </div>
-    </div>
-
-    <!-- Morphological Characteristics for rice -->
-    <div class="row mb-3" id="riceMorph">
-        <!-- Plant Height -->
-        <div class="row">
-            <div class="col">
-                <label class="form-label small-font">Plant Height</label>
-                <input type="text" name="plant_height" class="form-control">
-            </div>
-            <!-- leaves -->
-            <div class="col">
-                <label class="form-label small-font">leaves</label>
-                <input type="text" name="leaves" class="form-control">
-            </div>
-            <!-- Roots -->
-            <div class="col">
-                <label class="form-label small-font">Roots</label>
-                <input type="text" name="roots" class="form-control">
-            </div>
-        </div>
-
-        <!-- Inflorescence -->
-        <div class="row">
-            <div class="col">
-                <label class="form-label small-font">Inflorescence</label>
-                <input type="text" name="inflorescence" class="form-control">
-            </div>
-            <div class="col">
-                <label class="form-label small-font">Flower</label>
-                <input type="text" name="flower" class="form-control">
-            </div>
-        </div>
-
-        <!-- Grain -->
-        <div class="row">
-            <div class="col">
-                <label class="form-label small-font">Grain</label>
-                <input type="text" name="grain" class="form-control">
-            </div>
-            <!-- Husk -->
-            <div class="col">
-                <label class="form-label small-font">Husk</label>
-                <input type="text" name="husk" class="form-control">
-            </div>
-        </div>
-    </div>
-
-    <!-- Morphological Characteristics for root crop -->
-    <div class="row mb-3" id="root_cropMorph">
-        <!-- Plant Size -->
-        <div class="row">
-            <div class="col">
-                <label class="form-label small-font">Plant Size</label>
-                <input type="text" name="plant_size" class="form-control">
-            </div>
-            <!-- Shape -->
-            <div class="col">
-                <label class="form-label small-font">Shape</label>
-                <input type="text" name="shape" class="form-control">
-            </div>
-            <!-- Color -->
-            <div class="col">
-                <label class="form-label small-font">Color</label>
-                <input type="text" name="color" class="form-control">
-            </div>
-        </div>
-
-        <!-- Root and stem and leaf Characteristics -->
-        <div class="row">
-            <!-- Stem and leaf Characteristics -->
-            <div class="col">
-                <label class="form-label small-font">Stem and leaf Characteristics</label>
-                <input type="text" name="stem_leaf_characteristics" class="form-control">
-            </div>
-            <!-- root characteristics -->
-            <div class="col">
-                <label class="form-label small-font">Root Characteristics</label>
-                <input type="text" name="root_characteristics" class="form-control">
-            </div>
-        </div>
-        <div class="row">
-            <!-- Growth Habit -->
-            <div class="col">
-                <label class="form-label small-font">Growth Habit</label>
-                <input type="text" name="growth_habit" class="form-control">
             </div>
         </div>
     </div>
@@ -410,99 +274,4 @@
             otherCategoryInput.style.display = 'none';
         }
     });
-</script>
-
-<!-- JavaScript for the select for category variety -->
-<script>
-    // JavaScript for the select for category variety
-    // Function to fetch and display initial category variety based on the initial category
-    document.addEventListener('DOMContentLoaded', function() {
-        // Fetch varieties for the initial selected category
-        var initialCategoryId = document.getElementById('Category').value;
-        fetchVarieties(initialCategoryId);
-    });
-
-    // Function to fetch and display initial morphological characteristics based on the initial category
-    document.addEventListener('DOMContentLoaded', function() {
-        // Fetch the initial category value
-        var initialCategoryId = document.getElementById('Category').value;
-        // Call the function to display the corresponding morphological characteristics
-        showMorphologicalCharacteristics(initialCategoryId);
-    });
-
-    // Event listener for changing the category select element
-    document.getElementById('Category').addEventListener('change', function() {
-        var selectedCategory = this.value;
-        // Call the function to display the corresponding morphological characteristics
-        showMorphologicalCharacteristics(selectedCategory);
-    });
-
-    function fetchVarieties(categoryId) {
-        var xhr = new XMLHttpRequest();
-        xhr.onreadystatechange = function() {
-            if (this.readyState === 4) {
-                if (this.status === 200) {
-                    var varieties = JSON.parse(this.responseText);
-                    populateVarieties(varieties);
-                } else {
-                    console.error('Failed to fetch varieties. Status:', this.status);
-                }
-            }
-        };
-        xhr.onerror = function() {
-            console.error('An error occurred during the request.');
-        };
-        xhr.open('GET', 'crop-page/modals/fetch/fetch_varieties.php?category_id=' + categoryId, true);
-        xhr.send();
-    }
-
-    document.getElementById('Category').addEventListener('change', function() {
-        var categoryId = this.value;
-        var categoryVarietySelect = document.getElementById('categoryVariety');
-        var categoryVarietySelectContainer = document.getElementById('category-Variety');
-        if (categoryId === '3') {
-            categoryVarietySelectContainer.style.display = 'none';
-        } else {
-            categoryVarietySelectContainer.style.display = 'block';
-            fetchVarieties(categoryId);
-        }
-
-        // Call the function to display the corresponding morphological characteristics
-        showMorphologicalCharacteristics(categoryId);
-    });
-
-    function populateVarieties(varieties) {
-        var categoryVarietySelect = document.getElementById('categoryVariety');
-        categoryVarietySelect.innerHTML = ''; // Clear existing options
-        varieties.forEach(function(variety) {
-            var option = document.createElement('option');
-            option.value = variety.category_variety_id;
-            option.text = variety.category_variety_name;
-            categoryVarietySelect.appendChild(option);
-        });
-    }
-</script>
-
-<!-- script for the morphological characteristics display -->
-<script>
-    // Function to display the morphological characteristics based on the selected category
-    function showMorphologicalCharacteristics(categoryId) {
-        var cornMorph = document.getElementById('cornMorph');
-        var riceMorph = document.getElementById('riceMorph');
-        var rootCropMorph = document.getElementById('root_cropMorph');
-
-        // Hide all morphological characteristics sections
-        cornMorph.style.display = 'none';
-        riceMorph.style.display = 'none';
-        rootCropMorph.style.display = 'none';
-
-        // Show the relevant morphological characteristics section based on selected category
-        if (categoryId === '4') {
-            cornMorph.style.display = 'block';
-        } else if (categoryId === '1') {
-            riceMorph.style.display = 'block';
-        } else if (categoryId === '2') {
-            rootCropMorph.style.display = 'block';
-        }
-    }
 </script>
