@@ -88,12 +88,6 @@
             </select>
         </div>
 
-        <!-- Input box for "other" category -->
-        <div class="col" id="otherCategoryInput" style="display: none;">
-            <label for="OtherCategory" class="form-label small-font">Please specify:</label>
-            <input type="text" name="other_category" id="OtherCategory" class="form-control">
-        </div>
-
         <!-- Category Variety -->
         <div class="col" id="category-Variety">
             <label for="categoryVariety" class="form-label small-font">Variety<span style="color: red;">*</span></label>
@@ -115,12 +109,6 @@
         <div class="col mb-2">
             <label class="form-label small-font">Meaning of Name(if any)</label>
             <input type="text" name="meaning_of_name" class="form-control">
-        </div>
-
-        <!-- local name -->
-        <div class="col mb-2">
-            <label class="form-label small-font">Local Name</label>
-            <input type="text" name="crop_local_name" class="form-control">
         </div>
     </div>
 
@@ -166,16 +154,46 @@
 
     <!-- image -->
     <div class="row mb-3">
-        <!-- image -->
+        <!-- Seed image -->
+        <div class="col-6">
+            <div class="d-flex flex-column image-upload-container">
+                <!-- label -->
+                <label for="imageInput" class="d-flex align-items-center rounded small-font mb-2">
+                    <i class="fa-solid fa-image me-2"></i>
+                    <span>Seed Image</span>
+                </label>
+                <!-- image input -->
+                <input class="mb-2 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_seed_image" single>
+                <!-- image preview -->
+                <div class="preview-container custom-scrollbar overflow-scroll rounded border p-1" id="preview"></div>
+            </div>
+        </div>
+
+        <!-- standing plant during vegetative stage image -->
+        <div class="col-6">
+            <div class="d-flex flex-column image-upload-container">
+                <!-- label -->
+                <label for="imageInput" class="d-flex align-items-center rounded small-font mb-2">
+                    <i class="fa-solid fa-image me-2"></i>
+                    <span>standing plant during vegetative stage Image</span>
+                </label>
+                <!-- image input -->
+                <input class="mb-2 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_vegetative_image" single>
+                <!-- image preview -->
+                <div class="preview-container custom-scrollbar overflow-scroll rounded border p-1" id="preview"></div>
+            </div>
+        </div>
+
+        <!-- Standing Plant during reproductive stage image -->
         <div class="col">
             <div class="d-flex flex-column image-upload-container">
                 <!-- label -->
                 <label for="imageInput" class="d-flex align-items-center rounded small-font mb-2">
                     <i class="fa-solid fa-image me-2"></i>
-                    <span>Crop Image <span style="color: red;">*</span></span>
+                    <span>Standing Plant during reproductive stage Image</span>
                 </label>
                 <!-- image input -->
-                <input class="mb-2 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_image[]" multiple required>
+                <input class="mb-2 form-control form-control-sm" type="file" id="imageInput" accept="image/jpeg,image/png" name="crop_reproductive_image" single>
                 <!-- image preview -->
                 <div class="preview-container custom-scrollbar overflow-scroll rounded border p-1" id="preview"></div>
             </div>
@@ -188,7 +206,6 @@
             <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc')">Next</button>
         </div>
     </div>
-
 </div>
 
 <!-- SCRIPT for add tab-->
@@ -199,6 +216,7 @@
 
     // function to display and remove the image selected
     $(document).ready(function() {
+        // preview
         $('input[type="file"]').on("change", function() {
             var files = $(this)[0].files;
             $('#preview').empty();
@@ -214,6 +232,7 @@
         //* if you input muiltiple images and you added a wrong one you can delete it
         //* this code will remove the one you deleted from existing image array
         //* and the remaining images is transfered to another array and is considered as a new input
+        //! murag ang remove nalang ata ang useful diri kay isa nalang man ang image input
         $(document).on("click", ".remove-image", function() {
             var index = $(this).data("index");
             var input = $('input[type="file"]')[0];
@@ -224,7 +243,7 @@
                     newFiles.push(files[i]);
                 }
             }
-            //* mao ni tung mag transfer sa data to another input
+            //* mao ni tung mag transfer sa data to another input pag mag remove ka og data
             var dataTransfer = new DataTransfer();
             newFiles.forEach(function(file) {
                 dataTransfer.items.add(file);
@@ -261,17 +280,4 @@
     // Call whenever content might change within the container
     previewContainer.addEventListener('DOMNodeInserted', checkForContent);
     previewContainer.addEventListener('DOMNodeRemoved', checkForContent);
-</script>
-
-<!-- JavaScript to show or hide the input box -->
-<script>
-    document.getElementById('Category').addEventListener('change', function() {
-        var otherCategoryInput = document.getElementById('otherCategoryInput');
-        var selectedCategory = document.getElementById('Category').value;
-        if (selectedCategory === '3') {
-            otherCategoryInput.style.display = 'block';
-        } else {
-            otherCategoryInput.style.display = 'none';
-        }
-    });
 </script>

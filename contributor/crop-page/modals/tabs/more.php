@@ -41,3 +41,19 @@
         </div>
     </div>
 </div>
+
+<!-- script for other in pest resistance -->
+<script>
+    // Get the "Other" checkbox and the "Other" textarea
+    const otherCheckbox = document.getElementById('corn-other-check');
+    const pestOther = document.getElementById('corn-pest-other');
+
+    // Add an event listener to the "Other" checkbox
+    otherCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            pestOther.style.display = 'block'; // Show the textarea
+        } else {
+            pestOther.style.display = 'none'; // Hide the textarea
+        }
+    });
+</script>

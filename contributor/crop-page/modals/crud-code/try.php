@@ -2,8 +2,6 @@
 session_start();
 require "../../../../functions/connections.php";
 
-// if (isset($_POST['save']) && $_SESSION['rank'] == 'curator') {
-// working nani sya pero kay naah may changes sa loc need ni sya i update
 if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
@@ -17,20 +15,19 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $crop_variety = handleEmpty($_POST['crop_variety']);
         $crop_local_name = handleEmpty($_POST['crop_local_name']);
         $category_id = $_POST['category_id'];
-        $field_id = $_POST['field_id'];
+        $category_variety_id = handleEmpty($_POST['category_variety_id']);
         $crop_description = handleEmpty($_POST['crop_description']);
         $province_name = $_POST['province'];
         $municipality_name = $_POST['municipality'];
-        $name_origin = handleEmpty($_POST['name_origin']);
-        $threats = handleEmpty($_POST['threats']);
+        $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
         $coordinates = handleEmpty($_POST['coordinates']);
+        $terrain_id = handleEmpty($_POST['terrain_id']);
 
         $barangay_name = $_POST['barangay'];
         $user_id = $_POST['user_id'];
         $status = 'pending';
 
         // Check if the array keys are set before accessing them
-        $scientific_name = isset($_POST['scientific_name']) ? handleEmpty($_POST['scientific_name']) : "Empty";
         $other_category_name = isset($_POST['other_category_name']) ? handleEmpty($_POST['other_category_name']) : "Empty";
 
         // Cultural Aspect
@@ -38,6 +35,24 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $spiritual_significance = handleEmpty($_POST['spiritual_significance']);
         $cultural_importance = handleEmpty($_POST['cultural_importance']);
         $cultural_use = handleEmpty($_POST['cultural_use']);
+
+        // morphological characteristics
+        $plant_structure = isset($_POST['plant_structure']) ? handleEmpty($_POST['plant_structure']) : "Empty";
+        $leaves = isset($_POST['leaves']) ? handleEmpty($_POST['leaves']) : "Empty";
+        $shape = isset($_POST['shape']) ? handleEmpty($_POST['shape']) : "Empty";
+        $root_system = isset($_POST['root_system']) ? handleEmpty($_POST['root_system']) : "Empty";
+        $inflorescence = isset($_POST['inflorescence']) ? handleEmpty($_POST['inflorescence']) : "Empty";
+        $flower = isset($_POST['flower']) ? handleEmpty($_POST['flower']) : "Empty";
+        $fruits = isset($_POST['fruits']) ? handleEmpty($_POST['fruits']) : "Empty";
+        $plant_height = isset($_POST['plant_height']) ? handleEmpty($_POST['plant_height']) : "Empty";
+        $roots = isset($_POST['roots']) ? handleEmpty($_POST['roots']) : "Empty";
+        $grain = isset($_POST['grain']) ? handleEmpty($_POST['grain']) : "Empty";
+        $husk = isset($_POST['husk']) ? handleEmpty($_POST['husk']) : "Empty";
+        $plant_size = isset($_POST['plant_size']) ? handleEmpty($_POST['plant_size']) : "Empty";
+        $color = isset($_POST['color']) ? handleEmpty($_POST['color']) : "Empty";
+        $root_characteristics = isset($_POST['root_characteristics']) ? handleEmpty($_POST['root_characteristics']) : "Empty";
+        $stem_leaf_characteristics = isset($_POST['stem_leaf_characteristics']) ? handleEmpty($_POST['stem_leaf_characteristics']) : "Empty";
+        $growth_habit = isset($_POST['growth_habit']) ? handleEmpty($_POST['growth_habit']) : "Empty";
 
         // Characteristics
         $taste = handleEmpty($_POST['taste']);
@@ -47,7 +62,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $diseases = handleEmpty($_POST['diseases']);
 
         // Validate the form data
-        if (empty($crop_variety) || empty($scientific_name) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
+        if (empty($crop_variety) || empty($category_variety_id) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
             throw new Exception("All fields are required.");
         }
 
@@ -73,6 +88,28 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $cultural_aspect_id = $affected_rows[0];
             } else {
                 echo "Error: Cultural aspect ID not found";
+                exit(0);
+            }
+        } else {
+            echo "Error: " . pg_last_error($conn);
+            exit(0);
+        }
+
+        // query to save the Morphological Characteristics
+        $query_morphCharac = "INSERT into morphological_characteristics (plant_structure, leaves, shape, root_system, inflorescence, flower, fruits, plant_height, 
+                    roots, grain, husk, plant_size, color, root_characteristics, stem_leaf_characteristics, growth_habit) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
+                    $14, $15, $16) returning morphological_characteristics_id";
+        $query_run_morphCharac = pg_query_params($conn, $query_morphCharac, array(
+            $plant_structure, $leaves, $shape, $root_system, $inflorescence, $flower, $fruits,
+            $plant_height, $roots, $grain, $husk, $plant_size, $color, $root_characteristics, $stem_leaf_characteristics, $growth_habit
+        ));
+
+        if ($query_run_morphCharac !== false) {
+            $affected_rows = pg_fetch_row($query_run_morphCharac);
+            if ($affected_rows > 0) {
+                $morphological_characteristics_id = $affected_rows[0];
+            } else {
+                echo "Error: Morphological Characteristics ID not found";
                 exit(0);
             }
         } else {
@@ -191,12 +228,13 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
         //insert into crop table
         $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
-            scientific_name, name_origin, crop_description, status, cultural_aspect_id, threats, user_id, crop_image)
+            crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image, category_variety_id, terrain_id)
             VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING crop_id";
 
         $valueCrops = array(
             $crop_variety, $crop_local_name, $category_id, $newUniqueCode,
-            $scientific_name, $name_origin, $crop_description, $status, $cultural_aspect_id, $threats, $user_id, $imageNamesString
+            $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString, $category_variety_id,
+            $terrain_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -270,24 +308,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             exit(0);
         }
 
-        // save into Crop Field Table
-        $query_CropField = "INSERT into crop_field (crop_id, field_id) VALUES ($1, $2) returning crop_field_id";
-        $query_run_CropField = pg_query_params($conn, $query_CropField, array($crop_id, $field_id));
-
-        if ($query_run_CropField) {
-            // Check if any rows were affected
-            if (pg_affected_rows($query_run_CropField) > 0) {
-                $row_CropField = pg_fetch_row($query_run_CropField);
-                $crop_field_id = $row_CropField[0];
-            } else {
-                echo "Error: No rows affected";
-                exit(0);
-            }
-        } else {
-            echo "Error: " . pg_last_error($conn);
-            exit(0);
-        }
-
         // other category
         // if nag select og other category ang user ma save ang name sa db if wala empty lang
         $query_OtherCategory = "INSERT INTO other_category (crop_id, other_category_name) VALUES ($1, $2)";
@@ -300,54 +320,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             echo "Error: " . pg_last_error($conn);
             exit(0);
         }
-
-        // for other info data
-        $other_info_type = [];
-        $other_info_name = [];
-        $other_info_desc = [];
-
-        // Loop through the $_POST data to extract province, municipality, and other_info_desc names
-        foreach ($_POST as $key => $value) {
-            if (strpos($key, 'other_info_type_') !== false) {
-                $other_info_type[] = $value;
-            } elseif (strpos($key, 'other_info_name_') !== false) {
-                $other_info_name[] = $value;
-            } elseif (strpos($key, 'other_info_desc_') !== false) {
-                $other_info_desc[] = $value;
-            }
-        }
-
-        // Ensure that the arrays have the same length
-        if (count($other_info_type) === count($other_info_name) && count($other_info_type) === count($other_info_desc)) {
-            // Prepare the query
-            $query = "INSERT INTO other_info (crop_id, other_info_type, other_info_name, other_info_desc) VALUES ";
-            $params = [];
-            $valueStrings = [];
-
-            // Generate placeholders and parameters for each location
-            for ($i = 0; $i < count($other_info_type); $i++) {
-                $valueStrings[] = "($" . ($i * 4 + 1) . ", $" . ($i * 4 + 2) . ", $" . ($i * 4 + 3) . ", $" . ($i * 4 + 4) . ")";
-                $params[] = $crop_id;
-                $params[] = $other_info_type[$i];
-                $params[] = $other_info_name[$i];
-                $params[] = $other_info_desc[$i];
-            }
-
-            $query .= implode(", ", $valueStrings);
-
-            // Execute the query with parameters
-            $query_run = pg_query_params($conn, $query, $params);
-
-            if ($query_run) {
-                header("location: ../../barangay.php");
-                exit; // Ensure that the script stops executing after the redirect header
-            } else {
-                echo "Error updating record"; // Display an error message if the query fails
-            }
-        } else {
-            echo "Error: Number of other_info_type, other_info_name, and other_info_desc do not match";
-        }
-
 
         // Commit the transaction if everything is successful
         pg_query($conn, "COMMIT");
@@ -380,21 +352,38 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $crop_variety = handleEmpty($_POST['crop_variety']);
             $crop_local_name = handleEmpty($_POST['crop_local_name']);
             $category_id = $_POST['category_id'];
-            $field_id = $_POST['field_id'];
+            $category_variety_id = handleEmpty($_POST['category_variety_id']);
             $crop_description = handleEmpty($_POST['crop_description']);
             $province_name = $_POST['province'];
             $municipality_name = $_POST['municipality'];
-            $name_origin = handleEmpty($_POST['name_origin']);
-            $threats = handleEmpty($_POST['threats']);
+            $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
             $coordinates = handleEmpty($_POST['coordinates']);
+            $terrain_id = handleEmpty($_POST['terrain_id']);
 
             $barangay_name = $_POST['barangay'];
             $user_id = $_POST['user_id'];
             $status = 'approved';
 
             // Check if the array keys are set before accessing them
-            $scientific_name = isset($_POST['scientific_name']) ? handleEmpty($_POST['scientific_name']) : "Empty";
             $other_category_name = isset($_POST['other_category_name']) ? handleEmpty($_POST['other_category_name']) : "Empty";
+
+            // morphological characteristics
+            $plant_structure = isset($_POST['plant_structure']) ? handleEmpty($_POST['plant_structure']) : "Empty";
+            $leaves = isset($_POST['leaves']) ? handleEmpty($_POST['leaves']) : "Empty";
+            $shape = isset($_POST['shape']) ? handleEmpty($_POST['shape']) : "Empty";
+            $root_system = isset($_POST['root_system']) ? handleEmpty($_POST['root_system']) : "Empty";
+            $inflorescence = isset($_POST['inflorescence']) ? handleEmpty($_POST['inflorescence']) : "Empty";
+            $flower = isset($_POST['flower']) ? handleEmpty($_POST['flower']) : "Empty";
+            $fruits = isset($_POST['fruits']) ? handleEmpty($_POST['fruits']) : "Empty";
+            $plant_height = isset($_POST['plant_height']) ? handleEmpty($_POST['plant_height']) : "Empty";
+            $roots = isset($_POST['roots']) ? handleEmpty($_POST['roots']) : "Empty";
+            $grain = isset($_POST['grain']) ? handleEmpty($_POST['grain']) : "Empty";
+            $husk = isset($_POST['husk']) ? handleEmpty($_POST['husk']) : "Empty";
+            $plant_size = isset($_POST['plant_size']) ? handleEmpty($_POST['plant_size']) : "Empty";
+            $color = isset($_POST['color']) ? handleEmpty($_POST['color']) : "Empty";
+            $root_characteristics = isset($_POST['root_characteristics']) ? handleEmpty($_POST['root_characteristics']) : "Empty";
+            $stem_leaf_characteristics = isset($_POST['stem_leaf_characteristics']) ? handleEmpty($_POST['stem_leaf_characteristics']) : "Empty";
+            $growth_habit = isset($_POST['growth_habit']) ? handleEmpty($_POST['growth_habit']) : "Empty";
 
             // Cultural Aspect
             $cultural_significance = handleEmpty($_POST['cultural_significance']);
@@ -410,7 +399,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $diseases = handleEmpty($_POST['diseases']);
 
             // Validate the form data
-            if (empty($crop_variety) || empty($scientific_name) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
+            if (empty($crop_variety) || empty($category_variety_id) || empty($category_id) || empty($_FILES['crop_image']['name'])) {
                 throw new Exception("All fields are required.");
             }
 
@@ -436,6 +425,28 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $cultural_aspect_id = $affected_rows[0];
                 } else {
                     echo "Error: Cultural aspect ID not found";
+                    exit(0);
+                }
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+
+            // query to save the Morphological Characteristics
+            $query_morphCharac = "INSERT into morphological_characteristics (plant_structure, leaves, shape, root_system, inflorescence, flower, fruits, plant_height, 
+            roots, grain, husk, plant_size, color, root_characteristics, stem_leaf_characteristics, growth_habit) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
+            $14, $15, $16) returning morphological_characteristics_id";
+            $query_run_morphCharac = pg_query_params($conn, $query_morphCharac, array(
+                $plant_structure, $leaves, $shape, $root_system, $inflorescence, $flower, $fruits,
+                $plant_height, $roots, $grain, $husk, $plant_size, $color, $root_characteristics, $stem_leaf_characteristics, $growth_habit
+            ));
+
+            if ($query_run_morphCharac !== false) {
+                $affected_rows = pg_fetch_row($query_run_morphCharac);
+                if ($affected_rows > 0) {
+                    $morphological_characteristics_id = $affected_rows[0];
+                } else {
+                    echo "Error: Morphological Characteristics ID not found";
                     exit(0);
                 }
             } else {
@@ -554,12 +565,13 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
             //insert into crop table
             $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
-                    scientific_name, name_origin, crop_description, status, cultural_aspect_id, threats, user_id, crop_image)
-                        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING crop_id";
+                crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image, category_variety_id, terrain_id, morphological_characteristics_id)
+                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING crop_id";
 
             $valueCrops = array(
                 $crop_variety, $crop_local_name, $category_id, $newUniqueCode,
-                $scientific_name, $name_origin, $crop_description, $status, $cultural_aspect_id, $threats, $user_id, $imageNamesString
+                $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString, $category_variety_id,
+                $terrain_id, $morphological_characteristics_id
             );
             $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -633,24 +645,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 exit(0);
             }
 
-            // save into Crop Field Table
-            $query_CropField = "INSERT into crop_field (crop_id, field_id) VALUES ($1, $2) returning crop_field_id";
-            $query_run_CropField = pg_query_params($conn, $query_CropField, array($crop_id, $field_id));
-
-            if ($query_run_CropField) {
-                // Check if any rows were affected
-                if (pg_affected_rows($query_run_CropField) > 0) {
-                    $row_CropField = pg_fetch_row($query_run_CropField);
-                    $crop_field_id = $row_CropField[0];
-                } else {
-                    echo "Error: No rows affected";
-                    exit(0);
-                }
-            } else {
-                echo "Error: " . pg_last_error($conn);
-                exit(0);
-            }
-
             // other category
             // if nag select og other category ang user ma save ang name sa db if wala empty lang
             $query_OtherCategory = "INSERT INTO other_category (crop_id, other_category_name) VALUES ($1, $2)";
@@ -665,11 +659,13 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             }
 
             // Commit the transaction if everything is successful
-            pg_query($conn, "COMMIT");
             $_SESSION['message'] = "Crop Created Successfully";
+            pg_query($conn, "COMMIT");
             header("Location: ../../../crop.php");
             exit(0);
         } catch (Exception $e) {
+            // message for error
+            $_SESSION['message'] = 'Crop not Saved';
             // Rollback the transaction if an error occurs
             pg_query($conn, "ROLLBACK");
             // Log the error message
@@ -693,28 +689,24 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 // get all the data in the form
                 $crop_variety = handleEmpty($_POST['crop_variety']);
                 $crop_local_name = handleEmpty($_POST['crop_local_name']);
-                $field_id = $_POST['field_id'];
                 // $crop_image = $_POST['crop_image[]'];
                 $crop_description = handleEmpty($_POST['crop_description']);
                 $province_name = $_POST['province'];
                 $municipality_name = $_POST['municipality'];
                 $barangay_name = $_POST['barangay'];
-                $threats = handleEmpty($_POST['threats']);
+                $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
                 $coordinates = handleEmpty($_POST['coordinates']);
                 $current_crop_image = handleEmpty($_POST['old_image']);
-
                 $status = 'approved';
 
                 // Id's
                 $crop_id = handleEmpty($_POST['crop_id']);
                 $cultural_aspect_id = handleEmpty($_POST['cultural_aspect_id']);
                 $crop_location_id = handleEmpty($_POST['crop_location_id']);
-                $crop_field_id = handleEmpty($_POST['crop_field_id']);
                 $characteristics_id = handleEmpty($_POST['characteristics_id']);
 
                 // Check if the array keys are set before accessing them
                 $role_in_maintaining_upland_ecosystem = isset($_POST['role_in_maintaining_upland_ecosystem']) ? handleEmpty($_POST['role_in_maintaining_upland_ecosystem']) : "Empty";
-                $scientific_name = isset($_POST['scientific_name']) ? handleEmpty($_POST['scientific_name']) : "Empty";
                 $unique_features = isset($_POST['unique_features']) ? handleEmpty($_POST['unique_features']) : "Empty";
                 $other_category_name = isset($_POST['other_category_name']) ? handleEmpty($_POST['other_category_name']) : "Empty";
 
@@ -762,14 +754,21 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 // Function to generate a unique image name
                 function generate_unique_image_name($ext)
                 {
-                    $image = "Crop_Image_" . rand(000, 999) . '.' . $ext;
+                    return "Crop_Image_" . rand(000, 999) . '.' . $ext;
+                }
 
-                    // Check if the image with the same name already exists in the directory
-                    while (file_exists("../img/" . $image)) {
-                        $image = "Crop_Image_" . rand(000, 999) . '.' . $ext;
+                // Function to check if an image name already exists in the database
+                function image_name_exists($conn, $image)
+                {
+                    $query = "SELECT crop_image FROM crop WHERE crop_image LIKE $1";
+                    $result = pg_query_params($conn, $query, array('%' . $image . '%'));
+
+                    if ($result === false) {
+                        return false;
                     }
 
-                    return $image;
+                    $count = pg_num_rows($result);
+                    return $count > 0;
                 }
 
                 // function to update images
@@ -781,56 +780,28 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                         $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
                         if (in_array($ext, $extension)) {
-                            // Auto rename image
-                            $image = generate_unique_image_name($ext);
-
                             // Check if the image name already exists in the database
-                            while (true) {
-                                $query = "SELECT crop_image FROM crop WHERE crop_image = $1";
-                                $result = pg_query_params($conn, $query, array($image));
+                            $image = $filename;
+                            if (image_name_exists($conn, $image)) {
+                                // If the image name exists, use the original name
+                                $uploadedImages[] = $image;
+                            } else {
+                                // Auto rename image if it doesn't exist in the database
+                                $new_image = generate_unique_image_name($ext);
+                                $source_path = $_FILES['crop_image']['tmp_name'][$key];
+                                $destination_path = "../img/" . $new_image;
 
-                                if ($result === false) {
-                                    break;
+                                // Upload the image
+                                $upload = move_uploaded_file($source_path, $destination_path);
+
+                                // Check whether the image is uploaded or not
+                                if (!$upload) {
+                                    echo "Image upload failed";
+                                    die();
                                 }
 
-                                $count = pg_num_rows($result);
-
-                                if ($count == 0) {
-                                    break;
-                                } else {
-                                    // If the image name exists, generate a new one
-                                    $image = generate_unique_image_name($ext);
-                                }
+                                $uploadedImages[] = $new_image; // Add image name to the array
                             }
-
-                            $source_path = $_FILES['crop_image']['tmp_name'][$key];
-                            $destination_path = "../img/" . $image;
-
-                            // Delete the old image if it exists
-                            if (!empty($current_crop_image)) {
-                                // Split the old image filenames by comma
-                                $old_image_filenames = explode(',', $current_crop_image);
-
-                                // Iterate over each filename and delete the file
-                                foreach ($old_image_filenames as $filename) {
-                                    $old_image_path = "../img/" . trim($filename);
-                                    if (file_exists($old_image_path)) {
-                                        unlink($old_image_path);
-                                    }
-                                }
-                            }
-
-                            // Upload the image
-                            $upload = move_uploaded_file($source_path, $destination_path);
-
-                            // Check whether the image is uploaded or not
-                            if (!$upload) {
-                                echo "Image upload failed";
-                                die();
-                            }
-
-                            $uploadedImages[] = $image; // Add image name to the array
-
                         } else {
                             // Display error message for invalid file format
                         }
@@ -839,17 +810,19 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $finalimg = implode(',', $uploadedImages);
                 } else {
                     // No new images selected, use the current ones
-                    $finalimg = $current_crop_image;
+                    $currentImages = explode(',', $current_crop_image);
+                    $uploadedImages = array_merge($uploadedImages, $currentImages);
+                    $finalimg = implode(',', $uploadedImages);
                 }
 
                 // update crop table
-                $queryCrop = "UPDATE crop SET crop_variety = $1, crop_local_name = $2, name_origin = $3,
-                scientific_name = $4, crop_description = $5, cultural_aspect_id = $6, threats = $7, crop_image = $8
-                WHERE crop_id = $9";
+                $queryCrop = "UPDATE crop SET crop_variety = $1, crop_local_name = $2, crop_description = $3,
+                cultural_aspect_id = $4, meaning_of_name = $5, crop_image = $6
+                WHERE crop_id = $7";
 
                 $valueCrops = array(
-                    $crop_variety, $crop_local_name, $name_origin,
-                    $scientific_name, $crop_description, $cultural_aspect_id, $threats, $finalimg, $crop_id
+                    $crop_variety, $crop_local_name, $crop_description,
+                    $cultural_aspect_id, $meaning_of_name, $finalimg, $crop_id
                 );
                 $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -861,8 +834,12 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 }
 
                 // characteristics table
-                $query_charac = "UPDATE characteristics SET taste = $2, aroma = $3, maturation = $4, pest = $5, diseases = $6 WHERE characteristics_id = $1 RETURNING characteristics_id";
-                $query_run_charac = pg_query_params($conn, $query_charac, array($characteristics_id, $taste, $aroma, $maturation, $pest, $diseases));
+                $query_charac = "UPDATE characteristics SET taste = $2, aroma = $3, maturation = $4, pest = $5, diseases = 
+                                $6 WHERE characteristics_id = $1 RETURNING characteristics_id";
+                $query_run_charac = pg_query_params($conn, $query_charac, array(
+                    $characteristics_id, $taste, $aroma,
+                    $maturation, $pest, $diseases
+                ));
 
                 if ($query_run_charac) {
                     // Check if any rows were affected
@@ -927,6 +904,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 header("Location: ../../../crop.php");
                 exit(0);
             } catch (Exception $e) {
+                $_SESSION['message'] = "Crop not edited";
                 // Rollback the transaction if an error occurs
                 pg_query($conn, "ROLLBACK");
                 // Handle the error

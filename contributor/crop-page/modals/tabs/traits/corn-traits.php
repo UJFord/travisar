@@ -142,8 +142,12 @@
                 <label class="form-check-label" for="corn-rats">Rats</label>
                 <input class="form-check-input" type="checkbox" name="corn_rats" id="corn-rats" value="Rats" required>
             </div>
+            <div class="col-3 form-check form-check-inline">
+                <label class="form-check-label" for="corn-other-check">other</label>
+                <input class="form-check-input" type="checkbox" id="corn-other-check" value="other" required>
+            </div>
             <!-- Other -->
-            <div class="col-12 mb-2">
+            <div class="col-12 mb-2 corn-pest-other">
                 <label for="corn-other" class="form-label small-font">Other</label>
                 <textarea name="corn_others" id="corn-other" cols="30" rows="1" class="form-control"></textarea>
             </div>
