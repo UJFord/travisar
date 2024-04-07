@@ -12,23 +12,22 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
             return empty($value) ? 'Empty' : $value;
         }
         // get all the data in the form
+        // gen.php
         $crop_variety = handleEmpty($_POST['crop_variety']);
-        $crop_local_name = handleEmpty($_POST['crop_local_name']);
         $category_id = $_POST['category_id'];
-        $category_variety_id = handleEmpty($_POST['category_variety_id']);
+        $category_variety_id = $_POST['category_variety_id'];
         $crop_description = handleEmpty($_POST['crop_description']);
+        $terrain_id = handleEmpty($_POST['terrain_id']);
+
+        // loc.php
         $province_name = $_POST['province'];
         $municipality_name = $_POST['municipality'];
         $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
         $coordinates = handleEmpty($_POST['coordinates']);
-        $terrain_id = handleEmpty($_POST['terrain_id']);
-
         $barangay_name = $_POST['barangay'];
+
         $user_id = $_POST['user_id'];
         $status = 'approved';
-
-        // Check if the array keys are set before accessing them
-        $other_category_name = isset($_POST['other_category_name']) ? handleEmpty($_POST['other_category_name']) : "Empty";
 
         // morphological characteristics
         $plant_structure = isset($_POST['plant_structure']) ? handleEmpty($_POST['plant_structure']) : "Empty";
