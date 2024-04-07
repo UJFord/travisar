@@ -21,13 +21,13 @@
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="gen-tab" data-bs-toggle="tab" data-bs-target="#gen-tab-pane" type="button" role="tab" aria-controls="gen-tab-pane" aria-selected="false"><i class="fa-solid fa-info me-1"></i>General</button>
+                            <button class="nav-link small-font modal-tab" id="gen-tab" data-bs-toggle="tab" data-bs-target="#gen-tab-pane" type="button" role="tab" aria-controls="gen-tab-pane" aria-selected="false"><i class="fa-solid fa-lightbulb me-1"></i>General</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="true"><i class="fa-solid fa-leaf me-1"></i></i>Traits</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link small-font modal-tab" id="loc-tab" data-bs-toggle="tab" data-bs-target="#loc-tab-pane" type="button" role="tab" aria-controls="loc-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot me-1"></i>Location</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link active small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="true"><i class="fa-solid fa-ellipsis me-1"></i>Morphological Traits</button>
                         </li>
                     </ul>
                     <div class="container">
@@ -37,10 +37,10 @@
                                                                         } ?>">
                             <!-- general -->
                             <?php require "tabs/gen.php" ?>
-                            <!-- location -->
-                            <?php require "tabs/loc.php" ?>
                             <!-- more optional info -->
                             <?php require "tabs/more.php" ?>
+                            <!-- location -->
+                            <?php require "tabs/loc.php" ?>
                         </div>
                     </div>
                 </div>
