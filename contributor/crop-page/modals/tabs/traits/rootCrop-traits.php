@@ -9,15 +9,15 @@
         <div class="mb-4">
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="rootCrop-height-tall">Tall</label>
-                <input class="form-check-input" type="radio" name="plant_height" id="rootCrop-height-tall" value="Tall" required>
+                <input class="form-check-input" type="radio" name="plant_height" id="rootCrop-height-tall" value="Tall">
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="rootCrop-height-average">Average</label>
-                <input class="form-check-input" type="radio" name="plant_height" id="rootCrop-height-average" value="Average" required>
+                <input class="form-check-input" type="radio" name="plant_height" id="rootCrop-height-average" value="Average">
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="rootCrop-height-short">Short</label>
-                <input class="form-check-input" type="radio" name="plant_height" id="rootCrop-height-short" value="Short" required>
+                <input class="form-check-input" type="radio" name="plant_height" id="rootCrop-height-short" value="Short">
             </div>
         </div>
     </div>
@@ -87,43 +87,43 @@
         <div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rootAphids">Root Aphids</label>
-                <input class="form-check-input" type="checkbox" name="root_aphids" id="rootAphids" value="Root Aphids" required>
+                <input class="form-check-input" type="checkbox" name="root_aphids" id="rootAphids" value="Root Aphids">
             </div>
             <div class="col-6 form-check form-check-inline">
                 <label class="form-check-label" for="root-knot-nematodes">Root-knot Nematodes (Meloidogyne spp.)</label>
-                <input class="form-check-input" type="checkbox" name="root_knot_nematodes" id="root-knot-nematodes" value="Root-knot Nematodes (Meloidogyne spp.)" required>
+                <input class="form-check-input" type="checkbox" name="root_knot_nematodes" id="root-knot-nematodes" value="Root-knot Nematodes (Meloidogyne spp.)">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rootCrop-cutworms">Cutworms</label>
-                <input class="form-check-input" type="checkbox" name="rootCrop_cutWorms" id="rootCrop-cutworms" value="Cutworms" required>
+                <input class="form-check-input" type="checkbox" name="rootCrop_cutWorms" id="rootCrop-cutworms" value="Cutworms">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rootCrop-whiteGRubs">White Grubs</label>
-                <input class="form-check-input" type="checkbox" name="white_grubs" id="rootCrop-whiteGRubs" value="White Grubs" required>
+                <input class="form-check-input" type="checkbox" name="white_grubs" id="rootCrop-whiteGRubs" value="White Grubs">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="Termites">Termites</label>
-                <input class="form-check-input" type="checkbox" name="termites" id="Termites" value="Termites" required>
+                <input class="form-check-input" type="checkbox" name="termites" id="Termites" value="Termites">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="Weevils">Weevils</label>
-                <input class="form-check-input" type="checkbox" name="weevils" id="Weevils" value="Weevils" required>
+                <input class="form-check-input" type="checkbox" name="weevils" id="Weevils" value="Weevils">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="flea-beetles">Flea Beetles</label>
-                <input class="form-check-input" type="checkbox" name="flea_beetles" id="flea-beetles" value="Flea Beetles" required>
+                <input class="form-check-input" type="checkbox" name="flea_beetles" id="flea-beetles" value="Flea Beetles">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rootCrop-snails">Snails</label>
-                <input class="form-check-input" type="checkbox" name="rootCrop_snails" id="rootCrop-snails" value="Snails" required>
+                <input class="form-check-input" type="checkbox" name="rootCrop_snails" id="rootCrop-snails" value="Snails">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rootCrop-ants">Ants</label>
-                <input class="form-check-input" type="checkbox" name="rootCrop_ants" id="rootCrop-ants" value="Ants" required>
+                <input class="form-check-input" type="checkbox" name="rootCrop_ants" id="rootCrop-ants" value="Ants">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rootCrop-rats">Rats</label>
-                <input class="form-check-input" type="checkbox" name="rootCrop_rats" id="rootCrop-rats" value="Rats" required>
+                <input class="form-check-input" type="checkbox" name="rootCrop_rats" id="rootCrop-rats" value="Rats">
             </div>
             <!-- Other -->
             <div class="col-12 mb-2">
@@ -137,15 +137,15 @@
         <div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rootCrop-Bacterial">Bacterial</label>
-                <input class="form-check-input" type="checkbox" name="bacterial" id="rootCrop-Bacterial" value="Bacterial" required>
+                <input class="form-check-input" type="checkbox" name="bacterial" id="rootCrop-Bacterial" value="Bacterial">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rootCrop-Fungus">Fungus</label>
-                <input class="form-check-input" type="checkbox" name="fungus" id="rootCrop-Fungus" value="Fungus" required>
+                <input class="form-check-input" type="checkbox" name="fungus" id="rootCrop-Fungus" value="Fungus">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rootCrop-Viral">Viral</label>
-                <input class="form-check-input" type="checkbox" name="viral" id="rootCrop-Viral" value="Viral" required>
+                <input class="form-check-input" type="checkbox" name="viral" id="rootCrop-Viral" value="Viral">
             </div>
         </div>
 
@@ -154,15 +154,15 @@
         <div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rootCrop-Drought">Drought</label>
-                <input class="form-check-input" type="checkbox" name="drought" id="rootCrop-Drought" value="Drought" required>
+                <input class="form-check-input" type="checkbox" name="drought" id="rootCrop-Drought" value="Drought">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rootCrop-Salinity">Salinity</label>
-                <input class="form-check-input" type="checkbox" name="salinity" id="rootCrop-Salinity" value="Salinity" required>
+                <input class="form-check-input" type="checkbox" name="salinity" id="rootCrop-Salinity" value="Salinity">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rootCrop-Heat">Heat</label>
-                <input class="form-check-input" type="checkbox" name="heat" id="rootCrop-Heat" value="Heat" required>
+                <input class="form-check-input" type="checkbox" name="heat" id="rootCrop-Heat" value="Heat">
             </div>
             <!-- Other -->
             <div class="col-12 mb-2">

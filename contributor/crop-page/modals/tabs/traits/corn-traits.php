@@ -10,15 +10,15 @@
         <div class="mb-4">
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="corn-height-tall">Tall</label>
-                <input class="form-check-input" type="radio" name="plant_height" id="corn-height-tall" value="Tall" required>
+                <input class="form-check-input" type="radio" name="plant_height" id="corn-height-tall" value="Tall">
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="corn-height-average">Average</label>
-                <input class="form-check-input" type="radio" name="plant_height" id="corn-height-average" value="Average" required>
+                <input class="form-check-input" type="radio" name="plant_height" id="corn-height-average" value="Average">
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="corn-height-short">Short</label>
-                <input class="form-check-input" type="radio" name="plant_height" id="corn-height-short" value="Short" required>
+                <input class="form-check-input" type="radio" name="plant_height" id="corn-height-short" value="Short">
             </div>
         </div>
     </div>
@@ -104,47 +104,47 @@
         <div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="cornBorers">Borers</label>
-                <input class="form-check-input" type="checkbox" name="corn_borers" id="cornBorers" value="Borers" required>
+                <input class="form-check-input" type="checkbox" name="corn_borers" id="cornBorers" value="Borers">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="Earworm">Earworm</label>
-                <input class="form-check-input" type="checkbox" name="earworm" id="Earworm" value="Earworm" required>
+                <input class="form-check-input" type="checkbox" name="earworm" id="Earworm" value="Earworm">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="spider-mites">Spider Mites</label>
-                <input class="form-check-input" type="checkbox" name="spider_mites" id="spider-mites" value="Spider Mites" required>
+                <input class="form-check-input" type="checkbox" name="spider_mites" id="spider-mites" value="Spider Mites">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="corn-blackBug">Black Bug</label>
-                <input class="form-check-input" type="checkbox" name="corn_black_bug" id="corn-blackBug" value="Black Bug" required>
+                <input class="form-check-input" type="checkbox" name="corn_black_bug" id="corn-blackBug" value="Black Bug">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="corn-army-worms">Army Worms</label>
-                <input class="form-check-input" type="checkbox" name="corn_army_worms" id="corn-army-worms" value="Army Worms" required>
+                <input class="form-check-input" type="checkbox" name="corn_army_worms" id="corn-army-worms" value="Army Worms">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="leaf-aphid">Leaf Aphid</label>
-                <input class="form-check-input" type="checkbox" name="leaf_aphid" id="leaf-aphid" value="Leaf Aphid" required>
+                <input class="form-check-input" type="checkbox" name="leaf_aphid" id="leaf-aphid" value="Leaf Aphid">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="corn-cutWorms">Cutworms</label>
-                <input class="form-check-input" type="checkbox" name="corn_cutWorms" id="corn-cutWorms" value="Cutworms" required>
+                <input class="form-check-input" type="checkbox" name="corn_cutWorms" id="corn-cutWorms" value="Cutworms">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rice-Birds">Birds</label>
-                <input class="form-check-input" type="checkbox" name="corn_birds" id="rice-Birds" value="Birds" required>
+                <input class="form-check-input" type="checkbox" name="corn_birds" id="rice-Birds" value="Birds">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="corn-ants">Ants</label>
-                <input class="form-check-input" type="checkbox" name="corn_ants" id="corn-ants" value="Ants" required>
+                <input class="form-check-input" type="checkbox" name="corn_ants" id="corn-ants" value="Ants">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="corn-rats">Rats</label>
-                <input class="form-check-input" type="checkbox" name="corn_rats" id="corn-rats" value="Rats" required>
+                <input class="form-check-input" type="checkbox" name="corn_rats" id="corn-rats" value="Rats">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="corn-other-check">other</label>
-                <input class="form-check-input" type="checkbox" id="corn-other-check" value="other" required>
+                <input class="form-check-input" type="checkbox" id="corn-other-check" value="other">
             </div>
             <!-- Other -->
             <div class="col-12 mb-2 corn-pest-other">
@@ -158,15 +158,15 @@
         <div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="corn-Bacterial">Bacterial</label>
-                <input class="form-check-input" type="checkbox" name="bacterial" id="corn-Bacterial" value="Bacterial" required>
+                <input class="form-check-input" type="checkbox" name="bacterial" id="corn-Bacterial" value="Bacterial">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="corn-Fungus">Fungus</label>
-                <input class="form-check-input" type="checkbox" name="fungus" id="corn-Fungus" value="Fungus" required>
+                <input class="form-check-input" type="checkbox" name="fungus" id="corn-Fungus" value="Fungus">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="corn-Viral">Viral</label>
-                <input class="form-check-input" type="checkbox" name="viral" id="corn-Viral" value="Viral" required>
+                <input class="form-check-input" type="checkbox" name="viral" id="corn-Viral" value="Viral">
             </div>
         </div>
 
@@ -175,15 +175,15 @@
         <div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="corn-Drought">Drought</label>
-                <input class="form-check-input" type="checkbox" name="drought" id="corn-Drought" value="Drought" required>
+                <input class="form-check-input" type="checkbox" name="drought" id="corn-Drought" value="Drought">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="corn-Salinity">Salinity</label>
-                <input class="form-check-input" type="checkbox" name="salinity" id="corn-Salinity" value="Salinity" required>
+                <input class="form-check-input" type="checkbox" name="salinity" id="corn-Salinity" value="Salinity">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="corn-Heat">Heat</label>
-                <input class="form-check-input" type="checkbox" name="heat" id="corn-Heat" value="Heat" required>
+                <input class="form-check-input" type="checkbox" name="heat" id="corn-Heat" value="Heat">
             </div>
             <!-- Other -->
             <div class="col-12 mb-2">

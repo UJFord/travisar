@@ -14,10 +14,10 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         // get all the data in the form
         // gen.php
         $crop_variety = handleEmpty($_POST['crop_variety']);
-        $category_id = $_POST['category_id'];
         $category_variety_id = $_POST['category_variety_id'];
         $crop_description = handleEmpty($_POST['crop_description']);
         $terrain_id = handleEmpty($_POST['terrain_id']);
+        $category_id = $_POST['category_id'];
 
         // loc.php
         $province_name = $_POST['province'];
@@ -29,161 +29,202 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $user_id = $_POST['user_id'];
         $status = 'approved';
 
-        // morphological characteristics
-        $plant_structure = isset($_POST['plant_structure']) ? handleEmpty($_POST['plant_structure']) : "Empty";
-        $leaves = isset($_POST['leaves']) ? handleEmpty($_POST['leaves']) : "Empty";
-        $shape = isset($_POST['shape']) ? handleEmpty($_POST['shape']) : "Empty";
-        $root_system = isset($_POST['root_system']) ? handleEmpty($_POST['root_system']) : "Empty";
-        $inflorescence = isset($_POST['inflorescence']) ? handleEmpty($_POST['inflorescence']) : "Empty";
-        $flower = isset($_POST['flower']) ? handleEmpty($_POST['flower']) : "Empty";
-        $fruits = isset($_POST['fruits']) ? handleEmpty($_POST['fruits']) : "Empty";
-        $plant_height = isset($_POST['plant_height']) ? handleEmpty($_POST['plant_height']) : "Empty";
-        $roots = isset($_POST['roots']) ? handleEmpty($_POST['roots']) : "Empty";
-        $grain = isset($_POST['grain']) ? handleEmpty($_POST['grain']) : "Empty";
-        $husk = isset($_POST['husk']) ? handleEmpty($_POST['husk']) : "Empty";
-        $plant_size = isset($_POST['plant_size']) ? handleEmpty($_POST['plant_size']) : "Empty";
-        $color = isset($_POST['color']) ? handleEmpty($_POST['color']) : "Empty";
-        $root_characteristics = isset($_POST['root_characteristics']) ? handleEmpty($_POST['root_characteristics']) : "Empty";
-        $stem_leaf_characteristics = isset($_POST['stem_leaf_characteristics']) ? handleEmpty($_POST['stem_leaf_characteristics']) : "Empty";
-        $growth_habit = isset($_POST['growth_habit']) ? handleEmpty($_POST['growth_habit']) : "Empty";
+        // disease resistance
+        $bacterial = isset($_POST['bacterial']) ? handleEmpty($_POST['bacterial']) : "Empty";
+        $viral = isset($_POST['viral']) ? handleEmpty($_POST['viral']) : "Empty";
+        $fungus = isset($_POST['fungus']) ? handleEmpty($_POST['fungus']) : "Empty";
 
-        // Cultural Aspect
-        $cultural_significance = handleEmpty($_POST['cultural_significance']);
-        $spiritual_significance = handleEmpty($_POST['spiritual_significance']);
-        $cultural_importance = handleEmpty($_POST['cultural_importance']);
-        $cultural_use = handleEmpty($_POST['cultural_use']);
+        // abiotic resistance
+        $drought = isset($_POST['drought']) ? handleEmpty($_POST['drought']) : "Empty";
+        $salinity = isset($_POST['salinity']) ? handleEmpty($_POST['salinity']) : "Empty";
+        $heat = isset($_POST['heat']) ? handleEmpty($_POST['heat']) : "Empty";
+        $abiotic_other = isset($_POST['abiotic_other']) ? handleEmpty($_POST['abiotic_other']) : "Empty";
 
-        // Characteristics
-        $taste = handleEmpty($_POST['taste']);
-        $aroma = handleEmpty($_POST['aroma']);
-        $maturation = handleEmpty($_POST['maturation']);
-        $pest = handleEmpty($_POST['pest']);
-        $diseases = handleEmpty($_POST['diseases']);
+        // Utilization Cultural Importance
+        $significance = isset($_POST['significance']) ? handleEmpty($_POST['significance']) : "Empty";
+        $use = isset($_POST['use']) ? handleEmpty($_POST['use']) : "Empty";
+        $indigenous_utilization = isset($_POST['indigenous_utilization']) ? handleEmpty($_POST['indigenous_utilization']) : "Empty";
+        $remarkable_features = isset($_POST['remarkable_features']) ? handleEmpty($_POST['remarkable_features']) : "Empty";
+
+        //* morphological Traits Corn
+        // Vegetative state corn
+        $corn_plant_height = isset($_POST['corn_plant_height']) ? handleEmpty($_POST['corn_plant_height']) : "Empty";
+        $corn_leaf_width = isset($_POST['corn_leaf_width']) ? handleEmpty($_POST['corn_leaf_width']) : "Empty";
+        $corn_leaf_length = isset($_POST['corn_leaf_length']) ? handleEmpty($_POST['corn_leaf_length']) : "Empty";
+        $corn_maturity_time = isset($_POST['corn_maturity_time']) ? handleEmpty($_POST['corn_maturity_time']) : "Empty";
+
+        // Reproductive state corn
+        $corn_yield_capacity = isset($_POST['corn_yield_capacity']) ? handleEmpty($_POST['corn_yield_capacity']) : "Empty";
+
+        // seed traits corn
+        $seed_length = isset($_POST['seed_length']) ? handleEmpty($_POST['seed_length']) : "Empty";
+        $seed_width = isset($_POST['seed_width']) ? handleEmpty($_POST['seed_width']) : "Empty";
+        $seed_shape = isset($_POST['seed_shape']) ? handleEmpty($_POST['seed_shape']) : "Empty";
+        $seed_color = isset($_POST['seed_color']) ? handleEmpty($_POST['seed_color']) : "Empty";
+
+        // pest resistance corn
+        $corn_borers = isset($_POST['corn_borers']) ? handleEmpty($_POST['corn_borers']) : "Empty";
+        $earworms = isset($_POST['earworms']) ? handleEmpty($_POST['earworms']) : "Empty";
+        $spider_mites = isset($_POST['spider_mites']) ? handleEmpty($_POST['spider_mites']) : "Empty";
+        $corn_black_bug = isset($_POST['corn_black_bug']) ? handleEmpty($_POST['corn_black_bug']) : "Empty";
+        $corn_army_worms = isset($_POST['corn_army_worms']) ? handleEmpty($_POST['corn_army_worms']) : "Empty";
+        $leaf_aphid = isset($_POST['leaf_aphid']) ? handleEmpty($_POST['leaf_aphid']) : "Empty";
+        $corn_cutWorms = isset($_POST['corn_cutWorms']) ? handleEmpty($_POST['corn_cutWorms']) : "Empty";
+        $corn_birds = isset($_POST['corn_birds']) ? handleEmpty($_POST['corn_birds']) : "Empty";
+        $corn_ants = isset($_POST['corn_ants']) ? handleEmpty($_POST['corn_ants']) : "Empty";
+        $corn_rats = isset($_POST['corn_rats']) ? handleEmpty($_POST['corn_rats']) : "Empty";
+        $corn_others = isset($_POST['corn_others']) ? handleEmpty($_POST['corn_others']) : "Empty";
+
+        //* morphological Traits rice
+        // Vegetative state rice
+        $rice_plant_height = isset($_POST['rice_plant_height']) ? handleEmpty($_POST['rice_plant_height']) : "Empty";
+        $rice_leaf_width = isset($_POST['rice_leaf_width']) ? handleEmpty($_POST['rice_leaf_width']) : "Empty";
+        $rice_leaf_length = isset($_POST['rice_leaf_length']) ? handleEmpty($_POST['rice_leaf_length']) : "Empty";
+        $rice_tillering_ability = isset($_POST['rice_tillering_ability']) ? handleEmpty($_POST['rice_tillering_ability']) : "Empty";
+        $rice_maturity_time = isset($_POST['rice_maturity_time']) ? handleEmpty($_POST['rice_maturity_time']) : "Empty";
+
+        // Reproductive state rice
+        $rice_yield_capacity = isset($_POST['rice_yield_capacity']) ? handleEmpty($_POST['rice_yield_capacity']) : "Empty";
+        // Panicle traits
+        $panicle_length = isset($_POST['panicle_length']) ? handleEmpty($_POST['panicle_length']) : "Empty";
+        $panicle_width = isset($_POST['panicle_width']) ? handleEmpty($_POST['panicle_width']) : "Empty";
+        $panicle_enclosed_by = isset($_POST['panicle_enclosed_by']) ? handleEmpty($_POST['panicle_enclosed_by']) : "Empty";
+        $panicle_remarkable_features = isset($_POST['panicle_remarkable_features']) ? handleEmpty($_POST['panicle_remarkable_features']) : "Empty";
+        // Flag Leaf traits rice
+        $flag_length = isset($_POST['flag_length']) ? handleEmpty($_POST['flag_length']) : "Empty";
+        $flag_width = isset($_POST['flag_width']) ? handleEmpty($_POST['flag_width']) : "Empty";
+        $purplish_stripes = isset($_POST['purplish_stripes']) ? handleEmpty($_POST['purplish_stripes']) : "Empty";
+        $pubescence = isset($_POST['pubescence']) ? handleEmpty($_POST['pubescence']) : "Empty";
+        $flag_remarkable_features = isset($_POST['flag_remarkable_features']) ? handleEmpty($_POST['flag_remarkable_features']) : "Empty";
+
+        // Sensory traits rice
+        $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : "Empty";
+        $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : "Empty";
+        $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : "Empty";
+        $volume_expansion = isset($_POST['volume_expansion']) ? handleEmpty($_POST['volume_expansion']) : "Empty";
+        $glutinous = isset($_POST['glutinous']) ? handleEmpty($_POST['glutinous']) : "Empty";
+        $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : "Empty";
+
+        // abiotic resistance rice
+        $rice_drought = isset($_POST['rice_drought']) ? handleEmpty($_POST['rice_drought']) : "Empty";
+        $rice_salinity = isset($_POST['rice_salinity']) ? handleEmpty($_POST['rice_salinity']) : "Empty";
+        $rice_heat = isset($_POST['rice_heat']) ? handleEmpty($_POST['rice_heat']) : "Empty";
+        $harmful_radiation = isset($_POST['harmful_radiation']) ? handleEmpty($_POST['harmful_radiation']) : "Empty";
+        $rice_abiotic_other = isset($_POST['rice_abiotic_other']) ? handleEmpty($_POST['rice_abiotic_other']) : "Empty";
+
+        // pest resistance rice
+        $rice_borers = isset($_POST['rice_borers']) ? handleEmpty($_POST['rice_borers']) : "Empty";
+        $rice_snail = isset($_POST['rice_snail']) ? handleEmpty($_POST['rice_snail']) : "Empty";
+        $hoppers = isset($_POST['hoppers']) ? handleEmpty($_POST['hoppers']) : "Empty";
+        $rice_black_bug = isset($_POST['rice_black_bug']) ? handleEmpty($_POST['rice_black_bug']) : "Empty";
+        $leptocorisa = isset($_POST['leptocorisa']) ? handleEmpty($_POST['leptocorisa']) : "Empty";
+        $leaf_folder = isset($_POST['leaf_folder']) ? handleEmpty($_POST['leaf_folder']) : "Empty";
+        $rice_birds = isset($_POST['rice_birds']) ? handleEmpty($_POST['rice_birds']) : "Empty";
+        $rice_ants = isset($_POST['rice_ants']) ? handleEmpty($_POST['rice_ants']) : "Empty";
+        $rice_rats = isset($_POST['rice_rats']) ? handleEmpty($_POST['rice_rats']) : "Empty";
+        $rice_army_worms = isset($_POST['rice_army_worms']) ? handleEmpty($_POST['rice_army_worms']) : "Empty";
+        $rice_others = isset($_POST['rice_others']) ? handleEmpty($_POST['rice_others']) : "Empty";
+
+        //* morphological Traits rootCrop
+        // Vegetative state rootCrop
+        $rootCrop_plant_height = isset($_POST['rootCrop_plant_height']) ? handleEmpty($_POST['rootCrop_plant_height']) : "Empty";
+        $rootCrop_leaf_width = isset($_POST['rootCrop_leaf_width']) ? handleEmpty($_POST['rootCrop_leaf_width']) : "Empty";
+        $rootCrop_leaf_length = isset($_POST['rootCrop_leaf_length']) ? handleEmpty($_POST['rootCrop_leaf_length']) : "Empty";
+        $rootCrop_stem_leaf_desc = isset($_POST['rootCrop_stem_leaf_desc']) ? handleEmpty($_POST['rootCrop_stem_leaf_desc']) : "Empty";
+        $rootCrop_maturity_time = isset($_POST['rootCrop_maturity_time']) ? handleEmpty($_POST['rootCrop_maturity_time']) : "Empty";
+
+        // pest resistance rootCrop
+        $root_Aphids = isset($_POST['root_Aphids']) ? handleEmpty($_POST['root_Aphids']) : "Empty";
+        $root_knot_nematodes = isset($_POST['root_knot_nematodes']) ? handleEmpty($_POST['root_knot_nematodes']) : "Empty";
+        $rootCrop_cutWorms = isset($_POST['rootCrop_cutWorms']) ? handleEmpty($_POST['rootCrop_cutWorms']) : "Empty";
+        $white_grubs = isset($_POST['white_grubs']) ? handleEmpty($_POST['white_grubs']) : "Empty";
+        $termites = isset($_POST['termites']) ? handleEmpty($_POST['termites']) : "Empty";
+        $weevils = isset($_POST['weevils']) ? handleEmpty($_POST['weevils']) : "Empty";
+        $flea_beetles = isset($_POST['flea_beetles']) ? handleEmpty($_POST['flea_beetles']) : "Empty";
+        $rootCrop_snails = isset($_POST['rootCrop_snails']) ? handleEmpty($_POST['rootCrop_snails']) : "Empty";
+        $rootCrop_ants = isset($_POST['rootCrop_ants']) ? handleEmpty($_POST['rootCrop_ants']) : "Empty";
+        $rootCrop_rats = isset($_POST['rootCrop_rats']) ? handleEmpty($_POST['rootCrop_rats']) : "Empty";
+        $rootCrop_others = isset($_POST['rootCrop_others']) ? handleEmpty($_POST['rootCrop_others']) : "Empty";
+
+        // rootCrop traits
+        $eating_quality = isset($_POST['eating_quality']) ? handleEmpty($_POST['eating_quality']) : "Empty";
+        $rootCrop_color = isset($_POST['rootCrop_color']) ? handleEmpty($_POST['rootCrop_color']) : "Empty";
+        $sweetness = isset($_POST['sweetness']) ? handleEmpty($_POST['sweetness']) : "Empty";
+        $rootCrop_remarkable_features = isset($_POST['rootCrop_remarkable_features']) ? handleEmpty($_POST['rootCrop_remarkable_features']) : "Empty";
 
         // Validate the form data
-        if (empty($crop_variety) || empty($category_variety_id) || empty($category_id)) {
+        if (empty($crop_variety) || empty($category_variety_id) || empty($category_id) || empty($terrain_id) || empty($province_name) || empty($municipality_name) || empty($barangay_name)) {
             throw new Exception("All fields are required.");
-        }
-
-        // Check if the image is selected
-        if (!isset($_FILES['crop_image']['name']) || !is_array($_FILES['crop_image']['name'])) {
-            throw new Exception("Please select an image.");
-        }
-
-        // Check for upload errors
-        foreach ($_FILES['crop_image']['error'] as $key => $error) {
-            if ($error !== UPLOAD_ERR_OK) {
-                throw new Exception("Image upload error: " . $error);
-            }
-        }
-
-        // query to save the cultural aspect
-        $query_CulturalAspect = "INSERT into cultural_aspect (cultural_significance, spiritual_significance, cultural_importance, cultural_use) VALUES ($1, $2, $3, $4) returning cultural_aspect_id";
-        $query_run_CulturalAspect = pg_query_params($conn, $query_CulturalAspect, array($cultural_significance, $spiritual_significance, $cultural_importance, $cultural_use));
-
-        if ($query_run_CulturalAspect !== false) {
-            $affected_rows = pg_fetch_row($query_run_CulturalAspect);
-            if ($affected_rows > 0) {
-                $cultural_aspect_id = $affected_rows[0];
-            } else {
-                echo "Error: Cultural aspect ID not found";
-                exit(0);
-            }
-        } else {
-            echo "Error: " . pg_last_error($conn);
-            exit(0);
-        }
-
-        // query to save the Morphological Characteristics
-        $query_morphCharac = "INSERT into morphological_characteristics (plant_structure, leaves, shape, root_system, inflorescence, flower, fruits, plant_height, 
-            roots, grain, husk, plant_size, color, root_characteristics, stem_leaf_characteristics, growth_habit) VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13,
-            $14, $15, $16) returning morphological_characteristics_id";
-        $query_run_morphCharac = pg_query_params($conn, $query_morphCharac, array(
-            $plant_structure, $leaves, $shape, $root_system, $inflorescence, $flower, $fruits,
-            $plant_height, $roots, $grain, $husk, $plant_size, $color, $root_characteristics, $stem_leaf_characteristics, $growth_habit
-        ));
-
-        if ($query_run_morphCharac !== false) {
-            $affected_rows = pg_fetch_row($query_run_morphCharac);
-            if ($affected_rows > 0) {
-                $morphological_characteristics_id = $affected_rows[0];
-            } else {
-                echo "Error: Morphological Characteristics ID not found";
-                exit(0);
-            }
-        } else {
-            echo "Error: " . pg_last_error($conn);
-            exit(0);
         }
 
         // Array to store uploaded image names
         $imageNamesArray = [];
 
         // Check if the image is selected
-        if (isset($_FILES['crop_image']['name']) && is_array($_FILES['crop_image']['name'])) {
-            $extension = array('jpg', 'jpeg', 'png', 'gif');
+        // if (isset($_FILES['crop_image']['name']) && is_array($_FILES['crop_image']['name'])) {
+        //     $extension = array('jpg', 'jpeg', 'png', 'gif');
 
-            foreach ($_FILES['crop_image']['name'] as $key => $value) {
-                $filename = $_FILES['crop_image']['name'][$key];
-                $filename_tmp = $_FILES['crop_image']['tmp_name'][$key];
-                $destination_path = "../img/" . $filename;
-                $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        //     foreach ($_FILES['crop_image']['name'] as $key => $value) {
+        //         $filename = $_FILES['crop_image']['name'][$key];
+        //         $filename_tmp = $_FILES['crop_image']['tmp_name'][$key];
+        //         $destination_path = "../img/" . $filename;
+        //         $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
-                $finalimg = '';
+        //         $finalimg = '';
 
-                if (in_array($ext, $extension)) {
-                    // Auto rename image
-                    $image = "Crop_image_" . rand(000, 999) . '.' . $ext;
+        //         if (in_array($ext, $extension)) {
+        //             // Auto rename image
+        //             $image = "Crop_image_" . rand(000, 999) . '.' . $ext;
 
-                    // Check if the image name already exists in the database
-                    while (true) {
-                        $query = "SELECT crop_image FROM crop WHERE crop_image = $1";
-                        $result = pg_query_params($conn, $query, array($image));
+        //             // Check if the image name already exists in the database
+        //             while (true) {
+        //                 $query = "SELECT crop_image FROM crop WHERE crop_image = $1";
+        //                 $result = pg_query_params($conn, $query, array($image));
 
-                        if ($result === false) {
-                            break;
-                        }
+        //                 if ($result === false) {
+        //                     break;
+        //                 }
 
-                        $count = pg_num_rows($result);
+        //                 $count = pg_num_rows($result);
 
-                        if ($count == 0) {
-                            break;
-                        } else {
-                            // If the image name exists, generate a new one
-                            $image = "Crop_image_" . rand(000, 999) . '.' . $ext;
-                        }
-                    }
+        //                 if ($count == 0) {
+        //                     break;
+        //                 } else {
+        //                     // If the image name exists, generate a new one
+        //                     $image = "Crop_image_" . rand(000, 999) . '.' . $ext;
+        //                 }
+        //             }
 
-                    $source_path = $_FILES['crop_image']['tmp_name'][$key];
-                    $destination_path = "../img/" . $image;
+        //             $source_path = $_FILES['crop_image']['tmp_name'][$key];
+        //             $destination_path = "../img/" . $image;
 
-                    // Upload the image
-                    $upload = move_uploaded_file($source_path, $destination_path);
+        //             // Upload the image
+        //             $upload = move_uploaded_file($source_path, $destination_path);
 
-                    // Check whether the image is uploaded or not
-                    if (!$upload) {
-                        echo "wala na upload ang image";
-                        echo "Error: " . pg_last_error($conn);
-                        die();
-                    }
+        //             // Check whether the image is uploaded or not
+        //             if (!$upload) {
+        //                 echo "wala na upload ang image";
+        //                 echo "Error: " . pg_last_error($conn);
+        //                 die();
+        //             }
 
-                    $finalimg = $image;
-                    $imageNamesArray[] = $finalimg; // Add image name to the array
-                } else {
-                    // Display error message for invalid file format
-                    echo "invalid ang file format image";
-                    echo "Error: " . pg_last_error($conn);
-                    die();
-                }
-            }
-        } else {
-            // Don't upload image and set the image value as blank
-            echo "wala image na select";
-            echo "Error: " . pg_last_error($conn);
-            die();
-        }
+        //             $finalimg = $image;
+        //             $imageNamesArray[] = $finalimg; // Add image name to the array
+        //         } else {
+        //             // Display error message for invalid file format
+        //             echo "invalid ang file format image";
+        //             echo "Error: " . pg_last_error($conn);
+        //             die();
+        //         }
+        //     }
+        // } else {
+        //     // Don't upload image and set the image value as blank
+        //     echo "wala image na select";
+        //     echo "Error: " . pg_last_error($conn);
+        //     die();
+        // }
 
-        $imageNamesString = implode(',', $imageNamesArray);
+        // $imageNamesString = implode(',', $imageNamesArray);
 
         // for creating a unique code for each crops
         // Get the latest unique_code from the crop table
@@ -225,39 +266,35 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
             $newUniqueCode = $prefix . 'V' . ($currentNumber + 1);
         }
 
+        //insert into utilization cultural table
+        $query_utilCultural = "INSERT INTO utilization_cultural_importance (significance, \"use\", indigenous_utilization, remarkable_features)
+            VALUES ($1, $2, $3, $4) RETURNING utilization_cultural_id";
+
+        $value_utilCultural = array($significance, $use, $indigenous_utilization, $remarkable_features);
+        $query_run_utilCultural = pg_query_params($conn, $query_utilCultural, $value_utilCultural);
+
+        if ($query_run_utilCultural) {
+            $row_utilCultural = pg_fetch_row($query_run_utilCultural);
+            $utilization_cultural_id = $row_utilCultural[0];
+        } else {
+            echo "Error: " . pg_last_error($conn);
+            exit(0);
+        }
+
         //insert into crop table
-        $queryCrop = "INSERT INTO crop (crop_variety, crop_local_name, category_id, unique_code,
-                crop_description, status, cultural_aspect_id, meaning_of_name, user_id, crop_image, category_variety_id, terrain_id, morphological_characteristics_id)
-                VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING crop_id";
+        $queryCrop = "INSERT INTO crop (crop_variety, crop_description, status, unique_code,
+        meaning_of_name, category_id, user_id, category_variety_id, terrain_id, utilization_cultural_id)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING crop_id";
 
         $valueCrops = array(
-            $crop_variety, $crop_local_name, $category_id, $newUniqueCode,
-            $crop_description, $status, $cultural_aspect_id, $meaning_of_name, $user_id, $imageNamesString, $category_variety_id,
-            $terrain_id, $morphological_characteristics_id
+            $crop_variety, $crop_description, $status, $newUniqueCode,
+            $meaning_of_name, $category_id, $user_id, $category_variety_id, $terrain_id, $utilization_cultural_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
         if ($query_run_Crop) {
             $row_crop = pg_fetch_row($query_run_Crop);
             $crop_id = $row_crop[0];
-        } else {
-            echo "Error: " . pg_last_error($conn);
-            exit(0);
-        }
-
-        // characteristics table
-        $query_charac = "INSERT into characteristics (crop_id, taste, aroma, maturation, pest, diseases) VALUES ($1, $2, $3, $4, $5, $6) RETURNING characteristics_id";
-        $query_run_charac = pg_query_params($conn, $query_charac, array($crop_id, $taste, $aroma, $maturation, $pest, $diseases));
-
-        if ($query_run_charac) {
-            // Check if any rows were affected
-            if (pg_affected_rows($query_run_charac) > 0) {
-                $row_charac = pg_fetch_row($query_run_charac);
-                $characteristics_id = $row_charac[0];
-            } else {
-                echo "Error: No rows affected";
-                exit(0);
-            }
         } else {
             echo "Error: " . pg_last_error($conn);
             exit(0);
@@ -307,17 +344,199 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
             exit(0);
         }
 
-        // other category
-        // if nag select og other category ang user ma save ang name sa db if wala empty lang
-        $query_OtherCategory = "INSERT INTO other_category (crop_id, other_category_name) VALUES ($1, $2)";
-        $query_run_OtherCategory = pg_query_params($conn, $query_OtherCategory, array($crop_id, $other_category_name));
+        //* for saving the morphological traits depending on the category selected
+        // get category_name
+        $get_categoryName = "SELECT category_name from category where category_id = $1";
+        $query_run_categoryName = pg_query_params($conn, $get_categoryName, array($category_id));
 
-        if ($query_run_OtherCategory) {
-            $row_OtherCategory = pg_fetch_row($query_run_OtherCategory);
-            $other_category_id = $row_OtherCategory[0];
+        if ($query_run_categoryName) {
+            $row_categoryName = pg_fetch_assoc(($query_run_categoryName));
+            $get_category_name = $row_categoryName['category_name'];
         } else {
-            echo "Error: " . pg_last_error($conn);
-            exit(0);
+            $_SESSION['message'] = "No category selected";
+            header("location: ../../../crop.php");
+            exit();
+        }
+
+        // Check the category name and perform actions accordingly
+        if ($get_category_name === 'Corn') {
+            // Handle corn category traits
+            // abiotic resistance
+            $query_abioticRes = "INSERT into abiotic_resistance (drought, salinity, heat, abiotic_other) values ($1, $2, $3, $4) returning abiotic_resistance_id";
+            $query_run_abioticRes = pg_query_params($conn, $query_abioticRes, array($drought, $salinity, $heat, $abiotic_other));
+            if ($query_run_abioticRes) {
+                $row_abioticRes = pg_fetch_row($query_run_abioticRes);
+                $abiotic_resistance_id = $row_abioticRes[0];
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+
+            // disease resistance
+            $query_diseaseRes = "INSERT into disease_resistance (bacterial, viral, fungus) values ($1, $2, $3) returning disease_resistance_id";
+            $query_run_diseaseRes = pg_query_params($conn, $query_diseaseRes, array($bacterial, $viral, $fungus));
+            if ($query_run_diseaseRes) {
+                $row_diseaseRes = pg_fetch_row($query_run_diseaseRes);
+                $disease_resistance_id = $row_diseaseRes[0];
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+
+            // pest resistance corn
+            $query_pestRes = "INSERT into pest_resistance_corn (corn_borers, earworms, spider_mites, corn_black_bug, corn_army_worms, leaf_aphid, corn_cutWorms, corn_birds, 
+            corn_ants, corn_rats, corn_others) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) returning pest_resistance_corn_id";
+            $query_run_pestRes = pg_query_params($conn, $query_pestRes, array(
+                $corn_borers, $earworms, $spider_mites, $corn_black_bug, $corn_army_worms,
+                $leaf_aphid, $corn_cutWorms, $corn_birds, $corn_ants, $corn_rats, $corn_others
+            ));
+            if ($query_run_pestRes) {
+                $row_pestRes = pg_fetch_row($query_run_pestRes);
+                $pest_resistance_corn_id = $row_pestRes[0];
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+
+            // seed traits
+            $query_seedTraits = "INSERT into seed_traits (seed_length, seed_width, seed_shape, seed_color) values ($1, $2, $3, $4) returning seed_traits_id";
+            $query_run_seedTraits = pg_query_params($conn, $query_seedTraits, array($seed_length, $seed_width, $seed_shape, $seed_color));
+            if ($query_run_seedTraits) {
+                $row_seedTraits = pg_fetch_row($query_run_seedTraits);
+                $seed_traits_id = $row_seedTraits[0];
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+
+            // reproductive state corn
+            $query_reproductiveState = "INSERT into reproductive_state_corn (corn_yield_capacity, seed_traits_id) values ($1, $2) returning reproductive_state_corn_id";
+            $query_run_reproductiveState = pg_query_params($conn, $query_reproductiveState, array($corn_yield_capacity, $seed_traits_id));
+            if ($query_run_reproductiveState) {
+                $row_reproductiveState = pg_fetch_row($query_run_reproductiveState);
+                $reproductive_state_corn_id = $row_reproductiveState[0];
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+
+            // vegetative state corn
+            $query_vegetativeState = "INSERT into vegetative_state_corn (corn_plant_height, corn_leaf_width, corn_leaf_length, corn_maturity_time) values ($1, $2, $3, $4) returning vegetative_state_corn_id";
+            $query_run_vegetativeState = pg_query_params($conn, $query_vegetativeState, array($corn_plant_height, $corn_leaf_width, $corn_leaf_length, $corn_maturity_time));
+            if ($query_run_vegetativeState) {
+                $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
+                $vegetative_state_corn_id = $row_vegetativeState[0];
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+
+            // corn traits
+            $query_cornTraits = "INSERT into corn_traits (crop_id, vegetative_state_corn_id, reproductive_state_corn_id, pest_resistance_corn_id, 
+            disease_resistance_id, abiotic_resistance_id) values ($1, $2, $3, $4, $5, $6) returning corn_traits_id";
+            $query_run_cornTraits = pg_query_params($conn, $query_cornTraits, array(
+                $crop_id, $vegetative_state_corn_id, $reproductive_state_corn_id,
+                $pest_resistance_corn_id, $disease_resistance_id, $abiotic_resistance_id
+            ));
+            if ($query_run_cornTraits) {
+                $row_cornTraits = pg_fetch_row($query_run_cornTraits);
+                $corn_traits_id = $row_cornTraits[0];
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+        } elseif ($get_category_name === 'Rice') {
+            // Handle rice category
+            // abiotic resistance
+            $query_abioticRes = "INSERT into abiotic_resistance (drought, salinity, heat, abiotic_other) values ($1, $2, $3, $4) returning abiotic_resistance_id";
+            $query_run_abioticRes = pg_query_params($conn, $query_abioticRes, array($drought, $salinity, $heat, $abiotic_other));
+            if ($query_run_abioticRes) {
+                $row_abioticRes = pg_fetch_row($query_run_abioticRes);
+                $abiotic_resistance_id = $row_abioticRes[0];
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+
+            // disease resistance
+            $query_diseaseRes = "INSERT into disease_resistance (bacterial, viral, fungus) values ($1, $2, $3) returning disease_resistance_id";
+            $query_run_diseaseRes = pg_query_params($conn, $query_diseaseRes, array($bacterial, $viral, $fungus));
+            if ($query_run_diseaseRes) {
+                $row_diseaseRes = pg_fetch_row($query_run_diseaseRes);
+                $disease_resistance_id = $row_diseaseRes[0];
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+
+            // pest resistance rice
+            $query_pestRes = "INSERT into pest_resistance_rice (rice_borers, rice_snail, hoppers, rice_black_bug, leptocorisa, leaf_folder, rice_birds, rice_ants, 
+                        rice_rats, rice_army_worms, rice_others) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) returning pest_resistance_rice_id";
+            $query_run_pestRes = pg_query_params($conn, $query_pestRes, array(
+                $rice_borers, $rice_snail, $hoppers, $rice_black_bug, $leptocorisa,
+                $leaf_folder, $rice_birds, $rice_ants, $rice_rats, $rice_army_worms, $rice_others
+            ));
+            if ($query_run_pestRes) {
+                $row_pestRes = pg_fetch_row($query_run_pestRes);
+                $pest_resistance_rice_id = $row_pestRes[0];
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+
+            // seed traits
+            $query_seedTraits = "INSERT into seed_traits (seed_length, seed_width, seed_shape, seed_color) values ($1, $2, $3, $4) returning seed_traits_id";
+            $query_run_seedTraits = pg_query_params($conn, $query_seedTraits, array($seed_length, $seed_width, $seed_shape, $seed_color));
+            if ($query_run_seedTraits) {
+                $row_seedTraits = pg_fetch_row($query_run_seedTraits);
+                $seed_traits_id = $row_seedTraits[0];
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+
+            // reproductive state rice
+            $query_reproductiveState = "INSERT into reproductive_state_rice (rice_yield_capacity, seed_traits_id) values ($1, $2) returning reproductive_state_rice_id";
+            $query_run_reproductiveState = pg_query_params($conn, $query_reproductiveState, array($rice_yield_capacity, $seed_traits_id));
+            if ($query_run_reproductiveState) {
+                $row_reproductiveState = pg_fetch_row($query_run_reproductiveState);
+                $reproductive_state_rice_id = $row_reproductiveState[0];
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+
+            // vegetative state corn
+            $query_vegetativeState = "INSERT into vegetative_state_corn (corn_plant_height, corn_leaf_width, corn_leaf_length, corn_maturity_time) values ($1, $2, $3, $4) returning vegetative_state_corn_id";
+            $query_run_vegetativeState = pg_query_params($conn, $query_vegetativeState, array($corn_plant_height, $corn_leaf_width, $corn_leaf_length, $corn_maturity_time));
+            if ($query_run_vegetativeState) {
+                $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
+                $vegetative_state_corn_id = $row_vegetativeState[0];
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+
+            // corn traits
+            $query_cornTraits = "INSERT into corn_traits (crop_id, vegetative_state_corn_id, reproductive_state_corn_id, pest_resistance_corn_id, 
+            disease_resistance_id, abiotic_resistance_id) values ($1, $2, $3, $4, $5, $6) returning corn_traits_id";
+            $query_run_cornTraits = pg_query_params($conn, $query_cornTraits, array(
+                $crop_id, $vegetative_state_corn_id, $reproductive_state_corn_id,
+                $pest_resistance_corn_id, $disease_resistance_id, $abiotic_resistance_id
+            ));
+            if ($query_run_cornTraits) {
+                $row_cornTraits = pg_fetch_row($query_run_cornTraits);
+                $corn_traits_id = $row_cornTraits[0];
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+        } elseif ($get_category_name === 'Root Crop') {
+            // Handle root crops category
+            // For example, set specific variables or perform specific database operations
+        } else {
+            // Handle other categories or invalid category names
+            // For example, set a default category or display an error message
         }
 
         // Commit the transaction if everything is successful
