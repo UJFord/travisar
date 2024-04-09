@@ -234,43 +234,43 @@
         <div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="riceBorers">Borers</label>
-                <input class="form-check-input" type="checkbox" name="rice_borers" id="riceBorers" value="Borers">
+                <input class="form-check-input" type="checkbox" name="rice_borers" id="riceBorers" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="riceSnail">Snail</label>
-                <input class="form-check-input" type="checkbox" name="rice_snail" id="riceSnail" value="Snail">
+                <input class="form-check-input" type="checkbox" name="rice_snail" id="riceSnail" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="Hoppers">Hoppers</label>
-                <input class="form-check-input" type="checkbox" name="hoppers" id="Hoppers" value="Hoppers">
+                <input class="form-check-input" type="checkbox" name="hoppers" id="Hoppers" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rice-blackBug">Rice Black Bug</label>
-                <input class="form-check-input" type="checkbox" name="rice_black_bug" id="rice-blackBug" value="Rice Black Bug">
+                <input class="form-check-input" type="checkbox" name="rice_black_bug" id="rice-blackBug" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="Leptocorisa">Leptocorisa</label>
-                <input class="form-check-input" type="checkbox" name="leptocorisa" id="Leptocorisa" value="Leptocorisa">
+                <input class="form-check-input" type="checkbox" name="leptocorisa" id="Leptocorisa" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="leaf-folder">Leaf Folder</label>
-                <input class="form-check-input" type="checkbox" name="leaf_folder" id="leaf-folder" value="Leaf Folder">
+                <input class="form-check-input" type="checkbox" name="leaf_folder" id="leaf-folder" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rice-birds">Birds</label>
-                <input class="form-check-input" type="checkbox" name="rice_birds" id="rice-birds" value="Birds">
+                <input class="form-check-input" type="checkbox" name="rice_birds" id="rice-birds" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rice-ants">Ants</label>
-                <input class="form-check-input" type="checkbox" name="rice_ants" id="rice-ants" value="Ants">
+                <input class="form-check-input" type="checkbox" name="rice_ants" id="rice-ants" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rice-Rats">Rats</label>
-                <input class="form-check-input" type="checkbox" name="rice_rats" id="rice-Rats" value="Rats">
+                <input class="form-check-input" type="checkbox" name="rice_rats" id="rice-Rats" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rice-armyWorms">Army Worms</label>
-                <input class="form-check-input" type="checkbox" name="rice_army_worms" id="rice-armyWorms" value="Army Worms">
+                <input class="form-check-input" type="checkbox" name="rice_army_worms" id="rice-armyWorms" value="1">
             </div>
             <!-- Other -->
             <div class="col-12 mb-2">
@@ -284,15 +284,15 @@
         <div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rice-Bacterial">Bacterial</label>
-                <input class="form-check-input" type="checkbox" name="rice-bacterial" id="rice-Bacterial" value="Bacterial">
+                <input class="form-check-input" type="checkbox" name="rice-bacterial" id="rice-Bacterial" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rice-Fungus">Fungus</label>
-                <input class="form-check-input" type="checkbox" name="fungus" id="rice-Fungus" value="Fungus">
+                <input class="form-check-input" type="checkbox" name="fungus" id="rice-Fungus" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rice-Viral">Viral</label>
-                <input class="form-check-input" type="checkbox" name="viral" id="rice-Viral" value="Viral">
+                <input class="form-check-input" type="checkbox" name="viral" id="rice-Viral" value="1">
             </div>
         </div>
 
@@ -301,19 +301,19 @@
         <div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="riceDrought">Drought</label>
-                <input class="form-check-input" type="checkbox" name="rice_drought" id="riceDrought" value="Drought">
+                <input class="form-check-input" type="checkbox" name="rice_drought" id="riceDrought" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="riceSalinity">Salinity</label>
-                <input class="form-check-input" type="checkbox" name="rice_salinity" id="riceSalinity" value="Salinity">
+                <input class="form-check-input" type="checkbox" name="rice_salinity" id="riceSalinity" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="riceHeat">Heat</label>
-                <input class="form-check-input" type="checkbox" name="rice_heat" id="riceHeat" value="Heat">
+                <input class="form-check-input" type="checkbox" name="rice_heat" id="riceHeat" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="harmful-radiation">Harmful Radiation</label>
-                <input class="form-check-input" type="checkbox" name="harmful_radiation" id="harmful-radiation" value="Harmful Radiation">
+                <input class="form-check-input" type="checkbox" name="harmful_radiation" id="harmful-radiation" value="1">
             </div>
             <!-- Other -->
             <div class="col-12 mb-2">

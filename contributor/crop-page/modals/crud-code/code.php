@@ -30,15 +30,15 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $status = 'approved';
 
         // disease resistance
-        $bacterial = isset($_POST['bacterial']) ? handleEmpty($_POST['bacterial']) : "Empty";
-        $viral = isset($_POST['viral']) ? handleEmpty($_POST['viral']) : "Empty";
-        $fungus = isset($_POST['fungus']) ? handleEmpty($_POST['fungus']) : "Empty";
+        $bacterial = isset($_POST['bacterial']) ? true : false;
+        $viral = isset($_POST['viral']) ? true : false;
+        $fungus = isset($_POST['fungus']) ? true : false;
 
         // abiotic resistance
-        $drought = isset($_POST['drought']) ? handleEmpty($_POST['drought']) : "Empty";
-        $salinity = isset($_POST['salinity']) ? handleEmpty($_POST['salinity']) : "Empty";
-        $heat = isset($_POST['heat']) ? handleEmpty($_POST['heat']) : "Empty";
-        $abiotic_other = isset($_POST['abiotic_other']) ? handleEmpty($_POST['abiotic_other']) : "Empty";
+        $drought = isset($_POST['drought']) ? true : false;
+        $salinity = isset($_POST['salinity']) ? true : false;
+        $heat = isset($_POST['heat']) ? true : false;
+        $abiotic_other = isset($_POST['abiotic_other']) ? true : false;
 
         // Utilization Cultural Importance
         $significance = isset($_POST['significance']) ? handleEmpty($_POST['significance']) : "Empty";
@@ -62,18 +62,18 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $seed_shape = isset($_POST['seed_shape']) ? handleEmpty($_POST['seed_shape']) : "Empty";
         $seed_color = isset($_POST['seed_color']) ? handleEmpty($_POST['seed_color']) : "Empty";
 
-        // pest resistance corn
-        $corn_borers = isset($_POST['corn_borers']) ? handleEmpty($_POST['corn_borers']) : "Empty";
-        $earworms = isset($_POST['earworms']) ? handleEmpty($_POST['earworms']) : "Empty";
-        $spider_mites = isset($_POST['spider_mites']) ? handleEmpty($_POST['spider_mites']) : "Empty";
-        $corn_black_bug = isset($_POST['corn_black_bug']) ? handleEmpty($_POST['corn_black_bug']) : "Empty";
-        $corn_army_worms = isset($_POST['corn_army_worms']) ? handleEmpty($_POST['corn_army_worms']) : "Empty";
-        $leaf_aphid = isset($_POST['leaf_aphid']) ? handleEmpty($_POST['leaf_aphid']) : "Empty";
-        $corn_cutWorms = isset($_POST['corn_cutWorms']) ? handleEmpty($_POST['corn_cutWorms']) : "Empty";
-        $corn_birds = isset($_POST['corn_birds']) ? handleEmpty($_POST['corn_birds']) : "Empty";
-        $corn_ants = isset($_POST['corn_ants']) ? handleEmpty($_POST['corn_ants']) : "Empty";
-        $corn_rats = isset($_POST['corn_rats']) ? handleEmpty($_POST['corn_rats']) : "Empty";
-        $corn_others = isset($_POST['corn_others']) ? handleEmpty($_POST['corn_others']) : "Empty";
+        // Pest resistance corn
+        echo $corn_borers = isset($_POST['corn_borers']) ? true : false;
+        echo $earworms = isset($_POST['earworms']) ? true : false;
+        echo $spider_mites = isset($_POST['spider_mites']) ? true : false;
+        echo $corn_black_bug = isset($_POST['corn_black_bug']) ? true : false;
+        echo $corn_army_worms = isset($_POST['corn_army_worms']) ? true : false;
+        echo $leaf_aphid = isset($_POST['leaf_aphid']) ? true : false;
+        echo $corn_cutWorms = isset($_POST['corn_cutWorms']) ? true : false;
+        echo $corn_birds = isset($_POST['corn_birds']) ? true : false;
+        echo $corn_ants = isset($_POST['corn_ants']) ? true : false;
+        echo $corn_rats = isset($_POST['corn_rats']) ? true : false;
+        echo $corn_others = isset($_POST['corn_others']) ? true : false;
 
         //* morphological Traits rice
         // Vegetative state rice
@@ -106,24 +106,24 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : "Empty";
 
         // abiotic resistance rice
-        $rice_drought = isset($_POST['rice_drought']) ? handleEmpty($_POST['rice_drought']) : "Empty";
-        $rice_salinity = isset($_POST['rice_salinity']) ? handleEmpty($_POST['rice_salinity']) : "Empty";
-        $rice_heat = isset($_POST['rice_heat']) ? handleEmpty($_POST['rice_heat']) : "Empty";
-        $harmful_radiation = isset($_POST['harmful_radiation']) ? handleEmpty($_POST['harmful_radiation']) : "Empty";
-        $rice_abiotic_other = isset($_POST['rice_abiotic_other']) ? handleEmpty($_POST['rice_abiotic_other']) : "Empty";
+        $rice_drought = isset($_POST['rice_drought']) ? true : false;
+        $rice_salinity = isset($_POST['rice_salinity']) ? true : false;
+        $rice_heat = isset($_POST['rice_heat']) ? true : false;
+        $harmful_radiation = isset($_POST['harmful_radiation']) ? true : false;
+        $rice_abiotic_other = isset($_POST['rice_abiotic_other']) ? true : false;
 
-        // pest resistance rice
-        $rice_borers = isset($_POST['rice_borers']) ? handleEmpty($_POST['rice_borers']) : "Empty";
-        $rice_snail = isset($_POST['rice_snail']) ? handleEmpty($_POST['rice_snail']) : "Empty";
-        $hoppers = isset($_POST['hoppers']) ? handleEmpty($_POST['hoppers']) : "Empty";
-        $rice_black_bug = isset($_POST['rice_black_bug']) ? handleEmpty($_POST['rice_black_bug']) : "Empty";
-        $leptocorisa = isset($_POST['leptocorisa']) ? handleEmpty($_POST['leptocorisa']) : "Empty";
-        $leaf_folder = isset($_POST['leaf_folder']) ? handleEmpty($_POST['leaf_folder']) : "Empty";
-        $rice_birds = isset($_POST['rice_birds']) ? handleEmpty($_POST['rice_birds']) : "Empty";
-        $rice_ants = isset($_POST['rice_ants']) ? handleEmpty($_POST['rice_ants']) : "Empty";
-        $rice_rats = isset($_POST['rice_rats']) ? handleEmpty($_POST['rice_rats']) : "Empty";
-        $rice_army_worms = isset($_POST['rice_army_worms']) ? handleEmpty($_POST['rice_army_worms']) : "Empty";
-        $rice_others = isset($_POST['rice_others']) ? handleEmpty($_POST['rice_others']) : "Empty";
+        // Pest resistance rice
+        $rice_borers = isset($_POST['rice_borers']) ? true : false;
+        $rice_snail = isset($_POST['rice_snail']) ? true : false;
+        $hoppers = isset($_POST['hoppers']) ? true : false;
+        $rice_black_bug = isset($_POST['rice_black_bug']) ? true : false;
+        $leptocorisa = isset($_POST['leptocorisa']) ? true : false;
+        $leaf_folder = isset($_POST['leaf_folder']) ? true : false;
+        $rice_birds = isset($_POST['rice_birds']) ? true : false;
+        $rice_ants = isset($_POST['rice_ants']) ? true : false;
+        $rice_rats = isset($_POST['rice_rats']) ? true : false;
+        $rice_army_worms = isset($_POST['rice_army_worms']) ? true : false;
+        $rice_others = isset($_POST['rice_others']) ? true : false;
 
         //* morphological Traits rootCrop
         // Vegetative state rootCrop
@@ -133,18 +133,18 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $rootCrop_stem_leaf_desc = isset($_POST['rootCrop_stem_leaf_desc']) ? handleEmpty($_POST['rootCrop_stem_leaf_desc']) : "Empty";
         $rootCrop_maturity_time = isset($_POST['rootCrop_maturity_time']) ? handleEmpty($_POST['rootCrop_maturity_time']) : "Empty";
 
-        // pest resistance rootCrop
-        $root_aphids = isset($_POST['root_aphids']) ? handleEmpty($_POST['root_aphids']) : "Empty";
-        $root_knot_nematodes = isset($_POST['root_knot_nematodes']) ? handleEmpty($_POST['root_knot_nematodes']) : "Empty";
-        $rootCrop_cutWorms = isset($_POST['rootCrop_cutWorms']) ? handleEmpty($_POST['rootCrop_cutWorms']) : "Empty";
-        $white_grubs = isset($_POST['white_grubs']) ? handleEmpty($_POST['white_grubs']) : "Empty";
-        $termites = isset($_POST['termites']) ? handleEmpty($_POST['termites']) : "Empty";
-        $weevils = isset($_POST['weevils']) ? handleEmpty($_POST['weevils']) : "Empty";
-        $flea_beetles = isset($_POST['flea_beetles']) ? handleEmpty($_POST['flea_beetles']) : "Empty";
-        $rootCrop_snails = isset($_POST['rootCrop_snails']) ? handleEmpty($_POST['rootCrop_snails']) : "Empty";
-        $rootCrop_ants = isset($_POST['rootCrop_ants']) ? handleEmpty($_POST['rootCrop_ants']) : "Empty";
-        $rootCrop_rats = isset($_POST['rootCrop_rats']) ? handleEmpty($_POST['rootCrop_rats']) : "Empty";
-        $rootCrop_others = isset($_POST['rootCrop_others']) ? handleEmpty($_POST['rootCrop_others']) : "Empty";
+        // Pest resistance rootCrop
+        $root_aphids = isset($_POST['root_aphids']) ? true : false;
+        $root_knot_nematodes = isset($_POST['root_knot_nematodes']) ? true : false;
+        $rootCrop_cutWorms = isset($_POST['rootCrop_cutWorms']) ? true : false;
+        $white_grubs = isset($_POST['white_grubs']) ? true : false;
+        $termites = isset($_POST['termites']) ? true : false;
+        $weevils = isset($_POST['weevils']) ? true : false;
+        $flea_beetles = isset($_POST['flea_beetles']) ? true : false;
+        $rootCrop_snails = isset($_POST['rootCrop_snails']) ? true : false;
+        $rootCrop_ants = isset($_POST['rootCrop_ants']) ? true : false;
+        $rootCrop_rats = isset($_POST['rootCrop_rats']) ? true : false;
+        $rootCrop_others = isset($_POST['rootCrop_others']) ? true : false;
 
         // rootCrop traits
         $eating_quality = isset($_POST['eating_quality']) ? handleEmpty($_POST['eating_quality']) : "Empty";
@@ -628,7 +628,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
             // root crop traits
             $query_root_CropTraits = "INSERT into root_crop_traits (crop_id, vegetative_state_rootCrop_id, rootcrop_traits_id, pest_resistance_rootcrop_id, disease_resistance_id, abiotic_resistance_id) values ($1, $2, $3, $4, $5, $6) returning root_crop_traits_id";
             $query_run_root_CropTraits = pg_query_params($conn, $query_root_CropTraits, array(
-                $crop_id, $vegetative_state_rootCrop_id, $rootcrop_traits_id, $pest_resistance_rootcrop_id, $disease_resistance_id, $abiotic_resistance_id));
+                $crop_id, $vegetative_state_rootCrop_id, $rootcrop_traits_id, $pest_resistance_rootcrop_id, $disease_resistance_id, $abiotic_resistance_id
+            ));
             if ($query_run_root_CropTraits) {
                 $row_root_CropTraits = pg_fetch_row($query_run_root_CropTraits);
                 $root_Crop_traits_id = $row_root_CropTraits[0];
