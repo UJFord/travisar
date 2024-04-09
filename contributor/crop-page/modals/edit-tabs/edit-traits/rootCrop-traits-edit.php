@@ -9,15 +9,15 @@
         <div class="mb-4">
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="rootCrop-height-tall">Tall</label>
-                <input class="form-check-input" type="radio" name="plant_height" id="rootCrop-height-tall" value="Tall">
+                <input class="form-check-input" type="radio" name="rootcrop_plant_height" id="rootCrop-height-tall" value="Tall">
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="rootCrop-height-average">Average</label>
-                <input class="form-check-input" type="radio" name="plant_height" id="rootCrop-height-average" value="Average">
+                <input class="form-check-input" type="radio" name="rootcrop_plant_height" id="rootCrop-height-average" value="Average">
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="rootCrop-height-short">Short</label>
-                <input class="form-check-input" type="radio" name="plant_height" id="rootCrop-height-short" value="Short">
+                <input class="form-check-input" type="radio" name="rootcrop_plant_height" id="rootCrop-height-short" value="Short">
             </div>
         </div>
     </div>
@@ -27,7 +27,7 @@
         <!-- leaf width -->
         <div class="col">
             <label for="rootCrop-leafWidth">Leaf Width</label>
-            <select name="leaf_width" id="rootCrop-leafWidth" class="form-select">
+            <select name="rootcrop_leaf_width" id="rootCrop-leafWidth" class="form-select">
                 <option value="Narrow">Narrow</option>
                 <option value="Average">Average</option>
                 <option value="Wide">Wide</option>
@@ -37,7 +37,7 @@
         <!-- leaf length -->
         <div class="col">
             <label for="rootCrop-leafLength">Leaf Length</label>
-            <select name="leaf_length" id="rootCrop-leafLength" class="form-select">
+            <select name="rootcrop_leaf_length" id="rootCrop-leafLength" class="form-select">
                 <option value="Short">Short</option>
                 <option value="Average">Average</option>
                 <option value="Long">Long</option>
@@ -45,19 +45,11 @@
         </div>
     </div>
 
-    <!-- stem and leaf desc -->
-    <div class="row mb-4">
-        <div class="col-12 mb-2">
-            <label for="rootCrop-steam-leaf-desc" class="form-label">Stem and Leaf Description</label>
-            <textarea name="rootCrop_stem_leaf_desc" id="rootCrop-steam-leaf-desc" cols="30" rows="1" class="form-control"></textarea>
-        </div>
-    </div>
-
     <!-- maturity time -->
     <!-- <div class="row mb-4">
         <div class="col">
             <label for="rootCrop-maturityTime">Maturity Time</label>
-            <select name="maturity_time" id="rootCrop-maturityTime" class="form-select">
+            <select name="rootcrop_maturity_time" id="rootCrop-maturityTime" class="form-select">
                 <option value="Early Maturing(3months)">Early Maturing (3months)</option>
                 <option value="Late Maturing (4-7months)">Late Maturing (4-7months)</option>
             </select>

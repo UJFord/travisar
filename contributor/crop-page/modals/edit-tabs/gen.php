@@ -85,7 +85,7 @@
         </div>
     </div>
 
-    <!-- variety name, meaning of name, and local name -->
+    <!-- variety name, meaning of name -->
     <div class="row mb-3">
         <!-- variety name -->
         <div class="col">
@@ -97,12 +97,6 @@
         <div class="col">
             <label class="form-label small-font">Meaning of Name(if any)</label>
             <input type="text" id="nameMeaning" name="meaning_of_name" class="form-control">
-        </div>
-
-        <!-- local name -->
-        <div class="col">
-            <label for="LocalName" class="form-label small-font">Local Name</label>
-            <input id="LocalName" type="text" name="crop_local_name" class="form-control">
         </div>
     </div>
 

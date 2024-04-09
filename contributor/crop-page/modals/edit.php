@@ -22,13 +22,13 @@
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active small-font modal-tab" id="edit-gen-tab" data-bs-toggle="tab" data-bs-target="#edit-gen-tab-pane" type="button" role="tab" aria-controls="edit-gen-tab-pane" aria-selected="true"><i class="fa-solid fa-info me-1"></i>General</button>
+                            <button class="nav-link active small-font modal-tab" id="edit-gen-tab" data-bs-toggle="tab" data-bs-target="#edit-gen-tab-pane" type="button" role="tab" aria-controls="edit-gen-tab-pane" aria-selected="true"><i class="fa-solid fa-lightbulb me-1"></i>General</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link small-font modal-tab" id="edit-more-tab" data-bs-toggle="tab" data-bs-target="#edit-more-tab-pane" type="button" role="tab" aria-controls="edit-more-tab-pane" aria-selected="false"><i class="fa-solid fa-leaf me-1"></i>Traits</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link small-font modal-tab" id="edit-loc-tab" data-bs-toggle="tab" data-bs-target="#edit-loc-tab-pane" type="button" role="tab" aria-controls="edit-loc-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot me-1"></i>Location</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-more-tab" data-bs-toggle="tab" data-bs-target="#edit-more-tab-pane" type="button" role="tab" aria-controls="edit-more-tab-pane" aria-selected="false"><i class="fa-solid fa-ellipsis me-1"></i>More</button>
                         </li>
                     </ul>
                     <div class="container">
@@ -141,15 +141,12 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['leaves']);
+                        console.log(value['corn_borers']);
 
-                        // Split the image filenames by comma
-                        var imageFilenames = value['crop_image'].split(',');
-
-                        // Iterate over each filename and append an image element to the preview container
-                        imageFilenames.forEach(function(filename) {
-                            $('#previewEdit').append(`<img src="crop-page/modals/img/${filename.trim()}" class="m-2 img-thumbnail" style="height: 200px;">`);
-                        });
+                        // // Iterate over each filename and append an image element to the preview container
+                        // imageFilenames.forEach(function(filename) {
+                        //     $('#previewEdit').append(`<img src="crop-page/modals/img/${filename.trim()}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                        // });
 
                         // Fetch the old image and pass it to the fetchOldImage function
                         fetchOldImage(value.crop_image);
@@ -170,13 +167,6 @@
                         // Format the input_date
                         $('#input_dateEdit').text(moment(value['input_date']).format('YYYY-MM-DD HH:mm'));
 
-                        // Check if the category is 'other' and show/hide the otherCategoryInputEdit div accordingly
-                        if (value['category_name'] === 'Other') {
-                            $('#otherCategoryInputEdit').css('display', 'block');
-                            $('#otherCategoryEdit').text(value['other_category_name']);
-                        } else {
-                            $('#otherCategoryInputEdit').css('display', 'none');
-                        }
                         $('#CategoryEdit').text(value['category_name']);
                         $('#categoryVarietyEdit').text(value['category_variety_name']);
                         $('#firstName').text(value['first_name']);
@@ -193,23 +183,75 @@
                         $('#nameMeaning').val(value['meaning_of_name']);
                         $('#rarityEdit').text(value['rarity']);
 
-                        // morph characters
-                        $('#plantStructure').val(value['plant_structure']);
-                        $('#rootSystem').val(value['root_system']);
-                        $('#leavesEdit').val(value['leaves']);
-                        $('#fruitEdit').val(value['fruits']);
-                        $('#inflorescenceEdit').val(value['inflorescence']);
-                        $('#flowersEdit').val(value['flower']);
-                        $('#shapeEdit').val(value['shape']);
-                        $('#plantHeight').val(value['plant_height']);
-                        $('#rootsEdit').val(value['roots']);
-                        $('#grainEdit').val(value['grain']);
-                        $('#huskEdit').val(value['husk']);
-                        $('#plantSize').val(value['plant_size']);
-                        $('#colorEdit').val(value['color']);
-                        $('#rootChar').val(value['root_characteristics']);
-                        $('#stemLeaf').val(value['stem_leaf_characteristics']);
-                        $('#growthHeight').val(value['growth_height']);
+                        // Utilization and Cultural Importance
+                        $('#SignificanceEdit').val(value['significance']);
+                        $('#UseEdit').val(value['use']);
+                        $('#indigenous-utilization-Edit').val(value['indigenous_utilization']);
+                        $('#remarkable-features-Edit').val(value['remarkable_features']);
+
+                        // morph traits for corn
+                        // vegetative state
+                        if (value['corn_plant_height'] === 'Tall') {
+                            $('#corn-height-tall-edit').prop('checked', true);
+                        } else if (value['corn_plant_height'] === 'Average') {
+                            $('#corn-height-average-edit').prop('checked', true);
+                        } else if (value['corn_plant_height'] === 'Short') {
+                            $('#corn-height-short-edit').prop('checked', true);
+                        }
+                        $('#corn-leafWidth-Edit').append($('<option>', {
+                            value: value['corn_leaf_width']
+                        }));
+                        $('#corn-leafLength-Edit').append($('<option>', {
+                            value: value['corn_leaf_length']
+                        }));
+
+                        // Reproductive state
+                        $('#corn-yield-capacity-Edit').val(value['corn_yield_capacity']);
+                        $('#corn-seed-length-Edit').val(value['seed_length']);
+                        $('#corn-seed-width-Edit').val(value['seed_width']);
+                        $('#corn-seed-shape-Edit').val(value['seed_shape']);
+                        $('#corn-seed-color-Edit').val(value['seed_color']);
+
+                        // pest resistance corn
+                        $('#cornBorers-Edit').prop('checked', value['corn_borers'] == 1);
+                        $('#Earworm-Edit').prop('checked', value['earworms'] == 1);
+                        $('#spider-mites-Edit').prop('checked', value['spider_mites'] == 1);
+                        $('#corn-blackBug-Edit').prop('checked', value['corn_black_bug'] == 1);
+                        $('#corn-army-worms-Edit').prop('checked', value['corn_army_worms'] == 1);
+                        $('#leaf-aphid-Edit').prop('checked', value['leaf_aphid'] == 1);
+                        $('#corn-cutWorms-Edit').prop('checked', value['corn_cutworms'] == 1);
+                        $('#rice-Birds-Edit').prop('checked', value['corn_birds'] == 1);
+                        $('#corn-ants-Edit').prop('checked', value['corn_ants'] == 1);
+                        $('#corn-rats-Edit').prop('checked', value['corn_rats'] == 1);
+                        $('#corn-other-check-Edit').prop('checked', value['corn_others'] == 1);
+                        // Show the 'Other' textarea if 'other' checkbox is checked
+                        if ($('#corn-other-check-Edit').prop('checked')) {
+                            $('.corn-pest-other').show();
+                        } else {
+                            $('.corn-pest-other').hide();
+                        }
+                        // Set the value of the 'Other' textarea
+                        $('#corn-other-Edit').val(value['corn_others_desc']);
+
+                        // disease resistance corn
+                        $('#corn-Bacterial-Edit').prop('checked', value['bacterial'] == 1);
+                        $('#corn-Fungus-Edit').prop('checked', value['fungus'] == 1);
+                        $('#corn-Viral-Edit').prop('checked', value['viral'] == 1);
+
+                        // abiotic resistance resistance corn
+                        $('#corn-Drought-Edit').prop('checked', value['drought'] == 1);
+                        $('#corn-Salinity-Edit').prop('checked', value['salnity'] == 1);
+                        $('#corn-Heat-Edit').prop('checked', value['heat'] == 1);
+                        $('#corn-abiotic-other-check-Edit').prop('checked', value['abiotic_other'] == 1);
+                        // Show the 'Other' textarea if 'other' checkbox is checked
+                        // baliktad ang if else statement kay katok ang code ambot nganuman
+                        if ($('#corn-abiotic-other-check-Edit').prop('checked')) {
+                            $('.corn-abiotic-other').hide();
+                        } else {
+                            $('.corn-abiotic-other').show();
+                        }
+                        // Set the value of the 'Other' textarea
+                        $('#corn-abiotic-other-Edit').val(value['abiotic_other_desc']);
 
                         //loc.php
                         $('#neighborhoodEdit').val(value['neighborhood']);
@@ -238,19 +280,6 @@
                             var selected = (municipality === value['municipality_name']) ? 'selected' : '';
                             $('#MunicipalitySelect').append('<option value="' + municipality + '" ' + selected + '>' + municipality + '</option>');
                         });
-
-                        // characteristics
-                        $('#TasteEdit').val(value['taste']);
-                        $('#AromaEdit').val(value['aroma']);
-                        $('#MaturationEdit').val(value['maturation']);
-                        $('#PestEdit').val(value['pest']);
-                        $('#DiseaseEdit').val(value['diseases']);
-
-                        // cultural aspect
-                        $('#Cultural-SignificanceEdit').val(value['cultural_significance']);
-                        $('#Spiritual-SignificanceEdit').val(value['spiritual_significance']);
-                        $('#Cultural-ImportanceEdit').val(value['cultural_importance']);
-                        $('#Cultural-UseEdit').val(value['cultural_use']);
 
                         // Add a marker to the map based on the coordinates if they exist
                         if (value['coordinates']) {

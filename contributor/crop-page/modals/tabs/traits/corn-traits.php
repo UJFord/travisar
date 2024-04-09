@@ -10,15 +10,15 @@
         <div class="mb-4">
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="corn-height-tall">Tall</label>
-                <input class="form-check-input" type="radio" name="plant_height" id="corn-height-tall" value="Tall">
+                <input class="form-check-input" type="radio" name="corn_plant_height" id="corn-height-tall" value="Tall">
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="corn-height-average">Average</label>
-                <input class="form-check-input" type="radio" name="plant_height" id="corn-height-average" value="Average">
+                <input class="form-check-input" type="radio" name="corn_plant_height" id="corn-height-average" value="Average">
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="corn-height-short">Short</label>
-                <input class="form-check-input" type="radio" name="plant_height" id="corn-height-short" value="Short">
+                <input class="form-check-input" type="radio" name="corn_plant_height" id="corn-height-short" value="Short">
             </div>
         </div>
     </div>
@@ -28,7 +28,7 @@
         <!-- leaf width -->
         <div class="col">
             <label for="corn-leafWidth">Leaf Width</label>
-            <select name="leaf_width" id="corn-leafWidth" class="form-select">
+            <select name="corn_leaf_width" id="corn-leafWidth" class="form-select">
                 <option value="Narrow">Narrow</option>
                 <option value="Average">Average</option>
                 <option value="Wide">Wide</option>
@@ -38,7 +38,7 @@
         <!-- leaf length -->
         <div class="col">
             <label for="corn-leafLength">Leaf Length</label>
-            <select name="leaf_length" id="corn-leafLength" class="form-select">
+            <select name="corn_leaf_length" id="corn-leafLength" class="form-select">
                 <option value="Short">Short</option>
                 <option value="Average">Average</option>
                 <option value="Long">Long</option>
@@ -63,7 +63,7 @@
     <div class="row mb-4">
         <div class="col-12 mb-2">
             <label for="corn-yield-capacity" class="form-label small-font">Yield Capacity</label>
-            <textarea name="yield_capacity" id="corn-yield-capacity" cols="30" rows="1" class="form-control"></textarea>
+            <textarea name="corn_yield_capacity" id="corn-yield-capacity" cols="30" rows="1" class="form-control"></textarea>
         </div>
     </div>
 
