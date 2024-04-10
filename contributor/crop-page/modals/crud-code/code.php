@@ -39,6 +39,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $salinity = isset($_POST['salinity']) ? true : false;
         $heat = isset($_POST['heat']) ? true : false;
         $abiotic_other = isset($_POST['abiotic_other']) ? true : false;
+        $abiotic_other_desc = isset($_POST['abiotic_other_desc']) ? handleEmpty($_POST['abiotic_other_desc']) : "Empty";
 
         // Utilization Cultural Importance
         $significance = isset($_POST['significance']) ? handleEmpty($_POST['significance']) : "Empty";
@@ -125,32 +126,33 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $rice_army_worms = isset($_POST['rice_army_worms']) ? true : false;
         $rice_others = isset($_POST['rice_others']) ? true : false;
 
-        //* morphological Traits rootCrop
-        // Vegetative state rootCrop
-        $rootCrop_plant_height = isset($_POST['rootCrop_plant_height']) ? handleEmpty($_POST['rootCrop_plant_height']) : "Empty";
-        $rootCrop_leaf_width = isset($_POST['rootCrop_leaf_width']) ? handleEmpty($_POST['rootCrop_leaf_width']) : "Empty";
-        $rootCrop_leaf_length = isset($_POST['rootCrop_leaf_length']) ? handleEmpty($_POST['rootCrop_leaf_length']) : "Empty";
-        $rootCrop_stem_leaf_desc = isset($_POST['rootCrop_stem_leaf_desc']) ? handleEmpty($_POST['rootCrop_stem_leaf_desc']) : "Empty";
-        $rootCrop_maturity_time = isset($_POST['rootCrop_maturity_time']) ? handleEmpty($_POST['rootCrop_maturity_time']) : "Empty";
+        //* morphological Traits rootcrop
+        // Vegetative state rootcrop
+        $rootcrop_plant_height = isset($_POST['rootcrop_plant_height']) ? handleEmpty($_POST['rootcrop_plant_height']) : "Empty";
+        $rootcrop_leaf_width = isset($_POST['rootcrop_leaf_width']) ? handleEmpty($_POST['rootcrop_leaf_width']) : "Empty";
+        $rootcrop_leaf_length = isset($_POST['rootcrop_leaf_length']) ? handleEmpty($_POST['rootcrop_leaf_length']) : "Empty";
+        $rootcrop_stem_leaf_desc = isset($_POST['rootcrop_stem_leaf_desc']) ? handleEmpty($_POST['rootcrop_stem_leaf_desc']) : "Empty";
+        $rootcrop_maturity_time = isset($_POST['rootcrop_maturity_time']) ? handleEmpty($_POST['rootcrop_maturity_time']) : "Empty";
 
-        // Pest resistance rootCrop
+        // Pest resistance rootcrop
         $root_aphids = isset($_POST['root_aphids']) ? true : false;
         $root_knot_nematodes = isset($_POST['root_knot_nematodes']) ? true : false;
-        $rootCrop_cutWorms = isset($_POST['rootCrop_cutWorms']) ? true : false;
+        $rootcrop_cutworms = isset($_POST['rootcrop_cutworms']) ? true : false;
         $white_grubs = isset($_POST['white_grubs']) ? true : false;
         $termites = isset($_POST['termites']) ? true : false;
         $weevils = isset($_POST['weevils']) ? true : false;
         $flea_beetles = isset($_POST['flea_beetles']) ? true : false;
-        $rootCrop_snails = isset($_POST['rootCrop_snails']) ? true : false;
-        $rootCrop_ants = isset($_POST['rootCrop_ants']) ? true : false;
-        $rootCrop_rats = isset($_POST['rootCrop_rats']) ? true : false;
-        $rootCrop_others = isset($_POST['rootCrop_others']) ? true : false;
+        $rootcrop_snails = isset($_POST['rootcrop_snails']) ? true : false;
+        $rootcrop_ants = isset($_POST['rootcrop_ants']) ? true : false;
+        $rootcrop_rats = isset($_POST['rootcrop_rats']) ? true : false;
+        $rootcrop_others = isset($_POST['rootcrop_others']) ? true : false;
+        $rootcrop_others_desc = isset($_POST['rootcrop_others_desc']) ? handleEmpty($_POST['rootcrop_others_desc']) : "Empty";
 
-        // rootCrop traits
+        // rootcrop traits
         $eating_quality = isset($_POST['eating_quality']) ? handleEmpty($_POST['eating_quality']) : "Empty";
-        $rootCrop_color = isset($_POST['rootCrop_color']) ? handleEmpty($_POST['rootCrop_color']) : "Empty";
+        $rootcrop_color = isset($_POST['rootcrop_color']) ? handleEmpty($_POST['rootcrop_color']) : "Empty";
         $sweetness = isset($_POST['sweetness']) ? handleEmpty($_POST['sweetness']) : "Empty";
-        $rootCrop_remarkable_features = isset($_POST['rootCrop_remarkable_features']) ? handleEmpty($_POST['rootCrop_remarkable_features']) : "Empty";
+        $rootcrop_remarkable_features = isset($_POST['rootcrop_remarkable_features']) ? handleEmpty($_POST['rootcrop_remarkable_features']) : "Empty";
 
         // Validate the form data
         if (empty($crop_variety) || empty($category_variety_id) || empty($category_id) || empty($terrain_id) || empty($province_name) || empty($municipality_name) || empty($barangay_name)) {
@@ -567,8 +569,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         } elseif ($get_category_name === 'Root Crop') {
             // Handle root crops category
             // abiotic resistance
-            $query_abioticRes = "INSERT into abiotic_resistance (drought, salinity, heat, abiotic_other) values ($1, $2, $3, $4) returning abiotic_resistance_id";
-            $query_run_abioticRes = pg_query_params($conn, $query_abioticRes, array($drought, $salinity, $heat, $abiotic_other));
+            $query_abioticRes = "INSERT into abiotic_resistance (drought, salinity, heat, abiotic_other, abiotic_other_desc) values ($1, $2, $3, $4, $5) returning abiotic_resistance_id";
+            $query_run_abioticRes = pg_query_params($conn, $query_abioticRes, array($drought, $salinity, $heat, $abiotic_other, $abiotic_other_desc));
             if ($query_run_abioticRes) {
                 $row_abioticRes = pg_fetch_row($query_run_abioticRes);
                 $abiotic_resistance_id = $row_abioticRes[0];
@@ -588,12 +590,12 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
                 exit(0);
             }
 
-            // pest resistance rootCrop
-            $query_pestRes = "INSERT into pest_resistance_rootcrop (root_aphids, root_knot_nematodes, rootCrop_cutWorms, white_grubs, termites, weevils, flea_beetles, rootCrop_snails, 
-                        rootCrop_ants, rootCrop_rats, rootCrop_others) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) returning pest_resistance_rootcrop_id";
+            // pest resistance rootcrop
+            $query_pestRes = "INSERT into pest_resistance_rootcrop (root_aphids, root_knot_nematodes, rootcrop_cutworms, white_grubs, termites, weevils, flea_beetles, rootcrop_snails, 
+                        rootcrop_ants, rootcrop_rats, rootcrop_others, rootcrop_others_desc) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning pest_resistance_rootcrop_id";
             $query_run_pestRes = pg_query_params($conn, $query_pestRes, array(
-                $root_aphids, $root_knot_nematodes, $rootCrop_cutWorms, $white_grubs, $termites,
-                $weevils, $flea_beetles, $rootCrop_snails, $rootCrop_ants, $rootCrop_rats, $rootCrop_others
+                $root_aphids, $root_knot_nematodes, $rootcrop_cutworms, $white_grubs, $termites,
+                $weevils, $flea_beetles, $rootcrop_snails, $rootcrop_ants, $rootcrop_rats, $rootcrop_others, $rootcrop_others_desc
             ));
             if ($query_run_pestRes) {
                 $row_pestRes = pg_fetch_row($query_run_pestRes);
@@ -603,32 +605,32 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
                 exit(0);
             }
 
-            // rootCrop traits
-            $query_rootCropTraits = "INSERT into rootcrop_traits (eating_quality, rootCrop_color, sweetness, rootCrop_remarkable_features) values ($1, $2, $3, $4) returning rootcrop_traits_id";
-            $query_run_rootCropTraits = pg_query_params($conn, $query_rootCropTraits, array($eating_quality, $rootCrop_color, $sweetness, $rootCrop_remarkable_features));
-            if ($query_run_rootCropTraits) {
-                $row_rootCropTraits = pg_fetch_row($query_run_rootCropTraits);
-                $rootcrop_traits_id = $row_rootCropTraits[0];
+            // rootcrop traits
+            $query_rootcropTraits = "INSERT into rootcrop_traits (eating_quality, rootcrop_color, sweetness, rootcrop_remarkable_features) values ($1, $2, $3, $4) returning rootcrop_traits_id";
+            $query_run_rootcropTraits = pg_query_params($conn, $query_rootcropTraits, array($eating_quality, $rootcrop_color, $sweetness, $rootcrop_remarkable_features));
+            if ($query_run_rootcropTraits) {
+                $row_rootcropTraits = pg_fetch_row($query_run_rootcropTraits);
+                $rootcrop_traits_id = $row_rootcropTraits[0];
             } else {
                 echo "Error: " . pg_last_error($conn);
                 exit(0);
             }
 
-            // vegetative state rootCrop
+            // vegetative state rootcrop
             $query_vegetativeState = "INSERT into vegetative_state_rootcrop (rootcrop_plant_height, rootcrop_leaf_width, rootcrop_leaf_length, rootcrop_stem_leaf_desc, rootcrop_maturity_time) values ($1, $2, $3, $4, $5) returning vegetative_state_rootcrop_id";
-            $query_run_vegetativeState = pg_query_params($conn, $query_vegetativeState, array($rootCrop_plant_height, $rootCrop_leaf_width, $rootCrop_leaf_length, $rootCrop_stem_leaf_desc, $rootCrop_maturity_time));
+            $query_run_vegetativeState = pg_query_params($conn, $query_vegetativeState, array($rootcrop_plant_height, $rootcrop_leaf_width, $rootcrop_leaf_length, $rootcrop_stem_leaf_desc, $rootcrop_maturity_time));
             if ($query_run_vegetativeState) {
                 $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
-                $vegetative_state_rootCrop_id = $row_vegetativeState[0];
+                $vegetative_state_rootcrop_id = $row_vegetativeState[0];
             } else {
                 echo "Error: " . pg_last_error($conn);
                 exit(0);
             }
 
             // root crop traits
-            $query_root_CropTraits = "INSERT into root_crop_traits (crop_id, vegetative_state_rootCrop_id, rootcrop_traits_id, pest_resistance_rootcrop_id, disease_resistance_id, abiotic_resistance_id) values ($1, $2, $3, $4, $5, $6) returning root_crop_traits_id";
+            $query_root_CropTraits = "INSERT into root_crop_traits (crop_id, vegetative_state_rootcrop_id, rootcrop_traits_id, pest_resistance_rootcrop_id, disease_resistance_id, abiotic_resistance_id) values ($1, $2, $3, $4, $5, $6) returning root_crop_traits_id";
             $query_run_root_CropTraits = pg_query_params($conn, $query_root_CropTraits, array(
-                $crop_id, $vegetative_state_rootCrop_id, $rootcrop_traits_id, $pest_resistance_rootcrop_id, $disease_resistance_id, $abiotic_resistance_id
+                $crop_id, $vegetative_state_rootcrop_id, $rootcrop_traits_id, $pest_resistance_rootcrop_id, $disease_resistance_id, $abiotic_resistance_id
             ));
             if ($query_run_root_CropTraits) {
                 $row_root_CropTraits = pg_fetch_row($query_run_root_CropTraits);

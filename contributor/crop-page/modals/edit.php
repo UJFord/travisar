@@ -141,7 +141,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['corn_borers']);
+                        console.log(value['abiotic_other']);
 
                         // // Iterate over each filename and append an image element to the preview container
                         // imageFilenames.forEach(function(filename) {
@@ -342,9 +342,74 @@
                             // Hide the divs for Corn and Rice
                             $('#cornMorph-Edit').hide();
                             $('#riceMorph-Edit').hide();
+
+                            // morph traits for rootCrop
+                            // vegetative state
+                            if (value['rootcrop_plant_height'] === 'Tall') {
+                                $('#rootCrop-height-tall-edit').prop('checked', true);
+                            } else if (value['rootcrop_plant_height'] === 'Average') {
+                                $('#rootCrop-height-average-edit').prop('checked', true);
+                            } else if (value['rootcrop_plant_height'] === 'Short') {
+                                $('#rootCrop-height-short-edit').prop('checked', true);
+                            }
+                            $('#rootCrop-leafWidth-Edit').append($('<option>', {
+                                value: value['rootcrop_leaf_width']
+                            }));
+                            $('#rootCrop-leafLength-Edit').append($('<option>', {
+                                value: value['rootcrop_leaf_length']
+                            }));
+                            $('#rootCrop-steam-leaf-desc-Edit').val(value['rootcrop_stem_leaf_desc']);
+
+                            // Reproductive state rootCrop
+                            // Root Crop traits
+                            $('#rootCrop-eating-quality-Edit').val(value['eating_quality']);
+                            $('#rootCrop-color-Edit').val(value['rootcrop_color']);
+                            $('#rootCrop-sweetness-Edit').val(value['sweetness']);
+                            $('#rootCrop-remarkableFeatures-Edit').val(value['rootcrop_remarkable_features']);
+
+                            // pest resistance rootCrop
+                            $('#rootAphids-Edit').prop('checked', value['root_aphids'] == 1);
+                            $('#root-knot-nematodes-Edit').prop('checked', value['root_knot_nematodes'] == 1);
+                            $('#rootCrop-cutworms-Edit').prop('checked', value['rootcrop_cutworms'] == 1);
+                            $('#rootCrop-whiteGRubs-Edit').prop('checked', value['white_grubs'] == 1);
+                            $('#Termites-Edit').prop('checked', value['termites'] == 1);
+                            $('#Weevils-Edit').prop('checked', value['weevils'] == 1);
+                            $('#flea-beetles-Edit').prop('checked', value['flea_beetles'] == 1);
+                            $('#rootCrop-snails-Edit').prop('checked', value['rootcrop_snails'] == 1);
+                            $('#rootCrop-ants-Edit').prop('checked', value['rootcrop_ants'] == 1);
+                            $('#rootCrop-rats-Edit').prop('checked', value['rootcrop_rats'] == 1);
+                            $('#rootCrop-other-check-Edit').prop('checked', value['rootcrop_others'] == 1);
+                            // Show the 'Other' textarea if 'other' checkbox is checked
+                            if ($('#rootCrop-other-check-Edit').prop('checked')) {
+                                $('.rootCrop-other').show();
+                            } else {
+                                $('.rootCrop-other').hide();
+                            }
+                            // Set the value of the 'Other' textarea
+                            $('#rootCrop-other-Edit').val(value['rootcrop_others_desc']);
+
+                            // disease resistance rootCrop
+                            $('#rootCrop-Bacterial-Edit').prop('checked', value['bacterial'] == 1);
+                            $('#rootCrop-Fungus-Edit').prop('checked', value['fungus'] == 1);
+                            $('#rootCrop-Viral-Edit').prop('checked', value['viral'] == 1);
+
+                            // abiotic resistance resistance rootCrop
+                            $('#rootCrop-Drought-Edit').prop('checked', value['drought'] == 1);
+                            $('#rootCrop-Salinity-Edit').prop('checked', value['salinity'] == 1);
+                            $('#rootCrop-Heat-Edit').prop('checked', value['heat'] == 1);
+                            $('#rootCrop-abiotic-Edit').prop('checked', value['abiotic_other'] == 1);
+                            // Show the 'Other' textarea if 'other' checkbox is checked
+                            // baliktad ang if else statement kay katok ang code ambot nganuman
+                            if ($('#rootCrop-abiotic-Edit').prop('checked')) {
+                                $('.rootCrop-abiotic-other').show();
+                            } else {
+                                $('.rootCrop-abiotic-other').hide();
+                            }
+                            // Set the value of the 'Other' textarea
+                            $('#rootCrop-abiotic-other-Edit').val(value['abiotic_other_desc']);
                         } else {
                             // Default case, hide all divs
-                            $('#cornMorph-Edit').hide();
+                            $('#corn-Edit').hide();
                             $('#riceMorph-Edit').hide();
                             $('#root_cropMorph-Edit').hide();
                         }

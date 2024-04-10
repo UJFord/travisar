@@ -4,7 +4,8 @@
     <?php require "crop-page/modals/edit-tabs/edit-traits/corn-traits-edit.php" ?>
     <!-- rice morphological traits -->
     <?php require "crop-page/modals/edit-tabs/edit-traits/rice-traits-edit.php" ?>
-    
+    <!-- rootCrop morphological traits -->
+    <?php require "crop-page/modals/edit-tabs/edit-traits/rootCrop-traits-edit.php" ?>
     <!-- Utilization ang Cultural Importance-->
     <div class="row mb-4">
         <label class="form-label"><strong>Utilization ang Cultural Importance</strong></label>

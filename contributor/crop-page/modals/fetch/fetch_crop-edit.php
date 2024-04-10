@@ -69,6 +69,27 @@ if (isset($_POST['click_edit_btn'])) {
             echo json_encode($arrayresult);
         }
     } elseif ($get_category_name === 'Root Crop') {
+        // Fetch data from the crop table and join with crop_location
+        $query = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join location 
+        on crop_location.location_id = location.location_id left join users on crop.user_id = users.user_id left join barangay
+        on crop_location.barangay_id = barangay.barangay_id left join category_variety on crop.category_variety_id = category_variety.category_variety_id
+        left join category on category.category_id = crop.category_id left join utilization_cultural_importance on  crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id
+        left join root_crop_traits on crop.crop_id = root_crop_traits.crop_id left join vegetative_state_rootcrop on root_crop_traits.vegetative_state_rootcrop_id = vegetative_state_rootcrop.vegetative_state_rootcrop_id
+        left join pest_resistance_rootcrop on root_crop_traits.pest_resistance_rootcrop_id = pest_resistance_rootcrop.pest_resistance_rootcrop_id
+        left join disease_resistance on root_crop_traits.disease_resistance_id = disease_resistance.disease_resistance_id
+        left join abiotic_resistance on root_crop_traits.abiotic_resistance_id = abiotic_resistance.abiotic_resistance_id
+        left join rootcrop_traits on rootcrop_traits.rootcrop_traits_id = root_crop_traits.rootcrop_traits_id
+        WHERE crop.crop_id = $1";
+        $query_run = pg_query_params($conn, $query, array($crop_id));
+
+        if (pg_num_rows($query_run) > 0) {
+            while ($row = pg_fetch_assoc($query_run)) {
+                $arrayresult[] = $row;
+            }
+
+            header('Content-Type: application/json');
+            echo json_encode($arrayresult);
+        }
     } else {
         // Handle other categories or invalid category names
         // For example, set a default category or display an error message

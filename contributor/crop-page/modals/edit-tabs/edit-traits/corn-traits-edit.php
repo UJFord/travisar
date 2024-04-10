@@ -187,12 +187,12 @@
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="corn-abiotic-other-check-Edit">abiotic-other</label>
-                <input class="form-check-input" type="checkbox" name="abiotic-other" id="corn-abiotic-other-check-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="abiotic_other" id="corn-abiotic-other-check-Edit" value="1">
             </div>
             <!-- Other -->
-            <div class="col-12 mb-2 sc">
+            <div class="col-12 mb-2 corn-abiotic-other">
                 <label for="corn-abiotic-other-Edit" class="form-label small-font">Other</label>
-                <textarea name="abiotic_other" id="corn-abiotic-other-Edit" cols="30" rows="1" class="form-control"></textarea>
+                <textarea name="abiotic_other_desc" id="corn-abiotic-other-Edit" cols="30" rows="1" class="form-control"></textarea>
             </div>
         </div>
     </div>
