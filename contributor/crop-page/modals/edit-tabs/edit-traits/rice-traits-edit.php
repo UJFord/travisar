@@ -10,15 +10,15 @@
         <div class="mb-4">
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="height-tall-Edit">Tall</label>
-                <input class="form-check-input" type="radio" name="plant_height" id="height-tall-Edit" value="Tall">
+                <input class="form-check-input" type="radio" name="rice_plant_height" id="height-tall-Edit" value="Tall">
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="height-average-Edit">Average</label>
-                <input class="form-check-input" type="radio" name="plant_height" id="height-average-Edit" value="Average">
+                <input class="form-check-input" type="radio" name="rice_plant_height" id="height-average-Edit" value="Average">
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label" for="height-short-Edit">Short</label>
-                <input class="form-check-input" type="radio" name="plant_height" id="height-short-Edit" value="Short">
+                <input class="form-check-input" type="radio" name="rice_plant_height" id="height-short-Edit" value="Short">
             </div>
         </div>
     </div>
@@ -52,7 +52,7 @@
         <!-- Tillering ability -->
         <div class="col">
             <label for="tilleringAbility-Edit">Tillering Ability</label>
-            <select name="tillering_ability" id="tilleringAbility-Edit" class="form-select">
+            <select name="rice_tillering_ability" id="tilleringAbility-Edit" class="form-select">
                 <option value="High Tillering">High Tillering</option>
                 <option value="Low-tillering">Low-tillering</option>
             </select>
@@ -60,8 +60,8 @@
 
         <!-- Maturity Time -->
         <div class="col">
-            <label for="maturityTime-Edit">Maturity Time</label>
-            <select name="maturity_time" id="maturityTime-Edit" class="form-select">
+            <label for="rice-maturityTime-Edit">Maturity Time</label>
+            <select name="rice_maturity_time" id="rice-maturityTime-Edit" class="form-select">
                 <option value="Early Maturing(3months)">Early Maturing (3months)</option>
                 <option value="Late Maturing (4-7months)">Late Maturing (4-7months)</option>
             </select>
@@ -70,6 +70,14 @@
 
     <label class="form-label"><strong>Reproductive state</strong></label>
     <br>
+    <!-- Yield Capacity -->
+    <div class="row mb-4">
+        <div class="col-12 mb-2">
+            <label for="rice-yield-capacity-Edit" class="form-label small-font">Yield Capacity</label>
+            <textarea name="rice_yield_capacity" id="rice-yield-capacity-Edit" cols="30" rows="1" class="form-control"></textarea>
+        </div>
+    </div>
+
     <!-- Panicle traits-->
     <div class="row mb-4">
         <label class="form-label"><strong>Panicle traits</strong></label>
@@ -87,8 +95,8 @@
 
         <!-- panicle enclosed by -->
         <div class="col-12 mb-2">
-            <label for="pan_enclosed-Edit" class="form-label small-font">Panicle Enclosed By</label>
-            <textarea name="panicle_enclosed_by" id="pan_enclosed-Edit" cols="30" rows="2" class="form-control"></textarea>
+            <label for="pan-enclosed-Edit" class="form-label small-font">Panicle Enclosed By</label>
+            <textarea name="panicle_enclosed_by" id="pan-enclosed-Edit" cols="30" rows="2" class="form-control"></textarea>
         </div>
 
         <!-- other_remarkable_feature-->
@@ -103,26 +111,26 @@
         <label class="form-label"><strong>Seed traits</strong></label>
         <!-- Length -->
         <div class="col-12 mb-2">
-            <label for="seed-length-Edit" class="form-label small-font">Length</label>
-            <textarea name="seed_length" id="seed-length-Edit" cols="30" rows="1" class="form-control"></textarea>
+            <label for="rice-seed-length-Edit" class="form-label small-font">Length</label>
+            <textarea name="seed_length" id="rice-seed-length-Edit" cols="30" rows="1" class="form-control"></textarea>
         </div>
 
         <!-- width -->
         <div class="col-12 mb-2">
-            <label for="seed-width-Edit" class="form-label small-font">Width</label>
-            <textarea name="seed_width" id="seed-width-Edit" cols="30" rows="1" class="form-control"></textarea>
+            <label for="rice-seed-width-Edit" class="form-label small-font">Width</label>
+            <textarea name="seed_width" id="rice-seed-width-Edit" cols="30" rows="1" class="form-control"></textarea>
         </div>
 
         <!-- seed Shape -->
         <div class="col-12 mb-2">
-            <label for="seed-shape-Edit" class="form-label small-font">Shape</label>
-            <textarea name="seed_shape" id="seed-shape-Edit" cols="30" rows="2" class="form-control"></textarea>
+            <label for="rice-seed-shape-Edit" class="form-label small-font">Shape</label>
+            <textarea name="seed_shape" id="rice-seed-shape-Edit" cols="30" rows="2" class="form-control"></textarea>
         </div>
 
         <!-- Color-->
         <div class="col-12 mb-2">
-            <label for="seed-color-Edit" class="form-label small-font">Color</label>
-            <textarea name="seed_color" id="seed-color-Edit" cols="30" rows="2" class="form-control"></textarea>
+            <label for="rice-seed-color-Edit" class="form-label small-font">Color</label>
+            <textarea name="seed_color" id="rice-seed-color-Edit" cols="30" rows="2" class="form-control"></textarea>
         </div>
     </div>
 
@@ -147,6 +155,12 @@
             <textarea name="purplish_stripes" id="purplishStripes-Edit" cols="30" rows="2" class="form-control"></textarea>
         </div>
 
+        <!-- Pubescence -->
+        <div class="col-12 mb-2">
+            <label for="Pubescence-Edit" class="form-label small-font">Pubescence</label>
+            <textarea name="pubescence" id="Pubescence-Edit" cols="30" rows="2" class="form-control"></textarea>
+        </div>
+
         <!-- other_remarkable_feature-->
         <div class="col-12 mb-2">
             <label for="flag-features-Edit" class="form-label small-font">Other Remarkable Features</label>
@@ -156,7 +170,7 @@
 
     <h4>Sensory Traits of Cooked Rice</h4>
     <br>
-    <!-- sensory traits-->
+    <!-- sensory traits of cooked rice -->
     <div class="row mb-4">
         <!-- Aroma -->
         <div class="col-12 mb-2">
@@ -272,10 +286,14 @@
                 <label class="form-check-label" for="rice-armyWorms-Edit">Army Worms</label>
                 <input class="form-check-input" type="checkbox" name="rice_army_worms" id="rice-armyWorms-Edit" value="1">
             </div>
+            <div class="col-3 form-check form-check-inline">
+                <label class="form-check-label" for="rice-other-check-Edit">Other</label>
+                <input class="form-check-input" type="checkbox" name="rice_others" id="rice-other-check-Edit" value="1">
+            </div>
             <!-- Other -->
-            <div class="col-12 mb-2">
+            <div class="col-12 mb-2 rice-pest-other-edit">
                 <label for="rice-other-Edit" class="form-label small-font">Other</label>
-                <textarea name="rice_others" id="rice-other-Edit" cols="30" rows="1" class="form-control"></textarea>
+                <textarea name="rice_others_desc" id="rice-other-Edit" cols="30" rows="1" class="form-control"></textarea>
             </div>
         </div>
 
@@ -284,7 +302,7 @@
         <div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rice-Bacterial-Edit">Bacterial</label>
-                <input class="form-check-input" type="checkbox" name="rice-bacterial" id="rice-Bacterial-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="bacterial" id="rice-Bacterial-Edit" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rice-Fungus-Edit">Fungus</label>
@@ -315,10 +333,14 @@
                 <label class="form-check-label" for="harmful-radiation-Edit">Harmful Radiation</label>
                 <input class="form-check-input" type="checkbox" name="harmful_radiation" id="harmful-radiation-Edit" value="1">
             </div>
+            <div class="col-3 form-check form-check-inline">
+                <label class="form-check-label" for="rice-abiotic-other-check-Edit">Other</label>
+                <input class="form-check-input" type="checkbox" name="rice_abiotic_other" id="rice-abiotic-other-check-Edit" value="1">
+            </div>
             <!-- Other -->
-            <div class="col-12 mb-2">
-                <label for="rice-abiotic-other-Edit" class="form-label small-font">Other</label>
-                <textarea name="rice_abiotic_other" id="rice-abiotic-other-Edit" cols="30" rows="1" class="form-control"></textarea>
+            <div class="col-12 mb-2 rice-abiotic-other">
+                <label for="rice-abiotic-other-desc-Edit" class="form-label small-font">Other</label>
+                <textarea name="rice_abiotic_other_desc" id="rice-abiotic-other-desc-Edit" cols="30" rows="1" class="form-control"></textarea>
             </div>
         </div>
     </div>

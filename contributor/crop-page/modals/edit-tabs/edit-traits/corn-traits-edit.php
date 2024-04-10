@@ -147,7 +147,7 @@
                 <input class="form-check-input" type="checkbox" name="corn_others" id="corn-other-check-Edit" value="1">
             </div>
             <!-- Other -->
-            <div class="col-12 mb-2 corn-pest-other">
+            <div class="col-12 mb-2 corn-pest-other-edit">
                 <label for="corn-other-Edit" class="form-label small-font">Other</label>
                 <textarea name="corn_others_desc" id="corn-other-Edit" cols="30" rows="1" class="form-control"></textarea>
             </div>

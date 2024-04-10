@@ -151,6 +151,204 @@
                         // Fetch the old image and pass it to the fetchOldImage function
                         fetchOldImage(value.crop_image);
 
+                        // setting the available data on the traits tab depending on the category of the selected crop
+                        if (value['category_name'] === 'Corn') {
+                            // Show the div for Corn
+                            $('#cornMorph-Edit').show();
+                            // Hide the divs for Rice and Root Crop
+                            $('#riceMorph-Edit').hide();
+                            $('#root_cropMorph-Edit').hide();
+
+                            // morph traits for corn
+                            // vegetative state
+                            if (value['corn_plant_height'] === 'Tall') {
+                                $('#corn-height-tall-edit').prop('checked', true);
+                            } else if (value['corn_plant_height'] === 'Average') {
+                                $('#corn-height-average-edit').prop('checked', true);
+                            } else if (value['corn_plant_height'] === 'Short') {
+                                $('#corn-height-short-edit').prop('checked', true);
+                            }
+                            $('#corn-leafWidth-Edit').append($('<option>', {
+                                value: value['corn_leaf_width']
+                            }));
+                            $('#corn-leafLength-Edit').append($('<option>', {
+                                value: value['corn_leaf_length']
+                            }));
+
+                            // Reproductive state corn
+                            $('#corn-yield-capacity-Edit').val(value['corn_yield_capacity']);
+                            $('#corn-seed-length-Edit').val(value['seed_length']);
+                            $('#corn-seed-width-Edit').val(value['seed_width']);
+                            $('#corn-seed-shape-Edit').val(value['seed_shape']);
+                            $('#corn-seed-color-Edit').val(value['seed_color']);
+
+                            // pest resistance corn
+                            $('#cornBorers-Edit').prop('checked', value['corn_borers'] == 1);
+                            $('#Earworm-Edit').prop('checked', value['earworms'] == 1);
+                            $('#spider-mites-Edit').prop('checked', value['spider_mites'] == 1);
+                            $('#corn-blackBug-Edit').prop('checked', value['corn_black_bug'] == 1);
+                            $('#corn-army-worms-Edit').prop('checked', value['corn_army_worms'] == 1);
+                            $('#leaf-aphid-Edit').prop('checked', value['leaf_aphid'] == 1);
+                            $('#corn-cutWorms-Edit').prop('checked', value['corn_cutworms'] == 1);
+                            $('#rice-Birds-Edit').prop('checked', value['corn_birds'] == 1);
+                            $('#corn-ants-Edit').prop('checked', value['corn_ants'] == 1);
+                            $('#corn-rats-Edit').prop('checked', value['corn_rats'] == 1);
+                            $('#corn-other-check-Edit').prop('checked', value['corn_others'] == 1);
+                            // Show the 'Other' textarea if 'other' checkbox is checked
+                            if ($('#corn-other-check-Edit').prop('checked')) {
+                                $('.corn-pest-other-edit').show();
+                            } else {
+                                $('.corn-pest-other-edit').hide();
+                            }
+                            // Set the value of the 'Other' textarea
+                            $('#corn-other-Edit').val(value['corn_others_desc']);
+
+                            // disease resistance corn
+                            $('#corn-Bacterial-Edit').prop('checked', value['bacterial'] == 1);
+                            $('#corn-Fungus-Edit').prop('checked', value['fungus'] == 1);
+                            $('#corn-Viral-Edit').prop('checked', value['viral'] == 1);
+
+                            // abiotic resistance resistance corn
+                            $('#corn-Drought-Edit').prop('checked', value['drought'] == 1);
+                            $('#corn-Salinity-Edit').prop('checked', value['salnity'] == 1);
+                            $('#corn-Heat-Edit').prop('checked', value['heat'] == 1);
+                            $('#corn-abiotic-other-check-Edit').prop('checked', value['abiotic_other'] == 1);
+                            // Show the 'Other' textarea if 'other' checkbox is checked
+                            // baliktad ang if else statement kay katok ang code ambot nganuman
+                            if ($('#corn-abiotic-other-check-Edit').prop('checked')) {
+                                $('.corn-abiotic-other').show();
+                            } else {
+                                $('.corn-abiotic-other').hide();
+                            }
+                            // Set the value of the 'Other' textarea
+                            $('#corn-abiotic-other-Edit').val(value['abiotic_other_desc']);
+                        } else if (value['category_name'] === 'Rice') {
+                            // Show the div for Rice
+                            $('#riceMorph-Edit').show();
+                            // Hide the divs for Corn and Root Crop
+                            $('#cornMorph-Edit').hide();
+                            $('#root_cropMorph-Edit').hide();
+
+                            // morph traits for rice
+                            // vegetative state
+                            if (value['rice_plant_height'] === 'Tall') {
+                                $('#height-tall-edit').prop('checked', true);
+                            } else if (value['rice_plant_height'] === 'Average') {
+                                $('#height-average-edit').prop('checked', true);
+                            } else if (value['rice_plant_height'] === 'Short') {
+                                $('#height-short-edit').prop('checked', true);
+                            }
+                            $('#leafWidth-Edit').append($('<option>', {
+                                value: value['rice_leaf_width']
+                            }));
+                            $('#leafLength-Edit').append($('<option>', {
+                                value: value['rice_leaf_length']
+                            }));
+                            $('#tilleringAbility-Edit').append($('<option>', {
+                                value: value['rice_tillering_ability']
+                            }));
+                            $('#rice-maturityTime-Edit').append($('<option>', {
+                                value: value['rice_maturity_time']
+                            }));
+
+                            // Reproductive state rice
+                            $('#rice-yield-capacity-Edit').val(value['rice_yield_capacity']);
+                            // panicle traits
+                            $('#pan-length-Edit').val(value['panicle_length']);
+                            $('#pan-width-Edit').val(value['panicle_width']);
+                            $('#pan-enclosed-Edit').val(value['panicle_enclosed_by']);
+                            $('#panicle-features-Edit').val(value['panicle_remarkable_features']);
+
+                            // seed traits
+                            $('#rice-seed-length-Edit').val(value['seed_length']);
+                            $('#rice-seed-width-Edit').val(value['seed_width']);
+                            $('#rice-seed-shape-Edit').val(value['seed_shape']);
+                            $('#rice-seed-color-Edit').val(value['seed_color']);
+
+                            // flag leaf traits
+                            $('#flag-length-Edit').val(value['flag_length']);
+                            $('#flag-width-Edit').val(value['flag_width']);
+                            $('#purplishStripes-Edit').val(value['purplish_stripes']);
+                            $('#Pubescence-Edit').val(value['pubescence']);
+                            $('#flag-features-Edit').val(value['flag_remarkable_features']);
+
+                            // sensory traits of cooked rice
+                            $('#sensory-aroma-Edit').val(value['aroma']);
+                            $('#cooked-rice-Edit').val(value['quality_cooked_rice']);
+                            $('#leftover-rice-Edit').val(value['quality_leftover_rice']);
+                            // volume expansion
+                            if (value['volume_expansion'] === 'Yes') {
+                                $('#expansion-Yes-Edit').prop('checked', true);
+                            } else if (value['volume_expansion'] === 'No') {
+                                $('#expansion-No-Edit').prop('checked', true);
+                            }
+                            // glutinous
+                            if (value['glutinous'] === 'Yes') {
+                                $('#glutinous-Yes-Edit').prop('checked', true);
+                            } else if (value['glutinous'] === 'No') {
+                                $('#glutinous-No-Edit').prop('checked', true);
+                            }
+                            // hardness
+                            if (value['hardness'] === 'Soft') {
+                                $('#hardness-Soft-Edit').prop('checked', true);
+                            } else if (value['hardness'] === 'Hard') {
+                                $('#hardness-Hard-Edit').prop('checked', true);
+                            }
+
+                            // pest resistance rice
+                            $('#riceBorers-Edit').prop('checked', value['rice_borers'] == 1);
+                            $('#riceSnail-Edit').prop('checked', value['rice_snail'] == 1);
+                            $('#Hoppers-Edit').prop('checked', value['hoppers'] == 1);
+                            $('#rice-blackBug-Edit').prop('checked', value['rice_black_bug'] == 1);
+                            $('#Leptocorisa-Edit').prop('checked', value['leptocorisa'] == 1);
+                            $('#leaf-folder-Edit').prop('checked', value['leaf_folder'] == 1);
+                            $('#rice-birds-Edit').prop('checked', value['rice_birds'] == 1);
+                            $('#rice-ants-Edit').prop('checked', value['rice_ants'] == 1);
+                            $('#rice-rats-Edit').prop('checked', value['rice_rats'] == 1);
+                            $('#rice-armyWorms-Edit').prop('checked', value['rice_army_worms'] == 1);
+                            $('#rice-other-check-Edit').prop('checked', value['rice_others'] == 1);
+                            // Show the 'Other' textarea if 'other' checkbox is checked
+                            if ($('#rice-other-check-Edit').prop('checked')) {
+                                $('.rice-pest-other-edit').show();
+                            } else {
+                                $('.rice-pest-other-edit').hide();
+                            }
+                            // Set the value of the 'Other' textarea
+                            $('#rice-other-Edit').val(value['rice_others_desc']);
+
+                            // disease resistance rice
+                            $('#rice-Bacterial-Edit').prop('checked', value['bacterial'] == 1);
+                            $('#rice-Fungus-Edit').prop('checked', value['fungus'] == 1);
+                            $('#rice-Viral-Edit').prop('checked', value['viral'] == 1);
+
+                            // abiotic resistance resistance rice
+                            $('#riceDrought-Edit').prop('checked', value['drought'] == 1);
+                            $('#riceSalinity-Edit').prop('checked', value['salnity'] == 1);
+                            $('#riceHeat-Edit').prop('checked', value['heat'] == 1);
+                            $('#harmful-radiation-Edit').prop('checked', value['harmful_radiation'] == 1);
+                            $('#rice-abiotic-other-check-Edit').prop('checked', value['rice_abiotic_other'] == 1);
+                            // Show the 'Other' textarea if 'other' checkbox is checked
+                            // baliktad ang if else statement kay katok ang code ambot nganuman
+                            if ($('#rice-abiotic-other-check-Edit').prop('checked')) {
+                                $('.rice-abiotic-other').show();
+                            } else {
+                                $('.rice-abiotic-other').hide();
+                            }
+                            // Set the value of the 'Other' textarea
+                            $('#rice-abiotic-other-desc-Edit').val(value['rice_abiotic_other_desc']);
+                        } else if (value['category_name'] === 'Root Crop') {
+                            // Show the div for Root Crop
+                            $('#root_cropMorph-Edit').show();
+                            // Hide the divs for Corn and Rice
+                            $('#cornMorph-Edit').hide();
+                            $('#riceMorph-Edit').hide();
+                        } else {
+                            // Default case, hide all divs
+                            $('#cornMorph-Edit').hide();
+                            $('#riceMorph-Edit').hide();
+                            $('#root_cropMorph-Edit').hide();
+                        }
+
                         // crop_id
                         $('#crop_id').val(id);
                         // crop_location_id
@@ -188,70 +386,6 @@
                         $('#UseEdit').val(value['use']);
                         $('#indigenous-utilization-Edit').val(value['indigenous_utilization']);
                         $('#remarkable-features-Edit').val(value['remarkable_features']);
-
-                        // morph traits for corn
-                        // vegetative state
-                        if (value['corn_plant_height'] === 'Tall') {
-                            $('#corn-height-tall-edit').prop('checked', true);
-                        } else if (value['corn_plant_height'] === 'Average') {
-                            $('#corn-height-average-edit').prop('checked', true);
-                        } else if (value['corn_plant_height'] === 'Short') {
-                            $('#corn-height-short-edit').prop('checked', true);
-                        }
-                        $('#corn-leafWidth-Edit').append($('<option>', {
-                            value: value['corn_leaf_width']
-                        }));
-                        $('#corn-leafLength-Edit').append($('<option>', {
-                            value: value['corn_leaf_length']
-                        }));
-
-                        // Reproductive state
-                        $('#corn-yield-capacity-Edit').val(value['corn_yield_capacity']);
-                        $('#corn-seed-length-Edit').val(value['seed_length']);
-                        $('#corn-seed-width-Edit').val(value['seed_width']);
-                        $('#corn-seed-shape-Edit').val(value['seed_shape']);
-                        $('#corn-seed-color-Edit').val(value['seed_color']);
-
-                        // pest resistance corn
-                        $('#cornBorers-Edit').prop('checked', value['corn_borers'] == 1);
-                        $('#Earworm-Edit').prop('checked', value['earworms'] == 1);
-                        $('#spider-mites-Edit').prop('checked', value['spider_mites'] == 1);
-                        $('#corn-blackBug-Edit').prop('checked', value['corn_black_bug'] == 1);
-                        $('#corn-army-worms-Edit').prop('checked', value['corn_army_worms'] == 1);
-                        $('#leaf-aphid-Edit').prop('checked', value['leaf_aphid'] == 1);
-                        $('#corn-cutWorms-Edit').prop('checked', value['corn_cutworms'] == 1);
-                        $('#rice-Birds-Edit').prop('checked', value['corn_birds'] == 1);
-                        $('#corn-ants-Edit').prop('checked', value['corn_ants'] == 1);
-                        $('#corn-rats-Edit').prop('checked', value['corn_rats'] == 1);
-                        $('#corn-other-check-Edit').prop('checked', value['corn_others'] == 1);
-                        // Show the 'Other' textarea if 'other' checkbox is checked
-                        if ($('#corn-other-check-Edit').prop('checked')) {
-                            $('.corn-pest-other').show();
-                        } else {
-                            $('.corn-pest-other').hide();
-                        }
-                        // Set the value of the 'Other' textarea
-                        $('#corn-other-Edit').val(value['corn_others_desc']);
-
-                        // disease resistance corn
-                        $('#corn-Bacterial-Edit').prop('checked', value['bacterial'] == 1);
-                        $('#corn-Fungus-Edit').prop('checked', value['fungus'] == 1);
-                        $('#corn-Viral-Edit').prop('checked', value['viral'] == 1);
-
-                        // abiotic resistance resistance corn
-                        $('#corn-Drought-Edit').prop('checked', value['drought'] == 1);
-                        $('#corn-Salinity-Edit').prop('checked', value['salnity'] == 1);
-                        $('#corn-Heat-Edit').prop('checked', value['heat'] == 1);
-                        $('#corn-abiotic-other-check-Edit').prop('checked', value['abiotic_other'] == 1);
-                        // Show the 'Other' textarea if 'other' checkbox is checked
-                        // baliktad ang if else statement kay katok ang code ambot nganuman
-                        if ($('#corn-abiotic-other-check-Edit').prop('checked')) {
-                            $('.corn-abiotic-other').hide();
-                        } else {
-                            $('.corn-abiotic-other').show();
-                        }
-                        // Set the value of the 'Other' textarea
-                        $('#corn-abiotic-other-Edit').val(value['abiotic_other_desc']);
 
                         //loc.php
                         $('#neighborhoodEdit').val(value['neighborhood']);

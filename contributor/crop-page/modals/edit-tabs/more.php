@@ -2,7 +2,9 @@
 <div class="fade tab-pane" id="edit-more-tab-pane" role="tabpanel" aria-labelledby="edit-more-tab" tabindex="0">
     <!-- corn morphological traits -->
     <?php require "crop-page/modals/edit-tabs/edit-traits/corn-traits-edit.php" ?>
-
+    <!-- rice morphological traits -->
+    <?php require "crop-page/modals/edit-tabs/edit-traits/rice-traits-edit.php" ?>
+    
     <!-- Utilization ang Cultural Importance-->
     <div class="row mb-4">
         <label class="form-label"><strong>Utilization ang Cultural Importance</strong></label>

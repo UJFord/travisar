@@ -43,6 +43,31 @@ if (isset($_POST['click_edit_btn'])) {
             echo json_encode($arrayresult);
         }
     } elseif ($get_category_name === 'Rice') {
+        // Fetch data from the crop table and join with crop_location
+        $query = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join location 
+        on crop_location.location_id = location.location_id left join users on crop.user_id = users.user_id left join barangay
+        on crop_location.barangay_id = barangay.barangay_id left join category_variety on crop.category_variety_id = category_variety.category_variety_id
+        left join category on category.category_id = crop.category_id left join utilization_cultural_importance on  crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id
+        left join rice_traits on crop.crop_id = rice_traits.crop_id left join vegetative_state_rice on rice_traits.vegetative_state_rice_id = vegetative_state_rice.vegetative_state_rice_id
+        left join reproductive_state_rice on rice_traits.reproductive_state_rice_id = reproductive_state_rice.reproductive_state_rice_id
+        left join pest_resistance_rice on rice_traits.pest_resistance_rice_id = pest_resistance_rice.pest_resistance_rice_id
+        left join disease_resistance on rice_traits.disease_resistance_id = disease_resistance.disease_resistance_id
+        left join abiotic_resistance_rice on rice_traits.abiotic_resistance_rice_id = abiotic_resistance_rice.abiotic_resistance_rice_id
+        left join seed_traits on seed_traits.seed_traits_id = reproductive_state_rice.seed_traits_id
+        left join panicle_traits_rice on panicle_traits_rice.panicle_traits_rice_id = reproductive_state_rice.panicle_traits_rice_id
+        left join flag_leaf_traits_rice on flag_leaf_traits_rice.flag_leaf_traits_rice_id = reproductive_state_rice.flag_leaf_traits_rice_id
+        LEFT JOIN sensory_traits_rice ON sensory_traits_rice.sensory_traits_rice_id = rice_traits.sensory_traits_rice_id
+        WHERE crop.crop_id = $1";
+        $query_run = pg_query_params($conn, $query, array($crop_id));
+
+        if (pg_num_rows($query_run) > 0) {
+            while ($row = pg_fetch_assoc($query_run)) {
+                $arrayresult[] = $row;
+            }
+
+            header('Content-Type: application/json');
+            echo json_encode($arrayresult);
+        }
     } elseif ($get_category_name === 'Root Crop') {
     } else {
         // Handle other categories or invalid category names
