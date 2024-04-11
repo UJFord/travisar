@@ -17,7 +17,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
+            <form id="form-panel-edit" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
                 <div class="modal-body edit-modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -57,26 +57,26 @@
 </div>
 <!-- script for getting the on the edit -->
 <script>
-    document.getElementById('form-panel').addEventListener('submit', function(event) {
-        var isValid = true;
-        // Check if any required fields are empty
-        var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
-        requiredFields.forEach(function(field) {
-            if (!field.value.trim()) {
-                isValid = false;
-                field.classList.add('is-invalid');
-            } else {
-                field.classList.remove('is-invalid');
-            }
-        });
+    document.getElementById('form-panel-edit').addEventListener('submit', function(event) {
 
-        if (!isValid) {
-            // Prevent the form from submitting
-            event.preventDefault();
-            event.stopPropagation();
-            return false;
+        // Get the selected category
+        var selectedCategory = document.getElementById('Category').value;
+        var cornMorph = document.getElementById('cornMorph-Edit');
+        var riceMorph = document.getElementById('riceMorph-Edit');
+        var rootCropMorph = document.getElementById('root_cropMorph-Edit');
+
+        // Disable inputs based on the selected category
+        if (selectedCategory !== '4') {
+            disableInputs(cornMorph);
         }
 
+        if (selectedCategory !== '1') {
+            disableInputs(riceMorph);
+        }
+
+        if (selectedCategory !== '2') {
+            disableInputs(rootCropMorph);
+        }
         // Form is valid, submit the form
         submitForm();
     });
@@ -85,7 +85,7 @@
     function submitForm() {
         console.log('submitForm function called');
         // Get the form reference
-        var form = document.getElementById('form-panel');
+        var form = document.getElementById('form-panel-edit');
         // Trigger the form submission
         if (form) {
             // Perform AJAX submission or other necessary actions
@@ -515,4 +515,41 @@
         // Click the tab with id 'gen-tab'
         document.getElementById(tabName + '-tab').click();
     }
+
+    $(document).ready(function() {
+        // Initialize the modal
+        const dataModal = new bootstrap.Modal(document.getElementById('edit-item-modal'), {
+            keyboard: false
+        });
+
+        // Show the modal when a table row is clicked
+        tableRows.forEach(row => {
+            row.addEventListener('click', () => {
+                // Your existing code to populate the modal here
+
+                // Show the modal
+                dataModal.show();
+            });
+        });
+
+        // Reset the form and close the modal when the x button is clicked
+        $('.btn-close').on('click', function() {
+            // Reset the form
+            document.getElementById('form-panel-edit').reset();
+
+            // Close the modal
+            dataModal.hide();
+        });
+
+        // Reset the form and close the modal when the modal is hidden
+        $('#edit-item-modal').on('hidden.bs.modal', function() {
+            // Reset the form
+            document.getElementById('form-panel-edit').reset();
+
+            // Reset any other specific fields if needed
+            $('#previewSeedEdit').empty();
+            $('#previewVegEdit').empty();
+            $('#previewReproductiveEdit').empty();
+        });
+    });
 </script>

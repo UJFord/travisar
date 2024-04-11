@@ -2,7 +2,7 @@
 session_start();
 require "../../../../functions/connections.php";
 
-if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
+if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {
@@ -11,6 +11,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         {
             return empty($value) ? 'Empty' : $value;
         }
+
         // get all the data in the form
         // gen.php
         $crop_variety = handleEmpty($_POST['crop_variety']);
@@ -401,9 +402,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13  ) RETURNING crop_id";
 
         $valueCrops = array(
-        $crop_variety, $crop_description, $status, $newUniqueCode,
-        $meaning_of_name, $category_id, $user_id, $category_variety_id, $terrain_id, $utilization_cultural_id, $crop_seed_image,
-        $crop_vegetative_image, $crop_reproductive_image
+            $crop_variety, $crop_description, $status, $newUniqueCode,
+            $meaning_of_name, $category_id, $user_id, $category_variety_id, $terrain_id, $utilization_cultural_id, $crop_seed_image,
+            $crop_vegetative_image, $crop_reproductive_image
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
