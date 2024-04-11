@@ -487,7 +487,6 @@ require "../functions/functions.php";
             });
         });
     </script>
-
 </body>
 <!-- 
     to check if the user is logged in and has a rank of Encoder
