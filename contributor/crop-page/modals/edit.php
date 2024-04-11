@@ -423,7 +423,9 @@
                         $('#cultural_aspect-Edit').val(value['cultural_aspect_id']);
 
                         // old image/current image
-                        $('#oldImageInput').val(value['crop_image']);
+                        $('#old_image_seed').val(value['crop_seed_image']);
+                        $('#old_image_veg').val(value['crop_vegetative_image']);
+                        $('#old_image_rep').val(value['crop_reproductive_image']);
                         // Format the input_date
                         $('#input_dateEdit').text(moment(value['input_date']).format('YYYY-MM-DD HH:mm'));
 

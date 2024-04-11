@@ -15,20 +15,27 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         // get all the data in the form
         // gen.php
         $crop_variety = handleEmpty($_POST['crop_variety']);
-        $category_variety_id = $_POST['category_variety_id'];
         $crop_description = handleEmpty($_POST['crop_description']);
-        $terrain_id = handleEmpty($_POST['terrain_id']);
-        $category_id = $_POST['category_id'];
+        $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
+        $current_image_seed = handleEmpty($_POST['current_image_seed']);
+        $current_image_veg = handleEmpty($_POST['current_image_veg']);
+        $current_image_rep = handleEmpty($_POST['current_image_rep']);
+        $status = 'approved';
 
         // loc.php
         $province_name = $_POST['province'];
         $municipality_name = $_POST['municipality'];
-        $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
         $coordinates = handleEmpty($_POST['coordinates']);
         $barangay_name = $_POST['barangay'];
 
         $user_id = $_POST['user_id'];
-        $status = 'approved';
+
+        // id's
+        $disease_resistance_id = handleEmpty($_POST['disease_resistance_id']);
+        $abiotic_resistance_rice_id = handleEmpty($_POST['abiotic_resistance_rice_id']);
+        $crop_location_id = handleEmpty($_POST['crop_location_id']);
+        $crop_id = handleEmpty($_POST['crop_id']);
+        $seed_traits_id = handleEmpty($_POST['seed_traits_id']);
 
         // disease resistance
         $bacterial = isset($_POST['bacterial']) ? true : false;
@@ -476,6 +483,13 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
 
         // Check the category name and perform actions accordingly
         if ($get_category_name === 'Corn') {
+            // Id's for corn traits
+            $corn_traits_id = handleEmpty($_POST['corn_traits_id']);
+            $vegetative_state_corn_id = handleEmpty($_POST['vegetative_state_corn_id']);
+            $reproductive_state_corn_id = handleEmpty($_POST['reproductive_state_corn_id']);
+            $pest_resistance_corn_id = handleEmpty($_POST['pest_resistance_corn_id']);
+            $pest_resistance_corn_id = handleEmpty($_POST['pest_resistance_corn_id']);
+
             // Handle corn category traits
             // abiotic resistance
             $query_abioticRes = "INSERT into abiotic_resistance (drought, salinity, heat, abiotic_other) values ($1, $2, $3, $4) returning abiotic_resistance_id";
@@ -562,6 +576,16 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
                 exit(0);
             }
         } elseif ($get_category_name === 'Rice') {
+            // Id's for rice traits
+            $rice_traits_id = handleEmpty($_POST['rice_traits_id']);
+            $vegetative_state_rice_id = handleEmpty($_POST['vegetative_state_rice_id']);
+            $reproductive_state_rice_id = handleEmpty($_POST['reproductive_state_rice_id']);
+            $pest_resistance_rice_id = handleEmpty($_POST['pest_resistance_rice_id']);
+            $abiotic_resistance_rice_id = handleEmpty($_POST['abiotic_resistance_rice_id']);
+            $panicle_traits_rice_id = handleEmpty($_POST['panicle_traits_rice_id']);
+            $flag_leaf_traits_rice_id = handleEmpty($_POST['flag_leaf_traits_rice_id']);
+            $sensory_traits_rice_id = handleEmpty($_POST['sensory_traits_rice_id']);
+
             // Handle rice category
             // abiotic resistance rice
             $query_abioticRes = "INSERT into abiotic_resistance_rice (rice_drought, rice_salinity, rice_heat, harmful_radiation, rice_abiotic_other, rice_abiotic_other_desc) values ($1, $2, $3, $4, $5, $6) returning abiotic_resistance_rice_id";
@@ -681,6 +705,12 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
                 exit(0);
             }
         } elseif ($get_category_name === 'Root Crop') {
+            // Id's for rootcrop traits
+            $rootcrop_traits_id = handleEmpty($_POST['rootcrop_traits_id']);
+            $vegetative_state_rootcrop_id = handleEmpty($_POST['vegetative_state_rootcrop_id']);
+            $root_Crop_traits_id = handleEmpty($_POST['root_Crop_traits_id']);
+            $pest_resistance_rootcrop_id = handleEmpty($_POST['pest_resistance_rootcrop_id']);
+
             // Handle root crops category
             // abiotic resistance
             $query_abioticRes = "INSERT into abiotic_resistance (drought, salinity, heat, abiotic_other, abiotic_other_desc) values ($1, $2, $3, $4, $5) returning abiotic_resistance_id";

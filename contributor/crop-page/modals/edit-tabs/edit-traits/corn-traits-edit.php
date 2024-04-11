@@ -1,4 +1,12 @@
 <div id="cornMorph-Edit">
+    <!-- hidden id's -->
+    <input type="hidden" name="crop_traits_id" id="cropTraits_id">
+    <input type="hidden" name="crop_traits_id" id="cropTraits_id">
+    <input type="hidden" name="crop_traits_id" id="cropTraits_id">
+    <input type="hidden" name="crop_traits_id" id="cropTraits_id">
+    <input type="hidden" name="crop_traits_id" id="cropTraits_id">
+
+
     <!-- Morphological traits -->
     <h4>Morphological Traits</h4>
     <br>
