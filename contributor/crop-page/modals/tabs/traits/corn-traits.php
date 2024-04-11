@@ -49,8 +49,8 @@
     <!-- maturity time -->
     <!-- <div class="row mb-4">
         <div class="col">
-            <label for="maturityTime">Maturity Time</label>
-            <select name="maturity_time" id="maturityTime" class="form-select">
+            <label for="corn-maturityTime">Maturity Time</label>
+            <select name="corn_maturity_time" id="corn-maturityTime" class="form-select">
                 <option value="Early Maturing(3months)">Early Maturing (3months)</option>
                 <option value="Late Maturing (4-7months)">Late Maturing (4-7months)</option>
             </select>
@@ -144,12 +144,12 @@
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="corn-other-check">other</label>
-                <input class="form-check-input" type="checkbox" id="corn-other-check" value="1">
+                <input class="form-check-input" type="checkbox" name="corn_others" id="corn-other-check" value="1">
             </div>
             <!-- Other -->
             <div class="col-12 mb-2 corn-pest-other">
                 <label for="corn-other" class="form-label small-font">Other</label>
-                <textarea name="corn_others" id="corn-other" cols="30" rows="1" class="form-control"></textarea>
+                <textarea name="corn_others_desc" id="corn-other" cols="30" rows="1" class="form-control"></textarea>
             </div>
         </div>
 
@@ -185,10 +185,14 @@
                 <label class="form-check-label" for="corn-Heat">Heat</label>
                 <input class="form-check-input" type="checkbox" name="heat" id="corn-Heat" value="1">
             </div>
+            <div class="col-3 form-check form-check-inline">
+                <label class="form-check-label" for="corn-abiotic-check">other</label>
+                <input class="form-check-input" type="checkbox" name="abiotic_other" id="corn-abiotic-check" value="1">
+            </div>
             <!-- Other -->
             <div class="col-12 mb-2">
                 <label for="corn-abiotic-other" class="form-label small-font">Other</label>
-                <textarea name="abiotic_other" id="corn-abiotic-other" cols="30" rows="1" class="form-control"></textarea>
+                <textarea name="abiotic_other_desc" id="corn-abiotic-other" cols="30" rows="1" class="form-control"></textarea>
             </div>
         </div>
     </div>
