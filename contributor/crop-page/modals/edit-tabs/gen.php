@@ -32,34 +32,36 @@
 <!-- GENERAL TAB -->
 <div class="fade show active tab-pane" id="edit-gen-tab-pane" role="tabpanel" aria-labelledby="edit-gen-tab" tabindex="0">
     <!-- hidden data -->
-    <!-- crop_id -->
-    <input id="crop_id" type="hidden" name="crop_id" class="form-control">
-    <!-- categoryID -->
-    <input id="categoryID" type="hidden" name="categoryID" class="form-control">
-    <!-- cultural_aspect_id -->
-    <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
-    <!-- current_crop_variety -->
-    <input id="current_crop_variety" type="hidden" name="current_crop_variety" class="form-control">
-    <!-- currentUniqueCode -->
-    <input id="currentUniqueCode" type="hidden" name="currentUniqueCode" class="form-control">
-    <!-- disease_resistanceID -->
-    <input id="disease_resistanceID" type="hidden" name="disease_resistanceID" class="form-control">
-    <!-- seed_traitsID -->
-    <input id="seed_traitsID" type="hidden" name="seed_traitsID" class="form-control">
-    <!-- utilization_culturalID -->
-    <input id="utilization_culturalID" type="hidden" name="utilization_culturalID" class="form-control">
-    <!-- abiotic_resistanceID -->
-    <input id="abiotic_resistanceID" type="hidden" name="abiotic_resistanceID" class="form-control">
-    <!-- abiotic_resistance_riceID -->
-    <input id="abiotic_resistance_riceID" type="hidden" name="abiotic_resistance_riceID" class="form-control">
-    <!-- vegetative_state_cornID -->
-    <input id="vegetative_state_cornID" type="hidden" name="vegetative_state_cornID" class="form-control">
-    <!-- abiotic_resistance_riceID -->
-    <input id="abiotic_resistance_riceID" type="hidden" name="abiotic_resistance_riceID" class="form-control">
-    <!-- reproductive_state_cornID -->
-    <input id="reproductive_state_cornID" type="hidden" name="reproductive_state_cornID" class="form-control">
-    <!-- pest_resistance_cornID -->
-    <input id="pest_resistance_cornID" type="hidden" name="pest_resistance_cornID" class="form-control">
+    <div>
+        <!-- crop_id -->
+        <input id="crop_id" type="hidden" name="crop_id" class="form-control">
+        <!-- categoryID -->
+        <input id="categoryID" type="hidden" name="categoryID" class="form-control">
+        <!-- cultural_aspect_id -->
+        <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
+        <!-- current_crop_variety -->
+        <input id="current_crop_variety" type="hidden" name="current_crop_variety" class="form-control">
+        <!-- currentUniqueCode -->
+        <input id="currentUniqueCode" type="hidden" name="currentUniqueCode" class="form-control">
+        <!-- disease_resistanceID -->
+        <input id="disease_resistanceID" type="hidden" name="disease_resistanceID" class="form-control">
+        <!-- seed_traitsID -->
+        <input id="seed_traitsID" type="hidden" name="seed_traitsID" class="form-control">
+        <!-- utilization_culturalID -->
+        <input id="utilization_culturalID" type="hidden" name="utilization_culturalID" class="form-control">
+        <!-- abiotic_resistanceID -->
+        <input id="abiotic_resistanceID" type="hidden" name="abiotic_resistanceID" class="form-control">
+        <!-- abiotic_resistance_riceID -->
+        <input id="abiotic_resistance_riceID" type="hidden" name="abiotic_resistance_riceID" class="form-control">
+        <!-- vegetative_state_cornID -->
+        <input id="vegetative_state_cornID" type="hidden" name="vegetative_state_cornID" class="form-control">
+        <!-- abiotic_resistance_riceID -->
+        <input id="abiotic_resistance_riceID" type="hidden" name="abiotic_resistance_riceID" class="form-control">
+        <!-- reproductive_state_cornID -->
+        <input id="reproductive_state_cornID" type="hidden" name="reproductive_state_cornID" class="form-control">
+        <!-- pest_resistance_cornID -->
+        <input id="pest_resistance_cornID" type="hidden" name="pest_resistance_cornID" class="form-control">
+    </div>
 
     <!-- Contributed, Unique Code, and Date Created -->
     <dv class="row mb-3">
