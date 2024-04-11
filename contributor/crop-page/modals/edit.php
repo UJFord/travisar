@@ -207,7 +207,7 @@
 
                             // abiotic resistance resistance corn
                             $('#corn-Drought-Edit').prop('checked', value['drought'] == 1);
-                            $('#corn-Salinity-Edit').prop('checked', value['salnity'] == 1);
+                            $('#corn-Salinity-Edit').prop('checked', value['salinity'] == 1);
                             $('#corn-Heat-Edit').prop('checked', value['heat'] == 1);
                             $('#corn-abiotic-other-check-Edit').prop('checked', value['abiotic_other'] == 1);
                             // Show the 'Other' textarea if 'other' checkbox is checked
@@ -413,6 +413,12 @@
 
                         // crop_id
                         $('#crop_id').val(id);
+                        // categoryID
+                        $('#categoryID').val(value['category_id']);
+                        // current_crop_variety
+                        $('#current_crop_variety').val(value['crop_variety']);
+                        // currentUniqueCode
+                        $('#currentUniqueCode').val(value['unique_code']);
                         // crop_location_id
                         $('#crop_location_id').val(value['crop_location_id']);
                         // terrain name
@@ -421,6 +427,18 @@
                         $('#Char_id').val(value['characteristics_id']);
                         // cultural_aspect_id
                         $('#cultural_aspect-Edit').val(value['cultural_aspect_id']);
+                        // cultural_aspect_id
+                        $('#disease_resistanceID').val(value['disease_resistance_id']);
+                        // cultural_aspect_id
+                        $('#seed_traitsID').val(value['seed_traits_id']);
+                        // cultural_aspect_id
+                        $('#utilization_culturalID').val(value['utilization_cultural_id']);
+                        // cultural_aspect_id
+                        $('#abiotic_resistanceID').val(value['abiotic_resistance_id']);
+                        $('#abiotic_resistance_riceID').val(value['abiotic_resistance_rice_id']);
+                        $('#vegetative_state_cornID').val(value['vegetative_state_corn_id']);
+                        $('#reproductive_state_cornID').val(value['reproductive_state_corn_id']);
+                        $('#pest_resistance_cornID').val(value['pest_resistance_corn_id']);
 
                         // old image/current image
                         $('#old_image_seed').val(value['crop_seed_image']);

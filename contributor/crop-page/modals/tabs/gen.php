@@ -87,7 +87,7 @@
         <!-- variety name -->
         <div class="col mb-2">
             <label for="Variety-Name" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
-            <input id="Variety-Name" type="text" name="crop_variety" class="form-control" required>
+            <input id="Variety-Name" type="text" name="crop_variety" class="form-control" required pattern="[A-Za-z _-]+">
         </div>
 
         <!-- Meaning of Name -->
@@ -270,4 +270,27 @@
             previewContainer.classList.add("d-none");
         }
     }
+</script>
+
+<!-- script for limiting the input for the crop variety name -->
+<script>
+    // Get the input element
+    var inputElement = document.getElementById('Variety-Name');
+
+    // Add an event listener for keypress event
+    inputElement.addEventListener('keypress', function(e) {
+        // Get the key code of the pressed key
+        var keyCode = e.keyCode || e.which;
+
+        // Allow letters (A-Z and a-z), spaces (32), underscores (95), and dashes (45)
+        if (!(keyCode >= 65 && keyCode <= 90) && // A-Z
+            !(keyCode >= 97 && keyCode <= 122) && // a-z
+            keyCode !== 32 && // space
+            keyCode !== 95 && // underscore
+            keyCode !== 45 // dash
+        ) {
+            // Prevent default behavior if the key is not allowed
+            e.preventDefault();
+        }
+    });
 </script>

@@ -20,6 +20,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $current_image_seed = handleEmpty($_POST['current_image_seed']);
         $current_image_veg = handleEmpty($_POST['current_image_veg']);
         $current_image_rep = handleEmpty($_POST['current_image_rep']);
+        $currentUniqueCode = handleEmpty($_POST['currentUniqueCode']);
+        $current_crop_variety = handleEmpty($_POST['current_crop_variety']);
         $status = 'approved';
 
         // loc.php
@@ -28,14 +30,15 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $coordinates = handleEmpty($_POST['coordinates']);
         $barangay_name = $_POST['barangay'];
 
-        $user_id = $_POST['user_id'];
-
         // id's
-        $disease_resistance_id = handleEmpty($_POST['disease_resistance_id']);
-        $abiotic_resistance_rice_id = handleEmpty($_POST['abiotic_resistance_rice_id']);
+        $disease_resistance_id = handleEmpty($_POST['disease_resistanceID']);
+        $abiotic_resistance_rice_id = handleEmpty($_POST['abiotic_resistance_riceID']);
         $crop_location_id = handleEmpty($_POST['crop_location_id']);
         $crop_id = handleEmpty($_POST['crop_id']);
-        $seed_traits_id = handleEmpty($_POST['seed_traits_id']);
+        $seed_traits_id = handleEmpty($_POST['seed_traitsID']);
+        $utilization_cultural_id = handleEmpty($_POST['utilization_culturalID']);
+        $abiotic_resistance_id = handleEmpty($_POST['abiotic_resistanceID']);
+        $category_id = handleEmpty($_POST['categoryID']);
 
         // disease resistance
         $bacterial = isset($_POST['bacterial']) ? true : false;
@@ -166,7 +169,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $rootcrop_remarkable_features = isset($_POST['rootcrop_remarkable_features']) ? handleEmpty($_POST['rootcrop_remarkable_features']) : "Empty";
 
         // Validate the form data
-        if (empty($crop_variety) || empty($category_variety_id) || empty($category_id) || empty($terrain_id) || empty($province_name) || empty($municipality_name) || empty($barangay_name)) {
+        if (empty($crop_variety) || empty($province_name) || empty($municipality_name) || empty($barangay_name)) {
             throw new Exception("All fields are required.");
         }
 
@@ -217,17 +220,22 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
                 $finalimg_seed = $image;
             } else {
                 // Display error message for invalid file format
-                echo "invalid ang file format image";
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "invalid ang file format image";
+                header("location: ../../../crop.php");
                 die();
             }
+
+            // Delete the current image based on the category
+            if ($current_image_seed != '') {
+                $delete_path = "../img/" . $current_image_seed;
+                if (file_exists($delete_path)) {
+                    unlink($delete_path);
+                }
+            }
         } else {
-            // Don't upload image and set the image value as blank
-            echo "wala image na select";
-            echo "Error: " . pg_last_error($conn);
-            die();
+            // If no new image is selected, use the current image
+            $crop_seed_image = $current_image_seed;
         }
-        $crop_seed_image = $finalimg_seed;
 
         // Check if an image for crop reproductive image is selected
         if (isset($_FILES['crop_vegetative_image']['name']) && $_FILES['crop_vegetative_image']['name'] != '') {
@@ -276,17 +284,22 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
                 $finalimg_vege = $image;
             } else {
                 // Display error message for invalid file format
-                echo "invalid ang file format image";
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "invalid ang file format image";
+                header("location: ../../../crop.php");
                 die();
             }
+
+            // Delete the current image based on the category
+            if ($current_image_veg != '') {
+                $delete_path = "../img/" . $current_image_veg;
+                if (file_exists($delete_path)) {
+                    unlink($delete_path);
+                }
+            }
         } else {
-            // Don't upload image and set the image value as blank
-            echo "wala image na select";
-            echo "Error: " . pg_last_error($conn);
-            die();
+            // If no new image is selected, use the current image
+            $crop_vegetative_image = $current_image_veg;
         }
-        $crop_vegetative_image = $finalimg_vege;
 
         // Check if an image for crop reproductive image is selected
         if (isset($_FILES['crop_reproductive_image']['name']) && $_FILES['crop_reproductive_image']['name'] != '') {
@@ -335,20 +348,26 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
                 $finalimg_repro = $image;
             } else {
                 // Display error message for invalid file format
-                echo "invalid ang file format image";
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "invalid ang file format image";
+                header("location: ../../../crop.php");
                 die();
             }
-        } else {
-            // Don't upload image and set the image value as blank
-            echo "wala image na select";
-            echo "Error: " . pg_last_error($conn);
-            die();
-        }
-        $crop_reproductive_image = $finalimg_repro;
 
-        // for creating a unique code for each crops
+            // Delete the current image based on the category
+            if ($current_image_rep != '') {
+                $delete_path = "../img/" . $current_image_rep;
+                if (file_exists($delete_path)) {
+                    unlink($delete_path);
+                }
+            }
+        } else {
+            // If no new image is selected, use the current image
+            $crop_reproductive_image = $current_image_rep;
+        }
+
+        // for creating a unique code for each crop variety
         // Get the latest unique_code from the crop table
+
         $queryLatestCode = "SELECT category_name FROM category WHERE category_id = $1";
         $resultLatestCode = pg_query_params($conn, $queryLatestCode, array($category_id));
 
@@ -363,61 +382,64 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
                 $prefix .= strtoupper(substr($word, 0, 1));
             }
 
-            // Fetch all existing unique codes from the crop table
-            $queryUniqueCodes = "SELECT unique_code FROM crop WHERE unique_code LIKE '$prefix%'";
-            $resultUniqueCodes = pg_query($conn, $queryUniqueCodes);
+            // Format the crop variety name to have uppercase letters and dashes instead of spaces
+            $cropVarietyName = str_replace(' ', '-', ucwords(strtolower($crop_variety)));
 
-            // Extract the highest number from the existing codes
-            $existingNumbers = [];
-            while ($row = pg_fetch_assoc($resultUniqueCodes)) {
-                preg_match('/(\d+)$/', $row['unique_code'], $matches);
-                if (isset($matches[1])) {
-                    $existingNumbers[] = intval($matches[1]);
+            // Check if the current crop variety is different from the new one
+            if ($current_crop_variety != $crop_variety) {
+                // Fetch all existing unique codes from the crop table
+                $queryUniqueCodes = "SELECT unique_code FROM crop WHERE unique_code LIKE '$prefix%'";
+                $resultUniqueCodes = pg_query($conn, $queryUniqueCodes);
+
+                // Extract the highest number from the existing codes
+                $existingNumbers = [];
+                while ($row = pg_fetch_assoc($resultUniqueCodes)) {
+                    preg_match('/(\d+)$/', $row['unique_code'], $matches);
+                    if (isset($matches[1])) {
+                        $existingNumbers[] = intval($matches[1]);
+                    }
                 }
-            }
 
-            if (empty($existingNumbers)) {
-                // If no existing codes, set the current number to 0
-                $currentNumber = 0;
+                if (empty($existingNumbers)) {
+                    // If no existing codes, set the current number to 0
+                    $currentNumber = 0;
+                } else {
+                    $currentNumber = max($existingNumbers);
+                }
+
+                // Generate the new unique code
+                $newUniqueCode = $prefix . 'V' . $cropVarietyName . ($currentNumber + 1);
             } else {
-                $currentNumber = max($existingNumbers);
+                // If the current crop variety is the same, use the current unique code
+                $newUniqueCode = $currentUniqueCode;
             }
-
-            // Generate the new unique code
-            $newUniqueCode = $prefix . 'V' . ($currentNumber + 1);
         }
 
-        //insert into utilization cultural table
-        $query_utilCultural = "INSERT INTO utilization_cultural_importance (significance, \"use\", indigenous_utilization, remarkable_features)
-            VALUES ($1, $2, $3, $4) RETURNING utilization_cultural_id";
-
-        $value_utilCultural = array($significance, $use, $indigenous_utilization, $remarkable_features);
+        // update utilization cultural table
+        $query_utilCultural = "UPDATE utilization_cultural_importance SET significance = $1, \"use\" = $2, indigenous_utilization = $3,
+        remarkable_features = $4 WHERE utilization_cultural_id = $5";
+        $value_utilCultural = array(
+            $significance, $use, $indigenous_utilization, $remarkable_features, $utilization_cultural_id
+        );
         $query_run_utilCultural = pg_query_params($conn, $query_utilCultural, $value_utilCultural);
 
         if ($query_run_utilCultural) {
-            $row_utilCultural = pg_fetch_row($query_run_utilCultural);
-            $utilization_cultural_id = $row_utilCultural[0];
         } else {
             echo "Error: " . pg_last_error($conn);
             exit(0);
         }
 
-        //insert into crop table
-        $queryCrop = "INSERT INTO crop (crop_variety, crop_description, status, unique_code,
-        meaning_of_name, category_id, user_id, category_variety_id, terrain_id, utilization_cultural_id, crop_seed_image,
-        crop_vegetative_image, crop_reproductive_image)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13  ) RETURNING crop_id";
+        // update crop table
+        $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, status = $3, unique_code = $4, meaning_of_name = $5,
+        crop_seed_image = $6, crop_vegetative_image = $7, crop_reproductive_image = $8 where crop_id = $9";
 
         $valueCrops = array(
-            $crop_variety, $crop_description, $status, $newUniqueCode,
-            $meaning_of_name, $category_id, $user_id, $category_variety_id, $terrain_id, $utilization_cultural_id, $crop_seed_image,
-            $crop_vegetative_image, $crop_reproductive_image
+            $crop_variety, $crop_description, $status, $newUniqueCode, $meaning_of_name, $crop_seed_image, $crop_vegetative_image,
+            $crop_reproductive_image, $crop_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
         if ($query_run_Crop) {
-            $row_crop = pg_fetch_row($query_run_Crop);
-            $crop_id = $row_crop[0];
         } else {
             echo "Error: " . pg_last_error($conn);
             exit(0);
@@ -449,25 +471,17 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
             exit(0);
         }
 
-        // save into Crop Location Table
-        $query_CropLoc = "INSERT into crop_location (crop_id, location_id, barangay_id, coordinates) VALUES ($1, $2, $3, $4) RETURNING crop_location_id";
-        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($crop_id, $location_id, $barangay_id, $coordinates));
+        // update Crop Location Table
+        $query_CropLoc = "UPDATE crop_location set location_id = $1, barangay_id = $2, coordinates = $3 where crop_location_id = $4";
+        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($location_id, $barangay_id, $coordinates, $crop_location_id));
 
         if ($query_run_CropLoc) {
-            // Check if any rows were affected
-            if (pg_affected_rows($query_run_CropLoc) > 0) {
-                $row_CropLoc = pg_fetch_row($query_run_CropLoc);
-                $crop_location_id = $row_CropLoc[0];
-            } else {
-                echo "Error: No rows affected";
-                exit(0);
-            }
         } else {
             echo "Error: " . pg_last_error($conn);
             exit(0);
         }
 
-        //* for saving the morphological traits depending on the category selected
+        //* for updating the morphological traits depending on the category selected
         // get category_name
         $get_categoryName = "SELECT category_name from category where category_id = $1";
         $query_run_categoryName = pg_query_params($conn, $get_categoryName, array($category_id));
@@ -484,93 +498,69 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         // Check the category name and perform actions accordingly
         if ($get_category_name === 'Corn') {
             // Id's for corn traits
-            $corn_traits_id = handleEmpty($_POST['corn_traits_id']);
-            $vegetative_state_corn_id = handleEmpty($_POST['vegetative_state_corn_id']);
-            $reproductive_state_corn_id = handleEmpty($_POST['reproductive_state_corn_id']);
-            $pest_resistance_corn_id = handleEmpty($_POST['pest_resistance_corn_id']);
-            $pest_resistance_corn_id = handleEmpty($_POST['pest_resistance_corn_id']);
+            $vegetative_state_corn_id = handleEmpty($_POST['vegetative_state_cornID']);
+            $reproductive_state_corn_id = handleEmpty($_POST['reproductive_state_cornID']);
+            $pest_resistance_corn_id = handleEmpty($_POST['pest_resistance_cornID']);
 
             // Handle corn category traits
             // abiotic resistance
-            $query_abioticRes = "INSERT into abiotic_resistance (drought, salinity, heat, abiotic_other) values ($1, $2, $3, $4) returning abiotic_resistance_id";
-            $query_run_abioticRes = pg_query_params($conn, $query_abioticRes, array($drought, $salinity, $heat, $abiotic_other));
+            $query_abioticRes = "UPDATE abiotic_resistance set drought = $1, salinity = $2, heat = $3, abiotic_other = $4, abiotic_other_desc = $5 WHERE abiotic_resistance_id = $6";
+            $query_run_abioticRes = pg_query_params($conn, $query_abioticRes, array($drought, $salinity, $heat, $abiotic_other, $abiotic_other_desc, $abiotic_resistance_id));
             if ($query_run_abioticRes) {
-                $row_abioticRes = pg_fetch_row($query_run_abioticRes);
-                $abiotic_resistance_id = $row_abioticRes[0];
             } else {
                 echo "Error: " . pg_last_error($conn);
                 exit(0);
             }
 
             // disease resistance
-            $query_diseaseRes = "INSERT into disease_resistance (bacterial, viral, fungus) values ($1, $2, $3) returning disease_resistance_id";
-            $query_run_diseaseRes = pg_query_params($conn, $query_diseaseRes, array($bacterial, $viral, $fungus));
+            $query_diseaseRes = "UPDATE disease_resistance set bacterial = $1, viral = $2, fungus = $3 WHERE disease_resistance_id = $4";
+            $query_run_diseaseRes = pg_query_params($conn, $query_diseaseRes, array($bacterial, $viral, $fungus, $disease_resistance_id));
             if ($query_run_diseaseRes) {
-                $row_diseaseRes = pg_fetch_row($query_run_diseaseRes);
-                $disease_resistance_id = $row_diseaseRes[0];
+                echo "success";
             } else {
                 echo "Error: " . pg_last_error($conn);
                 exit(0);
             }
 
             // pest resistance corn
-            $query_pestRes = "INSERT into pest_resistance_corn (corn_borers, earworms, spider_mites, corn_black_bug, corn_army_worms, leaf_aphid, corn_cutWorms, corn_birds, 
-            corn_ants, corn_rats, corn_others, corn_others_desc) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning pest_resistance_corn_id";
+            $query_pestRes = "UPDATE pest_resistance_corn set corn_borers = $1, earworms = $2, spider_mites = $3, corn_black_bug = $4, corn_army_worms = $5, leaf_aphid = $6, corn_cutWorms = $7, corn_birds = $8, 
+            corn_ants = $9, corn_rats = $10, corn_others = $11, corn_others_desc = $12 where pest_resistance_corn_id = $13";
             $query_run_pestRes = pg_query_params($conn, $query_pestRes, array(
-                $corn_borers, $earworms, $spider_mites, $corn_black_bug, $corn_army_worms,
-                $leaf_aphid, $corn_cutWorms, $corn_birds, $corn_ants, $corn_rats, $corn_others, $corn_others_desc
+                $corn_borers, $earworms, $spider_mites, $corn_black_bug, $corn_army_worms, $leaf_aphid, $corn_cutWorms, $corn_birds,
+                $corn_ants, $corn_rats, $corn_others, $corn_others_desc, $pest_resistance_corn_id
             ));
             if ($query_run_pestRes) {
-                $row_pestRes = pg_fetch_row($query_run_pestRes);
-                $pest_resistance_corn_id = $row_pestRes[0];
+                echo "success";
             } else {
                 echo "Error: " . pg_last_error($conn);
                 exit(0);
             }
 
             // seed traits
-            $query_seedTraits = "INSERT into seed_traits (seed_length, seed_width, seed_shape, seed_color) values ($1, $2, $3, $4) returning seed_traits_id";
-            $query_run_seedTraits = pg_query_params($conn, $query_seedTraits, array($seed_length, $seed_width, $seed_shape, $seed_color));
+            $query_seedTraits = "UPDATE seed_traits set seed_length = $1, seed_width = $2, seed_shape = $3, seed_color = $4 where seed_traits_id = $5";
+            $query_run_seedTraits = pg_query_params($conn, $query_seedTraits, array($seed_length, $seed_width, $seed_shape, $seed_color, $seed_traits_id));
             if ($query_run_seedTraits) {
-                $row_seedTraits = pg_fetch_row($query_run_seedTraits);
-                $seed_traits_id = $row_seedTraits[0];
+                echo "success";
             } else {
                 echo "Error: " . pg_last_error($conn);
                 exit(0);
             }
 
             // reproductive state corn
-            $query_reproductiveState = "INSERT into reproductive_state_corn (corn_yield_capacity, seed_traits_id) values ($1, $2) returning reproductive_state_corn_id";
-            $query_run_reproductiveState = pg_query_params($conn, $query_reproductiveState, array($corn_yield_capacity, $seed_traits_id));
+            $query_reproductiveState = "UPDATE reproductive_state_corn set corn_yield_capacity = $1 where reproductive_state_corn_id = $2";
+            $query_run_reproductiveState = pg_query_params($conn, $query_reproductiveState, array($corn_yield_capacity, $reproductive_state_corn_id));
             if ($query_run_reproductiveState) {
-                $row_reproductiveState = pg_fetch_row($query_run_reproductiveState);
-                $reproductive_state_corn_id = $row_reproductiveState[0];
+                echo "success";
             } else {
                 echo "Error: " . pg_last_error($conn);
                 exit(0);
             }
 
             // vegetative state corn
-            $query_vegetativeState = "INSERT into vegetative_state_corn (corn_plant_height, corn_leaf_width, corn_leaf_length, corn_maturity_time) values ($1, $2, $3, $4) returning vegetative_state_corn_id";
-            $query_run_vegetativeState = pg_query_params($conn, $query_vegetativeState, array($corn_plant_height, $corn_leaf_width, $corn_leaf_length, $corn_maturity_time));
+            $query_vegetativeState = "UPDATE vegetative_state_corn set corn_plant_height = $1, corn_leaf_width = $2, corn_leaf_length = $3, corn_maturity_time = $4 WHERE vegetative_state_corn_id = $5";
+            $query_run_vegetativeState = pg_query_params($conn, $query_vegetativeState, array($corn_plant_height, $corn_leaf_width, $corn_leaf_length, $corn_maturity_time, $vegetative_state_corn_id));
             if ($query_run_vegetativeState) {
-                $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
-                $vegetative_state_corn_id = $row_vegetativeState[0];
-            } else {
-                echo "Error: " . pg_last_error($conn);
-                exit(0);
-            }
-
-            // corn traits
-            $query_cornTraits = "INSERT into corn_traits (crop_id, vegetative_state_corn_id, reproductive_state_corn_id, pest_resistance_corn_id, 
-            disease_resistance_id, abiotic_resistance_id) values ($1, $2, $3, $4, $5, $6) returning corn_traits_id";
-            $query_run_cornTraits = pg_query_params($conn, $query_cornTraits, array(
-                $crop_id, $vegetative_state_corn_id, $reproductive_state_corn_id,
-                $pest_resistance_corn_id, $disease_resistance_id, $abiotic_resistance_id
-            ));
-            if ($query_run_cornTraits) {
-                $row_cornTraits = pg_fetch_row($query_run_cornTraits);
-                $corn_traits_id = $row_cornTraits[0];
+                echo "success";
             } else {
                 echo "Error: " . pg_last_error($conn);
                 exit(0);

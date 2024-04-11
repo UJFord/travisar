@@ -1134,10 +1134,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
                 die();
             }
         } else {
-            // Don't upload image and set the image value as blank
-            echo "wala image na select";
-            echo "Error: " . pg_last_error($conn);
-            die();
+            // If no image is selected, set it  
         }
         $crop_seed_image = $finalimg_seed;
 
@@ -1193,10 +1190,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
                 die();
             }
         } else {
-            // Don't upload image and set the image value as blank
-            echo "wala image na select";
-            echo "Error: " . pg_last_error($conn);
-            die();
+            // If no image is selected, set it  
         }
         $crop_vegetative_image = $finalimg_vege;
 
@@ -1252,10 +1246,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
                 die();
             }
         } else {
-            // Don't upload image and set the image value as blank
-            echo "wala image na select";
-            echo "Error: " . pg_last_error($conn);
-            die();
+            // If no image is selected, set it  
         }
         $crop_reproductive_image = $finalimg_repro;
 
@@ -1274,6 +1265,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
             foreach ($words as $word) {
                 $prefix .= strtoupper(substr($word, 0, 1));
             }
+
+            // Format the crop variety name to have uppercase letters and dashes instead of spaces
+            $cropVarietyName = str_replace(' ', '-', ucwords(strtolower($crop_variety)));
 
             // Fetch all existing unique codes from the crop table
             $queryUniqueCodes = "SELECT unique_code FROM crop WHERE unique_code LIKE '$prefix%'";
@@ -1296,7 +1290,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
             }
 
             // Generate the new unique code
-            $newUniqueCode = $prefix . 'V' . ($currentNumber + 1);
+            $newUniqueCode = $prefix . 'V' . $cropVarietyName . ($currentNumber + 1);
         }
 
         //insert into utilization cultural table

@@ -34,8 +34,32 @@
     <!-- hidden data -->
     <!-- crop_id -->
     <input id="crop_id" type="hidden" name="crop_id" class="form-control">
+    <!-- categoryID -->
+    <input id="categoryID" type="hidden" name="categoryID" class="form-control">
     <!-- cultural_aspect_id -->
     <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
+    <!-- current_crop_variety -->
+    <input id="current_crop_variety" type="hidden" name="current_crop_variety" class="form-control">
+    <!-- currentUniqueCode -->
+    <input id="currentUniqueCode" type="hidden" name="currentUniqueCode" class="form-control">
+    <!-- disease_resistanceID -->
+    <input id="disease_resistanceID" type="hidden" name="disease_resistanceID" class="form-control">
+    <!-- seed_traitsID -->
+    <input id="seed_traitsID" type="hidden" name="seed_traitsID" class="form-control">
+    <!-- utilization_culturalID -->
+    <input id="utilization_culturalID" type="hidden" name="utilization_culturalID" class="form-control">
+    <!-- abiotic_resistanceID -->
+    <input id="abiotic_resistanceID" type="hidden" name="abiotic_resistanceID" class="form-control">
+    <!-- abiotic_resistance_riceID -->
+    <input id="abiotic_resistance_riceID" type="hidden" name="abiotic_resistance_riceID" class="form-control">
+    <!-- vegetative_state_cornID -->
+    <input id="vegetative_state_cornID" type="hidden" name="vegetative_state_cornID" class="form-control">
+    <!-- abiotic_resistance_riceID -->
+    <input id="abiotic_resistance_riceID" type="hidden" name="abiotic_resistance_riceID" class="form-control">
+    <!-- reproductive_state_cornID -->
+    <input id="reproductive_state_cornID" type="hidden" name="reproductive_state_cornID" class="form-control">
+    <!-- pest_resistance_cornID -->
+    <input id="pest_resistance_cornID" type="hidden" name="pest_resistance_cornID" class="form-control">
 
     <!-- Contributed, Unique Code, and Date Created -->
     <dv class="row mb-3">
@@ -120,7 +144,7 @@
             <span>Vegetative Stage</span>
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
-        <input type="hidden" name="current_image_veg" id="old_image_veg">
+            <input type="hidden" name="current_image_veg" id="old_image_veg">
             <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetativeEdit" accept="image/jpeg,image/png" name="crop_vegetative_image" single onchange="previewVegetativeImageEdit()">
         </div>
         <div class="col preview-container custom-scrollbar overflow-scroll rounded p-3 border d-flex justify-content-center align-items-center" id="previewVegEdit"></div>
@@ -133,7 +157,7 @@
             <span>Reproductive Stage</span>
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
-        <input type="hidden" name="current_image_rep" id="old_image_rep">
+            <input type="hidden" name="current_image_rep" id="old_image_rep">
             <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductiveEdit" accept="image/jpeg,image/png" name="crop_reproductive_image" single onchange="previewReproductiveImageEdit()">
         </div>
         <div class="col preview-container custom-scrollbar overflow-scroll rounded p-3 border d-flex justify-content-center align-items-center" id="previewReproductiveEdit"></div>
@@ -243,4 +267,27 @@
             previewContainerEdit.classList.add("d-none");
         }
     }
+</script>
+
+<!-- script for limiting the input for the crop variety name -->
+<script>
+    // Get the input element
+    var inputElement = document.getElementById('crop_variety');
+
+    // Add an event listener for keypress event
+    inputElement.addEventListener('keypress', function(e) {
+        // Get the key code of the pressed key
+        var keyCode = e.keyCode || e.which;
+
+        // Allow letters (A-Z and a-z), spaces (32), underscores (95), and dashes (45)
+        if (!(keyCode >= 65 && keyCode <= 90) && // A-Z
+            !(keyCode >= 97 && keyCode <= 122) && // a-z
+            keyCode !== 32 && // space
+            keyCode !== 95 && // underscore
+            keyCode !== 45 // dash
+        ) {
+            // Prevent default behavior if the key is not allowed
+            e.preventDefault();
+        }
+    });
 </script>
