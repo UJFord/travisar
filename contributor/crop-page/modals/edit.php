@@ -141,15 +141,12 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['abiotic_other']);
+                        console.log(value['crop_seed_image']);
 
-                        // // Iterate over each filename and append an image element to the preview container
-                        // imageFilenames.forEach(function(filename) {
-                        //     $('#previewEdit').append(`<img src="crop-page/modals/img/${filename.trim()}" class="m-2 img-thumbnail" style="height: 200px;">`);
-                        // });
-
-                        // Fetch the old image and pass it to the fetchOldImage function
-                        fetchOldImage(value.crop_image);
+                        // Append each image to their own previews
+                        $('#previewSeedEdit').append(`<img src="crop-page/modals/img/${value['crop_seed_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                        $('#previewVegEdit').append(`<img src="crop-page/modals/img/${value['crop_vegetative_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                        $('#previewReproductiveEdit').append(`<img src="crop-page/modals/img/${value['crop_reproductive_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
 
                         // setting the available data on the traits tab depending on the category of the selected crop
                         if (value['category_name'] === 'Corn') {

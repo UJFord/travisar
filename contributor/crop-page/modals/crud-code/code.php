@@ -563,7 +563,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         } elseif ($get_category_name === 'Rice') {
             // Handle rice category
             // abiotic resistance rice
-            $query_abioticRes = "INSERT into abiotic_resistance_rice (rice_drought, rice_salinity, rice_heat, harmful_radiation, rice_abiotic_other, rice_abiotic_other_desc) values ($1, $2, $3, $4, $5) returning abiotic_resistance_rice_id";
+            $query_abioticRes = "INSERT into abiotic_resistance_rice (rice_drought, rice_salinity, rice_heat, harmful_radiation, rice_abiotic_other, rice_abiotic_other_desc) values ($1, $2, $3, $4, $5, $6) returning abiotic_resistance_rice_id";
             $query_run_abioticRes = pg_query_params($conn, $query_abioticRes, array($rice_drought, $rice_salinity, $rice_heat, $harmful_radiation, $rice_abiotic_other, $rice_abiotic_other_desc));
             if ($query_run_abioticRes) {
                 $row_abioticRes = pg_fetch_row($query_run_abioticRes);
@@ -586,7 +586,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
 
             // pest resistance rice
             $query_pestRes = "INSERT into pest_resistance_rice (rice_borers, rice_snail, hoppers, rice_black_bug, leptocorisa, leaf_folder, rice_birds, rice_ants, 
-                        rice_rats, rice_army_worms, rice_others, rice_others_desc) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) returning pest_resistance_rice_id";
+                        rice_rats, rice_army_worms, rice_others, rice_others_desc) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning pest_resistance_rice_id";
             $query_run_pestRes = pg_query_params($conn, $query_pestRes, array(
                 $rice_borers, $rice_snail, $hoppers, $rice_black_bug, $leptocorisa,
                 $leaf_folder, $rice_birds, $rice_ants, $rice_rats, $rice_army_worms, $rice_others, $rice_others_desc
