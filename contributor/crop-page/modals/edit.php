@@ -436,9 +436,17 @@
                         // cultural_aspect_id
                         $('#abiotic_resistanceID').val(value['abiotic_resistance_id']);
                         $('#abiotic_resistance_riceID').val(value['abiotic_resistance_rice_id']);
+                        // id for corn
                         $('#vegetative_state_cornID').val(value['vegetative_state_corn_id']);
                         $('#reproductive_state_cornID').val(value['reproductive_state_corn_id']);
                         $('#pest_resistance_cornID').val(value['pest_resistance_corn_id']);
+                        // if for rice
+                        $('#pest_resistance_riceID').val(value['pest_resistance_rice_id']);
+                        $('#vegetative_state_riceID').val(value['vegetative_state_rice_id']);
+                        $('#reproductive_state_riceID').val(value['reproductive_state_rice_id']);
+                        $('#panicle_traits_riceID').val(value['panicle_traits_rice_id']);
+                        $('#flag_leaf_traits_riceID').val(value['flag_leaf_traits_rice_id']);
+                        $('#sensory_traits_riceID').val(value['sensory_traits_rice_id']);
 
                         // old image/current image
                         $('#old_image_seed').val(value['crop_seed_image']);

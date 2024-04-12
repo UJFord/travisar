@@ -51,16 +51,26 @@
         <input id="utilization_culturalID" type="hidden" name="utilization_culturalID" class="form-control">
         <!-- abiotic_resistanceID -->
         <input id="abiotic_resistanceID" type="hidden" name="abiotic_resistanceID" class="form-control">
-        <!-- abiotic_resistance_riceID -->
-        <input id="abiotic_resistance_riceID" type="hidden" name="abiotic_resistance_riceID" class="form-control">
         <!-- vegetative_state_cornID -->
         <input id="vegetative_state_cornID" type="hidden" name="vegetative_state_cornID" class="form-control">
-        <!-- abiotic_resistance_riceID -->
-        <input id="abiotic_resistance_riceID" type="hidden" name="abiotic_resistance_riceID" class="form-control">
         <!-- reproductive_state_cornID -->
         <input id="reproductive_state_cornID" type="hidden" name="reproductive_state_cornID" class="form-control">
         <!-- pest_resistance_cornID -->
         <input id="pest_resistance_cornID" type="hidden" name="pest_resistance_cornID" class="form-control">
+        <!-- abiotic_resistance_riceID -->
+        <input id="abiotic_resistance_riceID" type="hidden" name="abiotic_resistance_riceID" class="form-control">
+        <!-- pest_resistance_riceID -->
+        <input id="pest_resistance_riceID" type="hidden" name="pest_resistance_riceID" class="form-control">
+        <!-- vegetative_state_riceID -->
+        <input id="vegetative_state_riceID" type="hidden" name="vegetative_state_riceID" class="form-control">
+        <!-- reproductive_state_riceID -->
+        <input id="reproductive_state_riceID" type="hidden" name="reproductive_state_riceID" class="form-control">
+        <!-- panicle_traits_riceID -->
+        <input id="panicle_traits_riceID" type="hidden" name="panicle_traits_riceID" class="form-control">
+        <!-- flag_leaf_traits_riceID -->
+        <input id="flag_leaf_traits_riceID" type="hidden" name="flag_leaf_traits_riceID" class="form-control">
+        <!-- sensory_traits_riceID -->
+        <input id="sensory_traits_riceID" type="hidden" name="sensory_traits_riceID" class="form-control">
     </div>
 
     <!-- Contributed, Unique Code, and Date Created -->
