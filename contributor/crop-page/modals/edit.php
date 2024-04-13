@@ -447,6 +447,11 @@
                         $('#panicle_traits_riceID').val(value['panicle_traits_rice_id']);
                         $('#flag_leaf_traits_riceID').val(value['flag_leaf_traits_rice_id']);
                         $('#sensory_traits_riceID').val(value['sensory_traits_rice_id']);
+                        // id for root crop
+                        $('#vegetative_state_rootcropID').val(value['vegetative_state_rootcrop_id']);
+                        $('#root_Crop_traitsID').val(value['root_Crop_traits_id']);
+                        $('#pest_resistance_rootcropID').val(value['pest_resistance_rootcrop_id']);
+                        $('#rootcrop_traitsID').val(value['rootcrop_traits_id']);
 
                         // old image/current image
                         $('#old_image_seed').val(value['crop_seed_image']);

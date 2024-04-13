@@ -76,6 +76,14 @@
         <input id="flag_leaf_traits_riceID" type="hidden" name="flag_leaf_traits_riceID" class="form-control">
         <!-- sensory_traits_riceID -->
         <input id="sensory_traits_riceID" type="hidden" name="sensory_traits_riceID" class="form-control">
+
+        <!-- root crop id's -->
+        <!-- vegetative_state_rootcropID -->
+        <input id="vegetative_state_rootcropID" type="hidden" name="vegetative_state_rootcropID" class="form-control">
+        <!-- pest_resistance_rootcropID -->
+        <input id="pest_resistance_rootcropID" type="hidden" name="pest_resistance_rootcropID" class="form-control">
+        <!-- rootcrop_traitsID -->
+        <input id="rootcrop_traitsID" type="hidden" name="rootcrop_traitsID" class="form-control">
     </div>
 
     <!-- Contributed, Unique Code, and Date Created -->

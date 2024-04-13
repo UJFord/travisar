@@ -2135,8 +2135,9 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
             $query_pestRes = "UPDATE pest_resistance_rice set rice_borers = $1, rice_snail = $2, hoppers = $3, rice_black_bug = $4, leptocorisa = $5, leaf_folder = $6, rice_birds = $7, rice_ants = $8,
             rice_rats = $9, rice_army_worms = $10, rice_others = $11, rice_others_desc = $12 where pest_resistance_rice_id = $13";
             $query_run_pestRes = pg_query_params($conn, $query_pestRes, array(
-                $rice_borers, $rice_snail, $hoppers, $rice_black_bug, $leptocorisa, $leaf_folder, $rice_birds, $rice_ants, $rice_rats, 
-                $rice_army_worms, $rice_others, $rice_others_desc, $pest_resistance_rice_id));
+                $rice_borers, $rice_snail, $hoppers, $rice_black_bug, $leptocorisa, $leaf_folder, $rice_birds, $rice_ants, $rice_rats,
+                $rice_army_worms, $rice_others, $rice_others_desc, $pest_resistance_rice_id
+            ));
             if ($query_run_pestRes) {
             } else {
                 echo "Error: " . pg_last_error($conn);
@@ -2198,79 +2199,58 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
             }
         } elseif ($get_category_name === 'Root Crop') {
             // Id's for rootcrop traits
-            $rootcrop_traits_id = handleEmpty($_POST['rootcrop_traits_id']);
-            $vegetative_state_rootcrop_id = handleEmpty($_POST['vegetative_state_rootcrop_id']);
-            $root_Crop_traits_id = handleEmpty($_POST['root_Crop_traits_id']);
-            $pest_resistance_rootcrop_id = handleEmpty($_POST['pest_resistance_rootcrop_id']);
+            $vegetative_state_rootcrop_id = handleEmpty($_POST['vegetative_state_rootcropID']);
+            $pest_resistance_rootcrop_id = handleEmpty($_POST['pest_resistance_rootcropID']);
+            $rootcrop_traits_id = handleEmpty($_POST['rootcrop_traitsID']);
 
             // Handle root crops category
             // abiotic resistance
-            $query_abioticRes = "INSERT into abiotic_resistance (drought, salinity, heat, abiotic_other, abiotic_other_desc) values ($1, $2, $3, $4, $5) returning abiotic_resistance_id";
-            $query_run_abioticRes = pg_query_params($conn, $query_abioticRes, array($drought, $salinity, $heat, $abiotic_other, $abiotic_other_desc));
+            $query_abioticRes = "UPDATE abiotic_resistance set drought = $1, salinity = $2, heat = $3, abiotic_other = $4, abiotic_other_desc = $5 where abiotic_resistance_id = $6";
+            $query_run_abioticRes = pg_query_params($conn, $query_abioticRes, array($drought, $salinity, $heat, $abiotic_other, $abiotic_other_desc, $abiotic_resistance_id));
             if ($query_run_abioticRes) {
-                $row_abioticRes = pg_fetch_row($query_run_abioticRes);
-                $abiotic_resistance_id = $row_abioticRes[0];
             } else {
                 echo "Error: " . pg_last_error($conn);
                 exit(0);
             }
 
             // disease resistance
-            $query_diseaseRes = "INSERT into disease_resistance (bacterial, viral, fungus) values ($1, $2, $3) returning disease_resistance_id";
-            $query_run_diseaseRes = pg_query_params($conn, $query_diseaseRes, array($bacterial, $viral, $fungus));
+            $query_diseaseRes = "UPDATE disease_resistance set bacterial = $1, viral = $2, fungus = $3 where disease_resistance_id = $4";
+            $query_run_diseaseRes = pg_query_params($conn, $query_diseaseRes, array($bacterial, $viral, $fungus, $disease_resistance_id));
             if ($query_run_diseaseRes) {
-                $row_diseaseRes = pg_fetch_row($query_run_diseaseRes);
-                $disease_resistance_id = $row_diseaseRes[0];
             } else {
                 echo "Error: " . pg_last_error($conn);
                 exit(0);
             }
 
             // pest resistance rootcrop
-            $query_pestRes = "INSERT into pest_resistance_rootcrop (root_aphids, root_knot_nematodes, rootcrop_cutworms, white_grubs, termites, weevils, flea_beetles, rootcrop_snails, 
-                        rootcrop_ants, rootcrop_rats, rootcrop_others, rootcrop_others_desc) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning pest_resistance_rootcrop_id";
+            $query_pestRes = "UPDATE pest_resistance_rootcrop set root_aphids = $1, root_knot_nematodes = $2, rootcrop_cutworms = $3, white_grubs = $4, termites = $5, 
+            weevils = $6, flea_beetles = $7, rootcrop_snails = $8, rootcrop_ants = $9, rootcrop_rats = $10, rootcrop_others = $11, rootcrop_others_desc = $12 
+            where pest_resistance_rootcrop_id = $13";
             $query_run_pestRes = pg_query_params($conn, $query_pestRes, array(
-                $root_aphids, $root_knot_nematodes, $rootcrop_cutworms, $white_grubs, $termites,
-                $weevils, $flea_beetles, $rootcrop_snails, $rootcrop_ants, $rootcrop_rats, $rootcrop_others, $rootcrop_others_desc
+                $root_aphids, $root_knot_nematodes, $rootcrop_cutworms, $white_grubs, $termites, $weevils, $flea_beetles, $rootcrop_snails, $rootcrop_ants,
+                $rootcrop_rats, $rootcrop_others, $rootcrop_others_desc, $pest_resistance_rootcrop_id
             ));
             if ($query_run_pestRes) {
-                $row_pestRes = pg_fetch_row($query_run_pestRes);
-                $pest_resistance_rootcrop_id = $row_pestRes[0];
             } else {
                 echo "Error: " . pg_last_error($conn);
                 exit(0);
             }
 
             // rootcrop traits
-            $query_rootcropTraits = "INSERT into rootcrop_traits (eating_quality, rootcrop_color, sweetness, rootcrop_remarkable_features) values ($1, $2, $3, $4) returning rootcrop_traits_id";
-            $query_run_rootcropTraits = pg_query_params($conn, $query_rootcropTraits, array($eating_quality, $rootcrop_color, $sweetness, $rootcrop_remarkable_features));
+            $query_rootcropTraits = "UPDATE rootcrop_traits set eating_quality = $1, rootcrop_color = $2, sweetness = $3, rootcrop_remarkable_features = $4 where rootcrop_traits_id = $5";
+            $query_run_rootcropTraits = pg_query_params($conn, $query_rootcropTraits, array($eating_quality, $rootcrop_color, $sweetness, $rootcrop_remarkable_features, $rootcrop_traits_id));
             if ($query_run_rootcropTraits) {
-                $row_rootcropTraits = pg_fetch_row($query_run_rootcropTraits);
-                $rootcrop_traits_id = $row_rootcropTraits[0];
             } else {
                 echo "Error: " . pg_last_error($conn);
                 exit(0);
             }
 
             // vegetative state rootcrop
-            $query_vegetativeState = "INSERT into vegetative_state_rootcrop (rootcrop_plant_height, rootcrop_leaf_width, rootcrop_leaf_length, rootcrop_stem_leaf_desc, rootcrop_maturity_time) values ($1, $2, $3, $4, $5) returning vegetative_state_rootcrop_id";
-            $query_run_vegetativeState = pg_query_params($conn, $query_vegetativeState, array($rootcrop_plant_height, $rootcrop_leaf_width, $rootcrop_leaf_length, $rootcrop_stem_leaf_desc, $rootcrop_maturity_time));
+            $query_vegetativeState = "UPDATE vegetative_state_rootcrop set rootcrop_plant_height = $1, rootcrop_leaf_width = $2, rootcrop_leaf_length = $3, 
+            rootcrop_stem_leaf_desc = $4, rootcrop_maturity_time = $5 where vegetative_state_rootcrop_id = $6";
+            $query_run_vegetativeState = pg_query_params($conn, $query_vegetativeState, array($rootcrop_plant_height, $rootcrop_leaf_width, $rootcrop_leaf_length, 
+            $rootcrop_stem_leaf_desc, $rootcrop_maturity_time, $vegetative_state_rootcrop_id));
             if ($query_run_vegetativeState) {
-                $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
-                $vegetative_state_rootcrop_id = $row_vegetativeState[0];
-            } else {
-                echo "Error: " . pg_last_error($conn);
-                exit(0);
-            }
-
-            // root crop traits
-            $query_root_CropTraits = "INSERT into root_crop_traits (crop_id, vegetative_state_rootcrop_id, rootcrop_traits_id, pest_resistance_rootcrop_id, disease_resistance_id, abiotic_resistance_id) values ($1, $2, $3, $4, $5, $6) returning root_crop_traits_id";
-            $query_run_root_CropTraits = pg_query_params($conn, $query_root_CropTraits, array(
-                $crop_id, $vegetative_state_rootcrop_id, $rootcrop_traits_id, $pest_resistance_rootcrop_id, $disease_resistance_id, $abiotic_resistance_id
-            ));
-            if ($query_run_root_CropTraits) {
-                $row_root_CropTraits = pg_fetch_row($query_run_root_CropTraits);
-                $root_Crop_traits_id = $row_root_CropTraits[0];
             } else {
                 echo "Error: " . pg_last_error($conn);
                 exit(0);
