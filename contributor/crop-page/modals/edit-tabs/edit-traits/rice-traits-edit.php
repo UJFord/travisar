@@ -27,7 +27,7 @@
         <!-- leaf width -->
         <div class="col">
             <label for="leafWidth-Edit">Leaf Width</label>
-            <select name="leaf_width" id="leafWidth-Edit" class="form-select">
+            <select name="rice_leaf_width" id="leafWidth-Edit" class="form-select">
                 <option value="Narrow">Narrow</option>
                 <option value="Average">Average</option>
                 <option value="Wide">Wide</option>
@@ -39,7 +39,7 @@
         <!-- leaf length -->
         <div class="col">
             <label for="leafLength-Edit">Leaf Length</label>
-            <select name="leaf_length" id="leafLength-Edit" class="form-select">
+            <select name="rice_leaf_length" id="leafLength-Edit" class="form-select">
                 <option value="Short">Short</option>
                 <option value="Average">Average</option>
                 <option value="Long">Long</option>
@@ -279,8 +279,8 @@
                 <input class="form-check-input" type="checkbox" name="rice_ants" id="rice-ants-Edit" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
-                <label class="form-check-label" for="rice-Rats-Edit">Rats</label>
-                <input class="form-check-input" type="checkbox" name="rice_rats" id="rice-Rats-Edit" value="1">
+                <label class="form-check-label" for="rice-rats-Edit">Rats</label>
+                <input class="form-check-input" type="checkbox" name="rice_rats" id="rice-rats-Edit" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label" for="rice-armyWorms-Edit">Army Worms</label>

@@ -33,8 +33,9 @@
 <div class="fade show active tab-pane" id="edit-gen-tab-pane" role="tabpanel" aria-labelledby="edit-gen-tab" tabindex="0">
     <!-- hidden data -->
     <div>
+        <!-- common id's -->
         <!-- crop_id -->
-        <input id="crop_id" type="hidden" name="crop_id" class="form-control">
+        <input id="crop_id" type="text" name="crop_id" class="form-control">
         <!-- categoryID -->
         <input id="categoryID" type="hidden" name="categoryID" class="form-control">
         <!-- cultural_aspect_id -->
@@ -51,12 +52,16 @@
         <input id="utilization_culturalID" type="hidden" name="utilization_culturalID" class="form-control">
         <!-- abiotic_resistanceID -->
         <input id="abiotic_resistanceID" type="hidden" name="abiotic_resistanceID" class="form-control">
+
+        <!-- corn id's -->
         <!-- vegetative_state_cornID -->
         <input id="vegetative_state_cornID" type="hidden" name="vegetative_state_cornID" class="form-control">
         <!-- reproductive_state_cornID -->
         <input id="reproductive_state_cornID" type="hidden" name="reproductive_state_cornID" class="form-control">
         <!-- pest_resistance_cornID -->
         <input id="pest_resistance_cornID" type="hidden" name="pest_resistance_cornID" class="form-control">
+
+        <!-- rice id's -->
         <!-- abiotic_resistance_riceID -->
         <input id="abiotic_resistance_riceID" type="hidden" name="abiotic_resistance_riceID" class="form-control">
         <!-- pest_resistance_riceID -->

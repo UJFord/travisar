@@ -60,7 +60,7 @@
     document.getElementById('form-panel-edit').addEventListener('submit', function(event) {
 
         // Get the selected category
-        var selectedCategory = document.getElementById('Category').value;
+        var selectedCategory = document.getElementById('categoryID').value;
         var cornMorph = document.getElementById('cornMorph-Edit');
         var riceMorph = document.getElementById('riceMorph-Edit');
         var rootCropMorph = document.getElementById('root_cropMorph-Edit');
@@ -141,7 +141,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['crop_seed_image']);
+                        console.log(value['rice_plant_height']);
 
                         // Append each image to their own previews
                         $('#previewSeedEdit').append(`<img src="crop-page/modals/img/${value['crop_seed_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
@@ -229,14 +229,14 @@
                             // morph traits for rice
                             // vegetative state
                             if (value['rice_plant_height'] === 'Tall') {
-                                $('#height-tall-edit').prop('checked', true);
+                                $('#height-tall-Edit').prop('checked', true);
                             } else if (value['rice_plant_height'] === 'Average') {
-                                $('#height-average-edit').prop('checked', true);
+                                $('#height-average-Edit').prop('checked', true);
                             } else if (value['rice_plant_height'] === 'Short') {
-                                $('#height-short-edit').prop('checked', true);
+                                $('#height-short-Edit').prop('checked', true);
                             }
                             $('#leafWidth-Edit').append($('<option>', {
-                                value: value['rice_leaf_width']
+                                value: value['rice_leaf_width'],
                             }));
                             $('#leafLength-Edit').append($('<option>', {
                                 value: value['rice_leaf_length']
@@ -319,9 +319,9 @@
                             $('#rice-Viral-Edit').prop('checked', value['viral'] == 1);
 
                             // abiotic resistance resistance rice
-                            $('#riceDrought-Edit').prop('checked', value['drought'] == 1);
-                            $('#riceSalinity-Edit').prop('checked', value['salnity'] == 1);
-                            $('#riceHeat-Edit').prop('checked', value['heat'] == 1);
+                            $('#riceDrought-Edit').prop('checked', value['rice_drought'] == 1);
+                            $('#riceSalinity-Edit').prop('checked', value['rice_salinity'] == 1);
+                            $('#riceHeat-Edit').prop('checked', value['rice_heat'] == 1);
                             $('#harmful-radiation-Edit').prop('checked', value['harmful_radiation'] == 1);
                             $('#rice-abiotic-other-check-Edit').prop('checked', value['rice_abiotic_other'] == 1);
                             // Show the 'Other' textarea if 'other' checkbox is checked
