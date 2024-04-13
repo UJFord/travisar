@@ -61,9 +61,9 @@
                             <table id="" class="table table-hover">
                                 <thead>
                                     <tr>
-                                        <th class="col text-dark-emphasis small-font" scope="col">Crop Category</th>
+                                        <th class="col text-dark-emphasis small-font" scope="col">Crop ID</th>
                                         <th class="col-4 text-dark-emphasis small-font" scope="col">Variety Name</th>
-                                        <th class="col-4 text-dark-emphasis small-font" scope="col">Crop ID</th>
+                                        <th class="col-4 text-dark-emphasis small-font" scope="col">Crop unique ID</th>
                                         <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
                                     </tr>
                                 </thead>

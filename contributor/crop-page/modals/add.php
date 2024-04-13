@@ -21,13 +21,13 @@
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active small-font modal-tab" id="gen-tab" data-bs-toggle="tab" data-bs-target="#gen-tab-pane" type="button" role="tab" aria-controls="gen-tab-pane" aria-selected="true"><i class="fa-solid fa-info me-1"></i>General</button>
+                            <button class="nav-link active small-font modal-tab" id="gen-tab" data-bs-toggle="tab" data-bs-target="#gen-tab-pane" type="button" role="tab" aria-controls="gen-tab-pane" aria-selected="false"><i class="fa-solid fa-lightbulb me-1"></i>General</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="true"><i class="fa-solid fa-leaf me-1"></i>Traits</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link small-font modal-tab" id="loc-tab" data-bs-toggle="tab" data-bs-target="#loc-tab-pane" type="button" role="tab" aria-controls="loc-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot me-1"></i>Location</button>
-                        </li>
-                        <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="false"><i class="fa-solid fa-ellipsis me-1"></i>More</button>
                         </li>
                     </ul>
                     <div class="container">
@@ -37,10 +37,10 @@
                                                                         } ?>">
                             <!-- general -->
                             <?php require "tabs/gen.php" ?>
-                            <!-- location -->
-                            <?php require "tabs/loc.php" ?>
                             <!-- more optional info -->
                             <?php require "tabs/more.php" ?>
+                            <!-- location -->
+                            <?php require "tabs/loc.php" ?>
                         </div>
                     </div>
                 </div>
@@ -112,13 +112,13 @@
             disableInputs(rootCropMorph);
         }
 
-        console.log('submit the form');
         // Form is valid, submit the form
         submitForm();
     });
 
     // Function to submit the form and refresh notifications
-    function submitForm() {m
+    function submitForm() {
+        m
         console.log('submitForm function called');
         // Get the form reference
         var form = document.getElementById('form-panel-add');
@@ -162,4 +162,115 @@
         // Click the tab with id 'gen-tab'
         document.getElementById(tabName + '-tab').click();
     }
+</script>
+
+<!-- JavaScript for the select for category variety -->
+<script>
+    // JavaScript for the select for category variety
+    // Function to fetch and display initial category variety based on the initial category
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fetch varieties for the initial selected category
+        var initialCategoryId = document.getElementById('Category').value;
+        fetchVarieties(initialCategoryId);
+    });
+
+    // Function to fetch and display initial morphological characteristics based on the initial category
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fetch the initial category value
+        var initialCategoryId = document.getElementById('Category').value;
+        // Call the function to display the corresponding morphological characteristics
+        showMorphologicalCharacteristics(initialCategoryId);
+    });
+
+    // Event listener for changing the category select element
+    document.getElementById('Category').addEventListener('change', function() {
+        var selectedCategory = this.value;
+        // Call the function to display the corresponding morphological characteristics
+        showMorphologicalCharacteristics(selectedCategory);
+    });
+
+    function fetchVarieties(categoryId) {
+        var xhr = new XMLHttpRequest();
+        xhr.onreadystatechange = function() {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    var varieties = JSON.parse(this.responseText);
+                    populateVarieties(varieties);
+                } else {
+                    console.error('Failed to fetch varieties. Status:', this.status);
+                }
+            }
+        };
+        xhr.onerror = function() {
+            console.error('An error occurred during the request.');
+        };
+        xhr.open('GET', 'crop-page/modals/fetch/fetch_varieties.php?category_id=' + categoryId, true);
+        xhr.send();
+    }
+
+    document.getElementById('Category').addEventListener('change', function() {
+        var categoryId = this.value;
+        var categoryVarietySelect = document.getElementById('categoryVariety');
+        var categoryVarietySelectContainer = document.getElementById('category-Variety');
+        if (categoryId === '3') {
+            categoryVarietySelectContainer.style.display = 'none';
+        } else {
+            categoryVarietySelectContainer.style.display = 'block';
+            fetchVarieties(categoryId);
+        }
+
+        // Call the function to display the corresponding morphological characteristics
+        showMorphologicalCharacteristics(categoryId);
+    });
+
+    function populateVarieties(varieties) {
+        var categoryVarietySelect = document.getElementById('categoryVariety');
+        categoryVarietySelect.innerHTML = ''; // Clear existing options
+        varieties.forEach(function(variety) {
+            var option = document.createElement('option');
+            option.value = variety.category_variety_id;
+            option.text = variety.category_variety_name;
+            categoryVarietySelect.appendChild(option);
+        });
+    }
+</script>
+
+<!-- script for the morphological characteristics display -->
+<script>
+    // Function to display the morphological characteristics based on the selected category
+    function showMorphologicalCharacteristics(categoryId) {
+        var cornMorph = document.getElementById('cornMorph');
+        var riceMorph = document.getElementById('riceMorph');
+        var rootCropMorph = document.getElementById('root_cropMorph');
+
+        // Hide all morphological characteristics sections
+        cornMorph.style.display = 'none';
+        riceMorph.style.display = 'none';
+        rootCropMorph.style.display = 'none';
+
+        // Show the relevant morphological characteristics section based on selected category
+        if (categoryId === '4') {
+            cornMorph.style.display = 'block';
+        } else if (categoryId === '1') {
+            riceMorph.style.display = 'block';
+        } else if (categoryId === '2') {
+            rootCropMorph.style.display = 'block';
+        }
+    }
+</script>
+
+<!-- script for other in pest resistance -->
+<script>
+    // Get the "Other" checkbox and the "Other" textarea
+    const otherCheckbox = document.getElementById('corn-other-check');
+    const pestOther = document.getElementById('corn-pest-other');
+
+    // Add an event listener to the "Other" checkbox
+    otherCheckbox.addEventListener('change', function() {
+        if (this.checked) {
+            pestOther.style.display = 'block'; // Show the textarea
+        } else {
+            pestOther.style.display = 'none'; // Hide the textarea
+        }
+    });
 </script>

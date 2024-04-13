@@ -32,28 +32,77 @@
 <!-- GENERAL TAB -->
 <div class="fade show active tab-pane" id="edit-gen-tab-pane" role="tabpanel" aria-labelledby="edit-gen-tab" tabindex="0">
     <!-- hidden data -->
-    <!-- crop_id -->
-    <input id="crop_id" type="hidden" name="crop_id" class="form-control">
-    <!-- cultural_aspect_id -->
-    <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
+    <div>
+        <!-- common id's -->
+        <!-- crop_id -->
+        <input id="crop_id" type="text" name="crop_id" class="form-control">
+        <!-- categoryID -->
+        <input id="categoryID" type="hidden" name="categoryID" class="form-control">
+        <!-- cultural_aspect_id -->
+        <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
+        <!-- current_crop_variety -->
+        <input id="current_crop_variety" type="hidden" name="current_crop_variety" class="form-control">
+        <!-- currentUniqueCode -->
+        <input id="currentUniqueCode" type="hidden" name="currentUniqueCode" class="form-control">
+        <!-- disease_resistanceID -->
+        <input id="disease_resistanceID" type="hidden" name="disease_resistanceID" class="form-control">
+        <!-- seed_traitsID -->
+        <input id="seed_traitsID" type="hidden" name="seed_traitsID" class="form-control">
+        <!-- utilization_culturalID -->
+        <input id="utilization_culturalID" type="hidden" name="utilization_culturalID" class="form-control">
+        <!-- abiotic_resistanceID -->
+        <input id="abiotic_resistanceID" type="hidden" name="abiotic_resistanceID" class="form-control">
+
+        <!-- corn id's -->
+        <!-- vegetative_state_cornID -->
+        <input id="vegetative_state_cornID" type="hidden" name="vegetative_state_cornID" class="form-control">
+        <!-- reproductive_state_cornID -->
+        <input id="reproductive_state_cornID" type="hidden" name="reproductive_state_cornID" class="form-control">
+        <!-- pest_resistance_cornID -->
+        <input id="pest_resistance_cornID" type="hidden" name="pest_resistance_cornID" class="form-control">
+
+        <!-- rice id's -->
+        <!-- abiotic_resistance_riceID -->
+        <input id="abiotic_resistance_riceID" type="hidden" name="abiotic_resistance_riceID" class="form-control">
+        <!-- pest_resistance_riceID -->
+        <input id="pest_resistance_riceID" type="hidden" name="pest_resistance_riceID" class="form-control">
+        <!-- vegetative_state_riceID -->
+        <input id="vegetative_state_riceID" type="hidden" name="vegetative_state_riceID" class="form-control">
+        <!-- reproductive_state_riceID -->
+        <input id="reproductive_state_riceID" type="hidden" name="reproductive_state_riceID" class="form-control">
+        <!-- panicle_traits_riceID -->
+        <input id="panicle_traits_riceID" type="hidden" name="panicle_traits_riceID" class="form-control">
+        <!-- flag_leaf_traits_riceID -->
+        <input id="flag_leaf_traits_riceID" type="hidden" name="flag_leaf_traits_riceID" class="form-control">
+        <!-- sensory_traits_riceID -->
+        <input id="sensory_traits_riceID" type="hidden" name="sensory_traits_riceID" class="form-control">
+
+        <!-- root crop id's -->
+        <!-- vegetative_state_rootcropID -->
+        <input id="vegetative_state_rootcropID" type="hidden" name="vegetative_state_rootcropID" class="form-control">
+        <!-- pest_resistance_rootcropID -->
+        <input id="pest_resistance_rootcropID" type="hidden" name="pest_resistance_rootcropID" class="form-control">
+        <!-- rootcrop_traitsID -->
+        <input id="rootcrop_traitsID" type="hidden" name="rootcrop_traitsID" class="form-control">
+    </div>
 
     <!-- Contributed, Unique Code, and Date Created -->
     <dv class="row mb-3">
         <!-- Contributed By -->
         <div class="col">
-            <label for="firstName" class="form-label small-font">Contributed By:</label>
+            <label class="form-label small-font">Contributed By:</label>
             <h6 name="first_name" id="firstName"></h6>
         </div>
 
         <!-- Unique Code -->
         <div class="col">
-            <label for="firstName" class="form-label small-font">Unique Code:</label>
+            <label class="form-label small-font">Unique Code:</label>
             <h6 name="unique_code" id="uniqueCode"></h6>
         </div>
 
         <!-- Date created -->
         <div class="col">
-            <label for="input_dateEdit" class="form-label small-font">Date Created:</label>
+            <label class="form-label small-font">Date Created:</label>
             <h6 name="input_date" id="input_dateEdit"></h6>
         </div>
     </dv>
@@ -62,30 +111,30 @@
     <div class="row mb-3">
         <!-- Category -->
         <div class="col">
-            <label for="CategoryEdit" class="form-label small-font">Category:</label>
+            <label class="form-label small-font">Category:</label>
             <h6 name="category_id" id="CategoryEdit"></h6>
         </div>
 
         <!-- other category name if exist -->
         <div class="col" id="otherCategoryInputEdit" style="display: none;">
-            <label for="otherCategoryInputEdit" class="form-label small-font">Other Category Name:</label>
+            <label class="form-label small-font">Other Category Name:</label>
             <h6 name="other_category_name" id="otherCategoryEdit"></h6>
         </div>
 
         <!-- Category Variety -->
         <div class="col">
-            <label for="categoryVarietyEdit" class="form-label small-font">Category Variety:</label>
+            <label class="form-label small-font">Category Variety:</label>
             <h6 name="category_variety_name" id="categoryVarietyEdit"></h6>
         </div>
 
         <!-- Terrain -->
         <div class="col">
-            <label for="categoryTerrainEdit" class="form-label small-font">Terrain:</label>
+            <label class="form-label small-font">Terrain:</label>
             <h6 name="terrain_id" id="categoryTerrainEdit"></h6>
         </div>
     </div>
 
-    <!-- variety name, meaning of name, and local name -->
+    <!-- variety name, meaning of name -->
     <div class="row mb-3">
         <!-- variety name -->
         <div class="col">
@@ -98,31 +147,45 @@
             <label class="form-label small-font">Meaning of Name(if any)</label>
             <input type="text" id="nameMeaning" name="meaning_of_name" class="form-control">
         </div>
-
-        <!-- local name -->
-        <div class="col">
-            <label for="LocalName" class="form-label small-font">Local Name</label>
-            <input id="LocalName" type="text" name="crop_local_name" class="form-control">
-        </div>
     </div>
 
-    <!-- IMAGE -->
-    <div class="row mb-2">
-        <div class="col">
-            <div class="d-flex flex-column image-upload-container">
-                <!-- label -->
-                <label for="imageInputEdit" class="d-flex align-items-center rounded small-font mb-2">
-                    <i class="fa-solid fa-image me-2"></i>
-                    <span>Image <span style="color: red;">*</span></span>
-                </label>
-                <!-- old/current image -->
-                <input type="hidden" name="old_image" id="oldImageInput">
-                <!-- image input -->
-                <input class="mb-2 form-control form-control-sm" type="file" id="imageInputEdit" accept="image/jpeg,image/png" name="crop_image[]" multiple>
-                <!-- current images -->
-                <div id="previewEdit" class="preview-containerEdit custom-scrollbar overflow-scroll rounded border p-1"></div>
-            </div>
+    <!-- Seed image -->
+    <div class="row mb-3">
+        <label for="imageInputSeedEdit" class="d-flex align-items-center rounded small-font mb-2">
+            <i class="fa-solid fa-image me-2"></i>
+            <span>Seed</span>
+        </label>
+        <div class="d-flex flex-column image-upload-container col-6">
+            <input type="hidden" name="current_image_seed" id="old_image_seed">
+            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputSeedEdit" accept="image/jpeg,image/png" name="crop_seed_image" single onchange="previewSeedImage()">
         </div>
+        <div class="col preview-container custom-scrollbar overflow-scroll rounded  p-3 border d-flex justify-content-center align-items-center" id="previewSeedEdit"></div>
+    </div>
+
+    <!-- vegetative stage image -->
+    <div class="row mb-3">
+        <label for="imageInputVegetativeEdit" class="d-flex align-items-center rounded small-font mb-2">
+            <i class="fa-solid fa-image me-2"></i>
+            <span>Vegetative Stage</span>
+        </label>
+        <div class="col-6 d-flex flex-column image-upload-container">
+            <input type="hidden" name="current_image_veg" id="old_image_veg">
+            <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetativeEdit" accept="image/jpeg,image/png" name="crop_vegetative_image" single onchange="previewVegetativeImageEdit()">
+        </div>
+        <div class="col preview-container custom-scrollbar overflow-scroll rounded p-3 border d-flex justify-content-center align-items-center" id="previewVegEdit"></div>
+    </div>
+
+    <!-- reproductive stage -->
+    <div class="row mb-3">
+        <label for="imageInputReproductiveEdit" class="d-flex align-items-center rounded small-font mb-2">
+            <i class="fa-solid fa-image me-2"></i>
+            <span>Reproductive Stage</span>
+        </label>
+        <div class="col-6 d-flex flex-column image-upload-container">
+            <input type="hidden" name="current_image_rep" id="old_image_rep">
+            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductiveEdit" accept="image/jpeg,image/png" name="crop_reproductive_image" single onchange="previewReproductiveImageEdit()">
+        </div>
+        <div class="col preview-container custom-scrollbar overflow-scroll rounded p-3 border d-flex justify-content-center align-items-center" id="previewReproductiveEdit"></div>
     </div>
 
     <!-- DESCRIPTION -->
@@ -130,145 +193,6 @@
         <div class="col">
             <label for="description" class="form-label small-font">Description</label>
             <textarea name="crop_description" id="description" rows="2" class="form-control"></textarea>
-        </div>
-    </div>
-
-    <!-- Morphological Characteristics for corn -->
-    <div class="row mb-3" id="cornMorphEdit">
-        <!-- Plant Structure -->
-        <div class="row">
-            <div class="col-6">
-                <label for="plantStructure" class="form-label small-font">Plant Structure</label>
-                <input id="plantStructure" type="text" name="plant_structure" class="form-control">
-            </div>
-            <!-- Root System -->
-            <div class="col-6">
-                <label for="rootSystem" class="form-label small-font">Root System</label>
-                <input id="rootSystem" type="text" name="root_system" class="form-control">
-            </div>
-        </div>
-        <!-- leaves and fruit -->
-        <div class="row">
-            <div class="col-6">
-                <label for="leavesEdit" class="form-label small-font">leaves</label>
-                <input id="leavesEdit" type="text" name="leaves" class="form-control">
-            </div>
-            <div class="col">
-                <label id="fruitEdit" class="form-label small-font">Fruit</label>
-                <input id="fruitEdit" type="text" name="fruits" class="form-control">
-            </div>
-        </div>
-        <!-- Inflorescence -->
-        <div class="row">
-            <div class="col">
-                <label for="inflorescenceEdit" class="form-label small-font">Inflorescence</label>
-                <input id="inflorescenceEdit" type="text" name="inflorescence" class="form-control">
-            </div>
-            <div class="col">
-                <label for="flowersEdit" class="form-label small-font">Flowers</label>
-                <input id="flowersEdit" type="text" name="flowers" class="form-control">
-            </div>
-        </div>
-        <!-- Shape -->
-        <div class="row">
-            <div class="col-6">
-                <label for="shapeEdit" class="form-label small-font">Shape</label>
-                <input id="shapeEdit" type="text" name="shape" class="form-control">
-            </div>
-        </div>
-    </div>
-
-    
-
-    <br>
-
-    <!-- Morphological Characteristics for rice -->
-    <div class="row mb-3" id="riceMorph">
-        <!-- Plant Height -->
-        <div class="row">
-            <div class="col">
-                <label for="plantHeight" class="form-label small-font">Plant Height</label>
-                <input id="plantHeight" type="text" name="plant_height" class="form-control">
-            </div>
-            <!-- leaves -->
-            <div class="col">
-                <label for="leavesEdit" class="form-label small-font">leaves</label>
-                <input id="leavesEdit" type="text" name="leaves" class="form-control">
-            </div>
-            <!-- Roots -->
-            <div class="col">
-                <label for="rootsEdit" class="form-label small-font">Roots</label>
-                <input id="rootsEdit" type="text" name="roots" class="form-control">
-            </div>
-        </div>
-
-        <!-- Inflorescence -->
-        <div class="row">
-            <div class="col">
-                <label for="inflorescenceEdit" class="form-label small-font">Inflorescence</label>
-                <input id="inflorescenceEdit" type="text" name="inflorescence" class="form-control">
-            </div>
-            <div class="col">
-                <label for="flowersEdit" class="form-label small-font">Flowers</label>
-                <input id="flowersEdit" type="text" name="flowers" class="form-control">
-            </div>
-        </div>
-
-        <!-- Grain -->
-        <div class="row">
-            <div class="col">
-                <label for="grainEdit" class="form-label small-font">Grain</label>
-                <input id="grainEdit" type="text" name="grain" class="form-control">
-            </div>
-            <!-- Husk -->
-            <div class="col">
-                <label for="huskEdit" class="form-label small-font">Husk</label>
-                <input id="huskEdit" type="text" name="husk" class="form-control">
-            </div>
-        </div>
-    </div>
-
-    <br>
-
-    <!-- Morphological Characteristics for root crop -->
-    <div class="row mb-3" id="root_cropMorph">
-        <!-- Plant Size -->
-        <div class="row">
-            <div class="col">
-                <label for="plantSize" class="form-label small-font">Plant Size</label>
-                <input id="plantSize" type="text" name="plant_size" class="form-control">
-            </div>
-            <!-- Shape -->
-            <div class="col">
-                <label for="shapeEdit" class="form-label small-font">Shape</label>
-                <input id="shapeEdit" type="text" name="shape" class="form-control">
-            </div>
-            <!-- Color -->
-            <div class="col">
-                <label for="colorEdit" class="form-label small-font">Color</label>
-                <input id="colorEdit" type="text" name="color" class="form-control">
-            </div>
-        </div>
-
-        <!-- Root and stem and leaf Characteristics -->
-        <div class="row">
-            <!-- Stem and leaf Characteristics -->
-            <div class="col">
-                <label for="stemLeaf" class="form-label small-font">Stem and leaf Characteristics</label>
-                <input id="stemLeaf" type="text" name="stem_leaf_characteristics" class="form-control">
-            </div>
-            <!-- root characteristics -->
-            <div class="col">
-                <label for="rootChar" class="form-label small-font">Root Characteristics</label>
-                <input id="rootChar" type="text" name="root_characteristics" class="form-control">
-            </div>
-        </div>
-        <div class="row">
-            <!-- Growth Habit -->
-            <div class="col">
-                <label for="growthHabit" class="form-label small-font">Growth Habit</label>
-                <input id="growthHabit" type="text" name="growth_habit" class="form-control">
-            </div>
         </div>
     </div>
 
@@ -280,111 +204,115 @@
     </div>
 </div>
 
-<!-- SCRIPT for edit tab for the image-->
+<!-- SCRIPT for add tab-->
 <script defer>
-    // handling to show all image inputs
-    const imageInputEdit = document.getElementById('imageInputEdit');
-    const previewContainerEdit = document.querySelector('.preview-containerEdit');
-    let oldImage = ''; // Variable to store the old image URL or filename
+    function previewSeedImageEdit() {
+        const imageInputEdit = document.getElementById("imageInputSeedEdit");
+        const previewContainerEdit = document.getElementById("previewSeedEdit");
 
-    // Function to fetch the old image when editing an item
-    function fetchOldImage(image) {
-        oldImage = image; // Store the old image URL or filename
-    }
+        // Check if a file is selected
+        if (imageInputEdit.files && imageInputEdit.files[0]) {
+            const reader = new FileReader();
 
-    // Function to add the old image file to the files array at the end
-    function addOldImageFile(oldImageFilename) {
-        var dataTransfer = new DataTransfer();
-        Array.from(imageInputEdit.files).forEach(function(file) {
-            dataTransfer.items.add(file);
-        });
-        var oldImageFile = new File([null], oldImageFilename, {
-            type: 'image/png'
-        });
-        dataTransfer.items.add(oldImageFile);
-        imageInputEdit.files = dataTransfer.files;
-    }
+            reader.onload = function(e) {
+                const previewImage = new Image();
+                previewImage.src = e.target.result;
+                previewImage.onload = function() {
+                    previewContainerEdit.innerHTML = ""; // Clear previous content
+                    previewContainerEdit.appendChild(previewImage);
+                };
+            };
 
-    // function to display and remove the image selected
-    $(document).ready(function() {
-        $('input[type="file"]').on("change", function() {
-            var files = $(this)[0].files;
-            $('#previewEdit').empty();
+            reader.readAsDataURL(imageInputEdit.files[0]);
 
-            // Loop through the files and append them to the preview container
-            $.each(files, function(i, file) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#previewEdit').prepend('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-image" data-index="' + i + '"><i class="fa-solid fa-xmark"></i></button></div>');
-                }
-                reader.readAsDataURL(file);
-            });
-
-            // If there's an old image, append it to the preview container and set the value of the hidden input field
-            if (oldImage) {
-                var oldImageFilenames = oldImage.split(',');
-                oldImageFilenames.forEach(function(filename, index) {
-                    $('#previewEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="crop-page/modals/img/' + filename.trim() + '" class="img-thumbnail"/><button class="remove-image" data-index="' + (files.length + index) + '"><i class="fa-solid fa-xmark"></i></button></div>');
-
-                    // Add the old image file to the files array
-                    addOldImageFile(filename.trim());
-                });
-            }
-
-            console.log("Remaining images after change:", imageInputEdit.files);
-            checkForContent();
-        });
-
-        //* if you input multiple images and you added a wrong one you can delete it
-        //* this code will remove the one you deleted from existing image array
-        //* and the remaining images is transferred to another array and is considered as a new input
-        $(document).on("click", ".remove-image", function() {
-            var index = $(this).data("index");
-            console.log("Removing image at index:", index);
-
-            var newFiles = Array.from(imageInputEdit.files).filter((_, i) => i !== index);
-            var dataTransfer = new DataTransfer();
-            newFiles.forEach(function(file) {
-                dataTransfer.items.add(file);
-            });
-
-            // Update the input files and reset the indexes
-            imageInputEdit.files = dataTransfer.files;
-            $('#previewEdit').empty();
-            Array.from(imageInputEdit.files).forEach(function(file, index) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#previewEdit').prepend('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-image" data-index="' + index + '"><i class="fa-solid fa-xmark"></i></button></div>');
-                }
-                reader.readAsDataURL(file);
-            });
-
-            console.log("New files array after removal:", imageInputEdit.files);
-            checkForContent();
-        });
-
-        // Add event listener for the hidden.bs.modal event
-        $('#add-item-modal, #edit-item-modal').on('hidden.bs.modal', function() {
-            imageInputEdit.value = ''; // Reset file input
-            $('#previewEdit').empty(); // Clear preview container
-            checkForContent();
-        });
-    });
-
-    // to show the border only when there a picture inside
-    // const previewContainer = document.getElementById('previewContainer');
-    function checkForContent() {
-        if (previewContainerEdit.hasChildNodes()) {
-            previewContainerEdit.classList.add('border');
+            // show preview
+            previewContainerEdit.classList.remove("d-none");
         } else {
-            previewContainerEdit.classList.remove('border');
+            // Clear the preview container if no file is selected
+            previewContainerEdit.innerHTML = "";
+            // hide preview
+            previewContainerEdit.classList.add("d-none");
         }
     }
 
-    // Call initially on page load
-    checkForContent();
+    function previewVegetativeImageEdit() {
+        const imageInputEdit = document.getElementById("imageInputVegetativeEdit");
+        const previewContainerEdit = document.getElementById("previewVegEdit");
 
-    // Call whenever content might change within the container
-    previewContainerEdit.addEventListener('DOMNodeInserted', checkForContent);
-    previewContainerEdit.addEventListener('DOMNodeRemoved', checkForContent);
+        // Check if a file is selected
+        if (imageInputEdit.files && imageInputEdit.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const previewImage = new Image();
+                previewImage.src = e.target.result;
+                previewImage.onload = function() {
+                    previewContainerEdit.innerHTML = ""; // Clear previous content
+                    previewContainerEdit.appendChild(previewImage);
+                };
+            };
+
+            reader.readAsDataURL(imageInputEdit.files[0]);
+
+            // show preview
+            previewContainerEdit.classList.remove("d-none");
+        } else {
+            // Clear the preview container if no file is selected
+            previewContainerEdit.innerHTML = "";
+            // hide preview
+            previewContainerEdit.classList.add("d-none");
+        }
+    }
+
+    function previewReproductiveImageEdit() {
+        const imageInputEdit = document.getElementById("imageInputReproductiveEdit");
+        const previewContainerEdit = document.getElementById("previewReproductiveEdit");
+
+        // Check if a file is selected
+        if (imageInputEdit.files && imageInputEdit.files[0]) {
+            const reader = new FileReader();
+
+            reader.onload = function(e) {
+                const previewImage = new Image();
+                previewImage.src = e.target.result;
+                previewImage.onload = function() {
+                    previewContainerEdit.innerHTML = ""; // Clear previous content
+                    previewContainerEdit.appendChild(previewImage);
+                };
+            };
+
+            reader.readAsDataURL(imageInputEdit.files[0]);
+
+            // show preview
+            previewContainerEdit.classList.remove("d-none");
+        } else {
+            // Clear the preview container if no file is selected
+            previewContainerEdit.innerHTML = "";
+            // hide preview
+            previewContainerEdit.classList.add("d-none");
+        }
+    }
+</script>
+
+<!-- script for limiting the input for the crop variety name -->
+<script>
+    // Get the input element
+    var inputElement = document.getElementById('crop_variety');
+
+    // Add an event listener for keypress event
+    inputElement.addEventListener('keypress', function(e) {
+        // Get the key code of the pressed key
+        var keyCode = e.keyCode || e.which;
+
+        // Allow letters (A-Z and a-z), spaces (32), underscores (95), and dashes (45)
+        if (!(keyCode >= 65 && keyCode <= 90) && // A-Z
+            !(keyCode >= 97 && keyCode <= 122) && // a-z
+            keyCode !== 32 && // space
+            keyCode !== 95 && // underscore
+            keyCode !== 45 // dash
+        ) {
+            // Prevent default behavior if the key is not allowed
+            e.preventDefault();
+        }
+    });
 </script>
