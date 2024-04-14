@@ -181,7 +181,7 @@
 
 
     <!-- IMAGES -->
-    <h6 class="fw-semibold mt-4 mb-0">Images for Plant Stages</h6>
+    <h6 class="fw-semibold mt-4 mb-0">Images for Stages</h6>
     <!-- help -->
     <div id="coords-help" class="form-text mb-3" style="font-size: 0.7rem;">Hold <span class="fw-bold">ctrl</span> or <span class="fw-bold">shift</span> and click the images to upload multiple files</div>
     <!-- Seed image -->
