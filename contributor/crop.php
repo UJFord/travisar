@@ -216,6 +216,11 @@ require "../functions/functions.php";
         var selectedMunicipality = document.getElementById('Municipality').value;
         populateBarangay(selectedMunicipality);
 
+
+
+
+
+
         // initializnig map
         const map = L.map('map').setView([6.403013, 124.725062], 9); //starting position
 
@@ -258,30 +263,6 @@ require "../functions/functions.php";
             // fetch data
             console.log(latitude);
             console.log(longitude);
-            let details = fetchData(latitude, longitude)
-                .then(details => {
-                    // set neighbourhood
-                    // neighbourhoodValueEdit.value = details.neighbourhood
-                    // set municipality
-                    // municipalitySelect.value = details.town;
-                    // set barangay
-                    // barangaySelect.value = details.village;
-
-                    console.log('Country:', details.country);
-                    console.log('State:', details.state);
-                    console.log('County:', details.county);
-                    console.log('City:', details.city);
-                    console.log('Town:', details.town);
-                    console.log('Borough:', details.borough);
-                    console.log('Village:', details.village);
-                    console.log('Suburb:', details.suburb);
-                    // console.log('Neighbourhood:', details.neighbourhood);
-                    // console.log('Neighbourhood:', details.neighbourhood);
-                    console.log('Settlement:', details.settlement);
-                    console.log('Major Streets:', details.majorStreets);
-                    console.log('Major and Minor Streets:', details.majorAndMinorStreets);
-                    console.log('Building:', details.building);
-                });
         }
 
         map.on('click', onMapClick);
@@ -391,6 +372,15 @@ require "../functions/functions.php";
                 });
         }
     </script>
+
+
+
+
+
+
+
+
+
     <!-- Script nf or the map for edit tab -->
     <script>
         // initializnig map
@@ -430,7 +420,7 @@ require "../functions/functions.php";
             coordInputEdit.value = formattedCoords;
 
             // Update the map and pin marker with the clicked coordinates
-            updateMapAndPin(latitude, longitude);
+            updateMapAndPinEdit(latitude, longitude);
 
             // fetch data
             console.log(latitude);
@@ -463,7 +453,7 @@ require "../functions/functions.php";
 
         mapEdit.on('click', onMapClickEdit);
 
-        function updateMapAndPin(latitude, longitude) {
+        function updateMapAndPinEdit(latitude, longitude) {
             // Remove potential existing marker
             if (markerEdit) {
                 mapEdit.removeLayer(markerEdit);
@@ -502,7 +492,7 @@ require "../functions/functions.php";
             const latitude = parseFloat(parts[0]);
             const longitude = parseFloat(parts[1]);
 
-            updateMapAndPin(latitude, longitude);
+            updateMapAndPinEdit(latitude, longitude);
         }
 
         // Utility function to validate LatLng object

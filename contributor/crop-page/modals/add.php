@@ -40,7 +40,7 @@
                             <!-- more optional info -->
                             <?php require "tabs/more.php" ?>
                             <!-- location -->
-                            <?php require "tabs/loc.php" ?>
+                            <?php //require "tabs/loc.php" ?>
                         </div>
                     </div>
                 </div>
@@ -58,7 +58,7 @@
 </div>
 
 <!-- SCRIPT -->
-<!-- <script>
+<script>
     // keep the modal on
     window.onload = function() {
         const dataModal = new bootstrap.Modal(document.getElementById('add-item-modal'), {
@@ -66,7 +66,7 @@
         });
         dataModal.show();
     };
-</script> -->
+</script>
 
 <!-- for submission -->
 <script>
