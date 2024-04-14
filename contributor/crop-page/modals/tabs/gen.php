@@ -7,9 +7,7 @@
         cursor: pointer;
     }
 
-    .preview-container {
-        max-height: 10rem;
-    }
+
 
     .remove-image {
         position: absolute;
@@ -22,6 +20,10 @@
         cursor: pointer;
     }
 
+    .preview-container {
+        max-height: 10rem;
+    }
+
     /* step navigation icon colors */
     .lighter-color {
         color: #4e5663;
@@ -29,7 +31,7 @@
 
     /* hiding the scrollbar */
     .custom-scrollbar {
-        scrollbar-width: none;
+        /* scrollbar-width: none; */
         /* Firefox */
         -ms-overflow-style: none;
         /* Internet Explorer 10+ */
@@ -142,6 +144,8 @@
         </div>
     </div>
 
+
+    <!-- IMAGES -->
     <!-- Seed image -->
     <div class="row mb-3">
         <label for="imageInputSeed" class="d-flex align-items-center rounded small-font mb-2">
@@ -149,35 +153,37 @@
             <span>Seed</span>
         </label>
         <div class="d-flex flex-column image-upload-container col-6">
-            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputSeed" accept="image/jpeg,image/png" name="crop_seed_image" single onchange="previewSeedImage()">
+            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputSeed" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewSeed')" multiple>
         </div>
-        <div class="col preview-container custom-scrollbar overflow-scroll rounded  p-3 border d-flex justify-content-center align-items-center d-none" id="previewSeed"></div>
+        <div class="col preview-container custom-scrollbar overflow-scroll rounded py-0 px-1 border d-flex justify-content-center align-items-center d-none" id="previewSeed"></div>
     </div>
 
-    <!-- vegetative stage image -->
     <div class="row mb-3">
         <label for="imageInputVegetative" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Vegetative Stage</span>
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
-            <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetative" accept="image/jpeg,image/png" name="crop_vegetative_image" single onchange="previewVegetativeImage()">
+            <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetative" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewVeg')" multiple>
         </div>
-        <div class="col preview-container custom-scrollbar overflow-scroll rounded p-3 border d-flex justify-content-center align-items-center d-none" id="previewVeg"></div>
+        <div class="col preview-container custom-scrollbar overflow-scroll rounded py-0 px-1 border d-flex justify-content-center align-items-center d-none" id="previewVeg"></div>
     </div>
 
-    <!-- reproductive stage -->
     <div class="row mb-3">
         <label for="imageInputReproductive" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Reproductive Stage</span>
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
-            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductive" accept="image/jpeg,image/png" name="crop_reproductive_image" single onchange="previewReproductiveImage()">
+            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductive" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewReproductive')" multiple>
         </div>
-        <div class="col preview-container custom-scrollbar overflow-scroll rounded p-3 border d-flex justify-content-center align-items-center d-none" id="previewReproductive"></div>
+        <div class="col preview-container custom-scrollbar overflow-scroll rounded py-0 px-1 border d-flex justify-content-center align-items-center d-none" id="previewReproductive"></div>
     </div>
 
+
+
+
+    <!-- MAP -->
     <div id="locationData" class="row mb-3">
         <!-- form -->
         <div class="col-6 location-Data">
@@ -234,91 +240,29 @@
 
 <!-- map input -->
 <!-- SCRIPT for add tab-->
+
+
+<!-- IMAGE PREVIEW HANDLING -->
 <script defer>
-    function previewSeedImage() {
-        const imageInput = document.getElementById("imageInputSeed");
-        const previewContainer = document.getElementById("previewSeed");
+    function previewImage(input, previewId) {
+        const previewContainer = document.getElementById(previewId);
+        previewContainer.innerHTML = ""; // Clear previous previews
 
-        // Check if a file is selected
-        if (imageInput.files && imageInput.files[0]) {
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                const previewImage = new Image();
-                previewImage.src = e.target.result;
-                previewImage.onload = function() {
-                    previewContainer.innerHTML = ""; // Clear previous content
-                    previewContainer.appendChild(previewImage);
+        const files = input.files;
+        if (files.length > 0) {
+            previewContainer.classList.remove("d-none"); // Show preview container
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const img = document.createElement("img");
+                    img.src = e.target.result;
+                    img.classList.add("img-thumbnail", "m-0");
+                    previewContainer.appendChild(img);
                 };
-            };
-
-            reader.readAsDataURL(imageInput.files[0]);
-
-            // show preview
-            previewContainer.classList.remove("d-none");
+                reader.readAsDataURL(files[i]);
+            }
         } else {
-            // Clear the preview container if no file is selected
-            previewContainer.innerHTML = "";
-            // hide preview
-            previewContainer.classList.add("d-none");
-        }
-    }
-
-    function previewVegetativeImage() {
-        const imageInput = document.getElementById("imageInputVegetative");
-        const previewContainer = document.getElementById("previewVeg");
-
-        // Check if a file is selected
-        if (imageInput.files && imageInput.files[0]) {
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                const previewImage = new Image();
-                previewImage.src = e.target.result;
-                previewImage.onload = function() {
-                    previewContainer.innerHTML = ""; // Clear previous content
-                    previewContainer.appendChild(previewImage);
-                };
-            };
-
-            reader.readAsDataURL(imageInput.files[0]);
-
-            // show preview
-            previewContainer.classList.remove("d-none");
-        } else {
-            // Clear the preview container if no file is selected
-            previewContainer.innerHTML = "";
-            // hide preview
-            previewContainer.classList.add("d-none");
-        }
-    }
-
-    function previewReproductiveImage() {
-        const imageInput = document.getElementById("imageInputReproductive");
-        const previewContainer = document.getElementById("previewReproductive");
-
-        // Check if a file is selected
-        if (imageInput.files && imageInput.files[0]) {
-            const reader = new FileReader();
-
-            reader.onload = function(e) {
-                const previewImage = new Image();
-                previewImage.src = e.target.result;
-                previewImage.onload = function() {
-                    previewContainer.innerHTML = ""; // Clear previous content
-                    previewContainer.appendChild(previewImage);
-                };
-            };
-
-            reader.readAsDataURL(imageInput.files[0]);
-
-            // show preview
-            previewContainer.classList.remove("d-none");
-        } else {
-            // Clear the preview container if no file is selected
-            previewContainer.innerHTML = "";
-            // hide preview
-            previewContainer.classList.add("d-none");
+            previewContainer.classList.add("d-none"); // Hide preview container if no files selected
         }
     }
 </script>
@@ -363,5 +307,5 @@
 
 <!-- MAP -->
 <script>
-    
+
 </script>
