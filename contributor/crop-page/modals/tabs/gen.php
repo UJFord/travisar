@@ -4,12 +4,10 @@
         cursor: pointer;
     }
 
-
-
     .remove-image {
         position: absolute;
-        top: 0.3;
-        right: 0.3rem;
+        top: 0.5rem;
+        right: 0.5rem;
         background: none;
         border: none;
         color: red;
@@ -21,16 +19,52 @@
         max-height: 10rem;
     }
 
+    /* hiding the scrollbar */
+    .custom-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0);
+        /* Firefox */
+        -ms-overflow-style: none;
+    }
+
+    .preview-image-container {
+        position: relative;
+    }
+
+    /* preview image */
+    .preview-image {
+        position: relative;
+        /* Needed for absolute positioning of button */
+        margin: 5px;
+        /* Adjust spacing between images as needed */
+    }
+
+    .preview-image button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        /* Adjust padding around button */
+    }
+
+    .preview-image button:hover {
+        background-color: rgba(255, 0, 0, 0.2);
+        /* Red hover effect */
+    }
+
+    .preview-image button:after {
+        content: "\00d7";
+        /* X character for close button */
+        font-size: 18px;
+        color: red;
+    }
+
     /* step navigation icon colors */
     .lighter-color {
         color: #4e5663;
-    }
-
-    /* hiding the scrollbar */
-    .custom-scrollbar {
-        /* scrollbar-width: none; */
-        /* Firefox */
-        -ms-overflow-style: none;
     }
 
     /* map */
@@ -162,7 +196,7 @@
         <div class="col-6 d-flex flex-column image-upload-container">
             <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetative" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewVeg')" multiple>
         </div>
-        <div class="col preview-container custom-scrollbar overflow-scroll rounded py-0 px-1 border d-flex justify-content-center align-items-center d-none" id="previewVeg"></div>
+        <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewVeg"></div>
     </div>
 
     <div class="row mb-3">
@@ -173,7 +207,7 @@
         <div class="col-6 d-flex flex-column image-upload-container">
             <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductive" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewReproductive')" multiple>
         </div>
-        <div class="col preview-container custom-scrollbar overflow-scroll rounded py-0 px-1 border d-flex justify-content-center align-items-center d-none" id="previewReproductive"></div>
+        <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewReproductive"></div>
     </div>
 
 
@@ -245,21 +279,55 @@
         previewContainer.innerHTML = ""; // Clear previous previews
 
         const files = input.files;
+        const selectedFiles = []; // Array to store selected files
+
         if (files.length > 0) {
             previewContainer.classList.remove("d-none"); // Show preview container
             for (let i = 0; i < files.length; i++) {
                 const reader = new FileReader();
                 reader.onload = function(e) {
+                    const imgContainer = document.createElement("div");
+                    imgContainer.classList.add("preview-image-container");
+                    previewContainer.appendChild(imgContainer);
+
                     const img = document.createElement("img");
                     img.src = e.target.result;
-                    img.classList.add("img-thumbnail", "me-1");
-                    previewContainer.appendChild(img);
+                    img.classList.add("img-thumbnail", "mb-2", "preview-image");
+                    imgContainer.appendChild(img);
+
+                    const deleteButton = document.createElement("button");
+                    deleteButton.innerText = "❌";
+                    deleteButton.classList.add("remove-image");
+                    imgContainer.appendChild(deleteButton);
+
+                    // Add click event listener for delete button
+                    deleteButton.addEventListener("click", function() {
+                        // Remove image preview and file from selection
+                        imgContainer.remove();
+                        const fileIndex = selectedFiles.indexOf(files[i]);
+                        if (fileIndex > -1) {
+                            selectedFiles.splice(fileIndex, 1);
+                        }
+
+                        // Hide preview container if no files selected
+                        if (!previewContainer.querySelector('.preview-image-container')) {
+                            previewContainer.classList.add("d-none");
+                        }
+                    });
+
+                    // Add selected file to the array
+                    selectedFiles.push(files[i]);
                 };
                 reader.readAsDataURL(files[i]);
             }
         } else {
             previewContainer.classList.add("d-none"); // Hide preview container if no files selected
         }
+
+        // **Update logic to use selectedFiles array for upload**
+        // (This part depends on your specific upload functionality)
+
+        // Replace existing upload logic with code that uses selectedFiles
     }
 </script>
 
