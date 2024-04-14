@@ -35,7 +35,8 @@
         /* Internet Explorer 10+ */
     }
 
-        #map {
+    /* map */
+    #map {
         aspect-ratio: 1/1;
     }
 </style>
@@ -231,6 +232,7 @@
     </div>
 </div>
 
+<!-- map input -->
 <!-- SCRIPT for add tab-->
 <script defer>
     function previewSeedImage() {
@@ -347,6 +349,7 @@
 <!-- leaflet requirement -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
+
 <!-- script for limiting the input in coordinates just to numbers, commas, periods, and spaces -->
 <script>
     document.getElementById('coordInput').addEventListener('input', function(event) {
@@ -355,4 +358,10 @@
             event.target.value = event.target.value.replace(/[^0-9.,\s-]/g, '');
         }
     });
+
+</script>
+
+<!-- MAP -->
+<script>
+    
 </script>
