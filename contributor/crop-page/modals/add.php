@@ -24,10 +24,16 @@
                             <button class="nav-link active small-font modal-tab" id="gen-tab" data-bs-toggle="tab" data-bs-target="#gen-tab-pane" type="button" role="tab" aria-controls="gen-tab-pane" aria-selected="false"><i class="fa-solid fa-lightbulb me-1"></i>General</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="true"><i class="fa-solid fa-leaf me-1"></i>Traits</button>
+                            <button class="nav-link small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="true"><i class="fa-solid fa-leaf me-1"></i>Morph Traits</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="loc-tab" data-bs-toggle="tab" data-bs-target="#loc-tab-pane" type="button" role="tab" aria-controls="loc-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot me-1"></i>Location</button>
+                            <button class="nav-link small-font modal-tab" id="sensory-tab" data-bs-toggle="tab" data-bs-target="#sensory-tab-pane" type="button" role="tab" aria-controls="sensory-tab-pane" aria-selected="true"><i class="fa-solid fa-leaf me-1"></i>Sensory Traits</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link small-font modal-tab" id="agro-tab" data-bs-toggle="tab" data-bs-target="#agro-tab-pane" type="button" role="tab" aria-controls="agro-tab-pane" aria-selected="true"><i class="fa-solid fa-leaf me-1"></i>Agronomic Traits</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link small-font modal-tab" id="cultural-tab" data-bs-toggle="tab" data-bs-target="#cultural-tab-pane" type="button" role="tab" aria-controls="cultural-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot me-1"></i>Cultural Importance</button>
                         </li>
                     </ul>
                     <div class="container">
@@ -39,8 +45,13 @@
                             <?php require "tabs/gen.php" ?>
                             <!-- more optional info -->
                             <?php require "tabs/more.php" ?>
-                            <!-- location -->
-                            <?php //require "tabs/loc.php" ?>
+                            <!-- agronomic traits -->
+                            <?php require "tabs/agro.php" ?>
+                            <!-- sensory traits -->
+                            <?php require "tabs/sensory.php" ?>
+                            <!-- cultural -->
+                            <?php require "tabs/cultural.php" ?>
+
                         </div>
                     </div>
                 </div>
@@ -235,26 +246,60 @@
     }
 </script>
 
-<!-- script for the morphological characteristics display -->
+<!-- script for the morphological and agronomic characteristics display -->
 <script>
     // Function to display the morphological characteristics based on the selected category
     function showMorphologicalCharacteristics(categoryId) {
+        // morph traits
         var cornMorph = document.getElementById('cornMorph');
         var riceMorph = document.getElementById('riceMorph');
         var rootCropMorph = document.getElementById('root_cropMorph');
+        // agronomic traits
+        var cornAgro = document.getElementById('cornAgro');
+        var riceAgro = document.getElementById('riceAgro');
+        var rootCropAgro = document.getElementById('root_cropAgro');
+
+        // sensory tab
+        var sensoryTab = document.getElementById('sensory-tab');
+        var withSensory = document.getElementById('withSensory');
+        var withoutSensory = document.getElementById('withoutSensory');
+        var withSensory_More = document.getElementById('withSensory-More');
+        var withoutSensory_More = document.getElementById('withoutSensory-More');
 
         // Hide all morphological characteristics sections
         cornMorph.style.display = 'none';
         riceMorph.style.display = 'none';
         rootCropMorph.style.display = 'none';
 
+        // Hide all agronomic characteristics sections
+        cornAgro.style.display = 'none';
+        riceAgro.style.display = 'none';
+        rootCropAgro.style.display = 'none';
+
+        // Hide rice sensory tab
+        sensoryTab.style.display = 'none';
+        withSensory.style.display = 'none';
+        withoutSensory.style.display = 'none';
+        withSensory_More.style.display = 'none';
+        withoutSensory_More.style.display = 'none';
+
         // Show the relevant morphological characteristics section based on selected category
         if (categoryId === '4') {
             cornMorph.style.display = 'block';
+            cornAgro.style.display = 'block';
+            withoutSensory.style.display = 'block';
+            withoutSensory_More.style.display = 'block';
         } else if (categoryId === '1') {
             riceMorph.style.display = 'block';
+            riceAgro.style.display = 'block';
+            sensoryTab.style.display = 'block';
+            withSensory.style.display = 'block';
+            withSensory_More.style.display = 'block';
         } else if (categoryId === '2') {
             rootCropMorph.style.display = 'block';
+            rootCropAgro.style.display = 'block';
+            withoutSensory.style.display = 'block';
+            withoutSensory_More.style.display = 'block';
         }
     }
 </script>
