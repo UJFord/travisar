@@ -1,5 +1,5 @@
 <!-- MORE TAB -->
-<div class="fade tab-pane" id="more-tab-pane" role="tabpanel" aria-labelledby="more-tab" tabindex="0">
+<div class="fade show active tab-pane" id="more-tab-pane" role="tabpanel" aria-labelledby="more-tab" tabindex="0">
     <!-- rice morphological traits -->
     <?php require "crop-page/modals/tabs/traits/corn-traits.php" ?>
     <!-- rice morphological traits -->

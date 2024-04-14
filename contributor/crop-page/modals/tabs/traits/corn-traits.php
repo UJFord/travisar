@@ -1,10 +1,8 @@
 <div id="cornMorph">
     <!-- Morphological traits -->
-    <h4>Morphological Traits</h4>
-    <br>
-    <label class="form-label"><strong>Vegetative state</strong></label>
+    <h6 class="fw-semibold mt-4 mb-3">Vegetative State</h6>
     <!-- plant height -->
-    <div class="row">
+    <div class="row mb-2">
         <!-- Plant Height -->
         <label>Plant Height</label>
         <div class="mb-4">
