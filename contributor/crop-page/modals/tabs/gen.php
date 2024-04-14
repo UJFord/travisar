@@ -34,6 +34,10 @@
         -ms-overflow-style: none;
         /* Internet Explorer 10+ */
     }
+
+        #map {
+        aspect-ratio: 1/1;
+    }
 </style>
 
 <!-- GENERAL TAB -->
@@ -218,7 +222,6 @@
         <div id="map" class="col border">
         </div>
     </div>
-
 
     <!-- STEP NAVIGATION -->
     <div class="row">
