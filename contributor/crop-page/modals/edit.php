@@ -25,20 +25,25 @@
                             <button class="nav-link active small-font modal-tab" id="edit-gen-tab" data-bs-toggle="tab" data-bs-target="#edit-gen-tab-pane" type="button" role="tab" aria-controls="edit-gen-tab-pane" aria-selected="true"><i class="fa-solid fa-lightbulb me-1"></i>General</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-more-tab" data-bs-toggle="tab" data-bs-target="#edit-more-tab-pane" type="button" role="tab" aria-controls="edit-more-tab-pane" aria-selected="false"><i class="fa-solid fa-leaf me-1"></i>Traits</button>
+                            <button class="nav-link small-font modal-tab" id="edit-more-tab" data-bs-toggle="tab" data-bs-target="#edit-more-tab-pane" type="button" role="tab" aria-controls="edit-more-tab-pane" aria-selected="false"><i class="fa-solid fa-leaf me-1"></i>Morphological Traits</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-loc-tab" data-bs-toggle="tab" data-bs-target="#edit-loc-tab-pane" type="button" role="tab" aria-controls="edit-loc-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot me-1"></i>Location</button>
+                            <button class="nav-link small-font modal-tab" id="edit-agro-tab" data-bs-toggle="tab" data-bs-target="#edit-agro-tab-pane" type="button" role="tab" aria-controls="edit-agro-tab-pane" aria-selected="false"><i class="fa-solid fa-leaf me-1"></i>Agronomic Traits</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link small-font modal-tab" id="edit-cultural-tab" data-bs-toggle="tab" data-bs-target="#edit-cultural-tab-pane" type="button" role="tab" aria-controls="edit-cultural-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot me-1"></i>Cultural Importance</button>
                         </li>
                     </ul>
                     <div class="container">
                         <div class="tab-content mt-2">
                             <!-- general -->
                             <?php require "edit-tabs/gen.php" ?>
-                            <!-- location -->
-                            <?php require "edit-tabs/loc.php" ?>
+                            <!-- cultural -->
+                            <?php require "edit-tabs/cultural.php" ?>
                             <!-- more optional info -->
                             <?php require "edit-tabs/more.php" ?>
+                            <!-- agro info -->
+                            <?php require "edit-tabs/agro.php" ?>
                         </div>
                     </div>
                 </div>
@@ -152,9 +157,12 @@
                         if (value['category_name'] === 'Corn') {
                             // Show the div for Corn
                             $('#cornMorph-Edit').show();
+                            $('#cornAgro-Edit').show();
                             // Hide the divs for Rice and Root Crop
                             $('#riceMorph-Edit').hide();
+                            $('#riceAgro-Edit').hide();
                             $('#root_cropMorph-Edit').hide();
+                            $('#root_cropAgro-Edit').hide();
 
                             // morph traits for corn
                             // vegetative state
@@ -222,9 +230,12 @@
                         } else if (value['category_name'] === 'Rice') {
                             // Show the div for Rice
                             $('#riceMorph-Edit').show();
+                            $('#riceAgro-Edit').show();
                             // Hide the divs for Corn and Root Crop
                             $('#cornMorph-Edit').hide();
+                            $('#cornAgro-Edit').hide();
                             $('#root_cropMorph-Edit').hide();
+                            $('#root_cropAgro-Edit').hide();
 
                             // morph traits for rice
                             // vegetative state
@@ -336,9 +347,12 @@
                         } else if (value['category_name'] === 'Root Crop') {
                             // Show the div for Root Crop
                             $('#root_cropMorph-Edit').show();
+                            $('#root_cropAgro-Edit').show();
                             // Hide the divs for Corn and Rice
                             $('#cornMorph-Edit').hide();
+                            $('#cornAgro-Edit').hide();
                             $('#riceMorph-Edit').hide();
+                            $('#riceAgro-Edit').hide();
 
                             // morph traits for rootCrop
                             // vegetative state

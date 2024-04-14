@@ -249,7 +249,6 @@
 <script>
     // Function to display the morphological characteristics based on the selected category
     function showMorphologicalCharacteristics(categoryId) {
-        console.log(categoryId);
         // morph traits
         var cornMorph = document.getElementById('cornMorph');
         var riceMorph = document.getElementById('riceMorph');
