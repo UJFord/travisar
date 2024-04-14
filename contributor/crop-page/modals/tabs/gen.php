@@ -76,10 +76,11 @@
 <!-- GENERAL TAB -->
 <div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
     <!-- Category and Crop Field -->
-    <div class="row mb-4">
+    <h6 class="fw-semibold mt-4 mb-3">General Information</h6>
+    <div class="row mb-2">
         <!-- Category Name -->
         <div class="col-6">
-            <label for="Category" class="form-label small-font">Crop Category<span style="color: red;">*</span></label>
+            <label for="Category" class="form-label small-font">Crop Category<span class="text-danger ms-1">*</span></label>
             <select name="category_id" id="Category" class="form-select" required>
                 <?php
                 // get the data of category from DB
@@ -112,7 +113,7 @@
 
         <!-- Category Variety -->
         <div class="col" id="category-Variety">
-            <label for="categoryVariety" class="form-label small-font">Variety<span style="color: red;">*</span></label>
+            <label for="categoryVariety" class="form-label small-font">Variety<span class="text-danger ms-1">*</span></label>
             <select name="category_variety_id" id="categoryVariety" class="form-select" required>
                 <!-- Options will be dynamically added here based on the category selected -->
             </select>
@@ -120,22 +121,22 @@
     </div>
 
     <!-- variety name,  -->
-    <div class="row mb-3">
+    <div class="row mb-2">
         <!-- variety name -->
         <div class="col mb-2">
-            <label for="Variety-Name" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
+            <label for="Variety-Name" class="form-label small-font">Local/Variety Name<span class="text-danger ms-1">*</span></label>
             <input id="Variety-Name" type="text" name="crop_variety" class="form-control" required pattern="[A-Za-z _-]+">
         </div>
 
         <!-- Meaning of Name -->
         <div class="col mb-2">
-            <label class="form-label small-font">Meaning of Name(if any)</label>
+            <label class="form-label small-font">Meaning of Name (if any)</label>
             <input type="text" name="meaning_of_name" class="form-control">
         </div>
     </div>
 
     <!-- terrain -->
-    <div class="row mb-3">
+    <div class="row mb-2">
         <!-- terrain -->
         <div class="col-6">
             <label for="terrain" class="form-label small-font">Terrain<span style="color: red;">*</span></label>
@@ -167,7 +168,7 @@
     </div>
 
     <!-- DESCRIPTION -->
-    <div class="row mb-4">
+    <div class="row mb-5">
         <div class="col">
             <label for="desc" class="form-label small-font">Description</label>
             <textarea name="crop_description" id="desc" rows="2" class="form-control"></textarea>
@@ -175,7 +176,14 @@
     </div>
 
 
+
+
+
+
     <!-- IMAGES -->
+    <h6 class="fw-semibold mt-4 mb-0">Images for Plant Stages</h6>
+    <!-- help -->
+    <div id="coords-help" class="form-text mb-3" style="font-size: 0.7rem;">Hold <span class="fw-bold">ctrl</span> or <span class="fw-bold">shift</span> and click the images to upload multiple files</div>
     <!-- Seed image -->
     <div class="row mb-3">
         <label for="imageInputSeed" class="d-flex align-items-center rounded small-font mb-2">
@@ -183,29 +191,31 @@
             <span>Seed</span>
         </label>
         <div class="d-flex flex-column image-upload-container col-6">
-            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputSeed" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewSeed')" multiple>
+            <input class="mb-0 form-control form-control-sm" name="crop_seed_image" type="file" id="imageInputSeed" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewSeed')" multiple>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewSeed"></div>
     </div>
 
+    <!-- Vegetative image -->
     <div class="row mb-3">
         <label for="imageInputVegetative" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Vegetative Stage</span>
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
-            <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetative" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewVeg')" multiple>
+            <input class="col-6 mb-0 form-control form-control-sm" name="crop_vegetative_image" type="file" id="imageInputVegetative" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewVeg')" multiple>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewVeg"></div>
     </div>
 
-    <div class="row mb-3">
+    <!-- Reproductive image -->
+    <div class="row mb-5">
         <label for="imageInputReproductive" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Reproductive Stage</span>
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
-            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductive" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewReproductive')" multiple>
+            <input class="mb-0 form-control form-control-sm" type="file" name="crop_reproductive_image" id="imageInputReproductive" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewReproductive')" multiple>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewReproductive"></div>
     </div>
@@ -213,7 +223,11 @@
 
 
 
+
+
+
     <!-- MAP -->
+    <h6 class="fw-semibold mt-4 mb-3">Location</h6>
     <div id="locationData" class="row mb-3">
         <!-- form -->
         <div class="col-6 location-Data">
@@ -252,7 +266,7 @@
             <!-- coordinates -->
             <label for="coordInput" class="form-label small-font mb-0">Coordinates(if any)</label>
             <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
-            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (latitude , longitude)</div>
+            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (<span class="fw-bold">latitude , longitude</span>)</div>
 
         </div>
         <!-- map -->
@@ -270,7 +284,6 @@
 
 <!-- map input -->
 <!-- SCRIPT for add tab-->
-
 
 <!-- IMAGE PREVIEW HANDLING -->
 <script defer>
@@ -300,36 +313,57 @@
                     deleteButton.classList.add("remove-image");
                     imgContainer.appendChild(deleteButton);
 
-                    // Add click event listener for delete button
-                    deleteButton.addEventListener("click", function() {
-                        // Remove image preview and file from selection
-                        imgContainer.remove();
-                        const fileIndex = selectedFiles.indexOf(files[i]);
-                        if (fileIndex > -1) {
-                            selectedFiles.splice(fileIndex, 1);
-                        }
-
-                        // Hide preview container if no files selected
-                        if (!previewContainer.querySelector('.preview-image-container')) {
-                            previewContainer.classList.add("d-none");
-                        }
-                    });
-
                     // Add selected file to the array
                     selectedFiles.push(files[i]);
                 };
                 reader.readAsDataURL(files[i]);
             }
+
+            // Add event listener for delete buttons
+            $(document).on("click", ".remove-image", function() {
+                var index = $(this).index(".remove-image");
+                var input = $('input[type="file"]')[0];
+                var newFiles = Array.from(input.files);
+                newFiles.splice(index, 1);
+
+                // Clear the preview container
+                previewContainer.innerHTML = "";
+
+                //* mao ni tung mag transfer sa data to another input
+                var dataTransfer = new DataTransfer();
+                // Preview the remaining images
+                newFiles.forEach(function(file) {
+                    dataTransfer.items.add(file);
+                    const imgContainer = document.createElement("div");
+                    imgContainer.classList.add("preview-image-container");
+                    previewContainer.appendChild(imgContainer);
+
+                    const img = document.createElement("img");
+                    img.src = URL.createObjectURL(file);
+                    img.classList.add("img-thumbnail", "mb-2", "preview-image");
+                    imgContainer.appendChild(img);
+
+                    const deleteButton = document.createElement("button");
+                    deleteButton.innerText = "❌";
+                    deleteButton.classList.add("remove-image");
+                    imgContainer.appendChild(deleteButton);
+                });
+                input.files = dataTransfer.files;
+
+                // Remove only the clicked image and delete button
+                $(this).prev("img").remove();
+                $(this).remove();
+            });
         } else {
             previewContainer.classList.add("d-none"); // Hide preview container if no files selected
         }
-
         // **Update logic to use selectedFiles array for upload**
         // (This part depends on your specific upload functionality)
 
         // Replace existing upload logic with code that uses selectedFiles
     }
 </script>
+
 
 <!-- script for limiting the input for the crop variety name -->
 <script>
@@ -356,7 +390,6 @@
 
 <!-- leaflet requirement -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
 
 <!-- script for limiting the input in coordinates just to numbers, commas, periods, and spaces -->
 <script>

@@ -24,16 +24,16 @@
                             <button class="nav-link active small-font modal-tab" id="gen-tab" data-bs-toggle="tab" data-bs-target="#gen-tab-pane" type="button" role="tab" aria-controls="gen-tab-pane" aria-selected="false"><i class="fa-solid fa-lightbulb me-1"></i>General</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="true"><i class="fa-solid fa-leaf me-1"></i>Morph Traits</button>
+                            <button class="nav-link small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="true"><i class="fa-solid fa-leaf me-1"></i>Morphology</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="sensory-tab" data-bs-toggle="tab" data-bs-target="#sensory-tab-pane" type="button" role="tab" aria-controls="sensory-tab-pane" aria-selected="true"><i class="fa-solid fa-leaf me-1"></i>Sensory Traits</button>
+                            <button class="nav-link small-font modal-tab" id="sensory-tab" data-bs-toggle="tab" data-bs-target="#sensory-tab-pane" type="button" role="tab" aria-controls="sensory-tab-pane" aria-selected="true"><i class="fa-solid fa-utensils me-1"></i>Sensory</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="agro-tab" data-bs-toggle="tab" data-bs-target="#agro-tab-pane" type="button" role="tab" aria-controls="agro-tab-pane" aria-selected="true"><i class="fa-solid fa-leaf me-1"></i>Agronomic Traits</button>
+                            <button class="nav-link small-font modal-tab" id="agro-tab" data-bs-toggle="tab" data-bs-target="#agro-tab-pane" type="button" role="tab" aria-controls="agro-tab-pane" aria-selected="true"><i class="fa-solid fa-seedling me-1"></i>Agronomy</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="cultural-tab" data-bs-toggle="tab" data-bs-target="#cultural-tab-pane" type="button" role="tab" aria-controls="cultural-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot me-1"></i>Cultural Importance</button>
+                            <button class="nav-link small-font modal-tab" id="cultural-tab" data-bs-toggle="tab" data-bs-target="#cultural-tab-pane" type="button" role="tab" aria-controls="cultural-tab-pane" aria-selected="false"><i class="fa-solid fa-sun me-1"></i>Importance</button>
                         </li>
                     </ul>
                     <div class="container">
@@ -82,28 +82,6 @@
 <!-- for submission -->
 <script>
     document.getElementById('form-panel-add').addEventListener('submit', function(event) {
-        console.log('Form submission event listener triggered');
-        //! wala ni sya gagana yawa nadugayan ko tungod ani tangalun guro ni lahion guro
-        // var isValid = true;
-        // // Check if any required fields are empty
-        // var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
-        // requiredFields.forEach(function(field) {
-        //     if (!field.value.trim()) {
-        //         isValid = false;
-        //         field.classList.add('is-invalid');
-        //     } else {
-        //         field.classList.remove('is-invalid');
-        //     }
-        // });
-
-        // if (!isValid) {
-        //     // Prevent the form from submitting
-        //     console.log('not valid');
-        //     event.preventDefault();
-        //     event.stopPropagation();
-        //     return false;
-        // }
-
         // Get the selected category
         var selectedCategory = document.getElementById('Category').value;
         var cornMorph = document.getElementById('cornMorph');
@@ -129,8 +107,6 @@
 
     // Function to submit the form and refresh notifications
     function submitForm() {
-        m
-        console.log('submitForm function called');
         // Get the form reference
         var form = document.getElementById('form-panel-add');
         // Trigger the form submission
