@@ -316,10 +316,17 @@
         </div>
     </div>
 
-    <!-- STEP NAVIGATION -->
-    <div class="row">
+    <!-- STEP NAVIGATION with out Sensory -->
+    <div class="row" id="withoutSensory-Edit">
         <div class="col d-flex justify-content-between">
             <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('edit-more')"><i class="fa-solid fa-backward"></i></button>
+            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('edit-cultural', this)"><i class="fa-solid fa-forward"></i></button>
+        </div>
+    </div>
+    <!-- STEP NAVIGATION with Sensory -->
+    <div class="row" id="withSensory-Edit">
+        <div class="col d-flex justify-content-between">
+            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('edit-sensory')"><i class="fa-solid fa-backward"></i></button>
             <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('edit-cultural', this)"><i class="fa-solid fa-forward"></i></button>
         </div>
     </div>

@@ -7,11 +7,19 @@
     <!-- rootCrop morphological traits -->
     <?php require "crop-page/modals/edit-tabs/edit-traits/rootCrop-traits-edit.php" ?>
 
-    <!-- STEP NAVIGATION -->
-    <div class="row">
+    <!-- STEP NAVIGATION without Sensory -->
+    <div class="row" id="withoutSensory-Edit-More">
         <div class="col d-flex justify-content-between">
             <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open General tab" onclick="switchTab('edit-gen')"><i class="fa-solid fa-backward"></i></button>
             <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Agronomic traits tab" onclick="switchTab('edit-agro',this)"><i class="fa-solid fa-forward"></i></button>
+        </div>
+    </div>
+    
+    <!-- STEP NAVIGATION with Sensory -->
+    <div class="row" id="withSensory-Edit-More">
+        <div class="col d-flex justify-content-between">
+            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open General tab" onclick="switchTab('edit-gen')"><i class="fa-solid fa-backward"></i></button>
+            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Agronomic traits tab" onclick="switchTab('edit-sensory',this)"><i class="fa-solid fa-forward"></i></button>
         </div>
     </div>
 </div>

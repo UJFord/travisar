@@ -25,7 +25,10 @@
                             <button class="nav-link active small-font modal-tab" id="edit-gen-tab" data-bs-toggle="tab" data-bs-target="#edit-gen-tab-pane" type="button" role="tab" aria-controls="edit-gen-tab-pane" aria-selected="true"><i class="fa-solid fa-lightbulb me-1"></i>General</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-more-tab" data-bs-toggle="tab" data-bs-target="#edit-more-tab-pane" type="button" role="tab" aria-controls="edit-more-tab-pane" aria-selected="false"><i class="fa-solid fa-leaf me-1"></i>Morphological Traits</button>
+                            <button class="nav-link small-font modal-tab" id="edit-more-tab" data-bs-toggle="tab" data-bs-target="#edit-more-tab-pane" type="button" role="tab" aria-controls="edit-more-tab-pane" aria-selected="false"><i class="fa-solid fa-leaf me-1"></i>Morph Traits</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link small-font modal-tab" id="edit-sensory-tab" data-bs-toggle="tab" data-bs-target="#edit-sensory-tab-pane" type="button" role="tab" aria-controls="edit-sensory-tab-pane" aria-selected="false"><i class="fa-solid fa-leaf me-1"></i>Sensory Traits</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link small-font modal-tab" id="edit-agro-tab" data-bs-toggle="tab" data-bs-target="#edit-agro-tab-pane" type="button" role="tab" aria-controls="edit-agro-tab-pane" aria-selected="false"><i class="fa-solid fa-leaf me-1"></i>Agronomic Traits</button>
@@ -44,6 +47,8 @@
                             <?php require "edit-tabs/more.php" ?>
                             <!-- agro info -->
                             <?php require "edit-tabs/agro.php" ?>
+                            <!-- sensory info -->
+                            <?php require "edit-tabs/sensory.php" ?>
                         </div>
                     </div>
                 </div>
@@ -158,11 +163,16 @@
                             // Show the div for Corn
                             $('#cornMorph-Edit').show();
                             $('#cornAgro-Edit').show();
+                            $('#withoutSensory-Edit').show();
+                            $('#withoutSensory-Edit-More').show();
                             // Hide the divs for Rice and Root Crop
                             $('#riceMorph-Edit').hide();
                             $('#riceAgro-Edit').hide();
                             $('#root_cropMorph-Edit').hide();
                             $('#root_cropAgro-Edit').hide();
+                            $('#edit-sensory-tab').hide();
+                            $('#withSensory-Edit').hide();
+                            $('#withSensory-Edit-More').hide();
 
                             // morph traits for corn
                             // vegetative state
@@ -231,11 +241,16 @@
                             // Show the div for Rice
                             $('#riceMorph-Edit').show();
                             $('#riceAgro-Edit').show();
+                            $('#edit-sensory-tab').show();
+                            $('#withSensory-Edit').show();
+                            $('#withSensory-Edit-More').show();
                             // Hide the divs for Corn and Root Crop
                             $('#cornMorph-Edit').hide();
                             $('#cornAgro-Edit').hide();
                             $('#root_cropMorph-Edit').hide();
                             $('#root_cropAgro-Edit').hide();
+                            $('#withoutSensory-Edit').hide();
+                            $('#withoutSensory-Edit-More').hide();
 
                             // morph traits for rice
                             // vegetative state
@@ -348,11 +363,16 @@
                             // Show the div for Root Crop
                             $('#root_cropMorph-Edit').show();
                             $('#root_cropAgro-Edit').show();
+                            $('#withoutSensory-Edit').show();
+                            $('#withoutSensory-Edit-More').show();
                             // Hide the divs for Corn and Rice
                             $('#cornMorph-Edit').hide();
                             $('#cornAgro-Edit').hide();
                             $('#riceMorph-Edit').hide();
                             $('#riceAgro-Edit').hide();
+                            $('#edit-sensory-tab').hide();
+                            $('#withSensory-Edit').hide();
+                            $('#withSensory-Edit-More').hide();
 
                             // morph traits for rootCrop
                             // vegetative state

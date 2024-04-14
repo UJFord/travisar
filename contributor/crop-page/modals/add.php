@@ -260,6 +260,10 @@
 
         // sensory tab
         var sensoryTab = document.getElementById('sensory-tab');
+        var withSensory = document.getElementById('withSensory');
+        var withoutSensory = document.getElementById('withoutSensory');
+        var withSensory_More = document.getElementById('withSensory-More');
+        var withoutSensory_More = document.getElementById('withoutSensory-More');
 
         // Hide all morphological characteristics sections
         cornMorph.style.display = 'none';
@@ -273,18 +277,28 @@
 
         // Hide rice sensory tab
         sensoryTab.style.display = 'none';
+        withSensory.style.display = 'none';
+        withoutSensory.style.display = 'none';
+        withSensory_More.style.display = 'none';
+        withoutSensory_More.style.display = 'none';
 
         // Show the relevant morphological characteristics section based on selected category
         if (categoryId === '4') {
             cornMorph.style.display = 'block';
             cornAgro.style.display = 'block';
+            withoutSensory.style.display = 'block';
+            withoutSensory_More.style.display = 'block';
         } else if (categoryId === '1') {
             riceMorph.style.display = 'block';
             riceAgro.style.display = 'block';
             sensoryTab.style.display = 'block';
+            withSensory.style.display = 'block';
+            withSensory_More.style.display = 'block';
         } else if (categoryId === '2') {
             rootCropMorph.style.display = 'block';
             rootCropAgro.style.display = 'block';
+            withoutSensory.style.display = 'block';
+            withoutSensory_More.style.display = 'block';
         }
     }
 </script>
