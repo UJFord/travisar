@@ -49,8 +49,8 @@
                             <?php require "tabs/agro.php" ?>
                             <!-- sensory traits -->
                             <?php require "tabs/sensory.php" ?>
-                            <!-- location -->
-                            <?php require "tabs/loc.php" ?>
+                            <!-- cultural -->
+                            <?php require "tabs/cultural.php" ?>
                         </div>
                     </div>
                 </div>
