@@ -1,4 +1,6 @@
 <div id="riceMorph">
+
+
     <!-- Morphological traits -->
     <h4>Morphological traits</h4>
     <br>
@@ -22,6 +24,10 @@
             </div>
         </div>
     </div>
+
+
+
+
     <!-- Leaf Traits -->
     <div class="row mb-4">
         <!-- leaf width -->
@@ -47,6 +53,10 @@
         </div>
     </div>
 
+
+
+
+
     <!-- Tillering ability and maturity time -->
     <div class="row mb-4">
         <!-- Tillering ability -->
@@ -67,6 +77,10 @@
             </select>
         </div>
     </div>
+
+
+
+
 
     <label class="form-label"><strong>Reproductive state</strong></label>
     <br>
@@ -106,6 +120,11 @@
         </div>
     </div>
 
+
+
+
+
+
     <!-- Seed traits-->
     <div class="row mb-4">
         <label class="form-label"><strong>Seed traits</strong></label>
@@ -133,6 +152,11 @@
             <textarea name="seed_color" id="seed-color" cols="30" rows="2" class="form-control"></textarea>
         </div>
     </div>
+
+
+
+
+
 
     <!-- Flag Leaf traits-->
     <div class="row mb-4">
@@ -167,4 +191,8 @@
             <textarea name="flag_remarkable_features" id="flag-features" cols="30" rows="2" class="form-control"></textarea>
         </div>
     </div>
+
+
+
+    
 </div>
