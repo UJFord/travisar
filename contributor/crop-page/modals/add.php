@@ -24,7 +24,10 @@
                             <button class="nav-link active small-font modal-tab" id="gen-tab" data-bs-toggle="tab" data-bs-target="#gen-tab-pane" type="button" role="tab" aria-controls="gen-tab-pane" aria-selected="false"><i class="fa-solid fa-lightbulb me-1"></i>General</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="true"><i class="fa-solid fa-leaf me-1"></i>Traits</button>
+                            <button class="nav-link small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="true"><i class="fa-solid fa-leaf me-1"></i>Morph Traits</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link small-font modal-tab" id="agro-tab" data-bs-toggle="tab" data-bs-target="#agro-tab-pane" type="button" role="tab" aria-controls="agro-tab-pane" aria-selected="true"><i class="fa-solid fa-leaf me-1"></i>Agronomic Traits</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link small-font modal-tab" id="loc-tab" data-bs-toggle="tab" data-bs-target="#loc-tab-pane" type="button" role="tab" aria-controls="loc-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot me-1"></i>Location</button>
@@ -39,6 +42,8 @@
                             <?php require "tabs/gen.php" ?>
                             <!-- more optional info -->
                             <?php require "tabs/more.php" ?>
+                            <!-- agronomic traits -->
+                            <?php require "tabs/agro.php" ?>
                             <!-- location -->
                             <?php require "tabs/loc.php" ?>
                         </div>
@@ -239,25 +244,64 @@
 <script>
     // Function to display the morphological characteristics based on the selected category
     function showMorphologicalCharacteristics(categoryId) {
+        console.log(categoryId);
+        // morph traits
         var cornMorph = document.getElementById('cornMorph');
         var riceMorph = document.getElementById('riceMorph');
         var rootCropMorph = document.getElementById('root_cropMorph');
+        // agronomic traits
+        var cornAgro = document.getElementById('cornAgro');
+        var riceAgro = document.getElementById('riceAgro');
+        var rootCropAgro = document.getElementById('root_cropAgro');
 
         // Hide all morphological characteristics sections
         cornMorph.style.display = 'none';
         riceMorph.style.display = 'none';
         rootCropMorph.style.display = 'none';
 
+        // Hide all agronomic characteristics sections
+        cornAgro.style.display = 'none';
+        riceAgro.style.display = 'none';
+        rootCropAgro.style.display = 'none';
+
         // Show the relevant morphological characteristics section based on selected category
         if (categoryId === '4') {
             cornMorph.style.display = 'block';
+            cornAgro.style.display = 'block';
         } else if (categoryId === '1') {
             riceMorph.style.display = 'block';
+            riceAgro.style.display = 'block';
         } else if (categoryId === '2') {
             rootCropMorph.style.display = 'block';
+            rootCropAgro.style.display = 'block';
         }
     }
 </script>
+
+<!-- script for the agronomic characteristics display -->
+<!-- <script>
+    // Function to display the morphological characteristics based on the selected category
+    function showAgronomicCharacteristics(categoryId) {
+        // agronomic traits
+        var cornAgro = document.getElementById('cornAgro');
+        var riceAgro = document.getElementById('riceAgro');
+        var rootCropAgro = document.getElementById('root_cropAgro');
+
+        // Hide all agronomic characteristics sections
+        cornAgro.style.display = 'none';
+        riceAgro.style.display = 'none';
+        rootCropAgro.style.display = 'none';
+
+        // Show the relevant morphological characteristics section based on selected category
+        if (categoryId === '4') {
+            cornAgro.style.display = 'block';
+        } else if (categoryId === '1') {
+            riceAgro.style.display = 'block';
+        } else if (categoryId === '2') {
+            rootCropAgro.style.display = 'block';
+        }
+    }
+</script> -->
 
 <!-- script for other in pest resistance -->
 <script>
