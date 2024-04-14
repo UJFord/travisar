@@ -1,9 +1,6 @@
 <!-- STYLE -->
 <style>
     .image-upload-container {
-        /* Adjust width and height as needed */
-        /* border: 1px solid #ccc;
-        border-radius: 5px; */
         cursor: pointer;
     }
 
@@ -34,7 +31,6 @@
         /* scrollbar-width: none; */
         /* Firefox */
         -ms-overflow-style: none;
-        /* Internet Explorer 10+ */
     }
 
     /* map */
@@ -155,7 +151,7 @@
         <div class="d-flex flex-column image-upload-container col-6">
             <input class="mb-2 form-control form-control-sm" type="file" id="imageInputSeed" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewSeed')" multiple>
         </div>
-        <div class="col preview-container custom-scrollbar overflow-scroll rounded py-0 px-1 border d-flex justify-content-center align-items-center d-none" id="previewSeed"></div>
+        <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewSeed"></div>
     </div>
 
     <div class="row mb-3">
@@ -256,7 +252,7 @@
                 reader.onload = function(e) {
                     const img = document.createElement("img");
                     img.src = e.target.result;
-                    img.classList.add("img-thumbnail", "m-0");
+                    img.classList.add("img-thumbnail", "me-1");
                     previewContainer.appendChild(img);
                 };
                 reader.readAsDataURL(files[i]);
@@ -302,7 +298,6 @@
             event.target.value = event.target.value.replace(/[^0-9.,\s-]/g, '');
         }
     });
-
 </script>
 
 <!-- MAP -->
