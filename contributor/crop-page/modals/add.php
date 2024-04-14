@@ -82,28 +82,6 @@
 <!-- for submission -->
 <script>
     document.getElementById('form-panel-add').addEventListener('submit', function(event) {
-        console.log('Form submission event listener triggered');
-        //! wala ni sya gagana yawa nadugayan ko tungod ani tangalun guro ni lahion guro
-        // var isValid = true;
-        // // Check if any required fields are empty
-        // var requiredFields = document.querySelectorAll('input[required], select[required], textarea[required]');
-        // requiredFields.forEach(function(field) {
-        //     if (!field.value.trim()) {
-        //         isValid = false;
-        //         field.classList.add('is-invalid');
-        //     } else {
-        //         field.classList.remove('is-invalid');
-        //     }
-        // });
-
-        // if (!isValid) {
-        //     // Prevent the form from submitting
-        //     console.log('not valid');
-        //     event.preventDefault();
-        //     event.stopPropagation();
-        //     return false;
-        // }
-
         // Get the selected category
         var selectedCategory = document.getElementById('Category').value;
         var cornMorph = document.getElementById('cornMorph');
@@ -129,8 +107,6 @@
 
     // Function to submit the form and refresh notifications
     function submitForm() {
-        m
-        console.log('submitForm function called');
         // Get the form reference
         var form = document.getElementById('form-panel-add');
         // Trigger the form submission

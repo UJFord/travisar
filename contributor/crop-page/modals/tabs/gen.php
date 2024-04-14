@@ -183,35 +183,34 @@
             <span>Seed</span>
         </label>
         <div class="d-flex flex-column image-upload-container col-6">
-            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputSeed" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewSeed')" multiple>
+            <input class="mb-2 form-control form-control-sm" name="crop_seed_image" type="file" id="imageInputSeed" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewSeed')" multiple>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewSeed"></div>
     </div>
 
+    <!-- Vegetative image -->
     <div class="row mb-3">
         <label for="imageInputVegetative" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Vegetative Stage</span>
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
-            <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetative" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewVeg')" multiple>
+            <input class="col-6 mb-2 form-control form-control-sm" name="crop_vegetative_image" type="file" id="imageInputVegetative" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewVeg')" multiple>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewVeg"></div>
     </div>
 
+    <!-- Reproductive image -->
     <div class="row mb-3">
         <label for="imageInputReproductive" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Reproductive Stage</span>
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
-            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductive" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewReproductive')" multiple>
+            <input class="mb-2 form-control form-control-sm" type="file" name="crop_reproductive_image" id="imageInputReproductive" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewReproductive')" multiple>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewReproductive"></div>
     </div>
-
-
-
 
     <!-- MAP -->
     <div id="locationData" class="row mb-3">
@@ -271,7 +270,6 @@
 <!-- map input -->
 <!-- SCRIPT for add tab-->
 
-
 <!-- IMAGE PREVIEW HANDLING -->
 <script defer>
     function previewImage(input, previewId) {
@@ -300,36 +298,57 @@
                     deleteButton.classList.add("remove-image");
                     imgContainer.appendChild(deleteButton);
 
-                    // Add click event listener for delete button
-                    deleteButton.addEventListener("click", function() {
-                        // Remove image preview and file from selection
-                        imgContainer.remove();
-                        const fileIndex = selectedFiles.indexOf(files[i]);
-                        if (fileIndex > -1) {
-                            selectedFiles.splice(fileIndex, 1);
-                        }
-
-                        // Hide preview container if no files selected
-                        if (!previewContainer.querySelector('.preview-image-container')) {
-                            previewContainer.classList.add("d-none");
-                        }
-                    });
-
                     // Add selected file to the array
                     selectedFiles.push(files[i]);
                 };
                 reader.readAsDataURL(files[i]);
             }
+
+            // Add event listener for delete buttons
+            $(document).on("click", ".remove-image", function() {
+                var index = $(this).index(".remove-image");
+                var input = $('input[type="file"]')[0];
+                var newFiles = Array.from(input.files);
+                newFiles.splice(index, 1);
+
+                // Clear the preview container
+                previewContainer.innerHTML = "";
+
+                //* mao ni tung mag transfer sa data to another input
+                var dataTransfer = new DataTransfer();
+                // Preview the remaining images
+                newFiles.forEach(function(file) {
+                    dataTransfer.items.add(file);
+                    const imgContainer = document.createElement("div");
+                    imgContainer.classList.add("preview-image-container");
+                    previewContainer.appendChild(imgContainer);
+
+                    const img = document.createElement("img");
+                    img.src = URL.createObjectURL(file);
+                    img.classList.add("img-thumbnail", "mb-2", "preview-image");
+                    imgContainer.appendChild(img);
+
+                    const deleteButton = document.createElement("button");
+                    deleteButton.innerText = "❌";
+                    deleteButton.classList.add("remove-image");
+                    imgContainer.appendChild(deleteButton);
+                });
+                input.files = dataTransfer.files;
+
+                // Remove only the clicked image and delete button
+                $(this).prev("img").remove();
+                $(this).remove();
+            });
         } else {
             previewContainer.classList.add("d-none"); // Hide preview container if no files selected
         }
-
         // **Update logic to use selectedFiles array for upload**
         // (This part depends on your specific upload functionality)
 
         // Replace existing upload logic with code that uses selectedFiles
     }
 </script>
+
 
 <!-- script for limiting the input for the crop variety name -->
 <script>
@@ -356,7 +375,6 @@
 
 <!-- leaflet requirement -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
-
 
 <!-- script for limiting the input in coordinates just to numbers, commas, periods, and spaces -->
 <script>
