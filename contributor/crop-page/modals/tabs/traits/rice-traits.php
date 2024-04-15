@@ -76,7 +76,9 @@
         <div class="col-6">
             <label for="rice-yield-capacity" class="form-label small-font">Yield Capacity</label>
             <select name="rice_yield_capacity" id="rice-yield-capacity" class="form-select">
-                select
+                <option selected></option>
+                <option value="Low-Yielding">Low-Yielding</option>
+                <option value="High-Yielding">High-Yielding</option>
             </select>
         </div>
     </div>
