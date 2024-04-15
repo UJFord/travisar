@@ -1,43 +1,25 @@
 <!-- MORE TAB -->
 <div class="fade tab-pane" id="edit-more-tab-pane" role="tabpanel" aria-labelledby="edit-more-tab" tabindex="0">
     <!-- corn morphological traits -->
-    <?php require "approval-page/tabs/edit-traits/corn-traits-edit.php" ?>
+    <?php require "crop-page/modals/edit-tabs/edit-traits/corn-traits-edit.php" ?>
     <!-- rice morphological traits -->
-    <?php require "approval-page/tabs/edit-traits/rice-traits-edit.php" ?>
+    <?php require "crop-page/modals/edit-tabs/edit-traits/rice-traits-edit.php" ?>
     <!-- rootCrop morphological traits -->
-    <?php require "approval-page/tabs/edit-traits/rootCrop-traits-edit.php" ?>
-    <!-- Utilization ang Cultural Importance-->
-    <div class="row mb-4">
-        <label class="form-label"><strong>Utilization ang Cultural Importance</strong></label>
-        <!-- Significance -->
-        <div class="col-12 mb-2">
-            <label for="SignificanceEdit" class="form-label small-font">Significance</label>
-            <textarea name="significance" id="SignificanceEdit" cols="30" rows="1" class="form-control"></textarea>
-        </div>
+    <?php require "crop-page/modals/edit-tabs/edit-traits/rootCrop-traits-edit.php" ?>
 
-        <!-- Use -->
-        <div class="col-12 mb-2">
-            <label for="UseEdit" class="form-label small-font">Use</label>
-            <textarea name="use" id="UseEdit" cols="30" rows="1" class="form-control"></textarea>
-        </div>
-
-        <!-- Indigenous Utilization -->
-        <div class="col-12 mb-2">
-            <label for="indigenous-utilization-Edit" class="form-label small-font">Indigenous Utilization</label>
-            <textarea name="indigenous_utilization" id="indigenous-utilization-Edit" cols="30" rows="2" class="form-control"></textarea>
-        </div>
-
-        <!-- Remarkable Features-->
-        <div class="col-12 mb-2">
-            <label for="remarkable-features-Edit" class="form-label small-font">Remarkable Features</label>
-            <textarea name="remarkable_features" id="remarkable-features-Edit" cols="30" rows="2" class="form-control"></textarea>
+    <!-- STEP NAVIGATION without Sensory -->
+    <div class="row" id="withoutSensory-Edit-More">
+        <div class="col d-flex justify-content-between">
+            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open General tab" onclick="switchTab('edit-gen')"><i class="fa-solid fa-backward"></i></button>
+            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Agronomic traits tab" onclick="switchTab('edit-agro',this)"><i class="fa-solid fa-forward"></i></button>
         </div>
     </div>
-
-    <!-- STEP NAVIGATION -->
-    <div class="row">
-        <div class="col d-flex justify-content-start">
-            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('loc')"><i class="fa-solid fa-backward"></i></button>
+    
+    <!-- STEP NAVIGATION with Sensory -->
+    <div class="row" id="withSensory-Edit-More">
+        <div class="col d-flex justify-content-between">
+            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open General tab" onclick="switchTab('edit-gen')"><i class="fa-solid fa-backward"></i></button>
+            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Agronomic traits tab" onclick="switchTab('edit-sensory',this)"><i class="fa-solid fa-forward"></i></button>
         </div>
     </div>
 </div>

@@ -25,20 +25,30 @@
                             <button class="nav-link active small-font modal-tab" id="edit-gen-tab" data-bs-toggle="tab" data-bs-target="#edit-gen-tab-pane" type="button" role="tab" aria-controls="edit-gen-tab-pane" aria-selected="true"><i class="fa-solid fa-lightbulb me-1"></i>General</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-more-tab" data-bs-toggle="tab" data-bs-target="#edit-more-tab-pane" type="button" role="tab" aria-controls="edit-more-tab-pane" aria-selected="false"><i class="fa-solid fa-leaf me-1"></i>Traits</button>
+                            <button class="nav-link small-font modal-tab" id="edit-more-tab" data-bs-toggle="tab" data-bs-target="#edit-more-tab-pane" type="button" role="tab" aria-controls="edit-more-tab-pane" aria-selected="false"><i class="fa-solid fa-leaf me-1"></i>Morph Traits</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-loc-tab" data-bs-toggle="tab" data-bs-target="#edit-loc-tab-pane" type="button" role="tab" aria-controls="edit-loc-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot me-1"></i>Location</button>
+                            <button class="nav-link small-font modal-tab" id="edit-sensory-tab" data-bs-toggle="tab" data-bs-target="#edit-sensory-tab-pane" type="button" role="tab" aria-controls="edit-sensory-tab-pane" aria-selected="false"><i class="fa-solid fa-leaf me-1"></i>Sensory Traits</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link small-font modal-tab" id="edit-agro-tab" data-bs-toggle="tab" data-bs-target="#edit-agro-tab-pane" type="button" role="tab" aria-controls="edit-agro-tab-pane" aria-selected="false"><i class="fa-solid fa-leaf me-1"></i>Agronomic Traits</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link small-font modal-tab" id="edit-cultural-tab" data-bs-toggle="tab" data-bs-target="#edit-cultural-tab-pane" type="button" role="tab" aria-controls="edit-cultural-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot me-1"></i>Cultural Importance</button>
                         </li>
                     </ul>
                     <div class="container">
                         <div class="tab-content mt-2">
                             <!-- general -->
                             <?php require "tabs/gen.php" ?>
-                            <!-- location -->
-                            <?php require "tabs/loc.php" ?>
+                            <!-- cultural -->
+                            <?php require "tabs/cultural.php" ?>
                             <!-- more optional info -->
                             <?php require "tabs/more.php" ?>
+                            <!-- agro info -->
+                            <?php require "tabs/agro.php" ?>
+                            <!-- sensory info -->
+                            <?php require "tabs/sensory.php" ?>
                         </div>
                     </div>
                 </div>
@@ -55,12 +65,12 @@
         </div>
     </div>
 </div>
-<!-- script for getting the on the edit -->
+<!-- script for getting the on the view -->
 <script>
     document.getElementById('form-panel-view').addEventListener('submit', function(event) {
 
         // Get the selected category
-        var selectedCategory = document.getElementById('Category').value;
+        var selectedCategory = document.getElementById('categoryID').value;
         var cornMorph = document.getElementById('cornMorph-Edit');
         var riceMorph = document.getElementById('riceMorph-Edit');
         var rootCropMorph = document.getElementById('root_cropMorph-Edit');
@@ -111,7 +121,7 @@
         }
     }
 
-    // EDIT SCRIPT
+    // view SCRIPT
     const tableRows = document.querySelectorAll('.view_data');
     // Define an array to store municipalities
     var municipalities = [];
@@ -141,10 +151,19 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['crop_seed_image']);
+                        console.log(value['rice_plant_height']);
 
-                        // Append each image to their own previews
-                        $('#previewSeedEdit').append(`<img src="crop-page/modals/img/${value['crop_seed_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                        // Fetch the old image and pass it to the fetchOldImage function
+                        fetchOldImage(value.crop_seed_image);
+
+                        // Split the image filenames by comma
+                        var imageFilenamesSeed = value['crop_seed_image'].split(',');
+
+                        // Iterate over each filename and append an image element to the preview container
+                        imageFilenamesSeed.forEach(function(filename) {
+                            $('#previewSeedEdit').append(`<img src="crop-page/modals/img/${filename.trim()}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                        });
+
                         $('#previewVegEdit').append(`<img src="crop-page/modals/img/${value['crop_vegetative_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
                         $('#previewReproductiveEdit').append(`<img src="crop-page/modals/img/${value['crop_reproductive_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
 
@@ -152,9 +171,17 @@
                         if (value['category_name'] === 'Corn') {
                             // Show the div for Corn
                             $('#cornMorph-Edit').show();
+                            $('#cornAgro-Edit').show();
+                            $('#withoutSensory-Edit').show();
+                            $('#withoutSensory-Edit-More').show();
                             // Hide the divs for Rice and Root Crop
                             $('#riceMorph-Edit').hide();
+                            $('#riceAgro-Edit').hide();
                             $('#root_cropMorph-Edit').hide();
+                            $('#root_cropAgro-Edit').hide();
+                            $('#edit-sensory-tab').hide();
+                            $('#withSensory-Edit').hide();
+                            $('#withSensory-Edit-More').hide();
 
                             // morph traits for corn
                             // vegetative state
@@ -222,21 +249,29 @@
                         } else if (value['category_name'] === 'Rice') {
                             // Show the div for Rice
                             $('#riceMorph-Edit').show();
+                            $('#riceAgro-Edit').show();
+                            $('#edit-sensory-tab').show();
+                            $('#withSensory-Edit').show();
+                            $('#withSensory-Edit-More').show();
                             // Hide the divs for Corn and Root Crop
                             $('#cornMorph-Edit').hide();
+                            $('#cornAgro-Edit').hide();
                             $('#root_cropMorph-Edit').hide();
+                            $('#root_cropAgro-Edit').hide();
+                            $('#withoutSensory-Edit').hide();
+                            $('#withoutSensory-Edit-More').hide();
 
                             // morph traits for rice
                             // vegetative state
                             if (value['rice_plant_height'] === 'Tall') {
-                                $('#height-tall-edit').prop('checked', true);
+                                $('#height-tall-Edit').prop('checked', true);
                             } else if (value['rice_plant_height'] === 'Average') {
-                                $('#height-average-edit').prop('checked', true);
+                                $('#height-average-Edit').prop('checked', true);
                             } else if (value['rice_plant_height'] === 'Short') {
-                                $('#height-short-edit').prop('checked', true);
+                                $('#height-short-Edit').prop('checked', true);
                             }
                             $('#leafWidth-Edit').append($('<option>', {
-                                value: value['rice_leaf_width']
+                                value: value['rice_leaf_width'],
                             }));
                             $('#leafLength-Edit').append($('<option>', {
                                 value: value['rice_leaf_length']
@@ -319,9 +354,9 @@
                             $('#rice-Viral-Edit').prop('checked', value['viral'] == 1);
 
                             // abiotic resistance resistance rice
-                            $('#riceDrought-Edit').prop('checked', value['drought'] == 1);
-                            $('#riceSalinity-Edit').prop('checked', value['salnity'] == 1);
-                            $('#riceHeat-Edit').prop('checked', value['heat'] == 1);
+                            $('#riceDrought-Edit').prop('checked', value['rice_drought'] == 1);
+                            $('#riceSalinity-Edit').prop('checked', value['rice_salinity'] == 1);
+                            $('#riceHeat-Edit').prop('checked', value['rice_heat'] == 1);
                             $('#harmful-radiation-Edit').prop('checked', value['harmful_radiation'] == 1);
                             $('#rice-abiotic-other-check-Edit').prop('checked', value['rice_abiotic_other'] == 1);
                             // Show the 'Other' textarea if 'other' checkbox is checked
@@ -336,9 +371,17 @@
                         } else if (value['category_name'] === 'Root Crop') {
                             // Show the div for Root Crop
                             $('#root_cropMorph-Edit').show();
+                            $('#root_cropAgro-Edit').show();
+                            $('#withoutSensory-Edit').show();
+                            $('#withoutSensory-Edit-More').show();
                             // Hide the divs for Corn and Rice
                             $('#cornMorph-Edit').hide();
+                            $('#cornAgro-Edit').hide();
                             $('#riceMorph-Edit').hide();
+                            $('#riceAgro-Edit').hide();
+                            $('#edit-sensory-tab').hide();
+                            $('#withSensory-Edit').hide();
+                            $('#withSensory-Edit-More').hide();
 
                             // morph traits for rootCrop
                             // vegetative state
@@ -436,9 +479,22 @@
                         // cultural_aspect_id
                         $('#abiotic_resistanceID').val(value['abiotic_resistance_id']);
                         $('#abiotic_resistance_riceID').val(value['abiotic_resistance_rice_id']);
+                        // id for corn
                         $('#vegetative_state_cornID').val(value['vegetative_state_corn_id']);
                         $('#reproductive_state_cornID').val(value['reproductive_state_corn_id']);
                         $('#pest_resistance_cornID').val(value['pest_resistance_corn_id']);
+                        // if for rice
+                        $('#pest_resistance_riceID').val(value['pest_resistance_rice_id']);
+                        $('#vegetative_state_riceID').val(value['vegetative_state_rice_id']);
+                        $('#reproductive_state_riceID').val(value['reproductive_state_rice_id']);
+                        $('#panicle_traits_riceID').val(value['panicle_traits_rice_id']);
+                        $('#flag_leaf_traits_riceID').val(value['flag_leaf_traits_rice_id']);
+                        $('#sensory_traits_riceID').val(value['sensory_traits_rice_id']);
+                        // id for root crop
+                        $('#vegetative_state_rootcropID').val(value['vegetative_state_rootcrop_id']);
+                        $('#root_Crop_traitsID').val(value['root_Crop_traits_id']);
+                        $('#pest_resistance_rootcropID').val(value['pest_resistance_rootcrop_id']);
+                        $('#rootcrop_traitsID').val(value['rootcrop_traits_id']);
 
                         // old image/current image
                         $('#old_image_seed').val(value['crop_seed_image']);

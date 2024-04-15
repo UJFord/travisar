@@ -19,6 +19,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
         $terrain_id = handleEmpty($_POST['terrainID']);
         $category_id = $_POST['categoryID'];
         $unique_code = $_POST['unique_codeID'];
+        $current_image_seed = handleEmpty($_POST['current_image_seed']);
 
         // loc.php
         $province_name = $_POST['province'];
@@ -28,7 +29,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
         $barangay_name = $_POST['barangay'];
 
         $user_id = $_POST['userID'];
-        $status = 'approved';
+        $status = 'pending';
         $action = 'updating';
 
         // disease resistance
@@ -159,49 +160,48 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
         $sweetness = isset($_POST['sweetness']) ? handleEmpty($_POST['sweetness']) : "Empty";
         $rootcrop_remarkable_features = isset($_POST['rootcrop_remarkable_features']) ? handleEmpty($_POST['rootcrop_remarkable_features']) : "Empty";
 
+        // get the unique code of the crop then add updating
+        $newUniqueCode = $unique_code . '-' . 'UPDATING';
+
         // Validate the form data
         if (empty($crop_variety) || empty($category_variety_id) || empty($category_id) || empty($terrain_id) || empty($province_name) || empty($municipality_name) || empty($barangay_name)) {
             throw new Exception("All fields are required.");
         }
 
-        var_dump($_POST);
-        die();
+        // Array to store uploaded image names
+        $uploadedImages = [];
 
-        // Check if an image for crop seed image is selected
-        if (isset($_FILES['crop_seed_image']['name']) && is_array($_FILES['crop_seed_image']['name'])) {
+        // Function to update crop seed image
+        if (isset($_FILES['crop_seed_image']['name'][0]) && is_array($_FILES['crop_seed_image']['name']) && $_FILES['crop_seed_image']['name'][0] != "") {
             $extension = array('jpg', 'jpeg', 'png', 'gif');
 
-            foreach ($_FILES['crop_seed_image']['name'] as $key => $value) {
-                $filename = $_FILES['crop_seed_image']['name'][$key];
-                $filename_tmp = $_FILES['crop_seed_image']['tmp_name'][$key];
-                $destination_path = "../img/" . $filename;
+            foreach ($_FILES['crop_seed_image']['name'] as $key => $filename) {
                 $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
-                $finalimg = '';
-
                 if (in_array($ext, $extension)) {
-                    // Auto rename image
-                    $image = "Crop_seed_image_" . rand(000, 999) . '.' . $ext;
+                    $image = $filename;
 
                     // Check if the image name already exists in the database
-                    while (true) {
-                        $query = "SELECT crop_seed_image FROM crop WHERE crop_seed_image = $1";
-                        $result = pg_query_params($conn, $query, array($image));
+                    // Check if any version of the image name already exists in the database
+                    $query = "SELECT crop_seed_image FROM crop WHERE crop_seed_image LIKE $1";
+                    $result = pg_query_params($conn, $query, array('%' . $image . '%'));
 
-                        if ($result === false) {
-                            break;
-                        }
 
-                        $count = pg_num_rows($result);
-
-                        if ($count == 0) {
-                            break;
-                        } else {
-                            // If the image name exists, generate a new one
-                            $image = "Crop_seed_image_" . rand(000, 999) . '.' . $ext;
-                        }
+                    if ($result === false) {
+                        die("Database query failed");
                     }
 
+                    $count = pg_num_rows($result);
+
+                    if ($count == 0) {
+                        $image = "Crop_Seed_Image_" . rand(000, 999) . '.' . $ext;
+                    } else {
+                        // If image exists in database, use it as is
+                        $uploadedImages[] = $image;
+                        continue; // Skip the rest of the loop for this image
+                    }
+
+                    $uploadedImages[] = $image;
                     $source_path = $_FILES['crop_seed_image']['tmp_name'][$key];
                     $destination_path = "../img/" . $image;
 
@@ -210,24 +210,52 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
 
                     // Check whether the image is uploaded or not
                     if (!$upload) {
-                        echo "wala na upload ang image";
-                        echo "Error: " . pg_last_error($conn);
+                        echo "Image upload failed";
                         die();
                     }
-
-                    $finalimg_seed = $image;
-                    $crop_seed_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
                     // Display error message for invalid file format
-                    echo "invalid ang file format image";
                     echo "Error: " . pg_last_error($conn);
+                    die();
+                }
+            }
+
+            $finalimgSeed = implode(',', $uploadedImages);
+
+            // Delete images that are not present in the new input
+            if ($current_image_seed != '') {
+                $currentSeedImages = explode(',', $current_image_seed);
+
+                foreach ($currentSeedImages as $image) {
+                    if (!in_array($image, $uploadedImages)) {
+                        $delete_path = "../img/" . $image;
+                        if (file_exists($delete_path)) {
+                            unlink($delete_path);
+                        }
+                    }
                 }
             }
         } else {
-            // If no image is selected, set it  
-            echo "wala image na select sa crop seeed";
+            // If no new image is selected, use the current image
+            $currentSeedImages = explode(',', $current_image_seed);
+            $uploadedImages = array_merge($uploadedImages, $currentSeedImages);
+            $finalimgSeed = implode(',', $uploadedImages);
         }
-        $crop_seed_imageString = implode(',', $crop_seed_imageArray);
+
+        //insert into status table
+        $query_status = "INSERT INTO status (action)
+                VALUES ($1) RETURNING status_id";
+
+        $value_status = array($action);
+        $query_run_status = pg_query_params($conn, $query_status, $value_status);
+
+        if ($query_run_status) {
+            $row_status = pg_fetch_row($query_run_status);
+            $status_id = $row_status[0];
+        } else {
+            echo "Error: " . pg_last_error($conn);
+            exit(0);
+        }
 
         // Check if an image for crop reproductive image is selected
         // if (isset($_FILES['crop_vegetative_image']['name']) && $_FILES['crop_vegetative_image']['name'] != '') {
@@ -342,8 +370,6 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
         // $crop_reproductive_image = $finalimg_repro;
 
         // for creating a unique code for the updated submission
-        // get the unique code of the crop then add updating
-        $newUniqueCode = $unique_code.'-'.'UPDATING';
 
         //insert into utilization cultural table
         $query_utilCultural = "INSERT INTO utilization_cultural_importance (significance, \"use\", indigenous_utilization, remarkable_features)
@@ -363,13 +389,13 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
         //insert into crop table
         $queryCrop = "INSERT INTO crop (crop_variety, crop_description, status, unique_code,
         meaning_of_name, category_id, user_id, category_variety_id, terrain_id, utilization_cultural_id, crop_seed_image,
-        crop_vegetative_image, crop_reproductive_image)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13  ) RETURNING crop_id";
+        crop_vegetative_image, crop_reproductive_image, status_id)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14 ) RETURNING crop_id";
 
         $valueCrops = array(
             $crop_variety, $crop_description, $status, $newUniqueCode,
-            $meaning_of_name, $category_id, $user_id, $category_variety_id, $terrain_id, $utilization_cultural_id, $crop_seed_imageString,
-            $crop_vegetative_image, $crop_reproductive_image
+            $meaning_of_name, $category_id, $user_id, $category_variety_id, $terrain_id, $utilization_cultural_id, $finalimgSeed,
+            $crop_vegetative_image, $crop_reproductive_image, $status_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -726,7 +752,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop Created Successfully";
         pg_query($conn, "COMMIT");
-        header("Location: ../../../crop.php");
+        header("Location: ../../crop.php");
         exit(0);
     } catch (Exception $e) {
         // message for error

@@ -153,6 +153,7 @@ require "../functions/functions.php";
                                 <thead>
                                     <tr>
                                         <th class="col text-dark-emphasis small-font" scope="col">Name</th>
+                                        <th class="col text-dark-emphasis small-font text-center" scope="col">Unique Code</th>
                                         <th class="col text-dark-emphasis small-font text-center" scope="col">Date Created</th>
                                         <th class="col text-dark-emphasis small-font text-center" scope="col">Status</th>
                                         <th class="col text-dark-emphasis small-font text-center" scope="col">Action</th>
@@ -163,7 +164,7 @@ require "../functions/functions.php";
                                 <!-- table body -->
                                 <tbody class="table-group-divider fw-bold overflow-scroll">
                                     <?php
-                                    $query_approved = "SELECT * FROM crop WHERE status IN ('approved', 'rejected', 'pending') AND user_id = $user_id ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
+                                    $query_approved = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE status IN ('approved', 'rejected', 'pending') AND user_id = $user_id ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
                                     $query_run_approved = pg_query($conn, $query_approved);
 
                                     if ($query_run_approved) {
@@ -190,6 +191,11 @@ require "../functions/functions.php";
                                                         echo "No category added.";
                                                     }
                                                     ?>
+                                                </td>
+
+                                                <!-- unique code -->
+                                                <td class="text-secondary small-font fw-normal text-center">
+                                                    <?= $row['unique_code']; ?>
                                                 </td>
 
                                                 <!-- Date Created -->
