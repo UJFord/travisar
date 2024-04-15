@@ -64,6 +64,8 @@ require "../functions/functions.php";
     <link rel="stylesheet" href="../css/global-declarations.css">
     <!-- specific for this file -->
     <link rel="stylesheet" href="css/crop-list.css">
+    <!-- script for moment js -->
+    <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
     <!-- script for access control -->
     <script src="../js/access-control.js"></script>
@@ -153,6 +155,7 @@ require "../functions/functions.php";
                                         <th class="col text-dark-emphasis small-font" scope="col">Name</th>
                                         <th class="col text-dark-emphasis small-font text-center" scope="col">Date Created</th>
                                         <th class="col text-dark-emphasis small-font text-center" scope="col">Status</th>
+                                        <th class="col text-dark-emphasis small-font text-center" scope="col">Action</th>
                                         <th class="col text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
                                     </tr>
 
@@ -199,6 +202,11 @@ require "../functions/functions.php";
                                                     <?= $row['status']; ?>
                                                 </td>
 
+                                                <!-- edit -->
+                                                <td class="text-center">
+                                                    <a href="#" class="btn btn-success btn-sm edit_data admin-only" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">Edit</a>
+                                                </td>
+
                                                 <!-- ellipsis menu butn -->
                                                 <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                                             </tr>
@@ -214,6 +222,9 @@ require "../functions/functions.php";
                         <!-- pagination -->
                         <?php generatePaginationLinks($total_pages_approved, $current_page, 'page'); ?>
                     </div>
+
+                    <!-- edit -->
+                    <?php require "submission-page/edit.php"; ?>
 
                 </div>
             </div>
@@ -269,6 +280,19 @@ require "../functions/functions.php";
         // Add event listener to tab buttons to reset search input
         document.querySelectorAll('.tab_btn').forEach(tab => {
             tab.addEventListener('click', resetSearchInput);
+        });
+    </script>
+    <script>
+        // make clicking table rows open edit ui
+        $(document).ready(function() {
+            $('#dataTable tr').click(function() {
+                // console.log('clicked')
+                // Get the crop ID from the clicked row or anchor tag
+                var cropId = $(this).data('id') || $(this).find('a').data('id');
+
+                // Open the modal
+                $('#dataModal').modal('show');
+            });
         });
     </script>
 </body>

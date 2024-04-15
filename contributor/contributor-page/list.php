@@ -53,7 +53,6 @@
 </style>
 <!-- LIST -->
 <div class="container">
-
     <!-- HEADING -->
     <div class="tab_box d-flex justify-content-between">
         <!-- Button Tabs -->
@@ -71,22 +70,22 @@
     </div>
 
     <?php
-    // Set the number of items to display per page
-    $items_per_page = 10;
+        // Set the number of items to display per page
+        $items_per_page = 10;
 
-    // Get the current page number
-    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+        // Get the current page number
+        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-    // Calculate the offset based on the current page and items per page
-    $offset = ($current_page - 1) * $items_per_page;
+        // Calculate the offset based on the current page and items per page
+        $offset = ($current_page - 1) * $items_per_page;
 
-    // Count the total number of rows for pagination for contributor crops
-    $total_rows_query_contributor = "SELECT COUNT(*) FROM users WHERE email_verified is not NULL";
-    $total_rows_result_contributor = pg_query($conn, $total_rows_query_contributor);
-    $total_rows_contributor = pg_fetch_row($total_rows_result_contributor)[0];
+        // Count the total number of rows for pagination for contributor crops
+        $total_rows_query_contributor = "SELECT COUNT(*) FROM users WHERE email_verified is not NULL";
+        $total_rows_result_contributor = pg_query($conn, $total_rows_query_contributor);
+        $total_rows_contributor = pg_fetch_row($total_rows_result_contributor)[0];
 
-    // Calculate the total number of pages for contributor crops
-    $total_pages_contributor = ceil($total_rows_contributor / $items_per_page);
+        // Calculate the total number of pages for contributor crops
+        $total_pages_contributor = ceil($total_rows_contributor / $items_per_page);
     ?>
 
     <!-- diri ang data sa list -->
