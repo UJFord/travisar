@@ -17,7 +17,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel-edit" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
+            <form id="form-panel-edit" name="Form" action="submission-page/code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
                 <div class="modal-body edit-modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -56,7 +56,7 @@
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-between">
                     <div class="">
-                        <button type="submit" name="edit" class="btn btn-success">Save</button>
+                        <button type="submit" name="update" class="btn btn-success">Save</button>
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                     </div>
                     <button type="button" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
@@ -100,7 +100,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "crop-page/modals/crud-code/code.php",
+                url: "submission-page/code/code.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,
@@ -454,10 +454,18 @@
                             $('#root_cropMorph-Edit').hide();
                         }
 
+                        // userID
+                        $('#userID').val(value['user_id']);
                         // crop_id
                         $('#crop_id').val(id);
+                        // unique_codeID
+                        $('#unique_codeID').val(value['unique_code']);
                         // categoryID
                         $('#categoryID').val(value['category_id']);
+                        // terrainID
+                        $('#terrainID').val(value['terrain_id']);
+                        // category_varietyID
+                        $('#category_varietyID').val(value['category_variety_id']);
                         // current_crop_variety
                         $('#current_crop_variety').val(value['crop_variety']);
                         // currentUniqueCode

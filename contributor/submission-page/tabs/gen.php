@@ -47,10 +47,16 @@
     <!-- hidden data -->
     <div>
         <!-- common id's -->
+        <!-- userID -->
+        <input id="userID" type="hidden" name="userID" class="form-control">
         <!-- crop_id -->
         <input id="crop_id" type="hidden" name="crop_id" class="form-control">
         <!-- categoryID -->
         <input id="categoryID" type="hidden" name="categoryID" class="form-control">
+        <!-- category_varietyID -->
+        <input id="category_varietyID" type="hidden" name="category_varietyID" class="form-control">
+        <!-- terrainID -->
+        <input id="terrainID" type="hidden" name="terrainID" class="form-control">
         <!-- cultural_aspect_id -->
         <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
         <!-- current_crop_variety -->
@@ -65,6 +71,8 @@
         <input id="utilization_culturalID" type="hidden" name="utilization_culturalID" class="form-control">
         <!-- abiotic_resistanceID -->
         <input id="abiotic_resistanceID" type="hidden" name="abiotic_resistanceID" class="form-control">
+        <!-- unique_codeID -->
+        <input id="unique_codeID" type="hidden" name="unique_codeID" class="form-control">
 
         <!-- corn id's -->
         <!-- vegetative_state_cornID -->
