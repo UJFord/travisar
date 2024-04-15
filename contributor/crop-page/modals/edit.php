@@ -153,6 +153,9 @@
                         // Append options to select element
                         console.log(value['rice_plant_height']);
 
+                        // Fetch the old image and pass it to the fetchOldImage function
+                        fetchOldImage(value.crop_seed_image);
+
                         // Split the image filenames by comma
                         var imageFilenamesSeed = value['crop_seed_image'].split(',');
 

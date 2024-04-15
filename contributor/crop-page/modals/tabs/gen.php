@@ -359,7 +359,6 @@
     }
 </script>
 
-
 <!-- script for limiting the input for the crop variety name -->
 <script>
     // Get the input element
