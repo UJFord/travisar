@@ -153,8 +153,17 @@
                         // Append options to select element
                         console.log(value['rice_plant_height']);
 
-                        // Append each image to their own previews
-                        $('#previewSeedEdit').append(`<img src="crop-page/modals/img/${value['crop_seed_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                        // Fetch the old image and pass it to the fetchOldImage function
+                        fetchOldImage(value.crop_seed_image);
+
+                        // Split the image filenames by comma
+                        var imageFilenamesSeed = value['crop_seed_image'].split(',');
+
+                        // Iterate over each filename and append an image element to the preview container
+                        imageFilenamesSeed.forEach(function(filename) {
+                            $('#previewSeedEdit').append(`<img src="crop-page/modals/img/${filename.trim()}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                        });
+
                         $('#previewVegEdit').append(`<img src="crop-page/modals/img/${value['crop_vegetative_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
                         $('#previewReproductiveEdit').append(`<img src="crop-page/modals/img/${value['crop_reproductive_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
 

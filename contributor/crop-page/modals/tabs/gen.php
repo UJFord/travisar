@@ -175,11 +175,6 @@
         </div>
     </div>
 
-
-
-
-
-
     <!-- IMAGES -->
     <h6 class="fw-semibold mt-4 mb-0">Images for Stages</h6>
     <!-- help -->
@@ -191,7 +186,7 @@
             <span>Seed</span>
         </label>
         <div class="d-flex flex-column image-upload-container col-6">
-            <input class="mb-0 form-control form-control-sm" name="crop_seed_image" type="file" id="imageInputSeed" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewSeed')" multiple>
+            <input class="mb-0 form-control form-control-sm" name="crop_seed_image[]" type="file" id="imageInputSeed" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewSeed')" multiple>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewSeed"></div>
     </div>
@@ -203,7 +198,7 @@
             <span>Vegetative Stage</span>
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
-            <input class="col-6 mb-0 form-control form-control-sm" name="crop_vegetative_image" type="file" id="imageInputVegetative" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewVeg')" multiple>
+            <input class="col-6 mb-0 form-control form-control-sm" name="crop_vegetative_image[]" type="file" id="imageInputVegetative" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewVeg')" multiple>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewVeg"></div>
     </div>
@@ -215,7 +210,7 @@
             <span>Reproductive Stage</span>
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
-            <input class="mb-0 form-control form-control-sm" type="file" name="crop_reproductive_image" id="imageInputReproductive" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewReproductive')" multiple>
+            <input class="mb-0 form-control form-control-sm" type="file" name="crop_reproductive_image[]" id="imageInputReproductive" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewReproductive')" multiple>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewReproductive"></div>
     </div>
@@ -363,7 +358,6 @@
         // Replace existing upload logic with code that uses selectedFiles
     }
 </script>
-
 
 <!-- script for limiting the input for the crop variety name -->
 <script>
