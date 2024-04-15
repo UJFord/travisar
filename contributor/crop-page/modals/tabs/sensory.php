@@ -1,19 +1,19 @@
 <!-- MORE TAB -->
 <div class="fade tab-pane" id="sensory-tab-pane" role="tabpanel" aria-labelledby="sensory-tab" tabindex="0">
-    <h4>Sensory Traits of Cooked Rice</h4>
-    <br>
+
+    <h6 class="fw-semibold mt-4 mb-3">General Information</h6>
     <!-- sensory traits-->
-    <div class="row mb-4" id="riceSensory">
+    <div class="row mb-5" id="riceSensory">
         <!-- Aroma -->
         <div class="col-12 mb-2">
             <label for="sensory-aroma" class="form-label small-font">Aroma</label>
-            <textarea name="aroma" id="sensory-aroma" cols="30" rows="1" class="form-control"></textarea>
+            <textarea name="aroma" id="sensory-aroma" cols="30" rows="2" class="form-control"></textarea>
         </div>
 
         <!-- Quality of Cooked Rice -->
         <div class="col-12 mb-2">
             <label for="cooked-rice" class="form-label small-font">Quality of Cooked Rice</label>
-            <textarea name="quality_cooked_rice" id="cooked-rice" cols="30" rows="1" class="form-control"></textarea>
+            <textarea name="quality_cooked_rice" id="cooked-rice" cols="30" rows="2" class="form-control"></textarea>
         </div>
 
         <!-- Quality of Leftover Rice -->
@@ -21,52 +21,38 @@
             <label for="leftover-rice" class="form-label small-font">Quality of Leftover Rice</label>
             <textarea name="quality_leftover_rice" id="leftover-rice" cols="30" rows="2" class="form-control"></textarea>
         </div>
+    </div>
 
-        <!-- Volume, Glutinous, and Hardness -->
-        <div class="row">
-            <!-- Volume Expansion -->
-            <div class="col-5">
-                <div>
-                    <label>Volume Expansion (does it rise?)</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="expansion-Yes">Yes</label>
-                    <input class="form-check-input" type="radio" name="volume_expansion" id="expansion-Yes" value="Yes">
-                </div>
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="expansion-No">No</label>
-                    <input class="form-check-input" type="radio" name="volume_expansion" id="expansion-No" value="No">
-                </div>
+    <!-- Volume, Glutinous, and Hardness -->
+    <div class="row mb-3">
+        <!-- Volume Expansion -->
+        <div class="col-6 mb-3">
+            <div class="small-font mb-2">Volume Expansion</div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="volExpansion">
+                <label class="form-check-label small-font" for="volExpansion">Does it rise?</label>
             </div>
+        </div>
 
-            <!-- Glutinous -->
-            <div class="col-3">
-                <div>
-                    <label>Glutinous</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="glutinous-Yes">Yes</label>
-                    <input class="form-check-input" type="radio" name="glutinous" id="glutinous-Yes" value="Yes">
-                </div>
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="glutinous-No">No</label>
-                    <input class="form-check-input" type="radio" name="glutinous" id="glutinous-No" value="No">
-                </div>
+        <!-- Glutinous -->
+        <div class="col-6 mb-3">
+            <div class="small-font mb-2">Glutinousity</div>
+            <div class="form-check form-switch">
+                <input class="form-check-input" type="checkbox" role="switch" id="glutinousity">
+                <label class="form-check-label small-font" for="volExpansion">Is it Glutinous?</label>
             </div>
+        </div>
 
-            <!-- Hardness -->
-            <div class="col-4">
-                <div>
-                    <label>Hardness</label>
-                </div>
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="hardness-Soft">Soft</label>
-                    <input class="form-check-input" type="radio" name="hardness" id="hardness-Soft" value="Soft">
-                </div>
-                <div class="form-check form-check-inline">
-                    <label class="form-check-label" for="hardness-Hard">Hard</label>
-                    <input class="form-check-input" type="radio" name="hardness" id="hardness-Hard" value="Hard">
-                </div>
+        <!-- Hardness -->
+        <div class="col-6">
+            <div class="small-font mb-2">Hardness</div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label small-font" for="hardness-Soft">Soft</label>
+                <input class="form-check-input" type="radio" name="hardness" id="hardness-Soft" value="Soft">
+            </div>
+            <div class="form-check form-check-inline">
+                <label class="form-check-label small-font" for="hardness-Hard">Hard</label>
+                <input class="form-check-input" type="radio" name="hardness" id="hardness-Hard" value="Hard">
             </div>
         </div>
     </div>
