@@ -27,7 +27,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $barangay_name = $_POST['barangay'];
 
         $user_id = $_POST['user_id'];
-        $status = 'approved';
+        $action = 'approved';
+        $remarks = 'Crop Approved';
 
         // disease resistance
         $bacterial = isset($_POST['bacterial']) ? true : false;
@@ -399,16 +400,29 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
             exit(0);
         }
 
+        //insert into status table
+        $query_Status = "INSERT INTO status (action, remarks)
+                VALUES ($1, $2) RETURNING status_id";
+
+        $value_Status = array($action, $remarks);
+        $query_run_Status = pg_query_params($conn, $query_Status, $value_Status);
+
+        if ($query_run_Status) {
+            $row_Status = pg_fetch_row($query_run_Status);
+            $status_id = $row_Status[0];
+        } else {
+            echo "Error: " . pg_last_error($conn);
+            exit(0);
+        }
+
         //insert into crop table
-        $queryCrop = "INSERT INTO crop (crop_variety, crop_description, status, unique_code,
-        meaning_of_name, category_id, user_id, category_variety_id, terrain_id, utilization_cultural_id, crop_seed_image,
-        crop_vegetative_image, crop_reproductive_image)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13  ) RETURNING crop_id";
+        $queryCrop = "INSERT INTO crop (crop_variety, crop_description, unique_code, meaning_of_name, category_id, user_id, 
+        category_variety_id, terrain_id, utilization_cultural_id, crop_seed_image, status_id)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING crop_id";
 
         $valueCrops = array(
-            $crop_variety, $crop_description, $status, $newUniqueCode,
-            $meaning_of_name, $category_id, $user_id, $category_variety_id, $terrain_id, $utilization_cultural_id, $crop_seed_imageString,
-            $crop_vegetative_image, $crop_reproductive_image
+            $crop_variety, $crop_description, $newUniqueCode, $meaning_of_name, $category_id, $user_id, $category_variety_id, 
+            $terrain_id, $utilization_cultural_id, $crop_seed_imageString, $status_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -805,7 +819,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $barangay_name = $_POST['barangay'];
 
         $user_id = $_POST['user_id'];
-        $status = 'pending';
+        $action = 'pending';
+        $remarks = 'Crop pending, waiting for approval';
 
         // disease resistance
         $bacterial = isset($_POST['bacterial']) ? true : false;
@@ -1177,16 +1192,29 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
             exit(0);
         }
 
+        //insert into status table
+        $query_Status = "INSERT INTO status (action, remarks)
+                VALUES ($1, $2) RETURNING status_id";
+
+        $value_Status = array($action, $remarks);
+        $query_run_Status = pg_query_params($conn, $query_Status, $value_Status);
+
+        if ($query_run_Status) {
+            $row_Status = pg_fetch_row($query_run_Status);
+            $status_id = $row_Status[0];
+        } else {
+            echo "Error: " . pg_last_error($conn);
+            exit(0);
+        }
+
         //insert into crop table
-        $queryCrop = "INSERT INTO crop (crop_variety, crop_description, status, unique_code,
-        meaning_of_name, category_id, user_id, category_variety_id, terrain_id, utilization_cultural_id, crop_seed_image,
-        crop_vegetative_image, crop_reproductive_image)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13  ) RETURNING crop_id";
+        $queryCrop = "INSERT INTO crop (crop_variety, crop_description, unique_code, meaning_of_name, category_id, user_id, 
+        category_variety_id, terrain_id, utilization_cultural_id, crop_seed_image, status_id)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING crop_id";
 
         $valueCrops = array(
-            $crop_variety, $crop_description, $status, $newUniqueCode,
-            $meaning_of_name, $category_id, $user_id, $category_variety_id, $terrain_id, $utilization_cultural_id, $crop_seed_imageString,
-            $crop_vegetative_image, $crop_reproductive_image
+            $crop_variety, $crop_description, $newUniqueCode, $meaning_of_name, $category_id, $user_id, $category_variety_id, 
+            $terrain_id, $utilization_cultural_id, $crop_seed_imageString, $status_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -1580,7 +1608,6 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $current_image_rep = handleEmpty($_POST['current_image_rep']);
         $currentUniqueCode = handleEmpty($_POST['currentUniqueCode']);
         $current_crop_variety = handleEmpty($_POST['current_crop_variety']);
-        $status = 'approved';
 
         // loc.php
         $province_name = $_POST['province'];
@@ -1999,11 +2026,11 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         }
 
         // update crop table
-        $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, status = $3, unique_code = $4, meaning_of_name = $5,
-        crop_seed_image = $6 where crop_id = $7";
+        $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, unique_code = $3, meaning_of_name = $4,
+        crop_seed_image = $5 where crop_id = $6";
 
         $valueCrops = array(
-            $crop_variety, $crop_description, $status, $newUniqueCode, $meaning_of_name, $finalimgSeed, $crop_id
+            $crop_variety, $crop_description, $newUniqueCode, $meaning_of_name, $finalimgSeed, $crop_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 

@@ -118,7 +118,7 @@ require "../functions/functions.php";
                     $offset = ($current_page - 1) * $items_per_page;
 
                     // Count the total number of rows for pagination for pending crops
-                    $total_rows_query_pending = "SELECT COUNT(*) FROM crop WHERE status = 'pending'";
+                    $total_rows_query_pending = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action IN ('pending', 'updating')";
                     $total_rows_result_pending = pg_query($conn, $total_rows_query_pending);
                     $total_rows_pending = pg_fetch_row($total_rows_result_pending)[0];
 
@@ -154,7 +154,7 @@ require "../functions/functions.php";
                                 <!-- table body -->
                                 <tbody class="table-group-divider fw-bold overflow-scroll">
                                     <?php
-                                    $query_pending = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE status = 'pending' ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
+                                    $query_pending = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE status.action IN ('pending', 'updating') ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
                                     $query_run_pending = pg_query($conn, $query_pending);
 
                                     if ($query_run_pending) {

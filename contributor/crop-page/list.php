@@ -40,7 +40,7 @@
             $offset = ($current_page - 1) * $items_per_page;
 
             // Count the total number of rows for pagination
-            $total_rows_query = "SELECT COUNT(*) FROM crop WHERE status = 'approved'";
+            $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'approved'";
             $total_rows_result = pg_query($conn, $total_rows_query);
             $total_rows = pg_fetch_row($total_rows_result)[0];
 
@@ -71,7 +71,7 @@
 
                 <?php
                 // get the data from crops. only approved data are shown and is limited per items per page
-                $query = "SELECT * FROM crop WHERE status = 'approved' ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
+                $query = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'approved' ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
                 $query_run = pg_query($conn, $query);
 
                 if ($query_run) {

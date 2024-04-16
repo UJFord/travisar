@@ -121,7 +121,7 @@ require "../functions/functions.php";
                     $offset = ($current_page - 1) * $items_per_page;
 
                     // Count the total number of rows for pagination for approved crops
-                    $total_rows_query_approved = "SELECT COUNT(*) FROM crop WHERE status = 'approved'";
+                    $total_rows_query_approved = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'approved'";
                     $total_rows_result_approved = pg_query($conn, $total_rows_query_approved);
                     $total_rows_approved = pg_fetch_row($total_rows_result_approved)[0];
 
@@ -129,7 +129,7 @@ require "../functions/functions.php";
                     $total_pages_approved = ceil($total_rows_approved / $items_per_page);
 
                     // Count the total number of rows for pagination for pending crops
-                    $total_rows_query_pending = "SELECT COUNT(*) FROM crop WHERE status = 'pending'";
+                    $total_rows_query_pending = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'pending'";
                     $total_rows_result_pending = pg_query($conn, $total_rows_query_pending);
                     $total_rows_pending = pg_fetch_row($total_rows_result_pending)[0];
 
@@ -164,7 +164,7 @@ require "../functions/functions.php";
                                 <!-- table body -->
                                 <tbody class="table-group-divider fw-bold overflow-scroll">
                                     <?php
-                                    $query_approved = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE status IN ('approved', 'rejected', 'pending') AND user_id = $user_id ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
+                                    $query_approved = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE status.action IN ('approved', 'rejected', 'pending', 'updating') AND user_id = $user_id ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
                                     $query_run_approved = pg_query($conn, $query_approved);
 
                                     if ($query_run_approved) {
@@ -178,7 +178,7 @@ require "../functions/functions.php";
                                             $query_category = "SELECT * FROM category WHERE category_id = $1";
                                             $query_run_category = pg_query_params($conn, $query_category, array($row['category_id']));
                                     ?>
-                                            <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>" style="background-color: <?= ($row['status'] == 'approved') ? 'green' : ($row['status'] == 'pending' ? 'yellow' : 'red'); ?>">
+                                            <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>" style="background-color: <?= ($row['action'] == 'approved') ? 'green' : ($row['action'] == 'pending' ? 'yellow' : 'red'); ?>">
                                                 <td>
                                                     <!-- crop variety name -->
                                                     <a href=""><?= $row['crop_variety']; ?></a>
@@ -205,7 +205,7 @@ require "../functions/functions.php";
 
                                                 <!-- Status -->
                                                 <td class="text-secondary small-font fw-normal text-center">
-                                                    <?= $row['status']; ?>
+                                                    <?= $row['action']; ?>
                                                 </td>
 
                                                 <!-- edit -->

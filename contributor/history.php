@@ -119,7 +119,7 @@ require "../functions/functions.php";
                     $offset = ($current_page - 1) * $items_per_page;
 
                     // Count the total number of rows for pagination for approved crops
-                    $total_rows_query_approved = "SELECT COUNT(*) FROM crop WHERE status = 'approved'";
+                    $total_rows_query_approved = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'approved'";
                     $total_rows_result_approved = pg_query($conn, $total_rows_query_approved);
                     $total_rows_approved = pg_fetch_row($total_rows_result_approved)[0];
 
@@ -153,7 +153,7 @@ require "../functions/functions.php";
                                 <!-- table body -->
                                 <tbody class="table-group-divider fw-bold overflow-scroll">
                                     <?php
-                                    $query_approved = "SELECT * FROM crop WHERE status IN ('approved', 'rejected') ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
+                                    $query_approved = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE status.action IN ('approved', 'rejected') ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
                                     $query_run_approved = pg_query($conn, $query_approved);
 
                                     if ($query_run_approved) {
@@ -172,7 +172,7 @@ require "../functions/functions.php";
                                             $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
 
                                     ?>
-                                            <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>" style="background-color: <?= ($row['status'] == 'approved') ? 'green' : ($row['status'] == 'pending' ? 'yellow' : 'red'); ?>">
+                                            <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>" style="background-color: <?= ($row['action'] == 'approved') ? 'green' : ($row['action'] == 'pending' ? 'yellow' : 'red'); ?>">
 
                                                 <!-- checkbox -->
                                                 <th scope="row"><input class="form-check-input" type="checkbox"></th>
@@ -211,7 +211,7 @@ require "../functions/functions.php";
 
                                                 <!-- Status -->
                                                 <td class="text-secondary small-font fw-normal text-center">
-                                                    <?= $row['status']; ?>
+                                                    <?= $row['action']; ?>
                                                 </td>
 
                                                 <!-- ellipsis menu butn -->

@@ -29,8 +29,8 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         $barangay_name = $_POST['barangay'];
 
         $user_id = $_POST['userID'];
-        $status = 'pending';
         $action = 'updating';
+        $remarks = 'Updating, waiting for approval.';
 
         // disease resistance
         $bacterial = isset($_POST['bacterial']) ? true : false;
@@ -242,21 +242,6 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
             $finalimgSeed = implode(',', $uploadedImages);
         }
 
-        //insert into status table
-        $query_status = "INSERT INTO status (action)
-                VALUES ($1) RETURNING status_id";
-
-        $value_status = array($action);
-        $query_run_status = pg_query_params($conn, $query_status, $value_status);
-
-        if ($query_run_status) {
-            $row_status = pg_fetch_row($query_run_status);
-            $status_id = $row_status[0];
-        } else {
-            echo "Error: " . pg_last_error($conn);
-            exit(0);
-        }
-
         // Check if an image for crop reproductive image is selected
         // if (isset($_FILES['crop_vegetative_image']['name']) && $_FILES['crop_vegetative_image']['name'] != '') {
         //     $extension = array('jpg', 'jpeg', 'png', 'gif');
@@ -386,14 +371,29 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
             exit(0);
         }
 
+        //insert into status table
+        $query_status = "INSERT INTO status (action, remarks)
+                VALUES ($1) RETURNING status_id";
+
+        $value_status = array($action, $remarks);
+        $query_run_status = pg_query_params($conn, $query_status, $value_status);
+
+        if ($query_run_status) {
+            $row_status = pg_fetch_row($query_run_status);
+            $status_id = $row_status[0];
+        } else {
+            echo "Error: " . pg_last_error($conn);
+            exit(0);
+        }
+
         //insert into crop table
-        $queryCrop = "INSERT INTO crop (crop_variety, crop_description, status, unique_code,
+        $queryCrop = "INSERT INTO crop (crop_variety, crop_description, unique_code,
         meaning_of_name, category_id, user_id, category_variety_id, terrain_id, utilization_cultural_id, crop_seed_image,
         crop_vegetative_image, crop_reproductive_image, status_id)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13, $14 ) RETURNING crop_id";
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING crop_id";
 
         $valueCrops = array(
-            $crop_variety, $crop_description, $status, $newUniqueCode,
+            $crop_variety, $crop_description, $newUniqueCode,
             $meaning_of_name, $category_id, $user_id, $category_variety_id, $terrain_id, $utilization_cultural_id, $finalimgSeed,
             $crop_vegetative_image, $crop_reproductive_image, $status_id
         );
@@ -787,7 +787,6 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         $current_image_rep = handleEmpty($_POST['current_image_rep']);
         $currentUniqueCode = handleEmpty($_POST['currentUniqueCode']);
         $current_crop_variety = handleEmpty($_POST['current_crop_variety']);
-        $status = 'approved';
 
         // loc.php
         $province_name = $_POST['province'];
@@ -1206,11 +1205,11 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         }
 
         // update crop table
-        $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, status = $3, unique_code = $4, meaning_of_name = $5,
-        crop_seed_image = $6 where crop_id = $7";
+        $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, unique_code = $3, meaning_of_name = $4,
+        crop_seed_image = $5 where crop_id = $6";
 
         $valueCrops = array(
-            $crop_variety, $crop_description, $status, $newUniqueCode, $meaning_of_name, $finalimgSeed, $crop_id
+            $crop_variety, $crop_description, $newUniqueCode, $meaning_of_name, $finalimgSeed, $crop_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
