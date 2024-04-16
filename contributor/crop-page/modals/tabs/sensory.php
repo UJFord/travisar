@@ -1,7 +1,7 @@
 <!-- MORE TAB -->
 <div class="fade tab-pane" id="sensory-tab-pane" role="tabpanel" aria-labelledby="sensory-tab" tabindex="0">
 
-    <h6 class="fw-semibold mt-4 mb-3">General Information</h6>
+    <h6 class="fw-semibold mt-4 mb-3">Sensory Traits</h6>
     <!-- sensory traits-->
     <div class="row mb-5" id="riceSensory">
         <!-- Aroma -->
@@ -39,7 +39,7 @@
             <div class="small-font mb-2">Glutinousity</div>
             <div class="form-check form-switch">
                 <input class="form-check-input" name="glutinous" type="checkbox" role="switch" id="glutinousity" value="1">
-                <label class="form-check-label small-font" for="volExpansion">Is it Glutinous?</label>
+                <label class="form-check-label small-font" for="glutinousity">Is it Glutinous?</label>
             </div>
         </div>
 

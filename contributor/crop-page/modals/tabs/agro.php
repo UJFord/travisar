@@ -54,7 +54,7 @@
         </div>
 
         <!-- Other -->
-        <div class="row mt-3 mb-5">
+        <div class="row mt-3 mb-5 d-none">
             <div id="corn-pest-other" class="col-12 mb-0 d-none">
                 <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
                 <textarea name="corn_others_desc" id="corn-other" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
@@ -323,7 +323,6 @@
             <div id="root-abiotic-other-container" class="col-12 mb-2 d-none">
                 <!-- <label for="rootCrop-abiotic-other" class="form-label small-font">Other</label> -->
                 <textarea name="abiotic_other_desc" id="rootCrop-abiotic-other" cols="30" rows="1" class="form-control"></textarea>
-
                 <div class="form-text small-font" id="rootPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
             </div>
         </div>
@@ -333,14 +332,14 @@
     <div class="row" id="withoutSensory">
         <div class="col d-flex justify-content-between">
             <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('more', this)"><i class="fa-solid fa-angles-left me-2"></i>Previous</button>
-            <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('cultural', this)">Next<i class="fa-solid fa-angles-right me-2"></i></button>
+            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('cultural', this)">Next<i class="fa-solid fa-angles-right me-2"></i></button>
         </div>
     </div>
     <!-- STEP NAVIGATION with Sensory -->
     <div class="row" id="withSensory">
         <div class="col d-flex justify-content-between">
             <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('sensory', this)"><i class="fa-solid fa-angles-left me-2"></i>Previous</button>
-            <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('cultural', this)">Next<i class="fa-solid fa-angles-right me-2"></i></button>
+            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('cultural', this)">Next<i class="fa-solid fa-angles-right me-2"></i></button>
         </div>
     </div>
 </div>

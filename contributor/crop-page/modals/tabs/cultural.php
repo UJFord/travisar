@@ -1,5 +1,3 @@
-<!-- leaflet -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <!-- LOCATION TAB -->
 <div class="fade tab-pane" id="cultural-tab-pane" role="tabpanel" aria-labelledby="cultural-tab" tabindex="0">
     <!-- Utilization ang Cultural Importance-->
@@ -29,7 +27,6 @@
             <textarea name="remarkable_features" id="remarkable-features" cols="30" rows="2" class="form-control"></textarea>
         </div>
     </div>
-
 
     <!-- STEP NAVIGATION -->
     <div class="row">

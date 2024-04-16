@@ -154,12 +154,6 @@
 <!-- JavaScript for the select for category variety -->
 <script>
     // JavaScript for the select for category variety
-    // Function to fetch and display initial category variety based on the initial category
-    document.addEventListener('DOMContentLoaded', function() {
-        // Fetch varieties for the initial selected category
-        var initialCategoryId = document.getElementById('Category').value;
-        fetchVarieties(initialCategoryId);
-    });
 
     // Function to fetch and display initial morphological characteristics based on the initial category
     document.addEventListener('DOMContentLoaded', function() {
@@ -199,7 +193,7 @@
         var categoryId = this.value;
         var categoryVarietySelect = document.getElementById('categoryVariety');
         var categoryVarietySelectContainer = document.getElementById('category-Variety');
-        if (categoryId === '3') {
+        if (categoryId === '') {
             categoryVarietySelectContainer.style.display = 'none';
         } else {
             categoryVarietySelectContainer.style.display = 'block';

@@ -227,7 +227,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
 
         // If no image is selected, set it to "Empty"
         if (empty($crop_seed_imageArray)) {
-            $crop_seed_imageString = "Empty";
+            $crop_seed_imageString = null;
         }
 
         // Check if an image for crop reproductive image is selected

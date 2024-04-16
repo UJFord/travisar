@@ -30,22 +30,22 @@
         </div>
 
         <?php
-            // Set the number of items to display per page
-            $items_per_page = 8;
+        // Set the number of items to display per page
+        $items_per_page = 8;
 
-            // Get the current page number
-            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+        // Get the current page number
+        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-            // Calculate the offset based on the current page and items per page
-            $offset = ($current_page - 1) * $items_per_page;
+        // Calculate the offset based on the current page and items per page
+        $offset = ($current_page - 1) * $items_per_page;
 
-            // Count the total number of rows for pagination
-            $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'approved'";
-            $total_rows_result = pg_query($conn, $total_rows_query);
-            $total_rows = pg_fetch_row($total_rows_result)[0];
+        // Count the total number of rows for pagination
+        $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'approved'";
+        $total_rows_result = pg_query($conn, $total_rows_query);
+        $total_rows = pg_fetch_row($total_rows_result)[0];
 
-            // Calculate the total number of pages
-            $total_pages = ceil($total_rows / $items_per_page);
+        // Calculate the total number of pages
+        $total_pages = ceil($total_rows / $items_per_page);
         ?>
 
         <!-- TABLE -->

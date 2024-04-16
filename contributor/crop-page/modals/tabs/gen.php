@@ -72,17 +72,18 @@
         aspect-ratio: 1/1;
     }
 </style>
-
+<!-- leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <!-- GENERAL TAB -->
 <div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
     <!-- Category and Crop Field -->
-    <h6 class="fw-semibold mt-4 mb-3">Sensory Traits</h6>
+    <h6 class="fw-semibold mt-4 mb-3">General I</h6>
     <div class="row mb-2">
         <!-- Category Name -->
         <div class="col-6">
             <label for="Category" class="form-label small-font">Crop Category<span class="text-danger ms-1">*</span></label>
             <select name="category_id" id="Category" class="form-select" required>
-                <option value="" disabled selected>Select an option</option>
+                <option value="" disabled selected>Select a Category</option>
                 <?php
                 // get the data of category from DB
                 // gi set ra nako na permi last ang other nga category og ascending sya based sa catgory name
@@ -116,7 +117,7 @@
         <div class="col" id="category-Variety">
             <label for="categoryVariety" class="form-label small-font">Variety<span class="text-danger ms-1">*</span></label>
             <select name="category_variety_id" id="categoryVariety" class="form-select" required>
-                <option value="" disabled selected>Select an option</option>
+                <option value="" disabled selected>Select a Category First</option>
                 <!-- Options will be dynamically added here based on the category selected -->
             </select>
         </div>
@@ -127,7 +128,7 @@
         <!-- variety name -->
         <div class="col mb-2">
             <label for="Variety-Name" class="form-label small-font">Local/Variety Name<span class="text-danger ms-1">*</span></label>
-            <input id="Variety-Name" type="text" name="crop_variety" class="form-control" required pattern="[A-Za-z _-]+">
+            <input id="Variety-Name" type="text" name="crop_variety" class="form-control" required>
         </div>
 
         <!-- Meaning of Name -->

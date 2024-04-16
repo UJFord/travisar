@@ -5,8 +5,8 @@
     <div class="row mb-4">
         <div class="col-6">
             <label class="small-font" for="rootcrop_plant_height">Plant Height</label>
-            <select class="form-select" name="rootcrop_plant_height" id="corn-height">
-                <option selected></option>
+            <select class="form-select" name="rootcrop_plant_height" id="rootCrop-height">
+            <option value="" disabled selected>Select an option</option>
                 <option value="Short">Short</option>
                 <option value="Typical">Typical</option>
                 <option value="Tall">Tall</option>
@@ -20,7 +20,7 @@
         <div class="col">
             <label class="small-font" for="rootcrop-leafWidth">Leaf Width</label>
             <select name="rootcrop_leaf_width" id="rootcrop-leafWidth" class="form-select">
-                <option selected></option>
+            <option value="" disabled selected>Select an option</option>
                 <option value="Narrow">Narrow</option>
                 <option value="Average">Average</option>
                 <option value="Wide">Wide</option>
@@ -31,7 +31,7 @@
         <div class="col">
             <label class="small-font" for="rootcrop-leafLength">Leaf Length</label>
             <select name="rootcrop_leaf_length" id="rootcrop-leafLength" class="form-select">
-                <option selected></option>
+            <option value="" disabled selected>Select an option</option>
                 <option value="Short">Short</option>
                 <option value="Average">Average</option>
                 <option value="Long">Long</option>

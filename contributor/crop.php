@@ -167,7 +167,7 @@ require "../functions/functions.php";
                     // Add the default "Select an option" option
                     var defaultOption = document.createElement('option');
                     defaultOption.value = '';
-                    defaultOption.text = 'Select an option';
+                    defaultOption.text = 'Select a Municipality';
                     municipalitiesDropdown.appendChild(defaultOption);
 
                     // Add the fetched municipalities as options in the dropdown
@@ -179,7 +179,6 @@ require "../functions/functions.php";
                     });
                 });
         }
-
 
         // Call the populateMunicipalities function when the province dropdown value changes
         document.getElementById('Province').addEventListener('change', function() {
@@ -222,11 +221,6 @@ require "../functions/functions.php";
         // Call the populateBarangay function initially to populate the municipalities dropdown based on the default selected municipality
         var selectedMunicipality = document.getElementById('Municipality').value;
         populateBarangay(selectedMunicipality);
-
-
-
-
-
 
         // initializnig map
         const map = L.map('map').setView([6.403013, 124.725062], 9); //starting position
