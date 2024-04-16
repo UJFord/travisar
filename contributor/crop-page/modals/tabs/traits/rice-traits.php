@@ -116,28 +116,28 @@
         <div class="col-6 mb-2">
             <label for="seed-length" class="form-label small-font">Seed Length</label>
             <!-- <textarea name="seed_length" id="seed-length" cols="30" rows="1" class="form-control"></textarea> -->
-            <input type="text" id="seed-length" class="form-control">
+            <input type="text" name="seed_length" id="seed-length" class="form-control">
         </div>
 
         <!-- width -->
         <div class="col-6 mb-2">
             <label for="seed-width" class="form-label small-font">Seed Width</label>
             <!-- <textarea name="seed_width" id="seed-width" cols="30" rows="1" class="form-control"></textarea> -->
-            <input type="text" id="seed-width" class="form-control">
+            <input type="text" name="seed_wifth" id="seed-width" class="form-control">
         </div>
 
         <!-- Seed Shape -->
         <div class="col-6 mb-0">
             <label for="seed-shape" class="form-label small-font">Seed Shape</label>
             <!-- <textarea name="seed_shape" id="seed-shape" cols="30" rows="2" class="form-control"></textarea> -->
-            <input type="text" id="seed-shape" class="form-control">
+            <input type="text" name="seed_shape" id="seed-shape" class="form-control">
         </div>
 
         <!-- Color-->
         <div class="col-6 mb-0">
             <label for="seed-color" class="form-label small-font">Seed Color</label>
             <!-- <textarea name="seed_color" id="seed-color" cols="30" rows="2" class="form-control"></textarea> -->
-            <input type="text" id="seed-color" class="form-control">
+            <input type="text" name="seed_color" id="seed-color" class="form-control">
         </div>
     </div>
 

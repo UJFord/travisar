@@ -55,11 +55,13 @@
 
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-between">
-                    <input type="hidden" name="crop_id" id="crop_id-view" />
-                    <div class="">
-                        <button type="submit" name="approve" class="btn btn-success me-2"><i class="fa-solid fa-check"></i></button>
+                    <div class="approveButton">
+                        <button type="submit" name="approve" class="btn btn-success me-2">Approve</i></button>
                     </div>
-                    <button type="submit" name="rejected" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
+                    <div class="updateButton">
+                        <button type="submit" name="update" class="btn btn-success me-2">Update</i></button>
+                    </div>
+                    <button type="submit" name="rejected" class="btn btn-danger">Reject</i></button>
                 </div>
             </form>
         </div>
@@ -136,7 +138,7 @@
 
             // Assuming you have jQuery available
             $.ajax({
-                url: 'crop-page/modals/fetch/fetch_crop-edit.php',
+                url: 'approval-page/fetch/fetch_crop-edit.php',
                 type: 'POST',
                 data: {
                     'click_edit_btn': true,
@@ -151,7 +153,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['rice_plant_height']);
+                        console.log(value['action']);
 
                         // Fetch the old image and pass it to the fetchOldImage function
                         fetchOldImage(value.crop_seed_image);
@@ -166,6 +168,19 @@
 
                         $('#previewVegEdit').append(`<img src="crop-page/modals/img/${value['crop_vegetative_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
                         $('#previewReproductiveEdit').append(`<img src="crop-page/modals/img/${value['crop_reproductive_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+
+                        // setting which button should appear depending on it's status
+                        if (value['action'] === 'updating') {
+                            // show update button
+                            $('.updateButton').show();
+                            // hide approve button
+                            $('.approveButton').hide();
+                        } else {
+                            // hide approve button
+                            $('.approveButton').show();
+                            // show update button
+                            $('.updateButton').hide();
+                        }
 
                         // setting the available data on the traits tab depending on the category of the selected crop
                         if (value['category_name'] === 'Corn') {

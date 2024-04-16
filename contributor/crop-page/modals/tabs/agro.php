@@ -34,7 +34,7 @@
                 </div>
                 <div class="col-3 form-check form-check-inline">
                     <label class="form-check-label" for="corn-cutWorms">Cutworms</label>
-                    <input class="form-check-input" type="checkbox" name="corn_cutWorms" id="corn-cutWorms" value="1">
+                    <input class="form-check-input" type="checkbox" name="corn_cutworms" id="corn-cutWorms" value="1">
                 </div>
                 <div class="col-3 form-check form-check-inline">
                     <label class="form-check-label" for="rice-Birds">Birds</label>
