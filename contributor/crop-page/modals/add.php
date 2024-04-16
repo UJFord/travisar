@@ -69,7 +69,7 @@
 </div>
 
 <!-- SCRIPT -->
-<script>
+<!-- <script>
     // keep the modal on
     window.onload = function() {
         const dataModal = new bootstrap.Modal(document.getElementById('add-item-modal'), {
@@ -77,7 +77,7 @@
         });
         dataModal.show();
     };
-</script>
+</script> -->
 
 <!-- for submission -->
 <script>
@@ -278,5 +278,24 @@
             withoutSensory_More.style.display = 'block';
         }
     }
-</script>
 
+    // Function to display the morphological and agronomy tab data based on the selected category
+    function noCategory(categoryId) {
+        // Your existing code to show/hide sections based on the category...
+
+        // Check if the categoryId is empty or null
+        if (!categoryId) {
+            // Show an alert to prompt the user to select a crop category
+            alert('Please select a crop category to view the data in this tab.');
+        }
+    }
+
+    // Add event listeners to the "More" and "Agro" tabs
+    document.getElementById('more-tab').addEventListener('click', function() {
+        noCategory(document.getElementById('Category').value);
+    });
+
+    document.getElementById('agro-tab').addEventListener('click', function() {
+        noCategory(document.getElementById('Category').value);
+    });
+</script>

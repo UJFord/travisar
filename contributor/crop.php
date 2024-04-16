@@ -164,6 +164,12 @@ require "../functions/functions.php";
                     var municipalitiesDropdown = document.getElementById('Municipality');
                     municipalitiesDropdown.innerHTML = ''; // Clear existing options
 
+                    // Add the default "Select an option" option
+                    var defaultOption = document.createElement('option');
+                    defaultOption.value = '';
+                    defaultOption.text = 'Select an option';
+                    municipalitiesDropdown.appendChild(defaultOption);
+
                     // Add the fetched municipalities as options in the dropdown
                     data.forEach(municipality => {
                         var option = document.createElement('option');
@@ -173,6 +179,7 @@ require "../functions/functions.php";
                     });
                 });
         }
+
 
         // Call the populateMunicipalities function when the province dropdown value changes
         document.getElementById('Province').addEventListener('change', function() {

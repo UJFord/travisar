@@ -82,6 +82,7 @@
         <div class="col-6">
             <label for="Category" class="form-label small-font">Crop Category<span class="text-danger ms-1">*</span></label>
             <select name="category_id" id="Category" class="form-select" required>
+                <option value="" disabled selected>Select an option</option>
                 <?php
                 // get the data of category from DB
                 // gi set ra nako na permi last ang other nga category og ascending sya based sa catgory name
@@ -115,6 +116,7 @@
         <div class="col" id="category-Variety">
             <label for="categoryVariety" class="form-label small-font">Variety<span class="text-danger ms-1">*</span></label>
             <select name="category_variety_id" id="categoryVariety" class="form-select" required>
+                <option value="" disabled selected>Select an option</option>
                 <!-- Options will be dynamically added here based on the category selected -->
             </select>
         </div>
@@ -141,6 +143,7 @@
         <div class="col-6">
             <label for="terrain" class="form-label small-font">Terrain<span style="color: red;">*</span></label>
             <select name="terrain_id" id="terrain" class="form-select" required>
+                <option value="" disabled selected>Select an option</option>
                 <?php
                 // get the data of terrain from DB
                 // gi set ra nako na permi last ang other nga terrain og ascending sya based sa catgory name
@@ -215,12 +218,6 @@
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewReproductive"></div>
     </div>
 
-
-
-
-
-
-
     <!-- MAP -->
     <h6 class="fw-semibold mt-4 mb-3">Location</h6>
     <div id="locationData" class="row mb-3">
@@ -251,11 +248,14 @@
             <!-- Municipality dropdown -->
             <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
             <select id="Municipality" name="municipality" class="form-select mb-2" required>
+                <!-- option is automatically shown through js depending on the province -->
             </select>
 
             <!-- barangay -->
             <label for="Barangay" class="form-label small-font mb-0">Sitio <span style="color: red;">*</span></label>
             <select id="Barangay" name="barangay" class="form-select mb-2" required>
+                <option value="" disabled selected>Select an option</option>
+                <!-- option is automatically shown through js depending on the municipality selected -->
             </select>
 
             <!-- coordinates -->
@@ -395,6 +395,21 @@
     });
 </script>
 
+<!-- script for image text -->
+<script>
+    // Get the file input element
+    const fileInputSeed = document.getElementById('imageInputSeed');
+
+    // Add event listener to update the label text when a file is selected
+    fileInputSeed.addEventListener('change', function() {
+        const label = this.nextElementSibling;
+        if (this.files && this.files.length > 0) {
+            label.textContent = this.files.length === 1 ? this.files[0].name : `${this.files.length} files selected`;
+        } else {
+            label.textContent = 'Select an Image';
+        }
+    });
+</script>
 <!-- MAP -->
 <script>
 
