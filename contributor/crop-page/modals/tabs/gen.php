@@ -395,21 +395,6 @@
     });
 </script>
 
-<!-- script for image text -->
-<script>
-    // Get the file input element
-    const fileInputSeed = document.getElementById('imageInputSeed');
-
-    // Add event listener to update the label text when a file is selected
-    fileInputSeed.addEventListener('change', function() {
-        const label = this.nextElementSibling;
-        if (this.files && this.files.length > 0) {
-            label.textContent = this.files.length === 1 ? this.files[0].name : `${this.files.length} files selected`;
-        } else {
-            label.textContent = 'Select an Image';
-        }
-    });
-</script>
 <!-- MAP -->
 <script>
 

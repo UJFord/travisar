@@ -1,6 +1,4 @@
 <div id="riceMorph">
-
-
     <!-- vegetative state -->
     <h6 class="fw-semibold mt-4 mb-3">Vegetative State</h6>
     <!-- Plant Height -->
@@ -66,9 +64,6 @@
         </div>
     </div>
 
-
-
-
     <!-- reproductive traits -->
     <h6 class="fw-semibold mt-4 mb-3">Reproductive State</h6>
     <!-- Yield Capacity -->
@@ -83,34 +78,32 @@
         </div>
     </div>
 
-
     <!-- Panicle traits-->
     <div class="row mb-5">
         <!-- Length -->
         <div class="col-6 mb-2">
             <label for="pan-length" class="form-label small-font">Panicle Length</label>
-            <input type="text" id="pan-length" class="form-control">
+            <input type="text" name="panicle_length" id="pan-length" class="form-control">
         </div>
 
         <!-- width -->
         <div class="col-6 mb-2">
             <label for="pan-width" class="form-label small-font">Panicle Width</label>
-            <input type="text" id="pan-width" class="form-control">
+            <input type="text" name="panicle_width" id="pan-width" class="form-control">
         </div>
 
         <!-- panicle enclosed by -->
         <div class="col-6 mb-2">
             <label for="pan-enclosed" class="form-label small-font">Panicle Enclosed By</label>
-            <input type="text" id="pan-enclosed" class="form-control">
+            <input type="text" name="panicle_enclosed_by" id="pan-enclosed" class="form-control">
         </div>
 
         <!-- other_remarkable_feature-->
         <div class="col-12 mb-0">
             <label for="panicle-features" class="form-label small-font">Other Remarkable Features</label>
-            <textarea class="form-control" name="pan-features" id="" rows="3"></textarea>
+            <textarea class="form-control" name="panicle_remarkable_features" id="pan-features" rows="3"></textarea>
         </div>
     </div>
-
 
     <!-- Seed traits-->
     <div class="row mb-5">
@@ -125,7 +118,7 @@
         <div class="col-6 mb-2">
             <label for="seed-width" class="form-label small-font">Seed Width</label>
             <!-- <textarea name="seed_width" id="seed-width" cols="30" rows="1" class="form-control"></textarea> -->
-            <input type="text" name="seed_wifth" id="seed-width" class="form-control">
+            <input type="text" name="seed_width" id="seed-width" class="form-control">
         </div>
 
         <!-- Seed Shape -->
@@ -143,32 +136,31 @@
         </div>
     </div>
 
-
     <!-- Flag Leaf traits-->
     <div class="row mb-2">
         <!-- Length -->
         <div class="col-6 mb-2">
             <label for="flag-length" class="form-label small-font">Flag Leaf Length</label>
-            <input type="text" id="flag-length" class="form-control">
+            <input type="text" name="flag_length" id="flag-length" class="form-control">
         </div>
 
         <!-- width -->
         <div class="col-6 mb-2">
             <label for="flag-width" class="form-label small-font">Flag Leaf Width</label>
-            <input type="text" id="flag-width" class="form-control">
+            <input type="text" name="flag_width" id="flag-width" class="form-control">
         </div>
 
         <!-- Pubescence -->
         <div class="col-6 mb-2">
             <label for="Pubescence" class="form-label small-font">Pubescence</label>
-            <input type="text" id="Pubescence" class="form-control">
+            <input type="text" name="pubescence" id="Pubescence" class="form-control">
         </div>
 
         <!-- Purplish Stripes -->
         <div class="col-6 mb-2 form-check form-switch px-5 py-3">
             <!-- <label for="purplishStripes" class="form-label small-font">Purplish Stripes?</label>
             <textarea name="purplish_stripes" id="purplishStripes" cols="30" rows="2" class="form-control"></textarea> -->
-            <input class="form-check-input" type="checkbox" role="switch" id="purplishStripes">
+            <input class="form-check-input" name="purplish_stripes" type="checkbox" role="switch" id="purplishStripes" value="1">
             <label class="form-check-label small-font" for="purplishStripes">With Purplish Stripes?</label>
         </div>
 
@@ -178,5 +170,4 @@
             <textarea name="flag_remarkable_features" id="flag-features" cols="30" rows="2" class="form-control"></textarea>
         </div>
     </div>
-
 </div>

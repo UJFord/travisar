@@ -29,7 +29,7 @@
         <div class="col-6 mb-3">
             <div class="small-font mb-2">Volume Expansion</div>
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="volExpansion">
+                <input class="form-check-input" name="volume_expansion" type="checkbox" role="switch" id="volExpansion" value="1">
                 <label class="form-check-label small-font" for="volExpansion">Does it rise?</label>
             </div>
         </div>
@@ -38,7 +38,7 @@
         <div class="col-6 mb-3">
             <div class="small-font mb-2">Glutinousity</div>
             <div class="form-check form-switch">
-                <input class="form-check-input" type="checkbox" role="switch" id="glutinousity">
+                <input class="form-check-input" name="glutinous" type="checkbox" role="switch" id="glutinousity" value="1">
                 <label class="form-check-label small-font" for="volExpansion">Is it Glutinous?</label>
             </div>
         </div>

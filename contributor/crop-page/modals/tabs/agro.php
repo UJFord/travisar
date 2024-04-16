@@ -32,7 +32,7 @@
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="corn-cutWorms">Cutworms</label>
-                <input class="form-check-input" type="checkbox" name="corn_cutWorms" id="corn-cutWorms" value="1">
+                <input class="form-check-input" type="checkbox" name="corn_cutworms" id="corn-cutWorms" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="rice-Birds">Birds</label>
@@ -109,26 +109,6 @@
             </div>
         </div>
     </div>
-
-
-    <!-- script for others -->
-    <!-- <script>
-        const cornOtherCheck = document.getElementById('corn-other-check');
-        const cornPestOther = document.getElementById('corn-pest-other');
-
-        const cornAbioticCheck = document.getElementById('corn-abiotic-check');
-        const cornAbioticOtherContainer = document.getElementById('corn-abiotic-other-container');
-
-        cornOtherCheck.addEventListener('change', function() {
-            cornPestOther.classList.toggle('d-none', !this.checked);
-        });
-
-        cornAbioticCheck.addEventListener('change', function() {
-            cornAbioticOtherContainer.classList.toggle('d-none', !this.checked);
-        });
-    </script> -->
-
-
 
     <!-- Rice Agronomic Traits -->
     <div id="riceAgro">
@@ -239,28 +219,9 @@
             </div>
         </div>
     </div>
-    <!-- script for others -->
-    <!-- <script>
-    const riceOtherCheck = document.getElementById('rice-other-check');
-    const ricePestOther = document.getElementById('rice-pest-other');
-
-    const riceAbioticCheck = document.getElementById('rice-abiotic-check');
-    const riceAbioticOtherContainer = document.getElementById('rice-abiotic-other-container');
-
-    riceOtherCheck.addEventListener('change', function() {
-        ricePestOther.classList.toggle('d-none', !this.checked);
-    });
-
-    riceAbioticCheck.addEventListener('change', function() {
-        riceAbioticOtherContainer.classList.toggle('d-none', !this.checked);
-    });
-</script> -->
-
-
 
     <!-- Root Crop Agronomic Traits -->
     <div id="root_cropAgro">
-
         <!-- Pest resistance -->
         <h6 class="fw-semibold mt-4 mb-3">Pest Resistance</h6>
         <div class="row mb-0 ps-3">
@@ -367,7 +328,6 @@
             </div>
         </div>
     </div>
-
 
     <!-- STEP NAVIGATION without Sensory -->
     <div class="row" id="withoutSensory">

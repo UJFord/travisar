@@ -46,7 +46,7 @@
     <div class="row mb-3">
         <div class="col-6 mb-2">
             <label for="corn-yield-capacity" class="form-label small-font">Yield Capacity</label>
-            <select type="text" id="corn-yield-capacity" class="form-select">
+            <select type="text" name="corn_yield_capacity" id="corn-yield-capacity" class="form-select">
                 <option value="" disabled selected>Select an option</option>
                 <option value="Low-Yielding">Low-Yielding</option>
                 <option value="High-Yielding">High-Yielding</option>
@@ -80,6 +80,4 @@
             <input type="text" name="seed_color" id="corn-seed-color" class="form-control">
         </div>
     </div>
-
-
 </div>

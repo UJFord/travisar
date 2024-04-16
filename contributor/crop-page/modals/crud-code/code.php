@@ -96,17 +96,17 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         // Flag Leaf traits rice
         $flag_length = isset($_POST['flag_length']) ? handleEmpty($_POST['flag_length']) : "Empty";
         $flag_width = isset($_POST['flag_width']) ? handleEmpty($_POST['flag_width']) : "Empty";
-        $purplish_stripes = isset($_POST['purplish_stripes']) ? handleEmpty($_POST['purplish_stripes']) : "Empty";
         $pubescence = isset($_POST['pubescence']) ? handleEmpty($_POST['pubescence']) : "Empty";
         $flag_remarkable_features = isset($_POST['flag_remarkable_features']) ? handleEmpty($_POST['flag_remarkable_features']) : "Empty";
+        $purplish_stripes = isset($_POST['purplish_stripes']) ? true : false;
 
         // Sensory traits rice
         $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : "Empty";
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : "Empty";
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : "Empty";
-        $volume_expansion = isset($_POST['volume_expansion']) ? handleEmpty($_POST['volume_expansion']) : "Empty";
-        $glutinous = isset($_POST['glutinous']) ? handleEmpty($_POST['glutinous']) : "Empty";
         $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : "Empty";
+        $volume_expansion = isset($_POST['volume_expansion']) ? true : false;
+        $glutinous = isset($_POST['glutinous']) ? true : false;
 
         // abiotic resistance rice
         $rice_drought = isset($_POST['rice_drought']) ? true : false;
@@ -421,7 +421,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING crop_id";
 
         $valueCrops = array(
-            $crop_variety, $crop_description, $newUniqueCode, $meaning_of_name, $category_id, $user_id, $category_variety_id, 
+            $crop_variety, $crop_description, $newUniqueCode, $meaning_of_name, $category_id, $user_id, $category_variety_id,
             $terrain_id, $utilization_cultural_id, $crop_seed_imageString, $status_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
@@ -1213,7 +1213,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING crop_id";
 
         $valueCrops = array(
-            $crop_variety, $crop_description, $newUniqueCode, $meaning_of_name, $category_id, $user_id, $category_variety_id, 
+            $crop_variety, $crop_description, $newUniqueCode, $meaning_of_name, $category_id, $user_id, $category_variety_id,
             $terrain_id, $utilization_cultural_id, $crop_seed_imageString, $status_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
