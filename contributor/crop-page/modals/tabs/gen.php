@@ -74,9 +74,9 @@
 </style>
 
 <!-- GENERAL TAB -->
-<div class="fade tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
+<div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
     <!-- Category and Crop Field -->
-    <h6 class="fw-semibold mt-4 mb-3">General Information</h6>
+    <h6 class="fw-semibold mt-4 mb-3">Sensory Traits</h6>
     <div class="row mb-2">
         <!-- Category Name -->
         <div class="col-6">
