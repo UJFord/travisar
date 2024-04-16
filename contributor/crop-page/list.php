@@ -1,5 +1,5 @@
 <!-- LIST -->
-<div class="col border">
+<div class="col">
     <div class="container">
 
         <!-- HEADING -->
@@ -30,22 +30,22 @@
         </div>
 
         <?php
-            // Set the number of items to display per page
-            $items_per_page = 8;
+        // Set the number of items to display per page
+        $items_per_page = 8;
 
-            // Get the current page number
-            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+        // Get the current page number
+        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-            // Calculate the offset based on the current page and items per page
-            $offset = ($current_page - 1) * $items_per_page;
+        // Calculate the offset based on the current page and items per page
+        $offset = ($current_page - 1) * $items_per_page;
 
-            // Count the total number of rows for pagination
-            $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'approved'";
-            $total_rows_result = pg_query($conn, $total_rows_query);
-            $total_rows = pg_fetch_row($total_rows_result)[0];
+        // Count the total number of rows for pagination
+        $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'approved'";
+        $total_rows_result = pg_query($conn, $total_rows_query);
+        $total_rows = pg_fetch_row($total_rows_result)[0];
 
-            // Calculate the total number of pages
-            $total_pages = ceil($total_rows / $items_per_page);
+        // Calculate the total number of pages
+        $total_pages = ceil($total_rows / $items_per_page);
         ?>
 
         <!-- TABLE -->
@@ -53,12 +53,12 @@
             <!-- table head -->
             <thead>
                 <tr>
-                    <th class="col-1 thead-item" scope="col">
+                    <!-- <th class="col-1 thead-item" scope="col">
                         <input class="form-check-input" type="checkbox">
                         <label class="form-check-label text-dark-emphasis small-font">
                             All
                         </label>
-                    </th>
+                    </th> -->
                     <th class="col text-dark-emphasis small-font" scope="col">Name</th>
                     <th class="col-4 text-dark-emphasis small-font" scope="col">Contributor</th>
                     <th class="col-4 text-dark-emphasis small-font" scope="col">Action</th>
@@ -66,8 +66,50 @@
 
                 </tr>
             </thead>
+
+
+
+
             <!-- table body -->
             <tbody class="table-group-divider fw-bold overflow-scroll">
+
+
+
+
+
+                <!-- UI Test Item -->
+                <tr>
+                    <!-- Name -->
+                    <td>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">Banay-Banay</a>
+                        <h6 class="text-secondary small-font m-0">Rice</h6>
+                    </td>
+
+                    <!-- Contributor -->
+                    <td class="small-font">
+                        <span class="py-1 px-2">
+                            <h6 class="text-secondary small-font m-0">Elo Quent</h6>
+                        </span>
+                    </td>
+
+                    <!-- Action -->
+                    <td>
+                        <a href="#" class="btn btn-success btn-sm edit_data admin-only">
+                            Edit
+                        </a>
+                    </td>
+
+                    <!-- Ellipsis -->
+                    <td class="text-end">
+                        <i class="fa-solid fa-ellipsis-vertical btn"></i>
+                    </td>
+                </tr>
+
+
+
+
+
+
 
                 <?php
                 // get the data from crops. only approved data are shown and is limited per items per page
@@ -93,7 +135,7 @@
                         <tr id="row1" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">
 
                             <!-- checkbox -->
-                            <th scope="row"><input class="form-check-input" type="checkbox"></th>
+                            <!-- <th scope="row"><input class="form-check-input" type="checkbox"></th> -->
 
                             <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
 

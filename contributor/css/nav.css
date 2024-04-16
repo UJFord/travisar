@@ -1,9 +1,9 @@
 /* NAV */
-nav{
+#main-nav{
     background: var(--mainBrand);
 }
     /* light texts for inactive tabs */
-    .nav-link, #profile-drop-icon{
+    .main-nav-item, #profile-drop-icon{
         color: #d3d0d0;
     }
 

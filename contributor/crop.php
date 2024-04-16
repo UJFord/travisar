@@ -65,6 +65,8 @@ require "../functions/functions.php";
             <?php require "crop-page/modals/add.php"; ?>
             <!-- edit -->
             <?php require "crop-page/modals/edit.php"; ?>
+            <!-- view -->
+            <?php require "crop-page/modals/view.php"; ?>
         </div>
     </div>
 
