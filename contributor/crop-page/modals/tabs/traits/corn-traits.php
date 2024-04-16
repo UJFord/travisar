@@ -61,25 +61,25 @@
         <!-- Length -->
         <div class="col-6 mb-2">
             <label for="corn-seed-length" class="form-label small-font">Seed Length</label>
-            <input type="text" id="corn-seed-length" class="form-control">
+            <input type="text" name="seed_length" id="corn-seed-length" class="form-control">
         </div>
 
         <!-- width -->
         <div class="col-6 mb-2">
             <label for="corn-seed-width" class="form-label small-font">Seed Width</label>
-            <input type="text" id="corn-seed-width" class="form-control">
+            <input type="text" name="seed_width" id="corn-seed-width" class="form-control">
         </div>
 
         <!-- seed Shape -->
         <div class="col-6 mb-2">
             <label for="corn-seed-shape" class="form-label small-font">Seed Shape</label>
-            <input type="text" id="corn-seed-shape" class="form-control">
+            <input type="text" name="seed_shape" id="corn-seed-shape" class="form-control">
         </div>
 
         <!-- Color-->
         <div class="col-6 mb-2">
             <label for="corn-seed-color" class="form-label small-font">Seed Color</label>
-            <input type="text" id="corn-seed-color" class="form-control">
+            <input type="text" name="seed_color" id="corn-seed-color" class="form-control">
         </div>
     </div>
 

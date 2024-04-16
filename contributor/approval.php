@@ -118,7 +118,7 @@ require "../functions/functions.php";
                     $offset = ($current_page - 1) * $items_per_page;
 
                     // Count the total number of rows for pagination for pending crops
-                    $total_rows_query_pending = "SELECT COUNT(*) FROM crop WHERE status = 'pending'";
+                    $total_rows_query_pending = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action IN ('pending', 'updating')";
                     $total_rows_result_pending = pg_query($conn, $total_rows_query_pending);
                     $total_rows_pending = pg_fetch_row($total_rows_result_pending)[0];
 
@@ -143,7 +143,8 @@ require "../functions/functions.php";
                                             </label>
                                         </th>
                                         <th class="col text-dark-emphasis small-font" scope="col">Name</th>
-                                        <th class="col-3 text-dark-emphasis small-font" scope="col">Contributor</th>
+                                        <th class="col-3 text-dark-emphasis text-center small-font" scope="col">Unique Code</th>
+                                        <th class="col-3 text-dark-emphasis text-center small-font" scope="col">Contributor</th>
                                         <th class="col-2 text-dark-emphasis text-center small-font" scope="col">Date</th>
                                         <th class="col-1 text-dark-emphasis text-center small-font" scope="col">Status</th>
                                         <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
@@ -153,7 +154,7 @@ require "../functions/functions.php";
                                 <!-- table body -->
                                 <tbody class="table-group-divider fw-bold overflow-scroll">
                                     <?php
-                                    $query_pending = "SELECT * FROM crop WHERE status = 'pending' ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
+                                    $query_pending = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE status.action IN ('pending', 'updating') ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
                                     $query_run_pending = pg_query($conn, $query_pending);
 
                                     if ($query_run_pending) {
@@ -189,8 +190,12 @@ require "../functions/functions.php";
                                                     }
                                                     ?>
                                                 </td>
+                                                <!-- unique_code -->
+                                                <td class=" text-secondary small-font text-center fw-normal">
+                                                    <?= $row['unique_code']; ?>
+                                                </td>
                                                 <!-- contributor -->
-                                                <td class="text-secondary small-font fw-normal">
+                                                <td class="text-secondary text-center small-font fw-normal">
                                                     <?php
                                                     if (pg_num_rows($query_run_user)) {
                                                         $user = pg_fetch_assoc($query_run_user);

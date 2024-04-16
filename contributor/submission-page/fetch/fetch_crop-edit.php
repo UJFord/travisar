@@ -31,7 +31,6 @@ if (isset($_POST['click_edit_btn'])) {
         left join disease_resistance on corn_traits.disease_resistance_id = disease_resistance.disease_resistance_id
         left join abiotic_resistance on corn_traits.abiotic_resistance_id = abiotic_resistance.abiotic_resistance_id
         left join seed_traits on seed_traits.seed_traits_id = reproductive_state_corn.seed_traits_id
-        left join status on status.status_id = crop.status_id
         WHERE crop.crop_id = $1";
         $query_run = pg_query_params($conn, $query, array($crop_id));
 
@@ -58,7 +57,6 @@ if (isset($_POST['click_edit_btn'])) {
         left join panicle_traits_rice on panicle_traits_rice.panicle_traits_rice_id = reproductive_state_rice.panicle_traits_rice_id
         left join flag_leaf_traits_rice on flag_leaf_traits_rice.flag_leaf_traits_rice_id = reproductive_state_rice.flag_leaf_traits_rice_id
         LEFT JOIN sensory_traits_rice ON sensory_traits_rice.sensory_traits_rice_id = rice_traits.sensory_traits_rice_id
-        left join status on status.status_id = crop.status_id
         WHERE crop.crop_id = $1";
         $query_run = pg_query_params($conn, $query, array($crop_id));
 
@@ -81,7 +79,6 @@ if (isset($_POST['click_edit_btn'])) {
         left join disease_resistance on root_crop_traits.disease_resistance_id = disease_resistance.disease_resistance_id
         left join abiotic_resistance on root_crop_traits.abiotic_resistance_id = abiotic_resistance.abiotic_resistance_id
         left join rootcrop_traits on rootcrop_traits.rootcrop_traits_id = root_crop_traits.rootcrop_traits_id
-        left join status on status.status_id = crop.status_id
         WHERE crop.crop_id = $1";
         $query_run = pg_query_params($conn, $query, array($crop_id));
 

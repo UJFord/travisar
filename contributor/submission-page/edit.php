@@ -6,18 +6,18 @@
 </style>
 
 <!-- EDIT MODAL -->
-<div class="modal fade" id="view-item-modal" tabindex="-1" aria-labelledby="view-item-modal-label" aria-hidden="true">
+<div class="modal fade" id="edit-item-modal" tabindex="-1" aria-labelledby="edit-item-modal-label" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="view-item-modal-label">View Item</h5>
+                <h5 class="modal-title" id="edit-item-modal-label">Edit Item</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <!-- body -->
-            <form id="form-panel-view" name="Form" action="approval-page/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel-edit" name="Form" action="submission-page/code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
                 <div class="modal-body edit-modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -55,21 +55,19 @@
 
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-between">
-                    <div class="approveButton">
-                        <button type="submit" name="approve" class="btn btn-success me-2">Approve</i></button>
+                    <div class="">
+                        <button type="submit" name="update" class="btn btn-success">Save</button>
+                        <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                     </div>
-                    <div class="updateButton">
-                        <button type="submit" name="update" class="btn btn-success me-2">Update</i></button>
-                    </div>
-                    <button type="submit" name="rejected" class="btn btn-danger">Reject</i></button>
+                    <button type="button" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
                 </div>
             </form>
         </div>
     </div>
 </div>
-<!-- script for getting the on the view -->
+<!-- script for getting the on the edit -->
 <script>
-    document.getElementById('form-panel-view').addEventListener('submit', function(event) {
+    document.getElementById('form-panel-edit').addEventListener('submit', function(event) {
 
         // Get the selected category
         var selectedCategory = document.getElementById('categoryID').value;
@@ -97,12 +95,12 @@
     function submitForm() {
         console.log('submitForm function called');
         // Get the form reference
-        var form = document.getElementById('form-panel-view');
+        var form = document.getElementById('form-panel-edit');
         // Trigger the form submission
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "crop-page/modals/crud-code/code.php",
+                url: "submission-page/code/code.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,
@@ -123,8 +121,8 @@
         }
     }
 
-    // view SCRIPT
-    const tableRows = document.querySelectorAll('.view_data');
+    // EDIT SCRIPT
+    const tableRows = document.querySelectorAll('.edit_data');
     // Define an array to store municipalities
     var municipalities = [];
 
@@ -138,7 +136,7 @@
 
             // Assuming you have jQuery available
             $.ajax({
-                url: 'approval-page/fetch/fetch_crop-edit.php',
+                url: 'submission-page/fetch/fetch_crop-edit.php',
                 type: 'POST',
                 data: {
                     'click_edit_btn': true,
@@ -153,7 +151,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['action']);
+                        console.log(value['rice_plant_height']);
 
                         // Fetch the old image and pass it to the fetchOldImage function
                         fetchOldImage(value.crop_seed_image);
@@ -168,19 +166,6 @@
 
                         $('#previewVegEdit').append(`<img src="crop-page/modals/img/${value['crop_vegetative_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
                         $('#previewReproductiveEdit').append(`<img src="crop-page/modals/img/${value['crop_reproductive_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
-
-                        // setting which button should appear depending on it's status
-                        if (value['action'] === 'updating') {
-                            // show update button
-                            $('.updateButton').show();
-                            // hide approve button
-                            $('.approveButton').hide();
-                        } else {
-                            // hide approve button
-                            $('.approveButton').show();
-                            // show update button
-                            $('.updateButton').hide();
-                        }
 
                         // setting the available data on the traits tab depending on the category of the selected crop
                         if (value['category_name'] === 'Corn') {
@@ -469,10 +454,18 @@
                             $('#root_cropMorph-Edit').hide();
                         }
 
+                        // userID
+                        $('#userID').val(value['user_id']);
                         // crop_id
                         $('#crop_id').val(id);
+                        // unique_codeID
+                        $('#unique_codeID').val(value['unique_code']);
                         // categoryID
                         $('#categoryID').val(value['category_id']);
+                        // terrainID
+                        $('#terrainID').val(value['terrain_id']);
+                        // category_varietyID
+                        $('#category_varietyID').val(value['category_variety_id']);
                         // current_crop_variety
                         $('#current_crop_variety').val(value['crop_variety']);
                         // currentUniqueCode
@@ -590,7 +583,7 @@
             });
 
             // Show the modal
-            const dataModal = new bootstrap.Modal(document.getElementById('view-item-modal'), {
+            const dataModal = new bootstrap.Modal(document.getElementById('edit-item-modal'), {
                 keyboard: false
             });
             dataModal.show();
@@ -609,7 +602,7 @@
 
     $(document).ready(function() {
         // Initialize the modal
-        const dataModal = new bootstrap.Modal(document.getElementById('view-item-modal'), {
+        const dataModal = new bootstrap.Modal(document.getElementById('edit-item-modal'), {
             keyboard: false
         });
 
@@ -626,16 +619,16 @@
         // Reset the form and close the modal when the x button is clicked
         $('.btn-close').on('click', function() {
             // Reset the form
-            document.getElementById('form-panel-view').reset();
+            document.getElementById('form-panel-edit').reset();
 
             // Close the modal
             dataModal.hide();
         });
 
         // Reset the form and close the modal when the modal is hidden
-        $('#view-item-modal').on('hidden.bs.modal', function() {
+        $('#edit-item-modal').on('hidden.bs.modal', function() {
             // Reset the form
-            document.getElementById('form-panel-view').reset();
+            document.getElementById('form-panel-edit').reset();
 
             // Reset any other specific fields if needed
             $('#previewSeedEdit').empty();

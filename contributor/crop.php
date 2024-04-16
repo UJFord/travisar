@@ -373,14 +373,6 @@ require "../functions/functions.php";
         }
     </script>
 
-
-
-
-
-
-
-
-
     <!-- Script nf or the map for edit tab -->
     <script>
         // initializnig map

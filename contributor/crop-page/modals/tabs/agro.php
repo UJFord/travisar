@@ -3,7 +3,6 @@
 
     <!-- Corn Agronomic Traits -->
     <div id="cornAgro">
-
         <!-- pest resistance -->
         <h6 class="fw-semibold mt-4 mb-3">Pest Resistance</h6>
         <div class="row mb-0 ps-3">
