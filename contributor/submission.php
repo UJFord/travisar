@@ -210,7 +210,9 @@ require "../functions/functions.php";
 
                                                 <!-- edit -->
                                                 <td class="text-center">
-                                                    <a href="#" class="btn btn-success btn-sm edit_data admin-only" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">Edit</a>
+                                                    <?php if ($row['action'] === 'approved') : ?>
+                                                        <a href="#" class="btn btn-success btn-sm edit_data" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">Edit</a>
+                                                    <?php endif; ?>
                                                 </td>
 
                                                 <!-- ellipsis menu butn -->

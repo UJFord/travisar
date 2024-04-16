@@ -373,7 +373,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
 
         //insert into status table
         $query_status = "INSERT INTO status (action, remarks)
-                VALUES ($1) RETURNING status_id";
+                VALUES ($1, $2) RETURNING status_id";
 
         $value_status = array($action, $remarks);
         $query_run_status = pg_query_params($conn, $query_status, $value_status);

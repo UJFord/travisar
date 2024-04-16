@@ -8,9 +8,39 @@
     }
 
     .preview-containerEdit {
-        /* Adjust style of preview container */
-        display: flex;
-        /* flex-wrap: wrap; */
+        max-height: 10rem;
+    }
+
+    /* hiding the scrollbar */
+    .custom-scrollbar {
+        scrollbar-width: thin;
+        scrollbar-color: rgba(0, 0, 0, 0.5) rgba(0, 0, 0, 0);
+        /* Firefox */
+        -ms-overflow-style: none;
+    }
+
+    .preview-image-container {
+        position: relative;
+    }
+
+    /* preview image */
+    .preview-image {
+        position: relative;
+        /* Needed for absolute positioning of button */
+        margin: 5px;
+        /* Adjust spacing between images as needed */
+    }
+
+    .preview-image button:hover {
+        background-color: rgba(255, 0, 0, 0.2);
+        /* Red hover effect */
+    }
+
+    .preview-image button:after {
+        content: "\00d7";
+        /* X character for close button */
+        font-size: 18px;
+        color: red;
     }
 
     .img-thumbnail {
@@ -18,6 +48,11 @@
         max-width: 5rem;
         max-height: 5rem;
         aspect-ratio: 1/1;
+    }
+
+    /* step navigation icon colors */
+    .lighter-color {
+        color: #4e5663;
     }
 
     /* hiding the scrollbar */
@@ -32,6 +67,17 @@
         aspect-ratio: 1/1;
     }
 
+    .preview-image button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        /* Adjust padding around button */
+    }
+
     .remove-imageEdit {
         position: absolute;
         background: none;
@@ -41,7 +87,8 @@
         cursor: pointer;
     }
 </style>
-
+<!-- leaflet -->
+<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <!-- GENERAL TAB -->
 <div class="fade show active tab-pane" id="edit-gen-tab-pane" role="tabpanel" aria-labelledby="edit-gen-tab" tabindex="0">
     <!-- hidden data -->
@@ -107,6 +154,123 @@
         <input id="rootcrop_traitsID" type="hidden" name="rootcrop_traitsID" class="form-control">
     </div>
 
+    <h6 class="fw-semibold mt-4 mb-3">General Info</h6>
+    <!-- variety name, meaning of name -->
+    <div class="row mb-2">
+        <!-- variety name -->
+        <div class="col mb-2">
+            <label for="crop_variety" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
+            <input id="crop_variety" type="text" name="crop_variety" class="form-control" required>
+        </div>
+
+        <!-- Meaning of Name -->
+        <div class="col mb-2">
+            <label class="form-label small-font">Meaning of Name(if any)</label>
+            <input type="text" id="nameMeaning" name="meaning_of_name" class="form-control">
+        </div>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="row mb-5">
+        <div class="col">
+            <label for="description" class="form-label small-font">Description</label>
+            <textarea name="crop_description" id="description" rows="2" class="form-control"></textarea>
+        </div>
+    </div>
+
+    <!-- IMAGES -->
+    <h6 class="fw-semibold mt-4 mb-0">Images for Stages</h6>
+    <!-- help -->
+    <div id="coords-help" class="form-text mb-3" style="font-size: 0.7rem;">Hold <span class="fw-bold">ctrl</span> or <span class="fw-bold">shift</span> and click the images to upload multiple files</div>
+    <!-- Seed image -->
+    <div class="row mb-3">
+        <label for="imageInputSeedEdit" class="d-flex align-items-center rounded small-font mb-2">
+            <i class="fa-solid fa-image me-2"></i>
+            <span>Seed</span>
+        </label>
+        <div class="d-flex flex-column image-upload-container col-6">
+            <input type="hidden" name="current_image_seed" id="old_image_seed">
+            <input class="mb-0 form-control form-control-sm" type="file" id="imageInputSeedEdit" accept="image/jpeg,image/png" name="crop_seed_image[]" multiple>
+        </div>
+        <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewSeedEdit"></div>
+    </div>
+
+    <!-- vegetative stage image -->
+    <div class="row mb-3">
+        <label for="imageInputVegetativeEdit" class="d-flex align-items-center rounded small-font mb-2">
+            <i class="fa-solid fa-image me-2"></i>
+            <span>Vegetative Stage</span>
+        </label>
+        <div class="col-6 d-flex flex-column image-upload-container">
+            <input type="hidden" name="current_image_veg" id="old_image_veg">
+            <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetativeEdit" accept="image/jpeg,image/png" name="crop_vegetative_image" single onchange="previewVegetativeImageEdit()">
+        </div>
+        <!-- <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewVegEdit"></div> -->
+    </div>
+
+    <!-- reproductive stage -->
+    <div class="row mb-5">
+        <label for="imageInputReproductiveEdit" class="d-flex align-items-center rounded small-font mb-2">
+            <i class="fa-solid fa-image me-2"></i>
+            <span>Reproductive Stage</span>
+        </label>
+        <div class="col-6 d-flex flex-column image-upload-container">
+            <input type="hidden" name="current_image_rep" id="old_image_rep">
+            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductiveEdit" accept="image/jpeg,image/png" name="crop_reproductive_image" single onchange="previewReproductiveImageEdit()">
+        </div>
+        <!-- <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewReproductiveEdit"></div> -->
+    </div>
+
+    <h6 class="fw-semibold mt-4 mb-3">Location</h6>
+    <!-- location -->
+    <div id="locationData" class="row mb-3">
+        <!-- form -->
+        <div class="col-6 location-Data">
+            <input type="hidden" name="crop_location_id" id="crop_location_id">
+            <!-- Province dropdown -->
+            <label for="ProvinceEdit" class="form-label small-font">Province <span style="color: red;">*</span></label>
+            <select id="ProvinceEdit" name="province" class="form-control mb-2">
+                <?php
+                // Fetch distinct province names from the location table
+                $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";
+                $query_run = pg_query($conn, $queryProvince);
+
+                $count = pg_num_rows($query_run);
+
+                // If there is data, display distinct province names
+                if ($count > 0) {
+
+                    while ($row = pg_fetch_assoc($query_run)) {
+                        $province_name = $row['province_name'];
+                ?>
+                        <option value="<?= $province_name; ?>"><?= $province_name; ?></option>
+                <?php
+                    }
+                }
+                ?>
+            </select>
+
+            <!-- Municipality dropdown -->
+            <label for="MunicipalitySelect" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
+            <select id="MunicipalitySelect" name="municipality" class="form-select mb-2">
+            </select>
+
+            <!-- barangay -->
+            <label for="BarangaySelect" class="form-label small-font mb-0">Sitio <span style="color: red;">*</span></label>
+            <select id="BarangaySelect" name="barangay" class="form-select mb-2">
+            </select>
+
+            <!-- coordinates -->
+            <label for="coordEdit" class="form-label small-font mb-0">Coordinates</label>
+            <input id="coordEdit" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
+            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (latitude , longitude)</div>
+            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">The blue Marker is for the old/current location</div>
+        </div>
+        <!-- map -->
+        <div id="mapEdit" class="col border">
+        </div>
+    </div>
+
     <!-- Contributed, Unique Code, and Date Created -->
     <dv class="row mb-3">
         <!-- Contributed By -->
@@ -155,121 +319,10 @@
         </div>
     </div>
 
-    <!-- variety name, meaning of name -->
-    <div class="row mb-3">
-        <!-- variety name -->
-        <div class="col">
-            <label for="crop_variety" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
-            <input id="crop_variety" type="text" name="crop_variety" class="form-control" required>
-        </div>
-
-        <!-- Meaning of Name -->
-        <div class="col">
-            <label class="form-label small-font">Meaning of Name(if any)</label>
-            <input type="text" id="nameMeaning" name="meaning_of_name" class="form-control">
-        </div>
-    </div>
-
-    <!-- DESCRIPTION -->
-    <div class="row mb-3">
-        <div class="col">
-            <label for="description" class="form-label small-font">Description</label>
-            <textarea name="crop_description" id="description" rows="2" class="form-control"></textarea>
-        </div>
-    </div>
-
-    <!-- Seed image -->
-    <div class="row mb-3">
-        <label for="imageInputSeedEdit" class="d-flex align-items-center rounded small-font mb-2">
-            <i class="fa-solid fa-image me-2"></i>
-            <span>Seed</span>
-        </label>
-        <div class="d-flex flex-column image-upload-container col-6">
-            <input type="hidden" name="current_image_seed" id="old_image_seed">
-            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputSeedEdit" accept="image/jpeg,image/png" name="crop_seed_image[]" MULTIPLE>
-        </div>
-        <div class="col preview-containerEdit custom-scrollbar overflow-scroll rounded  p-3 border d-flex justify-content-center align-items-center" id="previewSeedEdit"></div>
-    </div>
-
-    <!-- vegetative stage image -->
-    <div class="row mb-3">
-        <label for="imageInputVegetativeEdit" class="d-flex align-items-center rounded small-font mb-2">
-            <i class="fa-solid fa-image me-2"></i>
-            <span>Vegetative Stage</span>
-        </label>
-        <div class="col-6 d-flex flex-column image-upload-container">
-            <input type="hidden" name="current_image_veg" id="old_image_veg">
-            <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetativeEdit" accept="image/jpeg,image/png" name="crop_vegetative_image" single onchange="previewVegetativeImageEdit()">
-        </div>
-        <div class="col preview-container custom-scrollbar overflow-scroll rounded p-3 border d-flex justify-content-center align-items-center" id="previewVegEdit"></div>
-    </div>
-
-    <!-- reproductive stage -->
-    <div class="row mb-3">
-        <label for="imageInputReproductiveEdit" class="d-flex align-items-center rounded small-font mb-2">
-            <i class="fa-solid fa-image me-2"></i>
-            <span>Reproductive Stage</span>
-        </label>
-        <div class="col-6 d-flex flex-column image-upload-container">
-            <input type="hidden" name="current_image_rep" id="old_image_rep">
-            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductiveEdit" accept="image/jpeg,image/png" name="crop_reproductive_image" single onchange="previewReproductiveImageEdit()">
-        </div>
-        <div class="col preview-container custom-scrollbar overflow-scroll rounded p-3 border d-flex justify-content-center align-items-center" id="previewReproductiveEdit"></div>
-    </div>
-
-    <!-- location -->
-    <div class="row mb-3">
-        <!-- form -->
-        <div class="col-6">
-            <input type="hidden" name="crop_location_id" id="crop_location_id">
-            <!-- Province dropdown -->
-            <label for="ProvinceEdit" class="form-label small-font">Province <span style="color: red;">*</span></label>
-            <select id="ProvinceEdit" name="province" class="form-control mb-2">
-                <?php
-                // Fetch distinct province names from the location table
-                $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";
-                $query_run = pg_query($conn, $queryProvince);
-
-                $count = pg_num_rows($query_run);
-
-                // If there is data, display distinct province names
-                if ($count > 0) {
-
-                    while ($row = pg_fetch_assoc($query_run)) {
-                        $province_name = $row['province_name'];
-                ?>
-                        <option value="<?= $province_name; ?>"><?= $province_name; ?></option>
-                <?php
-                    }
-                }
-                ?>
-            </select>
-
-            <!-- Municipality dropdown -->
-            <label for="MunicipalitySelect" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
-            <select id="MunicipalitySelect" name="municipality" class="form-select mb-2">
-            </select>
-
-            <!-- barangay -->
-            <label for="BarangaySelect" class="form-label small-font mb-0">Sitio <span style="color: red;">*</span></label>
-            <select id="BarangaySelect" name="barangay" class="form-select mb-2">
-            </select>
-
-            <!-- coordinates -->
-            <label for="coordEdit" class="form-label small-font mb-0">Coordinates</label>
-            <input id="coordEdit" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
-            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (latitude , longitude)</div>
-            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">The blue Marker is for the old/current location</div>
-        </div>
-        <!-- map -->
-        <div id="mapEdit" class="col border">
-        </div>
-    </div>
-
     <!-- STEP NAVIGATION -->
     <div class="row">
         <div class="col d-flex justify-content-end">
-            <button class="btn btn-light border" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open morphological tab" onclick="switchTab('edit-more')"><i class="fa-solid fa-forward"></i></button>
+            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open morphological tab" onclick="switchTab('edit-more')">Next<i class="fa-solid fa-angles-right ms-2"></i></button>
         </div>
     </div>
 </div>
@@ -286,17 +339,18 @@
         oldImage = image; // Store the old image URL or filename
     }
 
-    // Function to add the old image file to the files array at the end
     function addOldImageFile(oldImageFilename) {
-        var dataTransfer = new DataTransfer();
-        Array.from(imageInputEdit.files).forEach(function(file) {
-            dataTransfer.items.add(file);
-        });
-        var oldImageFile = new File([null], oldImageFilename, {
-            type: 'image/png'
-        });
-        dataTransfer.items.add(oldImageFile);
-        imageInputEdit.files = dataTransfer.files;
+        if (oldImageFilename && oldImageFilename.trim() !== '') {
+            var dataTransfer = new DataTransfer();
+            Array.from(imageInputEdit.files).forEach(function(file) {
+                dataTransfer.items.add(file);
+            });
+            var oldImageFile = new File([null], oldImageFilename, {
+                type: 'image/png'
+            });
+            dataTransfer.items.add(oldImageFile);
+            imageInputEdit.files = dataTransfer.files;
+        }
     }
 
     // function to display and remove the image selected

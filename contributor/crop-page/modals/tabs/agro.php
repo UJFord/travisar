@@ -54,8 +54,8 @@
         </div>
 
         <!-- Other -->
-        <div class="row mt-3 mb-5 d-none">
-            <div id="corn-pest-other" class="col-12 mb-0 d-none">
+        <div id="corn-pest-other" class="d-none row mt-3 mb-5">
+            <div class="col-12 mb-0">
                 <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
                 <textarea name="corn_others_desc" id="corn-other" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
                 <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>

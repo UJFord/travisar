@@ -3,14 +3,18 @@ require "../../functions/connections.php";
 
 if (isset($_POST['approve'])) {
     $crop_id = $_POST['crop_id'];
-    $select = "UPDATE crop SET status = 'approved' WHERE crop_id = '$crop_id' ";
+    $select = "UPDATE status
+        SET action = 'approved'
+        WHERE status_id IN (SELECT status_id FROM crop WHERE crop_id = '$crop_id')";
+
     $result = pg_query($conn, $select);
     if ($result) {
-
+        $_SESSION['message'] = "Crop Approved";
         header("location: ../approval.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {
-        echo "Error updating record"; // Display an error message if the query fails
+        // Log the error or display a more user-friendly message
+        echo "Error updating record: " . pg_last_error($conn);
     }
 }
 
@@ -58,7 +62,6 @@ if (isset($_POST['update'])) {
                 $crop_seed_image = $crops['crop_seed_image'];
                 $crop_vegetative_image = $crops['crop_vegetative_image'];
                 $crop_reproductive_image = $crops['crop_reproductive_image'];
-                $status = "approved";
 
                 // location
                 $province_name = $crops['province_name'];
@@ -156,7 +159,7 @@ if (isset($_POST['update'])) {
                     $pest_resistance_corn_id = $cropsUpdate['pest_resistance_corn_id'];
                     $status_id = $cropsUpdate['status_id'];
                     $action = "approved";
-                    $remarks = "Update Approved";
+                    $remarks = "Updating of crop data is approved.";
 
                     // update utilization cultural table
                     $query_utilCultural = "UPDATE utilization_cultural_importance SET significance = $1, \"use\" = $2, indigenous_utilization = $3,
@@ -173,11 +176,11 @@ if (isset($_POST['update'])) {
                     }
 
                     // update crop table
-                    $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, status = $3, meaning_of_name = $4,
-                    crop_seed_image = $5 where crop_id = $6";
+                    $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, meaning_of_name = $3,
+                    crop_seed_image = $4 where crop_id = $5";
 
                     $valueCrops = array(
-                        $crop_variety, $crop_description, $status, $meaning_of_name, $crop_seed_image, $crop_id
+                        $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_id
                     );
                     $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 

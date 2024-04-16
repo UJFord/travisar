@@ -1,24 +1,14 @@
 <div id="root_cropMorph-Edit">
-    <h4>Vegetative Traits</h4>
-    <br>
-    <!-- Morphological traits -->
+    <h6 class="fw-semibold mt-4 mb-3">Vegetative State</h6>
     <!-- plant height -->
-    <div class="row">
-        <!-- Plant Height -->
-        <label>Plant Height</label>
-        <div class="mb-4">
-            <div class="form-check form-check-inline">
-                <label class="form-check-label" for="rootCrop-height-tall-edit">Tall</label>
-                <input class="form-check-input" type="radio" name="rootcrop_plant_height" id="rootCrop-height-tall-edit" value="Tall">
-            </div>
-            <div class="form-check form-check-inline">
-                <label class="form-check-label" for="rootCrop-height-average-edit">Average</label>
-                <input class="form-check-input" type="radio" name="rootcrop_plant_height" id="rootCrop-height-average-edit" value="Average">
-            </div>
-            <div class="form-check form-check-inline">
-                <label class="form-check-label" for="rootCrop-height-short-edit">Short</label>
-                <input class="form-check-input" type="radio" name="rootcrop_plant_height" id="rootCrop-height-short-edit" value="Short">
-            </div>
+    <div class="row mb-4">
+        <div class="col-6">
+            <label class="small-font" for="rootCrop-height-Edit">Plant Height</label>
+            <select class="form-select" name="rootcrop_plant_height" id="rootCrop-height-Edit">
+                <option value="Short">Short</option>
+                <option value="Typical">Typical</option>
+                <option value="Tall">Tall</option>
+            </select>
         </div>
     </div>
 
@@ -46,10 +36,10 @@
     </div>
 
     <!-- stem and leaf desc -->
-    <div class="row mb-4">
-        <div class="col-12 mb-2">
-            <label for="rootCrop-steam-leaf-desc-Edit" class="form-label">Stem and Leaf Description</label>
-            <textarea name="rootcrop_stem_leaf_desc" id="rootCrop-steam-leaf-desc-Edit" cols="30" rows="1" class="form-control"></textarea>
+    <div class="row mb-5">
+        <div class="col">
+            <label for="rootCrop-steam-leaf-desc-Edit" class="form-label small-font">Stem and Leaf Description</label>
+            <textarea name="rootcrop_stem_leaf_desc" id="rootCrop-steam-leaf-desc-Edit" cols="30" rows="2" class="form-control"></textarea>
         </div>
     </div>
 
@@ -64,21 +54,21 @@
         </div>
     </div> -->
 
-    <h4>Root Crop Traits</h4>
-    <br>
     <!-- Root Crop Traits -->
-    <div class="row mb-4">
-        <div class="col-12 mb-2">
+    <h6 class="fw-semibold mt-4 mb-3">Crop Traits</h6>
+    <!-- Root Crop Traits -->
+    <div class="row mb-3">
+        <div class="col-4 mb-2">
             <label for="rootCrop-eating-quality-Edit" class="form-label small-font">Eating Quality</label>
-            <textarea name="eating_quality" id="rootCrop-eating-quality-Edit" cols="30" rows="1" class="form-control"></textarea>
+            <input type="text" name="eating_quality" id="rootCrop-eating-quality-Edit" class="form-control">
         </div>
-        <div class="col-12 mb-2">
+        <div class="col-4 mb-2">
             <label for="rootCrop-color-Edit" class="form-label small-font">Color</label>
-            <textarea name="rootcrop_color" id="rootCrop-color-Edit" cols="30" rows="1" class="form-control"></textarea>
+            <input type="text" name="rootcrop_color" id="rootCrop-color-Edit" class="form-control">
         </div>
-        <div class="col-12 mb-2">
+        <div class="col-4 mb-2">
             <label for="rootCrop-sweetness-Edit" class="form-label small-font">Sweetness</label>
-            <textarea name="sweetness" id="rootCrop-sweetness-Edit" cols="30" rows="1" class="form-control"></textarea>
+            <input type="text" name="sweetness" id="rootCrop-sweetness-Edit" class="form-control">
         </div>
         <div class="col-12 mb-2">
             <label for="rootCrop-remarkableFeatures-Edit" class="form-label small-font">Other Remarkable Features</label>

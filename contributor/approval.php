@@ -213,7 +213,7 @@ require "../functions/functions.php";
 
                                                 <!-- Status -->
                                                 <td class="text-secondary small-font text-center fw-normal">
-                                                    <?= $row['status']; ?>
+                                                    <?= $row['action']; ?>
                                                 </td>
 
                                                 <!-- view -->
