@@ -50,8 +50,10 @@ require "../functions/functions.php";
         <div class="row mt-3">
             <!-- LIST -->
             <?php require "user-page/list.php"; ?>
-            <!-- View -->
+            <!-- Add -->
             <?php require "user-page/tabs/add-user.php"; ?>
+            <!-- Edit -->
+            <?php require "user-page/tabs/edit-user.php"; ?>
             <!-- View -->
             <?php require "user-page/tabs/view.php"; ?>
             <div>
@@ -113,10 +115,10 @@ require "../functions/functions.php";
     </script>
     <!-- script for viewing -->
     <script>
-        // EDIT SCRIPT
-        const tableRows = document.querySelectorAll('.view-item-modal-partners');
+        // View SCRIPT
+        const tableRowsView = document.querySelectorAll('.view-item-modal-partners');
 
-        tableRows.forEach(row => {
+        tableRowsView.forEach(row => {
 
             row.addEventListener('click', () => {
                 const id = row.getAttribute('data-id');

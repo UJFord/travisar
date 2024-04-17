@@ -172,12 +172,12 @@
 
                             <!-- Action -->
                             <td>
-                                <form class="d-flex justify-content-center">
-                                    <!-- edit -->
-                                    <a href="#" class="btn btn-primary me-1 view-item-modal-partners" data-toggle="modal" data-target="#dataModalView" data-id="<?= $row['user_id']; ?>">view</a>
-                                    <!-- delete -->
-                                    <!-- <button type="submit" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button> -->
-                                </form>
+                                <!-- View -->
+                                <a href="#" class="btn btn-primary me-1 view-item-modal-partners" data-toggle="modal" data-target="#dataModalView" data-id="<?= $row['user_id']; ?>">view</a>
+                                <!-- edit -->
+                                <a href="#" class="btn btn-success btn-sm edit_data admin-only" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['user_id']; ?>">Edit</a>
+                                <!-- delete -->
+                                <!-- <button type="submit" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button> -->
                             </td>
                         </tr>
                 <?php
