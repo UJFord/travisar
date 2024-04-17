@@ -96,3 +96,21 @@ if (isset($_POST['click_edit_btn'])) {
         echo '<h4>No record found</h4>';
     }
 }
+
+if (isset($_POST['click_remarks_btn'])) {
+    $crop_id = $_POST["crop_id"];
+    $arrayresult = [];
+
+    // get status remarks
+    $get_name = "SELECT remarks FROM crop left join status on crop.status_id = status.status_id where crop.crop_id = $1";
+    $query_run = pg_query_params($conn, $get_name, array($crop_id));
+
+    if (pg_num_rows($query_run) > 0) {
+        while ($row = pg_fetch_assoc($query_run)) {
+            $arrayresult[] = $row;
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($arrayresult);
+    }
+}

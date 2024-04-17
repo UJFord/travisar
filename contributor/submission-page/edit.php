@@ -127,7 +127,6 @@
     var municipalities = [];
 
     tableRows.forEach(row => {
-
         row.addEventListener('click', () => {
             const id = row.getAttribute('data-id');
 
@@ -622,6 +621,7 @@
         $('#edit-item-modal').on('hidden.bs.modal', function() {
             // Reset the form
             document.getElementById('form-panel-edit').reset();
+            document.getElementById('form-panel-remarks').reset();
 
             // Reset any other specific fields if needed
             $('#previewSeedEdit').empty();
