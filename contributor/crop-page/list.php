@@ -1,5 +1,5 @@
 <!-- LIST -->
-<div class="col border">
+<div class="col">
     <div class="container">
 
         <!-- HEADING -->
@@ -53,12 +53,12 @@
             <!-- table head -->
             <thead>
                 <tr>
-                    <th class="col-1 thead-item" scope="col">
+                    <!-- <th class="col-1 thead-item" scope="col">
                         <input class="form-check-input" type="checkbox">
                         <label class="form-check-label text-dark-emphasis small-font">
                             All
                         </label>
-                    </th>
+                    </th> -->
                     <th class="col text-dark-emphasis small-font" scope="col">Name</th>
                     <th class="col-4 text-dark-emphasis small-font" scope="col">Contributor</th>
                     <th class="col-4 text-dark-emphasis small-font" scope="col">Action</th>
@@ -66,8 +66,50 @@
 
                 </tr>
             </thead>
+
+
+
+
             <!-- table body -->
             <tbody class="table-group-divider fw-bold overflow-scroll">
+
+
+
+
+
+                <!-- UI Test Item -->
+                <tr>
+                    <!-- Name -->
+                    <td>
+                        <a href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">Banay-Banay</a>
+                        <h6 class="text-secondary small-font m-0">Rice</h6>
+                    </td>
+
+                    <!-- Contributor -->
+                    <td class="small-font">
+                        <span class="py-1 px-2">
+                            <h6 class="text-secondary small-font m-0">Elo Quent</h6>
+                        </span>
+                    </td>
+
+                    <!-- Action -->
+                    <td>
+                        <a href="#" class="btn btn-success btn-sm edit_data admin-only">
+                            Edit
+                        </a>
+                    </td>
+
+                    <!-- Ellipsis -->
+                    <td class="text-end">
+                        <i class="fa-solid fa-ellipsis-vertical btn"></i>
+                    </td>
+                </tr>
+
+
+
+
+
+
 
                 <?php
                 // get the data from crops. only approved data are shown and is limited per items per page
@@ -93,7 +135,7 @@
                         <tr id="row1" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">
 
                             <!-- checkbox -->
-                            <th scope="row"><input class="form-check-input" type="checkbox"></th>
+                            <!-- <th scope="row"><input class="form-check-input" type="checkbox"></th> -->
 
                             <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
 

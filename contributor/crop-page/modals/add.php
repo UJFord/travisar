@@ -21,7 +21,7 @@
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active small-font modal-tab" id="gen-tab" data-bs-toggle="tab" data-bs-target="#gen-tab-pane" type="button" role="tab" aria-controls="gen-tab-pane" aria-selected="false"><i class="fa-solid fa-lightbulb me-1"></i>General</button>
+                            <button class="nav-link small-font modal-tab" id="gen-tab" data-bs-toggle="tab" data-bs-target="#gen-tab-pane" type="button" role="tab" aria-controls="gen-tab-pane" aria-selected="false"><i class="fa-solid fa-lightbulb me-1"></i>General</button>
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link small-font modal-tab" id="more-tab" data-bs-toggle="tab" data-bs-target="#more-tab-pane" type="button" role="tab" aria-controls="more-tab-pane" aria-selected="true"><i class="fa-solid fa-leaf me-1"></i>Morphology</button>
@@ -34,6 +34,9 @@
                         </li>
                         <li class="nav-item" role="presentation">
                             <button class="nav-link small-font modal-tab" id="cultural-tab" data-bs-toggle="tab" data-bs-target="#cultural-tab-pane" type="button" role="tab" aria-controls="cultural-tab-pane" aria-selected="false"><i class="fa-solid fa-sun me-1"></i>Importance</button>
+                        </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link active small-font modal-tab" id="references-tab" data-bs-toggle="tab" data-bs-target="#references-tab-pane" type="button" role="tab" aria-controls="references-tab-pane" aria-selected="false"><i class="fa-solid fa-book me-1"></i></i>References</button>
                         </li>
                     </ul>
                     <div class="container">
@@ -51,6 +54,8 @@
                             <?php require "tabs/sensory.php" ?>
                             <!-- cultural -->
                             <?php require "tabs/cultural.php" ?>
+                            <!-- references -->
+                            <?php require "tabs/references.php" ?>
 
                         </div>
                     </div>

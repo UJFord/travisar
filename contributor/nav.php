@@ -5,7 +5,7 @@
 
 
 <!-- MARKUP -->
-<nav class="z-3 navbar navbar-expand-md border-bottom border-body">
+<nav id="main-nav" class="z-3 navbar navbar-expand-md border-bottom border-body">
     <div class="container">
         <!-- brand and navs -->
         <a class="navbar-brand text-white" href="#"><i class="bi bi-crop"></i></a>
@@ -17,24 +17,24 @@
         <div class="collapse navbar-collapse d-md-flex justify-content-md-between" id="navbarNav">
             <ul class="navbar-nav fw-bold">
                 <li class="nav-item">
-                    <a class="nav-link active text-light" aria-current="page" href="crop.php">Items</a>
+                    <a class="main-nav-item nav-link active text-light" aria-current="page" href="crop.php">Items</a>
                 </li>
 
                 <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
                     <li class="nav-item">
-                        <a class="nav-link" href="submission.php">Submitted</a>
+                        <a class="main-nav-item nav-link" href="submission.php">Submitted</a>
                     </li>
                 <?php endif; ?>
 
                 <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
                     <li class="nav-item curator-only admin-only">
-                        <a class="nav-link" href="contributor.php">Contributors</a>
+                        <a class="main-nav-item nav-link" href="contributor.php">Contributors</a>
                     </li>
                 <?php endif; ?>
 
                 <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
                     <li class="nav-item dropdown curator-only admin-only">
-                        <a class="nav-link dropdown-toggle" role="button" id="validationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="main-nav-item nav-link dropdown-toggle" role="button" id="validationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             Validation
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="validationDropdown">
@@ -44,7 +44,7 @@
                     </li>
 
                     <li class="nav-item dropdown curator-only admin-only">
-                        <a class="dropdown-toggle nav-link" role="button" id="addressesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a class="dropdown-toggle main-nav-item nav-link" role="button" id="addressesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             Addresses
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="addressesDropdown">

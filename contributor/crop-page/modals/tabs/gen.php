@@ -75,7 +75,7 @@
 <!-- leaflet -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <!-- GENERAL TAB -->
-<div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
+<div class="fade tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
     <!-- Category and Crop Field -->
     <h6 class="fw-semibold mt-4 mb-3">General I</h6>
     <div class="row mb-2">
