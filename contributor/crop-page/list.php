@@ -81,7 +81,7 @@
                 <tr>
                     <!-- Name -->
                     <td>
-                        <a href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">Banay-Banay</a>
+                        <a href="crop-page/view.php" target="_blank">Banay-Banay</a>
                         <h6 class="text-secondary small-font m-0">Rice</h6>
                     </td>
 
@@ -101,7 +101,9 @@
 
                     <!-- Ellipsis -->
                     <td class="text-end">
-                        <i class="fa-solid fa-ellipsis-vertical btn"></i>
+                        <div class="dropdown">
+                            <i class="fa-solid fa-ellipsis-vertical btn"></i>
+                        </div>
                     </td>
                 </tr>
 

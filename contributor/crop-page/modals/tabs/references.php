@@ -1,5 +1,5 @@
 <!-- refernces -->
-<div class="fade show active tab-pane" id="references-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
+<div class="fade tab-pane" id="references-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
     <!-- Links -->
     <h6 class="fw-semibold mt-4 mb-3">Links</h6>
 

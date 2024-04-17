@@ -66,7 +66,7 @@ require "../functions/functions.php";
             <!-- edit -->
             <?php require "crop-page/modals/edit.php"; ?>
             <!-- view -->
-            <?php require "crop-page/modals/view.php"; ?>
+            <?php // require "crop-page/modals/view.php"; ?>
         </div>
     </div>
 
@@ -553,6 +553,16 @@ require "../functions/functions.php";
                 });
         }
     </script>
+    <!-- allowing scrollspy in the modal -->
+    <script>
+        $(document).ready(function() {
+            $('#view-item-modal').on('shown.bs.modal', function() {
+                $('[data-spy="scroll"]').scrollspy('refresh');
+                console.log($('[data-spy="scroll"]').scrollspy());
+            });
+        });
+    </script>
+
 </body>
 
 </html>
