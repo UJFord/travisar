@@ -14,6 +14,11 @@
             background: #016A70 !important;
             /* Change 'green' to your desired success color */
         }
+
+        .nav-link:hover {
+            background: #709091;
+            color: #f5f5f5 !important;
+        }
     </style>
 
 </head>
@@ -24,10 +29,40 @@
             <div class="col-2">
                 <nav id="navbar" class="h-100 flex-column align-items-stretch pe-4 border-end">
                     <nav class="nav nav-pills flex-column sticky-top pt-5">
+                        <!-- general -->
                         <a class="nav-link text-dark fw-semibold" href="#general">General</a>
                         <nav class="nav nav-pills flex-column">
-                            <a class="nav-link ms-3 my-1" href="#item-1-1">General Information</a>
-                            <a class="nav-link ms-3 my-1" href="#item-1-2">Item 1-2</a>
+                            <a class="nav-link ms-3 text-dark" href="#gen-info">General Information</a>
+                            <a class="nav-link ms-3 text-dark" href="#image">Images</a>
+                            <a class="nav-link ms-3 text-dark" href="#loc-info">Location</a>
+                        </nav>
+                        <!-- morphology -->
+                        <a class="nav-link text-dark fw-semibold" href="#morph">Morphology</a>
+                        <nav class="nav nav-pills flex-column">
+                            <a class="nav-link ms-3 text-dark" href="#morph-veg">General Information</a>
+                            <a class="nav-link ms-3 text-dark" href="#morph-rep">Images</a>
+                        </nav>
+                        <!-- sensory -->
+                        <a class="nav-link text-dark fw-semibold" href="#sensory">Sensory</a>
+                        <nav class="nav nav-pills flex-column">
+                            <a class="nav-link ms-3 text-dark" href="#sensory-traits">Traits</a>
+                        </nav>
+                        <!-- agronomy -->
+                        <a class="nav-link text-dark fw-semibold" href="#agro">Agronomy</a>
+                        <nav class="nav nav-pills flex-column">
+                            <a class="nav-link ms-3 text-dark" href="#pest-resist">Pest Resistance</a>
+                            <a class="nav-link ms-3 text-dark" href="#disease-resist">Disease Resistance</a>
+                            <a class="nav-link ms-3 text-dark" href="#stress-resist">Resistance to Abiotic Stress</a>
+                        </nav>
+                        <!-- importance -->
+                        <a class="nav-link text-dark fw-semibold" href="#importance">Importance</a>
+                        <nav class="nav nav-pills flex-column">
+                            <a class="nav-link ms-3 text-dark" href="#pest-resist">Utilization and Cultural Importance</a>
+                        </nav>
+                        <!-- reference -->
+                        <a class="nav-link text-dark fw-semibold" href="#importance">References</a>
+                        <nav class="nav nav-pills flex-column">
+                            <a class="nav-link ms-3 text-dark" href="#pest-resist">Links </a>
                         </nav>
                     </nav>
                 </nav>
@@ -36,9 +71,49 @@
             <div class="col pt-5">
                 <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
 
-                    <div id="item-1">
-                        <h4>Item 1</h4>
-                        <p>. Lorem ipsum dolor sit amet consectetur adipisicing elit. Explicabo aliquam placeat atque blanditiis ipsam doloremque! Harum sapiente a commodi maiores quisquam fugit perspiciatis veritatis temporibus. Dolore repellat saepe dolor iure reprehenderit tempora sed nostrum temporibus vel. Ut voluptas omnis dolorum error natus corrupti nihil deleniti molestias explicabo laborum quis cumque, eveniet cupiditate quibusdam adipisci! Tempore corrupti dolorem ex sint, minima rem itaque nobis autem obcaecati, quas quia sequi unde asperiores architecto ipsum earum consequatur doloremque repudiandae non recusandae? Error quo illo quae? Accusamus, error aliquam facere, laudantium eligendi expedita aperiam nobis libero praesentium rem quasi soluta amet quod quam vitae!..</p>
+                    <!-- general -->
+                    <div id="general">
+                        <!-- general information -->
+                        <div id="gen-info"></div>
+                        <!-- images for stages -->
+                        <div id="image"></div>
+                        <!-- location -->
+                        <div id="loc-info"></div>
+                    </div>
+
+                    <!-- morphology -->
+                    <div id="morph">
+                        <!-- vegetative -->
+                        <div id="morph-veg"></div>
+                        <!-- reproductive -->
+                        <div id="morph-rep"></div>
+                    </div>
+
+                    <!-- sensory -->
+                    <div id="sensory">
+                        <!-- sensory traits -->
+                        <div id="sensory-traits"></div>
+                    </div>
+
+                    <!-- agronomy -->
+                    <div id="agro">
+                        <!-- pest -->
+                        <div id="pest-resist"></div>
+                        <!-- disease -->
+                        <div id="disease-resist"></div>
+                        <!-- stress -->
+                        <div id="stress-resist"></div>
+                    </div>
+
+                    <!-- importance -->
+                    <div id="importance">
+                        <!-- util and cultural -->
+                        <div id="util-n-culture"></div>
+                    </div>
+
+                    <!-- references -->
+                    <div id="reference">
+                        <div id="links"></div>
                     </div>
                 </div>
             </div>
