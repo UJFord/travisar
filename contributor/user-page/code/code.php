@@ -11,7 +11,7 @@ if (isset($_POST['click_add_btn'])) {
         $gender = $_POST['gender'];
         $email = $_POST['email'];
         $username = $_POST['username'];
-        $password = $_POST['password'];
+        $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $affiliation = $_POST['affiliation'];
         $account_type_id = $_POST['account_type_id'];
         $email_verify = $_POST['email'];
@@ -48,7 +48,6 @@ if (isset($_POST['click_add_btn'])) {
     }
 }
 
-
 if (isset($_POST['approve'])) {
     $user_id = $_POST['user_id'];
     $email = $_POST['email'];
@@ -72,13 +71,26 @@ if (isset($_POST['approve'])) {
     }
 }
 
-if (isset($_POST['rejected'])) {
-    $crop_id = $_POST['crop_id'];
-    $select = "UPDATE crop SET status = 'rejected' WHERE crop_id = '$crop_id' ";
-    $result = pg_query($conn, $select);
+if (isset($_POST['click_edit_btn'])) {
+    $user_id = $_POST['user_id'];
+    $first_name = $_POST['first_nameEdit'];
+    $last_name = $_POST['last_nameEdit'];
+    $gender = $_POST['genderEdit'];
+    $email = $_POST['emailEdit'];
+    $username = $_POST['usernameEdit'];
+    $password = password_hash($_POST['passwordEdit'], PASSWORD_DEFAULT);
+    $affiliation = $_POST['affiliationEdit'];
+    $account_type_id = $_POST['account_type_idEdit'];
+
+    $select = "UPDATE users SET first_name = $1, last_name = $2, gender = $3, email = $4, username = $5, password = $6, affiliation = $7,
+    account_type_id = $8  WHERE user_id = $9 ";
+    $result = pg_query_params($conn, $select, array(
+        $first_name, $last_name, $gender, $email, $username, $password, $affiliation,
+        $account_type_id, $user_id
+    ));
     if ($result) {
 
-        header("location: ../../municipality.php");
+        header("location: ../../partners.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {
         echo "Error updating record"; // Display an error message if the query fails

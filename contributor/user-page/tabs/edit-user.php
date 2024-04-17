@@ -19,7 +19,7 @@
             <form id="form-panel-Edit" name="Form" action="user-page/code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
                     <div class="container">
-                        <div id="Add-User">
+                        <div id="Edit-User">
                             <!-- user id hidden -->
                             <input type="hidden" name="user_id" id="user_idEdit">
                             <!-- First name and Last Name -->
@@ -27,18 +27,18 @@
                                 <!-- First name -->
                                 <div class="col">
                                     <label for="first-NameEdit" class="form-label small-font">First Name<span style="color: red;">*</span></label>
-                                    <input type="text" id="first-NameEdit" name="first_name" class="form-control">
+                                    <input type="text" id="first-NameEdit" name="first_nameEdit" class="form-control">
                                 </div>
 
                                 <!-- Last name -->
                                 <div class="col">
                                     <label for="last-NameEdit" class="form-label small-font">Last Name<span style="color: red;">*</span></label>
-                                    <input type="text" id="last-NameEdit" name="last_name" class="form-control">
+                                    <input type="text" id="last-NameEdit" name="last_nameEdit" class="form-control">
                                 </div>
                                 <!-- Gender -->
                                 <div class="col">
                                     <label for="GenderEdit" class="form-label small-font">Gender</label>
-                                    <input type="text" id="GenderEdit" name="gender" class="form-control">
+                                    <input type="text" id="GenderEdit" name="genderEdit" class="form-control">
                                 </div>
                             </div>
 
@@ -47,12 +47,12 @@
                                 <!-- Email -->
                                 <div class="col">
                                     <label for="EmailEdit" class="form-label small-font">Email<span style="color: red;">*</span></label>
-                                    <input type="text" id="EmailEdit" name="email" class="form-control">
+                                    <input type="text" id="EmailEdit" name="emailEdit" class="form-control">
                                 </div>
                                 <!-- user name -->
                                 <div class="col">
                                     <label for="user-NameEdit" class="form-label small-font">Username</label>
-                                    <input type="text" id="user-NameEdit" name="username" class="form-control">
+                                    <input type="text" id="user-NameEdit" name="usernameEdit" class="form-control">
                                 </div>
                             </div>
 
@@ -61,13 +61,13 @@
                                 <!-- Password -->
                                 <div class="col">
                                     <label for="PasswordEdit" class="form-label small-font">Password<span style="color: red;">*</span></label>
-                                    <input type="text" id="PasswordEdit" name="password" class="form-control">
+                                    <input type="text" id="PasswordEdit" name="passwordEdit" class="form-control">
                                 </div>
 
                                 <!-- Confirm Password -->
                                 <div class="col">
                                     <label for="Confirm-PasswordEdit" class="form-label small-font">Confirm Password<span style="color: red;">*</span></label>
-                                    <input type="text" id="Confirm-PasswordEdit" name="confirm_password" class="form-control">
+                                    <input type="text" id="Confirm-PasswordEdit" name="confirm_passwordEdit" class="form-control">
                                 </div>
                             </div>
 
@@ -76,12 +76,12 @@
                                 <!-- Affiliation -->
                                 <div class="col">
                                     <label for="AffiliationEdit" class="form-label small-font">Affiliation</label>
-                                    <input type="text" id="AffiliationEdit" name="affiliation" class="form-control">
+                                    <input type="text" id="AffiliationEdit" name="affiliationEdit" class="form-control">
                                 </div>
                                 <!-- Account Type -->
                                 <div class="col">
                                     <label for="Account_TypeEdit" class="form-label small-font">Account Type<span style="color: red;">*</span></label>
-                                    <select name="account_type_id" id="Account_TypeEdit">
+                                    <select name="account_type_idEdit" id="Account_TypeEdit">
                                         <?php
                                         $query = "SELECT * from account_type where type_name != 'Curator'";
                                         $query_run = pg_query($conn, $query);
@@ -133,68 +133,68 @@
         form.addEventListener("submit", function(event) {
             // Prevent the default form submission behavior
             event.preventDefault();
-            // Validate the form
-            if (validateForm()) {
-                // If validation succeeds, submit the form
-                submitForm();
-            }
+
+            // If validation succeeds, submit the form
+            submitFormEdit();
+
         });
     });
 
-    // Function to validate input
-    function validateForm() {
-        var firstNameEdit = document.forms["Form"]["first_name"].value;
-        var lastNameEdit = document.forms["Form"]["last_name"].value;
-        var emailEdit = document.forms["Form"]["email"].value;
-        var passwordEdit = document.forms["Form"]["password"].value;
-        var confirmPasswordEdit = document.forms["Form"]["confirm_password"].value;
-        var accountTypeEdit = document.forms["Form"]["account_type_id"].value;
+    //! wala ni sya gagana ambot i fix pa nako ni
+    // Function to validate input 
+    // function validateFormEdit() {
+    //     var firstNameEdit = document.forms["Form"]["first_nameEdit"].value;
+    //     var lastNameEdit = document.forms["Form"]["last_nameEdit"].value;
+    //     var emailEdit = document.forms["Form"]["emailEdit"].value;
+    //     var passwordEdit = document.forms["Form"]["passwordEdit"].value;
+    //     var confirmPasswordEdit = document.forms["Form"]["confirm_passwordEdit"].value;
+    //     var accountTypeEdit = document.forms["Form"]["account_type_idEdit"].value;
 
-        // Check if the required fields are not empty
-        if (firstNameEdit === "" || lastNameEdit === "" || emailEdit === "" || passwordEdit === "" || confirmPasswordEdit === "" || accountTypeEdit === "") {
-            alert("Please fill out all required fields.");
-            return false; // Prevent form submission
-        }
+    //     // Check if the required fields are not empty
+    //     if (firstNameEdit === "" || lastNameEdit === "" || emailEdit === "" || passwordEdit === "" || confirmPasswordEdit === "" || accountTypeEdit === "") {
+    //         alert("Please fill out all required fields.");
+    //         return false; // Prevent form submission
+    //     }
 
-        var errors = [];
+    //     var errors = [];
 
-        // Validate first name
-        if (!/^[a-zA-Z ]+$/.test(firstNameEdit)) {
-            errors.push("<div class='error text-center'>Please enter a valid first name.</div>");
-        }
+    //     // Validate first name
+    //     if (!/^[a-zA-Z ]+$/.test(firstNameEdit)) {
+    //         errors.push("<div class='error text-center'>Please enter a valid first name.</div>");
+    //     }
 
-        // Validate last name
-        if (!/^[a-zA-Z ]+$/.test(lastNameEdit)) {
-            errors.push("<div class='error text-center'>Please enter a valid last name.</div>");
-        }
+    //     // Validate last name
+    //     if (!/^[a-zA-Z ]+$/.test(lastNameEdit)) {
+    //         errors.push("<div class='error text-center'>Please enter a valid last name.</div>");
+    //     }
 
-        // Validate email
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEdit)) {
-            errors.push("<div class='error text-center'>Please enter a valid email.</div>");
-        }
+    //     // Validate email
+    //     if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEdit)) {
+    //         errors.push("<div class='error text-center'>Please enter a valid email.</div>");
+    //     }
 
-        // Validate password length
-        if (passwordEdit.length < 8) {
-            errors.push("<div class='error text-center'>Password must be at least 8 characters.</div>");
-        }
+    //     // Validate password length
+    //     if (passwordEdit.length < 8) {
+    //         errors.push("<div class='error text-center'>Password must be at least 8 characters.</div>");
+    //     }
 
-        // Validate password match
-        if (passwordEdit !== confirmPasswordEdit) {
-            errors.push("<div class='error text-center'>Passwords must match.</div>");
-        }
+    //     // Validate password match
+    //     if (passwordEdit !== confirmPasswordEdit) {
+    //         errors.push("<div class='error text-center'>Passwords must match.</div>");
+    //     }
 
-        // Display errors
-        if (errors.length > 0) {
-            var errorString = errors.join("");
-            document.getElementById("error-messages").innerHTML = errorString;
-            return false;
-        }
+    //     // Display errors
+    //     if (errors.length > 0) {
+    //         var errorString = errors.join("");
+    //         document.getElementById("error-messages").innerHTML = errorString;
+    //         return false;
+    //     }
 
-        return true;
-    }
+    //     return true;
+    // }
 
     // Function to submit the form and refresh notifications
-    function submitForm() {
+    function submitFormEdit() {
         var form = document.getElementById('form-panel-Edit');
         if (form) {
             // Create a new FormData object
@@ -214,9 +214,9 @@
                 success: function(data) {
                     console.log(data);
                     // Reset the form
-                    // form.reset();
-                    // // Reload the page or do other actions if needed
-                    // location.reload();
+                    form.reset();
+                    // Reload the page or do other actions if needed
+                    location.reload();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("Form submission error:", textStatus, errorThrown);
@@ -271,25 +271,6 @@
                             value: value['type_id'],
                             text: value['type_name']
                         }));
-
-                        $('#BarangaySelect').append($('<option>', {
-                            value: value['barangay_name'],
-                            text: value['barangay_name']
-                        }));
-                        $('#MunicipalitySelect').append($('<option>', {
-                            value: value['municipality_name'],
-                            text: value['municipality_name']
-                        }));
-
-                        // Add municipality to the array
-                        municipalities.push(value['municipality_name']);
-
-                        // Append options to MunicipalitySelect
-                        $('#MunicipalitySelect').empty(); // Clear previous options
-                        municipalities.forEach(function(municipality) {
-                            var selected = (municipality === value['municipality_name']) ? 'selected' : '';
-                            $('#MunicipalitySelect').append('<option value="' + municipality + '" ' + selected + '>' + municipality + '</option>');
-                        });
                     });
                 },
                 error: function(xhr, status, error) {
