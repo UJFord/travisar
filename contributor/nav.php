@@ -2,8 +2,6 @@
 <!-- custom -->
 <link rel="stylesheet" href="css/nav.css">
 
-
-
 <!-- MARKUP -->
 <nav id="main-nav" class="z-3 navbar navbar-expand-md border-bottom border-body">
     <div class="container">
@@ -23,12 +21,6 @@
                 <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
                     <li class="nav-item">
                         <a class="main-nav-item nav-link" href="submission.php">Submitted</a>
-                    </li>
-                <?php endif; ?>
-
-                <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
-                    <li class="nav-item curator-only admin-only">
-                        <a class="main-nav-item nav-link" href="contributor.php">Contributors</a>
                     </li>
                 <?php endif; ?>
 
@@ -55,6 +47,17 @@
                     </li> -->
                 <?php endif; ?>
 
+                <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
+                    <li class="nav-item dropdown curator-only admin-only">
+                        <a class="main-nav-item nav-link dropdown-toggle" role="button" id="validationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            User Management
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="validationDropdown">
+                            <li><a class="dropdown-item" href="partners.php">Partners</a></li>
+                            <li><a class="dropdown-item" href="verification.php">Verification</a></li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
             </ul>
             <!-- profile -->
             <div id="profile-container" class="dropdown">

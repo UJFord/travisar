@@ -4,7 +4,7 @@
 </style>
 
 <!-- HTML -->
-<div class="modal fade" id="view-item-modal-contributor" tabindex="-1" aria-labelledby="add-item-modal-label" aria-hidden="true">
+<div class="modal fade" id="view-item-modal-partners" tabindex="-1" aria-labelledby="add-item-modal-label" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-fullscreen-sm-down">
         <div class="modal-content">
             <!-- header -->

@@ -49,10 +49,11 @@ require "../functions/functions.php";
     <div class="container">
         <div class="row mt-3">
             <!-- LIST -->
-            <?php require "contributor-page/list.php"; ?>
-
+            <?php require "user-page/list.php"; ?>
             <!-- View -->
-            <?php require "contributor-page/tabs/view.php"; ?>
+            <?php require "user-page/tabs/add-user.php"; ?>
+            <!-- View -->
+            <?php require "user-page/tabs/view.php"; ?>
             <div>
             </div>
         </div>
@@ -113,7 +114,7 @@ require "../functions/functions.php";
     <!-- script for viewing -->
     <script>
         // EDIT SCRIPT
-        const tableRows = document.querySelectorAll('.view-item-modal-contributor');
+        const tableRows = document.querySelectorAll('.view-item-modal-partners');
 
         tableRows.forEach(row => {
 
@@ -125,7 +126,7 @@ require "../functions/functions.php";
 
                 // Assuming you have jQuery available
                 $.ajax({
-                    url: 'contributor-page/modals/fetch.php',
+                    url: 'user-page/modals/fetch.php',
                     type: 'POST',
                     data: {
                         'click_view_btn': true,
@@ -176,7 +177,7 @@ require "../functions/functions.php";
                 });
 
                 // Show the modal
-                const dataModalView = new bootstrap.Modal(document.getElementById('view-item-modal-contributor'), {
+                const dataModalView = new bootstrap.Modal(document.getElementById('view-item-modal-partners'), {
                     keyboard: false
                 });
                 dataModalView.show();
