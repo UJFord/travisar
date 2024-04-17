@@ -54,7 +54,7 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="validationDropdown">
                             <li><a class="dropdown-item" href="partners.php">Partners</a></li>
-                            <li><a class="dropdown-item" href="verification.php">Verification</a></li>
+                            <li><a class="dropdown-item" href="verify-user.php">Verification</a></li>
                         </ul>
                     </li>
                 <?php endif; ?>

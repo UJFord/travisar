@@ -49,13 +49,9 @@ require "../functions/functions.php";
     <div class="container">
         <div class="row mt-3">
             <!-- LIST -->
-            <?php require "user-page/list.php"; ?>
-            <!-- Add -->
-            <?php require "user-page/tabs/add-user.php"; ?>
-            <!-- Edit -->
-            <?php require "user-page/tabs/edit-user.php"; ?>
+            <?php require "user-page/list-verify.php"; ?>
             <!-- View -->
-            <?php require "user-page/tabs/view.php"; ?>
+            <?php require "user-page/tabs/view-verify.php"; ?>
             <div>
             </div>
         </div>
@@ -140,7 +136,7 @@ require "../functions/functions.php";
 
                         $.each(response, function(key, value) {
                             // Append options to select element
-                            //console.log(value['user_id']);
+                            console.log(id);
 
                             // input elements with the new data on gen.php and loc.php
                             $('#first_nameView').text(value['first_name']);
@@ -148,9 +144,9 @@ require "../functions/functions.php";
                             $('#genderView').text(value['gender']);
                             $('#affiliationView').text(value['affiliation']);
                             $('#emailView').text(value['email']);
-                            $('#description').text(value['crop_description']);
-                            $('#neighborhoodEdit').val(value['neighborhood']);
-                            $('#coordInput').val(value['coordinates']);
+                            $('#user_idVerify').val(id);
+                            $('#emailVerify').val(value['email']);
+
                         });
                         // Clear any existing rows in the Contributed Data table
                         $('#ContributedData tbody').empty();

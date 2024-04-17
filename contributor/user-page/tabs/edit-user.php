@@ -143,15 +143,15 @@
 
     // Function to validate input
     function validateForm() {
-        var firstName = document.forms["Form"]["first_name"].value;
-        var lastName = document.forms["Form"]["last_name"].value;
-        var email = document.forms["Form"]["email"].value;
-        var password = document.forms["Form"]["password"].value;
-        var confirmPassword = document.forms["Form"]["confirm_password"].value;
-        var accountType = document.forms["Form"]["account_type_id"].value;
+        var firstNameEdit = document.forms["Form"]["first_name"].value;
+        var lastNameEdit = document.forms["Form"]["last_name"].value;
+        var emailEdit = document.forms["Form"]["email"].value;
+        var passwordEdit = document.forms["Form"]["password"].value;
+        var confirmPasswordEdit = document.forms["Form"]["confirm_password"].value;
+        var accountTypeEdit = document.forms["Form"]["account_type_id"].value;
 
         // Check if the required fields are not empty
-        if (firstName === "" || lastName === "" || email === "" || password === "" || confirmPassword === "" || accountType === "") {
+        if (firstNameEdit === "" || lastNameEdit === "" || emailEdit === "" || passwordEdit === "" || confirmPasswordEdit === "" || accountTypeEdit === "") {
             alert("Please fill out all required fields.");
             return false; // Prevent form submission
         }
@@ -159,27 +159,27 @@
         var errors = [];
 
         // Validate first name
-        if (!/^[a-zA-Z ]+$/.test(firstName)) {
+        if (!/^[a-zA-Z ]+$/.test(firstNameEdit)) {
             errors.push("<div class='error text-center'>Please enter a valid first name.</div>");
         }
 
         // Validate last name
-        if (!/^[a-zA-Z ]+$/.test(lastName)) {
+        if (!/^[a-zA-Z ]+$/.test(lastNameEdit)) {
             errors.push("<div class='error text-center'>Please enter a valid last name.</div>");
         }
 
         // Validate email
-        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(email)) {
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(emailEdit)) {
             errors.push("<div class='error text-center'>Please enter a valid email.</div>");
         }
 
         // Validate password length
-        if (password.length < 8) {
+        if (passwordEdit.length < 8) {
             errors.push("<div class='error text-center'>Password must be at least 8 characters.</div>");
         }
 
         // Validate password match
-        if (password !== confirmPassword) {
+        if (passwordEdit !== confirmPasswordEdit) {
             errors.push("<div class='error text-center'>Passwords must match.</div>");
         }
 
@@ -201,7 +201,7 @@
             var formData = new FormData(form);
 
             // Append additional data
-            formData.append('click_add_btn', 'true');
+            formData.append('click_edit_btn', 'true');
 
             // Send a POST request using AJAX
             $.ajax({

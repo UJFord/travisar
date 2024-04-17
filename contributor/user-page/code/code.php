@@ -18,7 +18,7 @@ if (isset($_POST['click_add_btn'])) {
 
         // Perform the insertion query
         $query = "INSERT into users (first_name, last_name, gender, email, username, password, affiliation, account_type_id, email_verified) 
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8)";
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)";
         $query_run = pg_query_params($conn, $query, array(
             $first_name, $last_name, $gender, $email, $username, $password, $affiliation, $account_type_id, $email_verify
         ));
@@ -48,19 +48,19 @@ if (isset($_POST['click_add_btn'])) {
     }
 }
 
-if (isset($_POST['update'])) {
-    $location_id = $_POST['location_id'];
-    $province_name = $_POST['province_name'];
-    $municipality_name = $_POST['municipality_name'];
 
-    $query = "UPDATE location set province_name = $1, municipality_name = $2 where location_id = $3";
-    $query_run = pg_query_params($conn, $query, array($province_name, $municipality_name, $location_id));
+if (isset($_POST['approve'])) {
+    $user_id = $_POST['user_id'];
+    $email = $_POST['email'];
+
+    $query = "UPDATE users set email_verified = $1 where user_id = $2";
+    $query_run = pg_query_params($conn, $query, array($email, $user_id));
 
     if ($query_run !== false) {
         $affected_rows = pg_affected_rows($query_run);
         if ($affected_rows > 0) {
             echo "Location updated successfully";
-            header("location: ../../municipality.php");
+            header("location: ../../verify-user.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
             echo "Error: Location ID not found";
