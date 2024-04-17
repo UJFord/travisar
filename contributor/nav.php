@@ -2,8 +2,6 @@
 <!-- custom -->
 <link rel="stylesheet" href="css/nav.css">
 
-
-
 <!-- MARKUP -->
 <nav id="main-nav" class="z-3 navbar navbar-expand-md border-bottom border-body">
     <div class="container">
@@ -27,12 +25,6 @@
                 <?php endif; ?>
 
                 <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
-                    <li class="nav-item curator-only admin-only">
-                        <a class="main-nav-item nav-link" href="contributor.php">Contributors</a>
-                    </li>
-                <?php endif; ?>
-
-                <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
                     <li class="nav-item dropdown curator-only admin-only">
                         <a class="main-nav-item nav-link dropdown-toggle" role="button" id="validationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             Validation
@@ -43,7 +35,8 @@
                         </ul>
                     </li>
 
-                    <li class="nav-item dropdown curator-only admin-only">
+                    <!-- gi comment out sa nako kay dapat wala daw ni sa system -->
+                    <!-- <li class="nav-item dropdown curator-only admin-only">
                         <a class="dropdown-toggle main-nav-item nav-link" role="button" id="addressesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             Addresses
                         </a>
@@ -51,9 +44,20 @@
                             <li><a class="dropdown-item" href="barangay.php">Barangay</a></li>
                             <li><a class="dropdown-item" href="municipality.php">Municipality</a></li>
                         </ul>
-                    </li>
+                    </li> -->
                 <?php endif; ?>
 
+                <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
+                    <li class="nav-item dropdown curator-only admin-only">
+                        <a class="main-nav-item nav-link dropdown-toggle" role="button" id="validationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            User Management
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="validationDropdown">
+                            <li><a class="dropdown-item" href="partners.php">Partners</a></li>
+                            <li><a class="dropdown-item" href="verify-user.php">Verification</a></li>
+                        </ul>
+                    </li>
+                <?php endif; ?>
             </ul>
             <!-- profile -->
             <div id="profile-container" class="dropdown">
@@ -110,8 +114,6 @@
         </div>
     </div>
 </nav>
-
-
 
 <!-- Jquery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>

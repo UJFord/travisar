@@ -49,10 +49,13 @@ require "../functions/functions.php";
     <div class="container">
         <div class="row mt-3">
             <!-- LIST -->
-            <?php require "contributor-page/list.php"; ?>
-
+            <?php require "user-page/list.php"; ?>
+            <!-- Add -->
+            <?php require "user-page/tabs/add-user.php"; ?>
+            <!-- Edit -->
+            <?php require "user-page/tabs/edit-user.php"; ?>
             <!-- View -->
-            <?php require "contributor-page/tabs/view.php"; ?>
+            <?php require "user-page/tabs/view.php"; ?>
             <div>
             </div>
         </div>
@@ -112,20 +115,20 @@ require "../functions/functions.php";
     </script>
     <!-- script for viewing -->
     <script>
-        // EDIT SCRIPT
-        const tableRows = document.querySelectorAll('.view-item-modal-contributor');
+        // View SCRIPT
+        const tableRowsView = document.querySelectorAll('.view-item-modal-partners');
 
-        tableRows.forEach(row => {
+        tableRowsView.forEach(row => {
 
             row.addEventListener('click', () => {
                 const id = row.getAttribute('data-id');
 
                 // Use the user_id as needed
-                console.log("User ID: " + id);
+                //console.log("User ID: " + id);
 
                 // Assuming you have jQuery available
                 $.ajax({
-                    url: 'contributor-page/modals/fetch.php',
+                    url: 'user-page/modals/fetch.php',
                     type: 'POST',
                     data: {
                         'click_view_btn': true,
@@ -137,7 +140,7 @@ require "../functions/functions.php";
 
                         $.each(response, function(key, value) {
                             // Append options to select element
-                            console.log(value['user_id']);
+                            //console.log(value['user_id']);
 
                             // input elements with the new data on gen.php and loc.php
                             $('#first_nameView').text(value['first_name']);
@@ -176,7 +179,7 @@ require "../functions/functions.php";
                 });
 
                 // Show the modal
-                const dataModalView = new bootstrap.Modal(document.getElementById('view-item-modal-contributor'), {
+                const dataModalView = new bootstrap.Modal(document.getElementById('view-item-modal-partners'), {
                     keyboard: false
                 });
                 dataModalView.show();

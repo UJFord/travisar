@@ -57,35 +57,35 @@
     <div class="tab_box d-flex justify-content-between">
         <!-- Button Tabs -->
         <div>
-            <button class="tab_btn active" id="locationTab">Contributors</button>
+            <button class="tab_btn active" id="locationTab">Partners</button>
         </div>
         <!-- filter actions -->
         <div class="d-flex py-3 px-3">
             <!-- search -->
             <div class="input-group">
-                <input type="text" id="searchInput" class="form-control" placeholder="Search Contributor" aria-label="Search" aria-describedby="filter-search">
+                <input type="text" id="searchInput" class="form-control" placeholder="Search User" aria-label="Search" aria-describedby="filter-search">
                 <span class="input-group-text" id="filter-search"><i class="bi bi-search"></i></span>
             </div>
         </div>
     </div>
 
     <?php
-        // Set the number of items to display per page
-        $items_per_page = 10;
+    // Set the number of items to display per page
+    $items_per_page = 10;
 
-        // Get the current page number
-        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+    // Get the current page number
+    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-        // Calculate the offset based on the current page and items per page
-        $offset = ($current_page - 1) * $items_per_page;
+    // Calculate the offset based on the current page and items per page
+    $offset = ($current_page - 1) * $items_per_page;
 
-        // Count the total number of rows for pagination for contributor crops
-        $total_rows_query_contributor = "SELECT COUNT(*) FROM users WHERE email_verified is not NULL";
-        $total_rows_result_contributor = pg_query($conn, $total_rows_query_contributor);
-        $total_rows_contributor = pg_fetch_row($total_rows_result_contributor)[0];
+    // Count the total number of rows for pagination for contributor crops
+    $total_rows_query_contributor = "SELECT COUNT(*) FROM users WHERE email_verified is not NULL";
+    $total_rows_result_contributor = pg_query($conn, $total_rows_query_contributor);
+    $total_rows_contributor = pg_fetch_row($total_rows_result_contributor)[0];
 
-        // Calculate the total number of pages for contributor crops
-        $total_pages_contributor = ceil($total_rows_contributor / $items_per_page);
+    // Calculate the total number of pages for contributor crops
+    $total_pages_contributor = ceil($total_rows_contributor / $items_per_page);
     ?>
 
     <!-- diri ang data sa list -->
@@ -103,9 +103,14 @@
                     </th>
                     <th class="col-2 text-dark-emphasis small-font" scope="col">First Name</th>
                     <th class="col-2 text-dark-emphasis text-center small-font" scope="col">Crops Contributed</th>
-                    <th class="col-2 text-dark-emphasis text-center small-font" scope="col">Date</th>
-                    <th class="col-1 text-dark-emphasis text-center small-font" scope="col">Action</th>
-                    <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
+                    <th class="col-2 text-dark-emphasis text-center small-font" scope="col">Date Created</th>
+                    <th col-4 class="col-1 text-center">
+                        <!-- add button -->
+                        <button type=" button" id="addUser" class="btn btn-secondary add-loc-btn p-2 btn small-font" name="addUser" data-bs-toggle="modal" data-bs-target="#add-item-modal-user">
+                            New
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </th>
                 </tr>
             </thead>
 
@@ -167,16 +172,13 @@
 
                             <!-- Action -->
                             <td>
-                                <form class="d-flex justify-content-center">
-                                    <!-- edit -->
-                                    <a href="#" class="btn btn-primary me-1 view-item-modal-contributor" data-toggle="modal" data-target="#dataModalView" data-id="<?= $row['user_id']; ?>">view</a>
-                                    <!-- delete --> 
-                                    <!-- <button type="submit" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button> -->
-                                </form>
+                                <!-- View -->
+                                <a href="#" class="btn btn-primary me-1 view-item-modal-partners" data-toggle="modal" data-target="#dataModalView" data-id="<?= $row['user_id']; ?>">view</a>
+                                <!-- edit -->
+                                <a href="#" class="btn btn-success btn-sm edit_data admin-only" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['user_id']; ?>">Edit</a>
+                                <!-- delete -->
+                                <!-- <button type="submit" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button> -->
                             </td>
-
-                            <!-- ellipsis menu butn -->
-                            <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                         </tr>
                 <?php
                     }
