@@ -497,6 +497,50 @@ require "../functions/functions.php";
     to check if the user is logged in and has a rank of Encoder
     if Encoder ang rank i redirect sya pabalik kung asa sya gaina before niya ni gi try access
 -->
+
+<!-- to Capitalized all first letter in all inputs and textarea -->
+<script>
+    $(document).ready(function() {
+        // Capitalize the initial values of input fields
+        $("input[type='text']").each(function() {
+            $(this).val($(this).val().replace(/\b\w/g, function(char) {
+                return char.toUpperCase();
+            }));
+        });
+
+        // Update the value as the user types
+        $("input[type='text']").on('input', function() {
+            var start = this.selectionStart,
+                end = this.selectionEnd;
+            $(this).val(function(_, val) {
+                return val.replace(/\b\w/g, function(char) {
+                    return char.toUpperCase();
+                });
+            });
+            this.setSelectionRange(start, end);
+        });
+
+        // Capitalize the initial values textarea fields
+        $("textarea").each(function() {
+            $(this).val($(this).val().replace(/\b\w/g, function(char) {
+                return char.toUpperCase();
+            }));
+        });
+
+        // Update the value as the user types
+        $("textarea").on('input', function() {
+            var start = this.selectionStart,
+                end = this.selectionEnd;
+            $(this).val(function(_, val) {
+                return val.replace(/\b\w/g, function(char) {
+                    return char.toUpperCase();
+                });
+            });
+            this.setSelectionRange(start, end);
+        });
+    });
+</script>
+
 <?php
 if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
     // Output JavaScript code to redirect back to the original page
