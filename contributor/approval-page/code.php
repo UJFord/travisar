@@ -426,14 +426,17 @@ if (isset($_POST['update'])) {
 }
 
 if (isset($_POST['rejected'])) {
-    $crop_id = $_POST['crop_id'];
-    $select = "UPDATE crop SET status = 'rejected' WHERE crop_id = '$crop_id' ";
+    $select = "UPDATE status
+    SET action = 'rejected'
+    WHERE status_id IN (SELECT status_id FROM crop WHERE crop_id = '$crop_id')";
+
     $result = pg_query($conn, $select);
     if ($result) {
-
+        $_SESSION['message'] = "Crop Rejected";
         header("location: ../approval.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {
-        echo "Error updating record"; // Display an error message if the query fails
+        // Log the error or display a more user-friendly message
+        echo "Error updating record: " . pg_last_error($conn);
     }
 }

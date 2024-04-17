@@ -77,6 +77,48 @@ require "../functions/functions.php";
     <script src="https://kit.fontawesome.com/57e83eb6e4.js" crossorigin="anonymous"></script>
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <!-- to Capitalized all first letter in all inputs and textarea -->
+    <script>
+        $(document).ready(function() {
+            // Capitalize the initial values of input fields
+            $("input[type='text']").each(function() {
+                $(this).val($(this).val().replace(/\b\w/g, function(char) {
+                    return char.toUpperCase();
+                }));
+            });
+
+            // Update the value as the user types
+            $("input[type='text']").on('input', function() {
+                var start = this.selectionStart,
+                    end = this.selectionEnd;
+                $(this).val(function(_, val) {
+                    return val.replace(/\b\w/g, function(char) {
+                        return char.toUpperCase();
+                    });
+                });
+                this.setSelectionRange(start, end);
+            });
+
+            // Capitalize the initial values textarea fields
+            $("textarea").each(function() {
+                $(this).val($(this).val().replace(/\b\w/g, function(char) {
+                    return char.toUpperCase();
+                }));
+            });
+
+            // Update the value as the user types
+            $("textarea").on('input', function() {
+                var start = this.selectionStart,
+                    end = this.selectionEnd;
+                $(this).val(function(_, val) {
+                    return val.replace(/\b\w/g, function(char) {
+                        return char.toUpperCase();
+                    });
+                });
+                this.setSelectionRange(start, end);
+            });
+        });
+    </script>
     <!-- search function -->
     <script>
         // search sa search bar

@@ -362,5 +362,4 @@ if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
     exit();
 }
 ?>
-
 </html>
