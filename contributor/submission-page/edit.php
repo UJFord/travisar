@@ -12,7 +12,7 @@
 
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="edit-item-modal-label">Edit Item</h5>
+                <h5 class="modal-title" id="edit-item-modal-label">Edit</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -22,19 +22,19 @@
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active small-font modal-tab" id="edit-gen-tab" data-bs-toggle="tab" data-bs-target="#edit-gen-tab-pane" type="button" role="tab" aria-controls="edit-gen-tab-pane" aria-selected="true"><i class="fa-solid fa-lightbulb me-1"></i>General</button>
+                            <button class="nav-link active small-font modal-tab" id="edit-gen-tab" data-bs-toggle="tab" data-bs-target="#edit-gen-tab-pane" type="button" role="tab" aria-controls="edit-gen-tab-pane" aria-selected="false"><i class="fa-solid fa-lightbulb me-1"></i>General</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-more-tab" data-bs-toggle="tab" data-bs-target="#edit-more-tab-pane" type="button" role="tab" aria-controls="edit-more-tab-pane" aria-selected="false"><i class="fa-solid fa-leaf me-1"></i>Morph Traits</button>
+                            <button class="nav-link small-font modal-tab" id="edit-more-tab" data-bs-toggle="tab" data-bs-target="#edit-more-tab-pane" type="button" role="tab" aria-controls="edit-more-tab-pane" aria-selected="true"><i class="fa-solid fa-leaf me-1"></i>Morphology</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-sensory-tab" data-bs-toggle="tab" data-bs-target="#edit-sensory-tab-pane" type="button" role="tab" aria-controls="edit-sensory-tab-pane" aria-selected="false"><i class="fa-solid fa-leaf me-1"></i>Sensory Traits</button>
+                            <button class="nav-link small-font modal-tab" id="edit-sensory-tab" data-bs-toggle="tab" data-bs-target="#edit-sensory-tab-pane" type="button" role="tab" aria-controls="edit-sensory-tab-pane" aria-selected="true"><i class="fa-solid fa-utensils me-1"></i>Sensory</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-agro-tab" data-bs-toggle="tab" data-bs-target="#edit-agro-tab-pane" type="button" role="tab" aria-controls="edit-agro-tab-pane" aria-selected="false"><i class="fa-solid fa-leaf me-1"></i>Agronomic Traits</button>
+                            <button class="nav-link small-font modal-tab" id="edit-agro-tab" data-bs-toggle="tab" data-bs-target="#edit-agro-tab-pane" type="button" role="tab" aria-controls="edit-agro-tab-pane" aria-selected="true"><i class="fa-solid fa-seedling me-1"></i>Agronomy</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-cultural-tab" data-bs-toggle="tab" data-bs-target="#edit-cultural-tab-pane" type="button" role="tab" aria-controls="edit-cultural-tab-pane" aria-selected="false"><i class="fa-solid fa-location-dot me-1"></i>Cultural Importance</button>
+                            <button class="nav-link small-font modal-tab" id="edit-cultural-tab" data-bs-toggle="tab" data-bs-target="#edit-cultural-tab-pane" type="button" role="tab" aria-controls="edit-cultural-tab-pane" aria-selected="false"><i class="fa-solid fa-sun me-1"></i>Importance</button>
                         </li>
                     </ul>
                     <div class="container">
@@ -59,7 +59,7 @@
                         <button type="submit" name="update" class="btn btn-success">Save</button>
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                     </div>
-                    <button type="button" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
+                    <button type="button" class="btn btn-danger">Delete</i></button>
                 </div>
             </form>
         </div>
@@ -127,7 +127,6 @@
     var municipalities = [];
 
     tableRows.forEach(row => {
-
         row.addEventListener('click', () => {
             const id = row.getAttribute('data-id');
 
@@ -156,16 +155,22 @@
                         // Fetch the old image and pass it to the fetchOldImage function
                         fetchOldImage(value.crop_seed_image);
 
-                        // Split the image filenames by comma
-                        var imageFilenamesSeed = value['crop_seed_image'].split(',');
+                        if (value['crop_seed_image'] != null && value['crop_seed_image'] != '') {
+                            // Split the image filenames by comma
+                            var imageFilenamesSeed = value['crop_seed_image'].split(',');
+                            // Iterate over each filename and append an image element to the preview container
+                            imageFilenamesSeed.forEach(function(filename) {
+                                $('#previewSeedEdit').append(`<img src="crop-page/modals/img/${filename.trim()}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                            });
+                        }
 
-                        // Iterate over each filename and append an image element to the preview container
-                        imageFilenamesSeed.forEach(function(filename) {
-                            $('#previewSeedEdit').append(`<img src="crop-page/modals/img/${filename.trim()}" class="m-2 img-thumbnail" style="height: 200px;">`);
-                        });
+                        if (value['crop_vegetative_image'] != null && value['crop_vegetative_image'] != '') {
+                            $('#previewVegEdit').append(`<img src="crop-page/modals/img/${value['crop_vegetative_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                        }
 
-                        $('#previewVegEdit').append(`<img src="crop-page/modals/img/${value['crop_vegetative_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
-                        $('#previewReproductiveEdit').append(`<img src="crop-page/modals/img/${value['crop_reproductive_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                        if (value['crop_reproductive_image'] != null && value['crop_reproductive_image'] != '') {
+                            $('#previewReproductiveEdit').append(`<img src="crop-page/modals/img/${value['crop_reproductive_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                        }
 
                         // setting the available data on the traits tab depending on the category of the selected crop
                         if (value['category_name'] === 'Corn') {
@@ -185,13 +190,9 @@
 
                             // morph traits for corn
                             // vegetative state
-                            if (value['corn_plant_height'] === 'Tall') {
-                                $('#corn-height-tall-edit').prop('checked', true);
-                            } else if (value['corn_plant_height'] === 'Average') {
-                                $('#corn-height-average-edit').prop('checked', true);
-                            } else if (value['corn_plant_height'] === 'Short') {
-                                $('#corn-height-short-edit').prop('checked', true);
-                            }
+                            $('#corn-heightEdit').append($('<option>', {
+                                value: value['corn_plant_height']
+                            }));
                             $('#corn-leafWidth-Edit').append($('<option>', {
                                 value: value['corn_leaf_width']
                             }));
@@ -300,26 +301,17 @@
                             // flag leaf traits
                             $('#flag-length-Edit').val(value['flag_length']);
                             $('#flag-width-Edit').val(value['flag_width']);
-                            $('#purplishStripes-Edit').val(value['purplish_stripes']);
                             $('#Pubescence-Edit').val(value['pubescence']);
                             $('#flag-features-Edit').val(value['flag_remarkable_features']);
+                            $('#purplishStripes-Edit').prop('checked', value['purplish_stripes']);
 
                             // sensory traits of cooked rice
                             $('#sensory-aroma-Edit').val(value['aroma']);
                             $('#cooked-rice-Edit').val(value['quality_cooked_rice']);
                             $('#leftover-rice-Edit').val(value['quality_leftover_rice']);
-                            // volume expansion
-                            if (value['volume_expansion'] === 'Yes') {
-                                $('#expansion-Yes-Edit').prop('checked', true);
-                            } else if (value['volume_expansion'] === 'No') {
-                                $('#expansion-No-Edit').prop('checked', true);
-                            }
-                            // glutinous
-                            if (value['glutinous'] === 'Yes') {
-                                $('#glutinous-Yes-Edit').prop('checked', true);
-                            } else if (value['glutinous'] === 'No') {
-                                $('#glutinous-No-Edit').prop('checked', true);
-                            }
+                            // volume expansion and Glutinous
+                            $('#volExpansionEdit').prop('checked', value['volume_expansion']);
+                            $('#glutinousityEdit').prop('checked', value['glutinous']);
                             // hardness
                             if (value['hardness'] === 'Soft') {
                                 $('#hardness-Soft-Edit').prop('checked', true);
@@ -629,6 +621,7 @@
         $('#edit-item-modal').on('hidden.bs.modal', function() {
             // Reset the form
             document.getElementById('form-panel-edit').reset();
+            document.getElementById('form-panel-remarks').reset();
 
             // Reset any other specific fields if needed
             $('#previewSeedEdit').empty();

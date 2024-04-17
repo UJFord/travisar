@@ -157,6 +157,7 @@ require "../functions/functions.php";
                                         <th class="col text-dark-emphasis small-font text-center" scope="col">Date Created</th>
                                         <th class="col text-dark-emphasis small-font text-center" scope="col">Status</th>
                                         <th class="col text-dark-emphasis small-font text-center" scope="col">Action</th>
+                                        <th class="col text-dark-emphasis small-font text-center" scope="col">Remarks</th>
                                         <th class="col text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
                                     </tr>
 
@@ -210,7 +211,14 @@ require "../functions/functions.php";
 
                                                 <!-- edit -->
                                                 <td class="text-center">
-                                                    <a href="#" class="btn btn-success btn-sm edit_data admin-only" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">Edit</a>
+                                                    <?php if ($row['action'] === 'approved') : ?>
+                                                        <a href="#" class="btn btn-success btn-sm edit_data" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">Edit</a>
+                                                    <?php endif; ?>
+                                                </td>
+
+                                                <!-- Status -->
+                                                <td class="text-center">
+                                                    <a href="#" class="btn btn-success btn-sm remarks_data" data-toggle="modal" data-target="#remarks-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-message"></i></i></a>
                                                 </td>
 
                                                 <!-- ellipsis menu butn -->
@@ -231,7 +239,8 @@ require "../functions/functions.php";
 
                     <!-- edit -->
                     <?php require "submission-page/edit.php"; ?>
-
+                    <!-- remarks -->
+                    <?php require "submission-page/remarks.php"; ?>
                 </div>
             </div>
         </div>

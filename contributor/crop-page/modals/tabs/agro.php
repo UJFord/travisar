@@ -32,7 +32,7 @@
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="corn-cutWorms">Cutworms</label>
-                <input class="form-check-input" type="checkbox" name="corn_cutWorms" id="corn-cutWorms" value="1">
+                <input class="form-check-input" type="checkbox" name="corn_cutworms" id="corn-cutWorms" value="1">
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="rice-Birds">Birds</label>
@@ -54,8 +54,8 @@
         </div>
 
         <!-- Other -->
-        <div class="row mt-3 mb-5">
-            <div id="corn-pest-other" class="col-12 mb-0 d-none">
+        <div id="corn-pest-other" class="d-none row mt-3 mb-5">
+            <div class="col-12 mb-0">
                 <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
                 <textarea name="corn_others_desc" id="corn-other" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
                 <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
@@ -109,26 +109,6 @@
             </div>
         </div>
     </div>
-
-
-    <!-- script for others -->
-    <!-- <script>
-        const cornOtherCheck = document.getElementById('corn-other-check');
-        const cornPestOther = document.getElementById('corn-pest-other');
-
-        const cornAbioticCheck = document.getElementById('corn-abiotic-check');
-        const cornAbioticOtherContainer = document.getElementById('corn-abiotic-other-container');
-
-        cornOtherCheck.addEventListener('change', function() {
-            cornPestOther.classList.toggle('d-none', !this.checked);
-        });
-
-        cornAbioticCheck.addEventListener('change', function() {
-            cornAbioticOtherContainer.classList.toggle('d-none', !this.checked);
-        });
-    </script> -->
-
-
 
     <!-- Rice Agronomic Traits -->
     <div id="riceAgro">
@@ -239,28 +219,9 @@
             </div>
         </div>
     </div>
-    <!-- script for others -->
-    <!-- <script>
-    const riceOtherCheck = document.getElementById('rice-other-check');
-    const ricePestOther = document.getElementById('rice-pest-other');
-
-    const riceAbioticCheck = document.getElementById('rice-abiotic-check');
-    const riceAbioticOtherContainer = document.getElementById('rice-abiotic-other-container');
-
-    riceOtherCheck.addEventListener('change', function() {
-        ricePestOther.classList.toggle('d-none', !this.checked);
-    });
-
-    riceAbioticCheck.addEventListener('change', function() {
-        riceAbioticOtherContainer.classList.toggle('d-none', !this.checked);
-    });
-</script> -->
-
-
 
     <!-- Root Crop Agronomic Traits -->
     <div id="root_cropAgro">
-
         <!-- Pest resistance -->
         <h6 class="fw-semibold mt-4 mb-3">Pest Resistance</h6>
         <div class="row mb-0 ps-3">
@@ -362,25 +323,23 @@
             <div id="root-abiotic-other-container" class="col-12 mb-2 d-none">
                 <!-- <label for="rootCrop-abiotic-other" class="form-label small-font">Other</label> -->
                 <textarea name="abiotic_other_desc" id="rootCrop-abiotic-other" cols="30" rows="1" class="form-control"></textarea>
-
                 <div class="form-text small-font" id="rootPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
             </div>
         </div>
     </div>
 
-
     <!-- STEP NAVIGATION without Sensory -->
     <div class="row" id="withoutSensory">
         <div class="col d-flex justify-content-between">
             <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('more', this)"><i class="fa-solid fa-angles-left me-2"></i>Previous</button>
-            <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('cultural', this)">Next<i class="fa-solid fa-angles-right me-2"></i></button>
+            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('cultural', this)">Next<i class="fa-solid fa-angles-right me-2"></i></button>
         </div>
     </div>
     <!-- STEP NAVIGATION with Sensory -->
     <div class="row" id="withSensory">
         <div class="col d-flex justify-content-between">
             <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('sensory', this)"><i class="fa-solid fa-angles-left me-2"></i>Previous</button>
-            <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('cultural', this)">Next<i class="fa-solid fa-angles-right me-2"></i></button>
+            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('cultural', this)">Next<i class="fa-solid fa-angles-right me-2"></i></button>
         </div>
     </div>
 </div>
