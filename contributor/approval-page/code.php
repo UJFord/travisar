@@ -4,7 +4,7 @@ require "../../functions/connections.php";
 if (isset($_POST['approve'])) {
     $crop_id = $_POST['crop_id'];
     $select = "UPDATE status
-        SET action = 'approved'
+        SET action = 'approved', remarks = 'Crop Approved'
         WHERE status_id IN (SELECT status_id FROM crop WHERE crop_id = '$crop_id')";
 
     $result = pg_query($conn, $select);
@@ -426,8 +426,9 @@ if (isset($_POST['update'])) {
 }
 
 if (isset($_POST['rejected'])) {
+    $crop_id = $_POST['crop_id'];
     $select = "UPDATE status
-    SET action = 'rejected'
+    SET action = 'rejected', remarks = 'Crop Rejected'
     WHERE status_id IN (SELECT status_id FROM crop WHERE crop_id = '$crop_id')";
 
     $result = pg_query($conn, $select);
