@@ -49,6 +49,7 @@
 
         const urlInput = document.createElement('input');
         urlInput.type = 'text';
+        urlInput.name = 'references_' + referenceNumber;
         urlInput.classList.add('form-control', 'small-font');
         urlInput.placeholder = 'ex. https://www.google.com/';
 

@@ -492,6 +492,35 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
             exit();
         }
 
+        //references
+        // Loop through the $_POST data to extract references
+        $references = [];
+        foreach ($_POST as $key => $value) {
+            if (strpos($key, 'references_') !== false) {
+                echo $references[] = $value;
+            }
+        }
+
+        // Save references into references Table
+        foreach ($references as $reference) {
+            $query_refer = "INSERT into \"references\" (crop_id, link) VALUES ($1, $2) RETURNING references_id";
+            $query_run_refer = pg_query_params($conn, $query_refer, array($crop_id, $reference));
+
+            if ($query_run_refer) {
+                // Check if any rows were affected
+                if (pg_affected_rows($query_run_refer) > 0) {
+                    $row_refer = pg_fetch_row($query_run_refer);
+                    $references_id = $row_refer[0];
+                } else {
+                    echo "Error: No rows affected";
+                    exit(0);
+                }
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+        }
+
         // Check the category name and perform actions accordingly
         if ($get_category_name === 'Corn') {
             // Handle corn category traits
