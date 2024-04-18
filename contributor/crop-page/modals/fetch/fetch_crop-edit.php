@@ -31,6 +31,7 @@ if (isset($_POST['click_edit_btn'])) {
         left join disease_resistance on corn_traits.disease_resistance_id = disease_resistance.disease_resistance_id
         left join abiotic_resistance on corn_traits.abiotic_resistance_id = abiotic_resistance.abiotic_resistance_id
         left join seed_traits on seed_traits.seed_traits_id = reproductive_state_corn.seed_traits_id
+        left join \"references\" on \"references\".crop_id = crop.crop_id
         WHERE crop.crop_id = $1";
         $query_run = pg_query_params($conn, $query, array($crop_id));
 

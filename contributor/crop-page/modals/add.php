@@ -74,7 +74,7 @@
 </div>
 
 <!-- SCRIPT -->
-<script>
+<!-- <script>
     // keep the modal on
     window.onload = function() {
         const dataModal = new bootstrap.Modal(document.getElementById('add-item-modal'), {
@@ -82,7 +82,7 @@
         });
         dataModal.show();
     };
-</script>
+</script> -->
 
 <!-- for submission -->
 <script>
@@ -159,6 +159,12 @@
 <!-- JavaScript for the select for category variety -->
 <script>
     // JavaScript for the select for category variety
+    // Function to fetch and display initial category variety based on the initial category
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fetch varieties for the initial selected category
+        var initialCategoryId = document.getElementById('Category').value;
+        fetchVarieties(initialCategoryId);
+    });
 
     // Function to fetch and display initial morphological characteristics based on the initial category
     document.addEventListener('DOMContentLoaded', function() {
@@ -212,6 +218,15 @@
     function populateVarieties(varieties) {
         var categoryVarietySelect = document.getElementById('categoryVariety');
         categoryVarietySelect.innerHTML = ''; // Clear existing options
+
+        // Add the default option
+        var defaultOption = document.createElement('option');
+        defaultOption.text = "Select a Variety";
+        defaultOption.disabled = true;
+        defaultOption.selected = true;
+        categoryVarietySelect.appendChild(defaultOption);
+
+        // Add other options
         varieties.forEach(function(variety) {
             var option = document.createElement('option');
             option.value = variety.category_variety_id;
