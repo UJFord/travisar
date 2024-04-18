@@ -36,6 +36,9 @@
                         <li class="nav-item" role="presentation">
                             <button class="nav-link small-font modal-tab" id="edit-cultural-tab" data-bs-toggle="tab" data-bs-target="#edit-cultural-tab-pane" type="button" role="tab" aria-controls="edit-cultural-tab-pane" aria-selected="false"><i class="fa-solid fa-sun me-1"></i>Importance</button>
                         </li>
+                        <li class="nav-item" role="presentation">
+                            <button class="nav-link small-font modal-tab" id="edit-references-tab" data-bs-toggle="tab" data-bs-target="#edit-references-tab-pane" type="button" role="tab" aria-controls="edit-references-tab-pane" aria-selected="false"><i class="fa-solid fa-book me-1"></i></i>References</button>
+                        </li>
                     </ul>
                     <div class="container">
                         <div class="tab-content mt-2">
@@ -49,6 +52,8 @@
                             <?php require "edit-tabs/agro.php" ?>
                             <!-- sensory info -->
                             <?php require "edit-tabs/sensory.php" ?>
+                            <!-- references -->
+                            <?php require "edit-tabs/references.php" ?>
                         </div>
                     </div>
                 </div>
@@ -517,6 +522,34 @@
                         $('#UseEdit').val(value['use']);
                         $('#indigenous-utilization-Edit').val(value['indigenous_utilization']);
                         $('#remarkable-features-Edit').val(value['remarkable_features']);
+
+                        // References
+                        let referenceNumber = 1; // Initialize reference number
+                        if (value['link'] != null && value['link'] != '') {
+
+                            // Split the reference link by comma
+                            var referLinks = value['link'].split(',');
+                            // Iterate over each filename and append a link element to the preview container
+                            referLinks.forEach(function(filename) {
+                                // Check if the URL is absolute
+                                if (!/^https?:\/\//i.test(filename)) {
+                                    // If not, prepend "http://"
+                                    filename = "http://" + filename;
+                                }
+                                $('#new-url-container-Edit').append(`
+                                    <div class="url-list-item-edit mb-2">
+                                        <label class="form-label small-font">Old Reference ${referenceNumber}</label>
+                                        <div class="d-flex">
+                                            <input type="text" name="old_references_${referenceNumber}" value="${filename}" class="form-control small-font readonly">
+                                            <button type="button" class="btn btn-link">
+                                                <i class="fa-solid fa-circle-minus fs-5 text-danger" aria-hidden="true"></i>
+                                            </button>
+                                        </div>
+                                    </div>
+                                `);
+                                referenceNumber++; // Increment reference number for the next input field
+                            });
+                        }
 
                         //loc.php
                         $('#neighborhoodEdit').val(value['neighborhood']);
