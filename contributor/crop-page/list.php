@@ -67,15 +67,8 @@
                 </tr>
             </thead>
 
-
-
-
             <!-- table body -->
             <tbody class="table-group-divider fw-bold overflow-scroll">
-
-
-
-
 
                 <!-- UI Test Item -->
                 <tr>
@@ -106,12 +99,6 @@
                         </div>
                     </td>
                 </tr>
-
-
-
-
-
-
 
                 <?php
                 // get the data from crops. only approved data are shown and is limited per items per page
@@ -144,7 +131,7 @@
                             <!-- Variety name -->
                             <td>
                                 <!-- Variety name -->
-                                <a href="#" class="modal-trigger" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>"><?= $row['crop_variety']; ?></a>
+                                <a href="crop-page/view.php?crop_id=<?=$row['crop_id']?>"><?= $row['crop_variety']; ?></a>
                                 <!-- category -->
                                 <?php
                                 if (pg_num_rows($query_run_category)) {

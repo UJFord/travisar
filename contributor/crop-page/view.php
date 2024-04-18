@@ -1,3 +1,8 @@
+<?php
+require "../../functions/connections.php";
+require "../../functions/functions.php";
+
+?>
 <!doctype html>
 <html lang="en">
 
@@ -99,141 +104,296 @@
             <div class="col pt-5">
                 <div data-bs-spy="scroll" data-bs-target="#navbar-example3" data-bs-smooth-scroll="true" class="scrollspy-example-2" tabindex="0">
 
-                    <!-- general -->
-                    <div id="general" class="mb-5">
-                        <!-- general information -->
-                        <div id="gen-info">
-                            <h5>General Information</h5>
-                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
-                                <table class="table mb-0">
-                                    <tbody>
-                                        <!-- category -->
-                                        <tr>
-                                            <th scope="row" class="w-25 fw-normal">Category</th>
-                                            <td>Rice</td>
-                                        </tr>
-                                        <!-- variety -->
-                                        <tr>
-                                            <th scope="row" class=" fw-normal">Variety</th>
-                                            <td>Upland</td>
-                                        </tr>
-                                        <!-- Local/Variety Name -->
-                                        <tr>
-                                            <th scope="row" class=" fw-normal">Local/Variety Name</th>
-                                            <td>Banay-Banay</td>
-                                        </tr>
-                                        <!-- Meaning of Name -->
-                                        <tr>
-                                            <th scope="row" class=" fw-normal">Meaning of Name</th>
-                                            <td>Family</td>
-                                        </tr>
-                                        <!-- Terrain -->
-                                        <tr>
-                                            <th scope="row" class=" fw-normal">Terrain</th>
-                                            <td>Nestled amidst the verdant farmlands of Banaybanay municipality in Davao Oriental, Philippines, thrives a regional treasure: Banaybanay rice. This medium-grain variety boasts a reputation for excellence, contributing significantly to the region's self-sufficiency in food production. While specifics remain elusive, online vendors paint a delightful picture, describing Banaybanay rice as bursting with flavor and possessing an enticing aroma that lingers after cooking. Intriguingly, the term "Banaybanay rice" might signify a unique variety cultivated for generations or simply a general term for rice grown in the region. Regardless, it serves as a testament to the unwavering dedication of Filipino farmers and the rich agricultural heritage of Banaybanay. Perhaps future discoveries will unveil the secret behind Banaybanay rice's distinction, but for now, it stands as a symbol of the region's agricultural bounty.</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
+                    <?php
+                    if (isset($_GET['crop_id'])) {
+                        $crop_id = pg_escape_string($conn, $_GET['crop_id']);
+
+                        $queryCrop = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join location 
+                        on crop_location.location_id = location.location_id left join users on crop.user_id = users.user_id left join barangay
+                        on crop_location.barangay_id = barangay.barangay_id left join category_variety on crop.category_variety_id = category_variety.category_variety_id left join terrain on terrain.terrain_id = crop.terrain_id
+                        left join category on category.category_id = crop.category_id left join utilization_cultural_importance on  crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id
+                        left join \"references\" on \"references\".crop_id = crop.crop_id
+                        where crop.crop_id = $1";
+                        $query_runCrop = pg_query_params($conn, $queryCrop, array($crop_id));
+                        if (pg_num_rows($query_runCrop) > 0) {
+                            $crops = pg_fetch_assoc($query_runCrop);
+
+                            // general info
+                            $category_name = $crops['category_name'];
+                            $category_variety_name = $crops['category_variety_name'];
+                            $crop_variety = $crops['crop_variety'];
+                            $crop_description = $crops['crop_description'];
+                            $input_date = $crops['input_date'];
+                            $unique_code = $crops['unique_code'];
+                            $meaning_of_name = $crops['meaning_of_name'];
+                            $terrain_name = $crops['terrain_name'];
+
+                            // Images
+                            $crop_seed_image = $crops['crop_seed_image'];
+                            $crop_vegetative_image = $crops['crop_vegetative_image'];
+                            $crop_reproductive_image = $crops['crop_reproductive_image'];
+
+                            // location
+                            $province_name = $crops['province_name'];
+                            $municipality_name = $crops['municipality_name'];
+                            $barangay_name = $crops['barangay_name'];
+                            $coordinates = $crops['coordinates'];
+
+                            // Utilization and Cultural Importance
+                            $use = $crops['use'];
+                            $significance = $crops['significance'];
+                            $indigenous_utilization = $crops['indigenous_utilization'];
+                            $remarkable_features = $crops['remarkable_features'];
+
+                            // References
+                            $link = $crops['link'];
+
+                    ?>
+                            <!-- general -->
+                            <div id="general" class="mb-5">
+                                <!-- general information -->
+                                <div id="gen-info">
+                                    <h5>General Information</h5>
+                                    <div class="border border-bottom-0 rounded my-3  overflow-hidden">
+                                        <table class="table mb-0">
+                                            <tbody>
+                                                <!-- category -->
+                                                <tr>
+                                                    <th scope="row" class="w-25 fw-normal">Category</th>
+                                                    <td><?= $category_name; ?></td>
+                                                </tr>
+                                                <!-- variety -->
+                                                <tr>
+                                                    <th scope="row" class=" fw-normal">Variety</th>
+                                                    <td><?= $category_variety_name; ?></td>
+                                                </tr>
+                                                <!-- Local/Variety Name -->
+                                                <tr>
+                                                    <th scope="row" class=" fw-normal">Local/Variety Name</th>
+                                                    <td><?= $crop_variety; ?></td>
+                                                </tr>
+                                                <!-- Meaning of Name -->
+                                                <tr>
+                                                    <th scope="row" class=" fw-normal">Meaning of Name</th>
+                                                    <td><?= $meaning_of_name; ?></td>
+                                                </tr>
+                                                <!-- Terrain -->
+                                                <tr>
+                                                    <th scope="row" class=" fw-normal">Terrain</th>
+                                                    <td><?= $terrain_name; ?></td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- images for stages -->
+                                <div id="image">
+                                    <h5>Images</h5>
+                                    <div class="border border-bottom-0 rounded my-3 overflow-hidden">
+                                        <table class="table mb-0">
+                                            <tbody>
+                                                <!-- seed -->
+                                                <tr>
+                                                    <th scope="row" class="w-25  fw-normal">Seed</th>
+                                                    <td class="d-flex align-items-center flex-wrap ">
+                                                        <div class="image-container-size me-2 d-flex align-tems-center justify-content-center">
+                                                            <?php
+                                                            if ($crop_seed_image != "") {
+                                                                // Split the image names by comma
+                                                                $imageNamesSeed = explode(',', $crop_seed_image);
+                                                                // Display each image
+                                                                foreach ($imageNamesSeed as $imageNameSeed) {
+                                                            ?>
+                                                                    <img src="modals/img/<?php echo trim($imageNameSeed); ?>" class="img-thumbnail img-plant">
+                                                            <?php
+                                                                }
+                                                            } else {
+                                                                // display message
+                                                                echo "Image not added";
+                                                            }
+                                                            ?>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <!-- vegetative -->
+                                                <tr>
+                                                    <th scope="row" class="w-25  fw-normal">Vegetative</th>
+                                                    <td class="d-flex align-items-center flex-wrap ">
+                                                        <div class="image-container-size me-2 d-flex align-tems-center justify-content-center">
+                                                            <?php
+                                                            if ($crop_vegetative_image != "") {
+                                                                // Split the image names by comma
+                                                                $imageNamesVeg = explode(',', $crop_vegetative_image);
+                                                                // Display each image
+                                                                foreach ($imageNamesVeg as $imageNameVeg) {
+                                                            ?>
+                                                                    <img src="modals/img/<?php echo trim($imageNameVeg); ?>" class="img-thumbnail img-plant">
+                                                            <?php
+                                                                }
+                                                            } else {
+                                                                // display message
+                                                                echo "Image not added";
+                                                            }
+                                                            ?>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+
+                                                <!-- reproductive -->
+                                                <tr>
+                                                    <th scope="row" class="w-25  fw-normal">Reproductive</th>
+                                                    <td class="d-flex align-items-center flex-wrap ">
+                                                        <div class="image-container-size me-2 d-flex align-tems-center justify-content-center">
+                                                            <?php
+                                                            if ($crop_reproductive_image != "") {
+                                                                // Split the image names by comma
+                                                                $imageNamesReproductive = explode(',', $crop_reproductive_image);
+                                                                // Display each image
+                                                                foreach ($imageNamesReproductive as $imageNameReproductive) {
+                                                            ?>
+                                                                    <img src="modals/img/<?php echo trim($imageNameReproductive); ?>" class="img-thumbnail img-plant">
+                                                            <?php
+                                                                }
+                                                            } else {
+                                                                // display message
+                                                                echo "Image not added";
+                                                            }
+                                                            ?>
+                                                        </div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
+
+                                <!-- location -->
+                                <div id="loc-info">
+                                    <h5>Location</h5>
+                                    <div class="border border-bottom-0 rounded my-3 overflow-hidden">
+                                        <table class="table mb-0">
+                                            <tbody>
+                                                <!-- province -->
+                                                <tr>
+                                                    <th scope="row" class="w-25 fw-normal">Province</th>
+                                                    <td><?= $province_name; ?></td>
+                                                </tr>
+                                                <!-- municipality -->
+                                                <tr>
+                                                    <th scope="row" class="fw-normal">Municipality</th>
+                                                    <td><?= $municipality_name; ?></td>
+                                                </tr>
+                                                <!-- Sitio -->
+                                                <tr>
+                                                    <th scope="row" class="fw-normal">Sitio</th>
+                                                    <td><?= $barangay_name; ?></td>
+                                                </tr>
+                                                <!-- Coordinates -->
+                                                <tr>
+                                                    <th scope="row" class="fw-normal">Coordinates</th>
+                                                    <td><?= $coordinates; ?></td>
+                                                </tr>
+                                                <!-- Map -->
+                                                <tr>
+                                                    <th scope="row" class="fw-normal">Map</th>
+                                                    <td>
+                                                        <div id="map-view" class="map-style rounded"></div>
+                                                    </td>
+                                                </tr>
+                                            </tbody>
+                                        </table>
+                                    </div>
+                                </div>
                             </div>
-                        </div>
+                    <?php
 
-                        <!-- images for stages -->
-                        <div id="image">
-                            <h5>Images</h5>
-                            <div class="border border-bottom-0 rounded my-3 overflow-hidden">
-                                <table class="table mb-0">
-                                    <tbody>
-                                        <!-- seed -->
-                                        <tr>
-                                            <th scope="row" class="w-25  fw-normal">Seed</th>
-                                            <td class="d-flex align-items-center flex-wrap ">
-                                                <div class="image-container-size me-2 d-flex align-tems-center justify-content-center">
-                                                    <img src="https://images.unsplash.com/photo-1713215008252-1316344fb5e3?q=80&w=1990&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" srcset="" class="img-thumbnail img-plant">
-                                                </div>
-                                                <div class="image-container-size me-2 d-flex align-tems-center justify-content-center">
-                                                    <img src="https://plus.unsplash.com/premium_photo-1670963025175-85af13624678?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" srcset="" class="img-thumbnail img-plant">
-                                                </div>
-                                                <div class="image-container-size me-2 d-flex align-tems-center justify-content-center">
-                                                    <img src="https://images.unsplash.com/photo-1712403235961-3d0a14d8e33b?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" srcset="" class="img-thumbnail img-plant">
-                                                </div>
-                                            </td>
-                                        </tr>
+                            // for the data that are specific for that specific category
+                            // get category name
+                            $get_name = "SELECT category_name FROM crop left join category on crop.category_id = category.category_id where crop.crop_id = $1";
+                            $query_run_get_name = pg_query_params($conn, $get_name, array($crop_id));
 
-                                        <!-- vegetative -->
-                                        <tr>
-                                            <th scope="row" class="w-25  fw-normal">Vegetative</th>
-                                            <td class="d-flex align-items-center flex-wrap ">
-                                                <div class="image-container-size me-2 d-flex align-tems-center justify-content-center">
-                                                    <img src="https://images.unsplash.com/photo-1713215008252-1316344fb5e3?q=80&w=1990&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" srcset="" class="img-thumbnail img-plant">
-                                                </div>
-                                                <div class="image-container-size me-2 d-flex align-tems-center justify-content-center">
-                                                    <img src="https://plus.unsplash.com/premium_photo-1670963025175-85af13624678?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" srcset="" class="img-thumbnail img-plant">
-                                                </div>
-                                                <div class="image-container-size me-2 d-flex align-tems-center justify-content-center">
-                                                    <img src="https://images.unsplash.com/photo-1712403235961-3d0a14d8e33b?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" srcset="" class="img-thumbnail img-plant">
-                                                </div>
-                                            </td>
-                                        </tr>
+                            if ($query_run_get_name) {
+                                $row_categoryName = pg_fetch_assoc(($query_run_get_name));
+                                $get_category_name = $row_categoryName['category_name'];
+                            } else {
+                                $_SESSION['message'] = "No category available, incomplete data";
+                                header("location: ../../../crop.php");
+                                exit();
+                            }
 
-                                        <!-- reproductive -->
-                                        <tr>
-                                            <th scope="row" class="w-25  fw-normal">Reproductive</th>
-                                            <td class="d-flex align-items-center flex-wrap ">
-                                                <div class="image-container-size me-2 d-flex align-tems-center justify-content-center">
-                                                    <img src="https://images.unsplash.com/photo-1713215008252-1316344fb5e3?q=80&w=1990&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" srcset="" class="img-thumbnail img-plant">
-                                                </div>
-                                                <div class="image-container-size me-2 d-flex align-tems-center justify-content-center">
-                                                    <img src="https://plus.unsplash.com/premium_photo-1670963025175-85af13624678?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" srcset="" class="img-thumbnail img-plant">
-                                                </div>
-                                                <div class="image-container-size me-2 d-flex align-tems-center justify-content-center">
-                                                    <img src="https://images.unsplash.com/photo-1712403235961-3d0a14d8e33b?q=80&w=2065&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" srcset="" class="img-thumbnail img-plant">
-                                                </div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
+                            if ($get_category_name === 'Corn') {
+                                // Fetch data from the crop table and join with crop_location
+                                $queryCorn = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join location 
+                                on crop_location.location_id = location.location_id left join users on crop.user_id = users.user_id left join barangay
+                                on crop_location.barangay_id = barangay.barangay_id left join category_variety on crop.category_variety_id = category_variety.category_variety_id left join terrain on terrain.terrain_id = crop.terrain_id
+                                left join category on category.category_id = crop.category_id left join utilization_cultural_importance on  crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id
+                                left join corn_traits on crop.crop_id = corn_traits.crop_id left join vegetative_state_corn on corn_traits.vegetative_state_corn_id = vegetative_state_corn.vegetative_state_corn_id
+                                left join reproductive_state_corn on corn_traits.reproductive_state_corn_id = reproductive_state_corn.reproductive_state_corn_id
+                                left join pest_resistance_corn on corn_traits.pest_resistance_corn_id = pest_resistance_corn.pest_resistance_corn_id
+                                left join disease_resistance on corn_traits.disease_resistance_id = disease_resistance.disease_resistance_id
+                                left join abiotic_resistance on corn_traits.abiotic_resistance_id = abiotic_resistance.abiotic_resistance_id
+                                left join seed_traits on seed_traits.seed_traits_id = reproductive_state_corn.seed_traits_id
+                                left join \"references\" on \"references\".crop_id = crop.crop_id
+                                WHERE crop.crop_id = $1";
+                                $query_runCorn = pg_query_params($conn, $queryCorn, array($crop_id));
 
-                        <!-- location -->
-                        <div id="loc-info">
-                            <h5>Location</h5>
-                            <div class="border border-bottom-0 rounded my-3 overflow-hidden">
-                                <table class="table mb-0">
-                                    <tbody>
-                                        <!-- province -->
-                                        <tr>
-                                            <th scope="row" class="w-25 fw-normal">Province</th>
-                                            <td>Sarangani</td>
-                                        </tr>
-                                        <!-- municipality -->
-                                        <tr>
-                                            <th scope="row" class="fw-normal">Municipality</th>
-                                            <td>Upland</td>
-                                        </tr>
-                                        <!-- Sitio -->
-                                        <tr>
-                                            <th scope="row" class="fw-normal">Sitio</th>
-                                            <td>Banay-Banay</td>
-                                        </tr>
-                                        <!-- Coordinates -->
-                                        <tr>
-                                            <th scope="row" class="fw-normal">Coordinates</th>
-                                            <td>213.12386712, 322.129863916</td>
-                                        </tr>
-                                        <!-- Map -->
-                                        <tr>
-                                            <th scope="row" class="fw-normal">Map</th>
-                                            <td>
-                                                <div id="map-view" class="map-style rounded"></div>
-                                            </td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
+                                if (pg_num_rows($query_runCorn) > 0) {
+                                    $crops_corn = pg_fetch_assoc($query_runCorn);
+                                }
+                            } elseif ($get_category_name === 'Rice') {
+                                // Fetch data from the crop table and join with crop_location
+                                $queryCorn = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join location 
+                                on crop_location.location_id = location.location_id left join users on crop.user_id = users.user_id left join barangay
+                                on crop_location.barangay_id = barangay.barangay_id left join category_variety on crop.category_variety_id = category_variety.category_variety_id left join terrain on terrain.terrain_id = crop.terrain_id
+                                left join category on category.category_id = crop.category_id left join utilization_cultural_importance on  crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id
+                                left join rice_traits on crop.crop_id = rice_traits.crop_id left join vegetative_state_rice on rice_traits.vegetative_state_rice_id = vegetative_state_rice.vegetative_state_rice_id
+                                left join reproductive_state_rice on rice_traits.reproductive_state_rice_id = reproductive_state_rice.reproductive_state_rice_id
+                                left join pest_resistance_rice on rice_traits.pest_resistance_rice_id = pest_resistance_rice.pest_resistance_rice_id
+                                left join disease_resistance on rice_traits.disease_resistance_id = disease_resistance.disease_resistance_id
+                                left join abiotic_resistance_rice on rice_traits.abiotic_resistance_rice_id = abiotic_resistance_rice.abiotic_resistance_rice_id
+                                left join seed_traits on seed_traits.seed_traits_id = reproductive_state_rice.seed_traits_id
+                                left join panicle_traits_rice on panicle_traits_rice.panicle_traits_rice_id = reproductive_state_rice.panicle_traits_rice_id
+                                left join flag_leaf_traits_rice on flag_leaf_traits_rice.flag_leaf_traits_rice_id = reproductive_state_rice.flag_leaf_traits_rice_id
+                                LEFT JOIN sensory_traits_rice ON sensory_traits_rice.sensory_traits_rice_id = rice_traits.sensory_traits_rice_id
+                                WHERE crop.crop_id = $1";
+                                $query_runRice = pg_query_params($conn, $queryCorn, array($crop_id));
 
+                                if (pg_num_rows($query_runRice) > 0) {
+                                    $crops_rice = pg_fetch_assoc($query_runRice);
+                                }
+                            } elseif ($get_category_name === 'Root Crop') {
+                                // Fetch data from the crop table and join with crop_location
+                                $query_rootCrop = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join location 
+                                on crop_location.location_id = location.location_id left join users on crop.user_id = users.user_id left join barangay
+                                on crop_location.barangay_id = barangay.barangay_id left join category_variety on crop.category_variety_id = category_variety.category_variety_id left join terrain on terrain.terrain_id = crop.terrain_id
+                                left join category on category.category_id = crop.category_id left join utilization_cultural_importance on  crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id
+                                left join root_crop_traits on crop.crop_id = root_crop_traits.crop_id left join vegetative_state_rootcrop on root_crop_traits.vegetative_state_rootcrop_id = vegetative_state_rootcrop.vegetative_state_rootcrop_id
+                                left join pest_resistance_rootcrop on root_crop_traits.pest_resistance_rootcrop_id = pest_resistance_rootcrop.pest_resistance_rootcrop_id
+                                left join disease_resistance on root_crop_traits.disease_resistance_id = disease_resistance.disease_resistance_id
+                                left join abiotic_resistance on root_crop_traits.abiotic_resistance_id = abiotic_resistance.abiotic_resistance_id
+                                left join rootcrop_traits on rootcrop_traits.rootcrop_traits_id = root_crop_traits.rootcrop_traits_id
+                                WHERE crop.crop_id = $1";
+                                $query_run_rootCrop = pg_query_params($conn, $query_rootCrop, array($crop_id));
+
+                                if (pg_num_rows($query_run_rootCrop) > 0) {
+                                    $crops_rootCrop = pg_fetch_assoc($query_run_rootCrop);
+                                }
+                            } else {
+                                // Handle other categories or invalid category names
+                                // For example, set a default category or display an error message
+                                $_SESSION['message'] = "Crop does not exist or broken file";
+                                header("location: ../crop.php");
+                                die();
+                            }
+                        }
+                    } else {
+                        $_SESSION['message'] = "Crop does not exist";
+                        header("location: ../crop.php");
+                        die();
+                    }
+                    ?>
 
                     <!-- morphology -->
                     <div id="morph" class="mb-5">
@@ -403,33 +563,23 @@
                                         <!-- Significance -->
                                         <tr>
                                             <th scope="row" class="w-25 fw-normal">Significance</th>
-                                            <td>The Deep Roots of Banaybanay: A Celebration of Filipino Culture
-                                                The Philippines holds rice in the highest regard, and Banaybanay rice, from the verdant fields of Davao Oriental, exemplifies this reverence. This medium-grain variety transcends its culinary significance, weaving itself into the cultural fabric of the Philippines.
-
-                                                Rice is ever-present in Filipino celebrations. From birthdays to religious festivals, fragrant rice dishes grace the table. Banaybanay rice, with its potential unique flavor and aroma, elevates these occasions. Partaking in a meal featuring Banaybanay rice becomes a celebration of community, heritage, and the land's bounty.
-
-                                                In conclusion, Banaybanay rice is more than a grain; it's a cultural cornerstone. It represents tradition, self-reliance, and the joy of sharing a meal with loved ones. Every plate heaped with Banaybanay rice is a testament to the enduring spirit of the Filipino people. </td>
+                                            <td><?= $significance; ?></td>
                                         </tr>
                                         <!-- Use -->
                                         <tr>
                                             <th scope="row" class="w-25 fw-normal">Use</th>
-                                            <td>Banaybanay Rice: A Grain Steeped in Filipino Culture
-                                                The Philippines cultivates a deep respect for rice, and Banaybanay rice, hailing from Davao Oriental's verdant fields, exemplifies this reverence. This medium-grain variety transcends its role as a food source, becoming intricately woven into the cultural tapestry of the Philippines.
-
-                                                A Tradition Passed Through Generations
-
-                                                Banaybanay rice embodies the unwavering dedication and skill of Filipino farmers. Cultivation techniques, potentially passed down through generations, might involve traditional methods. The very word "banaybanay" translates to "family, family," reflecting the deep-rooted communal spirit that defines Filipino culture. Families work together, ensuring a successful harvest, mirroring the way families come together to share meals – with rice as the centerpiece.
+                                            <td><?= $use; ?>
                                             </td>
                                         </tr>
                                         <!-- Indegenous Utilization -->
                                         <tr>
                                             <th scope="row" class="w-25 fw-normal">Indegenous Utilization</th>
-                                            <td>Banaybanay rice, from Davao Oriental, isn't just sustenance; it's a cultural touchstone in the Philippines. Grown potentially using traditional methods passed down through families ("banaybanay" means "family, family"), it reflects the communal spirit. This medium-grain rice contributes to regional food security, echoing the Bayanihan value of shared success. Every plate of Banaybanay rice becomes a celebration of heritage, community, and the land's bounty.</td>
+                                            <td><?= $indigenous_utilization; ?></td>
                                         </tr>
                                         <!-- Remarkable Features -->
                                         <tr>
                                             <th scope="row" class="w-25 fw-normal">Remarkable Features</th>
-                                            <td>The Philippines treasures Banaybanay rice, a medium-grain variety from Davao Oriental. While specifics are limited, its potential uniqueness lies in its cultural significance. "Banaybanay" translates to "family, family," hinting at traditional, possibly multi-generational farming methods. This rice contributes to regional food security, a source of national pride. Perhaps its most remarkable feature is its role in Filipino celebrations. Every fragrant plate of Banaybanay rice becomes a symbol of community, heritage, and the land's bounty. </td>
+                                            <td><?= $remarkable_features; ?></td>
                                         </tr>
                                     </tbody>
                                 </table>
@@ -449,10 +599,14 @@
                                             <th scope="row" class="w-25 fw-normal">Links</th>
                                             <td>
                                                 <ul class="list-unstyled">
-                                                    <li><a href="https://www.google.com/">https://www.google.com/</a></li>
-                                                    <li><a href="https://www.youtube.com/">https://www.youtube.com/</a></li>
-                                                    <li><a href="https://www.twitch.tv/">https://www.twitch.tv/</a></li>
-                                                    <li><a href="https://leafletjs.com/">https://leafletjs.com/</a></li>
+                                                    <?php
+                                                    // Check if the URL is absolute
+                                                    if (filter_var($link, FILTER_VALIDATE_URL) === false) {
+                                                        // If not, prepend "http://"
+                                                        $link = "http://" . $link;
+                                                    }
+                                                    ?>
+                                                        <li><a href="<?= $link ?>"><?= $link ?></a></li>
                                                 </ul>
                                             </td>
                                         </tr>
@@ -466,27 +620,23 @@
         </div>
     </div>
 
-
     <!-- bootstrap script -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-    <!-- script -->
+    <!-- Script for the map -->
     <script>
-        // map initialization
-        // initializnig map
-        const map = L.map('map-view').setView([5.867019, 124.943390], 9); //starting position
-
-
+        // Initialize the map
+        const map = L.map('map-view').setView([5.867019, 124.943390], 9);
         // Declare marker globally
         let marker = null;
 
-        L.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, { //style URL
+        // Add OpenStreetMap tiles to the map
+        L.tileLayer('https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png', {
             // tilesize
             tileSize: 512,
             // maxzoom
             maxZoom: 18,
             // i dont what this does but some says before different tile providers handle zoom differently
             zoomOffset: -1,
-            // minzoom
             minZoom: 9,
             // copyright claim, because openstreetmaps require them
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
@@ -494,17 +644,32 @@
             crossOrigin: true
         }).addTo(map);
 
+        // Define a function to add a marker to the map
+        function addMarker(lat, lng) {
+            if (marker) {
+                map.removeLayer(marker);
+            }
+            marker = L.marker([lat, lng], {
+                icon: myIcon
+            }).addTo(map);
+        }
+
+        // Define the marker icon
         const myIcon = L.icon({
-            iconUrl: '../img/location-pin-svgrepo-com.svg', // Replace with the path to your marker image
-            iconSize: [32, 48], // Size of the icon
-            iconAnchor: [16, 32], // Point of the icon that corresponds to its location on the map
-            popupAnchor: [-0, -40] // Point from which the popup appears relative to the icon
+            iconUrl: '../img/location-pin-svgrepo-com.svg',
+            iconSize: [32, 48],
+            iconAnchor: [16, 32],
+            popupAnchor: [0, -40]
         });
 
-        // Create a marker
-        marker = L.marker([5.867019, 124.943390], {
-            icon: myIcon
-        }).addTo(map);
+        // Retrieve coordinates from PHP
+        const coordinates = '<?= $coordinates; ?>';
+        if (coordinates) {
+            const [lat, lng] = coordinates.split(',').map(parseFloat);
+            if (!isNaN(lat) && !isNaN(lng)) {
+                addMarker(lat, lng);
+            }
+        }
     </script>
 </body>
 
