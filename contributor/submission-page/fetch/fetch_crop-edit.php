@@ -102,7 +102,7 @@ if (isset($_POST['click_remarks_btn'])) {
     $arrayresult = [];
 
     // get status remarks
-    $get_name = "SELECT remarks FROM crop left join status on crop.status_id = status.status_id where crop.crop_id = $1";
+    $get_name = "SELECT remarks, status_date FROM crop left join status on crop.status_id = status.status_id where crop.crop_id = $1";
     $query_run = pg_query_params($conn, $get_name, array($crop_id));
 
     if (pg_num_rows($query_run) > 0) {

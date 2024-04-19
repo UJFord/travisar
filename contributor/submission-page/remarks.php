@@ -26,6 +26,11 @@
                             <label class="form-label small-font">Remarks:</label>
                             <h6 name="remarks" id="remarksView"></h6>
                         </div>
+                        <!-- Date Approved -->
+                        <div class="col" id="remarkDate">
+                            <label class="form-label small-font">Date Approved:</label>
+                            <h6 name="status_date" id="dateView"></h6>
+                        </div>
                     </div>
                 </div>
 
@@ -45,6 +50,7 @@
 <script>
     // remarks SCRIPT
     const tableRowsRemarks = document.querySelectorAll('.remarks_data');
+    const statusDate = document.getElementById('.remarkDate');
 
     tableRowsRemarks.forEach(row => {
         row.addEventListener('click', () => {
@@ -63,7 +69,7 @@
                 },
                 success: function(response) {
                     // Handle the response from the PHP script
-                    // console.log('Response:', response);
+                    // console.log('Response:', value['status_date']);
 
                     // Clear the current preview
                     $('#preview').empty();
@@ -74,6 +80,11 @@
 
                         $('#crop_id').val(id);
                         $('#remarksView').text(value['remarks']);
+                        // if(value['remarks'] === "approved"){
+                        //     statusDate.style.display = "block";
+                        //     $('#dateView').text(moment(value['status_date']).format('YYYY-MM-DD HH:mm'));
+                        // }
+                        $('#dateView').text(moment(value['status_date']).format('YYYY-MM-DD HH:mm'));
                     });
                 },
                 error: function(xhr, status, error) {
