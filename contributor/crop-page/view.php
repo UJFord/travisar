@@ -9,7 +9,7 @@ require "../../functions/functions.php";
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Banay-Banay</title>
+    <title>View</title>
     <!-- bootstrap cdn -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
     <!-- leaflet -->
@@ -307,7 +307,7 @@ require "../../functions/functions.php";
                                     </div>
                                 </div>
                             </div>
-                    <?php
+                            <?php
 
                             // for the data that are specific for that specific category
                             // get category name
@@ -341,10 +341,255 @@ require "../../functions/functions.php";
 
                                 if (pg_num_rows($query_runCorn) > 0) {
                                     $crops_corn = pg_fetch_assoc($query_runCorn);
+
+                                    //* Morphological traits
+                                    // vegetative state
+                                    $corn_plant_height = $crops_corn['corn_plant_height'];
+                                    $corn_leaf_length = $crops_corn['corn_leaf_length'];
+                                    $corn_leaf_width = $crops_corn['corn_leaf_width'];
+
+                                    // Reproductive state
+                                    $corn_yield_capacity = $crops_corn['corn_yield_capacity'];
+                                    $seed_length = $crops_corn['seed_length'];
+                                    $seed_width = $crops_corn['seed_width'];
+                                    $seed_color = $crops_corn['seed_color'];
+                                    $seed_shape = $crops_corn['seed_shape'];
+
+                                    //* Agronomic Traits
+                                    // Pest resistance
+                                    $pest_resistance = [];
+                                    $corn_borers = $crops_corn['corn_borers'] ? true : false;
+                                    $earworms = $crops_corn['earworms'] ? true : false;
+                                    $spider_mites = $crops_corn['spider_mites'] ? true : false;
+                                    $corn_black_bug = $crops_corn['corn_black_bug'] ? true : false;
+                                    $corn_army_worms = $crops_corn['corn_army_worms'] ? true : false;
+                                    $leaf_aphid = $crops_corn['leaf_aphid'] ? true : false;
+                                    $corn_cutworms = $crops_corn['corn_cutworms'] ? true : false;
+                                    $corn_birds = $crops_corn['corn_birds'] ? true : false;
+                                    $corn_ants = $crops_corn['corn_ants'] ? true : false;
+                                    $corn_rats = $crops_corn['corn_rats'] ? true : false;
+                                    $corn_others = $crops_corn['corn_others'] ? true : false;
+                                    $corn_others_desc = $crops_corn['corn_others_desc'];
+
+                                    if ($corn_borers) {
+                                        $pest_resistance[] = 'Borers';
+                                    }
+                                    if ($earworms) {
+                                        $pest_resistance[] = 'Earworms';
+                                    }
+                                    if ($spider_mites) {
+                                        $pest_resistance[] = 'Spider Mites';
+                                    }
+                                    if ($corn_black_bug) {
+                                        $pest_resistance[] = 'Black Bug';
+                                    }
+                                    if ($corn_army_worms) {
+                                        $pest_resistance[] = 'Army Worms';
+                                    }
+                                    if ($leaf_aphid) {
+                                        $pest_resistance[] = 'Leaf Aphid';
+                                    }
+                                    if ($corn_cutworms) {
+                                        $pest_resistance[] = 'Cutworms';
+                                    }
+                                    if ($corn_birds) {
+                                        $pest_resistance[] = 'Birds';
+                                    }
+                                    if ($corn_ants) {
+                                        $pest_resistance[] = 'Ants';
+                                    }
+                                    if ($corn_rats) {
+                                        $pest_resistance[] = 'Rats';
+                                    }
+                                    if ($corn_others) {
+                                        $pest_resistance[] = $corn_others_desc;
+                                    }
+
+                                    // combine all pest resistance into a single line
+                                    $pest_list = implode(', ', $pest_resistance);
+
+                                    // disease resistance
+                                    $disease_resistance = [];
+                                    $bacterial = $crops_corn['bacterial'] ? true : false;
+                                    $viral = $crops_corn['viral'] ? true : false;
+                                    $fungus = $crops_corn['fungus'] ? true : false;
+
+                                    if ($bacterial) {
+                                        $disease_resistance[] = 'Bacterial';
+                                    }
+                                    if ($viral) {
+                                        $disease_resistance[] = 'Viral';
+                                    }
+                                    if ($fungus) {
+                                        $disease_resistance[] = 'Fungus';
+                                    }
+                                    // combine all disease resistance into a single line
+                                    $disease_list = implode(', ', $disease_resistance);
+
+                                    // Abiotic Resistance
+                                    $abiotic_resistance = [];
+                                    $drought = $crops_corn['drought'];
+                                    $salinity = $crops_corn['salinity'];
+                                    $heat = $crops_corn['heat'];
+                                    $abiotic_other = $crops_corn['abiotic_other'];
+                                    $abiotic_other_desc = $crops_corn['abiotic_other_desc'];
+
+                                    if ($drought) {
+                                        $disease_resistance[] = 'Drought';
+                                    }
+                                    if ($salinity) {
+                                        $disease_resistance[] = 'Salinity';
+                                    }
+                                    if ($heat) {
+                                        $disease_resistance[] = 'Heat';
+                                    }
+                                    if ($abiotic_other) {
+                                        $abiotic_resistance[] = $abiotic_other_desc;
+                                    }
+                                    $abiotic_list = implode(', ', $abiotic_resistance);
+
+                                    ?>
+                                    <!-- morphology -->
+                                    <div id="morph" class="mb-5">
+                                        <!-- vegetative -->
+                                        <div id="morph-veg">
+                                            <h5>Vegetative State</h5>
+                                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <!-- plant height -->
+                                                        <tr>
+                                                            <th scope="row" class="w-25 fw-normal">Plant Height</th>
+                                                            <td><?= $corn_plant_height; ?></td>
+                                                        </tr>
+                                                        <!-- leaf width -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Leaf Length</th>
+                                                            <td><?= $corn_leaf_length; ?></td>
+                                                        </tr>
+                                                        <!-- leaf length -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Leaf Width</th>
+                                                            <td><?= $corn_leaf_width; ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- reproductive -->
+                                        <div id="morph-rep">
+                                            <h5>Reproductve State</h5>
+                                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <!-- yield capacity -->
+                                                        <tr>
+                                                            <th scope="row" class="w-25 fw-normal">Yield Capacity</th>
+                                                            <td><? $corn_yield_capacity; ?></td>
+                                                        </tr>
+                                                        <!-- lenght -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Seed Length</th>
+                                                            <td><? $seed_length; ?></td>
+                                                        </tr>
+                                                        <!-- width -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Seed Width</th>
+                                                            <td><? $seed_width; ?></td>
+                                                        </tr>
+                                                        <!-- shape -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Seed Shape</th>
+                                                            <td><? $seed_shape; ?></td>
+                                                        </tr>
+                                                        <!-- color -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Seed Color</th>
+                                                            <td><? $seed_color; ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- agronomy -->
+                                    <div id="agro" class="my-5">
+                                        <!-- pest -->
+                                        <div id="pest-resist">
+                                            <h5>Pest Resistance</h5>
+                                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <!-- resistance -->
+                                                        <tr>
+                                                            <th scope="row" class="w-25 fw-normal">List</th>
+                                                            <td>
+                                                                <?php
+                                                                if ($pest_list > 0) {
+                                                                    echo $pest_list;
+                                                                } else {
+                                                                    echo "There is no Pest list available";
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- disease -->
+                                        <div id="disease-resist">
+                                            <h5>Disease Resistance</h5>
+                                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <!-- resistance -->
+                                                        <tr>
+                                                            <th scope="row" class="w-25 fw-normal">List</th>
+                                                            <td>
+                                                                <?php
+                                                                if ($disease_list > 0) {
+                                                                    echo $disease_list;
+                                                                } else {
+                                                                    echo "There is no Disease list available";
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- stress -->
+                                        <div id="stress-resist">
+                                            <h5>Resistance to Abiotic Stress</h5>
+                                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <!-- list -->
+                                                        <tr>
+                                                            <th scope="row" class="w-25 fw-normal">List</th>
+                                                            <td>
+                                                                <?php
+                                                                if ($abiotic_list > 0) {
+                                                                    echo $abiotic_list;
+                                                                } else {
+                                                                    echo "There is no Disease list available";
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                    <?php
                                 }
                             } elseif ($get_category_name === 'Rice') {
                                 // Fetch data from the crop table and join with crop_location
-                                $queryCorn = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join location 
+                                $queryRice = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join location 
                                 on crop_location.location_id = location.location_id left join users on crop.user_id = users.user_id left join barangay
                                 on crop_location.barangay_id = barangay.barangay_id left join category_variety on crop.category_variety_id = category_variety.category_variety_id left join terrain on terrain.terrain_id = crop.terrain_id
                                 left join category on category.category_id = crop.category_id left join utilization_cultural_importance on  crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id
@@ -358,10 +603,325 @@ require "../../functions/functions.php";
                                 left join flag_leaf_traits_rice on flag_leaf_traits_rice.flag_leaf_traits_rice_id = reproductive_state_rice.flag_leaf_traits_rice_id
                                 LEFT JOIN sensory_traits_rice ON sensory_traits_rice.sensory_traits_rice_id = rice_traits.sensory_traits_rice_id
                                 WHERE crop.crop_id = $1";
-                                $query_runRice = pg_query_params($conn, $queryCorn, array($crop_id));
+                                $query_runRice = pg_query_params($conn, $queryRice, array($crop_id));
 
                                 if (pg_num_rows($query_runRice) > 0) {
                                     $crops_rice = pg_fetch_assoc($query_runRice);
+
+                                    //* Morphological Traits
+                                    // Vegetative
+                                    $rice_plant_height = $crops_rice['rice_plant_height'];
+                                    $rice_leaf_length = $crops_rice['rice_leaf_length'];
+                                    $rice_leaf_width = $crops_rice['rice_leaf_width'];
+                                    $rice_tillering_ability = $crops_rice['rice_tillering_ability'];
+                                    $rice_maturity_time = $crops_rice['rice_maturity_time'];
+                                    // Reproductive
+                                    $rice_yield_capacity = $crops_rice['rice_yield_capacity'];
+                                    $seed_length = $crops_rice['seed_length'];
+                                    $seed_width = $crops_rice['seed_width'];
+                                    $seed_shape = $crops_rice['seed_shape'];
+                                    $seed_color = $crops_rice['seed_color'];
+
+                                    //* Sensory Traits
+                                    $aroma = $crops_rice['aroma'];
+                                    $quality_cooked_rice = $crops_rice['quality_cooked_rice'];
+                                    $quality_leftover_rice = $crops_rice['quality_leftover_rice'];
+                                    $volume_expansion = $crops_rice['volume_expansion'];
+                                    $glutinous = $crops_rice['glutinous'];
+                                    $hardness = $crops_rice['hardness'];
+
+                                    //* Agronomy
+                                    // Pest Resistance
+                                    $pest_resistances = [];
+                                    $rice_borers = $crops_rice['rice_borers'] ? true : false;
+                                    $rice_snail = $crops_rice['rice_snail'] ? true : false;
+                                    $hoppers = $crops_rice['hoppers'] ? true : false;
+                                    $rice_black_bug = $crops_rice['rice_black_bug'] ? true : false;
+                                    $leptocorisa = $crops_rice['leptocorisa'] ? true : false;
+                                    $leaf_folder = $crops_rice['leaf_folder'] ? true : false;
+                                    $rice_birds = $crops_rice['rice_birds'] ? true : false;
+                                    $rice_ants = $crops_rice['rice_ants'] ? true : false;
+                                    $rice_rats = $crops_rice['rice_rats'] ? true : false;
+                                    $rice_army_worms = $crops_rice['rice_army_worms'] ? true : false;
+                                    $rice_others = $crops_rice['rice_others'] ? true : false;
+                                    $rice_others_desc = $crops_rice['rice_others_desc'];
+                                    if ($rice_borers) {
+                                        $pest_resistances[] = 'Borers';
+                                    }
+                                    if ($rice_snail) {
+                                        $pest_resistances[] = 'Snail';
+                                    }
+                                    if ($hoppers) {
+                                        $pest_resistances[] = 'Hoppers';
+                                    }
+                                    if ($rice_black_bug) {
+                                        $pest_resistances[] = 'Black Bug';
+                                    }
+                                    if ($leptocorisa) {
+                                        $pest_resistances[] = 'Leptocorisa';
+                                    }
+                                    if ($leaf_folder) {
+                                        $pest_resistances[] = 'Leaf Folder';
+                                    }
+                                    if ($rice_ants) {
+                                        $pest_resistances[] = 'Ants';
+                                    }
+                                    if ($rice_rats) {
+                                        $pest_resistances[] = 'Rats';
+                                    }
+                                    if ($rice_army_worms) {
+                                        $pest_resistances[] = 'Army Worms';
+                                    }
+                                    if ($rice_rats) {
+                                        $pest_resistances[] = 'Rats';
+                                    }
+                                    if ($rice_others) {
+                                        $pest_resistances[] = $rice_others_desc;
+                                    }
+
+                                    // Combine the pest resistances into a single string
+                                    $pest_list = implode(', ', $pest_resistances);
+
+                                    // disease Resistance
+                                    $disease_resistances = [];
+                                    $bacterial = $crops_rice['bacterial'] ? true : false;
+                                    $viral = $crops_rice['viral'] ? true : false;
+                                    $fungus = $crops_rice['fungus'] ? true : false;
+
+                                    if ($bacterial) {
+                                        $disease_resistances[] = 'Bacterial';
+                                    }
+                                    if ($viral) {
+                                        $disease_resistances[] = 'Viral';
+                                    }
+                                    if ($fungus) {
+                                        $disease_resistances[] = 'Fungus';
+                                    }
+
+                                    // Combine the disease resistances into a single string
+                                    $disease_list = implode(', ', $disease_resistances);
+
+                                    // Abiotic Resistance
+                                    $abiotic_resistances = [];
+                                    $rice_drought = $crops_rice['rice_drought'] ? true : false;
+                                    $rice_salinity = $crops_rice['rice_salinity'] ? true : false;
+                                    $rice_heat = $crops_rice['rice_heat'] ? true : false;
+                                    $harmful_radiation = $crops_rice['harmful_radiation'] ? true : false;
+                                    $rice_abiotic_other = $crops_rice['rice_abiotic_other'] ? true : false;
+                                    $rice_abiotic_other_desc = $crops_rice['rice_abiotic_other_desc'];
+
+                                    if ($rice_drought) {
+                                        $abiotic_resistances[] = 'Drought';
+                                    }
+                                    if ($rice_salinity) {
+                                        $abiotic_resistances[] = 'Salinity';
+                                    }
+                                    if ($rice_heat) {
+                                        $abiotic_resistances[] = 'Heat';
+                                    }
+                                    if ($harmful_radiation) {
+                                        $abiotic_resistances[] = 'Harmful Radiation';
+                                    }
+                                    if ($rice_abiotic_other) {
+                                        $abiotic_resistances[] = $rice_abiotic_other_desc;
+                                    }
+
+
+                                    // Combine the abiotic resistances into a single string
+                                    $abiotic_list = implode(', ', $abiotic_resistances);
+
+                                ?>
+                                    <!-- morphology -->
+                                    <div id="morph" class="mb-5">
+                                        <!-- vegetative -->
+                                        <div id="morph-veg">
+                                            <h5>Vegetative State</h5>
+                                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <!-- plant height -->
+                                                        <tr>
+                                                            <th scope="row" class="w-25 fw-normal">Plant Height</th>
+                                                            <td><?= $rice_plant_height; ?></td>
+                                                        </tr>
+                                                        <!-- leaf width -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Leaf Length</th>
+                                                            <td><?= $rice_leaf_length; ?></td>
+                                                        </tr>
+                                                        <!-- leaf Width -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Leaf Width</th>
+                                                            <td><?= $rice_leaf_width; ?></td>
+                                                        </tr>
+                                                        <!-- Tillering Ability -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Tillering Ability</th>
+                                                            <td><?= $rice_tillering_ability; ?></td>
+                                                        </tr>
+                                                        <!-- Maturity Time -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Maturity Time</th>
+                                                            <td><?= $rice_maturity_time; ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- reproductive -->
+                                        <div id="morph-rep">
+                                            <h5>Reproductve State</h5>
+                                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <!-- yield capacity -->
+                                                        <tr>
+                                                            <th scope="row" class="w-25 fw-normal">Yield Capacity</th>
+                                                            <td><?= $rice_yield_capacity; ?></td>
+                                                        </tr>
+                                                        <!-- lenght -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Seed Length</th>
+                                                            <td><?= $seed_length; ?></td>
+                                                        </tr>
+                                                        <!-- width -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Seed Width</th>
+                                                            <td><?= $seed_width; ?></td>
+                                                        </tr>
+                                                        <!-- shape -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Seed Shape</th>
+                                                            <td><?= $seed_shape; ?></td>
+                                                        </tr>
+                                                        <!-- color -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Seed Color</th>
+                                                            <td><?= $seed_color; ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- sensory -->
+                                    <div id="sensory">
+                                        <!-- sensory traits -->
+                                        <div id="sensory-traits">
+                                            <h5>Sensory Traits</h5>
+                                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <!-- Aroma -->
+                                                        <tr>
+                                                            <th scope="row" class="w-25 fw-normal">Aroma</th>
+                                                            <td><?= $aroma; ?></td>
+                                                        </tr>
+                                                        <!-- Quality of Cooked Rice -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Quality of Cooked Rice</th>
+                                                            <td><?= $quality_cooked_rice; ?></td>
+                                                        </tr>
+                                                        <!-- Quality of Leftover Rice -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Quality of Leftover Rice</th>
+                                                            <td><?= $quality_leftover_rice; ?></td>
+                                                        </tr>
+                                                        <!-- Volume Expansion -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Volume Expansion</th>
+                                                            <td><?= $volume_expansion; ?></td>
+                                                        </tr>
+                                                        <!-- Glutinousity -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Glutinousity</th>
+                                                            <td><?= $glutinous; ?></td>
+                                                        </tr>
+                                                        <!-- Hardness -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Hardness</th>
+                                                            <td><?= $hardness; ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- agronomy -->
+                                    <div id="agro" class="my-5">
+                                        <!-- pest -->
+                                        <div id="pest-resist">
+                                            <h5>Pest Resistance</h5>
+                                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <!-- resistance -->
+                                                        <tr>
+                                                            <th scope="row" class="w-25 fw-normal">List</th>
+                                                            <td>
+                                                                <?php
+                                                                if ($pest_list > 0) {
+                                                                    echo $pest_list;
+                                                                } else {
+                                                                    echo "There is no Pest list available";
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- disease -->
+                                        <div id="disease-resist">
+                                            <h5>Disease Resistance</h5>
+                                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <!-- resistance -->
+                                                        <tr>
+                                                            <th scope="row" class="w-25 fw-normal">List</th>
+                                                            <td>
+                                                                <?php
+                                                                if ($disease_list > 0) {
+                                                                    echo $disease_list;
+                                                                } else {
+                                                                    echo "There is no Disease list available";
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- stress -->
+                                        <div id="stress-resist">
+                                            <h5>Resistance to Abiotic Stress</h5>
+                                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <!-- list -->
+                                                        <tr>
+                                                            <th scope="row" class="w-25 fw-normal">List</th>
+                                                            <td>
+                                                                <?php
+                                                                if ($abiotic_list > 0) {
+                                                                    echo $abiotic_list;
+                                                                } else {
+                                                                    echo "There is no Abiotic Resistance list available";
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php
                                 }
                             } elseif ($get_category_name === 'Root Crop') {
                                 // Fetch data from the crop table and join with crop_location
@@ -379,6 +939,261 @@ require "../../functions/functions.php";
 
                                 if (pg_num_rows($query_run_rootCrop) > 0) {
                                     $crops_rootCrop = pg_fetch_assoc($query_run_rootCrop);
+
+                                    //* Morphological Traits
+                                    // vegetative state
+                                    $rootcrop_plant_height = $crops_rootCrop['rootcrop_plant_height'];
+                                    $rootcrop_leaf_length = $crops_rootCrop['rootcrop_leaf_length'];
+                                    $rootcrop_leaf_width = $crops_rootCrop['rootcrop_leaf_width'];
+
+                                    // Root Crop Traits
+                                    $eating_quality = $crops_rootCrop['eating_quality'];
+                                    $rootcrop_color = $crops_rootCrop['rootcrop_color'];
+                                    $sweetness = $crops_rootCrop['sweetness'];
+                                    $rootcrop_remarkable_features = $crops_rootCrop['rootcrop_remarkable_features'];
+
+                                    //* Agronomic Traits
+                                    // Pest Resistance
+                                    $pest_resistance = [];
+                                    $root_aphids = $crops_rootCrop['root_aphids'] ? true : false;
+                                    $root_knot_nematodes = $crops_rootCrop['root_knot_nematodes'] ? true : false;
+                                    $rootcrop_cutworms = $crops_rootCrop['rootcrop_cutworms'] ? true : false;
+                                    $white_grubs = $crops_rootCrop['white_grubs'] ? true : false;
+                                    $termites = $crops_rootCrop['termites'] ? true : false;
+                                    $weevils = $crops_rootCrop['weevils'] ? true : false;
+                                    $flea_beetles = $crops_rootCrop['flea_beetles'] ? true : false;
+                                    $rootcrop_snails = $crops_rootCrop['rootcrop_snails'] ? true : false;
+                                    $rootcrop_ants = $crops_rootCrop['rootcrop_ants'] ? true : false;
+                                    $rootcrop_rats = $crops_rootCrop['rootcrop_rats'] ? true : false;
+                                    $rootcrop_others = $crops_rootCrop['rootcrop_others'] ? true : false;
+                                    $rootcrop_others_desc = $crops_rootCrop['rootcrop_others_desc'];
+
+                                    if ($root_aphids) {
+                                        $pest_resistance[] = 'Aphids';
+                                    }
+
+                                    if ($root_knot_nematodes) {
+                                        $pest_resistance[] = 'Knot Nematodes';
+                                    }
+
+                                    if ($rootcrop_cutworms) {
+                                        $pest_resistance[] = 'Cutworms';
+                                    }
+
+                                    if ($white_grubs) {
+                                        $pest_resistance[] = 'White Grubs';
+                                    }
+
+                                    if ($termites) {
+                                        $pest_resistance[] = 'Termites';
+                                    }
+
+                                    if ($weevils) {
+                                        $pest_resistance[] = 'Weevils';
+                                    }
+
+                                    if ($flea_beetles) {
+                                        $pest_resistance[] = 'Flea Beetles';
+                                    }
+
+                                    if ($rootcrop_snails) {
+                                        $pest_resistance[] = 'Snails';
+                                    }
+
+                                    if ($rootcrop_ants) {
+                                        $pest_resistance[] = 'Ants';
+                                    }
+
+                                    if ($rootcrop_rats) {
+                                        $pest_resistance[] = 'Rats';
+                                    }
+
+                                    if ($rootcrop_others) {
+                                        $pest_resistance[] = $rootcrop_others_desc;
+                                    }
+
+                                    $pest_list = implode(", ", $pest_resistance);
+
+                                    // Disease Resitance
+                                    $disease_resistance = [];
+                                    $bacterial = $crops_rootCrop['bacterial'] ? true : false;
+                                    $viral = $crops_rootCrop['viral'] ? true : false;
+                                    $fungus = $crops_rootCrop['fungus'] ? true : false;
+
+                                    if ($bacterial) {
+                                        $disease_resistance[] = 'Bacterial';
+                                    }
+                                    if ($viral) {
+                                        $disease_resistance[] = 'Viral';
+                                    }
+                                    if ($fungus) {
+                                        $disease_resistance[] = 'Fungus';
+                                    }
+
+                                    $disease_list = implode(", ", $disease_resistance);
+
+                                    // Abiotic Resistance
+                                    $abiotic_resistance = [];
+                                    $drought = $crops_rootCrop['drought'] ? true : false;
+                                    $salinity = $crops_rootCrop['salinity'] ? true : false;
+                                    $heat = $crops_rootCrop['heat'] ? true : false;
+                                    $abiotic_other = $crops_rootCrop['abiotic_other'] ? true : false;
+                                    $abiotic_other_desc = $crops_rootCrop['abiotic_other_desc'] ? true : false;
+
+                                    if ($drought) {
+                                        $abiotic_resistance[] = 'Drought';
+                                    }
+                                    
+                                    if ($salinity) {
+                                        $abiotic_resistance[] = 'Salinity';
+                                    }
+                                    
+                                    if ($heat) {
+                                        $abiotic_resistance[] = 'Heat';
+                                    }
+                                    
+                                    if ($abiotic_other) {
+                                        $abiotic_resistance[] = $abiotic_other_desc;
+                                    }
+                                    
+                                    $abiotic_list = implode(", ", $abiotic_resistance);
+                                ?>
+                                    <!-- morphology -->
+                                    <div id="morph" class="mb-5">
+                                        <!-- vegetative -->
+                                        <div id="morph-veg">
+                                            <h5>Vegetative State</h5>
+                                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <!-- plant height -->
+                                                        <tr>
+                                                            <th scope="row" class="w-25 fw-normal">Plant Height</th>
+                                                            <td><?= $rootcrop_plant_height; ?></td>
+                                                        </tr>
+                                                        <!-- leaf width -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Leaf Length</th>
+                                                            <td><?= $rootcrop_leaf_length; ?></td>
+                                                        </tr>
+                                                        <!-- leaf length -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Leaf Width</th>
+                                                            <td><?= $rootcrop_leaf_width; ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- Root Crop Traits -->
+                                    <div id="sensory">
+                                        <!-- sensory traits -->
+                                        <div id="sensory-traits">
+                                            <h5>Crop Traits</h5>
+                                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <!-- Aroma -->
+                                                        <tr>
+                                                            <th scope="row" class="w-25 fw-normal">Eating Quality</th>
+                                                            <td><?= $eating_quality; ?></td>
+                                                        </tr>
+                                                        <!-- Color -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Color</th>
+                                                            <td><?= $rootcrop_color; ?></td>
+                                                        </tr>
+                                                        <!-- Sweetness -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Sweetness</th>
+                                                            <td><?= $sweetness; ?></td>
+                                                        </tr>
+                                                        <!-- Other Remarkable Features -->
+                                                        <tr>
+                                                            <th scope="row" class=" fw-normal">Other Remarkable Features</th>
+                                                            <td><?= $rootcrop_remarkable_features; ?></td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+
+                                    <!-- agronomy -->
+                                    <div id="agro" class="my-5">
+                                        <!-- pest -->
+                                        <div id="pest-resist">
+                                            <h5>Pest Resistance</h5>
+                                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <!-- resistance -->
+                                                        <tr>
+                                                            <th scope="row" class="w-25 fw-normal">List</th>
+                                                            <td>
+                                                                <?php
+                                                                if ($pest_list > 0) {
+                                                                    echo $pest_list;
+                                                                } else {
+                                                                    echo "There is no Pest list available";
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- disease -->
+                                        <div id="disease-resist">
+                                            <h5>Disease Resistance</h5>
+                                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <!-- resistance -->
+                                                        <tr>
+                                                            <th scope="row" class="w-25 fw-normal">List</th>
+                                                            <td>
+                                                                <?php
+                                                                if ($disease_list > 0) {
+                                                                    echo $disease_list;
+                                                                } else {
+                                                                    echo "There is no Disease list available";
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                        <!-- stress -->
+                                        <div id="stress-resist">
+                                            <h5>Resistance to Abiotic Stress</h5>
+                                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
+                                                <table class="table mb-0">
+                                                    <tbody>
+                                                        <!-- list -->
+                                                        <tr>
+                                                            <th scope="row" class="w-25 fw-normal">List</th>
+                                                            <td>
+                                                                <?php
+                                                                if ($abiotic_list > 0) {
+                                                                    echo $abiotic_list;
+                                                                } else {
+                                                                    echo "There is no abiotic list available";
+                                                                }
+                                                                ?>
+                                                            </td>
+                                                        </tr>
+                                                    </tbody>
+                                                </table>
+                                            </div>
+                                        </div>
+                                    </div>
+                                <?php
                                 }
                             } else {
                                 // Handle other categories or invalid category names
@@ -394,163 +1209,6 @@ require "../../functions/functions.php";
                         die();
                     }
                     ?>
-
-                    <!-- morphology -->
-                    <div id="morph" class="mb-5">
-                        <!-- vegetative -->
-                        <div id="morph-veg">
-                            <h5>Vegetative State</h5>
-                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
-                                <table class="table mb-0">
-                                    <tbody>
-                                        <!-- plant height -->
-                                        <tr>
-                                            <th scope="row" class="w-25 fw-normal">Plant Height</th>
-                                            <td>Typical</td>
-                                        </tr>
-                                        <!-- leaf width -->
-                                        <tr>
-                                            <th scope="row" class=" fw-normal">Leaf Length</th>
-                                            <td>Average</td>
-                                        </tr>
-                                        <!-- leaf length -->
-                                        <tr>
-                                            <th scope="row" class=" fw-normal">Leaf Width</th>
-                                            <td>Long</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!-- reproductive -->
-                        <div id="morph-rep">
-                            <h5>Reproductve State</h5>
-                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
-                                <table class="table mb-0">
-                                    <tbody>
-                                        <!-- yield capacity -->
-                                        <tr>
-                                            <th scope="row" class="w-25 fw-normal">Yield Capacity</th>
-                                            <td>Typical</td>
-                                        </tr>
-                                        <!-- lenght -->
-                                        <tr>
-                                            <th scope="row" class=" fw-normal">Seed Length</th>
-                                            <td>10 inch</td>
-                                        </tr>
-                                        <!-- width -->
-                                        <tr>
-                                            <th scope="row" class=" fw-normal">Seed Width</th>
-                                            <td>5 cm</td>
-                                        </tr>
-                                        <!-- shape -->
-                                        <tr>
-                                            <th scope="row" class=" fw-normal">Seed Shape</th>
-                                            <td>Elongated</td>
-                                        </tr>
-                                        <!-- color -->
-                                        <tr>
-                                            <th scope="row" class=" fw-normal">Seed Color</th>
-                                            <td>Fuichsa</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- sensory -->
-                    <div id="sensory">
-                        <!-- sensory traits -->
-                        <div id="sensory-traits">
-                            <h5>Sensory Traits</h5>
-                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
-                                <table class="table mb-0">
-                                    <tbody>
-                                        <!-- Aroma -->
-                                        <tr>
-                                            <th scope="row" class="w-25 fw-normal">Aroma</th>
-                                            <td>Smelly</td>
-                                        </tr>
-                                        <!-- Quality of Cooked Rice -->
-                                        <tr>
-                                            <th scope="row" class=" fw-normal">Quality of Cooked Rice</th>
-                                            <td>Soft</td>
-                                        </tr>
-                                        <!-- Quality of Leftover Rice -->
-                                        <tr>
-                                            <th scope="row" class=" fw-normal">Quality of Leftover Rice</th>
-                                            <td>Mushy</td>
-                                        </tr>
-                                        <!-- Volume Expansion -->
-                                        <tr>
-                                            <th scope="row" class=" fw-normal">Volume Expansion</th>
-                                            <td>It rises</td>
-                                        </tr>
-                                        <!-- Glutinousity -->
-                                        <tr>
-                                            <th scope="row" class=" fw-normal">Glutinousity</th>
-                                            <td>yes</td>
-                                        </tr>
-                                        <!-- Hardness -->
-                                        <tr>
-                                            <th scope="row" class=" fw-normal">Hardness</th>
-                                            <td>Soft</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
-
-                    <!-- agronomy -->
-                    <div id="agro" class="my-5">
-                        <!-- pest -->
-                        <div id="pest-resist">
-                            <h5>Pest Resistance</h5>
-                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
-                                <table class="table mb-0">
-                                    <tbody>
-                                        <!-- resistance -->
-                                        <tr>
-                                            <th scope="row" class="w-25 fw-normal">List</th>
-                                            <td>Borers, Grasshoppers, Ants, Birds</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!-- disease -->
-                        <div id="disease-resist">
-                            <h5>Disease Resistance</h5>
-                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
-                                <table class="table mb-0">
-                                    <tbody>
-                                        <!-- resistance -->
-                                        <tr>
-                                            <th scope="row" class="w-25 fw-normal">List</th>
-                                            <td>Bacterial, Viral</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                        <!-- stress -->
-                        <div id="stress-resist">
-                            <h5>Resistance to Abiotic Stress</h5>
-                            <div class="border border-bottom-0 rounded my-3  overflow-hidden">
-                                <table class="table mb-0">
-                                    <tbody>
-                                        <!-- list -->
-                                        <tr>
-                                            <th scope="row" class="w-25 fw-normal">List</th>
-                                            <td>Drought, Salinity</td>
-                                        </tr>
-                                    </tbody>
-                                </table>
-                            </div>
-                        </div>
-                    </div>
 
                     <!-- importance -->
                     <div id="importance" class="my-5">
@@ -600,13 +1258,22 @@ require "../../functions/functions.php";
                                             <td>
                                                 <ul class="list-unstyled">
                                                     <?php
-                                                    // Check if the URL is absolute
-                                                    if (filter_var($link, FILTER_VALIDATE_URL) === false) {
-                                                        // If not, prepend "http://"
-                                                        $link = "http://" . $link;
-                                                    }
+                                                    if ($link != "null") {
+                                                        // Check if the URL is absolute
+                                                        if (filter_var($link, FILTER_VALIDATE_URL) === false) {
+                                                            // If not, prepend "http://"
+                                                            $link = "http://" . $link;
+                                                        }
+                                                        // Display the link
                                                     ?>
                                                         <li><a href="<?= $link ?>"><?= $link ?></a></li>
+                                                    <?php
+                                                    } else {
+                                                        // Display a message if no link is available
+                                                        echo "There are no links available";
+                                                    }
+                                                    ?>
+
                                                 </ul>
                                             </td>
                                         </tr>

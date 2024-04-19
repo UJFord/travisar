@@ -69,37 +69,6 @@
 
             <!-- table body -->
             <tbody class="table-group-divider fw-bold overflow-scroll">
-
-                <!-- UI Test Item -->
-                <tr>
-                    <!-- Name -->
-                    <td>
-                        <a href="crop-page/view.php" target="_blank">Banay-Banay</a>
-                        <h6 class="text-secondary small-font m-0">Rice</h6>
-                    </td>
-
-                    <!-- Contributor -->
-                    <td class="small-font">
-                        <span class="py-1 px-2">
-                            <h6 class="text-secondary small-font m-0">Elo Quent</h6>
-                        </span>
-                    </td>
-
-                    <!-- Action -->
-                    <td>
-                        <a href="#" class="btn btn-success btn-sm edit_data admin-only">
-                            Edit
-                        </a>
-                    </td>
-
-                    <!-- Ellipsis -->
-                    <td class="text-end">
-                        <div class="dropdown">
-                            <i class="fa-solid fa-ellipsis-vertical btn"></i>
-                        </div>
-                    </td>
-                </tr>
-
                 <?php
                 // get the data from crops. only approved data are shown and is limited per items per page
                 $query = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'approved' ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
