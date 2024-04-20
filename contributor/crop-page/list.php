@@ -40,7 +40,7 @@
         $offset = ($current_page - 1) * $items_per_page;
 
         // Count the total number of rows for pagination
-        $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'approved'";
+        $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id";
         $total_rows_result = pg_query($conn, $total_rows_query);
         $total_rows = pg_fetch_row($total_rows_result)[0];
 
@@ -50,6 +50,11 @@
         // Get the search query from the session or URL parameter
         $search = isset($_GET['search']) ? $_GET['search'] : '';
         $search_condition = $search ? "AND crop_variety ILIKE '%$search%'" : '';
+
+        // Get the categories and municipalities filter from the URL
+        $category_filter = !empty($_GET['categories']) ? "AND category_id IN (" . implode(',', explode(',', $_GET['categories'])) . ")" : '';
+        $municipality_filter = !empty($_GET['municipalities']) ? "AND location_id IN (" . implode(',', explode(',', $_GET['municipalities'])) . ")" : '';
+
         ?>
 
         <!-- TABLE -->
@@ -86,8 +91,13 @@
             <!-- table body -->
             <tbody class="table-group-divider fw-bold overflow-scroll">
                 <?php
-                // get the data from crops. only approved data are shown and is limited per items per page
-                $query = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'approved' $search_condition ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
+                // get the data from crops.
+                $query = "SELECT * FROM crop 
+                LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
+                LEFT JOIN status ON status.status_id = crop.status_id 
+                $search_condition $category_filter $municipality_filter 
+                ORDER BY crop.crop_id ASC 
+                LIMIT $items_per_page OFFSET $offset";
                 $query_run = pg_query($conn, $query);
 
                 if ($query_run) {
@@ -109,6 +119,8 @@
                         <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" data-href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>">
 
                             <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
+                            <!-- hidden id for location to be used for filter function for location to be found -->
+                            <input type="hidden" name="location_id" value="<?= $row['location_id']; ?>">
 
                             <!-- checkbox -->
                             <th scope="row">

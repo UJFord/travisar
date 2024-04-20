@@ -150,32 +150,27 @@ require "../functions/functions.php";
             window.location.href = window.location.pathname;
         }
 
-        //! not yet working
-        //todo fix it to filter data
-        // Filter table by selected filter option
-        function filterTableBy(filterValue) {
-            var table, tr, td, i, j, txtValue;
-            table = document.getElementById("dataTable");
-            tr = table.getElementsByTagName("tr");
+        // Function to apply filters and update the table
+        function applyFilters() {
+            let searchCondition = ''; // Initialize searchCondition here
 
-            for (i = 0; i < tr.length; i++) {
-                if (i === 0) {
-                    tr[i].style.display = "";
-                    continue; // Skip the header row
-                }
-                var filterMatch = false;
-                for (j = 0; j < tr[i].getElementsByTagName("td").length; j++) {
-                    td = tr[i].getElementsByTagName("td")[j];
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filterValue.toUpperCase()) > -1) {
-                            filterMatch = true;
-                            break;
-                        }
-                    }
-                }
-                tr[i].style.display = filterMatch ? "" : "none";
+            const selectedCategories = Array.from(document.querySelectorAll('.crop-filter:checked')).map(checkbox => checkbox.value);
+            const selectedMunicipalities = Array.from(document.querySelectorAll('.municipality-filter:checked')).map(checkbox => checkbox.value);
+
+            // Build the search condition based on selected categories, municipalities, and the search value
+            if (selectedCategories.length > 0) {
+                searchCondition += `&categories=${selectedCategories.join(',')}`;
+                console.log(searchCondition);
+                console.log('Filter applied');
             }
+            if (selectedMunicipalities.length > 0) {
+                searchCondition += `&municipalities=${selectedMunicipalities.join(',')}`;
+                console.log(searchCondition);
+                console.log('Filter applied');
+            }
+
+            // Reload the table with the new filters
+            window.location.href = window.location.pathname + '?search=' + searchCondition;
         }
     </script>
     <!-- SCRIPT for add location tab -->
@@ -593,7 +588,6 @@ require "../functions/functions.php";
             });
         });
     </script>
-
 </body>
 
 </html>
