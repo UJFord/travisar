@@ -122,14 +122,21 @@ require "../functions/functions.php";
     </script>
     <!-- search function -->
     <script>
-        // Modify the search function to reload the page with the search query as a parameter
+        // Modify the search function to store the search query in a session or URL parameter
         function search() {
             var searchInput = document.getElementById("searchInput").value;
+            // Store the search query in a session or URL parameter
+            // For example, you can use localStorage to store the search query
+            localStorage.setItem('searchQuery', searchInput);
+            // Reload the page with the search query as a parameter
             window.location.href = window.location.pathname + "?search=" + searchInput;
         }
 
+        const searchInput = document.getElementById('searchInput');
+        const clearButton = document.getElementById('clearButton');
+
         // Add a keyup event listener to the search input field
-        document.getElementById('searchInput').addEventListener('keyup', function(event) {
+        searchInput.addEventListener('keyup', function(event) {
             // Check if the Enter key is pressed (key code 13)
             if (event.keyCode === 13) {
                 // Call the search function
@@ -137,12 +144,11 @@ require "../functions/functions.php";
             }
         });
 
-        // Add a function to clear the search and reload the page without the search parameter
+        // Function to clear the search and hide the clear button
         function clearSearch() {
-            document.getElementById('searchInput').value = '';
+            searchInput.value = '';
             window.location.href = window.location.pathname;
         }
-
 
         //! not yet working
         //todo fix it to filter data

@@ -145,11 +145,16 @@
     // Function to generate pagination links for the crop page
     function generatePaginationLinks($total_pages, $current_page, $pageQueryParam)
     {
+        // Get the search query from the session or URL parameter
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
+
         echo '<ul class="pagination justify-content-center">';
         for ($page = 1; $page <= $total_pages; $page++) {
             $activeClass = ($current_page == $page) ? 'active' : '';
+            // Include the search query in the pagination links
+            $url = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $page, 'search' => $search]));
             echo '<li class="page-item ' . $activeClass . '">';
-            echo '<a class="page-link" href="?' . $pageQueryParam . '=' . $page . '">' . $page . '</a>';
+            echo '<a class="page-link" href="' . $url . '">' . $page . '</a>';
             echo '</li>';
         }
         echo '</ul>';

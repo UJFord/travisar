@@ -17,7 +17,7 @@
                 <span class="input-group-text" id="filter-search"><i class="bi bi-search"></i></span>
                 <input type="text" id="searchInput" class="form-control" placeholder="Search Crops" aria-label="Search" aria-describedby="filter-search">
                 <!-- Add a clear button -->
-                <button class="btn btn-secondary d-none" onclick="clearSearch()">Clear</button>
+                <button id="clearButton" class="btn btn-secondary" onclick="clearSearch()">Clear</button>
             </div>
         </div>
 

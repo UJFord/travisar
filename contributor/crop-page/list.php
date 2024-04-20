@@ -47,7 +47,7 @@
         // Calculate the total number of pages
         $total_pages = ceil($total_rows / $items_per_page);
 
-        // Modify the query to include the search condition if the search parameter is present
+        // Get the search query from the session or URL parameter
         $search = isset($_GET['search']) ? $_GET['search'] : '';
         $search_condition = $search ? "AND crop_variety ILIKE '%$search%'" : '';
         ?>
