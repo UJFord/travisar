@@ -61,10 +61,10 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         $corn_yield_capacity = isset($_POST['corn_yield_capacity']) ? handleEmpty($_POST['corn_yield_capacity']) : "Empty";
 
         // seed traits corn
-        $seed_length = isset($_POST['seed_length']) ? handleEmpty($_POST['seed_length']) : "Empty";
-        $seed_width = isset($_POST['seed_width']) ? handleEmpty($_POST['seed_width']) : "Empty";
-        $seed_shape = isset($_POST['seed_shape']) ? handleEmpty($_POST['seed_shape']) : "Empty";
-        $seed_color = isset($_POST['seed_color']) ? handleEmpty($_POST['seed_color']) : "Empty";
+        $seed_length = $_POST['seed_length'];
+        $seed_width = $_POST['seed_width'];
+        $seed_shape = $_POST['seed_shape'];
+        $seed_color = $_POST['seed_color'];
 
         // Pest resistance corn
         $corn_borers = isset($_POST['corn_borers']) ? true : false;
@@ -98,7 +98,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         // Flag Leaf traits rice
         $flag_length = isset($_POST['flag_length']) ? handleEmpty($_POST['flag_length']) : "Empty";
         $flag_width = isset($_POST['flag_width']) ? handleEmpty($_POST['flag_width']) : "Empty";
-        $purplish_stripes = isset($_POST['purplish_stripes']) ? handleEmpty($_POST['purplish_stripes']) : "Empty";
+        $purplish_stripes = isset($_POST['purplish_stripes']) ? true : false;
         $pubescence = isset($_POST['pubescence']) ? handleEmpty($_POST['pubescence']) : "Empty";
         $flag_remarkable_features = isset($_POST['flag_remarkable_features']) ? handleEmpty($_POST['flag_remarkable_features']) : "Empty";
 
@@ -106,9 +106,9 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : "Empty";
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : "Empty";
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : "Empty";
-        $volume_expansion = isset($_POST['volume_expansion']) ? handleEmpty($_POST['volume_expansion']) : "Empty";
-        $glutinous = isset($_POST['glutinous']) ? handleEmpty($_POST['glutinous']) : "Empty";
         $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : "Empty";
+        $glutinous = isset($_POST['glutinous']) ? true : false;
+        $volume_expansion = isset($_POST['volume_expansion']) ? true : false;
 
         // abiotic resistance rice
         $rice_drought = isset($_POST['rice_drought']) ? true : false;
@@ -203,7 +203,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
 
                     $uploadedImages[] = $image;
                     $source_path = $_FILES['crop_seed_image']['tmp_name'][$key];
-                    $destination_path = "../img/" . $image;
+                    $destination_path = "../../crop-page/modals/img/" . $image;
 
                     // Upload the image
                     $upload = move_uploaded_file($source_path, $destination_path);
@@ -469,8 +469,8 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         if ($get_category_name === 'Corn') {
             // Handle corn category traits
             // abiotic resistance
-            $query_abioticRes = "INSERT into abiotic_resistance (drought, salinity, heat, abiotic_other) values ($1, $2, $3, $4) returning abiotic_resistance_id";
-            $query_run_abioticRes = pg_query_params($conn, $query_abioticRes, array($drought, $salinity, $heat, $abiotic_other));
+            $query_abioticRes = "INSERT into abiotic_resistance (drought, salinity, heat, abiotic_other, abiotic_other_desc) values ($1, $2, $3, $4, $5) returning abiotic_resistance_id";
+            $query_run_abioticRes = pg_query_params($conn, $query_abioticRes, array($drought, $salinity, $heat, $abiotic_other, $abiotic_other_desc));
             if ($query_run_abioticRes) {
                 $row_abioticRes = pg_fetch_row($query_run_abioticRes);
                 $abiotic_resistance_id = $row_abioticRes[0];
@@ -750,7 +750,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         }
 
         // Commit the transaction if everything is successful
-        $_SESSION['message'] = "Crop Created Successfully";
+        $_SESSION['message'] = "Crop Updated Successfully Wait for Approval";
         pg_query($conn, "COMMIT");
         header("Location: ../../submission.php");
         exit(0);

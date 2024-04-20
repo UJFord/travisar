@@ -917,7 +917,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         // Flag Leaf traits rice
         $flag_length = isset($_POST['flag_length']) ? handleEmpty($_POST['flag_length']) : "Empty";
         $flag_width = isset($_POST['flag_width']) ? handleEmpty($_POST['flag_width']) : "Empty";
-        $purplish_stripes = isset($_POST['purplish_stripes']) ? handleEmpty($_POST['purplish_stripes']) : "Empty";
+        $purplish_stripes = isset($_POST['purplish_stripes']) ? true : false;
         $pubescence = isset($_POST['pubescence']) ? handleEmpty($_POST['pubescence']) : "Empty";
         $flag_remarkable_features = isset($_POST['flag_remarkable_features']) ? handleEmpty($_POST['flag_remarkable_features']) : "Empty";
 
@@ -925,8 +925,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : "Empty";
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : "Empty";
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : "Empty";
-        $volume_expansion = isset($_POST['volume_expansion']) ? handleEmpty($_POST['volume_expansion']) : "Empty";
-        $glutinous = isset($_POST['glutinous']) ? handleEmpty($_POST['glutinous']) : "Empty";
+        $volume_expansion = isset($_POST['volume_expansion']) ? true : false;
+        $glutinous = isset($_POST['glutinous']) ? true : false;
         $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : "Empty";
 
         // abiotic resistance rice

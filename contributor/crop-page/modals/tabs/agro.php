@@ -163,7 +163,7 @@
 
         <!-- Other -->
         <div id="rice-pest-other-container" class="row mt-3 mb-5 d-none">
-            <div class="col-12 mb-0 ">
+            <div class="col-12 mb-0">
                 <textarea name="rice_others_desc" id="rice-other" cols="30" rows="1" class="form-control"></textarea>
                 <div class="form-text small-font" id="ricePestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
             </div>
