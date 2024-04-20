@@ -6,13 +6,14 @@
 </style>
 
 <!-- HTML -->
-<div class="modal fade" id="add-item-modal" tabindex="-1" aria-labelledby="add-item-modal-label" aria-hidden="true">
+<div class="modal fade" id="add-item-modal" tabindex="-1" aria-labelledby="add-item-modal-label" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+
     <div class="modal-dialog modal-lg modal-fullscreen-sm-down">
         <div class="modal-content">
             <!-- header -->
             <div class="modal-header">
                 <h5 class="modal-title" id="edit-item-modal-label">Add Crop</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" id="close-modal-btn" class="btn-close" aria-label="Close"></button>
             </div>
 
             <!-- body -->
@@ -65,7 +66,7 @@
                 <div class="modal-footer d-flex justify-content-between">
                     <div class="">
                         <button type="submit" name="save" class="btn btn-success">Save</button>
-                        <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" id="cancel-modal-btn" class="btn border bg-light">Cancel</button>
                     </div>
                 </div>
             </form>
@@ -83,6 +84,54 @@
         dataModal.show();
     };
 </script> -->
+
+<!-- HTML -->
+<div class="modal fade" id="add-item-modal" tabindex="-1" aria-labelledby="add-item-modal-label" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+    <!-- Modal content -->
+</div>
+
+<!-- SCRIPT for closing the modal -->
+<script>
+    // Function to set up event listeners for the modal
+    function setupModalEventListeners() {
+        // Remove event listeners to prevent duplication
+        document.getElementById('close-modal-btn').removeEventListener('click', closeModal);
+        document.getElementById('cancel-modal-btn').removeEventListener('click', closeModal);
+        window.removeEventListener('keydown', closeModalOnEscape);
+
+        // Event listener for the close button
+        document.getElementById('close-modal-btn').addEventListener('click', closeModal);
+
+        // Event listener for the cancel button
+        document.getElementById('cancel-modal-btn').addEventListener('click', closeModal);
+
+        // Event listener for the ESC key
+        window.addEventListener('keydown', closeModalOnEscape);
+    }
+
+    // Custom function to close the modal
+    function closeModal() {
+        // Confirm if the user wants to close the modal
+        if (window.confirm('Are you sure you want to close the modal? Any unsaved changes will be lost.')) {
+            var modal = document.getElementById('add-item-modal');
+            var modalInstance = bootstrap.Modal.getInstance(modal);
+            modalInstance.hide();
+        }
+    }
+
+    // Custom function to close the modal on ESC key press
+    function closeModalOnEscape(event) {
+        if (event.key === "Escape") {
+            event.preventDefault(); // Prevent the default behavior
+            closeModal();
+        }
+    }
+
+    // Event listener for when the modal is shown
+    document.getElementById('add-item-modal').addEventListener('shown.bs.modal', function() {
+        setupModalEventListeners();
+    });
+</script>
 
 <!-- for submission -->
 <script>
