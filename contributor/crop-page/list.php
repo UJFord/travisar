@@ -53,16 +53,20 @@
             <!-- table head -->
             <thead>
                 <tr>
-                    <!-- <th class="col-1 thead-item" scope="col">
-                        <input class="form-check-input" type="checkbox">
+                    <th class="col thead-item" scope="col">
+                        <input class="form-check-input small-font" type="checkbox">
                         <label class="form-check-label text-dark-emphasis small-font">
                             All
                         </label>
-                    </th> -->
+                    </th>
+                    <th class="col text-dark-emphasis small-font" scope="col">Category</th>
                     <th class="col text-dark-emphasis small-font" scope="col">Name</th>
-                    <th class="col-4 text-dark-emphasis small-font" scope="col">Contributor</th>
-                    <th class="col-4 text-dark-emphasis small-font" scope="col">Action</th>
-                    <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
+                    <th class="col text-dark-emphasis small-font" scope="col">Contributor</th>
+                    <th class="col text-dark-emphasis small-font" scope="col">Date</th>
+                    <th class="col text-dark-emphasis small-font" scope="col">Action</th>
+                    <th class="col text-dark-emphasis small-font" scope="col">Status</th>
+                    <th class="col text-dark-emphasis small-font" scope="col">Remarks</th>
+                    <th class="col text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
 
                 </tr>
             </thead>
@@ -90,26 +94,34 @@
                         $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
 
                 ?>
-                        <tr id="row1" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">
-
-                            <!-- checkbox -->
-                            <!-- <th scope="row"><input class="form-check-input" type="checkbox"></th> -->
+                        <tr data-id="<?= $row['crop_id']; ?>" data-id="<?= $row['crop_id']; ?>" class="rowlink" data-href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>">
 
                             <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
+
+                            <!-- checkbox -->
+                            <th scope="row">
+                                <input class="row-checkbox form-check-input small-font" type="checkbox">
+                            </th>
+
+                            <!-- category -->
+                            <td>
+                                <div class="small-font">
+                                    <?php
+                                    if (pg_num_rows($query_run_category)) {
+                                        $category = pg_fetch_assoc($query_run_category);
+                                        echo '<h6 class="text-secondary small-font m-0">' . $category['category_name'] . '</h6>';
+                                    } else {
+                                        echo "No category added.";
+                                    }
+                                    ?>
+                                </div>
+                            </td>
 
                             <!-- Variety name -->
                             <td>
                                 <!-- Variety name -->
                                 <a href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
-                                <!-- category -->
-                                <?php
-                                if (pg_num_rows($query_run_category)) {
-                                    $category = pg_fetch_assoc($query_run_category);
-                                    echo '<h6 class="text-secondary small-font m-0">' . $category['category_name'] . '</h6>';
-                                } else {
-                                    echo "No category added.";
-                                }
-                                ?>
+
                             </td>
 
                             <!-- contributor -->
@@ -126,14 +138,29 @@
                                 </span>
                             </td>
 
+                            <!-- date created -->
+                            <td>
+                                <h6 class="text-secondary small-font">4-26-2024</h6>
+                            </td>
+
                             <!-- edit -->
                             <td>
                                 <a href="#" class="btn btn-success btn-sm edit_data admin-only" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">Edit</a>
                             </td>
 
+                            <!-- status -->
+                            <td>
+                                <span class=" small-font bg-dark-subtle w-auto py-1 px-2 rounded">Pending</span>
+                            </td>
+
+                            <!-- remarks -->
+                            <td>
+                                <i class="row-btn fa-regular fa-comment remarks-btn p-2 rounded"></i>
+                            </td>
+
                             <!-- ellipsis menu butn -->
                             <td class="text-end">
-                                <i class="fa-solid fa-ellipsis-vertical btn position-relative">
+                                <i class="row-btn fa-solid fa-ellipsis-vertical btn position-relative">
                                     <div class="position-absolute action-btn">
 
                                     </div>
@@ -156,15 +183,15 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script>
-    // make clicking table rows open edit ui
+    // Make table rows clickable
     $(document).ready(function() {
-        $('#dataTable tr').click(function() {
-            // console.log('clicked')
-            // Get the crop ID from the clicked row or anchor tag
-            var cropId = $(this).data('id') || $(this).find('a').data('id');
-
-            // Open the modal
-            $('#dataModal').modal('show');
+        // Add click event to table rows
+        $('tbody tr[data-href]').on("click", function(event) {
+            // Check if the click target is not a button
+            if (!$(event.target).is('.row-btn') && !$(event.target).is(':checkbox')) {
+                // Navigate to the URL specified in the data-href attribute
+                window.location.href = $(this).attr('data-href');
+            }
         });
     });
 </script>

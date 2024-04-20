@@ -34,14 +34,20 @@ th, td {
   color: white;
 }
 
-/* ellipsis icon */
+/* remarks */
+.remarks-btn{
+    border: 1px solid transparent !important;
+    cursor: pointer;
+}
+.remarks-btn:hover{
+    border: 1px solid #ccc !important;
+}
+
 /* text align end */
-.td-menu{
-  text-align: end;
-}
-i.fa-solid.fa-ellipsis-vertical.btn:hover {
-  border: 1px solid #ccc;
-}
+/* ellipsis icon */
+  i.fa-solid.fa-ellipsis-vertical.btn:hover {
+    border: 1px solid #ccc;
+  }
 
 /* user group bg colors */
 .self{
