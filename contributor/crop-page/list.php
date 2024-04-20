@@ -63,10 +63,19 @@
                     <th class="col text-dark-emphasis small-font" scope="col">Name</th>
                     <th class="col text-dark-emphasis small-font" scope="col">Contributor</th>
                     <th class="col text-dark-emphasis small-font" scope="col">Date</th>
-                    <th class="col text-dark-emphasis small-font" scope="col">Action</th>
+                    <!-- <th class="col text-dark-emphasis small-font" scope="col">Action</th> -->
                     <th class="col text-dark-emphasis small-font" scope="col">Status</th>
-                    <th class="col text-dark-emphasis small-font" scope="col">Remarks</th>
-                    <th class="col text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
+                    <th class="col text-dark-emphasis small-font text-center" scope="col">Remarks</th>
+                    <th class="col text-dark-emphasis text-end" scope="col">
+                        <div class="dropdown">
+                            <button class="btn tranparent dropdown-toggle row-btn row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="row-btn fa-solid fa-ellipsis-vertical px-3 py-2 m-0 rounded"></i>
+                            </button>
+                            <ul class="dropdown-menu">
+                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-trash text-danger text-center me-1" style="width: 20px;"></i>Delete Selected</a></li>
+                            </ul>
+                        </div>
+                    </th>
 
                 </tr>
             </thead>
@@ -144,9 +153,9 @@
                             </td>
 
                             <!-- edit -->
-                            <td>
+                            <!-- <td>
                                 <a href="#" class="btn btn-success btn-sm edit_data admin-only" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">Edit</a>
-                            </td>
+                            </td> -->
 
                             <!-- status -->
                             <td>
@@ -154,28 +163,41 @@
                             </td>
 
                             <!-- remarks -->
-                            <td>
-                                <i class="row-btn fa-regular fa-comment remarks-btn p-2 rounded"></i>
-                            </td>
-
-                            <!-- ellipsis menu butn -->
-                            <td class="text-end">
-                                <i class="row-btn fa-solid fa-ellipsis-vertical btn position-relative">
-                                    <div class="position-absolute action-btn">
-
+                            <td class="text-center">
+                                <div class="dropdown row-btn">
+                                    <button class="btn transparent dropdown-toggle row-action-btn remarks-btn p-0 p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="row-btn fa-regular fa-comment p-2 m-0 rounded"></i>
+                                    </button>
+                                    <div class="dropdown-menu remarks-menu p-2">
+                                        <textarea class="form-control remarks-text" placeholder="No remarks" style="height: 180px;" disabled></textarea>
                                     </div>
-                                </i>
-                            </td>
-                        </tr>
-                <?php
+                                </div>
+    </div>
+    </td>
+
+    <!-- ellipsis menu butn -->
+    <td class="text-end">
+        <div class="dropdown row-btn">
+            <button class="btn tranparent dropdown-toggle row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <i class="row-btn fa-solid fa-ellipsis-vertical px-3 py-2 m-0 rounded"></i>
+            </button>
+            <ul class="dropdown-menu">
+                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye text-center" style="width: 20px;"></i> View</a></li>
+                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-pen-to-square text-center me-1" style="width: 20px;"></i>Edit</a></li>
+                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-trash text-danger text-center me-1" style="width: 20px;"></i>Delete</a></li>
+            </ul>
+        </div>
+    </td>
+    </tr>
+<?php
                     }
                 } else {
                     echo "No data found.";
                 }
-                ?>
-            </tbody>
-        </table>
-    </div>
+?>
+</tbody>
+</table>
+</div>
 </div>
 <!-- Add pagination links -->
 <?php generatePaginationLinks($total_pages, $current_page, 'page'); ?>
@@ -187,8 +209,11 @@
     $(document).ready(function() {
         // Add click event to table rows
         $('tbody tr[data-href]').on("click", function(event) {
-            // Check if the click target is not a button
-            if (!$(event.target).is('.row-btn') && !$(event.target).is(':checkbox')) {
+            // Check if the click target or any of its ancestors is a button or checkbox
+            if (
+                !$(event.target).is('.row-btn, :checkbox') &&
+                !$(event.target).closest('.row-btn, :checkbox').length
+            ) {
                 // Navigate to the URL specified in the data-href attribute
                 window.location.href = $(this).attr('data-href');
             }

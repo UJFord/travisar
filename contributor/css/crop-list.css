@@ -45,17 +45,23 @@ th, td {
 
 /* text align end */
 /* ellipsis icon */
-  i.fa-solid.fa-ellipsis-vertical.btn:hover {
-    border: 1px solid #ccc;
+  .action-btn{
+    border: 1px solid transparent !important;
+    cursor: pointer;
+  }
+  .action-btn:hover {
+    border: 1px solid #ccc !important;
   }
 
-/* user group bg colors */
-.self{
-  background: #af98f4;
+/* row action btns */
+.row-action-btn:after{
+  display: none;
 }
-.indiv{
-  background: #ffdb9a;
-}
-.org{
-  background: #a9b9ff;
+
+
+
+/* remarks */
+/* remarks-menu */
+.remarks-menu{
+  width: 200px !important;
 }
