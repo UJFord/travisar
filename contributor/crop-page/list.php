@@ -31,7 +31,7 @@
 
         <?php
         // Set the number of items to display per page
-        $items_per_page = 8;
+        $items_per_page = 10;
 
         // Get the current page number
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -61,7 +61,6 @@
                     </th>
                     <th class="col text-dark-emphasis small-font" scope="col">Category</th>
                     <th class="col text-dark-emphasis small-font" scope="col">Name</th>
-                    <th class="col text-dark-emphasis small-font" scope="col">Contributor</th>
                     <th class="col text-dark-emphasis small-font" scope="col">Date</th>
                     <!-- <th class="col text-dark-emphasis small-font" scope="col">Action</th> -->
                     <th class="col text-dark-emphasis small-font" scope="col">Status</th>
@@ -103,7 +102,7 @@
                         $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
 
                 ?>
-                        <tr data-id="<?= $row['crop_id']; ?>" data-id="<?= $row['crop_id']; ?>" class="rowlink" data-href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>">
+                        <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" data-href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>">
 
                             <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
 
@@ -130,26 +129,11 @@
                             <td>
                                 <!-- Variety name -->
                                 <a href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
-
-                            </td>
-
-                            <!-- contributor -->
-                            <td class="small-font">
-                                <span class="py-1 px-2">
-                                    <?php
-                                    if (pg_num_rows($query_run_user)) {
-                                        $user = pg_fetch_assoc($query_run_user);
-                                        echo '<h6 class="text-secondary small-font m-0">' . $user['first_name'] . " " . $user['last_name'] . '</h6>';
-                                    } else {
-                                        echo "No contributor.";
-                                    }
-                                    ?>
-                                </span>
                             </td>
 
                             <!-- date created -->
                             <td>
-                                <h6 class="text-secondary small-font">4-26-2024</h6>
+                                <h6 class="text-secondary small-font"><?= $formatted_date; ?></h6>
                             </td>
 
                             <!-- edit -->
@@ -159,7 +143,7 @@
 
                             <!-- status -->
                             <td>
-                                <span class=" small-font bg-dark-subtle w-auto py-1 px-2 rounded">Pending</span>
+                                <span class=" small-font bg-dark-subtle w-auto py-1 px-2 rounded"><?= $row['action']; ?></span>
                             </td>
 
                             <!-- remarks -->
@@ -169,35 +153,36 @@
                                         <i class="row-btn fa-regular fa-comment p-2 m-0 rounded"></i>
                                     </button>
                                     <div class="dropdown-menu remarks-menu p-2">
-                                        <textarea class="form-control remarks-text" placeholder="No remarks" style="height: 180px;" disabled></textarea>
+                                        <textarea class="form-control remarks-text" placeholder="No remarks" style="height: 180px;" disabled><?= $row['remarks']; ?></textarea>
                                     </div>
                                 </div>
-    </div>
-    </td>
+                            </td>
 
-    <!-- ellipsis menu butn -->
-    <td class="text-end">
-        <div class="dropdown row-btn">
-            <button class="btn tranparent dropdown-toggle row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="row-btn fa-solid fa-ellipsis-vertical px-3 py-2 m-0 rounded"></i>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye text-center" style="width: 20px;"></i> View</a></li>
-                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-pen-to-square text-center me-1" style="width: 20px;"></i>Edit</a></li>
-                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-trash text-danger text-center me-1" style="width: 20px;"></i>Delete</a></li>
-            </ul>
-        </div>
-    </td>
-    </tr>
-<?php
+                            <!-- ellipsis menu butn -->
+                            <td class="text-end">
+                                <div class="dropdown row-btn">
+                                    <button class="btn tranparent dropdown-toggle row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="row-btn fa-solid fa-ellipsis-vertical px-3 py-2 m-0 rounded"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye text-center" style="width: 20px;"></i> View</a></li>
+                                        <li>
+                                            <a class="dropdown-item edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1 admin-only" style="width: 20px;"></i>Edit</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-trash text-danger text-center me-1 admin-only" style="width: 20px;"></i>Delete</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                <?php
                     }
                 } else {
                     echo "No data found.";
                 }
-?>
-</tbody>
-</table>
-</div>
+                ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 <!-- Add pagination links -->
 <?php generatePaginationLinks($total_pages, $current_page, 'page'); ?>
