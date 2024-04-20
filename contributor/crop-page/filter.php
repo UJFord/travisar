@@ -16,6 +16,8 @@
             <div class="input-group">
                 <span class="input-group-text" id="filter-search"><i class="bi bi-search"></i></span>
                 <input type="text" id="searchInput" class="form-control" placeholder="Search Crops" aria-label="Search" aria-describedby="filter-search">
+                <!-- Add a clear button -->
+                <button class="btn btn-secondary d-none" onclick="clearSearch()">Clear</button>
             </div>
         </div>
 
@@ -122,8 +124,6 @@
     let cropToggler = document.querySelector('#crop-filter-dropdown-toggler');
     let munToggler = document.querySelector('#mun-filter-dropdown-toggler');
     let contToggler = document.querySelector('#cont-filter-dropdown-toggler');
-
-
 
     let cropChev = document.querySelector('#cropChev');
     let munChev = document.querySelector('#munChev');

@@ -66,7 +66,8 @@ require "../functions/functions.php";
             <!-- edit -->
             <?php require "crop-page/modals/edit.php"; ?>
             <!-- view -->
-            <?php // require "crop-page/modals/view.php"; ?>
+            <?php // require "crop-page/modals/view.php"; 
+            ?>
         </div>
     </div>
 
@@ -121,45 +122,27 @@ require "../functions/functions.php";
     </script>
     <!-- search function -->
     <script>
-        // search sa search bar
-        // kung mag search ka tung mga makita lang na data sa table/list ang ma search dili tung sa db
-        function filterTable() {
-            var input, filter, table, tr, td, i, j, txtValue;
-            input = document.getElementById("searchInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("dataTable");
-            tr = table.getElementsByTagName("tr");
-
-            for (i = 0; i < tr.length; i++) {
-                var found = false;
-                if (i === 0) {
-                    tr[i].style.display = "";
-                    continue; // Skip the header row
-                }
-                for (j = 0; j < tr[i].getElementsByTagName("td").length; j++) {
-                    td = tr[i].getElementsByTagName("td")[j];
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            found = true;
-                            break;
-                        }
-                    }
-                }
-                tr[i].style.display = found ? "" : "none";
-            }
+        // Modify the search function to reload the page with the search query as a parameter
+        function search() {
+            var searchInput = document.getElementById("searchInput").value;
+            window.location.href = window.location.pathname + "?search=" + searchInput;
         }
 
-        // Add event listener to search input
-        document.getElementById('searchInput').addEventListener('keyup', filterTable);
-
-        // Add event listeners for filter options
-        document.querySelectorAll('.filter-option').forEach(function(option) {
-            option.addEventListener('click', function() {
-                var filterValue = this.dataset.filter;
-                filterTableBy(filterValue);
-            });
+        // Add a keyup event listener to the search input field
+        document.getElementById('searchInput').addEventListener('keyup', function(event) {
+            // Check if the Enter key is pressed (key code 13)
+            if (event.keyCode === 13) {
+                // Call the search function
+                search();
+            }
         });
+
+        // Add a function to clear the search and reload the page without the search parameter
+        function clearSearch() {
+            document.getElementById('searchInput').value = '';
+            window.location.href = window.location.pathname;
+        }
+
 
         //! not yet working
         //todo fix it to filter data

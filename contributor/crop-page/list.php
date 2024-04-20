@@ -46,6 +46,10 @@
 
         // Calculate the total number of pages
         $total_pages = ceil($total_rows / $items_per_page);
+
+        // Modify the query to include the search condition if the search parameter is present
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
+        $search_condition = $search ? "AND crop_variety ILIKE '%$search%'" : '';
         ?>
 
         <!-- TABLE -->
@@ -83,7 +87,7 @@
             <tbody class="table-group-divider fw-bold overflow-scroll">
                 <?php
                 // get the data from crops. only approved data are shown and is limited per items per page
-                $query = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'approved' ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
+                $query = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'approved' $search_condition ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
                 $query_run = pg_query($conn, $query);
 
                 if ($query_run) {
