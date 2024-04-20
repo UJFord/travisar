@@ -116,8 +116,7 @@
         <div class="col" id="category-Variety">
             <label for="categoryVariety" class="form-label small-font">Variety<span class="text-danger ms-1">*</span></label>
             <select name="category_variety_id" id="categoryVariety" class="form-select" required>
-                <!-- <option value="" disabled selected>Select a Category First</option> -->
-                <!-- Options will be dynamically added here based on the category selected -->
+                <option value="" disabled selected>Select Variety</option>
             </select>
         </div>
     </div>
@@ -143,7 +142,7 @@
         <div class="col-6">
             <label for="terrain" class="form-label small-font">Terrain<span style="color: red;">*</span></label>
             <select name="terrain_id" id="terrain" class="form-select" required>
-                <option value="" disabled selected>Select an option</option>
+                <!-- <option value="" disabled selected>Select an option</option> -->
                 <?php
                 // get the data of terrain from DB
                 // gi set ra nako na permi last ang other nga terrain og ascending sya based sa catgory name

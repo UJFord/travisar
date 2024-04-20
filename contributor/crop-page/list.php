@@ -100,7 +100,7 @@
                             <!-- Variety name -->
                             <td>
                                 <!-- Variety name -->
-                                <a href="crop-page/view.php?crop_id=<?=$row['crop_id']?>" target=”_blank”><?= $row['crop_variety']; ?></a>
+                                <a href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
                                 <!-- category -->
                                 <?php
                                 if (pg_num_rows($query_run_category)) {
@@ -132,7 +132,13 @@
                             </td>
 
                             <!-- ellipsis menu butn -->
-                            <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
+                            <td class="text-end">
+                                <i class="fa-solid fa-ellipsis-vertical btn position-relative">
+                                    <div class="position-absolute action-btn">
+
+                                    </div>
+                                </i>
+                            </td>
                         </tr>
                 <?php
                     }
