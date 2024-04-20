@@ -193,6 +193,8 @@
                             $('#edit-sensory-tab').hide();
                             $('#withSensory-Edit').hide();
                             $('#withSensory-Edit-More').hide();
+                            $('#riceMorph-Edit :input').prop('disabled', true);
+                            $('#root_cropMorph-Edit :input').prop('disabled', true);
 
                             // morph traits for corn
                             // vegetative state
@@ -267,6 +269,8 @@
                             $('#root_cropAgro-Edit').hide();
                             $('#withoutSensory-Edit').hide();
                             $('#withoutSensory-Edit-More').hide();
+                            $('#cornMorph-Edit :input').prop('disabled', true);
+                            $('#root_cropMorph-Edit :input').prop('disabled', true);
 
                             // morph traits for rice
                             // vegetative state
@@ -380,6 +384,8 @@
                             $('#edit-sensory-tab').hide();
                             $('#withSensory-Edit').hide();
                             $('#withSensory-Edit-More').hide();
+                            $('#riceMorph-Edit :input').prop('disabled', true);
+                            $('#cornMorph-Edit :input').prop('disabled', true);
 
                             // morph traits for rootCrop
                             // vegetative state
