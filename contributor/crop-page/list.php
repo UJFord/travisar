@@ -31,7 +31,7 @@
 
         <?php
         // Set the number of items to display per page
-        $items_per_page = 8;
+        $items_per_page = 10;
 
         // Get the current page number
         $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
@@ -40,12 +40,21 @@
         $offset = ($current_page - 1) * $items_per_page;
 
         // Count the total number of rows for pagination
-        $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'approved'";
+        $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id";
         $total_rows_result = pg_query($conn, $total_rows_query);
         $total_rows = pg_fetch_row($total_rows_result)[0];
 
         // Calculate the total number of pages
         $total_pages = ceil($total_rows / $items_per_page);
+
+        // Get the search query from the session or URL parameter
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
+        $search_condition = $search ? "AND crop_variety ILIKE '%$search%'" : '';
+
+        // Get the categories and municipalities filter from the URL
+        $category_filter = !empty($_GET['categories']) ? "AND category_id IN (" . implode(',', explode(',', $_GET['categories'])) . ")" : '';
+        $municipality_filter = !empty($_GET['municipalities']) ? "AND location_id IN (" . implode(',', explode(',', $_GET['municipalities'])) . ")" : '';
+
         ?>
 
         <!-- TABLE -->
@@ -61,7 +70,6 @@
                     </th>
                     <th class="col text-dark-emphasis small-font" scope="col">Category</th>
                     <th class="col text-dark-emphasis small-font" scope="col">Name</th>
-                    <th class="col text-dark-emphasis small-font" scope="col">Contributor</th>
                     <th class="col text-dark-emphasis small-font" scope="col">Date</th>
                     <!-- <th class="col text-dark-emphasis small-font" scope="col">Action</th> -->
                     <th class="col text-dark-emphasis small-font" scope="col">Status</th>
@@ -83,8 +91,13 @@
             <!-- table body -->
             <tbody class="table-group-divider fw-bold overflow-scroll">
                 <?php
-                // get the data from crops. only approved data are shown and is limited per items per page
-                $query = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'approved' ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
+                // get the data from crops.
+                $query = "SELECT * FROM crop 
+                LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
+                LEFT JOIN status ON status.status_id = crop.status_id 
+                $search_condition $category_filter $municipality_filter 
+                ORDER BY crop.crop_id ASC 
+                LIMIT $items_per_page OFFSET $offset";
                 $query_run = pg_query($conn, $query);
 
                 if ($query_run) {
@@ -103,9 +116,11 @@
                         $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
 
                 ?>
-                        <tr data-id="<?= $row['crop_id']; ?>" data-id="<?= $row['crop_id']; ?>" class="rowlink" data-href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>">
+                        <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" data-href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>">
 
                             <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
+                            <!-- hidden id for location to be used for filter function for location to be found -->
+                            <input type="hidden" name="location_id" value="<?= $row['location_id']; ?>">
 
                             <!-- checkbox -->
                             <th scope="row">
@@ -130,26 +145,11 @@
                             <td>
                                 <!-- Variety name -->
                                 <a href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
-
-                            </td>
-
-                            <!-- contributor -->
-                            <td class="small-font">
-                                <span class="py-1 px-2">
-                                    <?php
-                                    if (pg_num_rows($query_run_user)) {
-                                        $user = pg_fetch_assoc($query_run_user);
-                                        echo '<h6 class="text-secondary small-font m-0">' . $user['first_name'] . " " . $user['last_name'] . '</h6>';
-                                    } else {
-                                        echo "No contributor.";
-                                    }
-                                    ?>
-                                </span>
                             </td>
 
                             <!-- date created -->
                             <td>
-                                <h6 class="text-secondary small-font">4-26-2024</h6>
+                                <h6 class="text-secondary small-font"><?= $formatted_date; ?></h6>
                             </td>
 
                             <!-- edit -->
@@ -159,7 +159,7 @@
 
                             <!-- status -->
                             <td>
-                                <span class=" small-font bg-dark-subtle w-auto py-1 px-2 rounded">Pending</span>
+                                <span class=" small-font bg-dark-subtle w-auto py-1 px-2 rounded"><?= $row['action']; ?></span>
                             </td>
 
                             <!-- remarks -->
@@ -169,35 +169,36 @@
                                         <i class="row-btn fa-regular fa-comment p-2 m-0 rounded"></i>
                                     </button>
                                     <div class="dropdown-menu remarks-menu p-2">
-                                        <textarea class="form-control remarks-text" placeholder="No remarks" style="height: 180px;" disabled></textarea>
+                                        <textarea class="form-control remarks-text" placeholder="No remarks" style="height: 180px;" disabled><?= $row['remarks']; ?></textarea>
                                     </div>
                                 </div>
-    </div>
-    </td>
+                            </td>
 
-    <!-- ellipsis menu butn -->
-    <td class="text-end">
-        <div class="dropdown row-btn">
-            <button class="btn tranparent dropdown-toggle row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                <i class="row-btn fa-solid fa-ellipsis-vertical px-3 py-2 m-0 rounded"></i>
-            </button>
-            <ul class="dropdown-menu">
-                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye text-center" style="width: 20px;"></i> View</a></li>
-                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-pen-to-square text-center me-1" style="width: 20px;"></i>Edit</a></li>
-                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-trash text-danger text-center me-1" style="width: 20px;"></i>Delete</a></li>
-            </ul>
-        </div>
-    </td>
-    </tr>
-<?php
+                            <!-- ellipsis menu butn -->
+                            <td class="text-end">
+                                <div class="dropdown row-btn">
+                                    <button class="btn tranparent dropdown-toggle row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                        <i class="row-btn fa-solid fa-ellipsis-vertical px-3 py-2 m-0 rounded"></i>
+                                    </button>
+                                    <ul class="dropdown-menu">
+                                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye text-center" style="width: 20px;"></i> View</a></li>
+                                        <li>
+                                            <a class="dropdown-item edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1 admin-only" style="width: 20px;"></i>Edit</a>
+                                        </li>
+                                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-trash text-danger text-center me-1 admin-only" style="width: 20px;"></i>Delete</a></li>
+                                    </ul>
+                                </div>
+                            </td>
+                        </tr>
+                <?php
                     }
                 } else {
                     echo "No data found.";
                 }
-?>
-</tbody>
-</table>
-</div>
+                ?>
+            </tbody>
+        </table>
+    </div>
 </div>
 <!-- Add pagination links -->
 <?php generatePaginationLinks($total_pages, $current_page, 'page'); ?>

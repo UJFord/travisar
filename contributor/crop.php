@@ -66,7 +66,8 @@ require "../functions/functions.php";
             <!-- edit -->
             <?php require "crop-page/modals/edit.php"; ?>
             <!-- view -->
-            <?php // require "crop-page/modals/view.php"; ?>
+            <?php // require "crop-page/modals/view.php"; 
+            ?>
         </div>
     </div>
 
@@ -121,72 +122,55 @@ require "../functions/functions.php";
     </script>
     <!-- search function -->
     <script>
-        // search sa search bar
-        // kung mag search ka tung mga makita lang na data sa table/list ang ma search dili tung sa db
-        function filterTable() {
-            var input, filter, table, tr, td, i, j, txtValue;
-            input = document.getElementById("searchInput");
-            filter = input.value.toUpperCase();
-            table = document.getElementById("dataTable");
-            tr = table.getElementsByTagName("tr");
-
-            for (i = 0; i < tr.length; i++) {
-                var found = false;
-                if (i === 0) {
-                    tr[i].style.display = "";
-                    continue; // Skip the header row
-                }
-                for (j = 0; j < tr[i].getElementsByTagName("td").length; j++) {
-                    td = tr[i].getElementsByTagName("td")[j];
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            found = true;
-                            break;
-                        }
-                    }
-                }
-                tr[i].style.display = found ? "" : "none";
-            }
+        // Modify the search function to store the search query in a session or URL parameter
+        function search() {
+            var searchInput = document.getElementById("searchInput").value;
+            // Store the search query in a session or URL parameter
+            // For example, you can use localStorage to store the search query
+            localStorage.setItem('searchQuery', searchInput);
+            // Reload the page with the search query as a parameter
+            window.location.href = window.location.pathname + "?search=" + searchInput;
         }
 
-        // Add event listener to search input
-        document.getElementById('searchInput').addEventListener('keyup', filterTable);
+        const searchInput = document.getElementById('searchInput');
+        const clearButton = document.getElementById('clearButton');
 
-        // Add event listeners for filter options
-        document.querySelectorAll('.filter-option').forEach(function(option) {
-            option.addEventListener('click', function() {
-                var filterValue = this.dataset.filter;
-                filterTableBy(filterValue);
-            });
+        // Add a keyup event listener to the search input field
+        searchInput.addEventListener('keyup', function(event) {
+            // Check if the Enter key is pressed (key code 13)
+            if (event.keyCode === 13) {
+                // Call the search function
+                search();
+            }
         });
 
-        //! not yet working
-        //todo fix it to filter data
-        // Filter table by selected filter option
-        function filterTableBy(filterValue) {
-            var table, tr, td, i, j, txtValue;
-            table = document.getElementById("dataTable");
-            tr = table.getElementsByTagName("tr");
+        // Function to clear the search and hide the clear button
+        function clearSearch() {
+            searchInput.value = '';
+            window.location.href = window.location.pathname;
+        }
 
-            for (i = 0; i < tr.length; i++) {
-                if (i === 0) {
-                    tr[i].style.display = "";
-                    continue; // Skip the header row
-                }
-                var filterMatch = false;
-                for (j = 0; j < tr[i].getElementsByTagName("td").length; j++) {
-                    td = tr[i].getElementsByTagName("td")[j];
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filterValue.toUpperCase()) > -1) {
-                            filterMatch = true;
-                            break;
-                        }
-                    }
-                }
-                tr[i].style.display = filterMatch ? "" : "none";
+        // Function to apply filters and update the table
+        function applyFilters() {
+            let searchCondition = ''; // Initialize searchCondition here
+
+            const selectedCategories = Array.from(document.querySelectorAll('.crop-filter:checked')).map(checkbox => checkbox.value);
+            const selectedMunicipalities = Array.from(document.querySelectorAll('.municipality-filter:checked')).map(checkbox => checkbox.value);
+
+            // Build the search condition based on selected categories, municipalities, and the search value
+            if (selectedCategories.length > 0) {
+                searchCondition += `&categories=${selectedCategories.join(',')}`;
+                console.log(searchCondition);
+                console.log('Filter applied');
             }
+            if (selectedMunicipalities.length > 0) {
+                searchCondition += `&municipalities=${selectedMunicipalities.join(',')}`;
+                console.log(searchCondition);
+                console.log('Filter applied');
+            }
+
+            // Reload the table with the new filters
+            window.location.href = window.location.pathname + '?search=' + searchCondition;
         }
     </script>
     <!-- SCRIPT for add location tab -->
@@ -604,7 +588,6 @@ require "../functions/functions.php";
             });
         });
     </script>
-
 </body>
 
 </html>
