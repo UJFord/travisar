@@ -125,30 +125,6 @@
     </div>
 </div>
 
-<!-- <script>
-    const firstName = document.getElementById('first-name');
-    const lastName = document.getElementById('last-name');
-    const email = document.getElementById('email');
-    const password = document.getElementById('Password');
-    const passwordConfirm = document.getElementById('Confirm-Password');
-    const accountType = document.getElementById('AccountType');
-    const errorElement = document.getElementById('error-messages');
-    const form = document.getElementById('form-panel-add');
-
-    form.addEventListener('submit', (e) => {
-        let messages = [];
-
-        // Check if the required fields are not empty
-        if (firstName.value === "" || firstName.value === null) {
-            messages.push('Name is required');
-        }
-        if(messages.length > 0) {
-            e.preventDefault();
-            errorElement.innerText = messages.join(', ');
-        }
-    })
-</script> -->
-
 <!-- for submission -->
 <script>
     // Wait for the DOM to be fully loaded
@@ -238,7 +214,6 @@
         document.getElementById("error-messages").innerHTML = "";
         return true;
     }
-
 
     // Function to submit the form and refresh notifications
     function submitForm() {
