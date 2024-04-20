@@ -859,6 +859,350 @@ if (isset($_POST['update'])) {
                     die();
                 }
             }
+        } else if ($get_category_name === 'Root Crop') {
+            // Fetch data from the crop table and join with crop_location
+            $query = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join location 
+            on crop_location.location_id = location.location_id left join users on crop.user_id = users.user_id left join barangay
+            on crop_location.barangay_id = barangay.barangay_id left join category_variety on crop.category_variety_id = category_variety.category_variety_id left join terrain on terrain.terrain_id = crop.terrain_id
+            left join category on category.category_id = crop.category_id left join utilization_cultural_importance on  crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id
+            left join root_crop_traits on crop.crop_id = root_crop_traits.crop_id left join vegetative_state_rootcrop on root_crop_traits.vegetative_state_rootcrop_id = vegetative_state_rootcrop.vegetative_state_rootcrop_id
+            left join pest_resistance_rootcrop on root_crop_traits.pest_resistance_rootcrop_id = pest_resistance_rootcrop.pest_resistance_rootcrop_id
+            left join disease_resistance on root_crop_traits.disease_resistance_id = disease_resistance.disease_resistance_id
+            left join abiotic_resistance on root_crop_traits.abiotic_resistance_id = abiotic_resistance.abiotic_resistance_id
+            left join rootcrop_traits on rootcrop_traits.rootcrop_traits_id = root_crop_traits.rootcrop_traits_id
+            left join status on status.status_id = crop.status_id
+            WHERE crop.crop_id = $1";
+            $query_run = pg_query_params($conn, $query, array($crop_idUpdate));
+
+            if (pg_num_rows($query_run) > 0) {
+                $crops = pg_fetch_assoc($query_run);
+                // gen.php data
+                $crop_variety = $crops['crop_variety'];
+                $crop_description = $crops['crop_description'];
+                $meaning_of_name = $crops['meaning_of_name'];
+                $crop_seed_image = $crops['crop_seed_image'];
+                $crop_vegetative_image = $crops['crop_vegetative_image'];
+                $crop_reproductive_image = $crops['crop_reproductive_image'];
+
+                // location
+                $province_name = $crops['province_name'];
+                $municipality_name = $crops['municipality_name'];
+                $coordinates = $crops['coordinates'];
+                $barangay_name = $crops['barangay_name'];
+
+                // disease resistance
+                $bacterial = $crops['bacterial'];
+                $viral = $crops['viral'];
+                $fungus = $crops['fungus'];
+
+                // abiotic resistance
+                $drought = $crops['drought'];
+                $salinity = $crops['salinity'];
+                $heat = $crops['heat'];
+                $abiotic_other = $crops['abiotic_other'];
+                $abiotic_other_desc = $crops['abiotic_other_desc'];
+
+                // Utilization Cultural Importance
+                $significance = $crops['significance'];
+                $use = $crops['use'];
+                $indigenous_utilization = $crops['indigenous_utilization'];
+                $remarkable_features = $crops['remarkable_features'];
+
+                //* morphological Traits rootcrop
+                // Vegetative state rootcrop
+                $rootcrop_plant_height = $crops['rootcrop_plant_height'];
+                $rootcrop_leaf_width = $crops['rootcrop_leaf_width'];
+                $rootcrop_leaf_length = $crops['rootcrop_leaf_length'];
+                $rootcrop_stem_leaf_desc = $crops['rootcrop_stem_leaf_desc'];
+                $rootcrop_maturity_time = $crops['rootcrop_maturity_time'];
+
+                // rootcrop traits
+                $eating_quality = $crops['eating_quality'];
+                $rootcrop_color = $crops['rootcrop_color'];
+                $sweetness = $crops['sweetness'];
+                $rootcrop_remarkable_features = $crops['rootcrop_remarkable_features'];
+
+                // pest resistance rice
+                $root_aphids = $crops['root_aphids'];
+                $root_knot_nematodes = $crops['root_knot_nematodes'];
+                $rootcrop_cutworms = $crops['rootcrop_cutworms'];
+                $white_grubs = $crops['white_grubs'];
+                $termites = $crops['termites'];
+                $weevils = $crops['weevils'];
+                $flea_beetles = $crops['flea_beetles'];
+                $rootcrop_snails = $crops['rootcrop_snails'];
+                $rootcrop_ants = $crops['rootcrop_ants'];
+                $rootcrop_rats = $crops['rootcrop_rats'];
+                $rootcrop_others = $crops['rootcrop_others'];
+                $rootcrop_others_desc = $crops['rootcrop_others_desc'];
+
+                //id's to be deleted when finished updating
+                $update_crop_id = $crops['crop_id'];
+                $update_status_id = $crops['status_id'];
+                $update_root_crop_traits_id = $crops['root_crop_traits_id'];
+                $update_rootcrop_traits_id = $crops['rootcrop_traits_id'];
+                $update_disease_resistance_id = $crops['disease_resistance_id'];
+                $update_pest_resistance_rootcrop_id = $crops['pest_resistance_rootcrop_id'];
+                $update_abiotic_resistance_id = $crops['abiotic_resistance_id'];
+                $update_crop_location_id = $crops['crop_location_id'];
+                $update_utilization_cultural_id = $crops['utilization_cultural_id'];
+                $update_vegetative_state_rootcrop_id = $crops['vegetative_state_rootcrop_id'];
+
+                // get the unique code the remove the updating
+                $currentUniqueCode = $crops['unique_code'];
+                $updateUniqueCode = str_replace("-UPDATING", "", $currentUniqueCode);
+
+                // get the crop that should be updated
+                $query_Crop = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join location 
+                on crop_location.location_id = location.location_id left join barangay on crop_location.barangay_id = barangay.barangay_id
+                left join utilization_cultural_importance on  crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id left join category on crop.category_id = category.category_id
+                left join root_crop_traits on crop.crop_id = root_crop_traits.crop_id left join rootcrop_traits on rootcrop_traits.rootcrop_traits_id = root_crop_traits.rootcrop_traits_id
+                left join status on status.status_id = crop.status_id
+                WHERE crop.unique_code = $1";
+
+                $query_runCrop = pg_query_params($conn, $query_Crop, array($updateUniqueCode));
+                if (pg_num_rows($query_runCrop) > 0) {
+                    $cropsUpdate = pg_fetch_assoc($query_runCrop);
+
+                    //id's of the crop that needs to be updated
+                    $crop_id = $cropsUpdate['crop_id'];
+                    $category_id = $cropsUpdate['category_id'];
+                    $crop_location_id = $cropsUpdate['crop_location_id'];
+                    $disease_resistance_id = $cropsUpdate['disease_resistance_id'];
+                    $abiotic_resistance_id = $cropsUpdate['abiotic_resistance_id'];
+                    $rootcrop_traits_id = $cropsUpdate['rootcrop_traits_id'];
+                    $utilization_cultural_id = $cropsUpdate['utilization_cultural_id'];
+                    $vegetative_state_rootcrop_id = $cropsUpdate['vegetative_state_rootcrop_id'];
+                    $reproductive_state_rootcrop_id = $cropsUpdate['reproductive_state_rootcrop_id'];
+                    $pest_resistance_rootcrop_id = $cropsUpdate['pest_resistance_rootcrop_id'];
+                    $status_id = $cropsUpdate['status_id'];
+                    $action = "approved";
+                    $remarks = "Updating of crop data is approved.";
+
+                    // update utilization cultural table
+                    $query_utilCultural = "UPDATE utilization_cultural_importance SET significance = $1, \"use\" = $2, indigenous_utilization = $3,
+                    remarkable_features = $4 WHERE utilization_cultural_id = $5";
+                    $value_utilCultural = array(
+                        $significance, $use, $indigenous_utilization, $remarkable_features, $utilization_cultural_id
+                    );
+                    $query_run_utilCultural = pg_query_params($conn, $query_utilCultural, $value_utilCultural);
+
+                    if ($query_run_utilCultural) {
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+
+                    // update crop table
+                    $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, meaning_of_name = $3,
+                    crop_seed_image = $4 where crop_id = $5";
+
+                    $valueCrops = array(
+                        $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_id
+                    );
+                    $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
+
+                    if ($query_run_Crop) {
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+
+                    // update Status table
+                    $queryStatus = "UPDATE status set remarks= $1, action =$2 where status_id = $3";
+
+                    $valueStatus = array(
+                        $remarks, $action, $status_id
+                    );
+                    $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
+
+                    if ($query_run_Status) {
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+
+                    // Location Table
+                    // Get the location id
+                    $queryLoc = "SELECT location_id from location where province_name = $1 and municipality_name = $2";
+                    $query_run_loc = pg_query_params($conn, $queryLoc, array($province_name, $municipality_name));
+
+                    if ($query_run_loc) {
+                        $row_loc = pg_fetch_row(($query_run_loc));
+                        $location_id = $row_loc[0];
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+
+                    // Barangay Tab
+                    // get the barangay id
+                    $querybrgy = "SELECT barangay_id from barangay where barangay_name = $1";
+                    $query_run_brgy = pg_query_params($conn, $querybrgy, array($barangay_name));
+
+                    if ($query_run_brgy) {
+                        $row_brgy = pg_fetch_row(($query_run_brgy));
+                        $barangay_id = $row_brgy[0];
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+
+                    // update Crop Location Table
+                    $query_CropLoc = "UPDATE crop_location set location_id = $1, barangay_id = $2, coordinates = $3 where crop_location_id = $4";
+                    $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($location_id, $barangay_id, $coordinates, $crop_location_id));
+
+                    if ($query_run_CropLoc) {
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+
+                    // Handle corn category traits
+                    // abiotic resistance
+                    $query_abioticRes = "UPDATE abiotic_resistance set drought = $1, salinity = $2, heat = $3, abiotic_other = $4, abiotic_other_desc = $5 WHERE abiotic_resistance_id = $6";
+                    $query_run_abioticRes = pg_query_params($conn, $query_abioticRes, array($drought, $salinity, $heat, $abiotic_other, $abiotic_other_desc, $abiotic_resistance_id));
+                    if ($query_run_abioticRes) {
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+
+                    // disease resistance
+                    $query_diseaseRes = "UPDATE disease_resistance set bacterial = $1, viral = $2, fungus = $3 WHERE disease_resistance_id = $4";
+                    $query_run_diseaseRes = pg_query_params($conn, $query_diseaseRes, array($bacterial, $viral, $fungus, $disease_resistance_id));
+                    if ($query_run_diseaseRes) {
+                        echo "success";
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+
+                    // pest resistance corn
+                    $query_pestRes = "UPDATE pest_resistance_rootcrop set root_aphids = $1, root_knot_nematodes = $2, rootcrop_cutworms = $3, white_grubs = $4, termites = $5, weevils = $6, flea_beetles = $7, rootcrop_snails = $8, 
+                    rootcrop_ants = $9, rootcrop_rats = $10, rootcrop_others = $11, rootcrop_others_desc = $12 where pest_resistance_rootcrop_id = $13";
+                    $query_run_pestRes = pg_query_params($conn, $query_pestRes, array(
+                        $root_aphids, $root_knot_nematodes, $rootcrop_cutworms, $white_grubs, $termites, $weevils, $flea_beetles, $rootcrop_snails,
+                        $rootcrop_ants, $rootcrop_rats, $rootcrop_others, $rootcrop_others_desc, $pest_resistance_rootcrop_id
+                    ));
+                    if ($query_run_pestRes) {
+                        echo "success";
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+
+                    // rootcrop traits
+                    $query_rootcropTraits = "UPDATE rootcrop_traits set eating_quality = $1, rootcrop_color = $2, sweetness = $3, rootcrop_remarkable_features = $4 where rootcrop_traits_id = $5";
+                    $query_run_rootcropTraits = pg_query_params($conn, $query_rootcropTraits, array($eating_quality, $rootcrop_color, $sweetness, $rootcrop_remarkable_features, $rootcrop_traits_id));
+                    if ($query_run_rootcropTraits) {
+                        echo "success";
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+
+                    // vegetative state rootcrop
+                    $query_vegetativeState = "UPDATE vegetative_state_rootcrop set rootcrop_plant_height = $1, rootcrop_leaf_width = $2, rootcrop_leaf_length = $3, rootcrop_stem_leaf_desc = $4, rootcrop_maturity_time = $5 WHERE vegetative_state_rootcrop_id = $6";
+                    $query_run_vegetativeState = pg_query_params($conn, $query_vegetativeState, array($rootcrop_plant_height, $rootcrop_leaf_width, $rootcrop_leaf_length, $rootcrop_stem_leaf_desc, $rootcrop_maturity_time, $vegetative_state_rootcrop_id));
+                    if ($query_run_vegetativeState) {
+                        echo "success";
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+                }
+
+                // Delete from Crop table
+                $query_delete_crop = "DELETE FROM crop WHERE crop_id = $1";
+                $query_run_delete_crop = pg_query_params($conn, $query_delete_crop, [$update_crop_id]);
+
+                if (!$query_run_delete_crop) {
+                    echo "Error: " . pg_last_error($conn);
+                    die();
+                }
+
+                // Delete from Crop Location table
+                $query_delete_crop_loc = "DELETE FROM crop_location WHERE crop_location_id = $1";
+                $query_run_delete_crop_loc = pg_query_params($conn, $query_delete_crop_loc, [$update_crop_location_id]);
+
+                if (!$query_run_delete_crop_loc) {
+                    echo "Error: " . pg_last_error($conn);
+                    die();
+                }
+
+                // Delete from Utilization and cultural importance table
+                $query_delete_util_cultural = "DELETE FROM utilization_cultural_importance WHERE utilization_cultural_id = $1";
+                $query_run_delete_util_cultural = pg_query_params($conn, $query_delete_util_cultural, [$update_utilization_cultural_id]);
+
+                if (!$query_run_delete_util_cultural) {
+                    echo "Error: " . pg_last_error($conn);
+                    die();
+                }
+
+                // Delete from Status table
+                $query_delete_Status = "DELETE FROM status WHERE status_id = $1";
+                $query_run_delete_Status = pg_query_params($conn, $query_delete_Status, [$update_status_id]);
+
+                if (!$query_run_delete_Status) {
+                    echo "Error: " . pg_last_error($conn);
+                    die();
+                }
+
+                // Delete from root_crop Traits table
+                $query_delete_root_crop_Traits = "DELETE FROM root_crop_traits WHERE root_crop_traits_id = $1";
+                $query_run_delete_root_crop_Traits = pg_query_params($conn, $query_delete_root_crop_Traits, [$update_root_crop_traits_id]);
+
+                if (!$query_run_delete_root_crop_Traits) {
+                    echo "Error: " . pg_last_error($conn);
+                    die();
+                }
+
+                // Delete from rootcrop Traits table
+                $query_delete_rootcrop_Traits = "DELETE FROM rootcrop_traits WHERE rootcrop_traits_id = $1";
+                $query_run_delete_rootcrop_Traits = pg_query_params($conn, $query_delete_rootcrop_Traits, [$update_rootcrop_traits_id]);
+
+                if (!$query_run_delete_rootcrop_Traits) {
+                    echo "Error: " . pg_last_error($conn);
+                    die();
+                }
+
+                // Delete from Disease Resistance table
+                $query_delete_disease_res = "DELETE FROM disease_resistance WHERE disease_resistance_id = $1";
+                $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$update_disease_resistance_id]);
+
+                if (!$query_run_delete_disease_res) {
+                    echo "Error: " . pg_last_error($conn);
+                    die();
+                }
+
+                // Delete from Abiotic Resistance table
+                $query_delete_abiotic_res = "DELETE FROM abiotic_resistance WHERE abiotic_resistance_id = $1";
+                $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$update_abiotic_resistance_id]);
+
+                if (!$query_run_delete_abiotic_res) {
+                    echo "Error: " . pg_last_error($conn);
+                    die();
+                }
+
+                // Delete from Pest Resistance_rootcrop table
+                $query_delete_pest_res = "DELETE FROM pest_resistance_rootcrop WHERE pest_resistance_rootcrop_id = $1";
+                $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$update_pest_resistance_rootcrop_id]);
+
+                if (!$query_run_delete_pest_res) {
+                    echo "Error: " . pg_last_error($conn);
+                    die();
+                }
+
+                // Delete from Vegetative state table
+                $query_delete_veg_state = "DELETE FROM vegetative_state_rootcrop WHERE vegetative_state_rootcrop_id = $1";
+                $query_run_delete_veg_state = pg_query_params($conn, $query_delete_veg_state, [$update_vegetative_state_rootcrop_id]);
+
+                if (!$query_run_delete_veg_state) {
+                    echo "Error: " . pg_last_error($conn);
+                    die();
+                }
+            }
         }
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop Update Approved";
