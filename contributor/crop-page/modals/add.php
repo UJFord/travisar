@@ -6,7 +6,7 @@
 </style>
 
 <!-- HTML -->
-<div class="modal fade" id="add-item-modal" tabindex="-1" aria-labelledby="add-item-modal-label" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="true">
+<div class="modal fade" id="add-item-modal" tabindex="-1" aria-labelledby="add-item-modal-label" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
 
     <div class="modal-dialog modal-lg modal-fullscreen-sm-down">
         <div class="modal-content">
@@ -57,6 +57,8 @@
                             <?php require "tabs/cultural.php" ?>
                             <!-- references -->
                             <?php require "tabs/references.php" ?>
+                            <!-- confirm -->
+                            <?php require "tabs/confirm.php" ?>
 
                         </div>
                     </div>
@@ -97,39 +99,53 @@
         // Remove event listeners to prevent duplication
         document.getElementById('close-modal-btn').removeEventListener('click', closeModal);
         document.getElementById('cancel-modal-btn').removeEventListener('click', closeModal);
-        window.removeEventListener('keydown', closeModalOnEscape);
 
         // Event listener for the close button
         document.getElementById('close-modal-btn').addEventListener('click', closeModal);
 
         // Event listener for the cancel button
         document.getElementById('cancel-modal-btn').addEventListener('click', closeModal);
-
-        // Event listener for the ESC key
-        window.addEventListener('keydown', closeModalOnEscape);
     }
+
+    // Global variable to store the modal instance
+    var confirmModalInstance;
 
     // Custom function to close the modal
     function closeModal() {
-        // Confirm if the user wants to close the modal
-        if (window.confirm('Are you sure you want to close the modal? Any unsaved changes will be lost.')) {
-            var modal = document.getElementById('add-item-modal');
-            var modalInstance = bootstrap.Modal.getInstance(modal);
-            modalInstance.hide();
+        // Get the modal element
+        var confirmModal = document.getElementById('confirmModal');
+
+        // Create a new Bootstrap modal instance if it doesn't exist
+        if (!confirmModalInstance) {
+            confirmModalInstance = new bootstrap.Modal(confirmModal);
         }
+
+        // Show the confirmation modal
+        confirmModalInstance.show();
     }
 
-    // Custom function to close the modal on ESC key press
-    function closeModalOnEscape(event) {
-        if (event.key === "Escape") {
-            event.preventDefault(); // Prevent the default behavior
-            closeModal();
-        }
-    }
+    // Event listener for the confirm button click
+    // Event listener for the confirm button click
+    document.getElementById('confirmCloseBtn').addEventListener('click', function() {
+        var confirmModal = document.getElementById('confirmModal');
+        var confirmModalInstance = bootstrap.Modal.getInstance(confirmModal);
+        confirmModalInstance.hide();
+
+        var addModal = document.getElementById('add-item-modal');
+        var addModalInstance = bootstrap.Modal.getInstance(addModal);
+        addModalInstance.hide();
+    });
+
 
     // Event listener for when the modal is shown
     document.getElementById('add-item-modal').addEventListener('shown.bs.modal', function() {
         setupModalEventListeners();
+    });
+
+    // Event listener for when the confirmation modal is hidden
+    document.getElementById('confirmModal').addEventListener('hidden.bs.modal', function() {
+        // Reset the confirmModalInstance
+        confirmModalInstance = null;
     });
 </script>
 
