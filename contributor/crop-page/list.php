@@ -116,7 +116,18 @@
                         $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
 
                 ?>
-                        <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" data-href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>">
+                        <?php
+                        if ($row['action'] === 'draft') {
+                            ?>
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal">
+                            <?php
+                        }else{
+                            ?>
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" data-href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>">
+
+                            <?php
+                        }
+                            ?>
 
                             <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
                             <!-- hidden id for location to be used for filter function for location to be found -->
@@ -189,13 +200,13 @@
                                     </ul>
                                 </div>
                             </td>
-                        </tr>
-                <?php
+                            </tr>
+                    <?php
                     }
                 } else {
                     echo "No data found.";
                 }
-                ?>
+                    ?>
             </tbody>
         </table>
     </div>

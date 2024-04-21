@@ -12,7 +12,8 @@
 
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="edit-item-modal-label">Edit</h5>
+                <h5 class="modal-title" id="edit-label"></h5>
+
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -61,7 +62,8 @@
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-between">
                     <div class="">
-                        <button type="submit" name="edit" class="btn btn-success">Save</button>
+                        <button type="submit" id="editButton" name="edit" class="btn btn-success">Save</button>
+                        <button type="submit" id="draftButton" name="save_draft" class="btn btn-success">Save</button>
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                     </div>
                     <button type="button" class="btn btn-danger">Delete</i></button>
@@ -156,7 +158,18 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['rice_plant_height']);
+                        console.log(value['action']);
+
+                        // set modal name depending if it is draft or edit
+                        if (value['action'] === 'draft') {
+                            $('#edit-label').text('Draft');
+                            $('#draftButton').show();
+                            $('#editButton').hide();
+                        } else {
+                            $('#edit-label').text('Edit');
+                            $('#editButton').show();
+                            $('#draftButton').hide();
+                        }
 
                         // Fetch the old image and pass it to the fetchOldImage function
                         fetchOldImage(value.crop_seed_image);
@@ -460,6 +473,8 @@
 
                         // crop_id
                         $('#crop_id').val(id);
+                        // statusID
+                        $('#statusID').val(value['status_id']);
                         // categoryID
                         $('#categoryID').val(value['category_id']);
                         // current_crop_variety

@@ -1502,7 +1502,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop Edited Successfully";
         pg_query($conn, "COMMIT");
-        header("Location: ../../../crop.php");
+        header("Location: ../../submission.php");
         exit(0);
     } catch (Exception $e) {
         // message for error

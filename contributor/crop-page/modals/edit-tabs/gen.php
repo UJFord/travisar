@@ -112,6 +112,8 @@
         <input id="utilization_culturalID" type="hidden" name="utilization_culturalID" class="form-control">
         <!-- abiotic_resistanceID -->
         <input id="abiotic_resistanceID" type="hidden" name="abiotic_resistanceID" class="form-control">
+        <!-- statusID -->
+        <input id="statusID" type="hidden" name="statusID" class="form-control">
 
         <!-- corn id's -->
         <!-- vegetative_state_cornID -->
