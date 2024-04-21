@@ -191,15 +191,15 @@ require "../functions/functions.php";
                     // console.log(data); // Log the response data
                     // Rest of your code
                     var municipalitiesDropdown = document.getElementById('Municipality');
-                    municipalitiesDropdown.innerHTML = ''; // Clear existing options
+                    municipalitiesDropdown.innerHTML = '<option value="" disabled selected hidden class="colorize">Select One</option>'; // Clear existing options
 
                     // Add the default "Select an option" option
-                    var defaultOption = document.createElement('option');
-                    defaultOption.value = 'null';
-                    defaultOption.text = 'Select a Municipality';
-                    defaultOption.disabled = true;
-                    defaultOption.selected = true;
-                    municipalitiesDropdown.appendChild(defaultOption);
+                    // var defaultOption = document.createElement('option');
+                    // defaultOption.value = 'null';
+                    // defaultOption.text = 'Select a Municipality';
+                    // defaultOption.disabled = true;
+                    // defaultOption.selected = true;
+                    // municipalitiesDropdown.appendChild(defaultOption);
 
                     // Add the fetched municipalities as options in the dropdown
                     data.forEach(municipality => {
@@ -230,16 +230,16 @@ require "../functions/functions.php";
                     // console.log(data); // Log the response data
 
                     var barangayDropdown = document.getElementById('Barangay');
-                    barangayDropdown.innerHTML = ''; // Clear existing options
+                    barangayDropdown.innerHTML = '<option value="" disabled selected hidden class="colorize">Select One</option>'; // Clear existing options
 
 
                     // Add the default "Select an option" option
-                    var defaultOption = document.createElement('option');
-                    defaultOption.value = 'null';
-                    defaultOption.text = 'Select a Barangay';
-                    defaultOption.disabled = true;
-                    defaultOption.selected = true;
-                    barangayDropdown.appendChild(defaultOption);
+                    // var defaultOption = document.createElement('option');
+                    // defaultOption.value = 'null';
+                    // defaultOption.text = 'Select a Barangay';
+                    // defaultOption.disabled = true;
+                    // defaultOption.selected = true;
+                    // barangayDropdown.appendChild(defaultOption);
 
                     // Add the fetched municipalities as options in the dropdown
                     data.forEach(barangay => {
