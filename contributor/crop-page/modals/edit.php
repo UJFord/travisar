@@ -61,13 +61,13 @@
                 </div>
 
                 <!-- footer -->
-                <div class="modal-footer d-flex justify-content-between">
+                <div class="modal-footer d-flex justify-content-end">
+                    <button type="button" id="deleteButton" class="btn btn-danger" data-id="delete">Delete</i></button>
                     <div class="">
+                        <button type="button" id="cancel-modal-btn-edit" class="btn border bg-light">Cancel</button>
                         <button type="submit" id="editButton" name="edit" class="btn btn-success">Save</button>
                         <button type="submit" id="draftButton" name="save_draft" class="btn btn-success">Save</button>
-                        <button type="button" id="cancel-modal-btn-edit" class="btn border bg-light">Cancel</button>
                     </div>
-                    <button type="button" class="btn btn-danger">Delete</i></button>
                 </div>
             </form>
         </div>
@@ -80,14 +80,15 @@
         // Remove event listeners to prevent duplication
         document.getElementById('close-modal-btn-edit').removeEventListener('click', closeModalEdit);
         document.getElementById('cancel-modal-btn-edit').removeEventListener('click', closeModalEdit);
+        document.getElementById('deleteButton').removeEventListener('click', deleteModalEdit);
 
         // Event listener for the close button
         document.getElementById('close-modal-btn-edit').addEventListener('click', closeModalEdit);
 
         // Event listener for the cancel button
         document.getElementById('cancel-modal-btn-edit').addEventListener('click', closeModalEdit);
+        document.getElementById('deleteButton').addEventListener('click', deleteModalEdit);
     }
-
     // Global variable to store the modal instance
     var confirmModalInstanceEdit;
 
@@ -103,6 +104,13 @@
 
         // Show the confirmation modal
         confirmModalInstanceEdit.show();
+
+        // to show which button should show on the confirm modal
+        document.getElementById('confirmCloseBtnEdit').style.display = 'block';
+        document.getElementById('confirmDeleteBtnEdit').style.display = 'none';
+        // to show which label should show on the confirm modal
+        document.getElementById('close-label').style.display = 'block';
+        document.getElementById('delete-label').style.display = 'none';
     }
 
     // Event listener for the confirm button click
@@ -119,6 +127,34 @@
         $('.modal-backdrop').remove();
     });
 
+    function deleteModalEdit(event) {
+        // Prevent the default behavior of the button (e.g., form submission)
+        event.preventDefault();
+
+        // Get the id of the button clicked
+        var buttonId = event.target.getAttribute('data-id');
+
+        // Get the modal element
+        var confirmModal = document.getElementById('confirmModalEdit');
+
+        // Create a new Bootstrap modal instance if it doesn't exist
+        if (!confirmModalInstanceEdit) {
+            confirmModalInstanceEdit = new bootstrap.Modal(confirmModal);
+        }
+
+        // Show the confirmation modal
+        confirmModalInstanceEdit.show();
+
+        // Pass the buttonId to the confirm modal
+        document.getElementById('confirmModalEdit').setAttribute('data-id', buttonId);
+
+        // to show which button should show on the confirm modal
+        document.getElementById('confirmCloseBtnEdit').style.display = 'none';
+        document.getElementById('confirmDeleteBtnEdit').style.display = 'block';
+        // to show which label should show on the confirm modal
+        document.getElementById('close-label').style.display = 'none';
+        document.getElementById('delete-label').style.display = 'block';
+    }
     // Event listener for when the modal is shown
     document.getElementById('edit-item-modal').addEventListener('shown.bs.modal', function() {
         setupModalEventListenersEdit();
@@ -534,6 +570,8 @@
                         $('#crop_id').val(id);
                         // statusID
                         $('#statusID').val(value['status_id']);
+                        // referencesID
+                        $('#referencesID').val(value['references_id']);
                         // categoryID
                         $('#categoryID').val(value['category_id']);
                         // current_crop_variety
@@ -548,29 +586,33 @@
                         $('#Char_id').val(value['characteristics_id']);
                         // cultural_aspect_id
                         $('#cultural_aspect-Edit').val(value['cultural_aspect_id']);
-                        // cultural_aspect_id
+                        // disease_resistanceID
                         $('#disease_resistanceID').val(value['disease_resistance_id']);
-                        // cultural_aspect_id
+                        // seed_traitsID
                         $('#seed_traitsID').val(value['seed_traits_id']);
-                        // cultural_aspect_id
+                        // utilization_culturalID
                         $('#utilization_culturalID').val(value['utilization_cultural_id']);
-                        // cultural_aspect_id
+                        // abiotic_resistanceID and abiotic_resistance_riceID
                         $('#abiotic_resistanceID').val(value['abiotic_resistance_id']);
                         $('#abiotic_resistance_riceID').val(value['abiotic_resistance_rice_id']);
+
                         // id for corn
+                        $('#corn_traitsID').val(value['corn_traits_id']);
                         $('#vegetative_state_cornID').val(value['vegetative_state_corn_id']);
                         $('#reproductive_state_cornID').val(value['reproductive_state_corn_id']);
                         $('#pest_resistance_cornID').val(value['pest_resistance_corn_id']);
-                        // if for rice
+
+                        // id for rice
                         $('#pest_resistance_riceID').val(value['pest_resistance_rice_id']);
                         $('#vegetative_state_riceID').val(value['vegetative_state_rice_id']);
                         $('#reproductive_state_riceID').val(value['reproductive_state_rice_id']);
                         $('#panicle_traits_riceID').val(value['panicle_traits_rice_id']);
                         $('#flag_leaf_traits_riceID').val(value['flag_leaf_traits_rice_id']);
                         $('#sensory_traits_riceID').val(value['sensory_traits_rice_id']);
+
                         // id for root crop
+                        $('#root_crop_traitsID').val(value['root_crop_traits_id']);
                         $('#vegetative_state_rootcropID').val(value['vegetative_state_rootcrop_id']);
-                        $('#root_Crop_traitsID').val(value['root_Crop_traits_id']);
                         $('#pest_resistance_rootcropID').val(value['pest_resistance_rootcrop_id']);
                         $('#rootcrop_traitsID').val(value['rootcrop_traits_id']);
 
