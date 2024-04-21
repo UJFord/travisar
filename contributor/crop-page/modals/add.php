@@ -125,7 +125,6 @@
     }
 
     // Event listener for the confirm button click
-    // Event listener for the confirm button click
     document.getElementById('confirmCloseBtn').addEventListener('click', function() {
         var confirmModal = document.getElementById('confirmModal');
         var confirmModalInstance = bootstrap.Modal.getInstance(confirmModal);
