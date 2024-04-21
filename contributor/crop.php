@@ -37,6 +37,7 @@ require "../functions/functions.php";
     <script>
         // Assume you have the userRole variable defined somewhere in your PHP code
         var userRole = "<?php echo isset($_SESSION['rank']) ? $_SESSION['rank'] : ''; ?>";
+        var userRoleID = "<?php echo isset($_SESSION['USER']['user_id']) ? $_SESSION['USER']['user_id'] : ''; ?>";
         checkAccess(userRole);
     </script>
 </head>
