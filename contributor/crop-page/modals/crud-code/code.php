@@ -830,7 +830,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         // Function to handle empty values
         function handleEmpty($value)
         {
-            return empty($value) ? 'Empty' : $value;
+            return empty($value) ? null : $value;
         }
         // get all the data in the form
         // gen.php
@@ -1624,7 +1624,7 @@ if (isset($_POST['draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'
         // Function to handle empty values
         function handleEmpty($value)
         {
-            return empty($value) ? 'Empty' : $value;
+            return empty($value) ? null : $value;
         }
         // get all the data in the form
         // gen.php
@@ -2447,7 +2447,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         // Function to handle empty values
         function handleEmpty($value)
         {
-            return empty($value) ? 'Empty' : $value;
+            return empty($value) ? null : $value;
         }
 
         // get all the data in the form

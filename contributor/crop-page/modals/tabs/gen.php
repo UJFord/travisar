@@ -82,7 +82,7 @@
         <!-- Category Name -->
         <div class="col-6">
             <label for="Category" class="form-label small-font">Crop Category<span class="text-danger ms-1">*</span></label>
-            <select name="category_id" id="Category" class="form-select" required>
+            <select name="category_id" id="Category" class="form-select">
                 <?php
                 // get the data of category from DB
                 // gi set ra nako na permi last ang other nga category og ascending sya based sa catgory name
@@ -115,8 +115,8 @@
         <!-- Category Variety -->
         <div class="col" id="category-Variety">
             <label for="categoryVariety" class="form-label small-font">Variety<span class="text-danger ms-1">*</span></label>
-            <select name="category_variety_id" id="categoryVariety" class="form-select" required>
-                <option value="" disabled selected>Select Variety</option>
+            <select name="category_variety_id" id="categoryVariety" class="form-select">
+                <option value="null" disabled selected>Select Variety</option>
             </select>
         </div>
     </div>
@@ -126,7 +126,7 @@
         <!-- variety name -->
         <div class="col mb-2">
             <label for="Variety-Name" class="form-label small-font">Local/Variety Name<span class="text-danger ms-1">*</span></label>
-            <input id="Variety-Name" type="text" name="crop_variety" class="form-control" required>
+            <input id="Variety-Name" type="text" name="crop_variety" class="form-control">
         </div>
 
         <!-- Meaning of Name -->
@@ -141,8 +141,8 @@
         <!-- terrain -->
         <div class="col-6">
             <label for="terrain" class="form-label small-font">Terrain<span style="color: red;">*</span></label>
-            <select name="terrain_id" id="terrain" class="form-select" required>
-                <!-- <option value="" disabled selected>Select an option</option> -->
+            <select name="terrain_id" id="terrain" class="form-select">
+                <option value="null" disabled selected>Select Variety</option>
                 <?php
                 // get the data of terrain from DB
                 // gi set ra nako na permi last ang other nga terrain og ascending sya based sa catgory name
@@ -246,13 +246,13 @@
 
             <!-- Municipality dropdown -->
             <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
-            <select id="Municipality" name="municipality" class="form-select mb-2" required>
+            <select id="Municipality" name="municipality" class="form-select mb-2">
                 <!-- option is automatically shown through js depending on the province -->
             </select>
 
             <!-- barangay -->
             <label for="Barangay" class="form-label small-font mb-0">Sitio <span style="color: red;">*</span></label>
-            <select id="Barangay" name="barangay" class="form-select mb-2" required>
+            <select id="Barangay" name="barangay" class="form-select mb-2">
                 <option value="" disabled selected>Select an option</option>
                 <!-- option is automatically shown through js depending on the municipality selected -->
             </select>

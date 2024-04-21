@@ -194,8 +194,10 @@ require "../functions/functions.php";
 
                     // Add the default "Select an option" option
                     var defaultOption = document.createElement('option');
-                    defaultOption.value = '';
+                    defaultOption.value = 'null';
                     defaultOption.text = 'Select a Municipality';
+                    defaultOption.disabled = true;
+                    defaultOption.selected = true;
                     municipalitiesDropdown.appendChild(defaultOption);
 
                     // Add the fetched municipalities as options in the dropdown
@@ -228,6 +230,15 @@ require "../functions/functions.php";
 
                     var barangayDropdown = document.getElementById('Barangay');
                     barangayDropdown.innerHTML = ''; // Clear existing options
+
+
+                    // Add the default "Select an option" option
+                    var defaultOption = document.createElement('option');
+                    defaultOption.value = 'null';
+                    defaultOption.text = 'Select a Barangay';
+                    defaultOption.disabled = true;
+                    defaultOption.selected = true;
+                    barangayDropdown.appendChild(defaultOption);
 
                     // Add the fetched municipalities as options in the dropdown
                     data.forEach(barangay => {
