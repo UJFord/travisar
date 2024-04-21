@@ -90,11 +90,6 @@
     };
 </script> -->
 
-<!-- HTML -->
-<div class="modal fade" id="add-item-modal" tabindex="-1" aria-labelledby="add-item-modal-label" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-    <!-- Modal content -->
-</div>
-
 <!-- SCRIPT for closing the modal -->
 <script>
     // Function to set up event listeners for the modal

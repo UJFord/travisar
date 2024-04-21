@@ -6,15 +6,14 @@
 </style>
 
 <!-- EDIT MODAL -->
-<div class="modal fade" id="edit-item-modal" tabindex="-1" aria-labelledby="edit-label" aria-hidden="true">
+<div class="modal fade" id="edit-item-modal" tabindex="-1" aria-labelledby="edit-label" data-bs-backdrop="static" data-bs-keyboard="false" aria-hidden="true">
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
 
             <!-- header -->
             <div class="modal-header">
                 <h5 class="modal-title" id="edit-label"></h5>
-
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" id="close-modal-btn-edit" class="btn-close" aria-label="Close"></button>
             </div>
 
             <!-- body -->
@@ -55,6 +54,8 @@
                             <?php require "edit-tabs/sensory.php" ?>
                             <!-- references -->
                             <?php require "edit-tabs/references.php" ?>
+                            <!-- confirm -->
+                            <?php require "edit-tabs/confirm.php" ?>
                         </div>
                     </div>
                 </div>
@@ -64,7 +65,7 @@
                     <div class="">
                         <button type="submit" id="editButton" name="edit" class="btn btn-success">Save</button>
                         <button type="submit" id="draftButton" name="save_draft" class="btn btn-success">Save</button>
-                        <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" id="cancel-modal-btn-edit" class="btn border bg-light">Cancel</button>
                     </div>
                     <button type="button" class="btn btn-danger">Delete</i></button>
                 </div>
@@ -72,6 +73,64 @@
         </div>
     </div>
 </div>
+<!-- SCRIPT for closing the modal -->
+<script>
+    // Function to set up event listeners for the modal
+    function setupModalEventListenersEdit() {
+        // Remove event listeners to prevent duplication
+        document.getElementById('close-modal-btn-edit').removeEventListener('click', closeModalEdit);
+        document.getElementById('cancel-modal-btn-edit').removeEventListener('click', closeModalEdit);
+
+        // Event listener for the close button
+        document.getElementById('close-modal-btn-edit').addEventListener('click', closeModalEdit);
+
+        // Event listener for the cancel button
+        document.getElementById('cancel-modal-btn-edit').addEventListener('click', closeModalEdit);
+    }
+
+    // Global variable to store the modal instance
+    var confirmModalInstanceEdit;
+
+    // Custom function to close the modal
+    function closeModalEdit() {
+        // Get the modal element
+        var confirmModal = document.getElementById('confirmModalEdit');
+
+        // Create a new Bootstrap modal instance if it doesn't exist
+        if (!confirmModalInstanceEdit) {
+            confirmModalInstanceEdit = new bootstrap.Modal(confirmModal);
+        }
+
+        // Show the confirmation modal
+        confirmModalInstanceEdit.show();
+    }
+
+    // Event listener for the confirm button click
+    document.getElementById('confirmCloseBtnEdit').addEventListener('click', function() {
+        var confirmModal = document.getElementById('confirmModalEdit');
+        var confirmModalInstanceEdit = bootstrap.Modal.getInstance(confirmModal);
+        confirmModalInstanceEdit.hide();
+
+        var editModal = document.getElementById('edit-item-modal');
+        var editModalInstance = bootstrap.Modal.getInstance(editModal);
+        editModalInstance.hide();
+
+        // Remove the modal backdrop
+        $('.modal-backdrop').remove();
+    });
+
+    // Event listener for when the modal is shown
+    document.getElementById('edit-item-modal').addEventListener('shown.bs.modal', function() {
+        setupModalEventListenersEdit();
+    });
+
+    // Event listener for when the confirmation modal is hidden
+    document.getElementById('confirmModalEdit').addEventListener('hidden.bs.modal', function() {
+        // Reset the confirmModalInstanceEdit
+        confirmModalInstanceEdit = null;
+    });
+</script>
+
 <!-- script for getting the on the edit -->
 <script>
     document.getElementById('form-panel-edit').addEventListener('submit', function(event) {
@@ -653,26 +712,6 @@
                 // Show the modal
                 dataModal.show();
             });
-        });
-
-        // Reset the form and close the modal when the x button is clicked
-        $('.btn-close').on('click', function() {
-            // Reset the form
-            document.getElementById('form-panel-edit').reset();
-
-            // Close the modal
-            dataModal.hide();
-        });
-
-        // Reset the form and close the modal when the modal is hidden
-        $('#edit-item-modal').on('hidden.bs.modal', function() {
-            // Reset the form
-            document.getElementById('form-panel-edit').reset();
-
-            // Reset any other specific fields if needed
-            $('#previewSeedEdit').empty();
-            $('#previewVegEdit').empty();
-            $('#previewReproductiveEdit').empty();
         });
     });
 </script>
