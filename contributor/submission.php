@@ -3,41 +3,6 @@ session_start();
 require "../functions/connections.php";
 require "../functions/functions.php";
 ?>
-
-<!-- CSS -->
-<style>
-    /* CSS for tabs */
-    .tab_box {
-        width: 100%;
-        display: flex;
-        align-items: center;
-        justify-content: center;
-        border-bottom: 2px solid rgba(229, 229, 229);
-        position: relative;
-    }
-
-    .tab_box .tab_btn {
-        font-size: 18px;
-        font-weight: 600;
-        color: #919191;
-        background: none;
-        border: none;
-        padding: 18px;
-    }
-
-    @keyframes moving {
-        from {
-            transform: translateX(50px);
-            opacity: 0;
-        }
-
-        to {
-            transform: translateX(0px);
-            opacity: 1;
-        }
-    }
-</style>
-
 <!doctype html>
 <html lang="en">
 
@@ -59,7 +24,6 @@ require "../functions/functions.php";
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- custom -->
-
     <!-- global declarations -->
     <link rel="stylesheet" href="../css/global-declarations.css">
     <!-- specific for this file -->
@@ -89,25 +53,18 @@ require "../functions/functions.php";
     <!-- MAIN -->
     <div class="container">
         <div class="row mt-3">
+
+            <!-- FILTERS -->
+            <?php require "crop-page/filter.php"; ?>
+
             <!-- LIST -->
-            <div class="container">
-                <div class="row">
+            <div class="col">
+                <div class="container">
 
                     <!-- HEADING -->
-                    <div class="tab_box d-flex justify-content-between">
-                        <!-- Button Tabs -->
-                        <div>
-                            <button class="tab_btn" id="approvedTab" disabled>Submission</button>
-                            <div class="line"></div>
-                        </div>
-                        <!-- filter actions -->
-                        <div class="d-flex py-3 px-3">
-                            <!-- search -->
-                            <div class="input-group">
-                                <input type="text" id="searchInput" class="form-control" placeholder="Search Crops" aria-label="Search" aria-describedby="filter-search">
-                                <span class="input-group-text" id="filter-search"><i class="bi bi-search"></i></span>
-                            </div>
-                        </div>
+                    <div class="d-flex justify-content-between">
+                        <!-- title -->
+                        <h4 class="fw-semibold" style="font-size: 1.5rem;">My Submissions</h4>
                     </div>
 
                     <?php
@@ -120,21 +77,21 @@ require "../functions/functions.php";
                     // Calculate the offset based on the current page and items per page
                     $offset = ($current_page - 1) * $items_per_page;
 
-                    // Count the total number of rows for pagination for approved crops
-                    $total_rows_query_approved = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'approved'";
-                    $total_rows_result_approved = pg_query($conn, $total_rows_query_approved);
-                    $total_rows_approved = pg_fetch_row($total_rows_result_approved)[0];
+                    // Count the total number of rows for pagination
+                    $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id";
+                    $total_rows_result = pg_query($conn, $total_rows_query);
+                    $total_rows = pg_fetch_row($total_rows_result)[0];
 
-                    // Calculate the total number of pages for approved crops
-                    $total_pages_approved = ceil($total_rows_approved / $items_per_page);
+                    // Calculate the total number of pages
+                    $total_pages = ceil($total_rows / $items_per_page);
 
-                    // Count the total number of rows for pagination for pending crops
-                    $total_rows_query_pending = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action = 'pending'";
-                    $total_rows_result_pending = pg_query($conn, $total_rows_query_pending);
-                    $total_rows_pending = pg_fetch_row($total_rows_result_pending)[0];
+                    // Get the search query from the session or URL parameter
+                    $search = isset($_GET['search']) ? $_GET['search'] : '';
+                    $search_condition = $search ? "AND crop_variety ILIKE '%$search%'" : '';
 
-                    // Calculate the total number of pages for pending crops
-                    $total_pages_pending = ceil($total_rows_pending / $items_per_page);
+                    // Get the categories and municipalities filter from the URL
+                    $category_filter = !empty($_GET['categories']) ? "AND category_id IN (" . implode(',', explode(',', $_GET['categories'])) . ")" : '';
+                    $municipality_filter = !empty($_GET['municipalities']) ? "AND location_id IN (" . implode(',', explode(',', $_GET['municipalities'])) . ")" : '';
 
                     $user_id = null; // Initialize the variable
 
@@ -142,109 +99,163 @@ require "../functions/functions.php";
                         $user_id = $_SESSION['USER']['user_id']; // Assign the user ID if the user is logged in
                     }
                     ?>
+                    <!-- TABLE -->
+                    <table id="dataTable" class="table table-hover">
+                        <!-- table head -->
+                        <thead>
+                            <tr>
+                                <th class="col thead-item" scope="col">
+                                    <input class="form-check-input small-font" type="checkbox">
+                                    <label class="form-check-label text-dark-emphasis small-font">
+                                        All
+                                    </label>
+                                </th>
+                                <th class="col text-dark-emphasis small-font" scope="col">Category</th>
+                                <th class="col text-dark-emphasis small-font" scope="col">Name</th>
+                                <th class="col text-dark-emphasis small-font" scope="col">Date</th>
+                                <!-- <th class="col text-dark-emphasis small-font" scope="col">Action</th> -->
+                                <th class="col text-dark-emphasis small-font" scope="col">Status</th>
+                                <th class="col text-dark-emphasis small-font text-center" scope="col">Remarks</th>
+                                <th class="col text-dark-emphasis text-end" scope="col">
+                                    <div class="dropdown">
+                                        <button class="btn tranparent dropdown-toggle row-btn row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                            <i class="row-btn fa-solid fa-ellipsis-vertical px-3 py-2 m-0 rounded"></i>
+                                        </button>
+                                        <ul class="dropdown-menu">
+                                            <li><a class="dropdown-item" href="#"><i class="fa-solid fa-trash text-danger text-center me-1" style="width: 20px;"></i>Delete Selected</a></li>
+                                        </ul>
+                                    </div>
+                                </th>
 
-                    <!-- dib ni sya para ma set ang mga tabs na data -->
-                    <div class="general_info">
-                        <!-- Submission Tab -->
-                        <div class="gen_info" id="submissionTab" style="max-height: 500px; overflow-y: auto;">
-                            <!-- TABLE -->
-                            <table id="submissionTable" class="table table-hover">
-                                <!-- table head -->
-                                <thead>
-                                    <tr>
-                                        <th class="col text-dark-emphasis small-font" scope="col">Name</th>
-                                        <th class="col text-dark-emphasis small-font text-center" scope="col">Unique Code</th>
-                                        <th class="col text-dark-emphasis small-font text-center" scope="col">Date Created</th>
-                                        <th class="col text-dark-emphasis small-font text-center" scope="col">Status</th>
-                                        <th class="col text-dark-emphasis small-font text-center" scope="col">Action</th>
-                                        <th class="col text-dark-emphasis small-font text-center" scope="col">Remarks</th>
-                                        <th class="col text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
-                                    </tr>
+                            </tr>
+                        </thead>
 
-                                </thead>
-                                <!-- table body -->
-                                <tbody class="table-group-divider fw-bold overflow-scroll">
+                        <!-- table body -->
+                        <tbody class="table-group-divider fw-bold overflow-scroll">
+                            <?php
+                            // get the data from crops.
+                            $query = "SELECT * FROM crop 
+                            LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
+                            LEFT JOIN status ON status.status_id = crop.status_id 
+                            WHERE 1=1 $search_condition $category_filter $municipality_filter AND user_id = $user_id
+                            ORDER BY crop.crop_id DESC 
+                            LIMIT $items_per_page OFFSET $offset";
+                            $query_run = pg_query($conn, $query);
+
+                            if ($query_run) {
+                                while ($row = pg_fetch_array($query_run)) {
+                                    // Convert the string to a DateTime object
+                                    $date = new DateTime($row['input_date']);
+                                    // Format the date to display up to the minute
+                                    $formatted_date = $date->format('Y-m-d H:i');
+
+                                    // Fetch category name
+                                    $query_category = "SELECT * FROM category WHERE category_id = $1";
+                                    $query_run_category = pg_query_params($conn, $query_category, array($row['category_id']));
+
+                                    // Fetch contributor name
+                                    $query_user = "SELECT * FROM users WHERE user_id = $1";
+                                    $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
+                            ?>
                                     <?php
-                                    $query_approved = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE user_id = $user_id ORDER BY crop_id DESC LIMIT $items_per_page OFFSET $offset";
-                                    $query_run_approved = pg_query($conn, $query_approved);
-
-                                    if ($query_run_approved) {
-                                        while ($row = pg_fetch_array($query_run_approved)) {
-                                            // Convert the string to a DateTime object
-                                            $date = new DateTime($row['input_date']);
-                                            // Format the date to display up to the minute
-                                            $formatted_date = $date->format('Y-m-d H:i');
-
-                                            // Fetch category name
-                                            $query_category = "SELECT * FROM category WHERE category_id = $1";
-                                            $query_run_category = pg_query_params($conn, $query_category, array($row['category_id']));
+                                    if ($row['action'] === 'draft') {
                                     ?>
-                                            <tr id="row1" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>" style="background-color: <?= ($row['action'] == 'approved') ? 'green' : ($row['action'] == 'pending' ? 'yellow' : 'red'); ?>">
-                                                <td>
-                                                    <!-- crop variety name -->
-                                                    <a href=""><?= $row['crop_variety']; ?></a>
-                                                    <!-- category -->
-                                                    <?php
-                                                    if (pg_num_rows($query_run_category)) {
-                                                        $category = pg_fetch_assoc($query_run_category);
-                                                        echo '<h6 class="text-secondary small-font m-0">' . $category['category_name'] . '</h6>';
-                                                    } else {
-                                                        echo "No category added.";
-                                                    }
-                                                    ?>
-                                                </td>
-
-                                                <!-- unique code -->
-                                                <td class="text-secondary small-font fw-normal text-center">
-                                                    <?= $row['unique_code']; ?>
-                                                </td>
-
-                                                <!-- Date Created -->
-                                                <td class="text-secondary small-font fw-normal text-center">
-                                                    <?= $formatted_date; ?>
-                                                </td>
-
-                                                <!-- Status -->
-                                                <td class="text-secondary small-font fw-normal text-center">
-                                                    <?= $row['action']; ?>
-                                                </td>
-
-                                                <!-- edit -->
-                                                <td class="text-center">
-                                                    <?php if ($row['action'] === 'approved' || $row['action'] === 'draft') : ?>
-                                                        <a href="#" class="btn btn-success btn-sm edit_data" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">Edit</a>
-                                                    <?php endif; ?>
-                                                </td>
-
-                                                <!-- Status -->
-                                                <td class="text-center">
-                                                    <a href="#" class="btn btn-success btn-sm remarks_data" data-toggle="modal" data-target="#remarks-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-message"></i></i></a>
-                                                </td>
-
-                                                <!-- ellipsis menu butn -->
-                                                <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
-                                            </tr>
-                                    <?php
-                                        }
+                                        <tr data-id="<?= $row['crop_id']; ?>" class="rowlink edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal">
+                                        <?php
                                     } else {
-                                        echo "No data found.";
+                                        ?>
+                                        <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" data-href="submission-page/view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”>
+                                        <?php
                                     }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- pagination -->
-                        <?php generatePaginationLinks($total_pages_approved, $current_page, 'page'); ?>
-                    </div>
+                                        ?>
 
-                    <!-- edit -->
-                    <?php require "submission-page/edit.php"; ?>
-                    <!-- remarks -->
-                    <?php require "submission-page/remarks.php"; ?>
+                                        <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
+                                        <!-- hidden id for location to be used for filter function for location to be found -->
+                                        <input type="hidden" name="location_id" value="<?= $row['location_id']; ?>">
+
+                                        <!-- checkbox -->
+                                        <th scope="row">
+                                            <input class="row-checkbox form-check-input small-font" type="checkbox">
+                                        </th>
+
+                                        <!-- category -->
+                                        <td>
+                                            <div class="small-font">
+                                                <?php
+                                                if (pg_num_rows($query_run_category)) {
+                                                    $category = pg_fetch_assoc($query_run_category);
+                                                    echo '<h6 class="text-secondary small-font m-0">' . $category['category_name'] . '</h6>';
+                                                } else {
+                                                    echo "No category added.";
+                                                }
+                                                ?>
+                                            </div>
+                                        </td>
+
+                                        <!-- Variety name -->
+                                        <td>
+                                            <!-- Variety name -->
+                                            <a href="submission-page/view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
+                                        </td>
+
+                                        <!-- date created -->
+                                        <td>
+                                            <h6 class="text-secondary small-font"><?= $formatted_date; ?></h6>
+                                        </td>
+
+                                        <!-- status -->
+                                        <td>
+                                            <span class=" small-font bg-dark-subtle w-auto py-1 px-2 rounded"><?= $row['action']; ?></span>
+                                        </td>
+
+                                        <!-- remarks -->
+                                        <td class="text-center">
+                                            <div class="dropdown row-btn">
+                                                <button class="btn transparent dropdown-toggle row-action-btn remarks-btn p-0 p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="row-btn fa-regular fa-comment p-2 m-0 rounded"></i>
+                                                </button>
+                                                <div class="dropdown-menu remarks-menu p-2">
+                                                    <textarea class="form-control remarks-text" placeholder="No remarks" style="height: 180px;" disabled><?= $row['remarks']; ?></textarea>
+                                                </div>
+                                            </div>
+                                        </td>
+
+                                        <!-- ellipsis menu butn -->
+                                        <td class="text-end">
+                                            <div class="dropdown row-btn">
+                                                <button class="btn tranparent dropdown-toggle row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                                                    <i class="row-btn fa-solid fa-ellipsis-vertical px-3 py-2 m-0 rounded"></i>
+                                                </button>
+                                                <ul class="dropdown-menu">
+                                                    <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye text-center" style="width: 20px;"></i> View</a></li>
+                                                    <li>
+                                                        <a class="dropdown-item edit_data admin-only" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1 admin-only" style="width: 20px;"></i>Edit</a>
+                                                    </li>
+                                                    <li><a class="dropdown-item admin-only" href="#"><i class="fa-solid fa-trash text-danger text-center me-1 admin-only" style="width: 20px;"></i>Delete</a></li>
+                                                </ul>
+                                            </div>
+                                        </td>
+                                        </tr>
+                                <?php
+                                }
+                            } else {
+                                echo "No data found.";
+                            }
+                                ?>
+                        </tbody>
+                    </table>
                 </div>
             </div>
+            <!-- Add pagination links -->
+            <?php generatePaginationLinks($total_pages, $current_page, 'page'); ?>
+
+            <!-- MODAL -->
+            <!-- add -->
+            <?php require "submission-page/edit.php"; ?>
+
         </div>
     </div>
+
     <!-- SCRIPTS -->
     <!-- bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
@@ -252,64 +263,100 @@ require "../functions/functions.php";
     <script src="https://kit.fontawesome.com/57e83eb6e4.js" crossorigin="anonymous"></script>
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-    <!-- search function -->
+    <!-- to Capitalized all first letter in all inputs and textarea -->
     <script>
-        function filterTable() {
-            var input, filter, table, tr, td, i, j, txtValue;
-            input = document.getElementById("searchInput");
-            filter = input.value.toUpperCase();
-
-            // Determine which table is currently active
-            var activeTable = document.querySelector('.gen_info.active table');
-            tr = activeTable.getElementsByTagName("tr");
-
-            for (i = 0; i < tr.length; i++) {
-                var found = false;
-                if (i === 0) {
-                    tr[i].style.display = "";
-                    continue; // Skip the header row
-                }
-                for (j = 0; j < tr[i].getElementsByTagName("td").length; j++) {
-                    td = tr[i].getElementsByTagName("td")[j];
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            found = true;
-                            break;
-                        }
-                    }
-                }
-                tr[i].style.display = found ? "" : "none";
-            }
-        }
-
-        // Add event listener to search input
-        document.getElementById('searchInput').addEventListener('keyup', filterTable);
-
-        // Reset search input when tab is switched
-        function resetSearchInput() {
-            document.getElementById("searchInput").value = "";
-            filterTable(); // Trigger filtering to show all rows
-        }
-
-        // Add event listener to tab buttons to reset search input
-        document.querySelectorAll('.tab_btn').forEach(tab => {
-            tab.addEventListener('click', resetSearchInput);
-        });
-    </script>
-    <!-- for modal button -->
-    <script>
-        // make clicking table rows open edit ui
         $(document).ready(function() {
-            $('#dataTable tr').click(function() {
-                // console.log('clicked')
-                // Get the crop ID from the clicked row or anchor tag
-                var cropId = $(this).data('id') || $(this).find('a').data('id');
+            // Capitalize the initial values of input fields
+            $("input[type='text']").each(function() {
+                $(this).val($(this).val().replace(/\b\w/g, function(char) {
+                    return char.toUpperCase();
+                }));
+            });
 
-                // Open the modal
-                $('#dataModal').modal('show');
+            // Update the value as the user types
+            $("input[type='text']").on('input', function() {
+                var start = this.selectionStart,
+                    end = this.selectionEnd;
+                $(this).val(function(_, val) {
+                    return val.replace(/\b\w/g, function(char) {
+                        return char.toUpperCase();
+                    });
+                });
+                this.setSelectionRange(start, end);
+            });
+
+            // Capitalize the initial values textarea fields
+            $("textarea").each(function() {
+                $(this).val($(this).val().replace(/\b\w/g, function(char) {
+                    return char.toUpperCase();
+                }));
+            });
+
+            // Update the value as the user types
+            $("textarea").on('input', function() {
+                var start = this.selectionStart,
+                    end = this.selectionEnd;
+                $(this).val(function(_, val) {
+                    return val.replace(/\b\w/g, function(char) {
+                        return char.toUpperCase();
+                    });
+                });
+                this.setSelectionRange(start, end);
             });
         });
+    </script>
+    <!-- search function -->
+    <script>
+        // Modify the search function to store the search query in a session or URL parameter
+        function search() {
+            var searchInput = document.getElementById("searchInput").value;
+            // Store the search query in a session or URL parameter
+            // For example, you can use localStorage to store the search query
+            localStorage.setItem('searchQuery', searchInput);
+            // Reload the page with the search query as a parameter
+            window.location.href = window.location.pathname + "?search=" + searchInput;
+        }
+
+        const searchInput = document.getElementById('searchInput');
+        const clearButton = document.getElementById('clearButton');
+
+        // Add a keyup event listener to the search input field
+        searchInput.addEventListener('keyup', function(event) {
+            // Check if the Enter key is pressed (key code 13)
+            if (event.keyCode === 13) {
+                // Call the search function
+                search();
+            }
+        });
+
+        // Function to clear the search and hide the clear button
+        function clearSearch() {
+            searchInput.value = '';
+            window.location.href = window.location.pathname;
+        }
+
+        // Function to apply filters and update the table
+        function applyFilters() {
+            let searchCondition = ''; // Initialize searchCondition here
+
+            const selectedCategories = Array.from(document.querySelectorAll('.crop-filter:checked')).map(checkbox => checkbox.value);
+            const selectedMunicipalities = Array.from(document.querySelectorAll('.municipality-filter:checked')).map(checkbox => checkbox.value);
+
+            // Build the search condition based on selected categories, municipalities, and the search value
+            if (selectedCategories.length > 0) {
+                searchCondition += `&categories=${selectedCategories.join(',')}`;
+                console.log(searchCondition);
+                console.log('Filter applied');
+            }
+            if (selectedMunicipalities.length > 0) {
+                searchCondition += `&municipalities=${selectedMunicipalities.join(',')}`;
+                console.log(searchCondition);
+                console.log('Filter applied');
+            }
+
+            // Reload the table with the new filters
+            window.location.href = window.location.pathname + '?search=' + searchCondition;
+        }
     </script>
     <!-- Script nf or the map for edit tab -->
     <script>
@@ -488,48 +535,15 @@ require "../functions/functions.php";
                 });
         }
     </script>
+    <!-- allowing scrollspy in the modal -->
+    <script>
+        $(document).ready(function() {
+            $('#view-item-modal').on('shown.bs.modal', function() {
+                $('[data-spy="scroll"]').scrollspy('refresh');
+                console.log($('[data-spy="scroll"]').scrollspy());
+            });
+        });
+    </script>
 </body>
-<!-- to Capitalized all first letter in all inputs and textarea -->
-<script>
-    $(document).ready(function() {
-        // Capitalize the initial values of input fields
-        $("input[type='text']").each(function() {
-            $(this).val($(this).val().replace(/\b\w/g, function(char) {
-                return char.toUpperCase();
-            }));
-        });
-
-        // Update the value as the user types
-        $("input[type='text']").on('input', function() {
-            var start = this.selectionStart,
-                end = this.selectionEnd;
-            $(this).val(function(_, val) {
-                return val.replace(/\b\w/g, function(char) {
-                    return char.toUpperCase();
-                });
-            });
-            this.setSelectionRange(start, end);
-        });
-
-        // Capitalize the initial values textarea fields
-        $("textarea").each(function() {
-            $(this).val($(this).val().replace(/\b\w/g, function(char) {
-                return char.toUpperCase();
-            }));
-        });
-
-        // Update the value as the user types
-        $("textarea").on('input', function() {
-            var start = this.selectionStart,
-                end = this.selectionEnd;
-            $(this).val(function(_, val) {
-                return val.replace(/\b\w/g, function(char) {
-                    return char.toUpperCase();
-                });
-            });
-            this.setSelectionRange(start, end);
-        });
-    });
-</script>
 
 </html>

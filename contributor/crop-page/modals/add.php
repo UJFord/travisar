@@ -80,7 +80,7 @@
 </div>
 
 <!-- SCRIPT -->
-<script>
+<!-- <script>
     // keep the modal on
     window.onload = function() {
         const dataModal = new bootstrap.Modal(document.getElementById('add-item-modal'), {
@@ -88,7 +88,7 @@
         });
         dataModal.show();
     };
-</script>
+</script> -->
 
 <!-- SCRIPT for closing the modal -->
 <script>
