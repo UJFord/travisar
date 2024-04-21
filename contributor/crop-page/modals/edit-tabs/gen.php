@@ -112,8 +112,14 @@
         <input id="utilization_culturalID" type="hidden" name="utilization_culturalID" class="form-control">
         <!-- abiotic_resistanceID -->
         <input id="abiotic_resistanceID" type="hidden" name="abiotic_resistanceID" class="form-control">
+        <!-- statusID -->
+        <input id="statusID" type="hidden" name="statusID" class="form-control">
+        <!-- referencesID -->
+        <input id="referencesID" type="hidden" name="referencesID" class="form-control">
 
         <!-- corn id's -->
+        <!-- corn_traitsID -->
+        <input id="corn_traitsID" type="hidden" name="corn_traitsID" class="form-control">
         <!-- vegetative_state_cornID -->
         <input id="vegetative_state_cornID" type="hidden" name="vegetative_state_cornID" class="form-control">
         <!-- reproductive_state_cornID -->
@@ -138,6 +144,8 @@
         <input id="sensory_traits_riceID" type="hidden" name="sensory_traits_riceID" class="form-control">
 
         <!-- root crop id's -->
+        <!-- root_crop_traitsID -->
+        <input id="root_crop_traitsID" type="hidden" name="root_crop_traitsID" class="form-control">
         <!-- vegetative_state_rootcropID -->
         <input id="vegetative_state_rootcropID" type="hidden" name="vegetative_state_rootcropID" class="form-control">
         <!-- pest_resistance_rootcropID -->

@@ -6,13 +6,17 @@
 </style>
 
 <!-- HTML -->
-<div class="modal fade" id="add-item-modal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="add-item-modal-label" aria-hidden="true">
+<div class="modal fade" id="add-item-modal" tabindex="-1" aria-labelledby="add-item-modal-label" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
+
     <div class="modal-dialog modal-lg modal-fullscreen-sm-down">
         <div class="modal-content">
             <!-- header -->
             <div class="modal-header">
                 <h5 class="modal-title" id="edit-item-modal-label">Add Crop</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" id="close-modal-btn" class="btn-close" aria-label="Close"></button>
+            </div>
+
+            <div id="error-messages">
             </div>
 
             <!-- body -->
@@ -56,6 +60,8 @@
                             <?php require "tabs/cultural.php" ?>
                             <!-- references -->
                             <?php require "tabs/references.php" ?>
+                            <!-- confirm -->
+                            <?php require "tabs/confirm.php" ?>
 
                         </div>
                     </div>
@@ -65,7 +71,7 @@
                 <div class="modal-footer d-flex justify-content-between">
                     <div class="">
                         <button type="submit" name="save" class="btn btn-success">Save</button>
-                        <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" id="cancel-modal-btn" class="btn border bg-light">Cancel</button>
                     </div>
                 </div>
             </form>
@@ -82,6 +88,62 @@
         });
         dataModal.show();
     };
+</script>
+
+<!-- SCRIPT for closing the modal -->
+<script>
+    // Function to set up event listeners for the modal
+    function setupModalEventListeners() {
+        // Remove event listeners to prevent duplication
+        document.getElementById('close-modal-btn').removeEventListener('click', closeModal);
+        document.getElementById('cancel-modal-btn').removeEventListener('click', closeModal);
+
+        // Event listener for the close button
+        document.getElementById('close-modal-btn').addEventListener('click', closeModal);
+
+        // Event listener for the cancel button
+        document.getElementById('cancel-modal-btn').addEventListener('click', closeModal);
+    }
+
+    // Global variable to store the modal instance
+    var confirmModalInstance;
+
+    // Custom function to close the modal
+    function closeModal() {
+        // Get the modal element
+        var confirmModal = document.getElementById('confirmModal');
+
+        // Create a new Bootstrap modal instance if it doesn't exist
+        if (!confirmModalInstance) {
+            confirmModalInstance = new bootstrap.Modal(confirmModal);
+        }
+
+        // Show the confirmation modal
+        confirmModalInstance.show();
+    }
+
+    // Event listener for the confirm button click
+    document.getElementById('confirmCloseBtn').addEventListener('click', function() {
+        var confirmModal = document.getElementById('confirmModal');
+        var confirmModalInstance = bootstrap.Modal.getInstance(confirmModal);
+        confirmModalInstance.hide();
+
+        var addModal = document.getElementById('add-item-modal');
+        var addModalInstance = bootstrap.Modal.getInstance(addModal);
+        addModalInstance.hide();
+    });
+
+
+    // Event listener for when the modal is shown
+    document.getElementById('add-item-modal').addEventListener('shown.bs.modal', function() {
+        setupModalEventListeners();
+    });
+
+    // Event listener for when the confirmation modal is hidden
+    document.getElementById('confirmModal').addEventListener('hidden.bs.modal', function() {
+        // Reset the confirmModalInstance
+        confirmModalInstance = null;
+    });
 </script>
 
 <!-- for submission -->
@@ -106,9 +168,14 @@
             disableInputs(rootCropMorph);
         }
 
-        // Form is valid, submit the form
-        submitForm();
+        // Validate the form
+        if (validateForm()) {
+            // If validation succeeds, submit the form
+            // console.log('Submit add');
+            submitForm();
+        }
     });
+
 
     // Function to submit the form and refresh notifications
     function submitForm() {
@@ -125,6 +192,7 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
+                    // console.log('form is submitted add');
                     // Reset the form
                     form.reset();
                     // Reload unseen notifications
@@ -136,6 +204,82 @@
                 }
             });
         }
+    }
+
+    // Function to validate input
+    function validateForm() {
+        var categoryID = document.forms["Form"]["category_id"].value;
+        var category_varietyID = document.forms["Form"]["category_variety_id"].value;
+        var cropVariety = document.forms["Form"]["crop_variety"].value;
+        var terrainID = document.forms["Form"]["terrain_id"].value;
+        var province = document.forms["Form"]["province"].value;
+        var municipality = document.forms["Form"]["municipality"].value;
+        var barangay = document.forms["Form"]["barangay"].value;
+
+        var errors = [];
+
+        // Check if the required fields are not empty
+        if (categoryID === "" || categoryID === null) {
+            errors.push("<div class='error text-center' style='color:red;'>Please select crop category.</div>");
+            document.getElementById('Category').classList.add('is-invalid'); // Add 'is-invalid' class to select field
+        } else {
+            document.getElementById('Category').classList.remove('is-invalid'); // remove 'is-invalid' class to select field
+        }
+
+        if (category_varietyID === "null" || category_varietyID === "") {
+            errors.push("<div class='error text-center' style='color:red;'>Please select a category variety.</div>");
+            document.getElementById('categoryVariety').classList.add('is-invalid');
+        } else {
+            document.getElementById('categoryVariety').classList.remove('is-invalid');
+        }
+
+        if (cropVariety === "" || cropVariety === null) {
+            errors.push("<div class='error text-center' style='color:red;'>Please enter a variety name.</div>");
+            document.getElementById('Variety-Name').classList.add('is-invalid');
+        } else {
+            document.getElementById('Variety-Name').classList.remove('is-invalid');
+        }
+
+        if (terrainID === "null" || terrainID === "") {
+            errors.push("<div class='error text-center' style='color:red;'>Please select terrain.</div>");
+            document.getElementById('terrain').classList.add('is-invalid');
+        } else {
+            document.getElementById('terrain').classList.remove('is-invalid');
+        }
+
+        if (province === "null" || province === "") {
+            errors.push("<div class='error text-center' style='color:red;'>Please select a province.</div>");
+            document.getElementById('Province').classList.add('is-invalid');
+        } else {
+            document.getElementById('Province').classList.remove('is-invalid');
+        }
+
+        if (municipality === "null" || municipality === "") {
+            errors.push("<div class='error text-center' style='color:red;'>Please select a municipality.</div>");
+            document.getElementById('Municipality').classList.add('is-invalid');
+        } else {
+            document.getElementById('Municipality').classList.remove('is-invalid');
+        }
+
+        if (barangay === "null" || barangay === "") {
+            errors.push("<div class='error text-center' style='color:red;'>Please select a barangay.</div>");
+            document.getElementById('Barangay').classList.add('is-invalid');
+        } else {
+            document.getElementById('Barangay').classList.remove('is-invalid');
+        }
+
+        // Display first error only
+        if (errors.length > 0) {
+            var errorString = errors[0]; // Get the first error
+            document.getElementById("error-messages").innerHTML = errorString;
+            // Prevent default form submission
+            event.preventDefault();
+            return false;
+        }
+
+        // If no errors, clear error messages
+        document.getElementById("error-messages").innerHTML = "";
+        return true;
     }
 
     function disableInputs(container) {
@@ -220,6 +364,14 @@
         categoryVarietySelect.innerHTML = '<option value="" disabled selected hidden class="colorize">Select One</option>'; // Clear existing options
 
         // Add the default option
+        //var defaultOption = document.createElement('option');
+        //defaultOption.text = "Select a Variety";
+        //defaultOption.value = "null";
+        //defaultOption.disabled = true;
+        //defaultOption.selected = true;
+        //categoryVarietySelect.appendChild(defaultOption);
+      
+      
         // var defaultOption = document.createElement('option');
         // defaultOption.text = "Select One...";
         // // defaultOption.disabled = true;

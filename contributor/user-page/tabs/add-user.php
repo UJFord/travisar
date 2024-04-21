@@ -133,8 +133,6 @@
         var form = document.getElementById('form-panel-add');
         // Add an event listener for the form submission
         form.addEventListener("submit", function(event) {
-            // Prevent the default form submission behavior
-            event.preventDefault();
             // Validate the form
             if (validateForm()) {
                 // If validation succeeds, submit the form
@@ -161,7 +159,6 @@
         } else {
             document.getElementById('AccountType').classList.remove('is-invalid'); // Remove 'is-invalid' class if valid
         }
-
 
         // Validate first name
         if (!/^[a-zA-Z ]+$/.test(firstName)) {
@@ -207,6 +204,8 @@
         if (errors.length > 0) {
             var errorString = errors[0]; // Get the first error
             document.getElementById("error-messages").innerHTML = errorString;
+            // Prevent the default form submission behavior
+            event.preventDefault();
             return false;
         }
 
@@ -222,9 +221,6 @@
             // Create a new FormData object
             var formData = new FormData(form);
 
-            // Append additional data
-            formData.append('click_add_btn', 'true');
-
             // Send a POST request using AJAX
             $.ajax({
                 url: "user-page/code/code.php",
@@ -234,11 +230,11 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     // Reset the form
-                    // form.reset();
-                    // // Reload the page or do other actions if needed
-                    // location.reload();
+                    form.reset();
+                    // Reload the page or do other actions if needed
+                    location.reload();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("Form submission error:", textStatus, errorThrown);

@@ -1,8 +1,7 @@
 <?php
 require "../../../functions/connections.php";
 
-
-if (isset($_POST['click_add_btn'])) {
+if (isset($_POST['save'])) {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {
@@ -16,7 +15,6 @@ if (isset($_POST['click_add_btn'])) {
         $account_type_id = $_POST['account_type_id'];
         $email_verify = $_POST['email'];
 
-        die();
         // Perform the insertion query
         $query = "INSERT into users (first_name, last_name, gender, email, username, password, affiliation, account_type_id, email_verified) 
         VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)";

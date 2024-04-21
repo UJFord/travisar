@@ -146,7 +146,7 @@ require "../functions/functions.php";
                     <!-- dib ni sya para ma set ang mga tabs na data -->
                     <div class="general_info">
                         <!-- Submission Tab -->
-                        <div class="gen_info" id="submissionTab" style="max-height: 400px; overflow-y: auto;">
+                        <div class="gen_info" id="submissionTab" style="max-height: 500px; overflow-y: auto;">
                             <!-- TABLE -->
                             <table id="submissionTable" class="table table-hover">
                                 <!-- table head -->
@@ -165,7 +165,7 @@ require "../functions/functions.php";
                                 <!-- table body -->
                                 <tbody class="table-group-divider fw-bold overflow-scroll">
                                     <?php
-                                    $query_approved = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE status.action IN ('approved', 'rejected', 'pending', 'updating') AND user_id = $user_id ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
+                                    $query_approved = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE user_id = $user_id ORDER BY crop_id DESC LIMIT $items_per_page OFFSET $offset";
                                     $query_run_approved = pg_query($conn, $query_approved);
 
                                     if ($query_run_approved) {
@@ -211,7 +211,7 @@ require "../functions/functions.php";
 
                                                 <!-- edit -->
                                                 <td class="text-center">
-                                                    <?php if ($row['action'] === 'approved') : ?>
+                                                    <?php if ($row['action'] === 'approved' || $row['action'] === 'draft') : ?>
                                                         <a href="#" class="btn btn-success btn-sm edit_data" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">Edit</a>
                                                     <?php endif; ?>
                                                 </td>

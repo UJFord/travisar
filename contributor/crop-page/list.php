@@ -95,7 +95,7 @@
                 $query = "SELECT * FROM crop 
                 LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
                 LEFT JOIN status ON status.status_id = crop.status_id 
-                $search_condition $category_filter $municipality_filter 
+                WHERE 1=1 $search_condition $category_filter $municipality_filter 
                 ORDER BY crop.crop_id DESC 
                 LIMIT $items_per_page OFFSET $offset";
                 $query_run = pg_query($conn, $query);
@@ -114,9 +114,18 @@
                         // Fetch contributor name
                         $query_user = "SELECT * FROM users WHERE user_id = $1";
                         $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
-
                 ?>
-                        <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" data-href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>">
+                        <?php
+                        if ($row['action'] === 'draft' && $_SESSION['USER']['user_id'] == $row['user_id']) {
+                        ?>
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal">
+                            <?php
+                        } else {
+                            ?>
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>">
+                            <?php
+                        }
+                            ?>
 
                             <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
                             <!-- hidden id for location to be used for filter function for location to be found -->
@@ -183,19 +192,19 @@
                                     <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye text-center" style="width: 20px;"></i> View</a></li>
                                         <li>
-                                            <a class="dropdown-item edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1 admin-only" style="width: 20px;"></i>Edit</a>
+                                            <a class="dropdown-item edit_data admin-only" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1 admin-only" style="width: 20px;"></i>Edit</a>
                                         </li>
-                                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-trash text-danger text-center me-1 admin-only" style="width: 20px;"></i>Delete</a></li>
+                                        <li><a class="dropdown-item admin-only" href="#"><i class="fa-solid fa-trash text-danger text-center me-1 admin-only" style="width: 20px;"></i>Delete</a></li>
                                     </ul>
                                 </div>
                             </td>
-                        </tr>
-                <?php
+                            </tr>
+                    <?php
                     }
                 } else {
                     echo "No data found.";
                 }
-                ?>
+                    ?>
             </tbody>
         </table>
     </div>

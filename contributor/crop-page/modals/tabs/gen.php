@@ -93,7 +93,7 @@
         <!-- Category Name -->
         <div class="col-6">
             <label for="Category" class="form-label small-font">Crop Category<span class="text-danger ms-1">*</span></label>
-            <select name="category_id" id="Category" class="form-select" required>
+            <select name="category_id" id="Category" class="form-select">
                 <?php
                 // get the data of category from DB
                 // gi set ra nako na permi last ang other nga category og ascending sya based sa catgory name
@@ -126,7 +126,7 @@
         <!-- Category Variety -->
         <div class="col" id="category-Variety">
             <label for="categoryVariety" class="form-label small-font">Variety<span class="text-danger ms-1">*</span></label>
-            <select name="category_variety_id" id="categoryVariety" class="form-select color-default-child" required>
+            <select name="category_variety_id" id="categoryVariety" class="form-select color-default-child">
             </select>
         </div>
     </div>
@@ -136,7 +136,7 @@
         <!-- variety name -->
         <div class="col mb-2">
             <label for="Variety-Name" class="form-label small-font">Local/Variety Name<span class="text-danger ms-1">*</span></label>
-            <input id="Variety-Name" type="text" name="crop_variety" class="form-control" required>
+            <input id="Variety-Name" type="text" name="crop_variety" class="form-control">
         </div>
 
         <!-- Meaning of Name -->
@@ -151,7 +151,7 @@
         <!-- terrain -->
         <div class="col-6">
             <label for="terrain" class="form-label small-font">Terrain<span style="color: red;">*</span></label>
-            <select name="terrain_id" id="terrain" class="form-select" required>
+            <select name="terrain_id" id="terrain" class="form-select">
                 <option value="" disabled selected hidden>Select One</option>
                 <?php
                 // get the data of terrain from DB
@@ -256,7 +256,7 @@
 
             <!-- Municipality dropdown -->
             <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
-            <select id="Municipality" name="municipality" class="form-select mb-2" required>
+            <select id="Municipality" name="municipality" class="form-select mb-2">
                 <!-- option is automatically shown through js depending on the province -->
             </select>
 
