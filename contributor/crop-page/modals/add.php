@@ -6,7 +6,7 @@
 </style>
 
 <!-- HTML -->
-<div class="modal fade" id="add-item-modal" tabindex="-1" aria-labelledby="add-item-modal-label" aria-hidden="true">
+<div class="modal fade" id="add-item-modal" tabindex="-1" data-bs-backdrop="static" aria-labelledby="add-item-modal-label" aria-hidden="true">
     <div class="modal-dialog modal-lg modal-fullscreen-sm-down">
         <div class="modal-content">
             <!-- header -->
@@ -74,7 +74,7 @@
 </div>
 
 <!-- SCRIPT -->
-<!-- <script>
+<script>
     // keep the modal on
     window.onload = function() {
         const dataModal = new bootstrap.Modal(document.getElementById('add-item-modal'), {
@@ -82,7 +82,7 @@
         });
         dataModal.show();
     };
-</script> -->
+</script>
 
 <!-- for submission -->
 <script>
@@ -217,14 +217,17 @@
 
     function populateVarieties(varieties) {
         var categoryVarietySelect = document.getElementById('categoryVariety');
-        categoryVarietySelect.innerHTML = ''; // Clear existing options
+        categoryVarietySelect.innerHTML = '<option value="" disabled selected hidden class="colorize">Select One</option>'; // Clear existing options
 
         // Add the default option
-        var defaultOption = document.createElement('option');
-        defaultOption.text = "Select a Variety";
-        defaultOption.disabled = true;
-        defaultOption.selected = true;
-        categoryVarietySelect.appendChild(defaultOption);
+        // var defaultOption = document.createElement('option');
+        // defaultOption.text = "Select One...";
+        // // defaultOption.disabled = true;
+        // defaultOption.selected = true;
+        // defaultOption.hidden = true;
+        // defaultOption.classList.add("small-font");
+        // defaultOption.style.color = "green";
+        // categoryVarietySelect.appendChild(defaultOption);
 
         // Add other options
         varieties.forEach(function(variety) {
