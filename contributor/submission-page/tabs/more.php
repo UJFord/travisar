@@ -1,11 +1,11 @@
 <!-- MORE TAB -->
 <div class="fade tab-pane" id="edit-more-tab-pane" role="tabpanel" aria-labelledby="edit-more-tab" tabindex="0">
     <!-- corn morphological traits -->
-    <?php require "crop-page/modals/edit-tabs/edit-traits/corn-traits-edit.php" ?>
+    <?php require "submission-page/tabs/edit-traits/corn-traits-edit.php" ?>
     <!-- rice morphological traits -->
-    <?php require "crop-page/modals/edit-tabs/edit-traits/rice-traits-edit.php" ?>
+    <?php require "submission-page/tabs/edit-traits/rice-traits-edit.php" ?>
     <!-- rootCrop morphological traits -->
-    <?php require "crop-page/modals/edit-tabs/edit-traits/rootCrop-traits-edit.php" ?>
+    <?php require "submission-page/tabs/edit-traits/rootCrop-traits-edit.php" ?>
 
     <!-- STEP NAVIGATION without Sensory -->
     <div class="row" id="withoutSensory-Edit-More">

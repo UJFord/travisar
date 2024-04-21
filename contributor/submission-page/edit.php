@@ -65,7 +65,7 @@
                     <button type="button" id="deleteButton" class="btn btn-danger" data-id="delete">Delete</i></button>
                     <div class="">
                         <button type="button" id="cancel-modal-btn-edit" class="btn border bg-light">Cancel</button>
-                        <button type="submit" id="editButton" name="edit" class="btn btn-success">Save</button>
+                        <button type="submit" id="editButton" name="update" class="btn btn-success">Save</button>
                     </div>
                 </div>
             </form>
@@ -176,18 +176,6 @@
         var riceMorph = document.getElementById('riceMorph-Edit');
         var rootCropMorph = document.getElementById('root_cropMorph-Edit');
 
-        // Disable inputs based on the selected category
-        if (selectedCategory !== '4') {
-            disableInputs(cornMorph);
-        }
-
-        if (selectedCategory !== '1') {
-            disableInputs(riceMorph);
-        }
-
-        if (selectedCategory !== '2') {
-            disableInputs(rootCropMorph);
-        }
         // Form is valid, submit the form
         submitForm();
     });
@@ -567,12 +555,20 @@
 
                         // crop_id
                         $('#crop_id').val(id);
+                        // userID
+                        $('#userID').val(value['user_id']);
                         // statusID
                         $('#statusID').val(value['status_id']);
                         // referencesID
                         $('#referencesID').val(value['references_id']);
                         // categoryID
                         $('#categoryID').val(value['category_id']);
+                        // category_varietyID
+                        $('#category_varietyID').val(value['category_variety_id']);
+                        // terrainID
+                        $('#terrainID').val(value['terrain_id']);
+                        // unique_codeID
+                        $('#unique_codeID').val(value['unique_code_id']);
                         // current_crop_variety
                         $('#current_crop_variety').val(value['crop_variety']);
                         // currentUniqueCode

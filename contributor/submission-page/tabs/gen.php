@@ -95,9 +95,15 @@
     <div>
         <!-- common id's -->
         <!-- crop_id -->
+        <!-- userID -->
+        <input id="userID" type="hidden" name="userID" class="form-control">
         <input id="crop_id" type="hidden" name="crop_id" class="form-control">
         <!-- categoryID -->
         <input id="categoryID" type="hidden" name="categoryID" class="form-control">
+        <!-- category_varietyID -->
+        <input id="category_varietyID" type="hidden" name="category_varietyID" class="form-control">
+        <!-- terrainID -->
+        <input id="terrainID" type="hidden" name="terrainID" class="form-control">
         <!-- cultural_aspect_id -->
         <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
         <!-- current_crop_variety -->
@@ -116,6 +122,8 @@
         <input id="statusID" type="hidden" name="statusID" class="form-control">
         <!-- referencesID -->
         <input id="referencesID" type="hidden" name="referencesID" class="form-control">
+        <!-- unique_codeID -->
+        <input id="unique_codeID" type="hidden" name="unique_codeID" class="form-control">
 
         <!-- corn id's -->
         <!-- corn_traitsID -->
