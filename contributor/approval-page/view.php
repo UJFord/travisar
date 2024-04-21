@@ -102,7 +102,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "crop-page/modals/crud-code/code.php",
+                url: "approval-page/code.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,
