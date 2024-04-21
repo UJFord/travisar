@@ -6,7 +6,7 @@
         <div class="col-6">
             <label class="small-font" for="corn_plant_height">Plant Height</label>
             <select class="form-select" name="corn_plant_height" id="corn-height">
-                <option value="" disabled selected>Select an option</option>
+                <option value="" disabled selected hidden>Select One</option>
                 <option value="Short">Short</option>
                 <option value="Typical">Typical</option>
                 <option value="Tall">Tall</option>
@@ -20,7 +20,7 @@
         <div class="col">
             <label class="small-font" for="corn-leafWidth">Leaf Width</label>
             <select name="corn_leaf_width" id="corn-leafWidth" class="form-select">
-                <option value="" disabled selected>Select an option</option>
+                <option value="" disabled selected hidden>Select One</option>
                 <option value="Narrow">Narrow</option>
                 <option value="Average">Average</option>
                 <option value="Wide">Wide</option>
@@ -31,7 +31,7 @@
         <div class="col">
             <label class="small-font" for="corn-leafLength">Leaf Length</label>
             <select name="corn_leaf_length" id="corn-leafLength" class="form-select">
-                <option value="" disabled selected>Select an option</option>
+                <option value="" disabled selected hidden>Select One</option>
                 <option value="Short">Short</option>
                 <option value="Average">Average</option>
                 <option value="Long">Long</option>
@@ -46,7 +46,7 @@
         <div class="col-6 mb-2">
             <label for="corn-yield-capacity" class="form-label small-font">Yield Capacity</label>
             <select type="text" name="corn_yield_capacity" id="corn-yield-capacity" class="form-select">
-                <option value="" disabled selected>Select an option</option>
+                <option value="" disabled selected hidden>Select One</option>
                 <option value="Low-Yielding">Low-Yielding</option>
                 <option value="High-Yielding">High-Yielding</option>
             </select>

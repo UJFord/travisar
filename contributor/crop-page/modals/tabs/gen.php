@@ -5,14 +5,25 @@
     }
 
     .remove-image {
+        width: 1rem;
+        aspect-ratio: 1/1;
         position: absolute;
         top: 0.5rem;
         right: 0.5rem;
-        background: none;
         border: none;
+        border-bottom-left-radius: 0.3rem;
+        -webkit-border-bottom-left-radius: 0.3rem;
+        -moz-border-radius-bottomleft: 0.3rem;
         color: red;
         font-weight: bold;
         cursor: pointer;
+        background: rgba(255, 255, 255, 0.43);
+        font-size: 0.8rem;
+    }
+
+    .remove-image:hover {
+        /* background: rgba(255, 255, 255, 0.79); */
+        background: white;
     }
 
     .preview-container {
@@ -115,8 +126,7 @@
         <!-- Category Variety -->
         <div class="col" id="category-Variety">
             <label for="categoryVariety" class="form-label small-font">Variety<span class="text-danger ms-1">*</span></label>
-            <select name="category_variety_id" id="categoryVariety" class="form-select">
-                <option value="null" disabled selected>Select Variety</option>
+            <select name="category_variety_id" id="categoryVariety" class="form-select color-default-child">
             </select>
         </div>
     </div>
@@ -142,7 +152,7 @@
         <div class="col-6">
             <label for="terrain" class="form-label small-font">Terrain<span style="color: red;">*</span></label>
             <select name="terrain_id" id="terrain" class="form-select">
-                <option value="null" disabled selected>Select Variety</option>
+                <option value="" disabled selected hidden>Select One</option>
                 <?php
                 // get the data of terrain from DB
                 // gi set ra nako na permi last ang other nga terrain og ascending sya based sa catgory name
@@ -251,11 +261,15 @@
             </select>
 
             <!-- barangay -->
-            <label for="Barangay" class="form-label small-font mb-0">Sitio <span style="color: red;">*</span></label>
-            <select id="Barangay" name="barangay" class="form-select mb-2">
-                <option value="" disabled selected>Select an option</option>
+            <label for="Barangay" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
+            <select id="Barangay" name="barangay" class="form-select mb-2" required>
+                <option value="" disabled selected hidden>Select One</option>
                 <!-- option is automatically shown through js depending on the municipality selected -->
             </select>
+
+            <!-- sitio -->
+            <label for="Sitio" class="form-label small-font mb-0">Sitio</label>
+            <input id="Sitio" name="Sitio" type="text" class="form-control mb-2">
 
             <!-- coordinates -->
             <label for="coordInput" class="form-label small-font mb-0">Coordinates(if any)</label>
@@ -303,7 +317,7 @@
                     imgContainer.appendChild(img);
 
                     const deleteButton = document.createElement("button");
-                    deleteButton.innerText = "❌";
+                    deleteButton.innerHTML = "<i class='fa-solid fa-xmark'></i>";
                     deleteButton.classList.add("remove-image");
                     imgContainer.appendChild(deleteButton);
 
@@ -338,7 +352,7 @@
                     imgContainer.appendChild(img);
 
                     const deleteButton = document.createElement("button");
-                    deleteButton.innerText = "❌";
+                    deleteButton.innerHTML = "<i class='fa-solid fa-xmark'></i>";
                     deleteButton.classList.add("remove-image");
                     imgContainer.appendChild(deleteButton);
                 });
