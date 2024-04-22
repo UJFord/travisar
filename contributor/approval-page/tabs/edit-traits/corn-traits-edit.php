@@ -3,12 +3,8 @@
     <!-- plant height -->
     <div class="row mb-4">
         <div class="col-6">
-            <label class="small-font" for="corn-heightEdit">Plant Height</label>
-            <select class="form-select" name="corn_plant_height" id="corn-heightEdit">
-                <option value="Short">Short</option>
-                <option value="Typical">Typical</option>
-                <option value="Tall">Tall</option>
-            </select>
+            <label class="small-font" for="corn-heightEdit">Plant Height:</label>
+            <h6 name="first_name" id="corn-heightEdit"></h6>
         </div>
     </div>
 
@@ -16,22 +12,14 @@
     <div class="row mb-5">
         <!-- leaf width -->
         <div class="col">
-            <label for="corn-leafWidth-Edit">Leaf Width</label>
-            <select name="corn_leaf_width" id="corn-leafWidth-Edit" class="form-select">
-                <option value="Narrow">Narrow</option>
-                <option value="Average">Average</option>
-                <option value="Wide">Wide</option>
-            </select>
+            <label for="corn-leafWidth-Edit">Leaf Width:</label>
+            <h6 name="corn_leaf_width" id="corn-leafWidth-Edit"></h6>
         </div>
 
         <!-- leaf length -->
         <div class="col">
-            <label for="corn-leafLength-Edit">Leaf Length</label>
-            <select name="corn_leaf_length" id="corn-leafLength-Edit" class="form-select">
-                <option value="Short">Short</option>
-                <option value="Average">Average</option>
-                <option value="Long">Long</option>
-            </select>
+            <label for="corn-leafLength-Edit">Leaf Length:</label>
+            <h6 name="corn_leaf_length" id="corn-leafLength-Edit"></h6>
         </div>
     </div>
 
@@ -51,11 +39,8 @@
     <!-- Yield Capacity -->
     <div class="row mb-3">
         <div class="col-6 mb-2">
-            <label for="corn-yield-capacity-Edit" class="form-label small-font">Yield Capacity</label>
-            <select type="text" name="corn_yield_capacity" id="corn-yield-capacity-Edit" class="form-select">
-                <option value="Low-Yielding">Low-Yielding</option>
-                <option value="High-Yielding">High-Yielding</option>
-            </select>
+            <label for="corn-yield-capacity-Edit" class="form-label small-font">Yield Capacity:</label>
+            <h6 name="corn_yield_capacity" id="corn-yield-capacity-Edit"></h6>
         </div>
     </div>
 
@@ -64,26 +49,26 @@
         <label class="form-label"><strong>Seed traits</strong></label>
         <!-- Length -->
         <div class="col-6 mb-2">
-            <label for="corn-seed-length-Edit" class="form-label small-font">Length</label>
-            <input type="text" name="seed_length" id="corn-seed-length-Edit" class="form-control"></input>
+            <label for="corn-seed-length-Edit" class="form-label small-font">Length:</label>
+            <h6 name="seed_length" id="corn-seed-length-Edit"></h6>
         </div>
 
         <!-- width -->
         <div class="col-6 mb-2">
-            <label for="corn-seed-width-Edit" class="form-label small-font">Width</label>
-            <input type="text" name="seed_width" id="corn-seed-width-Edit" class="form-control"></input>
+            <label for="corn-seed-width-Edit" class="form-label small-font">Width:</label>
+            <h6 name="seed_width" id="corn-seed-width-Edit"></h6>
         </div>
 
         <!-- seed Shape -->
         <div class="col-6 mb-2">
-            <label for="corn-seed-shape-Edit" class="form-label small-font">Shape</label>
-            <input type="text" name="seed_shape" id="corn-seed-shape-Edit" class="form-control"></input>
+            <label for="corn-seed-shape-Edit" class="form-label small-font">Shape:</label>
+            <h6 name="seed_shape" id="corn-seed-shape-Edit"></h6>
         </div>
 
         <!-- Color-->
         <div class="col-6 mb-2">
-            <label for="corn-seed-color-Edit" class="form-label small-font">Color</label>
-            <input type="text" name="seed_color" id="corn-seed-color-Edit" class="form-control"></input>
+            <label for="corn-seed-color-Edit" class="form-label small-font">Color:</label>
+            <h6 name="seed_color" id="corn-seed-color-Edit"></h6>
         </div>
     </div>
 </div>

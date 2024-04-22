@@ -6,25 +6,25 @@
         <!-- Significance -->
         <div class="col-12 mb-2">
             <label for="SignificanceEdit" class="form-label small-font">Significance</label>
-            <textarea name="significance" id="SignificanceEdit" cols="30" rows="2" class="form-control"></textarea>
+            <h6 name="significance" id="SignificanceEdit"></h6>
         </div>
 
         <!-- Use -->
         <div class="col-12 mb-2">
             <label for="UseEdit" class="form-label small-font">Use</label>
-            <textarea name="use" id="UseEdit" cols="30" rows="2" class="form-control"></textarea>
+            <h6 name="use" id="UseEdit"></h6>
         </div>
 
         <!-- Indigenous Utilization -->
         <div class="col-12 mb-2">
             <label for="indigenous-utilization-Edit" class="form-label small-font">Indigenous Utilization</label>
-            <textarea name="indigenous_utilization" id="indigenous-utilization-Edit" cols="30" rows="2" class="form-control"></textarea>
+            <h6 name="indigenous_utilization" id="indigenous-utilization-Edit"></h6>
         </div>
 
         <!-- Remarkable Features-->
         <div class="col-12 mb-2">
             <label for="remarkable-features-Edit" class="form-label small-font">Remarkable Features</label>
-            <textarea name="remarkable_features" id="remarkable-features-Edit" cols="30" rows="2" class="form-control"></textarea>
+            <h6 name="remarkable_features" id="remarkable-features-Edit"></h6>
         </div>
     </div>
 

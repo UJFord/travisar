@@ -15,7 +15,7 @@
         <div class="collapse navbar-collapse d-md-flex justify-content-md-between" id="navbarNav">
             <ul class="navbar-nav fw-bold">
                 <li class="nav-item">
-                    <a class="main-nav-item nav-link active text-light" aria-current="page" href="crop.php">Items</a>
+                    <a class="main-nav-item nav-link active text-light" aria-current="page" href="crop.php">Crops</a>
                 </li>
 
                 <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>

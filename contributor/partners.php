@@ -152,24 +152,6 @@ require "../functions/functions.php";
                             $('#neighborhoodEdit').val(value['neighborhood']);
                             $('#coordInput').val(value['coordinates']);
                         });
-                        // Clear any existing rows in the Contributed Data table
-                        $('#ContributedData tbody').empty();
-
-                        // Loop through each contributed data and create a new table row
-                        response.forEach(value => {
-                            const row = `
-                                <tr>
-                                    <td class="col text-dark-emphasis small-font">${value['crop_id']}</td>
-                                    <td class="col-4 text-dark-emphasis small-font">${value['crop_variety']}</td>
-                                    <td class="col-4 text-dark-emphasis small-font">ex. RC1</td>
-                                    <td class="col-1 text-dark-emphasis text-end">
-                                        <i class="fa-solid fa-ellipsis-vertical btn"></i>
-                                    </td>
-                                </tr>
-                            `;
-                            // Append the new row to the table body
-                            $('#ContributedData tbody').append(row);
-                        });
                     },
                     error: function(xhr, status, error) {
                         // Handle errors

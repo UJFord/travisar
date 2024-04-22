@@ -9,8 +9,9 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         // Function to handle empty values
         function handleEmpty($value)
         {
-            return empty($value) ? 'Empty' : $value;
+            return empty($value) ? null : $value;
         }
+
         // get all the data in the form
         // gen.php
         $crop_variety = handleEmpty($_POST['crop_variety']);
@@ -20,14 +21,15 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         $category_id = $_POST['categoryID'];
         $unique_code = $_POST['unique_codeID'];
         $current_image_seed = handleEmpty($_POST['current_image_seed']);
+        $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
 
         // loc.php
         $province_name = $_POST['province'];
         $municipality_name = $_POST['municipality'];
-        $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
         $coordinates = handleEmpty($_POST['coordinates']);
         $barangay_name = $_POST['barangay'];
 
+        // set status and get user id
         $user_id = $_POST['userID'];
         $action = 'updating';
         $remarks = 'Updating, waiting for approval.';
@@ -42,131 +44,16 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         $salinity = isset($_POST['salinity']) ? true : false;
         $heat = isset($_POST['heat']) ? true : false;
         $abiotic_other = isset($_POST['abiotic_other']) ? true : false;
-        $abiotic_other_desc = isset($_POST['abiotic_other_desc']) ? handleEmpty($_POST['abiotic_other_desc']) : "Empty";
+        $abiotic_other_desc = $_POST['abiotic_other_desc'];
 
         // Utilization Cultural Importance
-        $significance = isset($_POST['significance']) ? handleEmpty($_POST['significance']) : "Empty";
-        $use = isset($_POST['use']) ? handleEmpty($_POST['use']) : "Empty";
-        $indigenous_utilization = isset($_POST['indigenous_utilization']) ? handleEmpty($_POST['indigenous_utilization']) : "Empty";
-        $remarkable_features = isset($_POST['remarkable_features']) ? handleEmpty($_POST['remarkable_features']) : "Empty";
-
-        //* morphological Traits Corn
-        // Vegetative state corn
-        $corn_plant_height = isset($_POST['corn_plant_height']) ? handleEmpty($_POST['corn_plant_height']) : "Empty";
-        $corn_leaf_width = isset($_POST['corn_leaf_width']) ? handleEmpty($_POST['corn_leaf_width']) : "Empty";
-        $corn_leaf_length = isset($_POST['corn_leaf_length']) ? handleEmpty($_POST['corn_leaf_length']) : "Empty";
-        $corn_maturity_time = isset($_POST['corn_maturity_time']) ? handleEmpty($_POST['corn_maturity_time']) : "Empty";
-
-        // Reproductive state corn
-        $corn_yield_capacity = isset($_POST['corn_yield_capacity']) ? handleEmpty($_POST['corn_yield_capacity']) : "Empty";
-
-        // seed traits corn
-        $seed_length = $_POST['seed_length'];
-        $seed_width = $_POST['seed_width'];
-        $seed_shape = $_POST['seed_shape'];
-        $seed_color = $_POST['seed_color'];
-
-        // Pest resistance corn
-        $corn_borers = isset($_POST['corn_borers']) ? true : false;
-        $earworms = isset($_POST['earworms']) ? true : false;
-        $spider_mites = isset($_POST['spider_mites']) ? true : false;
-        $corn_black_bug = isset($_POST['corn_black_bug']) ? true : false;
-        $corn_army_worms = isset($_POST['corn_army_worms']) ? true : false;
-        $leaf_aphid = isset($_POST['leaf_aphid']) ? true : false;
-        $corn_cutworms = isset($_POST['corn_cutworms']) ? true : false;
-        $corn_birds = isset($_POST['corn_birds']) ? true : false;
-        $corn_ants = isset($_POST['corn_ants']) ? true : false;
-        $corn_rats = isset($_POST['corn_rats']) ? true : false;
-        $corn_others = isset($_POST['corn_others']) ? true : false;
-        $corn_others_desc = isset($_POST['corn_others_desc']) ? handleEmpty($_POST['corn_others_desc']) : "Empty";
-
-        //* morphological Traits rice
-        // Vegetative state rice
-        $rice_plant_height = isset($_POST['rice_plant_height']) ? handleEmpty($_POST['rice_plant_height']) : "Empty";
-        $rice_leaf_width = isset($_POST['rice_leaf_width']) ? handleEmpty($_POST['rice_leaf_width']) : "Empty";
-        $rice_leaf_length = isset($_POST['rice_leaf_length']) ? handleEmpty($_POST['rice_leaf_length']) : "Empty";
-        $rice_tillering_ability = isset($_POST['rice_tillering_ability']) ? handleEmpty($_POST['rice_tillering_ability']) : "Empty";
-        $rice_maturity_time = isset($_POST['rice_maturity_time']) ? handleEmpty($_POST['rice_maturity_time']) : "Empty";
-
-        // Reproductive state rice
-        $rice_yield_capacity = isset($_POST['rice_yield_capacity']) ? handleEmpty($_POST['rice_yield_capacity']) : "Empty";
-        // Panicle traits
-        $panicle_length = isset($_POST['panicle_length']) ? handleEmpty($_POST['panicle_length']) : "Empty";
-        $panicle_width = isset($_POST['panicle_width']) ? handleEmpty($_POST['panicle_width']) : "Empty";
-        $panicle_enclosed_by = isset($_POST['panicle_enclosed_by']) ? handleEmpty($_POST['panicle_enclosed_by']) : "Empty";
-        $panicle_remarkable_features = isset($_POST['panicle_remarkable_features']) ? handleEmpty($_POST['panicle_remarkable_features']) : "Empty";
-        // Flag Leaf traits rice
-        $flag_length = isset($_POST['flag_length']) ? handleEmpty($_POST['flag_length']) : "Empty";
-        $flag_width = isset($_POST['flag_width']) ? handleEmpty($_POST['flag_width']) : "Empty";
-        $purplish_stripes = isset($_POST['purplish_stripes']) ? true : false;
-        $pubescence = isset($_POST['pubescence']) ? handleEmpty($_POST['pubescence']) : "Empty";
-        $flag_remarkable_features = isset($_POST['flag_remarkable_features']) ? handleEmpty($_POST['flag_remarkable_features']) : "Empty";
-
-        // Sensory traits rice
-        $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : "Empty";
-        $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : "Empty";
-        $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : "Empty";
-        $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : "Empty";
-        $glutinous = isset($_POST['glutinous']) ? true : false;
-        $volume_expansion = isset($_POST['volume_expansion']) ? true : false;
-
-        // abiotic resistance rice
-        $rice_drought = isset($_POST['rice_drought']) ? true : false;
-        $rice_salinity = isset($_POST['rice_salinity']) ? true : false;
-        $rice_heat = isset($_POST['rice_heat']) ? true : false;
-        $harmful_radiation = isset($_POST['harmful_radiation']) ? true : false;
-        $rice_abiotic_other = isset($_POST['rice_abiotic_other']) ? true : false;
-        $rice_abiotic_other_desc = isset($_POST['rice_abiotic_other_desc']) ? handleEmpty($_POST['rice_abiotic_other_desc']) : "Empty";
-
-        // Pest resistance rice
-        $rice_borers = isset($_POST['rice_borers']) ? true : false;
-        $rice_snail = isset($_POST['rice_snail']) ? true : false;
-        $hoppers = isset($_POST['hoppers']) ? true : false;
-        $rice_black_bug = isset($_POST['rice_black_bug']) ? true : false;
-        $leptocorisa = isset($_POST['leptocorisa']) ? true : false;
-        $leaf_folder = isset($_POST['leaf_folder']) ? true : false;
-        $rice_birds = isset($_POST['rice_birds']) ? true : false;
-        $rice_ants = isset($_POST['rice_ants']) ? true : false;
-        $rice_rats = isset($_POST['rice_rats']) ? true : false;
-        $rice_army_worms = isset($_POST['rice_army_worms']) ? true : false;
-        $rice_others = isset($_POST['rice_others']) ? true : false;
-        $rice_others_desc = isset($_POST['rice_others_desc']) ? handleEmpty($_POST['rice_others_desc']) : "Empty";
-
-        //* morphological Traits rootcrop
-        // Vegetative state rootcrop
-        $rootcrop_plant_height = isset($_POST['rootcrop_plant_height']) ? handleEmpty($_POST['rootcrop_plant_height']) : "Empty";
-        $rootcrop_leaf_width = isset($_POST['rootcrop_leaf_width']) ? handleEmpty($_POST['rootcrop_leaf_width']) : "Empty";
-        $rootcrop_leaf_length = isset($_POST['rootcrop_leaf_length']) ? handleEmpty($_POST['rootcrop_leaf_length']) : "Empty";
-        $rootcrop_stem_leaf_desc = isset($_POST['rootcrop_stem_leaf_desc']) ? handleEmpty($_POST['rootcrop_stem_leaf_desc']) : "Empty";
-        $rootcrop_maturity_time = isset($_POST['rootcrop_maturity_time']) ? handleEmpty($_POST['rootcrop_maturity_time']) : "Empty";
-
-        // Pest resistance rootcrop
-        $root_aphids = isset($_POST['root_aphids']) ? true : false;
-        $root_knot_nematodes = isset($_POST['root_knot_nematodes']) ? true : false;
-        $rootcrop_cutworms = isset($_POST['rootcrop_cutworms']) ? true : false;
-        $white_grubs = isset($_POST['white_grubs']) ? true : false;
-        $termites = isset($_POST['termites']) ? true : false;
-        $weevils = isset($_POST['weevils']) ? true : false;
-        $flea_beetles = isset($_POST['flea_beetles']) ? true : false;
-        $rootcrop_snails = isset($_POST['rootcrop_snails']) ? true : false;
-        $rootcrop_ants = isset($_POST['rootcrop_ants']) ? true : false;
-        $rootcrop_rats = isset($_POST['rootcrop_rats']) ? true : false;
-        $rootcrop_others = isset($_POST['rootcrop_others']) ? true : false;
-        $rootcrop_others_desc = isset($_POST['rootcrop_others_desc']) ? handleEmpty($_POST['rootcrop_others_desc']) : "Empty";
-
-        // rootcrop traits
-        $eating_quality = isset($_POST['eating_quality']) ? handleEmpty($_POST['eating_quality']) : "Empty";
-        $rootcrop_color = isset($_POST['rootcrop_color']) ? handleEmpty($_POST['rootcrop_color']) : "Empty";
-        $sweetness = isset($_POST['sweetness']) ? handleEmpty($_POST['sweetness']) : "Empty";
-        $rootcrop_remarkable_features = isset($_POST['rootcrop_remarkable_features']) ? handleEmpty($_POST['rootcrop_remarkable_features']) : "Empty";
+        $significance = $_POST['significance'];
+        $use = $_POST['use'];
+        $indigenous_utilization = $_POST['indigenous_utilization'];
+        $remarkable_features = $_POST['remarkable_features'];
 
         // get the unique code of the crop then add updating
         $newUniqueCode = $unique_code . '-' . 'UPDATING';
-
-        // Validate the form data
-        if (empty($crop_variety) || empty($category_variety_id) || empty($category_id) || empty($terrain_id) || empty($province_name) || empty($municipality_name) || empty($barangay_name)) {
-            throw new Exception("All fields are required.");
-        }
 
         // Array to store uploaded image names
         $uploadedImages = [];
@@ -389,13 +276,13 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         //insert into crop table
         $queryCrop = "INSERT INTO crop (crop_variety, crop_description, unique_code,
         meaning_of_name, category_id, user_id, category_variety_id, terrain_id, utilization_cultural_id, crop_seed_image,
-        crop_vegetative_image, crop_reproductive_image, status_id)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING crop_id";
+        status_id)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING crop_id";
 
         $valueCrops = array(
             $crop_variety, $crop_description, $newUniqueCode,
             $meaning_of_name, $category_id, $user_id, $category_variety_id, $terrain_id, $utilization_cultural_id, $finalimgSeed,
-            $crop_vegetative_image, $crop_reproductive_image, $status_id
+            $status_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -461,12 +348,41 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
             $get_category_name = $row_categoryName['category_name'];
         } else {
             $_SESSION['message'] = "No category selected";
-            header("location: ../../../crop.php");
+            header("location: ../../submission.php");
             exit();
         }
 
         // Check the category name and perform actions accordingly
         if ($get_category_name === 'Corn') {
+            //* morphological Traits Corn
+            // Vegetative state corn
+            $corn_plant_height = $_POST['corn_plant_height'];
+            $corn_leaf_width = $_POST['corn_leaf_width'];
+            $corn_leaf_length = $_POST['corn_leaf_length'];
+            $corn_maturity_time = $_POST['corn_maturity_time'];
+
+            // Reproductive state corn
+            $corn_yield_capacity = $_POST['corn_yield_capacity'];
+
+            // seed traits corn
+            $seed_length = $_POST['seed_length'];
+            $seed_width = $_POST['seed_width'];
+            $seed_shape = $_POST['seed_shape'];
+            $seed_color = $_POST['seed_color'];
+
+            // Pest resistance corn
+            $corn_borers = isset($_POST['corn_borers']) ? true : false;
+            $earworms = isset($_POST['earworms']) ? true : false;
+            $spider_mites = isset($_POST['spider_mites']) ? true : false;
+            $corn_black_bug = isset($_POST['corn_black_bug']) ? true : false;
+            $corn_army_worms = isset($_POST['corn_army_worms']) ? true : false;
+            $leaf_aphid = isset($_POST['leaf_aphid']) ? true : false;
+            $corn_cutworms = isset($_POST['corn_cutworms']) ? true : false;
+            $corn_birds = isset($_POST['corn_birds']) ? true : false;
+            $corn_ants = isset($_POST['corn_ants']) ? true : false;
+            $corn_rats = isset($_POST['corn_rats']) ? true : false;
+            $corn_others = isset($_POST['corn_others']) ? true : false;
+            $corn_others_desc = $_POST['corn_others_desc'];
             // Handle corn category traits
             // abiotic resistance
             $query_abioticRes = "INSERT into abiotic_resistance (drought, salinity, heat, abiotic_other, abiotic_other_desc) values ($1, $2, $3, $4, $5) returning abiotic_resistance_id";
@@ -553,6 +469,60 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
                 exit(0);
             }
         } elseif ($get_category_name === 'Rice') {
+            //* morphological Traits rice
+            // Vegetative state rice
+            $rice_plant_height = $_POST['rice_plant_height'];
+            $rice_leaf_width = $_POST['rice_leaf_width'];
+            $rice_leaf_length = $_POST['rice_leaf_length'];
+            $rice_tillering_ability = $_POST['rice_tillering_ability'];
+            $rice_maturity_time = $_POST['rice_maturity_time'];
+
+            // Reproductive state rice
+            $rice_yield_capacity = $_POST['rice_yield_capacity'];
+
+            // Panicle traits
+            $panicle_length = $_POST['panicle_length'];
+            $panicle_width = $_POST['panicle_width'];
+            $panicle_enclosed_by = $_POST['panicle_enclosed_by'];
+            $panicle_remarkable_features = $_POST['panicle_remarkable_features'];
+
+            // Flag Leaf traits rice
+            $flag_length = $_POST['flag_length'];
+            $flag_width = $_POST['flag_width'];
+            $purplish_stripes = $_POST['purplish_stripes'];
+            $pubescence = $_POST['pubescence'];
+            $flag_remarkable_features = $_POST['flag_remarkable_features'];
+
+            // Sensory traits rice
+            $aroma = $_POST['aroma'];
+            $quality_cooked_rice = $_POST['quality_cooked_rice'];
+            $quality_leftover_rice = $_POST['quality_leftover_rice'];
+            $hardness = $_POST['hardness'];
+            $glutinous = isset($_POST['glutinous']) ? true : false;
+            $volume_expansion = isset($_POST['volume_expansion']) ? true : false;
+
+            // abiotic resistance rice
+            $rice_drought = isset($_POST['rice_drought']) ? true : false;
+            $rice_salinity = isset($_POST['rice_salinity']) ? true : false;
+            $rice_heat = isset($_POST['rice_heat']) ? true : false;
+            $harmful_radiation = isset($_POST['harmful_radiation']) ? true : false;
+            $rice_abiotic_other = isset($_POST['rice_abiotic_other']) ? true : false;
+            $rice_abiotic_other_desc = $_POST['rice_abiotic_other_desc'];
+
+            // Pest resistance rice
+            $rice_borers = isset($_POST['rice_borers']) ? true : false;
+            $rice_snail = isset($_POST['rice_snail']) ? true : false;
+            $hoppers = isset($_POST['hoppers']) ? true : false;
+            $rice_black_bug = isset($_POST['rice_black_bug']) ? true : false;
+            $leptocorisa = isset($_POST['leptocorisa']) ? true : false;
+            $leaf_folder = isset($_POST['leaf_folder']) ? true : false;
+            $rice_birds = isset($_POST['rice_birds']) ? true : false;
+            $rice_ants = isset($_POST['rice_ants']) ? true : false;
+            $rice_rats = isset($_POST['rice_rats']) ? true : false;
+            $rice_army_worms = isset($_POST['rice_army_worms']) ? true : false;
+            $rice_others = isset($_POST['rice_others']) ? true : false;
+            $rice_others_desc = $_POST['rice_others_desc'];
+
             // Handle rice category
             // abiotic resistance rice
             $query_abioticRes = "INSERT into abiotic_resistance_rice (rice_drought, rice_salinity, rice_heat, harmful_radiation, rice_abiotic_other, rice_abiotic_other_desc) values ($1, $2, $3, $4, $5, $6) returning abiotic_resistance_rice_id";
@@ -672,6 +642,34 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
                 exit(0);
             }
         } elseif ($get_category_name === 'Root Crop') {
+            //* morphological Traits rootcrop
+            // Vegetative state rootcrop
+            $rootcrop_plant_height = $_POST['rootcrop_plant_height'];
+            $rootcrop_leaf_width = $_POST['rootcrop_leaf_width'];
+            $rootcrop_leaf_length = $_POST['rootcrop_leaf_length'];
+            $rootcrop_stem_leaf_desc = $_POST['rootcrop_stem_leaf_desc'];
+            $rootcrop_maturity_time = $_POST['rootcrop_maturity_time'];
+
+            // Pest resistance rootcrop
+            $root_aphids = isset($_POST['root_aphids']) ? true : false;
+            $root_knot_nematodes = isset($_POST['root_knot_nematodes']) ? true : false;
+            $rootcrop_cutworms = isset($_POST['rootcrop_cutworms']) ? true : false;
+            $white_grubs = isset($_POST['white_grubs']) ? true : false;
+            $termites = isset($_POST['termites']) ? true : false;
+            $weevils = isset($_POST['weevils']) ? true : false;
+            $flea_beetles = isset($_POST['flea_beetles']) ? true : false;
+            $rootcrop_snails = isset($_POST['rootcrop_snails']) ? true : false;
+            $rootcrop_ants = isset($_POST['rootcrop_ants']) ? true : false;
+            $rootcrop_rats = isset($_POST['rootcrop_rats']) ? true : false;
+            $rootcrop_others = isset($_POST['rootcrop_others']) ? true : false;
+            $rootcrop_others_desc = $_POST['rootcrop_others_desc'];
+
+            // rootcrop traits
+            $eating_quality = $_POST['eating_quality'];
+            $rootcrop_color = $_POST['rootcrop_color'];
+            $sweetness = $_POST['sweetness'];
+            $rootcrop_remarkable_features = $_POST['rootcrop_remarkable_features'];
+
             // Handle root crops category
             // abiotic resistance
             $query_abioticRes = "INSERT into abiotic_resistance (drought, salinity, heat, abiotic_other, abiotic_other_desc) values ($1, $2, $3, $4, $5) returning abiotic_resistance_id";
@@ -774,7 +772,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         // Function to handle empty values
         function handleEmpty($value)
         {
-            return empty($value) ? 'Empty' : $value;
+            return empty($value) ? null : $value;
         }
 
         // get all the data in the form
@@ -814,29 +812,29 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         $salinity = isset($_POST['salinity']) ? true : false;
         $heat = isset($_POST['heat']) ? true : false;
         $abiotic_other = isset($_POST['abiotic_other']) ? true : false;
-        $abiotic_other_desc = isset($_POST['abiotic_other_desc']) ? handleEmpty($_POST['abiotic_other_desc']) : "Empty";
+        $abiotic_other_desc = isset($_POST['abiotic_other_desc']) ? handleEmpty($_POST['abiotic_other_desc']) : null;
 
         // Utilization Cultural Importance
-        $significance = isset($_POST['significance']) ? handleEmpty($_POST['significance']) : "Empty";
-        $use = isset($_POST['use']) ? handleEmpty($_POST['use']) : "Empty";
-        $indigenous_utilization = isset($_POST['indigenous_utilization']) ? handleEmpty($_POST['indigenous_utilization']) : "Empty";
-        $remarkable_features = isset($_POST['remarkable_features']) ? handleEmpty($_POST['remarkable_features']) : "Empty";
+        $significance = isset($_POST['significance']) ? handleEmpty($_POST['significance']) : null;
+        $use = isset($_POST['use']) ? handleEmpty($_POST['use']) : null;
+        $indigenous_utilization = isset($_POST['indigenous_utilization']) ? handleEmpty($_POST['indigenous_utilization']) : null;
+        $remarkable_features = isset($_POST['remarkable_features']) ? handleEmpty($_POST['remarkable_features']) : null;
 
         //* morphological Traits Corn
         // Vegetative state corn
-        $corn_plant_height = isset($_POST['corn_plant_height']) ? handleEmpty($_POST['corn_plant_height']) : "Empty";
-        $corn_leaf_width = isset($_POST['corn_leaf_width']) ? handleEmpty($_POST['corn_leaf_width']) : "Empty";
-        $corn_leaf_length = isset($_POST['corn_leaf_length']) ? handleEmpty($_POST['corn_leaf_length']) : "Empty";
-        $corn_maturity_time = isset($_POST['corn_maturity_time']) ? handleEmpty($_POST['corn_maturity_time']) : "Empty";
+        $corn_plant_height = isset($_POST['corn_plant_height']) ? handleEmpty($_POST['corn_plant_height']) : null;
+        $corn_leaf_width = isset($_POST['corn_leaf_width']) ? handleEmpty($_POST['corn_leaf_width']) : null;
+        $corn_leaf_length = isset($_POST['corn_leaf_length']) ? handleEmpty($_POST['corn_leaf_length']) : null;
+        $corn_maturity_time = isset($_POST['corn_maturity_time']) ? handleEmpty($_POST['corn_maturity_time']) : null;
 
         // Reproductive state corn
-        $corn_yield_capacity = isset($_POST['corn_yield_capacity']) ? handleEmpty($_POST['corn_yield_capacity']) : "Empty";
+        $corn_yield_capacity = isset($_POST['corn_yield_capacity']) ? handleEmpty($_POST['corn_yield_capacity']) : null;
 
         // seed traits corn
-        $seed_length = isset($_POST['seed_length']) ? handleEmpty($_POST['seed_length']) : "Empty";
-        $seed_width = isset($_POST['seed_width']) ? handleEmpty($_POST['seed_width']) : "Empty";
-        $seed_shape = isset($_POST['seed_shape']) ? handleEmpty($_POST['seed_shape']) : "Empty";
-        $seed_color = isset($_POST['seed_color']) ? handleEmpty($_POST['seed_color']) : "Empty";
+        $seed_length = isset($_POST['seed_length']) ? handleEmpty($_POST['seed_length']) : null;
+        $seed_width = isset($_POST['seed_width']) ? handleEmpty($_POST['seed_width']) : null;
+        $seed_shape = isset($_POST['seed_shape']) ? handleEmpty($_POST['seed_shape']) : null;
+        $seed_color = isset($_POST['seed_color']) ? handleEmpty($_POST['seed_color']) : null;
 
         // Pest resistance corn
         $corn_borers = isset($_POST['corn_borers']) ? true : false;
@@ -850,37 +848,37 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         $corn_ants = isset($_POST['corn_ants']) ? true : false;
         $corn_rats = isset($_POST['corn_rats']) ? true : false;
         $corn_others = isset($_POST['corn_others']) ? true : false;
-        $corn_others_desc = isset($_POST['corn_others_desc']) ? handleEmpty($_POST['corn_others_desc']) : "Empty";
+        $corn_others_desc = isset($_POST['corn_others_desc']) ? handleEmpty($_POST['corn_others_desc']) : null;
 
         //* morphological Traits rice
         // Vegetative state rice
-        $rice_plant_height = isset($_POST['rice_plant_height']) ? handleEmpty($_POST['rice_plant_height']) : "Empty";
-        $rice_leaf_width = isset($_POST['rice_leaf_width']) ? handleEmpty($_POST['rice_leaf_width']) : "Empty";
-        $rice_leaf_length = isset($_POST['rice_leaf_length']) ? handleEmpty($_POST['rice_leaf_length']) : "Empty";
-        $rice_tillering_ability = isset($_POST['rice_tillering_ability']) ? handleEmpty($_POST['rice_tillering_ability']) : "Empty";
-        $rice_maturity_time = isset($_POST['rice_maturity_time']) ? handleEmpty($_POST['rice_maturity_time']) : "Empty";
+        $rice_plant_height = isset($_POST['rice_plant_height']) ? handleEmpty($_POST['rice_plant_height']) : null;
+        $rice_leaf_width = isset($_POST['rice_leaf_width']) ? handleEmpty($_POST['rice_leaf_width']) : null;
+        $rice_leaf_length = isset($_POST['rice_leaf_length']) ? handleEmpty($_POST['rice_leaf_length']) : null;
+        $rice_tillering_ability = isset($_POST['rice_tillering_ability']) ? handleEmpty($_POST['rice_tillering_ability']) : null;
+        $rice_maturity_time = isset($_POST['rice_maturity_time']) ? handleEmpty($_POST['rice_maturity_time']) : null;
 
         // Reproductive state rice
-        $rice_yield_capacity = isset($_POST['rice_yield_capacity']) ? handleEmpty($_POST['rice_yield_capacity']) : "Empty";
+        $rice_yield_capacity = isset($_POST['rice_yield_capacity']) ? handleEmpty($_POST['rice_yield_capacity']) : null;
         // Panicle traits
-        $panicle_length = isset($_POST['panicle_length']) ? handleEmpty($_POST['panicle_length']) : "Empty";
-        $panicle_width = isset($_POST['panicle_width']) ? handleEmpty($_POST['panicle_width']) : "Empty";
-        $panicle_enclosed_by = isset($_POST['panicle_enclosed_by']) ? handleEmpty($_POST['panicle_enclosed_by']) : "Empty";
-        $panicle_remarkable_features = isset($_POST['panicle_remarkable_features']) ? handleEmpty($_POST['panicle_remarkable_features']) : "Empty";
+        $panicle_length = isset($_POST['panicle_length']) ? handleEmpty($_POST['panicle_length']) : null;
+        $panicle_width = isset($_POST['panicle_width']) ? handleEmpty($_POST['panicle_width']) : null;
+        $panicle_enclosed_by = isset($_POST['panicle_enclosed_by']) ? handleEmpty($_POST['panicle_enclosed_by']) : null;
+        $panicle_remarkable_features = isset($_POST['panicle_remarkable_features']) ? handleEmpty($_POST['panicle_remarkable_features']) : null;
         // Flag Leaf traits rice
-        $flag_length = isset($_POST['flag_length']) ? handleEmpty($_POST['flag_length']) : "Empty";
-        $flag_width = isset($_POST['flag_width']) ? handleEmpty($_POST['flag_width']) : "Empty";
-        $purplish_stripes = isset($_POST['purplish_stripes']) ? handleEmpty($_POST['purplish_stripes']) : "Empty";
-        $pubescence = isset($_POST['pubescence']) ? handleEmpty($_POST['pubescence']) : "Empty";
-        $flag_remarkable_features = isset($_POST['flag_remarkable_features']) ? handleEmpty($_POST['flag_remarkable_features']) : "Empty";
+        $flag_length = isset($_POST['flag_length']) ? handleEmpty($_POST['flag_length']) : null;
+        $flag_width = isset($_POST['flag_width']) ? handleEmpty($_POST['flag_width']) : null;
+        $purplish_stripes = isset($_POST['purplish_stripes']) ? handleEmpty($_POST['purplish_stripes']) : null;
+        $pubescence = isset($_POST['pubescence']) ? handleEmpty($_POST['pubescence']) : null;
+        $flag_remarkable_features = isset($_POST['flag_remarkable_features']) ? handleEmpty($_POST['flag_remarkable_features']) : null;
 
         // Sensory traits rice
-        $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : "Empty";
-        $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : "Empty";
-        $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : "Empty";
-        $volume_expansion = isset($_POST['volume_expansion']) ? handleEmpty($_POST['volume_expansion']) : "Empty";
-        $glutinous = isset($_POST['glutinous']) ? handleEmpty($_POST['glutinous']) : "Empty";
-        $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : "Empty";
+        $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : null;
+        $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
+        $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
+        $volume_expansion = isset($_POST['volume_expansion']) ? handleEmpty($_POST['volume_expansion']) : null;
+        $glutinous = isset($_POST['glutinous']) ? handleEmpty($_POST['glutinous']) : null;
+        $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
 
         // abiotic resistance rice
         $rice_drought = isset($_POST['rice_drought']) ? true : false;
@@ -888,7 +886,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         $rice_heat = isset($_POST['rice_heat']) ? true : false;
         $harmful_radiation = isset($_POST['harmful_radiation']) ? true : false;
         $rice_abiotic_other = isset($_POST['rice_abiotic_other']) ? true : false;
-        $rice_abiotic_other_desc = isset($_POST['rice_abiotic_other_desc']) ? handleEmpty($_POST['rice_abiotic_other_desc']) : "Empty";
+        $rice_abiotic_other_desc = isset($_POST['rice_abiotic_other_desc']) ? handleEmpty($_POST['rice_abiotic_other_desc']) : null;
 
         // Pest resistance rice
         $rice_borers = isset($_POST['rice_borers']) ? true : false;
@@ -902,15 +900,15 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         $rice_rats = isset($_POST['rice_rats']) ? true : false;
         $rice_army_worms = isset($_POST['rice_army_worms']) ? true : false;
         $rice_others = isset($_POST['rice_others']) ? true : false;
-        $rice_others_desc = isset($_POST['rice_others_desc']) ? handleEmpty($_POST['rice_others_desc']) : "Empty";
+        $rice_others_desc = isset($_POST['rice_others_desc']) ? handleEmpty($_POST['rice_others_desc']) : null;
 
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
-        $rootcrop_plant_height = isset($_POST['rootcrop_plant_height']) ? handleEmpty($_POST['rootcrop_plant_height']) : "Empty";
-        $rootcrop_leaf_width = isset($_POST['rootcrop_leaf_width']) ? handleEmpty($_POST['rootcrop_leaf_width']) : "Empty";
-        $rootcrop_leaf_length = isset($_POST['rootcrop_leaf_length']) ? handleEmpty($_POST['rootcrop_leaf_length']) : "Empty";
-        $rootcrop_stem_leaf_desc = isset($_POST['rootcrop_stem_leaf_desc']) ? handleEmpty($_POST['rootcrop_stem_leaf_desc']) : "Empty";
-        $rootcrop_maturity_time = isset($_POST['rootcrop_maturity_time']) ? handleEmpty($_POST['rootcrop_maturity_time']) : "Empty";
+        $rootcrop_plant_height = isset($_POST['rootcrop_plant_height']) ? handleEmpty($_POST['rootcrop_plant_height']) : null;
+        $rootcrop_leaf_width = isset($_POST['rootcrop_leaf_width']) ? handleEmpty($_POST['rootcrop_leaf_width']) : null;
+        $rootcrop_leaf_length = isset($_POST['rootcrop_leaf_length']) ? handleEmpty($_POST['rootcrop_leaf_length']) : null;
+        $rootcrop_stem_leaf_desc = isset($_POST['rootcrop_stem_leaf_desc']) ? handleEmpty($_POST['rootcrop_stem_leaf_desc']) : null;
+        $rootcrop_maturity_time = isset($_POST['rootcrop_maturity_time']) ? handleEmpty($_POST['rootcrop_maturity_time']) : null;
 
         // Pest resistance rootcrop
         $root_aphids = isset($_POST['root_aphids']) ? true : false;
@@ -924,13 +922,13 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         $rootcrop_ants = isset($_POST['rootcrop_ants']) ? true : false;
         $rootcrop_rats = isset($_POST['rootcrop_rats']) ? true : false;
         $rootcrop_others = isset($_POST['rootcrop_others']) ? true : false;
-        $rootcrop_others_desc = isset($_POST['rootcrop_others_desc']) ? handleEmpty($_POST['rootcrop_others_desc']) : "Empty";
+        $rootcrop_others_desc = isset($_POST['rootcrop_others_desc']) ? handleEmpty($_POST['rootcrop_others_desc']) : null;
 
         // rootcrop traits
-        $eating_quality = isset($_POST['eating_quality']) ? handleEmpty($_POST['eating_quality']) : "Empty";
-        $rootcrop_color = isset($_POST['rootcrop_color']) ? handleEmpty($_POST['rootcrop_color']) : "Empty";
-        $sweetness = isset($_POST['sweetness']) ? handleEmpty($_POST['sweetness']) : "Empty";
-        $rootcrop_remarkable_features = isset($_POST['rootcrop_remarkable_features']) ? handleEmpty($_POST['rootcrop_remarkable_features']) : "Empty";
+        $eating_quality = isset($_POST['eating_quality']) ? handleEmpty($_POST['eating_quality']) : null;
+        $rootcrop_color = isset($_POST['rootcrop_color']) ? handleEmpty($_POST['rootcrop_color']) : null;
+        $sweetness = isset($_POST['sweetness']) ? handleEmpty($_POST['sweetness']) : null;
+        $rootcrop_remarkable_features = isset($_POST['rootcrop_remarkable_features']) ? handleEmpty($_POST['rootcrop_remarkable_features']) : null;
 
         // Validate the form data
         if (empty($crop_variety) || empty($province_name) || empty($municipality_name) || empty($barangay_name)) {
@@ -985,7 +983,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
                 } else {
                     // Display error message for invalid file format
                     $_SESSION['message'] = "Invalid file format for image";
-                    header("location: ../../../crop.php");
+                    header("location: ../../submission.php");
                     die();
                 }
             }
@@ -1060,7 +1058,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         //     } else {
         //         // Display error message for invalid file format
         //         $_SESSION['message'] = "invalid ang file format image";
-        //         header("location: ../../../crop.php");
+        //         header("location: ../../submission.php");
         //         die();
         //     }
 
@@ -1124,7 +1122,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         //     } else {
         //         // Display error message for invalid file format
         //         $_SESSION['message'] = "invalid ang file format image";
-        //         header("location: ../../../crop.php");
+        //         header("location: ../../submission.php");
         //         die();
         //     }
 
@@ -1265,7 +1263,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
             $get_category_name = $row_categoryName['category_name'];
         } else {
             $_SESSION['message'] = "No category selected";
-            header("location: ../../../crop.php");
+            header("location: ../../submission.php");
             exit();
         }
 

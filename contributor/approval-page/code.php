@@ -20,6 +20,7 @@ if (isset($_POST['approve'])) {
 
 if (isset($_POST['update'])) {
     $crop_idUpdate = $_POST['crop_id'];
+
     // get category name
     $get_name = "SELECT category_name FROM crop left join category on crop.category_id = category.category_id where crop.crop_id = $1";
     $query_run = pg_query_params($conn, $get_name, array($crop_idUpdate));

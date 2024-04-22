@@ -5,28 +5,7 @@
         <!-- HEADING -->
         <div class="d-flex justify-content-between">
             <!-- title -->
-            <h4 class="fw-semibold" style="font-size: 1.5rem;">All Crops</h4>
-            <!-- add button -->
-            <div class="z-1 dropdown">
-                <!-- dropdown -->
-                <button id="add-crop-btn" class="btn btn-secondary dropdown-toggle encoder-only" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    New
-                </button>
-                <!-- list -->
-                <ul class="dropdown-menu dropdown-menu-end p-0 overflow-hidden">
-                    <!-- add item -->
-                    <li class="p-0">
-                        <!-- single item -->
-                        <button type="button" class="dropdown-item p-2 btn" data-bs-toggle="modal" data-bs-target="#add-item-modal">
-                            <i class="fa-solid fa-circle-plus me-2 small-font"></i><span>Crop</span>
-                        </button>
-                        <!-- import csv -->
-                        <button type="button" class="dropdown-item p-2 btn" data-bs-toggle="modal" data-bs-target="">
-                            <i class="fa-solid fa-file-circle-plus me-2 small-font"></i><span>Sheet</span>
-                        </button>
-                    </li>
-                </ul>
-            </div>
+            <h4 class="fw-semibold" style="font-size: 1.5rem;">Approval</h4>
         </div>
 
         <?php
@@ -40,7 +19,8 @@
         $offset = ($current_page - 1) * $items_per_page;
 
         // Count the total number of rows for pagination
-        $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id";
+        $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action IN ('pending', 'updating')";
+
         $total_rows_result = pg_query($conn, $total_rows_query);
         $total_rows = pg_fetch_row($total_rows_result)[0];
 
@@ -95,7 +75,7 @@
                 $query = "SELECT * FROM crop 
                 LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
                 LEFT JOIN status ON status.status_id = crop.status_id 
-                WHERE 1=1 $search_condition $category_filter $municipality_filter 
+                WHERE 1=1 $search_condition $category_filter $municipality_filter AND status.action IN ('pending', 'updating')
                 ORDER BY crop.crop_id DESC 
                 LIMIT $items_per_page OFFSET $offset";
                 $query_run = pg_query($conn, $query);
@@ -115,17 +95,7 @@
                         $query_user = "SELECT * FROM users WHERE user_id = $1";
                         $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
                 ?>
-                        <?php
-                        if ($row['action'] === 'draft' && $_SESSION['USER']['user_id'] == $row['user_id']) {
-                        ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal">
-                            <?php
-                        } else {
-                            ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>">
-                            <?php
-                        }
-                            ?>
+                        <tr data-id="<?= $row['crop_id']; ?>" class="rowlink view_data admin-only" href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">
 
                             <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
                             <!-- hidden id for location to be used for filter function for location to be found -->
@@ -161,11 +131,6 @@
                                 <h6 class="text-secondary small-font"><?= $formatted_date; ?></h6>
                             </td>
 
-                            <!-- edit -->
-                            <!-- <td>
-                                <a href="#" class="btn btn-success btn-sm edit_data admin-only" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">Edit</a>
-                            </td> -->
-
                             <!-- status -->
                             <td>
                                 <span class=" small-font bg-dark-subtle w-auto py-1 px-2 rounded"><?= $row['action']; ?></span>
@@ -198,13 +163,13 @@
                                     </ul>
                                 </div>
                             </td>
-                            </tr>
-                    <?php
+                        </tr>
+                <?php
                     }
                 } else {
                     echo "No data found.";
                 }
-                    ?>
+                ?>
             </tbody>
         </table>
     </div>
@@ -214,19 +179,3 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
-<script>
-    // Make table rows clickable
-    $(document).ready(function() {
-        // Add click event to table rows
-        $('tbody tr[data-href]').on("click", function(event) {
-            // Check if the click target or any of its ancestors is a button or checkbox
-            if (
-                !$(event.target).is('.row-btn, :checkbox') &&
-                !$(event.target).closest('.row-btn, :checkbox').length
-            ) {
-                // Navigate to the URL specified in the data-href attribute
-                window.location.href = $(this).attr('data-href');
-            }
-        });
-    });
-</script>
