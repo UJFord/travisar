@@ -3,6 +3,7 @@ session_start();
 require "../functions/connections.php";
 require "../functions/functions.php";
 ?>
+
 <!doctype html>
 <html lang="en">
 
@@ -44,7 +45,7 @@ require "../functions/functions.php";
     <!-- NAV -->
     <?php require "nav.php"; ?>
 
-<?php
+    <?php
     include "../functions/message.php";
     ?>
 
@@ -97,7 +98,7 @@ require "../functions/functions.php";
                 <div class="tab_box d-flex justify-content-between">
                     <!-- Button Tabs -->
                     <div>
-                        <button class="tab_btn" id="barangayTab" disabled>Barangay</button>
+                        <button class="tab_btn active" id="locationTab" disabled>Province</button>
                         <div class="line"></div>
                     </div>
                     <!-- filter actions -->
@@ -121,28 +122,20 @@ require "../functions/functions.php";
                     $offset = ($current_page - 1) * $items_per_page;
 
                     // Count the total number of rows for pagination for approved crops
-                    $total_rows_query_location = "SELECT COUNT(*) FROM location";
+                    $total_rows_query_location = "SELECT COUNT(*) FROM province";
                     $total_rows_result_location = pg_query($conn, $total_rows_query_location);
                     $total_row_location = pg_fetch_row($total_rows_result_location)[0];
 
                     // Calculate the total number of pages for approved crops
-                    $total_pages_location = ceil($total_row_location / $items_per_page);
-
-                    // Count the total number of rows for pagination for pending crops
-                    $total_rows_query_barangay = "SELECT COUNT(*) FROM barangay";
-                    $total_rows_result_barangay = pg_query($conn, $total_rows_query_barangay);
-                    $total_rows_barangay = pg_fetch_row($total_rows_result_barangay)[0];
-
-                    // Calculate the total number of pages for pending crops
-                    $total_pages_barangay = ceil($total_rows_barangay / $items_per_page);
+                    $total_pages = ceil($total_row_location / $items_per_page);
                 ?>
 
                 <!-- dib ni sya para ma set ang mga tabs na data -->
                 <div class="general_info">
-                    <!-- barangay Tab Unactive -->
-                    <div class="gen_info" id="barangayTabData" style="max-height: 500px; overflow-y: auto;">
+                    <!-- location tab Active -->
+                    <div class="gen_info active" id="locationTabData" style="max-height: 500px; overflow-y: auto;">
                         <!-- TABLE -->
-                        <table id="barangayTable" class="table table-hover">
+                        <table id="locationTable" class="table table-hover">
                             <!-- table head -->
                             <thead>
                                 <tr>
@@ -152,11 +145,11 @@ require "../functions/functions.php";
                                             All
                                         </label>
                                     </th>
-                                    <th class="col text-dark-emphasis small-font" scope="col">Barangay</th>
-                                    <th class="col-3 text-dark-emphasis text-center small-font" scope="col">Date Added</th>
-                                    <th col-4 class="col-1 text-center">
+                                    <th class="col text-dark-emphasis small-font" scope="col">Province</th>
+                                    <th class="col-3 small-font text-dark-emphasis text-center">Date Added</th>
+                                    <th class="col-1 text-center">
                                         <!-- add button -->
-                                        <button type=" button" id="addBarangay" class="btn btn-secondary add-loc-btn p-2 btn small-font" name="addBarangay" data-bs-toggle="modal" data-bs-target="#add-item-modal-brgy">
+                                        <button type="button" id="addProvince" class="btn btn-secondary add-loc-btn p-2 btn small-font" name="addProvince" data-bs-toggle="modal" data-bs-target="#add-item-modal">
                                             New
                                             <i class="fa-solid fa-plus"></i>
                                         </button>
@@ -168,35 +161,44 @@ require "../functions/functions.php";
                             <!-- table body -->
                             <tbody class="table-group-divider fw-bold overflow-scroll">
                                 <?php
-                                $query_barangay = "SELECT * FROM barangay ORDER BY barangay_id ASC LIMIT $items_per_page OFFSET $offset";
-                                $query_run_barangay = pg_query($conn, $query_barangay);
+                                $query_pending = "SELECT * FROM province ORDER BY province_id ASC LIMIT $items_per_page OFFSET $offset";
+                                $query_run_location = pg_query($conn, $query_pending);
 
-                                if ($query_run_barangay) {
-                                    while ($row = pg_fetch_array($query_run_barangay)) {
+                                if ($query_run_location) {
+                                    while ($row = pg_fetch_array($query_run_location)) {
+                                        // Convert the string to a DateTime object
+                                        $date = new DateTime($row['province_date']);
+                                        // Format the date to display up to the minute
+                                        $formatted_date = $date->format('Y-m-d H:i');
+
                                 ?>
                                         <tr id="row1">
                                             <!-- checkbox -->
                                             <th scope="row"><input class="form-check-input" type="checkbox"></th>
-                                            <input type="hidden" name="barangay_id" value="<?= $row['barangay_id']; ?>">
+
+                                            <input type="hidden" name="province_id" value="<?= $row['province_id']; ?>">
+
                                             <td>
-                                                <!-- municipality name -->
-                                                <a href=""><?= $row['barangay_name']; ?></a>
-                                                <div class="text-secondary small-font fw-normal"><?= $row['municipality_name']; ?></div>
+                                                <!-- Province name -->
+                                                <a href=""><?= $row['province_name']; ?></a>
                                             </td>
+
                                             <!-- date added -->
                                             <td class="small-font text-center text-secondary fw-normal">
-                                                12-123-51
+                                                <?= $formatted_date; ?>
                                             </td>
+
                                             <!-- Action -->
                                             <td>
                                                 <form class="d-flex justify-content-center">
                                                     <!-- edit -->
-                                                    <a href="#" class="btn btn-primary me-1 edit_data_brgy" data-toggle="modal" data-target="#dataModalEdit" data-id="<?= $row['barangay_id']; ?>"><i class="fa-regular fa-pen-to-square"></i></a>
+                                                    <a href="#" class="btn btn-primary me-1 edit_data" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['province_id']; ?>"><i class="fa-regular fa-pen-to-square"></i></a>
                                                     <!-- delete -->
-                                                    <button type="submit" name="delete" class="btn btn-danger curator-only"><i class="fa-solid fa-trash"></i></button>
+                                                    <button type="submit" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                                 </form>
                                             </td>
-                                            <!-- ellipsis menu button -->
+
+                                            <!-- ellipsis menu butn -->
                                             <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
                                         </tr>
                                 <?php
@@ -209,15 +211,15 @@ require "../functions/functions.php";
                         </table>
                     </div>
                     <!-- Add pagination links -->
-                    <?php generatePaginationLinks($total_pages_barangay, $current_page, 'page'); ?>
+                    <?php generatePaginationLinks($total_pages, $current_page, 'page'); ?>
                 </div>
             </div>
 
             <!-- MODAL -->
-            <!-- add Barangay -->
-            <?php require "location-page/modals/add-barangay.php"; ?>
-            <!-- edit barangay -->
-            <?php require "location-page/modals/edit-barangay.php"; ?>
+            <!-- add Location -->
+            <?php require "location-page/modals/add-province.php"; ?>
+            <!-- edit location -->
+            <?php require "location-page/modals/edit-province.php"; ?>
         </div>
     </div>
 
@@ -293,7 +295,7 @@ require "../functions/functions.php";
                     modalId = 'edit-item-modal-brgy';
                 } else {
                     url = 'location-page/code/code-muni.php';
-                    dataKey = 'location_id';
+                    dataKey = 'province_id';
                     modalId = 'edit-item-modal';
                 }
 
@@ -303,7 +305,7 @@ require "../functions/functions.php";
                     type: 'POST',
                     data: {
                         'click_edit_btn': true,
-                        [dataKey]: id, // Make sure barangay_id or location_id is included
+                        [dataKey]: id, // Make sure barangay_id or province_id is included
                     },
 
                     success: function(response) {
@@ -315,7 +317,7 @@ require "../functions/functions.php";
 
                         $.each(response, function(key, value) {
                             // Append options to select element
-                            // console.log(value['province_name']);
+                            console.log(value['province_name']);
 
                             // crop_id
                             $('#crop_id').val(id);
@@ -348,8 +350,10 @@ require "../functions/functions.php";
         });
     </script>
 </body>
-
-<!-- to check if the user is logged in and has a rank of Encoder if Encoder and rank i redirect sya pabalik kung asa sya gaina before niya ni gi try access -->
+<!-- 
+    to check if the user is logged in and has a rank of Encoder
+    if Encoder and rank i redirect sya pabalik kung asa sya gaina before niya ni gi try access
+-->
 <?php
 if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
     // Output JavaScript code to redirect back to the original page
@@ -359,4 +363,5 @@ if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
     exit();
 }
 ?>
+
 </html>
