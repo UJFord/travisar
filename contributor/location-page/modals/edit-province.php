@@ -8,27 +8,21 @@
         <div class="modal-content">
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="edit-item-modal-label">Edit Location</h5>
+                <h5 class="modal-title" id="edit-item-modal-label">Edit Province</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="location-page/code/code-muni.php" autocomplete="off" method="POST" class=" py-3 px-5" onsubmit="validateAndSubmitForm(event)">
+            <form id="form-panel" name="Form" action="location-page/code/code-province.php" autocomplete="off" method="POST" class=" py-3 px-5" onsubmit="validateAndSubmitForm(event)">
                 <div class="modal-body" id="modal-body">
                     <div class="container">
                         <div id="locationData">
-                            <!-- Province AND Municipality -->
-                            <div class="row mb-3 location-row">
-                                <!-- province name -->
-                                <div class="col-5">
-                                    <label for="prov-Name" class="form-label small-font">Province Name<span style="color: red;">*</span></label>
-                                    <input type="text" id="prov-Name" name="province_name" class="form-control">
-                                </div>
-
+                            <!-- Province -->
+                            <div class="row mb-3">
                                 <!-- municipality name -->
                                 <div class="col-5">
-                                    <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
-                                    <input type="text" id="municipality-Name" name="municipality_name" class="form-control">
+                                    <label for="prov-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
+                                    <input type="text" id="prov-Name" name="province_name" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -38,7 +32,7 @@
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-between">
                     <div class="">
-                        <input type="hidden" name="location_id" id="location_id-Edit">
+                        <input type="hidden" name="province_id" id="province_id-Edit">
                         <button type="submit" name="update" onclick="validateAndSubmitForm()" class="btn btn-success">Edit</button>
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                     </div>
@@ -53,26 +47,8 @@
 <script>
     // Function to validate input and submit the form
     function validateAndSubmitForm(event) {
-        // Validate the form
-        if (validateForm()) {
-            // If validation succeeds, submit the form
-            submitForm();
-        }
-    }
-
-    // Function to validate input
-    function validateForm() {
-        // Get the values from the form
-        var province_name = document.forms["Form"]["province_name"].value;
-        var municipality_name = document.forms["Form"]["municipality_name"].value;
-
-        // Check if the required fields are not empty
-        if (province_name === "" || municipality_name === "") {
-            alert("Please fill out all required fields.");
-            return false; // Prevent form submission
-        }
-        // You can add more validation checks if needed
-        return true; // Allow form submission
+        // submit the form
+        submitForm();
     }
 
     // Function to submit the form and refresh notifications
@@ -84,7 +60,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "location-page/code/code-muni.php",
+                url: "location-page/code/code-province.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,

@@ -35,16 +35,16 @@
                         </ul>
                     </li>
 
-                    <!-- gi comment out sa nako kay dapat wala daw ni sa system -->
-                    <!-- <li class="nav-item dropdown curator-only admin-only">
+                    <li class="nav-item dropdown curator-only admin-only">
                         <a class="dropdown-toggle main-nav-item nav-link" role="button" id="addressesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            Addresses
+                            Locations
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="addressesDropdown">
                             <li><a class="dropdown-item" href="barangay.php">Barangay</a></li>
                             <li><a class="dropdown-item" href="municipality.php">Municipality</a></li>
+                            <li><a class="dropdown-item" href="province.php">Province</a></li>
                         </ul>
-                    </li> -->
+                    </li>
                 <?php endif; ?>
 
                 <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>

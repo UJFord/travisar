@@ -67,19 +67,6 @@ if (isset($_POST['update'])) {
     }
 }
 
-if (isset($_POST['rejected'])) {
-    $crop_id = $_POST['crop_id'];
-    $select = "UPDATE crop SET status = 'rejected' WHERE crop_id = '$crop_id' ";
-    $result = pg_query($conn, $select);
-    if ($result) {
-
-        header("location: ../../barangay.php");
-        exit; // Ensure that the script stops executing after the redirect header
-    } else {
-        echo "Error updating record"; // Display an error message if the query fails
-    }
-}
-
 if (isset($_POST['click_edit_btn'])) {
     if (isset($_POST["barangay_id"])) {
         $barangay_id = $_POST["barangay_id"];
