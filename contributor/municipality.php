@@ -334,7 +334,7 @@ require "../functions/functions.php";
                             $('#crop_id').val(id);
 
                             // data of location table
-                            $('#province-Name').val(value['province_name']);
+                            $('#prov-Name').val(value['province_name']);
                             $('#municipality-Name').val(value['municipality_name']);
 
                             // data of barangay table

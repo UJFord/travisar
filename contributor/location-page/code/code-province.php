@@ -39,18 +39,17 @@ if (isset($_POST['save'])) {
 }
 
 if (isset($_POST['update'])) {
-    $location_id = $_POST['location_id'];
+    $province_id = $_POST['province_id'];
     $province_name = $_POST['province_name'];
-    $municipality_name = $_POST['municipality_name'];
 
-    $query = "UPDATE location set province_name = $1, municipality_name = $2 where location_id = $3";
-    $query_run = pg_query_params($conn, $query, array($province_name, $municipality_name, $location_id));
+    $query = "UPDATE province set province_name = $1 where province_id = $2";
+    $query_run = pg_query_params($conn, $query, array($province_name, $province_id));
 
     if ($query_run !== false) {
         $affected_rows = pg_affected_rows($query_run);
         if ($affected_rows > 0) {
             echo "Location updated successfully";
-            header("location: ../../municipality.php");
+            header("location: ../../province.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
             echo "Error: Location ID not found";

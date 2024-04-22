@@ -303,13 +303,13 @@ require "../functions/functions.php";
 
                         $.each(response, function(key, value) {
                             // Append options to select element
-                            console.log(value['province_name']);
+                            console.log('hello', value['province_name']);
 
                             // crop_id
                             $('#crop_id').val(id);
 
                             // data of location table
-                            $('#province-Name').val(value['province_name']);
+                            $('#prov-Name').val(value['province_name']);
 
                             // setting the the value of the id of location and barangay depending on the tab
                             $('#' + 'province_id' + '-Edit').val(value['province_id']);

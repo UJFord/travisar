@@ -18,13 +18,12 @@
                     <div class="container">
                         <div id="locationData">
                             <!-- Province -->
-                            <div class="row mb-3 location-row">
-                                <!-- province name -->
+                            <div class="row mb-3">
+                                <!-- municipality name -->
                                 <div class="col-5">
-                                    <label for="province-Name" class="form-label small-font">Province Name<span style="color: red;">*</span></label>
-                                    <input type="text" id="province-Name" name="province_name" class="form-control">
+                                    <label for="prov-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
+                                    <input type="text" id="prov-Name" name="province_name" class="form-control">
                                 </div>
-
                             </div>
                         </div>
                     </div>
