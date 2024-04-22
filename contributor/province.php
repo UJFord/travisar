@@ -112,22 +112,22 @@ require "../functions/functions.php";
                 </div>
 
                 <?php
-                    // Set the number of items to display per page
-                    $items_per_page = 10;
+                // Set the number of items to display per page
+                $items_per_page = 10;
 
-                    // Get the current page number
-                    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+                // Get the current page number
+                $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-                    // Calculate the offset based on the current page and items per page
-                    $offset = ($current_page - 1) * $items_per_page;
+                // Calculate the offset based on the current page and items per page
+                $offset = ($current_page - 1) * $items_per_page;
 
-                    // Count the total number of rows for pagination for approved crops
-                    $total_rows_query_location = "SELECT COUNT(*) FROM province";
-                    $total_rows_result_location = pg_query($conn, $total_rows_query_location);
-                    $total_row_location = pg_fetch_row($total_rows_result_location)[0];
+                // Count the total number of rows for pagination for approved crops
+                $total_rows_query_location = "SELECT COUNT(*) FROM province";
+                $total_rows_result_location = pg_query($conn, $total_rows_query_location);
+                $total_row_location = pg_fetch_row($total_rows_result_location)[0];
 
-                    // Calculate the total number of pages for approved crops
-                    $total_pages = ceil($total_row_location / $items_per_page);
+                // Calculate the total number of pages for approved crops
+                $total_pages = ceil($total_row_location / $items_per_page);
                 ?>
 
                 <!-- dib ni sya para ma set ang mga tabs na data -->
@@ -278,34 +278,20 @@ require "../functions/functions.php";
     <!-- script for edit data -->
     <script>
         // EDIT SCRIPT
-        const tableRows = document.querySelectorAll('.edit_data_brgy, .edit_data');
+        const tableRows = document.querySelectorAll('.edit_data');
 
         tableRows.forEach(row => {
 
             row.addEventListener('click', () => {
                 const id = row.getAttribute('data-id');
 
-                let url = '';
-                let dataKey = '';
-                let modalId = '';
-
-                if (row.classList.contains('edit_data_brgy')) {
-                    url = 'location-page/code/code-brgy.php';
-                    dataKey = 'barangay_id';
-                    modalId = 'edit-item-modal-brgy';
-                } else {
-                    url = 'location-page/code/code-muni.php';
-                    dataKey = 'province_id';
-                    modalId = 'edit-item-modal';
-                }
-
                 // Assuming you have jQuery available
                 $.ajax({
-                    url: url,
+                    url: 'location-page/code/code-province.php',
                     type: 'POST',
                     data: {
                         'click_edit_btn': true,
-                        [dataKey]: id, // Make sure barangay_id or province_id is included
+                        'province_id': id, // Make sure barangay_id or province_id is included
                     },
 
                     success: function(response) {
@@ -324,14 +310,9 @@ require "../functions/functions.php";
 
                             // data of location table
                             $('#province-Name').val(value['province_name']);
-                            $('#municipality-Name').val(value['municipality_name']);
-
-                            // data of barangay table
-                            $('#municipality-Name-Edit').val(value['municipality_name']);
-                            $('#barangay-Name').val(value['barangay_name']);
 
                             // setting the the value of the id of location and barangay depending on the tab
-                            $('#' + dataKey + '-Edit').val(value[dataKey]);
+                            $('#' + 'province_id' + '-Edit').val(value['province_id']);
                         });
                     },
                     error: function(xhr, status, error) {
@@ -342,7 +323,7 @@ require "../functions/functions.php";
                 });
 
                 // Show the modal
-                const dataModal = new bootstrap.Modal(document.getElementById(modalId), {
+                const dataModal = new bootstrap.Modal(document.getElementById('edit-item-modal'), {
                     keyboard: false
                 });
                 dataModal.show();

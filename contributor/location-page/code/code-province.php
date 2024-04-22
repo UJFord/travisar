@@ -63,13 +63,13 @@ if (isset($_POST['update'])) {
 }
 
 if (isset($_POST['click_edit_btn'])) {
-    if (isset($_POST["location_id"])) {
-        $location_id = $_POST["location_id"];
+    if (isset($_POST["province_id"])) {
+        $province_id = $_POST["province_id"];
         $arrayresult = [];
 
-        // Fetch data from the location table
-        $query = "SELECT * FROM location WHERE location_id = $1";
-        $query_run = pg_query_params($conn, $query, array($location_id));
+        // Fetch data from the province table
+        $query = "SELECT * FROM province WHERE province_id = $1";
+        $query_run = pg_query_params($conn, $query, array($province_id));
 
         if (pg_num_rows($query_run) > 0) {
             while ($row = pg_fetch_assoc($query_run)) {
@@ -83,6 +83,6 @@ if (isset($_POST['click_edit_btn'])) {
             echo '<h4>No record found</h4>';
         }
     } else {
-        echo "Location ID not set";
+        echo "province ID not set";
     }
 }
