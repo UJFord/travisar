@@ -164,7 +164,7 @@ require "../functions/functions.php";
                                         <?php
                                     } else {
                                         ?>
-                                        <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" data-href="submission-page/view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”>
+                                        <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="submission-page/view.php?crop_id=<?= $row['crop_id'] ?>">
                                         <?php
                                     }
                                         ?>

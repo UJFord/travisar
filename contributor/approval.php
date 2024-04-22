@@ -24,7 +24,6 @@ require "../functions/functions.php";
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- custom -->
-
     <!-- global declarations -->
     <link rel="stylesheet" href="../css/global-declarations.css">
     <!-- specific for this file -->
@@ -54,200 +53,16 @@ require "../functions/functions.php";
     <!-- MAIN -->
     <div class="container">
         <div class="row mt-3">
-            <!-- CSS -->
-            <style>
-                /* CSS for tabs */
-                .tab_box {
-                    width: 100%;
-                    display: flex;
-                    align-items: center;
-                    justify-content: center;
-                    border-bottom: 2px solid rgba(229, 229, 229);
-                    position: relative;
-                }
 
-                .tab_box .tab_btn {
-                    font-size: 18px;
-                    font-weight: 600;
-                    color: #919191;
-                    background: none;
-                    border: none;
-                    padding: 18px;
-                }
-
-                @keyframes moving {
-                    from {
-                        transform: translateX(50px);
-                        opacity: 0;
-                    }
-
-                    to {
-                        transform: translateX(0px);
-                        opacity: 1;
-                    }
-                }
-            </style>
-            <!-- LIST -->
-            <div class="container">
-                <div class="row">
-
-                    <!-- HEADING -->
-                    <div class="tab_box d-flex justify-content-between">
-                        <!-- Button Tabs -->
-                        <div>
-                            <button class="tab_btn active" id="pendingTab" disabled>Pending</button>
-                        </div>
-                        <!-- filter actions -->
-                        <div class="d-flex py-3 px-3">
-                            <!-- search -->
-                            <div class="input-group">
-                                <input type="text" id="searchInput" class="form-control" placeholder="Search Crops" aria-label="Search" aria-describedby="filter-search">
-                                <span class="input-group-text" id="filter-search"><i class="bi bi-search"></i></span>
-                            </div>
-                        </div>
-                    </div>
-
-                    <?php
-                    // Set the number of items to display per page
-                    $items_per_page = 10;
-
-                    // Get the current page number
-                    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-
-                    // Calculate the offset based on the current page and items per page
-                    $offset = ($current_page - 1) * $items_per_page;
-
-                    // Count the total number of rows for pagination for pending crops
-                    $total_rows_query_pending = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action IN ('pending', 'updating')";
-                    $total_rows_result_pending = pg_query($conn, $total_rows_query_pending);
-                    $total_rows_pending = pg_fetch_row($total_rows_result_pending)[0];
-
-                    // Calculate the total number of pages for pending crops
-                    $total_pages_pending = ceil($total_rows_pending / $items_per_page);
-                    ?>
-
-                    <!-- dib ni sya para ma set ang mga tabs na data -->
-                    <div class="general_info">
-                        <!-- Pending tab Active -->
-                        <div class="gen_info" id="pendingTabData" style="max-height: 500px; overflow-y: auto;">
-
-                            <!-- TABLE -->
-                            <table id="pendingTable" class="table table-hover">
-                                <!-- table head -->
-                                <thead>
-                                    <tr>
-                                        <th class="col-1 thead-item" scope="col">
-                                            <input class="form-check-input" type="checkbox">
-                                            <label class="form-check-label text-dark-emphasis small-font">
-                                                All
-                                            </label>
-                                        </th>
-                                        <th class="col text-dark-emphasis small-font" scope="col">Name</th>
-                                        <th class="col-3 text-dark-emphasis text-center small-font" scope="col">Unique Code</th>
-                                        <th class="col-3 text-dark-emphasis text-center small-font" scope="col">Contributor</th>
-                                        <th class="col-2 text-dark-emphasis text-center small-font" scope="col">Date</th>
-                                        <th class="col-1 text-dark-emphasis text-center small-font" scope="col">Status</th>
-                                        <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
-                                    </tr>
-                                </thead>
-
-                                <!-- table body -->
-                                <tbody class="table-group-divider fw-bold overflow-scroll">
-                                    <?php
-                                    $query_pending = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE status.action IN ('pending', 'updating') ORDER BY crop_id ASC LIMIT $items_per_page OFFSET $offset";
-                                    $query_run_pending = pg_query($conn, $query_pending);
-
-                                    if ($query_run_pending) {
-                                        while ($row = pg_fetch_array($query_run_pending)) {
-                                            // Convert the string to a DateTime object
-                                            $date = new DateTime($row['input_date']);
-                                            // Format the date to display up to the minute
-                                            $formatted_date = $date->format('Y-m-d H:i');
-
-                                            // Fetch category name
-                                            $query_category = "SELECT * FROM category WHERE category_id = $1";
-                                            $query_run_category = pg_query_params($conn, $query_category, array($row['category_id']));
-
-                                            // Fetch contributor name
-                                            $query_user = "SELECT * FROM users WHERE user_id = $1";
-                                            $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
-
-                                    ?>
-                                            <tr id="row1" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">
-                                                <!-- checkbox -->
-                                                <th scope="row"><input class="form-check-input" type="checkbox"></th>
-                                                <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
-                                                <td>
-                                                    <!-- scientific name -->
-                                                    <a href=""><?= $row['crop_variety']; ?></a>
-                                                    <!-- category -->
-                                                    <?php
-                                                    if (pg_num_rows($query_run_category)) {
-                                                        $category = pg_fetch_assoc($query_run_category);
-                                                        echo '<h6 class="text-secondary small-font m-0">' . $category['category_name'] . '</h6>';
-                                                    } else {
-                                                        echo "No category added.";
-                                                    }
-                                                    ?>
-                                                </td>
-                                                <!-- unique_code -->
-                                                <td class=" text-secondary small-font text-center fw-normal">
-                                                    <?= $row['unique_code']; ?>
-                                                </td>
-                                                <!-- contributor -->
-                                                <td class="text-secondary text-center small-font fw-normal">
-                                                    <?php
-                                                    if (pg_num_rows($query_run_user)) {
-                                                        $user = pg_fetch_assoc($query_run_user);
-                                                        echo $user['first_name'] . " " . $user['last_name'];
-                                                    } else {
-                                                        echo "No contributor";
-                                                    }
-                                                    ?>
-                                                </td>
-
-                                                <!-- Date Created -->
-                                                <td class=" text-secondary small-font text-center fw-normal">
-                                                    <?= $formatted_date; ?>
-                                                </td>
-
-                                                <!-- Status -->
-                                                <td class="text-secondary small-font text-center fw-normal">
-                                                    <?= $row['action']; ?>
-                                                </td>
-
-                                                <!-- view -->
-                                                <td>
-                                                    <a href="#" class="btn btn-success btn-sm view_data admin-only" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">View</a>
-                                                </td>
-                                                <!-- Action -->
-                                                <!-- <td>
-                                                    <form class="d-flex justify-content-center" action="approval-page/code.php" method="post">
-                                                        <input type="hidden" name="crop_id" value="<?php echo $row['crop_id']; ?>" />
-                                                        <button type="submit" name="approve" class="btn btn-success me-2"><i class="fa-solid fa-check"></i></button>
-                                                        <button type="submit" name="rejected" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
-                                                    </form>
-                                                </td> -->
-                                            </tr>
-                                    <?php
-                                        }
-                                    } else {
-                                        echo "No data found.";
-                                    }
-                                    ?>
-                                </tbody>
-                            </table>
-                        </div>
-                        <!-- Add pagination links -->
-                        <?php generatePaginationLinks($total_pages_pending, $current_page, 'page'); ?>
-                    </div>
-                </div>
-            </div>
-
+            <!-- FILTERS -->
+            <?php require "crop-page/filter.php"; ?>
+            <!-- List -->
+            <?php require "approval-page/list.php"; ?>
             <!-- view -->
             <?php require "approval-page/view.php"; ?>
         </div>
     </div>
+
     <!-- SCRIPTS -->
     <!-- bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/js/bootstrap.bundle.min.js" integrity="sha384-C6RzsynM9kWDrMNeT87bh95OGNyZPhcTNXj1NW7RuBCsyN/o0jlpcV8Qyq46cDfL" crossorigin="anonymous" defer></script>
@@ -257,49 +72,58 @@ require "../functions/functions.php";
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <!-- search function -->
     <script>
-        function filterTable() {
-            var input, filter, table, tr, td, i, j, txtValue;
-            input = document.getElementById("searchInput");
-            filter = input.value.toUpperCase();
+        // Modify the search function to store the search query in a session or URL parameter
+        function search() {
+            var searchInput = document.getElementById("searchInput").value;
+            // Store the search query in a session or URL parameter
+            // For example, you can use localStorage to store the search query
+            localStorage.setItem('searchQuery', searchInput);
+            // Reload the page with the search query as a parameter
+            window.location.href = window.location.pathname + "?search=" + searchInput;
+        }
 
-            // Determine which table is currently active
-            var activeTable = document.querySelector('.gen_info.active table');
-            tr = activeTable.getElementsByTagName("tr");
+        const searchInput = document.getElementById('searchInput');
+        const clearButton = document.getElementById('clearButton');
 
-            for (i = 0; i < tr.length; i++) {
-                var found = false;
-                if (i === 0) {
-                    tr[i].style.display = "";
-                    continue; // Skip the header row
-                }
-                for (j = 0; j < tr[i].getElementsByTagName("td").length; j++) {
-                    td = tr[i].getElementsByTagName("td")[j];
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            found = true;
-                            break;
-                        }
-                    }
-                }
-                tr[i].style.display = found ? "" : "none";
+        // Add a keyup event listener to the search input field
+        searchInput.addEventListener('keyup', function(event) {
+            // Check if the Enter key is pressed (key code 13)
+            if (event.keyCode === 13) {
+                // Call the search function
+                search();
             }
-        }
-
-        // Add event listener to search input
-        document.getElementById('searchInput').addEventListener('keyup', filterTable);
-
-        // Reset search input when tab is switched
-        function resetSearchInput() {
-            document.getElementById("searchInput").value = "";
-            filterTable(); // Trigger filtering to show all rows
-        }
-
-        // Add event listener to tab buttons to reset search input
-        document.querySelectorAll('.tab_btn').forEach(tab => {
-            tab.addEventListener('click', resetSearchInput);
         });
+
+        // Function to clear the search and hide the clear button
+        function clearSearch() {
+            searchInput.value = '';
+            window.location.href = window.location.pathname;
+        }
+
+        // Function to apply filters and update the table
+        function applyFilters() {
+            let searchCondition = ''; // Initialize searchCondition here
+
+            const selectedCategories = Array.from(document.querySelectorAll('.crop-filter:checked')).map(checkbox => checkbox.value);
+            const selectedMunicipalities = Array.from(document.querySelectorAll('.municipality-filter:checked')).map(checkbox => checkbox.value);
+
+            // Build the search condition based on selected categories, municipalities, and the search value
+            if (selectedCategories.length > 0) {
+                searchCondition += `&categories=${selectedCategories.join(',')}`;
+                console.log(searchCondition);
+                console.log('Filter applied');
+            }
+            if (selectedMunicipalities.length > 0) {
+                searchCondition += `&municipalities=${selectedMunicipalities.join(',')}`;
+                console.log(searchCondition);
+                console.log('Filter applied');
+            }
+
+            // Reload the table with the new filters
+            window.location.href = window.location.pathname + '?search=' + searchCondition;
+        }
     </script>
+
     <!-- Script nf or the map for edit tab -->
     <script>
         // initializnig map
@@ -339,7 +163,7 @@ require "../functions/functions.php";
             coordInputEdit.value = formattedCoords;
 
             // Update the map and pin marker with the clicked coordinates
-            updateMapAndPin(latitude, longitude);
+            updateMapAndPinEdit(latitude, longitude);
 
             // fetch data
             console.log(latitude);
@@ -372,7 +196,7 @@ require "../functions/functions.php";
 
         mapEdit.on('click', onMapClickEdit);
 
-        function updateMapAndPin(latitude, longitude) {
+        function updateMapAndPinEdit(latitude, longitude) {
             // Remove potential existing marker
             if (markerEdit) {
                 mapEdit.removeLayer(markerEdit);
@@ -411,7 +235,7 @@ require "../functions/functions.php";
             const latitude = parseFloat(parts[0]);
             const longitude = parseFloat(parts[1]);
 
-            updateMapAndPin(latitude, longitude);
+            updateMapAndPinEdit(latitude, longitude);
         }
 
         // Utility function to validate LatLng object
@@ -477,69 +301,16 @@ require "../functions/functions.php";
                 });
         }
     </script>
-    <!-- jquery -->
-    <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+    <!-- allowing scrollspy in the modal -->
     <script>
-        // make clicking table rows open edit ui
         $(document).ready(function() {
-            $('#dataTable tr').click(function() {
-                // console.log('clicked')
-                // Get the crop ID from the clicked row or anchor tag
-                var cropId = $(this).data('id') || $(this).find('a').data('id');
-
-                // Open the modal
-                $('#dataModal').modal('show');
+            $('#view-item-modal').on('shown.bs.modal', function() {
+                $('[data-spy="scroll"]').scrollspy('refresh');
+                console.log($('[data-spy="scroll"]').scrollspy());
             });
         });
     </script>
 </body>
-<!-- 
-    to check if the user is logged in and has a rank of Encoder
-    if Encoder ang rank i redirect sya pabalik kung asa sya gaina before niya ni gi try access
--->
-
-<!-- to Capitalized all first letter in all inputs and textarea -->
-<script>
-    $(document).ready(function() {
-        // Capitalize the initial values of input fields
-        $("input[type='text']").each(function() {
-            $(this).val($(this).val().replace(/\b\w/g, function(char) {
-                return char.toUpperCase();
-            }));
-        });
-
-        // Update the value as the user types
-        $("input[type='text']").on('input', function() {
-            var start = this.selectionStart,
-                end = this.selectionEnd;
-            $(this).val(function(_, val) {
-                return val.replace(/\b\w/g, function(char) {
-                    return char.toUpperCase();
-                });
-            });
-            this.setSelectionRange(start, end);
-        });
-
-        // Capitalize the initial values textarea fields
-        $("textarea").each(function() {
-            $(this).val($(this).val().replace(/\b\w/g, function(char) {
-                return char.toUpperCase();
-            }));
-        });
-
-        // Update the value as the user types
-        $("textarea").on('input', function() {
-            var start = this.selectionStart,
-                end = this.selectionEnd;
-            $(this).val(function(_, val) {
-                return val.replace(/\b\w/g, function(char) {
-                    return char.toUpperCase();
-                });
-            });
-            this.setSelectionRange(start, end);
-        });
-    });
-</script>
 
 <?php
 if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {

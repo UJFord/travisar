@@ -12,7 +12,7 @@
 
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="view-item-modal-label">View Item</h5>
+                <h5 class="modal-title" id="view-item-modal-label">View</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
@@ -206,22 +206,16 @@
 
                             // morph traits for corn
                             // vegetative state
-                            $('#corn-heightEdit').append($('<option>', {
-                                value: value['corn_plant_height']
-                            }));
-                            $('#corn-leafWidth-Edit').append($('<option>', {
-                                value: value['corn_leaf_width']
-                            }));
-                            $('#corn-leafLength-Edit').append($('<option>', {
-                                value: value['corn_leaf_length']
-                            }));
+                            $('#corn-heightEdit').text(value['corn_plant_height']);
+                            $('#corn-leafWidth-Edit').text(value['corn_leaf_width']);
+                            $('#corn-leafLength-Edit').text(value['corn_leaf_length']);
 
                             // Reproductive state corn
-                            $('#corn-yield-capacity-Edit').val(value['corn_yield_capacity']);
-                            $('#corn-seed-length-Edit').val(value['seed_length']);
-                            $('#corn-seed-width-Edit').val(value['seed_width']);
-                            $('#corn-seed-shape-Edit').val(value['seed_shape']);
-                            $('#corn-seed-color-Edit').val(value['seed_color']);
+                            $('#corn-yield-capacity-Edit').text(value['corn_yield_capacity']);
+                            $('#corn-seed-length-Edit').text(value['seed_length']);
+                            $('#corn-seed-width-Edit').text(value['seed_width']);
+                            $('#corn-seed-shape-Edit').text(value['seed_shape']);
+                            $('#corn-seed-color-Edit').text(value['seed_color']);
 
                             // pest resistance corn
                             $('#cornBorers-Edit').prop('checked', value['corn_borers'] == 1);
@@ -235,14 +229,8 @@
                             $('#corn-ants-Edit').prop('checked', value['corn_ants'] == 1);
                             $('#corn-rats-Edit').prop('checked', value['corn_rats'] == 1);
                             $('#corn-other-check-Edit').prop('checked', value['corn_others'] == 1);
-                            // Show the 'Other' textarea if 'other' checkbox is checked
-                            if ($('#corn-other-check-Edit').prop('checked')) {
-                                $('.corn-pest-other-edit').show();
-                            } else {
-                                $('.corn-pest-other-edit').hide();
-                            }
                             // Set the value of the 'Other' textarea
-                            $('#corn-other-Edit').val(value['corn_others_desc']);
+                            $('#corn-other-Edit').text(value['corn_others_desc']);
 
                             // disease resistance corn
                             $('#corn-Bacterial-Edit').prop('checked', value['bacterial'] == 1);
@@ -254,13 +242,6 @@
                             $('#corn-Salinity-Edit').prop('checked', value['salinity'] == 1);
                             $('#corn-Heat-Edit').prop('checked', value['heat'] == 1);
                             $('#corn-abiotic-other-check-Edit').prop('checked', value['abiotic_other'] == 1);
-                            // Show the 'Other' textarea if 'other' checkbox is checked
-                            // baliktad ang if else statement kay katok ang code ambot nganuman
-                            if ($('#corn-abiotic-other-check-Edit').prop('checked')) {
-                                $('.corn-abiotic-other').show();
-                            } else {
-                                $('.corn-abiotic-other').hide();
-                            }
                             // Set the value of the 'Other' textarea
                             $('#corn-abiotic-other-Edit').val(value['abiotic_other_desc']);
                         } else if (value['category_name'] === 'Rice') {
@@ -467,7 +448,7 @@
                         // categoryID
                         $('#categoryID').val(value['category_id']);
                         // current_crop_variety
-                        $('#current_crop_variety').val(value['crop_variety']);
+                        $('#current_crop_variety').text(value['crop_variety']);
                         // currentUniqueCode
                         $('#currentUniqueCode').val(value['unique_code']);
                         // crop_location_id
@@ -519,47 +500,27 @@
                         // example ni sya kung gusto nimo i dikit ang duwa ka value
                         // $('#crop_variety').val(value['unique_code'] + '(' + value['crop_variety'] + ') ');
 
-                        $('#crop_variety').val(value['crop_variety']);
-                        $('#ScienceName').val(value['scientific_name']);
-                        $('#LocalName').val(value['crop_local_name']);
-                        $('#NameOrigin').val(value['name_origin']);
-                        $('#description').val(value['crop_description']);
-                        $('#nameMeaning').val(value['meaning_of_name']);
-                        $('#rarityEdit').text(value['rarity']);
+                        $('#crop_variety').text(value['crop_variety']);
+                        $('#ScienceName').text(value['scientific_name']);
+                        $('#description').text(value['crop_description']);
+                        $('#nameMeaning').text(value['meaning_of_name']);
 
                         // Utilization and Cultural Importance
-                        $('#SignificanceEdit').val(value['significance']);
-                        $('#UseEdit').val(value['use']);
-                        $('#indigenous-utilization-Edit').val(value['indigenous_utilization']);
-                        $('#remarkable-features-Edit').val(value['remarkable_features']);
+                        $('#SignificanceEdit').text(value['significance']);
+                        $('#UseEdit').text(value['use']);
+                        $('#indigenous-utilization-Edit').text(value['indigenous_utilization']);
+                        $('#remarkable-features-Edit').text(value['remarkable_features']);
 
                         //loc.php
-                        $('#neighborhoodEdit').val(value['neighborhood']);
                         // coordInput
-                        $('#coordEdit').val(value['coordinates']);
+                        $('#ProvinceEdit').text(value['province_name']);
                         // Update the select data of loc.php locations
-                        $('#crop_variety_select').append($('<option>', {
-                            value: value['crop_variety'],
-                            text: value['crop_variety']
-                        }));
-                        $('#BarangaySelect').append($('<option>', {
-                            value: value['barangay_name'],
-                            text: value['barangay_name']
-                        }));
-                        $('#MunicipalitySelect').append($('<option>', {
-                            value: value['municipality_name'],
-                            text: value['municipality_name']
-                        }));
-
-                        // Add municipality to the array
-                        municipalities.push(value['municipality_name']);
-
-                        // Append options to MunicipalitySelect
-                        $('#MunicipalitySelect').empty(); // Clear previous options
-                        municipalities.forEach(function(municipality) {
-                            var selected = (municipality === value['municipality_name']) ? 'selected' : '';
-                            $('#MunicipalitySelect').append('<option value="' + municipality + '" ' + selected + '>' + municipality + '</option>');
-                        });
+                        // barangay
+                        $('#BarangaySelect').text(value['barangay_name']);
+                        // barangay
+                        $('#BarangaySelect').text(value['barangay_name']);
+                        // barangay
+                        $('#MunicipalitySelect').text(value['municipality_name']);
 
                         // Add a marker to the map based on the coordinates if they exist
                         if (value['coordinates']) {

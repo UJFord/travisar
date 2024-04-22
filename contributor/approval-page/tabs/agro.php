@@ -6,56 +6,55 @@
         <div class="row mb-0 ps-3">
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="cornBorers-Edit">Borers</label>
-                <input class="form-check-input" type="checkbox" name="corn_borers" id="cornBorers-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="corn_borers" id="cornBorers-Edit" value="1" disabled>
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="Earworm-Edit">Earworm</label>
-                <input class="form-check-input" type="checkbox" name="earworms" id="Earworm-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="earworms" id="Earworm-Edit" value="1" disabled>
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="spider-mites-Edit">Spider Mites</label>
-                <input class="form-check-input" type="checkbox" name="spider_mites" id="spider-mites-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="spider_mites" id="spider-mites-Edit" value="1" disabled>
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="corn-blackBug-Edit">Black Bug</label>
-                <input class="form-check-input" type="checkbox" name="corn_black_bug" id="corn-blackBug-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="corn_black_bug" id="corn-blackBug-Edit" value="1" disabled>
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="corn-army-worms-Edit">Army Worms</label>
-                <input class="form-check-input" type="checkbox" name="corn_army_worms" id="corn-army-worms-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="corn_army_worms" id="corn-army-worms-Edit" value="1" disabled>
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="leaf-aphid-Edit">Leaf Aphid</label>
-                <input class="form-check-input" type="checkbox" name="leaf_aphid" id="leaf-aphid-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="leaf_aphid" id="leaf-aphid-Edit" value="1" disabled>
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="corn-cutWorms-Edit">Cutworms</label>
-                <input class="form-check-input" type="checkbox" name="corn_cutworms" id="corn-cutWorms-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="corn_cutworms" id="corn-cutWorms-Edit" value="1" disabled>
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="rice-Birds-Edit">Birds</label>
-                <input class="form-check-input" type="checkbox" name="corn_birds" id="rice-Birds-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="corn_birds" id="rice-Birds-Edit" value="1" disabled>
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="corn-ants-Edit">Ants</label>
-                <input class="form-check-input" type="checkbox" name="corn_ants" id="corn-ants-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="corn_ants" id="corn-ants-Edit" value="1" disabled>
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="corn-rats-Edit">Rats</label>
-                <input class="form-check-input" type="checkbox" name="corn_rats" id="corn-rats-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="corn_rats" id="corn-rats-Edit" value="1" disabled>
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="corn-other-check-Edit">other</label>
-                <input class="form-check-input" type="checkbox" name="corn_others" id="corn-other-check-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="corn_others" id="corn-other-check-Edit" value="1" disabled>
             </div>
         </div>
 
         <!-- Other -->
-        <div id="corn-pest-other-Edit" class="row mt-3 mb-5 d-none">
+        <div id="corn-pest-other-Edit" class="row mt-3 mb-5">
             <div class="col-12 mb-0">
                 <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
-                <textarea name="corn_others_desc" id="corn-other-Edit" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
-                <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
+                <h6 name="corn_others_desc" id="corn-other-Edit"></h6>
             </div>
         </div>
 
@@ -64,15 +63,15 @@
         <div class="row mb-5 ps-3">
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="corn-Bacterial-Edit">Bacterial</label>
-                <input class="form-check-input" type="checkbox" name="bacterial" id="corn-Bacterial-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="bacterial" id="corn-Bacterial-Edit" value="1" disabled>
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="corn-Fungus-Edit">Fungus</label>
-                <input class="form-check-input" type="checkbox" name="fungus" id="corn-Fungus-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="fungus" id="corn-Fungus-Edit" value="1" disabled>
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="corn-Viral-Edit">Viral</label>
-                <input class="form-check-input" type="checkbox" name="viral" id="corn-Viral-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="viral" id="corn-Viral-Edit" value="1" disabled>
             </div>
         </div>
 
@@ -81,27 +80,26 @@
         <div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="corn-Drought-Edit">Drought</label>
-                <input class="form-check-input" type="checkbox" name="drought" id="corn-Drought-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="drought" id="corn-Drought-Edit" value="1" disabled>
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="corn-Salinity-Edit">Salinity</label>
-                <input class="form-check-input" type="checkbox" name="salinity" id="corn-Salinity-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="salinity" id="corn-Salinity-Edit" value="1" disabled>
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="corn-Heat-Edit">Heat</label>
-                <input class="form-check-input" type="checkbox" name="heat" id="corn-Heat-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="heat" id="corn-Heat-Edit" value="1" disabled>
             </div>
             <div class="col-3 form-check form-check-inline">
                 <label class="form-check-label small-font" for="corn-abiotic-other-check-Edit">abiotic-other</label>
-                <input class="form-check-input" type="checkbox" name="abiotic_other" id="corn-abiotic-other-check-Edit" value="1">
+                <input class="form-check-input" type="checkbox" name="abiotic_other" id="corn-abiotic-other-check-Edit" value="1" disabled>
             </div>
         </div>
         <!-- Other -->
         <div class="row mt-3 mb-3">
-            <div id="corn-abiotic-other-container-Edit" class="col-12 mb-2 d-none">
+            <div id="corn-abiotic-other-container-Edit" class="col-12 mb-2">
                 <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
-                <textarea name="corn_others_desc" id="corn-abiotic-other-Edit" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
-                <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
+                <h6 name="corn_others_desc" id="corn-abiotic-other-Edit"></h6>
             </div>
         </div>
     </div>

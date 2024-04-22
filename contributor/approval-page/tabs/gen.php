@@ -147,143 +147,6 @@
     </div>
 
     <h6 class="fw-semibold mt-4 mb-3">General Info</h6>
-    <!-- variety name, meaning of name -->
-    <div class="row mb-2">
-        <!-- variety name -->
-        <div class="col mb-2">
-            <label for="crop_variety" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
-            <input id="crop_variety" type="text" name="crop_variety" class="form-control" required>
-        </div>
-
-        <!-- Meaning of Name -->
-        <div class="col mb-2">
-            <label class="form-label small-font">Meaning of Name(if any)</label>
-            <input type="text" id="nameMeaning" name="meaning_of_name" class="form-control">
-        </div>
-    </div>
-
-    <!-- DESCRIPTION -->
-    <div class="row mb-5">
-        <div class="col">
-            <label for="description" class="form-label small-font">Description</label>
-            <textarea name="crop_description" id="description" rows="2" class="form-control"></textarea>
-        </div>
-    </div>
-
-    <!-- IMAGES -->
-    <h6 class="fw-semibold mt-4 mb-0">Images for Stages</h6>
-    <!-- help -->
-    <div id="coords-help" class="form-text mb-3" style="font-size: 0.7rem;">Hold <span class="fw-bold">ctrl</span> or <span class="fw-bold">shift</span> and click the images to upload multiple files</div>
-    <!-- Seed image -->
-    <div class="row mb-3">
-        <label for="imageInputSeedEdit" class="d-flex align-items-center rounded small-font mb-2">
-            <i class="fa-solid fa-image me-2"></i>
-            <span>Seed</span>
-        </label>
-        <div class="d-flex flex-column image-upload-container col-6">
-            <input type="hidden" name="current_image_seed" id="old_image_seed">
-            <input class="mb-0 form-control form-control-sm" type="file" id="imageInputSeedEdit" accept="image/jpeg,image/png" name="crop_seed_image[]" multiple>
-        </div>
-        <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewSeedEdit"></div>
-    </div>
-
-    <!-- vegetative stage image -->
-    <div class="row mb-3">
-        <label for="imageInputVegetativeEdit" class="d-flex align-items-center rounded small-font mb-2">
-            <i class="fa-solid fa-image me-2"></i>
-            <span>Vegetative Stage</span>
-        </label>
-        <div class="col-6 d-flex flex-column image-upload-container">
-            <input type="hidden" name="current_image_veg" id="old_image_veg">
-            <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetativeEdit" accept="image/jpeg,image/png" name="crop_vegetative_image" single onchange="previewVegetativeImageEdit()">
-        </div>
-        <!-- <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewVegEdit"></div> -->
-    </div>
-
-    <!-- reproductive stage -->
-    <div class="row mb-5">
-        <label for="imageInputReproductiveEdit" class="d-flex align-items-center rounded small-font mb-2">
-            <i class="fa-solid fa-image me-2"></i>
-            <span>Reproductive Stage</span>
-        </label>
-        <div class="col-6 d-flex flex-column image-upload-container">
-            <input type="hidden" name="current_image_rep" id="old_image_rep">
-            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductiveEdit" accept="image/jpeg,image/png" name="crop_reproductive_image" single onchange="previewReproductiveImageEdit()">
-        </div>
-        <!-- <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewReproductiveEdit"></div> -->
-    </div>
-
-    <h6 class="fw-semibold mt-4 mb-3">Location</h6>
-    <!-- location -->
-    <div id="locationData" class="row mb-3">
-        <!-- form -->
-        <div class="col-6 location-Data">
-            <input type="hidden" name="crop_location_id" id="crop_location_id">
-            <!-- Province dropdown -->
-            <label for="ProvinceEdit" class="form-label small-font">Province <span style="color: red;">*</span></label>
-            <select id="ProvinceEdit" name="province" class="form-control mb-2">
-                <?php
-                // Fetch distinct province names from the location table
-                $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";
-                $query_run = pg_query($conn, $queryProvince);
-
-                $count = pg_num_rows($query_run);
-
-                // If there is data, display distinct province names
-                if ($count > 0) {
-
-                    while ($row = pg_fetch_assoc($query_run)) {
-                        $province_name = $row['province_name'];
-                ?>
-                        <option value="<?= $province_name; ?>"><?= $province_name; ?></option>
-                <?php
-                    }
-                }
-                ?>
-            </select>
-
-            <!-- Municipality dropdown -->
-            <label for="MunicipalitySelect" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
-            <select id="MunicipalitySelect" name="municipality" class="form-select mb-2">
-            </select>
-
-            <!-- barangay -->
-            <label for="BarangaySelect" class="form-label small-font mb-0">Sitio <span style="color: red;">*</span></label>
-            <select id="BarangaySelect" name="barangay" class="form-select mb-2">
-            </select>
-
-            <!-- coordinates -->
-            <label for="coordEdit" class="form-label small-font mb-0">Coordinates</label>
-            <input id="coordEdit" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
-            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (latitude , longitude)</div>
-            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">The blue Marker is for the old/current location</div>
-        </div>
-        <!-- map -->
-        <div id="mapEdit" class="col border">
-        </div>
-    </div>
-
-    <!-- Contributed, Unique Code, and Date Created -->
-    <dv class="row mb-3">
-        <!-- Contributed By -->
-        <div class="col">
-            <label class="form-label small-font">Contributed By:</label>
-            <h6 name="first_name" id="firstName"></h6>
-        </div>
-
-        <!-- Unique Code -->
-        <div class="col">
-            <label class="form-label small-font">Unique Code:</label>
-            <h6 name="unique_code" id="uniqueCode"></h6>
-        </div>
-
-        <!-- Date created -->
-        <div class="col">
-            <label class="form-label small-font">Date Created:</label>
-            <h6 name="input_date" id="input_dateEdit"></h6>
-        </div>
-    </dv>
-
     <!-- Categories, Other Category, and Category Variety -->
     <div class="row mb-3">
         <!-- Category -->
@@ -310,6 +173,110 @@
             <h6 name="terrain_id" id="categoryTerrainEdit"></h6>
         </div>
     </div>
+
+    <!-- variety name, meaning of name -->
+    <div class="row mb-2">
+        <!-- variety name -->
+        <div class="col mb-2">
+            <label for="crop_variety" class="form-label small-font">Variety Name</label>
+            <h6 name="crop_variety" id="crop_variety"></h6>
+        </div>
+
+        <!-- Meaning of Name -->
+        <div class="col mb-2">
+            <label class="form-label small-font">Meaning of Name(if any)</label>
+            <h6 name="meaning_of_name" id="nameMeaning"></h6>
+        </div>
+    </div>
+
+    <!-- DESCRIPTION -->
+    <div class="row mb-5">
+        <div class="col">
+            <label for="description" class="form-label small-font">Description</label>
+            <h6 name="crop_description" id="description"></h6>
+        </div>
+    </div>
+
+    <!-- IMAGES -->
+    <h6 class="fw-semibold mt-4 mb-3">Images for Stages</h6>
+    <!-- Seed image -->
+    <div class="row mb-3">
+        <label for="imageInputSeedEdit" class="d-flex align-items-center rounded small-font mb-2">
+            <i class="fa-solid fa-image me-2"></i>
+            <span>Seed</span>
+        </label>
+        <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewSeedEdit"></div>
+    </div>
+
+    <!-- vegetative stage image -->
+    <div class="row mb-3">
+        <label for="imageInputVegetativeEdit" class="d-flex align-items-center rounded small-font mb-2">
+            <i class="fa-solid fa-image me-2"></i>
+            <span>Vegetative Stage</span>
+        </label>
+        <!-- <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewVegEdit"></div> -->
+    </div>
+
+    <!-- reproductive stage -->
+    <div class="row mb-5">
+        <label for="imageInputReproductiveEdit" class="d-flex align-items-center rounded small-font mb-2">
+            <i class="fa-solid fa-image me-2"></i>
+            <span>Reproductive Stage</span>
+        </label>
+        <!-- <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewReproductiveEdit"></div> -->
+    </div>
+
+    <h6 class="fw-semibold mt-4 mb-3">Location</h6>
+    <!-- location -->
+    <div id="locationData" class="row mb-3">
+        <!-- form -->
+        <div class="col-6 location-Data">
+            <input type="hidden" name="crop_location_id" id="crop_location_id">
+            <!-- Province dropdown -->
+            <label for="ProvinceEdit" class="form-label small-font">Province: </label>
+            <h6 name="province" id="ProvinceEdit" class="mb-3"></h6>
+
+            <!-- Municipality dropdown -->
+            <label for="MunicipalitySelect" class="form-label small-font">Municipality: </label>
+            <h6 name="municipality" id="MunicipalitySelect" class="mb-3"></h6>
+
+            <!-- barangay -->
+            <label for="BarangaySelect" class="form-label small-font mb-0">Barangay: </label>
+            <h6 name="barangay" id="BarangaySelect" class="mb-3"></h6>
+
+            <!-- Sitio -->
+            <label for="coordEdit" class="form-label small-font mb-0">Sitio: </label>
+            <h6 name="sitio" id="coordEdit" class="mb-3"></h6>
+
+            <!-- coordinates -->
+            <label for="coordEdit" class="form-label small-font mb-0">Coordinates: </label>
+            <h6 name="coordinates" id="coordEdit"></h6>
+        </div>
+        <!-- map -->
+        <div id="mapEdit" class="col border">
+        </div>
+    </div>
+
+    <!-- Contributed, Unique Code, and Date Created -->
+    <dv class="row mb-3">
+        <!-- Contributed By -->
+        <div class="col">
+            <label class="form-label small-font">Contributed By:</label>
+            <h6 name="first_name" id="firstName"></h6>
+        </div>
+
+        <!-- Unique Code -->
+        <div class="col">
+            <label class="form-label small-font">Unique Code:</label>
+            <h6 name="unique_code" id="uniqueCode"></h6>
+        </div>
+
+        <!-- Date created -->
+        <div class="col">
+            <label class="form-label small-font">Date Created:</label>
+            <h6 name="input_date" id="input_dateEdit"></h6>
+        </div>
+    </dv>
 
     <!-- STEP NAVIGATION -->
     <div class="row">
@@ -427,96 +394,6 @@
     // Call whenever content might change within the container
     previewContainerEdit.addEventListener('DOMNodeInserted', checkForContent);
     previewContainerEdit.addEventListener('DOMNodeRemoved', checkForContent);
-</script>
-
-<!-- SCRIPT for add tab-->
-<script defer>
-    // function previewSeedImageEdit() {
-    //     const imageInputEdit = document.getElementById("imageInputSeedEdit");
-    //     const previewContainerEdit = document.getElementById("previewSeedEdit");
-
-    //     // Check if a file is selected
-    //     if (imageInputEdit.files && imageInputEdit.files[0]) {
-    //         const reader = new FileReader();
-
-    //         reader.onload = function(e) {
-    //             const previewImage = new Image();
-    //             previewImage.src = e.target.result;
-    //             previewImage.onload = function() {
-    //                 previewContainerEdit.innerHTML = ""; // Clear previous content
-    //                 previewContainerEdit.appendChild(previewImage);
-    //             };
-    //         };
-
-    //         reader.readAsDataURL(imageInputEdit.files[0]);
-
-    //         // show preview
-    //         previewContainerEdit.classList.remove("d-none");
-    //     } else {
-    //         // Clear the preview container if no file is selected
-    //         previewContainerEdit.innerHTML = "";
-    //         // hide preview
-    //         previewContainerEdit.classList.add("d-none");
-    //     }
-    // }
-
-    // function previewVegetativeImageEdit() {
-    //     const imageInputEdit = document.getElementById("imageInputVegetativeEdit");
-    //     const previewContainerEdit = document.getElementById("previewVegEdit");
-
-    //     // Check if a file is selected
-    //     if (imageInputEdit.files && imageInputEdit.files[0]) {
-    //         const reader = new FileReader();
-
-    //         reader.onload = function(e) {
-    //             const previewImage = new Image();
-    //             previewImage.src = e.target.result;
-    //             previewImage.onload = function() {
-    //                 previewContainerEdit.innerHTML = ""; // Clear previous content
-    //                 previewContainerEdit.appendChild(previewImage);
-    //             };
-    //         };
-
-    //         reader.readAsDataURL(imageInputEdit.files[0]);
-
-    //         // show preview
-    //         previewContainerEdit.classList.remove("d-none");
-    //     } else {
-    //         // Clear the preview container if no file is selected
-    //         previewContainerEdit.innerHTML = "";
-    //         // hide preview
-    //         previewContainerEdit.classList.add("d-none");
-    //     }
-    // }
-
-    // function previewReproductiveImageEdit() {
-    //     const imageInputEdit = document.getElementById("imageInputReproductiveEdit");
-    //     const previewContainerEdit = document.getElementById("previewReproductiveEdit");
-
-    //     // Check if a file is selected
-    //     if (imageInputEdit.files && imageInputEdit.files[0]) {
-    //         const reader = new FileReader();
-
-    //         reader.onload = function(e) {
-    //             const previewImage = new Image();
-    //             previewImage.src = e.target.result;
-    //             previewImage.onload = function() {
-    //                 previewContainerEdit.innerHTML = ""; // Clear previous content
-    //                 previewContainerEdit.appendChild(previewImage);
-    //             };
-    //         };
-
-    //         reader.readAsDataURL(imageInputEdit.files[0]);
-
-    //         // show preview
-    //         previewContainerEdit.classList.remove("d-none");
-    //     } else {
-    //         // Clear the preview container if no file is selected
-    //         previewContainerEdit.innerHTML = "";
-    //         // hide preview
-    //         previewContainerEdit.classList.add("d-none");
-    //     }
-    // }
 </script>
 
 <!-- script for limiting the input for the crop variety name -->
