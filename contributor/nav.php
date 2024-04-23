@@ -31,13 +31,20 @@
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="validationDropdown">
                             <li class="dropdown">
-                                <a class="dropdown-item dropdown-toggle" id="nestedDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Crop Dropdown</a>
-                                <ul class="dropdown-menu" aria-labelledby="nestedDropdown">
-                                    <li><a class="dropdown-item" href="#">Submenu Item 1</a></li>
-                                    <li><a class="dropdown-item" href="#">Submenu Item 2</a></li>
+                                <a class="dropdown-item dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Crop Settings</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="crop-category.php">Crop Category</a></li>
+                                    <li><a class="dropdown-item" href="crop-variety.php">Category Variety</a></li>
                                 </ul>
                             </li>
-                            <li><a class="dropdown-item" href="history.php">Location Settings</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-item dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Location Settings</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="barangay.php">Barangay</a></li>
+                                    <li><a class="dropdown-item" href="municipality.php">Municipality</a></li>
+                                    <li><a class="dropdown-item" href="province.php">Province</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
 
@@ -170,5 +177,20 @@
     // Call the function when the document is ready
     $(document).ready(function() {
         load_unseen_notification();
+    });
+</script>
+
+<!-- script for settings dropdown -->
+<script>
+    document.querySelectorAll('.dropdown-menu .dropdown-toggle').forEach(function (dropdownToggle) {
+        dropdownToggle.addEventListener('click', function (event) {
+            var dropdownMenu = this.nextElementSibling;
+            if (dropdownMenu.style.display === 'block') {
+                dropdownMenu.style.display = 'none';
+            } else {
+                dropdownMenu.style.display = 'block';
+            }
+            event.stopPropagation(); // Stop event propagation to prevent parent dropdown from closing
+        });
     });
 </script>
