@@ -16,7 +16,7 @@
 
             </div>
             <!-- body -->
-            <form id="form-panel-Edit" name="Form" action="user-page/code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel-Edit" name="Form" action="code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
                     <div class="container">
                         <div id="Edit-User">
@@ -27,18 +27,18 @@
                                 <!-- First name -->
                                 <div class="col">
                                     <label for="first-NameEdit" class="form-label small-font">First Name<span style="color: red;">*</span></label>
-                                    <input type="text" id="first-NameEdit" name="first_name" class="form-control">
+                                    <input type="text" id="first-NameEdit" name="first_nameEdit" class="form-control">
                                 </div>
 
                                 <!-- Last name -->
                                 <div class="col">
                                     <label for="last-NameEdit" class="form-label small-font">Last Name<span style="color: red;">*</span></label>
-                                    <input type="text" id="last-NameEdit" name="last_name" class="form-control">
+                                    <input type="text" id="last-NameEdit" name="last_nameEdit" class="form-control">
                                 </div>
                                 <!-- Gender -->
                                 <div class="col">
                                     <label for="GenderEdit" class="form-label small-font">Gender</label>
-                                    <input type="text" id="GenderEdit" name="gender" class="form-control">
+                                    <input type="text" id="GenderEdit" name="genderEdit" class="form-control">
                                 </div>
                             </div>
 
@@ -47,12 +47,12 @@
                                 <!-- Email -->
                                 <div class="col">
                                     <label for="EmailEdit" class="form-label small-font">Email<span style="color: red;">*</span></label>
-                                    <input type="text" id="EmailEdit" name="email" class="form-control">
+                                    <input type="text" id="EmailEdit" name="emailEdit" class="form-control">
                                 </div>
                                 <!-- user name -->
                                 <div class="col">
                                     <label for="user-NameEdit" class="form-label small-font">Username</label>
-                                    <input type="text" id="user-NameEdit" name="username" class="form-control">
+                                    <input type="text" id="user-NameEdit" name="usernameEdit" class="form-control">
                                 </div>
                             </div>
 
@@ -61,13 +61,13 @@
                                 <!-- Password -->
                                 <div class="col">
                                     <label for="PasswordEdit" class="form-label small-font">Password<span style="color: red;">*</span></label>
-                                    <input type="text" id="PasswordEdit" name="password" class="form-control">
+                                    <input type="text" id="PasswordEdit" name="passwordEdit" class="form-control">
                                 </div>
 
                                 <!-- Confirm Password -->
                                 <div class="col">
                                     <label for="Confirm-PasswordEdit" class="form-label small-font">Confirm Password<span style="color: red;">*</span></label>
-                                    <input type="text" id="Confirm-PasswordEdit" name="confirm_password" class="form-control">
+                                    <input type="text" id="Confirm-PasswordEdit" name="confirm_passwordEdit" class="form-control">
                                 </div>
                             </div>
 
@@ -76,12 +76,12 @@
                                 <!-- Affiliation -->
                                 <div class="col">
                                     <label for="AffiliationEdit" class="form-label small-font">Affiliation</label>
-                                    <input type="text" id="AffiliationEdit" name="affiliation" class="form-control">
+                                    <input type="text" id="AffiliationEdit" name="affiliationEdit" class="form-control">
                                 </div>
                                 <!-- Account Type -->
                                 <div class="col">
                                     <label for="Account_TypeEdit" class="form-label small-font">Account Type<span style="color: red;">*</span></label>
-                                    <select name="account_type_id" id="Account_TypeEdit" class="form-select">
+                                    <select name="account_type_idEdit" id="Account_TypeEdit" class="form-select">
                                         <?php
                                         $query = "SELECT * from account_type where type_name != 'Curator'";
                                         $query_run = pg_query($conn, $query);
@@ -137,7 +137,7 @@
 
             // Assuming you have jQuery available
             $.ajax({
-                url: 'user-page/modals/fetch.php',
+                url: 'modals/fetch.php',
                 type: 'POST',
                 data: {
                     'click_edit_btn': true,
@@ -278,7 +278,7 @@
 
             // Send a POST request using AJAX
             $.ajax({
-                url: "user-page/code/code.php",
+                url: "code/code.php",
                 method: "POST",
                 data: formData,
                 contentType: false,

@@ -17,7 +17,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel-view" name="Form" action="approval-page/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel-view" name="Form" action="code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body edit-modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -106,7 +106,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "approval-page/code.php",
+                url: "code.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,
@@ -142,7 +142,7 @@
 
             // Assuming you have jQuery available
             $.ajax({
-                url: 'approval-page/fetch/fetch_crop-edit.php',
+                url: 'fetch/fetch_crop-edit.php',
                 type: 'POST',
                 data: {
                     'click_edit_btn': true,
@@ -167,16 +167,16 @@
                             var imageFilenamesSeed = value['crop_seed_image'].split(',');
                             // Iterate over each filename and append an image element to the preview container
                             imageFilenamesSeed.forEach(function(filename) {
-                                $('#previewSeedEdit').append(`<img src="crop-page/modals/img/${filename.trim()}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                                $('#previewSeedEdit').append(`<img src="../crop-page/modals/img/${filename.trim()}" class="m-2 img-thumbnail" style="height: 200px;">`);
                             });
                         }
 
                         if (value['crop_vegetative_image'] != null && value['crop_vegetative_image'] != '') {
-                            $('#previewVegEdit').append(`<img src="crop-page/modals/img/${value['crop_vegetative_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                            $('#previewVegEdit').append(`<img src="../crop-page/modals/img/${value['crop_vegetative_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
                         }
 
                         if (value['crop_reproductive_image'] != null && value['crop_reproductive_image'] != '') {
-                            $('#previewReproductiveEdit').append(`<img src="crop-page/modals/img/${value['crop_reproductive_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                            $('#previewReproductiveEdit').append(`<img src="../crop-page/modals/img/${value['crop_reproductive_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
                         }
 
                         // setting which button should appear depending on it's status

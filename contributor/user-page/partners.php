@@ -1,7 +1,7 @@
 <?php
 session_start();
-require "../functions/connections.php";
-require "../functions/functions.php";
+require "../../functions/connections.php";
+require "../../functions/functions.php";
 ?>
 <!doctype html>
 <html lang="en">
@@ -26,12 +26,12 @@ require "../functions/functions.php";
     <!-- custom -->
 
     <!-- global declarations -->
-    <link rel="stylesheet" href="../css/global-declarations.css">
+    <link rel="stylesheet" href="../../css/global-declarations.css">
     <!-- specific for this file -->
-    <link rel="stylesheet" href="css/crop-list.css">
+    <link rel="stylesheet" href="../css/crop-list.css">
 
     <!-- script for access control -->
-    <script src="../js/access-control.js"></script>
+    <script src="../../js/access-control.js"></script>
 
     <script>
         // Assume you have the userRole variable defined somewhere in your PHP code
@@ -43,19 +43,20 @@ require "../functions/functions.php";
 <body>
 
     <!-- NAV -->
-    <?php require "nav.php"; ?>
+    <?php require "../nav/nav.php"; ?>
+    <?php require "../../functions/message.php"; ?>
 
     <!-- MAIN -->
     <div class="container">
         <div class="row mt-3">
             <!-- LIST -->
-            <?php require "user-page/list.php"; ?>
+            <?php require "list.php"; ?>
             <!-- Add -->
-            <?php require "user-page/tabs/add-user.php"; ?>
+            <?php require "tabs/add-user.php"; ?>
             <!-- Edit -->
-            <?php require "user-page/tabs/edit-user.php"; ?>
+            <?php require "tabs/edit-user.php"; ?>
             <!-- View -->
-            <?php require "user-page/tabs/view.php"; ?>
+            <?php require "tabs/view.php"; ?>
             <div>
             </div>
         </div>
@@ -128,7 +129,7 @@ require "../functions/functions.php";
 
                 // Assuming you have jQuery available
                 $.ajax({
-                    url: 'user-page/modals/fetch.php',
+                    url: 'modals/fetch.php',
                     type: 'POST',
                     data: {
                         'click_view_btn': true,

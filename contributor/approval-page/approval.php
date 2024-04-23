@@ -1,7 +1,7 @@
 <?php
 session_start();
-require "../functions/connections.php";
-require "../functions/functions.php";
+require "../../functions/connections.php";
+require "../../functions/functions.php";
 ?>
 <!doctype html>
 <html lang="en">
@@ -25,14 +25,14 @@ require "../functions/functions.php";
 
     <!-- custom -->
     <!-- global declarations -->
-    <link rel="stylesheet" href="../css/global-declarations.css">
+    <link rel="stylesheet" href="../../css/global-declarations.css">
     <!-- specific for this file -->
-    <link rel="stylesheet" href="css/crop-list.css">
+    <link rel="stylesheet" href="../css/crop-list.css">
     <!-- script for moment js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
     <!-- script for access control -->
-    <script src="../js/access-control.js"></script>
+    <script src="../../js/access-control.js"></script>
 
     <script>
         // Assume you have the userRole variable defined somewhere in your PHP code
@@ -44,22 +44,21 @@ require "../functions/functions.php";
 <body>
 
     <!-- NAV -->
-    <?php require "nav.php"; ?>
+    <?php require "../nav/nav.php"; ?>
 
     <?php
-    include "../functions/message.php";
+    include "../../functions/message.php";
     ?>
 
     <!-- MAIN -->
     <div class="container">
         <div class="row mt-3">
-
             <!-- FILTERS -->
-            <?php require "crop-page/filter.php"; ?>
+            <?php require "../crop-page/filter.php"; ?>
             <!-- List -->
-            <?php require "approval-page/list.php"; ?>
+            <?php require "list.php"; ?>
             <!-- view -->
-            <?php require "approval-page/view.php"; ?>
+            <?php require "view.php"; ?>
         </div>
     </div>
 
