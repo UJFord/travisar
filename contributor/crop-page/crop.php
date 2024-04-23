@@ -1,7 +1,7 @@
 <?php
 session_start();
-require "../functions/connections.php";
-require "../functions/functions.php";
+require "../../functions/connections.php";
+require "../../functions/functions.php";
 ?>
 <!doctype html>
 <html lang="en">
@@ -25,14 +25,14 @@ require "../functions/functions.php";
 
     <!-- custom -->
     <!-- global declarations -->
-    <link rel="stylesheet" href="../css/global-declarations.css">
+    <link rel="stylesheet" href="../../css/global-declarations.css">
     <!-- specific for this file -->
-    <link rel="stylesheet" href="css/crop-list.css">
+    <link rel="stylesheet" href="../css/crop-list.css">
     <!-- script for moment js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
     <!-- script for access control -->
-    <script src="../js/access-control.js"></script>
+    <script src="../../js/access-control.js"></script>
 
     <script>
         // Assume you have the userRole variable defined somewhere in your PHP code
@@ -44,10 +44,10 @@ require "../functions/functions.php";
 <body>
 
     <!-- NAV -->
-    <?php require "nav.php"; ?>
+    <?php require "../nav/nav.php"; ?>
 
     <?php
-    include "../functions/message.php";
+    include "../../functions/message.php";
     ?>
 
     <!-- MAIN -->
@@ -55,18 +55,18 @@ require "../functions/functions.php";
         <div class="row mt-3">
 
             <!-- FILTERS -->
-            <?php require "crop-page/filter.php"; ?>
+            <?php require "filter.php"; ?>
 
             <!-- LIST -->
-            <?php require "crop-page/list.php"; ?>
+            <?php require "list.php"; ?>
 
             <!-- MODAL -->
             <!-- add -->
-            <?php require "crop-page/modals/add.php"; ?>
+            <?php require "modals/add.php"; ?>
             <!-- edit -->
-            <?php require "crop-page/modals/edit.php"; ?>
+            <?php require "modals/edit.php"; ?>
             <!-- view -->
-            <?php // require "crop-page/modals/view.php"; 
+            <?php // require "modals/view.php"; 
             ?>
         </div>
     </div>
@@ -184,7 +184,7 @@ require "../functions/functions.php";
         // Function to populate municipalities dropdown based on selected province
         function populateMunicipalities(selectedProvince) {
             // Fetch municipalities based on the selected province
-            fetch('crop-page/modals/fetch/fetch_location-add.php?province=' + selectedProvince)
+            fetch('modals/fetch/fetch_location-add.php?province=' + selectedProvince)
                 .then(response => response.json())
                 .then(data => {
                     // console.log(data); // Log the response data
@@ -223,7 +223,7 @@ require "../functions/functions.php";
         // Function to populate municipalities dropdown based on selected province
         function populateBarangay(selectedMunicipality) {
             // Fetch municipalities based on the selected province
-            fetch('crop-page/modals/fetch/fetch_location-add.php?municipality=' + selectedMunicipality)
+            fetch('modals/fetch/fetch_location-add.php?municipality=' + selectedMunicipality)
                 .then(response => response.json())
                 .then(data => {
                     // console.log(data); // Log the response data

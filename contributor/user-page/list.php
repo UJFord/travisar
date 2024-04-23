@@ -57,7 +57,7 @@
     <div class="tab_box d-flex justify-content-between">
         <!-- Button Tabs -->
         <div>
-            <button class="tab_btn active" id="locationTab">Partners</button>
+            <button class="tab_btn active" id="locationTab">Users</button>
         </div>
         <!-- filter actions -->
         <div class="d-flex py-3 px-3">

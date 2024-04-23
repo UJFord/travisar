@@ -123,7 +123,7 @@
                             <!-- Variety name -->
                             <td>
                                 <!-- Variety name -->
-                                <a href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
+                                <a href="../crop-page/view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
                             </td>
 
                             <!-- date created -->

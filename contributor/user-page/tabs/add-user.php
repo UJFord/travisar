@@ -16,7 +16,7 @@
 
             </div>
             <!-- body -->
-            <form id="form-panel-add" name="Form" action="user-page/code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel-add" name="Form" action="code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
                     <div class="container">
                         <div id="Add-User">
@@ -223,7 +223,7 @@
 
             // Send a POST request using AJAX
             $.ajax({
-                url: "user-page/code/code.php",
+                url: "code/code.php",
                 method: "POST",
                 data: formData,
                 contentType: false,

@@ -1,7 +1,7 @@
 <?php
 session_start();
-require "../functions/connections.php";
-require "../functions/functions.php";
+require "../../functions/connections.php";
+require "../../functions/functions.php";
 ?>
 <!doctype html>
 <html lang="en">
@@ -26,12 +26,12 @@ require "../functions/functions.php";
     <!-- custom -->
 
     <!-- global declarations -->
-    <link rel="stylesheet" href="../css/global-declarations.css">
+    <link rel="stylesheet" href="../../css/global-declarations.css">
     <!-- specific for this file -->
-    <link rel="stylesheet" href="css/crop-list.css">
+    <link rel="stylesheet" href="../css/crop-list.css">
 
     <!-- script for access control -->
-    <script src="../js/access-control.js"></script>
+    <script src="../../js/access-control.js"></script>
 
     <script>
         // Assume you have the userRole variable defined somewhere in your PHP code
@@ -43,15 +43,16 @@ require "../functions/functions.php";
 <body>
 
     <!-- NAV -->
-    <?php require "nav.php"; ?>
+    <?php require "../nav/nav.php"; ?>
+    <?php require "../../functions/message.php"; ?>
 
     <!-- MAIN -->
     <div class="container">
         <div class="row mt-3">
             <!-- LIST -->
-            <?php require "user-page/list-verify.php"; ?>
+            <?php require "list-verify.php"; ?>
             <!-- View -->
-            <?php require "user-page/tabs/view-verify.php"; ?>
+            <?php require "tabs/view-verify.php"; ?>
             <div>
             </div>
         </div>
@@ -124,7 +125,7 @@ require "../functions/functions.php";
 
                 // Assuming you have jQuery available
                 $.ajax({
-                    url: 'user-page/modals/fetch.php',
+                    url: 'modals/fetch.php',
                     type: 'POST',
                     data: {
                         'click_view_btn': true,

@@ -20,7 +20,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel-add" name="Form" action="crop-page/modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
+            <form id="form-panel-add" name="Form" action="modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
                 <div class="modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -185,7 +185,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "crop-page/modals/crud-code/code.php",
+                url: "modals/crud-code/code.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,
@@ -340,7 +340,7 @@
         xhr.onerror = function() {
             console.error('An error occurred during the request.');
         };
-        xhr.open('GET', 'crop-page/modals/fetch/fetch_varieties.php?category_id=' + categoryId, true);
+        xhr.open('GET', 'modals/fetch/fetch_varieties.php?category_id=' + categoryId, true);
         xhr.send();
     }
 
@@ -370,8 +370,7 @@
         //defaultOption.disabled = true;
         //defaultOption.selected = true;
         //categoryVarietySelect.appendChild(defaultOption);
-      
-      
+
         // var defaultOption = document.createElement('option');
         // defaultOption.text = "Select One...";
         // // defaultOption.disabled = true;

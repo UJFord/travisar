@@ -1,7 +1,7 @@
 <?php
 session_start();
-require "../functions/connections.php";
-require "../functions/functions.php";
+require "../../functions/connections.php";
+require "../../functions/functions.php";
 ?>
 <!doctype html>
 <html lang="en">
@@ -25,14 +25,14 @@ require "../functions/functions.php";
 
     <!-- custom -->
     <!-- global declarations -->
-    <link rel="stylesheet" href="../css/global-declarations.css">
+    <link rel="stylesheet" href="../../css/global-declarations.css">
     <!-- specific for this file -->
-    <link rel="stylesheet" href="css/crop-list.css">
+    <link rel="stylesheet" href="../css/crop-list.css">
     <!-- script for moment js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 
     <!-- script for access control -->
-    <script src="../js/access-control.js"></script>
+    <script src="../../js/access-control.js"></script>
 
     <script>
         // Assume you have the userRole variable defined somewhere in your PHP code
@@ -44,10 +44,10 @@ require "../functions/functions.php";
 <body>
 
     <!-- NAV -->
-    <?php require "nav.php"; ?>
+    <?php require "../nav/nav.php"; ?>
 
     <?php
-    include "../functions/message.php";
+    include "../../functions/message.php";
     ?>
 
     <!-- MAIN -->
@@ -55,7 +55,7 @@ require "../functions/functions.php";
         <div class="row mt-3">
 
             <!-- FILTERS -->
-            <?php require "crop-page/filter.php"; ?>
+            <?php require "../crop-page/filter.php"; ?>
 
             <!-- LIST -->
             <div class="col">
@@ -64,7 +64,7 @@ require "../functions/functions.php";
                     <!-- HEADING -->
                     <div class="d-flex justify-content-between">
                         <!-- title -->
-                        <h4 class="fw-semibold" style="font-size: 1.5rem;">My Submissions</h4>
+                        <h4 class="fw-semibold" style="font-size: 1.5rem;">My Crops</h4>
                     </div>
 
                     <?php
@@ -164,7 +164,7 @@ require "../functions/functions.php";
                                         <?php
                                     } else {
                                         ?>
-                                        <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="submission-page/view.php?crop_id=<?= $row['crop_id'] ?>">
+                                        <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="view.php?crop_id=<?= $row['crop_id'] ?>">
                                         <?php
                                     }
                                         ?>
@@ -195,7 +195,7 @@ require "../functions/functions.php";
                                         <!-- Variety name -->
                                         <td>
                                             <!-- Variety name -->
-                                            <a href="submission-page/view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
+                                            <a href="view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
                                         </td>
 
                                         <!-- date created -->
@@ -251,7 +251,7 @@ require "../functions/functions.php";
 
             <!-- MODAL -->
             <!-- add -->
-            <?php require "submission-page/edit.php"; ?>
+            <?php require "edit.php"; ?>
 
         </div>
     </div>
