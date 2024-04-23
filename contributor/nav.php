@@ -14,17 +14,33 @@
 
         <div class="collapse navbar-collapse d-md-flex justify-content-md-between" id="navbarNav">
             <ul class="navbar-nav fw-bold">
-                <li class="nav-item">
-                    <a class="main-nav-item nav-link active text-light" aria-current="page" href="crop.php">Crops</a>
-                </li>
-
                 <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
                     <li class="nav-item">
-                        <a class="main-nav-item nav-link" href="submission.php">Submitted</a>
+                        <a class="main-nav-item nav-link" href="submission.php">My Crops</a>
                     </li>
                 <?php endif; ?>
 
+                <li class="nav-item">
+                    <a class="main-nav-item nav-link active text-light" aria-current="page" href="crop.php">All Crops</a>
+                </li>
+
                 <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
+                    <li class="nav-item dropdown curator-only admin-only">
+                        <a class="main-nav-item nav-link dropdown-toggle" role="button" id="validationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                            Settings
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="validationDropdown">
+                            <li class="dropdown">
+                                <a class="dropdown-item dropdown-toggle" id="nestedDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">Crop Dropdown</a>
+                                <ul class="dropdown-menu" aria-labelledby="nestedDropdown">
+                                    <li><a class="dropdown-item" href="#">Submenu Item 1</a></li>
+                                    <li><a class="dropdown-item" href="#">Submenu Item 2</a></li>
+                                </ul>
+                            </li>
+                            <li><a class="dropdown-item" href="history.php">Location Settings</a></li>
+                        </ul>
+                    </li>
+
                     <li class="nav-item dropdown curator-only admin-only">
                         <a class="main-nav-item nav-link dropdown-toggle" role="button" id="validationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             Validation

@@ -64,7 +64,7 @@ require "../functions/functions.php";
                     <!-- HEADING -->
                     <div class="d-flex justify-content-between">
                         <!-- title -->
-                        <h4 class="fw-semibold" style="font-size: 1.5rem;">My Submissions</h4>
+                        <h4 class="fw-semibold" style="font-size: 1.5rem;">My Crops</h4>
                     </div>
 
                     <?php
