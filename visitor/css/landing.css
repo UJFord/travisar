@@ -1,3 +1,12 @@
 #main-nav{
     background-color: var(--mainBrand) ;
 }
+
+/* contributor link */
+#contributor-link{
+    background: var(--lightShades);
+}
+    #contributor-link:hover{
+        background: #c5c5ac;
+        color: var(--lightShades) !important;
+    }

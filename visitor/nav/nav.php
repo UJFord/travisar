@@ -36,8 +36,8 @@ switch ($current_page_path) {
                 <li class="nav-item">
                     <!-- add active class when at home.php -->
                     <a class="nav-link <?php if ($current_page_isHome) {
-                        echo "active";
-                    } ?>" aria-current="page" href="home.php">Home</a>
+                                            echo "active";
+                                        } ?>" aria-current="page" href="home.php">Home</a>
                 </li>
                 <!-- crop page link -->
                 <li class="nav-item">
@@ -49,6 +49,7 @@ switch ($current_page_path) {
             </ul>
         </div>
 
-
+        <!-- contributors link -->
+        <a href="" class="link-dark link-offset-3 link-underline link-underline-opacity-0 rounded-pill px-3 py-2" id="contributor-link">Contribute to Travis</a>
     </div>
 </div>
