@@ -9,7 +9,7 @@
             <!-- header -->
             <div class="modal-header">
                 <h5 class="modal-title" id="edit-item-modal-label">Edit</h5>
-                <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                <button type="button" id="close-modal-btn-edit" class="btn-close" aria-label="Close"></button>
             </div>
 
             <div id="error-messages-Edit">
@@ -21,7 +21,7 @@
                     <div class="container">
                         <div id="Edit-User">
                             <!-- user id hidden -->
-                            <input type="text" name="category_idEdit" id="category_idEdit">
+                            <input type="hidden" name="category_idEdit" id="category_idEdit">
                             <!-- category name-->
                             <div class="row mb-3">
                                 <!-- category name -->
@@ -34,10 +34,14 @@
                     </div>
                 </div>
 
+                <!-- confirm -->
+                <?php require "modals/category-tabs/confirm.php"; ?>
+
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-end">
+                    <button type="button" id="deleteButton" class="btn btn-danger" data-id="delete">Delete</i></button>
                     <div class="">
-                        <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="button" id="cancel-modal-btn-edit" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" name="edit" class="btn btn-success">Save</button>
                     </div>
                 </div>
@@ -163,4 +167,88 @@
             });
         }
     }
+</script>
+
+<!-- SCRIPT for closing the modal -->
+<script>
+    // Function to set up event listeners for the modal
+    function setupModalEventListenersEdit() {
+        // Remove event listeners to prevent duplication
+        document.getElementById('close-modal-btn-edit').removeEventListener('click', closeModalEdit);
+        document.getElementById('cancel-modal-btn-edit').removeEventListener('click', closeModalEdit);
+        document.getElementById('deleteButton').removeEventListener('click', deleteModalEdit);
+
+        // Event listener for the close button
+        document.getElementById('close-modal-btn-edit').addEventListener('click', closeModalEdit);
+
+        // Event listener for the cancel button
+        document.getElementById('cancel-modal-btn-edit').addEventListener('click', closeModalEdit);
+        document.getElementById('deleteButton').addEventListener('click', deleteModalEdit);
+    }
+
+    // Global variable to store the modal instance
+    var confirmModalInstanceEdit;
+
+    // Custom function to close the modal
+    function closeModalEdit() {
+        var editModal = document.getElementById('edit-item-modal');
+        var editModalInstance = bootstrap.Modal.getInstance(editModal);
+        editModalInstance.hide();
+
+        // Remove the modal backdrop
+        $('.modal-backdrop').remove();
+    }
+
+    function deleteModalEdit(event) {
+        // Prevent the default behavior of the button (e.g., form submission)
+        event.preventDefault();
+
+        // Get the id of the button clicked
+        var buttonId = event.target.getAttribute('data-id');
+
+        // Get the modal element
+        var confirmModal = document.getElementById('confirmModalEdit');
+
+        // Create a new Bootstrap modal instance if it doesn't exist
+        if (!confirmModalInstanceEdit) {
+            confirmModalInstanceEdit = new bootstrap.Modal(confirmModal);
+        }
+
+        // Show the confirmation modal
+        confirmModalInstanceEdit.show();
+    }
+    // Event listener for when the modal is shown
+    document.getElementById('edit-item-modal').addEventListener('shown.bs.modal', function() {
+        setupModalEventListenersEdit();
+    });
+
+    // Event listener for when the confirmation modal is hidden
+    document.getElementById('confirmModalEdit').addEventListener('hidden.bs.modal', function() {
+        // Reset the confirmModalInstanceEdit
+        confirmModalInstanceEdit = null;
+    });
+    document.getElementById('confirmDeleteBtnEdit').addEventListener('click', function() {
+        // Send a request to delete the category
+        $.ajax({
+            url: 'modals/crud-code/category-code.php',
+            type: 'POST',
+            data: {
+                'delete': 'delete',
+                'category_id': document.getElementById('category_idEdit').value
+            },
+            success: function(response) {
+                // Handle the response from the server
+                console.log('Category deleted:', response);
+
+                // Close the confirmation modal
+                //confirmModalInstanceEdit.hide();
+
+                // Optionally, you can reload the page or update the UI
+            },
+            error: function(xhr, status, error) {
+                // Handle errors
+                console.error('Error deleting category:', error);
+            }
+        });
+    });
 </script>
