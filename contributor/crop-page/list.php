@@ -122,7 +122,7 @@
                             <?php
                         } else {
                             ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>">
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="view.php?crop_id=<?= $row['crop_id'] ?>">
                             <?php
                         }
                             ?>
@@ -153,7 +153,7 @@
                             <!-- Variety name -->
                             <td>
                                 <!-- Variety name -->
-                                <a href="crop-page/view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
+                                <a href="view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
                             </td>
 
                             <!-- date created -->

@@ -26,7 +26,7 @@ if (isset($_POST['save'])) {
             // Commit the transaction if successful
             pg_query($conn, "COMMIT");
             $_SESSION['message'] = "User created successfully";
-            header("location: ../../partners.php");
+            header("location: ../partners.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
             // Rollback the transaction if an error occurs
@@ -57,8 +57,8 @@ if (isset($_POST['approve'])) {
     if ($query_run !== false) {
         $affected_rows = pg_affected_rows($query_run);
         if ($affected_rows > 0) {
-            echo "Location updated successfully";
-            header("location: ../../verify-user.php");
+            $_SESSION['messsage'] = "User Approved";
+            header("location: ../verify-user.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
             echo "Error: Location ID not found";
@@ -88,8 +88,7 @@ if (isset($_POST['click_edit_btn'])) {
         $account_type_id, $user_id
     ));
     if ($result) {
-
-        header("location: ../../partners.php");
+        header("location: ../partners.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {
         echo "Error updating record"; // Display an error message if the query fails

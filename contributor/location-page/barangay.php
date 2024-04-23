@@ -1,7 +1,7 @@
 <?php
 session_start();
-require "../functions/connections.php";
-require "../functions/functions.php";
+require "../../functions/connections.php";
+require "../../functions/functions.php";
 ?>
 <!doctype html>
 <html lang="en">
@@ -26,12 +26,12 @@ require "../functions/functions.php";
     <!-- custom -->
 
     <!-- global declarations -->
-    <link rel="stylesheet" href="../css/global-declarations.css">
+    <link rel="stylesheet" href="../../css/global-declarations.css">
     <!-- specific for this file -->
-    <link rel="stylesheet" href="css/crop-list.css">
+    <link rel="stylesheet" href="../css/crop-list.css">
 
     <!-- script for access control -->
-    <script src="../js/access-control.js"></script>
+    <script src="../../js/access-control.js"></script>
 
     <script>
         // Assume you have the userRole variable defined somewhere in your PHP code
@@ -42,10 +42,10 @@ require "../functions/functions.php";
 
 <body>
     <!-- NAV -->
-    <?php require "nav.php"; ?>
+    <?php require "../nav/nav.php"; ?>
 
 <?php
-    include "../functions/message.php";
+    include "../../functions/message.php";
     ?>
 
     <!-- MAIN -->
@@ -215,9 +215,9 @@ require "../functions/functions.php";
 
             <!-- MODAL -->
             <!-- add Barangay -->
-            <?php require "location-page/modals/add-barangay.php"; ?>
+            <?php require "modals/add-barangay.php"; ?>
             <!-- edit barangay -->
-            <?php require "location-page/modals/edit-barangay.php"; ?>
+            <?php require "modals/edit-barangay.php"; ?>
         </div>
     </div>
 
@@ -288,11 +288,11 @@ require "../functions/functions.php";
                 let modalId = '';
 
                 if (row.classList.contains('edit_data_brgy')) {
-                    url = 'location-page/code/code-brgy.php';
+                    url = 'code/code-brgy.php';
                     dataKey = 'barangay_id';
                     modalId = 'edit-item-modal-brgy';
                 } else {
-                    url = 'location-page/code/code-muni.php';
+                    url = 'code/code-muni.php';
                     dataKey = 'location_id';
                     modalId = 'edit-item-modal';
                 }

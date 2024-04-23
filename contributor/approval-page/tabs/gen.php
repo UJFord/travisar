@@ -331,7 +331,7 @@
             if (oldImage) {
                 var oldImageFilenames = oldImage.split(',');
                 oldImageFilenames.forEach(function(filename, index) {
-                    $('#previewSeedEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="crop-page/modals/img/' + filename.trim() + '" class="img-thumbnail"/><button class="remove-imageEdit" data-index="' + (files.length + index) + '"><i class="fa-solid fa-xmark"></i></button></div>');
+                    $('#previewSeedEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="../crop-page/modals/img/' + filename.trim() + '" class="img-thumbnail"/><button class="remove-imageEdit" data-index="' + (files.length + index) + '"><i class="fa-solid fa-xmark"></i></button></div>');
 
                     // Add the old image file to the files array
                     addOldImageFile(filename.trim());
@@ -436,7 +436,7 @@
     // Function to populate municipalities dropdown based on selected province
     const populateMunicipalitiesEdit = async (selectedProvince, initialVal) => {
         try {
-            const response = await fetch(`crop-page/modals/fetch/fetch_location-edit.php?province=${selectedProvince}`);
+            const response = await fetch(`../crop-page/modals/fetch/fetch_location-edit.php?province=${selectedProvince}`);
             const data = await response.json();
             // console.log(data);
 
@@ -463,7 +463,7 @@
     // Function to populate barangay dropdown based on selected municipality
     const populateBarangayEdit = async (selectedMunicipality, initialVal) => {
         try {
-            const response = await fetch(`crop-page/modals/fetch/fetch_location-edit.php?municipality=${selectedMunicipality}`);
+            const response = await fetch(`../crop-page/modals/fetch/fetch_location-edit.php?municipality=${selectedMunicipality}`);
             const data = await response.json();
             // console.log(data);
 

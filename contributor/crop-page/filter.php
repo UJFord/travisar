@@ -81,36 +81,6 @@
                 <button id="searchButton" class="btn btn-primary" onclick="applyFilters()">Filter</button>
             </div>
         </div>
-
-        <!-- all contributors -->
-        <!-- <div class="pb-2 px-3 w-100">
-            <div id="cont-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#contributor-filters" role="button" aria-expanded="true" aria-controls="contributor-filters">
-                <i id="contChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">All Contributors</a>
-            </div>
-
-            <div id="contributor-filters" class="collapse show mb-2">
-                <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
-                    <i class="fa-solid fa-user col-1" style="padding-left: 0.9rem;"></i><span class="fw-normal col ms-2">Alex Miller</span>
-                </a>
-                <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
-                    <i class="fa-solid fa-users col-1"></i><span class="fw-normal col ms-2">TechStar</span>
-                </a>
-                <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
-                    <i class="fa-solid fa-user col-1" style="padding-left: 0.9rem;"></i><span class="fw-normal col ms-2">Ethan Campbell</span>
-                </a>
-                <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
-                    <i class="fa-solid fa-user col-1" style="padding-left: 0.9rem;"></i><span class="fw-normal col ms-2">Michael Jones</span>
-                </a>
-                <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
-                    <i class="fa-solid fa-users col-1"></i><span class="fw-normal col ms-2">Greenleaf Solutions</span>
-                </a>
-                <a class="row d-flex align-items-center text-decoration-none text-dark" href="#">
-                    <i class="fa-solid fa-users col-1"></i><span class="fw-normal col ms-2">Cozy Corner Cafe</span>
-                </a>
-            </div>
-        </div> -->
-
     </div>
 </div>
 

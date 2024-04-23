@@ -115,7 +115,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
 
                 foreach ($currentSeedImages as $image) {
                     if (!in_array($image, $uploadedImages)) {
-                        $delete_path = "../img/" . $image;
+                        $delete_path = "../../crop-page/modals/img/" . $image;
                         if (file_exists($delete_path)) {
                             unlink($delete_path);
                         }
@@ -161,7 +161,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         //         }
 
         //         $source_path = $_FILES['crop_vegetative_image']['tmp_name'];
-        //         $destination_path = "../img/" . $image;
+        //         $destination_path = "../../crop-page/modals/img/" . $image;
 
         //         // Upload the image
         //         $upload = move_uploaded_file($source_path, $destination_path);
@@ -217,7 +217,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         //         }
 
         //         $source_path = $_FILES['crop_reproductive_image']['tmp_name'];
-        //         $destination_path = "../img/" . $image;
+        //         $destination_path = "../../crop-page/modals/img/" . $image;
 
         //         // Upload the image
         //         $upload = move_uploaded_file($source_path, $destination_path);
@@ -348,7 +348,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
             $get_category_name = $row_categoryName['category_name'];
         } else {
             $_SESSION['message'] = "No category selected";
-            header("location: ../../submission.php");
+            header("location: ../submission.php");
             exit();
         }
 
@@ -750,7 +750,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop Updated Successfully Wait for Approval";
         pg_query($conn, "COMMIT");
-        header("Location: ../../submission.php");
+        header("Location: ../submission.php");
         exit(0);
     } catch (Exception $e) {
         // message for error
@@ -970,7 +970,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
 
                     $uploadedImages[] = $image;
                     $source_path = $_FILES['crop_seed_image']['tmp_name'][$key];
-                    $destination_path = "../img/" . $image;
+                    $destination_path = "../../crop-page/modals/img/" . $image;
 
                     // Upload the image
                     $upload = move_uploaded_file($source_path, $destination_path);
@@ -983,7 +983,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
                 } else {
                     // Display error message for invalid file format
                     $_SESSION['message'] = "Invalid file format for image";
-                    header("location: ../../submission.php");
+                    header("location: ../submission.php");
                     die();
                 }
             }
@@ -996,7 +996,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
 
                 foreach ($currentSeedImages as $image) {
                     if (!in_array($image, $uploadedImages)) {
-                        $delete_path = "../img/" . $image;
+                        $delete_path = "../../crop-page/modals/img/" . $image;
                         if (file_exists($delete_path)) {
                             unlink($delete_path);
                         }
@@ -1042,7 +1042,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         //         }
 
         //         $source_path = $_FILES['crop_vegetative_image']['tmp_name'];
-        //         $destination_path = "../img/" . $image;
+        //         $destination_path = "../../crop-page/modals/img/" . $image;
 
         //         // Upload the image
         //         $upload = move_uploaded_file($source_path, $destination_path);
@@ -1058,13 +1058,13 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         //     } else {
         //         // Display error message for invalid file format
         //         $_SESSION['message'] = "invalid ang file format image";
-        //         header("location: ../../submission.php");
+        //         header("location: ../submission.php");
         //         die();
         //     }
 
         //     // Delete the current image based on the category
         //     if ($current_image_veg != '') {
-        //         $delete_path = "../img/" . $current_image_veg;
+        //         $delete_path = "../../crop-page/modals/img/" . $current_image_veg;
         //         if (file_exists($delete_path)) {
         //             unlink($delete_path);
         //         }
@@ -1106,7 +1106,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         //         }
 
         //         $source_path = $_FILES['crop_reproductive_image']['tmp_name'];
-        //         $destination_path = "../img/" . $image;
+        //         $destination_path = "../../crop-page/modals/img/" . $image;
 
         //         // Upload the image
         //         $upload = move_uploaded_file($source_path, $destination_path);
@@ -1122,13 +1122,13 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         //     } else {
         //         // Display error message for invalid file format
         //         $_SESSION['message'] = "invalid ang file format image";
-        //         header("location: ../../submission.php");
+        //         header("location: ../submission.php");
         //         die();
         //     }
 
         //     // Delete the current image based on the category
         //     if ($current_image_rep != '') {
-        //         $delete_path = "../img/" . $current_image_rep;
+        //         $delete_path = "../../crop-page/modals/img/" . $current_image_rep;
         //         if (file_exists($delete_path)) {
         //             unlink($delete_path);
         //         }
@@ -1263,7 +1263,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
             $get_category_name = $row_categoryName['category_name'];
         } else {
             $_SESSION['message'] = "No category selected";
-            header("location: ../../submission.php");
+            header("location: ../submission.php");
             exit();
         }
 
@@ -1500,7 +1500,7 @@ if (isset($_POST['update']) && $_SESSION['rank'] == 'Encoder') {
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop Edited Successfully";
         pg_query($conn, "COMMIT");
-        header("Location: ../../submission.php");
+        header("Location: ../submission.php");
         exit(0);
     } catch (Exception $e) {
         // message for error

@@ -13,7 +13,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="location-page/code/code-muni.php" autocomplete="off" method="POST" class=" py-3 px-5" onsubmit="validateAndSubmitForm(event)">
+            <form id="form-panel" name="Form" action="code/code-muni.php" autocomplete="off" method="POST" class=" py-3 px-5" onsubmit="validateAndSubmitForm(event)">
                 <div class="modal-body" id="modal-body">
                     <div class="container">
                         <div id="locationData">
@@ -84,7 +84,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "location-page/code/code-muni.php",
+                url: "code/code-muni.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,

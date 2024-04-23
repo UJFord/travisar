@@ -13,7 +13,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="location-page/code/code-muni.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel" name="Form" action="code/code-muni.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
                     <div>
                         <button type="button" id="add-row" class="btn btn-secondary" style="margin-left: 10px; background-color: var(--mainBrand);">Add</button>
@@ -169,7 +169,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "location-page/code/code-muni.php",
+                url: "code/code-muni.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,

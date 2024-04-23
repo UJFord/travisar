@@ -1,6 +1,6 @@
 <!-- STYLESHEET -->
 <!-- custom -->
-<link rel="stylesheet" href="css/nav.css">
+<link rel="stylesheet" href="../css/nav.css">
 
 <!-- MARKUP -->
 <nav id="main-nav" class="z-3 navbar navbar-expand-md border-bottom border-body">
@@ -14,47 +14,50 @@
 
         <div class="collapse navbar-collapse d-md-flex justify-content-md-between" id="navbarNav">
             <ul class="navbar-nav fw-bold">
-                <li class="nav-item">
-                    <a class="main-nav-item nav-link active text-light" aria-current="page" href="crop.php">Crops</a>
+                <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
+                    <li class="nav-item">
+                        <a class="main-nav-item nav-link" href="../submission-page/submission.php">My Crops</a>
+                    </li>
+                <?php endif; ?>
+
+                <li class="nav-item dropdown">
+                    <a class="dropdown-toggle main-nav-item nav-link" role="button" id="addressesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                        Crop Management
+                    </a>
+                    <ul class="dropdown-menu" aria-labelledby="addressesDropdown">
+                        <a class="dropdown-item" href="../crop-page/crop.php">All Crops</a>
+                        <a class="dropdown-item" href="../approval-page/approval.php">Approval</a>
+                    </ul>
                 </li>
 
                 <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
-                    <li class="nav-item">
-                        <a class="main-nav-item nav-link" href="submission.php">Submitted</a>
-                    </li>
-                <?php endif; ?>
-
-                <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
                     <li class="nav-item dropdown curator-only admin-only">
                         <a class="main-nav-item nav-link dropdown-toggle" role="button" id="validationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            Validation
+                            Settings
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="validationDropdown">
-                            <li><a class="dropdown-item" href="approval.php">Approval</a></li>
-                            <li><a class="dropdown-item" href="history.php">History</a></li>
-                        </ul>
-                    </li>
-
-                    <li class="nav-item dropdown curator-only admin-only">
-                        <a class="dropdown-toggle main-nav-item nav-link" role="button" id="addressesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            Locations
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="addressesDropdown">
-                            <li><a class="dropdown-item" href="barangay.php">Barangay</a></li>
-                            <li><a class="dropdown-item" href="municipality.php">Municipality</a></li>
-                            <li><a class="dropdown-item" href="province.php">Province</a></li>
-                        </ul>
-                    </li>
-                <?php endif; ?>
-
-                <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
-                    <li class="nav-item dropdown curator-only admin-only">
-                        <a class="main-nav-item nav-link dropdown-toggle" role="button" id="validationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
-                            User Management
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="validationDropdown">
-                            <li><a class="dropdown-item" href="partners.php">Partners</a></li>
-                            <li><a class="dropdown-item" href="verify-user.php">Verification</a></li>
+                            <li class="dropdown">
+                                <a class="dropdown-item dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Crop Settings</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="../crop-page/crop-category.php">Crop Category</a></li>
+                                    <li><a class="dropdown-item" href="../crop-page/crop-variety.php">Category Variety</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-item dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Location Settings</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="../location-page/barangay.php">Barangay</a></li>
+                                    <li><a class="dropdown-item" href="../location-page/municipality.php">Municipality</a></li>
+                                    <li><a class="dropdown-item" href="../location-page/province.php">Province</a></li>
+                                </ul>
+                            </li>
+                            <li class="dropdown">
+                                <a class="dropdown-item dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">User Accounts</a>
+                                <ul class="dropdown-menu">
+                                    <li><a class="dropdown-item" href="../user-page/partners.php">Users</a></li>
+                                    <li><a class="dropdown-item" href="../user-page/verify-user.php">Verification</a></li>
+                                </ul>
+                            </li>
                         </ul>
                     </li>
                 <?php endif; ?>
@@ -118,17 +121,17 @@
 <!-- Jquery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <!-- script for access control -->
-<script src="../js/access-control.js"></script>
+<script src="../../js/access-control.js"></script>
 
 <!-- script for access view  -->
 <!-- script for access js -->
-<script src="../js/access.js" defer></script>
+<script src="../../js/access.js" defer></script>
 <!-- function for notification for approval of crops and users -->
 <script>
     // Define the load_unseen_notification function globally
     function load_unseen_notification(view = '') {
         $.ajax({
-            url: "fetch.php",
+            url: "../fetch.php",
             method: "POST",
             data: {
                 view: view
@@ -154,5 +157,20 @@
     // Call the function when the document is ready
     $(document).ready(function() {
         load_unseen_notification();
+    });
+</script>
+
+<!-- script for settings dropdown -->
+<script>
+    document.querySelectorAll('.dropdown-menu .dropdown-toggle').forEach(function(dropdownToggle) {
+        dropdownToggle.addEventListener('click', function(event) {
+            var dropdownMenu = this.nextElementSibling;
+            if (dropdownMenu.style.display === 'block') {
+                dropdownMenu.style.display = 'none';
+            } else {
+                dropdownMenu.style.display = 'block';
+            }
+            event.stopPropagation(); // Stop event propagation to prevent parent dropdown from closing
+        });
     });
 </script>
