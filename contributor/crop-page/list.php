@@ -10,7 +10,7 @@
             <div class="z-1 dropdown">
                 <!-- dropdown -->
                 <button id="add-crop-btn" class="btn btn-secondary dropdown-toggle encoder-only" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                    New
+                    Add New
                 </button>
                 <!-- list -->
                 <ul class="dropdown-menu dropdown-menu-end p-0 overflow-hidden">

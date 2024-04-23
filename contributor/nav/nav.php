@@ -14,6 +14,9 @@
 
         <div class="collapse navbar-collapse d-md-flex justify-content-md-between" id="navbarNav">
             <ul class="navbar-nav fw-bold">
+                <li class="nav-item">
+                    <a class="main-nav-item nav-link" href="../crop-page/crop.php">All Crops</a>
+                </li>
                 <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
                     <li class="nav-item">
                         <a class="main-nav-item nav-link" href="../submission-page/submission.php">My Crops</a>
@@ -25,7 +28,6 @@
                         Crop Management
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="addressesDropdown">
-                        <a class="dropdown-item" href="../crop-page/crop.php">All Crops</a>
                         <a class="dropdown-item" href="../approval-page/approval.php">Approval</a>
                     </ul>
                 </li>
