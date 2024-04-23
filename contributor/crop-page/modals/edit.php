@@ -668,7 +668,7 @@
                         }
 
                         //loc.php
-                        $('#neighborhoodEdit').val(value['neighborhood']);
+                        $('#SitioEdit').val(value['sitio_name']);
                         // coordInput
                         $('#coordEdit').val(value['coordinates']);
                         // Update the select data of loc.php locations

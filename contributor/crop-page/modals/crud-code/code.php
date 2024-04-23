@@ -25,6 +25,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
         $coordinates = handleEmpty($_POST['coordinates']);
         $barangay_name = $_POST['barangay'];
+        $sitio_name = $_POST['sitio_name'];
 
         $user_id = $_POST['user_id'];
         $action = 'pending';
@@ -461,8 +462,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         }
 
         // save into Crop Location Table
-        $query_CropLoc = "INSERT into crop_location (crop_id, location_id, barangay_id, coordinates) VALUES ($1, $2, $3, $4) RETURNING crop_location_id";
-        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($crop_id, $location_id, $barangay_id, $coordinates));
+        $query_CropLoc = "INSERT into crop_location (crop_id, location_id, barangay_id, coordinates, sitio_name) VALUES ($1, $2, $3, $4, $5) RETURNING crop_location_id";
+        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($crop_id, $location_id, $barangay_id, $coordinates, $sitio_name));
 
         if ($query_run_CropLoc) {
             // Check if any rows were affected
@@ -817,6 +818,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
         $coordinates = handleEmpty($_POST['coordinates']);
         $barangay_name = $_POST['barangay'];
+        $sitio_name = $_POST['sitio_name'];
 
         $user_id = $_POST['user_id'];
         $action = 'approved';
@@ -1253,8 +1255,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         }
 
         // save into Crop Location Table
-        $query_CropLoc = "INSERT into crop_location (crop_id, location_id, barangay_id, coordinates) VALUES ($1, $2, $3, $4) RETURNING crop_location_id";
-        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($crop_id, $location_id, $barangay_id, $coordinates));
+        $query_CropLoc = "INSERT into crop_location (crop_id, location_id, barangay_id, coordinates, sitio_name) VALUES ($1, $2, $3, $4, $5) RETURNING crop_location_id";
+        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($crop_id, $location_id, $barangay_id, $coordinates, $sitio_name));
 
         if ($query_run_CropLoc) {
             // Check if any rows were affected
@@ -1648,6 +1650,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         $municipality_name = $_POST['municipality'];
         $coordinates = handleEmpty($_POST['coordinates']);
         $barangay_name = $_POST['barangay'];
+        $sitio_name = $_POST['sitio_name'];
 
         // id's
         $disease_resistance_id = handleEmpty($_POST['disease_resistanceID']);
@@ -2115,8 +2118,8 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         }
 
         // update Crop Location Table
-        $query_CropLoc = "UPDATE crop_location set location_id = $1, barangay_id = $2, coordinates = $3 where crop_location_id = $4";
-        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($location_id, $barangay_id, $coordinates, $crop_location_id));
+        $query_CropLoc = "UPDATE crop_location set location_id = $1, barangay_id = $2, coordinates = $3, sitio_name = $4 where crop_location_id = $5";
+        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($location_id, $barangay_id, $coordinates, $sitio_name, $crop_location_id));
 
         if ($query_run_CropLoc) {
         } else {
@@ -2417,6 +2420,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         $municipality_name = $_POST['municipality'];
         $coordinates = handleEmpty($_POST['coordinates']);
         $barangay_name = $_POST['barangay'];
+        $sitio_name = $_POST['sitio_name'];
 
         // id's
         $disease_resistance_id = handleEmpty($_POST['disease_resistanceID']);
@@ -2884,8 +2888,8 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         }
 
         // update Crop Location Table
-        $query_CropLoc = "UPDATE crop_location set location_id = $1, barangay_id = $2, coordinates = $3 where crop_location_id = $4";
-        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($location_id, $barangay_id, $coordinates, $crop_location_id));
+        $query_CropLoc = "UPDATE crop_location set location_id = $1, barangay_id = $2, coordinates = $3, sitio_name = $4 where crop_location_id = $5";
+        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($location_id, $barangay_id, $coordinates, $sitio_name, $crop_location_id));
 
         if ($query_run_CropLoc) {
         } else {
@@ -3180,6 +3184,7 @@ if (isset($_POST['draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'
         $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
         $coordinates = handleEmpty($_POST['coordinates']);
         $barangay_name = $_POST['barangay'];
+        $sitio_name = $_POST['sitio_name'];
 
         $user_id = $_POST['user_id'];
         $action = 'draft';
@@ -3616,8 +3621,8 @@ if (isset($_POST['draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'
         }
 
         // save into Crop Location Table
-        $query_CropLoc = "INSERT into crop_location (crop_id, location_id, barangay_id, coordinates) VALUES ($1, $2, $3, $4) RETURNING crop_location_id";
-        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($crop_id, $location_id, $barangay_id, $coordinates));
+        $query_CropLoc = "INSERT into crop_location (crop_id, location_id, barangay_id, coordinates, sitio_name) VALUES ($1, $2, $3, $4, $5) RETURNING crop_location_id";
+        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($crop_id, $location_id, $barangay_id, $coordinates, $sitio_name));
 
         if ($query_run_CropLoc) {
             // Check if any rows were affected
@@ -4006,6 +4011,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $municipality_name = $_POST['municipality'];
         $coordinates = handleEmpty($_POST['coordinates']);
         $barangay_name = $_POST['barangay'];
+        $sitio_name = $_POST['sitio_name'];
 
         // id's
         $disease_resistance_id = handleEmpty($_POST['disease_resistanceID']);
@@ -4459,8 +4465,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         }
 
         // update Crop Location Table
-        $query_CropLoc = "UPDATE crop_location set location_id = $1, barangay_id = $2, coordinates = $3 where crop_location_id = $4";
-        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($location_id, $barangay_id, $coordinates, $crop_location_id));
+        $query_CropLoc = "UPDATE crop_location set location_id = $1, barangay_id = $2, coordinates = $3, sitio_name = $4 where crop_location_id = $5";
+        $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($location_id, $barangay_id, $coordinates, $sitio_name, $crop_location_id));
 
         if ($query_run_CropLoc) {
         } else {

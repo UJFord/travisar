@@ -256,8 +256,13 @@
             </select>
 
             <!-- barangay -->
-            <label for="BarangaySelect" class="form-label small-font mb-0">Sitio <span style="color: red;">*</span></label>
+            <label for="BarangaySelect" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
             <select id="BarangaySelect" name="barangay" class="form-select mb-2">
+            </select>
+    
+            <!-- Sitio -->
+            <label for="SitioEdit" class="form-label small-font mb-0">Sitio</label>
+            <input id="SitioEdit" name="sitio_name" type="text" class="form-control">
             </select>
 
             <!-- coordinates -->

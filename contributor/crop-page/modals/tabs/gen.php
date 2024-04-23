@@ -269,7 +269,7 @@
 
             <!-- sitio -->
             <label for="Sitio" class="form-label small-font mb-0">Sitio</label>
-            <input id="Sitio" name="Sitio" type="text" class="form-control mb-2">
+            <input id="Sitio" name="sitio_name" type="text" class="form-control mb-2">
 
             <!-- coordinates -->
             <label for="coordInput" class="form-label small-font mb-0">Coordinates(if any)</label>
