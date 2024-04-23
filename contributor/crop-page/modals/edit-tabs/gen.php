@@ -284,12 +284,6 @@
             <h6 name="first_name" id="firstName"></h6>
         </div>
 
-        <!-- Unique Code -->
-        <div class="col">
-            <label class="form-label small-font">Unique Code:</label>
-            <h6 name="unique_code" id="uniqueCode"></h6>
-        </div>
-
         <!-- Date created -->
         <div class="col">
             <label class="form-label small-font">Date Created:</label>
