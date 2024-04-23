@@ -84,7 +84,6 @@
                             </ul>
                         </div>
                     </th>
-
                 </tr>
             </thead>
 

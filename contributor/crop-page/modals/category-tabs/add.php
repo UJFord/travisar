@@ -97,7 +97,7 @@
 
             // Send a POST request using AJAX
             $.ajax({
-                url: "crud-code/category-code.php",
+                url: "modals/crud-code/category-code.php",
                 method: "POST",
                 data: formData,
                 contentType: false,

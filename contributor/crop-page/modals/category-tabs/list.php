@@ -82,8 +82,7 @@
                 if ($query_run) {
                     while ($row = pg_fetch_array($query_run)) {
                 ?>
-
-                        <tr data-id="<?= $row['category_id']; ?>" class="rowlink edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal">
+                        <tr>
                             <input type="hidden" name="category_id" value="<?= $row['category_id']; ?>">
 
                             <!-- checkbox -->

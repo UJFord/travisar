@@ -63,7 +63,9 @@ require "../../functions/functions.php";
             <!-- MODAL -->
             <!-- add -->
             <?php require "modals/category-tabs/add.php"; ?>
-            ?>
+            <!-- edit -->
+            <?php require "modals/category-tabs/edit.php"; ?>
+
         </div>
     </div>
 
