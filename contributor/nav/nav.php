@@ -42,7 +42,7 @@
                                 <a class="dropdown-item dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Crop Settings</a>
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="../crop-page/crop-category.php">Crop Category</a></li>
-                                    <li><a class="dropdown-item" href="../crop-page/crop-variety.php">Category Variety</a></li>
+                                    <li><a class="dropdown-item" href="../crop-page/category-variety.php">Category Variety</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -100,7 +100,7 @@
                             </a>
                         </li>
                         <li>
-                            <a href="../login/logout.php" class="dropdown-item text-dark fs-6 d-flex justify-content-start align-items-center px-3 pe-3">
+                            <a href="../../login/logout.php" class="dropdown-item text-dark fs-6 d-flex justify-content-start align-items-center px-3 pe-3">
                                 <i class="fa-solid fa-arrow-right-from-bracket me-2 fs-6 text-dark"></i>
                                 <p class="m-0">Log Out</p>
                             </a>
@@ -108,7 +108,7 @@
                     <?php else : ?>
                         <!-- User is not logged in, display a link to the login page -->
                         <li>
-                            <a href="../login/login-form.php" class="dropdown-item text-dark fs-6 d-flex justify-content-start align-items-center px-3 pe-3">
+                            <a href="../../login/login-form.php" class="dropdown-item text-dark fs-6 d-flex justify-content-start align-items-center px-3 pe-3">
                                 <i class="fa-solid fa-arrow-right-from-bracket me-2 fs-6 text-dark"></i>
                                 <p class="m-0">Login</p>
                             </a>
