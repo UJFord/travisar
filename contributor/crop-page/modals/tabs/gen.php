@@ -96,12 +96,7 @@
             <select name="category_id" id="Category" class="form-select">
                 <?php
                 // get the data of category from DB
-                // gi set ra nako na permi last ang other nga category og ascending sya based sa catgory name
-                $queryCategory = "SELECT * FROM category ORDER BY
-                CASE
-                    WHEN category_name = 'Other' THEN 2
-                    ELSE 1
-                END, category_name ASC";
+                $queryCategory = "SELECT * FROM category ORDER BY category_name ASC";
                 $query_run = pg_query($conn, $queryCategory);
 
                 $count = pg_num_rows($query_run);
