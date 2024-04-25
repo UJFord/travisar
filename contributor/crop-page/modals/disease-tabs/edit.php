@@ -16,44 +16,18 @@
 
             </div>
             <!-- body -->
-            <form id="form-panel-Edit" name="Form" action="modals/crud-code/category-variety-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel-Edit" name="Form" action="modals/crud-code/disease-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
                     <div class="container">
                         <div id="Edit-User">
                             <!-- user id hidden -->
-                            <input type="hidden" name="variety_idEdit" id="variety_idEdit">
-                            <!-- category name-->
+                            <input type="hidden" name="disease_idEdit" id="disease_idEdit">
+                            <!-- disease name-->
                             <div class="row mb-3">
-                                <!-- category name -->
+                                <!-- disease name -->
                                 <div class="col">
-                                    <label for="category-NameEdit" class="form-label small-font">Category:<span style="color: red;">*</span></label>
-                                    <select name="category_idEdit" id="category-NameEdit" class="form-select">
-                                        <?php
-                                        // get the data of category from DB
-                                        $queryCategory = "SELECT * FROM category ORDER BY category_name ASC";
-                                        $query_run = pg_query($conn, $queryCategory);
-                                        $count = pg_num_rows($query_run);
-
-                                        // if count is greater than 0 there is data
-                                        if ($count > 0) {
-                                            // loop for displaying all categories
-                                            while ($row = pg_fetch_assoc($query_run)) {
-                                                $category_id = $row['category_id'];
-                                                $category_name = $row['category_name'];
-                                        ?>
-                                                <option value="<?= $category_id; ?>"><?= $category_name; ?></option>
-                                            <?php
-                                            }
-                                            ?>
-                                        <?php
-                                        }
-                                        ?>
-                                    </select>
-                                </div>
-                                <!-- category variety name -->
-                                <div class="col">
-                                    <label for="variety-NameEdit" class="form-label small-font">Variety Name:<span style="color: red;">*</span></label>
-                                    <input type="text" id="variety-NameEdit" name="variety_nameEdit" class="form-control">
+                                    <label for="disease-NameEdit" class="form-label small-font">Disease Name:<span style="color: red;">*</span></label>
+                                    <input type="text" id="disease-NameEdit" name="disease_nameEdit" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -61,7 +35,7 @@
                 </div>
 
                 <!-- confirm -->
-                <?php require "modals/category-tabs/confirm.php"; ?>
+                <?php require "modals/disease-tabs/confirm.php"; ?>
 
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-end">
@@ -90,11 +64,11 @@
 
             // Assuming you have jQuery available
             $.ajax({
-                url: 'modals/fetch/fetch_variety-tab.php',
+                url: 'modals/fetch/fetch_disease-tab.php',
                 type: 'POST',
                 data: {
                     'click_edit_btn': true,
-                    'category_variety_id': id,
+                    'disease_resistance_id': id,
                 },
                 success: function(response) {
                     // Handle the response from the PHP script
@@ -102,18 +76,11 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['category_variety_name']);
+                        // console.log(value['rice_plant_height']);
 
                         // crop_id
-                        $('#variety_idEdit').val(id);
-                        $('#variety-NameEdit').val(value['category_variety_name']);
-                        $('#category-NameEdit').append($('<option>', {
-                            value: value['category_id'],
-                            text: value['category_name'],
-                            selected: true, // Make the option selected
-                            style: 'display: none;' // Hide the option
-                        }));
-
+                        $('#disease_idEdit').val(id);
+                        $('#disease-NameEdit').val(value['disease_name']);
                     });
                 },
                 error: function(xhr, status, error) {
@@ -147,37 +114,13 @@
 
     // Function to validate input 
     function validateFormEdit() {
-        var category_name = document.getElementById('category-NameEdit').value;
-        var variety_name = document.getElementById('variety-NameEdit').value;
+        var disease_name = document.getElementById('disease-NameEdit').value;
 
         var errors = [];
 
         // Check if the required fields are not empty
-        if (category_name === "" || variety_name === "") {
+        if (disease_name === "" || disease_name === null) {
             errors.push("<div class='error text-center' style='color:red;'>Please fill up required fields.</div>");
-            document.getElementById('category-NameEdit').classList.add('is-invalid'); // Add 'is-invalid' class to select field
-            document.getElementById('variety-NameEdit').classList.add('is-invalid');
-        } else {
-            document.getElementById('category-NameEdit').classList.remove('is-invalid'); // remove 'is-invalid' class to select field
-            document.getElementById('variety-NameEdit').classList.remove('is-invalid');
-        }
-
-        // Check if the required fields are not empty
-        if (category_name === "" || category_name === null) {
-            errors.push("<div class='error text-center' style='color:red;'>Please select category.</div>");
-            document.getElementById('category-NameEdit').classList.add('is-invalid'); // Add 'is-invalid' class to select field
-        } else {
-            document.getElementById('category-NameEdit').classList.remove('is-invalid'); // remove 'is-invalid' class to select field
-        }
-
-        // Check if the required fields are not empty
-        if (variety_name === "" || variety_name === null) {
-            errors.push("<div class='error text-center' style='color:red;'>Please input variety name.</div>");
-            document.getElementById('variety-NameEdit').classList.add('is-invalid');
-
-        } else {
-            document.getElementById('variety-NameEdit').classList.remove('is-invalid');
-
         }
 
         // Display first error only
@@ -204,7 +147,7 @@
 
             // Send a POST request using AJAX
             $.ajax({
-                url: "modals/crud-code/category-variety-code.php",
+                url: "modals/crud-code/disease-code.php",
                 method: "POST",
                 data: formData,
                 contentType: false,
@@ -287,21 +230,21 @@
     document.getElementById('confirmDeleteBtnEdit').addEventListener('click', function() {
         // Send a request to delete the category
         $.ajax({
-            url: 'modals/crud-code/category-variety-code.php',
+            url: 'modals/crud-code/disease-code.php',
             type: 'POST',
             data: {
-                'delete': 'delete',
-                'category_variety_id': document.getElementById('variety_idEdit').value
+                'delete': true,
+                'disease_resistance_id': document.getElementById('disease_idEdit').value
             },
             success: function(response) {
                 // Handle the response from the server
-                console.log('Category deleted:', response);
+                console.log('Disease deleted:', response);
 
                 // Close the confirmation modal
                 //confirmModalInstanceEdit.hide();
 
                 // Optionally, you can reload the page or update the UI
-                location.reload();
+                //location.reload();
             },
             error: function(xhr, status, error) {
                 // Handle errors

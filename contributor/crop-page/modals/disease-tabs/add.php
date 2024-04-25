@@ -8,12 +8,12 @@
         <div class="modal-content">
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="edit-item-modal-label">Add Pests</h5>
+                <h5 class="modal-title" id="edit-item-modal-label">Add Diseases</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="modals/crud-code/pest-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel" name="Form" action="modals/crud-code/disease-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
                     <div>
                         <button type="button" id="add-row" class="btn btn-secondary" style="margin-left: 10px; background-color: var(--mainBrand);">Add</button>
@@ -21,11 +21,11 @@
                     <div class="container">
                         <div id="locationData">
                             <!-- Province -->
-                            <div class="row mb-3 pest-row">
+                            <div class="row mb-3 disease-row">
                                 <!-- province name -->
                                 <div class="col-5">
-                                    <label for="pest-Name" class="form-label small-font">Pest Name<span style="color: red;">*</span></label>
-                                    <input type="text" name="pest_name_1" id="pest-Name" class="form-control">
+                                    <label for="disease-Name" class="form-label small-font">Disease Name<span style="color: red;">*</span></label>
+                                    <input type="text" name="disease_name_1" id="disease-Name" class="form-control">
                                 </div>
                             </div>
                         </div>
@@ -33,12 +33,11 @@
                 </div>
 
                 <!-- footer -->
-                <div class="modal-footer d-flex justify-content-between">
+                <div class="modal-footer d-flex justify-content-end">
                     <div class="">
-                        <button type="submit" name="save" onclick="validateAndSubmitForm()" class="btn btn-success">Save</button>
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" name="save" onclick="validateAndSubmitForm()" class="btn btn-success">Save</button>
                     </div>
-                    <button type="button" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
                 </div>
             </form>
         </div>
@@ -59,11 +58,11 @@
         addRowButton.addEventListener('click', function() {
             rowCounter++;
             const newRow = document.createElement('div');
-            newRow.classList.add('row', 'mb-3', 'pest-row');
+            newRow.classList.add('row', 'mb-3', 'disease-row');
             newRow.innerHTML = `
                 <div class="col-5">
-                    <label for="pest-Name" class="form-label small-font">Pest Name<span style="color: red;">*</span></label>
-                    <input type="text" name="pest_name_${rowCounter}" class="form-control">
+                    <label for="disease-Name" class="form-label small-font">Disease Name<span style="color: red;">*</span></label>
+                    <input type="text" name="disease_name_${rowCounter}" class="form-control">
 
                 </div>
                 <div class="col-2" style="padding-top: 25px;">
@@ -75,7 +74,7 @@
 
         locationData.addEventListener('click', function(e) {
             if (e.target.classList.contains('remove-row')) {
-                e.target.closest('.pest-row').remove();
+                e.target.closest('.disease-row').remove();
             }
         });
 
@@ -101,7 +100,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "modals/code/pest-code.php",
+                url: "modals/code/disease-code.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,
