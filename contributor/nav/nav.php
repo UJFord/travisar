@@ -43,6 +43,9 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="../crop-page/crop-category.php">Crop Category</a></li>
                                     <li><a class="dropdown-item" href="../crop-page/category-variety.php">Category Variety</a></li>
+                                    <li><a class="dropdown-item" href="../crop-page/pest-resistance.php">Pest Resistances</a></li>
+                                    <li><a class="dropdown-item" href="../crop-page/disease-resistance.php">Disease Resistances</a></li>
+                                    <li><a class="dropdown-item" href="../crop-page/abiotic-resistance.php">Abiotic Resistances</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
