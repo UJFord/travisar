@@ -64,7 +64,7 @@ require "../../functions/functions.php";
             <!-- add -->
             <?php require "modals/add.php"; ?>
             <!-- edit -->
-            <?php //require "modals/edit.php"; ?>
+            <?php require "modals/edit.php"; ?>
             <!-- view -->
             <?php // require "modals/view.php"; 
             ?>

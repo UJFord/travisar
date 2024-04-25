@@ -43,17 +43,17 @@
                     <div class="container">
                         <div class="tab-content mt-2">
                             <!-- general -->
-                            <?php require "edit-tabs/gen.php" ?>
+                            <?php //require "edit-tabs/gen.php" ?>
                             <!-- cultural -->
-                            <?php require "edit-tabs/cultural.php" ?>
+                            <?php //require "edit-tabs/cultural.php" ?>
                             <!-- more optional info -->
-                            <?php require "edit-tabs/more.php" ?>
+                            <?php //require "edit-tabs/more.php" ?>
                             <!-- agro info -->
-                            <?php require "edit-tabs/agro.php" ?>
+                            <?php //require "edit-tabs/agro.php" ?>
                             <!-- sensory info -->
-                            <?php require "edit-tabs/sensory.php" ?>
+                            <?php //require "edit-tabs/sensory.php" ?>
                             <!-- references -->
-                            <?php require "edit-tabs/references.php" ?>
+                            <?php //require "edit-tabs/references.php" ?>
                             <!-- confirm -->
                             <?php require "edit-tabs/confirm.php" ?>
                         </div>
