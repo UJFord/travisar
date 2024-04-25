@@ -478,7 +478,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
             // Insert data into the respective tables
             if ($pest_other) {
                 // Insert into corn_pest_other table
-                $queryPest_other = "INSERT INTO corn_pest_resistance_other (corn_pest_other, corn_pest_other_desc) VALUES ($1, $2)";
+                $queryPest_other = "INSERT INTO corn_pest_resistance_other (corn_pest_other, corn_pest_other_desc) VALUES ($1, $2) returning corn_pest_other_id";
                 $query_run_Pest_other = pg_query_params($conn, $queryPest_other, array($pest_other, $pest_other_desc));
                 if ($query_run_Pest_other) {
                     $rowPest_other = pg_fetch_row($query_run_Pest_other);
@@ -491,7 +491,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
 
             if ($abiotic_other) {
                 // Insert into corn_abiotic_other table
-                $query_abioticOther = "INSERT INTO corn_abiotic_resistance_other (corn_abiotic_other, corn_abiotic_other_desc) VALUES ($1, $2)";
+                $query_abioticOther = "INSERT INTO corn_abiotic_resistance_other (corn_abiotic_other, corn_abiotic_other_desc) VALUES ($1, $2) returning corn_abiotic_other_id";
                 $query_run_abioticOther = pg_query_params($conn, $query_abioticOther, array($abiotic_other, $abiotic_other_desc));
                 if ($query_run_abioticOther) {
                     $row_abioticOther = pg_fetch_row($query_run_abioticOther);
@@ -579,43 +579,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
             }
         } elseif ($get_category_name === 'Rice') {
             // Handle rice category
-            // abiotic resistance rice
-            $query_abioticRes = "INSERT into abiotic_resistance_rice (rice_drought, rice_salinity, rice_heat, harmful_radiation, rice_abiotic_other, rice_abiotic_other_desc) values ($1, $2, $3, $4, $5, $6) returning abiotic_resistance_rice_id";
-            $query_run_abioticRes = pg_query_params($conn, $query_abioticRes, array($rice_drought, $rice_salinity, $rice_heat, $harmful_radiation, $rice_abiotic_other, $rice_abiotic_other_desc));
-            if ($query_run_abioticRes) {
-                $row_abioticRes = pg_fetch_row($query_run_abioticRes);
-                $abiotic_resistance_rice_id = $row_abioticRes[0];
-            } else {
-                echo "Error: " . pg_last_error($conn);
-                exit(0);
-            }
-
-            // disease resistance
-            $query_diseaseRes = "INSERT into disease_resistance (bacterial, viral, fungus) values ($1, $2, $3) returning disease_resistance_id";
-            $query_run_diseaseRes = pg_query_params($conn, $query_diseaseRes, array($bacterial, $viral, $fungus));
-            if ($query_run_diseaseRes) {
-                $row_diseaseRes = pg_fetch_row($query_run_diseaseRes);
-                $disease_resistance_id = $row_diseaseRes[0];
-            } else {
-                echo "Error: " . pg_last_error($conn);
-                exit(0);
-            }
-
-            // pest resistance rice
-            $query_pestRes = "INSERT into pest_resistance_rice (rice_borers, rice_snail, hoppers, rice_black_bug, leptocorisa, leaf_folder, rice_birds, rice_ants, 
-                        rice_rats, rice_army_worms, rice_others, rice_others_desc) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning pest_resistance_rice_id";
-            $query_run_pestRes = pg_query_params($conn, $query_pestRes, array(
-                $rice_borers, $rice_snail, $hoppers, $rice_black_bug, $leptocorisa,
-                $leaf_folder, $rice_birds, $rice_ants, $rice_rats, $rice_army_worms, $rice_others, $rice_others_desc
-            ));
-            if ($query_run_pestRes) {
-                $row_pestRes = pg_fetch_row($query_run_pestRes);
-                $pest_resistance_rice_id = $row_pestRes[0];
-            } else {
-                echo "Error: " . pg_last_error($conn);
-                exit(0);
-            }
-
             // seed traits
             $query_seedTraits = "INSERT into seed_traits (seed_length, seed_width, seed_shape, seed_color) values ($1, $2, $3, $4) returning seed_traits_id";
             $query_run_seedTraits = pg_query_params($conn, $query_seedTraits, array($seed_length, $seed_width, $seed_shape, $seed_color));
@@ -682,12 +645,39 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
                 exit(0);
             }
 
+            // Insert data into the respective tables
+            if ($pest_other) {
+                // Insert into rice_pest_other table
+                $queryPest_other = "INSERT INTO rice_pest_resistance_other (rice_pest_other, rice_pest_other_desc) VALUES ($1, $2) returning rice_pest_other_id";
+                $query_run_Pest_other = pg_query_params($conn, $queryPest_other, array($pest_other, $pest_other_desc));
+                if ($query_run_Pest_other) {
+                    $rowPest_other = pg_fetch_row($query_run_Pest_other);
+                    $rice_pest_other_id = $rowPest_other[0];
+                } else {
+                    echo "Error: " . pg_last_error($conn);
+                    exit(0);
+                }
+            }
+
+            if ($abiotic_other) {
+                // Insert into rice_abiotic_other table
+                $query_abioticOther = "INSERT INTO rice_abiotic_resistance_other (rice_abiotic_other, rice_abiotic_other_desc) VALUES ($1, $2) returning rice_abiotic_other_id";
+                $query_run_abioticOther = pg_query_params($conn, $query_abioticOther, array($abiotic_other, $abiotic_other_desc));
+                if ($query_run_abioticOther) {
+                    $row_abioticOther = pg_fetch_row($query_run_abioticOther);
+                    $rice_abiotic_other_id = $row_abioticOther[0];
+                } else {
+                    echo "Error: " . pg_last_error($conn);
+                    exit(0);
+                }
+            }
+
             // rice traits
-            $query_riceTraits = "INSERT into rice_traits (crop_id, vegetative_state_rice_id, reproductive_state_rice_id, sensory_traits_rice_id, pest_resistance_rice_id, 
-            disease_resistance_id, abiotic_resistance_rice_id) values ($1, $2, $3, $4, $5, $6, $7) returning rice_traits_id";
+            $query_riceTraits = "INSERT into rice_traits (crop_id, vegetative_state_rice_id, reproductive_state_rice_id, sensory_traits_rice_id, rice_pest_other_id, 
+            rice_abiotic_other_id) values ($1, $2, $3, $4, $5, $6) returning rice_traits_id";
             $query_run_riceTraits = pg_query_params($conn, $query_riceTraits, array(
                 $crop_id, $vegetative_state_rice_id, $reproductive_state_rice_id, $sensory_traits_rice_id,
-                $pest_resistance_rice_id, $disease_resistance_id, $abiotic_resistance_rice_id
+                $rice_pest_other_id, $rice_abiotic_other_id
             ));
             if ($query_run_riceTraits) {
                 $row_riceTraits = pg_fetch_row($query_run_riceTraits);
@@ -696,45 +686,65 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
                 echo "Error: " . pg_last_error($conn);
                 exit(0);
             }
-        } elseif ($get_category_name === 'Root Crop') {
-            // Handle root crops category
+
             // abiotic resistance
-            $query_abioticRes = "INSERT into abiotic_resistance (drought, salinity, heat, abiotic_other, abiotic_other_desc) values ($1, $2, $3, $4, $5) returning abiotic_resistance_id";
-            $query_run_abioticRes = pg_query_params($conn, $query_abioticRes, array($drought, $salinity, $heat, $abiotic_other, $abiotic_other_desc));
-            if ($query_run_abioticRes) {
-                $row_abioticRes = pg_fetch_row($query_run_abioticRes);
-                $abiotic_resistance_id = $row_abioticRes[0];
-            } else {
-                echo "Error: " . pg_last_error($conn);
-                exit(0);
+            if (isset($_POST['abiotic_resistance']) && is_array($_POST['abiotic_resistance'])) {
+                // Loop through the submitted pest resistance IDs
+                foreach ($_POST['abiotic_resistance'] as $pest_id) {
+                    // Assuming $rice_id contains the ID of the rice variety
+                    $rice_is_checked_abiotic = true; // Set to true since it's a boolean value
+
+                    // Insert the record into the database
+                    $query_abiotic = "INSERT INTO rice_abiotic_resistance (rice_traits_id, abiotic_resistance_id, rice_is_checked_abiotic) VALUES ($1, $2, $3)";
+                    $query_run_abiotic = pg_query_params($conn, $query_abiotic, array($rice_traits_id, $pest_id, $rice_is_checked_abiotic));
+                    if ($query_run_abiotic) {
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+                }
             }
 
             // disease resistance
-            $query_diseaseRes = "INSERT into disease_resistance (bacterial, viral, fungus) values ($1, $2, $3) returning disease_resistance_id";
-            $query_run_diseaseRes = pg_query_params($conn, $query_diseaseRes, array($bacterial, $viral, $fungus));
-            if ($query_run_diseaseRes) {
-                $row_diseaseRes = pg_fetch_row($query_run_diseaseRes);
-                $disease_resistance_id = $row_diseaseRes[0];
-            } else {
-                echo "Error: " . pg_last_error($conn);
-                exit(0);
+            if (isset($_POST['disease_resistance']) && is_array($_POST['disease_resistance'])) {
+                // Loop through the submitted pest resistance IDs
+                foreach ($_POST['disease_resistance'] as $disease_id) {
+                    // Assuming $rice_id contains the ID of the rice variety
+                    $rice_is_checked_disease = true; // Set to true since it's a boolean value
+
+                    // Insert the record into the database
+                    $query_disease = "INSERT INTO rice_disease_resistance (rice_traits_id, disease_resistance_id, rice_is_checked_disease) VALUES ($1, $2, $3)";
+                    $query_run_disease = pg_query_params($conn, $query_disease, array($rice_traits_id, $disease_id, $rice_is_checked_disease));
+                    if ($query_run_disease) {
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+                }
             }
 
-            // pest resistance rootcrop
-            $query_pestRes = "INSERT into pest_resistance_rootcrop (root_aphids, root_knot_nematodes, rootcrop_cutworms, white_grubs, termites, weevils, flea_beetles, rootcrop_snails, 
-                        rootcrop_ants, rootcrop_rats, rootcrop_others, rootcrop_others_desc) values ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) returning pest_resistance_rootcrop_id";
-            $query_run_pestRes = pg_query_params($conn, $query_pestRes, array(
-                $root_aphids, $root_knot_nematodes, $rootcrop_cutworms, $white_grubs, $termites,
-                $weevils, $flea_beetles, $rootcrop_snails, $rootcrop_ants, $rootcrop_rats, $rootcrop_others, $rootcrop_others_desc
-            ));
-            if ($query_run_pestRes) {
-                $row_pestRes = pg_fetch_row($query_run_pestRes);
-                $pest_resistance_rootcrop_id = $row_pestRes[0];
-            } else {
-                echo "Error: " . pg_last_error($conn);
-                exit(0);
-            }
+            // pest resistance rice
+            // Check if the pest resistance data is submitted
+            if (isset($_POST['pest_resistance']) && is_array($_POST['pest_resistance'])) {
+                // Loop through the submitted pest resistance IDs
+                foreach ($_POST['pest_resistance'] as $pest_id) {
+                    // Assuming $rice_id contains the ID of the rice variety
+                    $rice_is_checked_pest = true; // Set to true since it's a boolean value
 
+                    // Insert the record into the database
+                    $query_pest = "INSERT INTO rice_pest_resistance (rice_traits_id, pest_resistance_id, rice_is_checked_pest) VALUES ($1, $2, $3)";
+                    $query_run_pest = pg_query_params($conn, $query_pest, array($rice_traits_id, $pest_id, $rice_is_checked_pest));
+                    if ($query_run_pest) {
+                        $row_pest = pg_fetch_row($query_run_pest);
+                        $pest_resistance_id = $row_pest[0];
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+                }
+            }
+        } elseif ($get_category_name === 'Root Crop') {
+            // Handle root crops category
             // rootcrop traits
             $query_rootcropTraits = "INSERT into rootcrop_traits (eating_quality, rootcrop_color, sweetness, rootcrop_remarkable_features) values ($1, $2, $3, $4) returning rootcrop_traits_id";
             $query_run_rootcropTraits = pg_query_params($conn, $query_rootcropTraits, array($eating_quality, $rootcrop_color, $sweetness, $rootcrop_remarkable_features));
@@ -757,17 +767,106 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
                 exit(0);
             }
 
+            // Insert data into the respective tables
+            if ($pest_other) {
+                // Insert into rootcrop_pest_other table
+                $queryPest_other = "INSERT INTO rootcrop_pest_resistance_other (rootcrop_pest_other, rootcrop_pest_other_desc) VALUES ($1, $2) returning rootcrop_pest_other_id";
+                $query_run_Pest_other = pg_query_params($conn, $queryPest_other, array($pest_other, $pest_other_desc));
+                if ($query_run_Pest_other) {
+                    $rowPest_other = pg_fetch_row($query_run_Pest_other);
+                    $rootcrop_pest_other_id = $rowPest_other[0];
+                } else {
+                    echo "Error: " . pg_last_error($conn);
+                    exit(0);
+                }
+            }
+
+            if ($abiotic_other) {
+                // Insert into rootcrop_abiotic_other table
+                $query_abioticOther = "INSERT INTO rootcrop_abiotic_resistance_other (rootcrop_abiotic_other, rootcrop_abiotic_other_desc) VALUES ($1, $2) returning rootcrop_abiotic_other_id";
+                $query_run_abioticOther = pg_query_params($conn, $query_abioticOther, array($abiotic_other, $abiotic_other_desc));
+                if ($query_run_abioticOther) {
+                    $row_abioticOther = pg_fetch_row($query_run_abioticOther);
+                    $rootcrop_abiotic_other_id = $row_abioticOther[0];
+                } else {
+                    echo "Error: " . pg_last_error($conn);
+                    exit(0);
+                }
+            }
+
             // root crop traits
-            $query_root_CropTraits = "INSERT into root_crop_traits (crop_id, vegetative_state_rootcrop_id, rootcrop_traits_id, pest_resistance_rootcrop_id, disease_resistance_id, abiotic_resistance_id) values ($1, $2, $3, $4, $5, $6) returning root_crop_traits_id";
+            $query_root_CropTraits = "INSERT into root_crop_traits (crop_id, vegetative_state_rootcrop_id, rootcrop_traits_id, rootcrop_pest_other_id, 
+            rootcrop_abiotic_other_id) values ($1, $2, $3, $4, $5) returning root_crop_traits_id";
             $query_run_root_CropTraits = pg_query_params($conn, $query_root_CropTraits, array(
-                $crop_id, $vegetative_state_rootcrop_id, $rootcrop_traits_id, $pest_resistance_rootcrop_id, $disease_resistance_id, $abiotic_resistance_id
+                $crop_id, $vegetative_state_rootcrop_id, $rootcrop_traits_id, $rootcrop_pest_other_id, $rootcrop_abiotic_other_id
             ));
             if ($query_run_root_CropTraits) {
                 $row_root_CropTraits = pg_fetch_row($query_run_root_CropTraits);
-                $root_Crop_traits_id = $row_root_CropTraits[0];
+                $root_crop_traits_id = $row_root_CropTraits[0];
             } else {
                 echo "Error: " . pg_last_error($conn);
                 exit(0);
+            }
+
+            // abiotic resistance
+            if (isset($_POST['abiotic_resistance']) && is_array($_POST['abiotic_resistance'])) {
+                // Loop through the submitted pest resistance IDs
+                foreach ($_POST['abiotic_resistance'] as $pest_id) {
+                    // Assuming $rootcrop_id contains the ID of the rootcrop variety
+                    $rootcrop_is_checked_abiotic = true; // Set to true since it's a boolean value
+
+                    // Insert the record into the database
+                    $query_abiotic = "INSERT INTO rootcrop_abiotic_resistance (root_crop_traits_id, abiotic_resistance_id, rootcrop_is_checked_abiotic) VALUES ($1, $2, $3)";
+                    $query_run_abiotic = pg_query_params($conn, $query_abiotic, array($root_crop_traits_id, $pest_id, $rootcrop_is_checked_abiotic));
+                    if ($query_run_abiotic) {
+                        $row_abiotic = pg_fetch_row($query_run_abiotic);
+                        $abiotic_resistance_id = $row_abiotic[0];
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+                }
+            }
+
+            // disease resistance
+            if (isset($_POST['disease_resistance']) && is_array($_POST['disease_resistance'])) {
+                // Loop through the submitted pest resistance IDs
+                foreach ($_POST['disease_resistance'] as $disease_id) {
+                    // Assuming $rootcrop_id contains the ID of the rootcrop variety
+                    $rootcrop_is_checked_disease = true; // Set to true since it's a boolean value
+
+                    // Insert the record into the database
+                    $query_disease = "INSERT INTO rootcrop_disease_resistance (root_crop_traits_id, disease_resistance_id, rootcrop_is_checked_disease) VALUES ($1, $2, $3)";
+                    $query_run_disease = pg_query_params($conn, $query_disease, array($root_crop_traits_id, $disease_id, $rootcrop_is_checked_disease));
+                    if ($query_run_disease) {
+                        $row_disease = pg_fetch_row($query_run_disease);
+                        $disease_resistance_id = $row_disease[0];
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+                }
+            }
+
+            // pest resistance rootcrop
+            // Check if the pest resistance data is submitted
+            if (isset($_POST['pest_resistance']) && is_array($_POST['pest_resistance'])) {
+                // Loop through the submitted pest resistance IDs
+                foreach ($_POST['pest_resistance'] as $pest_id) {
+                    // Assuming $rootcrop_id contains the ID of the rootcrop variety
+                    $rootcrop_is_checked_pest = true; // Set to true since it's a boolean value
+
+                    // Insert the record into the database
+                    $query_pest = "INSERT INTO rootcrop_pest_resistance (root_crop_traits_id, pest_resistance_id, rootcrop_is_checked_pest) VALUES ($1, $2, $3)";
+                    $query_run_pest = pg_query_params($conn, $query_pest, array($root_crop_traits_id, $pest_id, $rootcrop_is_checked_pest));
+                    if ($query_run_pest) {
+                        $row_pest = pg_fetch_row($query_run_pest);
+                        $pest_resistance_id = $row_pest[0];
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+                }
             }
         } else {
             // Handle other categories or invalid category names
