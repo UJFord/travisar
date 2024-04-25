@@ -630,6 +630,8 @@
                         $('#vegetative_state_cornID').val(value['vegetative_state_corn_id']);
                         $('#reproductive_state_cornID').val(value['reproductive_state_corn_id']);
                         $('#pest_resistance_cornID').val(value['pest_resistance_corn_id']);
+                        $('#corn_pest_otherID').val(value['corn_pest_other_id']);
+                        $('#corn_abiotic_otherID').val(value['corn_abiotic_other_id']);
 
                         // id for rice
                         $('#pest_resistance_riceID').val(value['pest_resistance_rice_id']);
@@ -638,12 +640,17 @@
                         $('#panicle_traits_riceID').val(value['panicle_traits_rice_id']);
                         $('#flag_leaf_traits_riceID').val(value['flag_leaf_traits_rice_id']);
                         $('#sensory_traits_riceID').val(value['sensory_traits_rice_id']);
+                        $('#rice_pest_otherID').val(value['rice_pest_other_id']);
+                        $('#rice_abiotic_otherID').val(value['rice_abiotic_other_id']);
 
                         // id for root crop
                         $('#root_crop_traitsID').val(value['root_crop_traits_id']);
                         $('#vegetative_state_rootcropID').val(value['vegetative_state_rootcrop_id']);
                         $('#pest_resistance_rootcropID').val(value['pest_resistance_rootcrop_id']);
                         $('#rootcrop_traitsID').val(value['rootcrop_traits_id']);
+                        $('#corn_pest_otherID').val(value['corn_pest_other_id']);
+                        $('#rootcrop_pest_otherID').val(value['rootcrop_pest_other_id']);
+                        $('#rootcrop_abiotic_otherID').val(value['rootcrop_abiotic_other_id']);
 
                         // old image/current image
                         $('#old_image_seed').val(value['crop_seed_image']);

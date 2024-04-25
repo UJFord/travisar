@@ -4166,7 +4166,6 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $current_image_seed = handleEmpty($_POST['current_image_seed']);
         $current_image_veg = handleEmpty($_POST['current_image_veg']);
         $current_image_rep = handleEmpty($_POST['current_image_rep']);
-        $currentUniqueCode = handleEmpty($_POST['currentUniqueCode']);
         $current_crop_variety = handleEmpty($_POST['current_crop_variety']);
 
         // loc.php
@@ -4177,14 +4176,16 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $sitio_name = $_POST['sitio_name'];
 
         // id's
-        $disease_resistance_id = handleEmpty($_POST['disease_resistanceID']);
-        $abiotic_resistance_rice_id = handleEmpty($_POST['abiotic_resistance_riceID']);
         $crop_location_id = handleEmpty($_POST['crop_location_id']);
         $crop_id = handleEmpty($_POST['crop_id']);
         $seed_traits_id = handleEmpty($_POST['seed_traitsID']);
         $utilization_cultural_id = handleEmpty($_POST['utilization_culturalID']);
-        $abiotic_resistance_id = handleEmpty($_POST['abiotic_resistanceID']);
-        $category_id = handleEmpty($_POST['categoryID']);
+        $corn_pest_other_id = handleEmpty($_POST['corn_pest_otherID']);
+        $corn_abiotic_other_id = handleEmpty($_POST['corn_abiotic_otherID']);
+        $rice_pest_other_id = handleEmpty($_POST['rice_pest_otherID']);
+        $rice_abiotic_other_id = handleEmpty($_POST['rice_abiotic_otherID']);
+        $rootcrop_pest_other_id = handleEmpty($_POST['rootcrop_pest_otherID']);
+        $rootcrop_abiotic_other_id = handleEmpty($_POST['rootcrop_abiotic_otherID']);
 
         // abiotic resistance
         $abiotic_other = isset($_POST['abiotic_other']) ? true : false;
@@ -4193,7 +4194,6 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         // Pest resistance corn
         $pest_other = isset($_POST['pest_other']) ? true : false;
         $pest_other_desc = isset($_POST['pest_other_desc']) ? handleEmpty($_POST['pest_other_desc']) : null;
-
 
         // Utilization Cultural Importance
         $significance = isset($_POST['significance']) ? handleEmpty($_POST['significance']) : null;
@@ -4246,14 +4246,6 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $volume_expansion = isset($_POST['volume_expansion']) ? handleEmpty($_POST['volume_expansion']) : null;
         $glutinous = isset($_POST['glutinous']) ? handleEmpty($_POST['glutinous']) : null;
         $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
-
-        // abiotic resistance rice
-        $rice_drought = isset($_POST['rice_drought']) ? true : false;
-        $rice_salinity = isset($_POST['rice_salinity']) ? true : false;
-        $rice_heat = isset($_POST['rice_heat']) ? true : false;
-        $harmful_radiation = isset($_POST['harmful_radiation']) ? true : false;
-        $rice_abiotic_other = isset($_POST['rice_abiotic_other']) ? true : false;
-        $rice_abiotic_other_desc = isset($_POST['rice_abiotic_other_desc']) ? handleEmpty($_POST['rice_abiotic_other_desc']) : null;
 
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
@@ -4590,6 +4582,16 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
             $query_vegetativeState = "UPDATE vegetative_state_corn set corn_plant_height = $1, corn_leaf_width = $2, corn_leaf_length = $3, corn_maturity_time = $4 WHERE vegetative_state_corn_id = $5";
             $query_run_vegetativeState = pg_query_params($conn, $query_vegetativeState, array($corn_plant_height, $corn_leaf_width, $corn_leaf_length, $corn_maturity_time, $vegetative_state_corn_id));
             if ($query_run_vegetativeState) {
+                echo "success";
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+
+            // pest resistance other corn
+            $query_pestOther = "UPDATE corn_pest_resistance_other set corn_pest_other = $1, corn_pest_other_desc = $2, corn_leaf_length = $3, corn_maturity_time = $4 WHERE vegetative_state_corn_id = $5";
+            $query_run_pestOther = pg_query_params($conn, $query_pestOther, array($corn_pest_other, $corn_pest_other_desc, $corn_leaf_length, $corn_maturity_time, $vegetative_state_corn_id));
+            if ($query_run_pestOther) {
                 echo "success";
             } else {
                 echo "Error: " . pg_last_error($conn);

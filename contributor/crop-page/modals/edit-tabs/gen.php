@@ -102,16 +102,10 @@
         <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
         <!-- current_crop_variety -->
         <input id="current_crop_variety" type="hidden" name="current_crop_variety" class="form-control">
-        <!-- currentUniqueCode -->
-        <input id="currentUniqueCode" type="hidden" name="currentUniqueCode" class="form-control">
-        <!-- disease_resistanceID -->
-        <input id="disease_resistanceID" type="hidden" name="disease_resistanceID" class="form-control">
         <!-- seed_traitsID -->
         <input id="seed_traitsID" type="hidden" name="seed_traitsID" class="form-control">
         <!-- utilization_culturalID -->
         <input id="utilization_culturalID" type="hidden" name="utilization_culturalID" class="form-control">
-        <!-- abiotic_resistanceID -->
-        <input id="abiotic_resistanceID" type="hidden" name="abiotic_resistanceID" class="form-control">
         <!-- statusID -->
         <input id="statusID" type="hidden" name="statusID" class="form-control">
         <!-- referencesID -->
@@ -124,14 +118,12 @@
         <input id="vegetative_state_cornID" type="hidden" name="vegetative_state_cornID" class="form-control">
         <!-- reproductive_state_cornID -->
         <input id="reproductive_state_cornID" type="hidden" name="reproductive_state_cornID" class="form-control">
-        <!-- pest_resistance_cornID -->
-        <input id="pest_resistance_cornID" type="hidden" name="pest_resistance_cornID" class="form-control">
+        <!-- corn_pest_otherID -->
+        <input id="corn_pest_otherID" type="hidden" name="corn_pest_otherID" class="form-control">
+        <!-- corn_abiotic_otherID -->
+        <input id="corn_abiotic_otherID" type="hidden" name="corn_abiotic_otherID" class="form-control">
 
         <!-- rice id's -->
-        <!-- abiotic_resistance_riceID -->
-        <input id="abiotic_resistance_riceID" type="hidden" name="abiotic_resistance_riceID" class="form-control">
-        <!-- pest_resistance_riceID -->
-        <input id="pest_resistance_riceID" type="hidden" name="pest_resistance_riceID" class="form-control">
         <!-- vegetative_state_riceID -->
         <input id="vegetative_state_riceID" type="hidden" name="vegetative_state_riceID" class="form-control">
         <!-- reproductive_state_riceID -->
@@ -142,16 +134,22 @@
         <input id="flag_leaf_traits_riceID" type="hidden" name="flag_leaf_traits_riceID" class="form-control">
         <!-- sensory_traits_riceID -->
         <input id="sensory_traits_riceID" type="hidden" name="sensory_traits_riceID" class="form-control">
+        <!-- rice_pest_otherID -->
+        <input id="rice_pest_otherID" type="hidden" name="rice_pest_otherID" class="form-control">
+        <!-- rice_abiotic_otherID -->
+        <input id="rice_abiotic_otherID" type="hidden" name="rice_abiotic_otherID" class="form-control">
 
         <!-- root crop id's -->
         <!-- root_crop_traitsID -->
         <input id="root_crop_traitsID" type="hidden" name="root_crop_traitsID" class="form-control">
         <!-- vegetative_state_rootcropID -->
         <input id="vegetative_state_rootcropID" type="hidden" name="vegetative_state_rootcropID" class="form-control">
-        <!-- pest_resistance_rootcropID -->
-        <input id="pest_resistance_rootcropID" type="hidden" name="pest_resistance_rootcropID" class="form-control">
         <!-- rootcrop_traitsID -->
         <input id="rootcrop_traitsID" type="hidden" name="rootcrop_traitsID" class="form-control">
+        <!-- rootcrop_pest_otherID -->
+        <input id="rootcrop_pest_otherID" type="hidden" name="rootcrop_pest_otherID" class="form-control">
+        <!-- rootcrop_abiotic_otherID -->
+        <input id="rootcrop_abiotic_otherID" type="hidden" name="rootcrop_abiotic_otherID" class="form-control">
     </div>
 
     <h6 class="fw-semibold mt-4 mb-3">General Info</h6>
@@ -260,7 +258,7 @@
             <label for="BarangaySelect" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
             <select id="BarangaySelect" name="barangay" class="form-select mb-2">
             </select>
-    
+
             <!-- Sitio -->
             <label for="SitioEdit" class="form-label small-font mb-0">Sitio</label>
             <input id="SitioEdit" name="sitio_name" type="text" class="form-control">
