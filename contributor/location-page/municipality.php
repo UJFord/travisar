@@ -224,7 +224,7 @@ require "../../functions/functions.php";
             <!-- add Location -->
             <?php require "modals/add-municipality.php"; ?>
             <!-- edit location -->
-            <?php //require "modals/edit-municipality.php"; 
+            <?php require "modals/edit-municipality.php";
             ?>
         </div>
     </div>
@@ -284,60 +284,44 @@ require "../../functions/functions.php";
     <!-- script for edit data -->
     <script>
         // EDIT SCRIPT
-        const tableRows = document.querySelectorAll('.edit_data_brgy, .edit_data');
+        const tableRows = document.querySelectorAll('.edit_data');
 
         tableRows.forEach(row => {
 
             row.addEventListener('click', () => {
                 const id = row.getAttribute('data-id');
 
-                let url = '';
-                let dataKey = '';
-                let modalId = '';
-
-                if (row.classList.contains('edit_data_brgy')) {
-                    url = 'code/code-brgy.php';
-                    dataKey = 'barangay_id';
-                    modalId = 'edit-item-modal-brgy';
-                } else {
-                    url = 'code/code-muni.php';
-                    dataKey = 'municipality_id';
-                    modalId = 'edit-item-modal';
-                }
-
                 // Assuming you have jQuery available
                 $.ajax({
-                    url: url,
+                    url: "code/code-muni.php",
                     type: 'POST',
                     data: {
                         'click_edit_btn': true,
-                        [dataKey]: id, // Make sure barangay_id or municipality_id is included
+                        "municipality_id": id, // Make sure barangay_id or municipality_id is included
                     },
 
                     success: function(response) {
                         // Handle the response from the PHP script
                         // console.log('Response:', response);
 
-                        // Clear the current preview
-                        $('#preview').empty();
-
                         $.each(response, function(key, value) {
                             // Append options to select element
-                            console.log(value['province_name']);
+                            console.log(value['municipality_id']);
 
                             // crop_id
                             $('#crop_id').val(id);
 
-                            // data of location table
-                            $('#prov-Name').val(value['province_name']);
+                            // data of municipality table
+                            $('#prov-Name').append($('<option>', {
+                                value: value['province_id'],
+                                text: value['province_name'],
+                                selected: true, // Make the option selected
+                                style: 'display: none;' // Hide the option
+                            }));
                             $('#municipality-Name').val(value['municipality_name']);
 
-                            // data of barangay table
-                            $('#municipality-Name-Edit').val(value['municipality_name']);
-                            $('#barangay-Name').val(value['barangay_name']);
-
                             // setting the the value of the id of location and barangay depending on the tab
-                            $('#' + dataKey + '-Edit').val(value[dataKey]);
+                            $('#municipality_id-Edit').val(value['municipality_id']);
                         });
                     },
                     error: function(xhr, status, error) {
@@ -348,7 +332,7 @@ require "../../functions/functions.php";
                 });
 
                 // Show the modal
-                const dataModal = new bootstrap.Modal(document.getElementById(modalId), {
+                const dataModal = new bootstrap.Modal(document.getElementById('edit-item-modal'), {
                     keyboard: false
                 });
                 dataModal.show();

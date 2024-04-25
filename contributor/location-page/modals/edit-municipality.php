@@ -19,10 +19,32 @@
                         <div id="locationData">
                             <!-- Province AND Municipality -->
                             <div class="row mb-3 location-row">
+                                <input type="hidden" name="municipality_id" id="municipality_id-Edit">
                                 <!-- province name -->
                                 <div class="col-5">
                                     <label for="prov-Name" class="form-label small-font">Province Name<span style="color: red;">*</span></label>
-                                    <input type="text" id="prov-Name" name="province_name" class="form-control">
+                                    <select name="province_id" id="prov-Name" class="form-select">
+                                        <?php
+                                        // get the data of category from DB
+                                        $queryCategory = "SELECT * FROM province ORDER BY province_name ASC";
+                                        $query_run = pg_query($conn, $queryCategory);
+                                        $count = pg_num_rows($query_run);
+
+                                        // if count is greater than 0 there is data
+                                        if ($count > 0) {
+                                            // loop for displaying all categories
+                                            while ($row = pg_fetch_assoc($query_run)) {
+                                                $province_id = $row['province_id'];
+                                                $province_name = $row['province_name'];
+                                        ?>
+                                                <option value="<?= $province_id; ?>"><?= $province_name; ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
 
                                 <!-- municipality name -->
