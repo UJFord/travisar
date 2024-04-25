@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $errors = login($_POST);
     if (count($errors) == 0) {
-        header("location: ../contributor/crop.php");
+        header("location: ../contributor/crop-page/crop.php");
         die();
     }
 }
@@ -69,7 +69,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                         </form>
                         <!-- login form ends here -->
-                        <p class="text-center">Return to homepage? - <a href="../contributor/crop.php">Go Back</a></p>
+                        <p class="text-center">Return to homepage? - <a href="../contributor/crop-page/crop.php">Go Back</a></p>
                         <p class="text-center">Want to signup? - <a href="signup.php">Sign Up</a></p>
                     </div>
                 </div>
