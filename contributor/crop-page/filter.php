@@ -49,7 +49,7 @@
         </div>
 
         <!-- all municipalities -->
-        <div class="pt-2 pb-1 px-3 w-100">
+        <!-- <div class="pt-2 pb-1 px-3 w-100">
             <div id="mun-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#municipality-filters" role="button" aria-expanded="true" aria-controls="municipalty-filters">
                 <i id="munChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">All Municipalities</a>
@@ -62,7 +62,6 @@
             if ($query_run) {
                 while ($row = pg_fetch_array($query_run)) {
             ?>
-                    <!-- municipality filters -->
                     <div id="municipality-filters" class="collapse show w-100 mb-2">
                         <input class="form-check-input municipality-filter" type="checkbox" id="location<?= $row['location_id']; ?>" value="<?= $row['location_id']; ?>">
                         <label for="location<?= $row['location_id']; ?>"><?= $row['municipality_name']; ?></label>
@@ -73,7 +72,7 @@
                 echo "No category found";
             }
             ?>
-        </div>
+        </div> -->
 
         <!-- button to submit filter -->
         <div class="d-flex py-3 px-3">
@@ -85,7 +84,7 @@
 </div>
 
 <!-- SCRIPT -->
-<script>
+<!-- <script>
     // chevron toggler
     let cropToggler = document.querySelector('#crop-filter-dropdown-toggler');
     let munToggler = document.querySelector('#mun-filter-dropdown-toggler');
@@ -102,4 +101,4 @@
     cropToggler.onclick = () => toggleChevron(cropChev);
     munToggler.onclick = () => toggleChevron(munChev);
     // contToggler.onclick = () => toggleChevron(contChev);
-</script>
+</script> -->

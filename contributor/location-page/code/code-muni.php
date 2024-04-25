@@ -17,7 +17,7 @@ if (isset($_POST['save'])) {
     // Ensure that the arrays have the same length
     if (count($province_names) === count($municipality_names)) {
         // Prepare the query
-        $query = "INSERT INTO location (province_name, municipality_name) VALUES ";
+        $query = "INSERT INTO municipality (province_id, municipality_name) VALUES ";
         $params = [];
         $valueStrings = [];
 
@@ -34,6 +34,7 @@ if (isset($_POST['save'])) {
         $query_run = pg_query_params($conn, $query, $params);
 
         if ($query_run) {
+            $_SESSION['message'] = "Municipality created successfully";
             header("location: ../municipality.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {

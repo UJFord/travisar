@@ -251,7 +251,7 @@ require "../../functions/functions.php";
 
             <!-- MODAL -->
             <!-- add -->
-            <?php require "edit.php"; ?>
+            <?php //require "edit.php"; ?>
 
         </div>
     </div>

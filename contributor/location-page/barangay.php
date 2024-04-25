@@ -120,14 +120,6 @@ require "../../functions/functions.php";
                     // Calculate the offset based on the current page and items per page
                     $offset = ($current_page - 1) * $items_per_page;
 
-                    // Count the total number of rows for pagination for approved crops
-                    $total_rows_query_location = "SELECT COUNT(*) FROM location";
-                    $total_rows_result_location = pg_query($conn, $total_rows_query_location);
-                    $total_row_location = pg_fetch_row($total_rows_result_location)[0];
-
-                    // Calculate the total number of pages for approved crops
-                    $total_pages_location = ceil($total_row_location / $items_per_page);
-
                     // Count the total number of rows for pagination for pending crops
                     $total_rows_query_barangay = "SELECT COUNT(*) FROM barangay";
                     $total_rows_result_barangay = pg_query($conn, $total_rows_query_barangay);
@@ -215,9 +207,9 @@ require "../../functions/functions.php";
 
             <!-- MODAL -->
             <!-- add Barangay -->
-            <?php require "modals/add-barangay.php"; ?>
+            <?php //require "modals/add-barangay.php"; ?>
             <!-- edit barangay -->
-            <?php require "modals/edit-barangay.php"; ?>
+            <!-- <?php //require "modals/edit-barangay.php"; ?> -->
         </div>
     </div>
 
