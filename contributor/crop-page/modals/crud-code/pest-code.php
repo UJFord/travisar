@@ -58,27 +58,37 @@ if (isset($_POST['edit'])) {
     }
 }
 
-if (isset($_POST['click_edit_btn'])) {
-    if (isset($_POST["municipality_id"])) {
-        $municipality_id = $_POST["municipality_id"];
-        $arrayresult = [];
+// var_dump($_POST);
+// die();
+if (isset($_POST['delete']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator')) {
+    // Begin the database transaction
+    pg_query($conn, "BEGIN");
+    try {
+        $pest_resistance_id = $_POST['pest_resistance_id'];
 
-        // Fetch data from the location table
-        $query = "SELECT * FROM municipality left join province on province.province_id = municipality.province_id WHERE municipality.municipality_id = $1";
-        $query_run = pg_query_params($conn, $query, array($municipality_id));
+        $query = "DELETE FROM pest_resistance WHERE pest_resistance_id = $1";
+        $query_run = pg_query_params($conn, $query, array($pest_resistance_id));
 
-        if (pg_num_rows($query_run) > 0) {
-            while ($row = pg_fetch_assoc($query_run)) {
-
-                $arrayresult[] = $row;
-            }
-
-            header('Content-Type: application/json');
-            echo json_encode($arrayresult);
+        if ($query_run) {
+            $_SESSION['message'] = "Pest Deleted Successfully";
+            pg_query($conn, "COMMIT");
+            header("location: ../../pest-resistance.php");
+            exit();
         } else {
-            echo '<h4>No record found</h4>';
+            echo "Error: " . pg_last_error($conn);
+            exit(0);
         }
-    } else {
-        echo "Location ID not set";
+    } catch (Exception $e) {
+        // message for error
+        $_SESSION['message'] = 'Pest not deleted';
+        // Rollback the transaction if an error occurs
+        pg_query($conn, "ROLLBACK");
+        // Log the error message
+        error_log("Error: " . $e->getMessage());
+        // Handle the error
+        echo "Error: " . $e->getMessage();
+        // Display the error message
+        echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
+        exit(0);
     }
 }

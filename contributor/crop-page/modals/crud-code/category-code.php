@@ -88,17 +88,14 @@ if (isset($_POST['delete']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'
         $query_run = pg_query_params($conn, $query, array($category_id));
 
         if ($query_run) {
-            $row_category = pg_fetch_row($query_run);
-            $category_id = $row_category[0];
+            $_SESSION['message'] = "Category Deleted Successfully";
+            pg_query($conn, "COMMIT");
+            header("location: ../../crop-category.php");
+            exit();
         } else {
             echo "Error: " . pg_last_error($conn);
             exit(0);
         }
-
-        $_SESSION['message'] = "Category Deleted Successfully";
-        pg_query($conn, "COMMIT");
-        header("location: ../../crop-category.php");
-        exit();
     } catch (Exception $e) {
         // message for error
         $_SESSION['message'] = 'Category not delete category';

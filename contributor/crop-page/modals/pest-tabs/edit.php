@@ -230,15 +230,15 @@
     document.getElementById('confirmDeleteBtnEdit').addEventListener('click', function() {
         // Send a request to delete the category
         $.ajax({
-            url: 'modals/crud-code/category-code.php',
+            url: 'modals/crud-code/pest-code.php',
             type: 'POST',
             data: {
                 'delete': 'delete',
-                'category_id': document.getElementById('pest_idEdit').value
+                'pest_resistance_id': document.getElementById('pest_idEdit').value
             },
             success: function(response) {
                 // Handle the response from the server
-                console.log('Category deleted:', response);
+                console.log('Pest deleted:', response);
 
                 // Close the confirmation modal
                 //confirmModalInstanceEdit.hide();
