@@ -26,13 +26,17 @@
                 }
             }
             ?>
+            <div class="col-3 form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="pest_other" id="pest_other_check" value="1">
+                <label class="form-check-label small-font" for="pest_other_check">Other</label>
+            </div>
         </div>
 
         <!-- Other -->
-        <div id="corn-pest-other" class="d-none row mt-3 mb-5">
+        <div id="pest-other" class="d-none row mt-3 mb-5">
             <div class="col-12 mb-0">
                 <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
-                <textarea name="corn_others_desc" id="corn-other" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
+                <textarea name="pest_other_desc" id="pest" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
                 <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
             </div>
         </div>
@@ -89,13 +93,17 @@
                 }
             }
             ?>
+            <div class="col-3 form-check form-check-inline">
+                <input class="form-check-input" type="checkbox" name="abiotic_other" id="abiotic_other_check" value="1">
+                <label class="form-check-label small-font" for="abiotic_other_check">Other</label>
+            </div>
         </div>
 
         <!-- Other -->
-        <div class="row mt-3 mb-3">
-            <div id="corn-abiotic-other-container" class="col-12 mb-2 d-none">
+        <div id="abiotic_other" class="d-none row mt-3 mb-3">
+            <div class="col-12 mb-2">
                 <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
-                <textarea name="corn_others_desc" id="corn-abiotic-other" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
+                <textarea name="abiotic_other_desc" id="abiotic_other" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
                 <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
             </div>
         </div>
@@ -117,49 +125,20 @@
     </div>
 </div>
 
-<!-- <script>
-    const cornOtherCheck = document.getElementById('corn-other-check');
-    const cornPestOther = document.getElementById('corn-pest-other');
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        const pest_other_check = document.getElementById('pest_other_check');
+        const pest_other = document.getElementById('pest-other');
 
-    const cornAbioticCheck = document.getElementById('corn-abiotic-check');
-    const cornAbioticOtherContainer = document.getElementById('corn-abiotic-other-container');
+        const abiotic_other_check = document.getElementById('abiotic_other_check');
+        const abiotic_other = document.getElementById('abiotic_other');
 
-    // New for rice checkboxes
-    const riceOtherCheck = document.getElementById('rice-other-check');
-    const ricePestOther = document.getElementById('rice-pest-other-container'); // Use the correct ID here
+        pest_other_check.addEventListener('change', function() {
+            pest_other.classList.toggle('d-none', !this.checked);
+        });
 
-    const riceAbioticCheck = document.getElementById('rice-abiotic-other-check');
-    const riceAbioticOtherContainer = document.getElementById('rice-abiotic-other-container');
-
-    const rootCropOtherCheck = document.getElementById('rootCrop-other-check');
-    const rootPestOtherContainer = document.getElementById('root-pest-other-container'); // Notice the container ID
-
-    const rootCropAbioticCheck = document.getElementById('rootCrop-abiotic-other-check');
-    const rootAbioticOtherContainer = document.getElementById('root-abiotic-other-container');
-
-
-    cornOtherCheck.addEventListener('change', function() {
-        cornPestOther.classList.toggle('d-none', !this.checked);
+        abiotic_other_check.addEventListener('change', function() {
+            abiotic_other.classList.toggle('d-none', !this.checked);
+        });
     });
-
-    cornAbioticCheck.addEventListener('change', function() {
-        cornAbioticOtherContainer.classList.toggle('d-none', !this.checked);
-    });
-
-    // Event listeners for rice checkboxes
-    riceOtherCheck.addEventListener('change', function() {
-        ricePestOther.classList.toggle('d-none', !this.checked);
-    });
-
-    riceAbioticCheck.addEventListener('change', function() {
-        riceAbioticOtherContainer.classList.toggle('d-none', !this.checked);
-    });
-
-    rootCropOtherCheck.addEventListener('change', function() {
-        rootPestOtherContainer.classList.toggle('d-none', !this.checked);
-    });
-
-    rootCropAbioticCheck.addEventListener('change', function() {
-        rootAbioticOtherContainer.classList.toggle('d-none', !this.checked);
-    });
-</script> -->
+</script>
