@@ -4186,17 +4186,14 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $abiotic_resistance_id = handleEmpty($_POST['abiotic_resistanceID']);
         $category_id = handleEmpty($_POST['categoryID']);
 
-        // disease resistance
-        $bacterial = isset($_POST['bacterial']) ? true : false;
-        $viral = isset($_POST['viral']) ? true : false;
-        $fungus = isset($_POST['fungus']) ? true : false;
-
         // abiotic resistance
-        $drought = isset($_POST['drought']) ? true : false;
-        $salinity = isset($_POST['salinity']) ? true : false;
-        $heat = isset($_POST['heat']) ? true : false;
         $abiotic_other = isset($_POST['abiotic_other']) ? true : false;
         $abiotic_other_desc = isset($_POST['abiotic_other_desc']) ? handleEmpty($_POST['abiotic_other_desc']) : null;
+
+        // Pest resistance corn
+        $pest_other = isset($_POST['pest_other']) ? true : false;
+        $pest_other_desc = isset($_POST['pest_other_desc']) ? handleEmpty($_POST['pest_other_desc']) : null;
+
 
         // Utilization Cultural Importance
         $significance = isset($_POST['significance']) ? handleEmpty($_POST['significance']) : null;
@@ -4219,20 +4216,6 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $seed_width = isset($_POST['seed_width']) ? handleEmpty($_POST['seed_width']) : null;
         $seed_shape = isset($_POST['seed_shape']) ? handleEmpty($_POST['seed_shape']) : null;
         $seed_color = isset($_POST['seed_color']) ? handleEmpty($_POST['seed_color']) : null;
-
-        // Pest resistance corn
-        $corn_borers = isset($_POST['corn_borers']) ? true : false;
-        $earworms = isset($_POST['earworms']) ? true : false;
-        $spider_mites = isset($_POST['spider_mites']) ? true : false;
-        $corn_black_bug = isset($_POST['corn_black_bug']) ? true : false;
-        $corn_army_worms = isset($_POST['corn_army_worms']) ? true : false;
-        $leaf_aphid = isset($_POST['leaf_aphid']) ? true : false;
-        $corn_cutworms = isset($_POST['corn_cutworms']) ? true : false;
-        $corn_birds = isset($_POST['corn_birds']) ? true : false;
-        $corn_ants = isset($_POST['corn_ants']) ? true : false;
-        $corn_rats = isset($_POST['corn_rats']) ? true : false;
-        $corn_others = isset($_POST['corn_others']) ? true : false;
-        $corn_others_desc = isset($_POST['corn_others_desc']) ? handleEmpty($_POST['corn_others_desc']) : null;
 
         //* morphological Traits rice
         // Vegetative state rice
@@ -4272,20 +4255,6 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $rice_abiotic_other = isset($_POST['rice_abiotic_other']) ? true : false;
         $rice_abiotic_other_desc = isset($_POST['rice_abiotic_other_desc']) ? handleEmpty($_POST['rice_abiotic_other_desc']) : null;
 
-        // Pest resistance rice
-        $rice_borers = isset($_POST['rice_borers']) ? true : false;
-        $rice_snail = isset($_POST['rice_snail']) ? true : false;
-        $hoppers = isset($_POST['hoppers']) ? true : false;
-        $rice_black_bug = isset($_POST['rice_black_bug']) ? true : false;
-        $leptocorisa = isset($_POST['leptocorisa']) ? true : false;
-        $leaf_folder = isset($_POST['leaf_folder']) ? true : false;
-        $rice_birds = isset($_POST['rice_birds']) ? true : false;
-        $rice_ants = isset($_POST['rice_ants']) ? true : false;
-        $rice_rats = isset($_POST['rice_rats']) ? true : false;
-        $rice_army_worms = isset($_POST['rice_army_worms']) ? true : false;
-        $rice_others = isset($_POST['rice_others']) ? true : false;
-        $rice_others_desc = isset($_POST['rice_others_desc']) ? handleEmpty($_POST['rice_others_desc']) : null;
-
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
         $rootcrop_plant_height = isset($_POST['rootcrop_plant_height']) ? handleEmpty($_POST['rootcrop_plant_height']) : null;
@@ -4293,20 +4262,6 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         $rootcrop_leaf_length = isset($_POST['rootcrop_leaf_length']) ? handleEmpty($_POST['rootcrop_leaf_length']) : null;
         $rootcrop_stem_leaf_desc = isset($_POST['rootcrop_stem_leaf_desc']) ? handleEmpty($_POST['rootcrop_stem_leaf_desc']) : null;
         $rootcrop_maturity_time = isset($_POST['rootcrop_maturity_time']) ? handleEmpty($_POST['rootcrop_maturity_time']) : null;
-
-        // Pest resistance rootcrop
-        $root_aphids = isset($_POST['root_aphids']) ? true : false;
-        $root_knot_nematodes = isset($_POST['root_knot_nematodes']) ? true : false;
-        $rootcrop_cutworms = isset($_POST['rootcrop_cutworms']) ? true : false;
-        $white_grubs = isset($_POST['white_grubs']) ? true : false;
-        $termites = isset($_POST['termites']) ? true : false;
-        $weevils = isset($_POST['weevils']) ? true : false;
-        $flea_beetles = isset($_POST['flea_beetles']) ? true : false;
-        $rootcrop_snails = isset($_POST['rootcrop_snails']) ? true : false;
-        $rootcrop_ants = isset($_POST['rootcrop_ants']) ? true : false;
-        $rootcrop_rats = isset($_POST['rootcrop_rats']) ? true : false;
-        $rootcrop_others = isset($_POST['rootcrop_others']) ? true : false;
-        $rootcrop_others_desc = isset($_POST['rootcrop_others_desc']) ? handleEmpty($_POST['rootcrop_others_desc']) : null;
 
         // rootcrop traits
         $eating_quality = isset($_POST['eating_quality']) ? handleEmpty($_POST['eating_quality']) : null;
@@ -4525,53 +4480,6 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         // for creating a unique code for each crop variety
         // Get the latest unique_code from the crop table
 
-        $queryLatestCode = "SELECT category_name FROM category WHERE category_id = $1";
-        $resultLatestCode = pg_query_params($conn, $queryLatestCode, array($category_id));
-
-        if ($resultLatestCode) {
-            $latestCodeRow = pg_fetch_assoc($resultLatestCode);
-            $latestCode = $latestCodeRow['category_name'];
-
-            // Extract the first letter of each word in the category name
-            $prefix = '';
-            $words = explode(' ', $latestCode);
-            foreach ($words as $word) {
-                $prefix .= strtoupper(substr($word, 0, 1));
-            }
-
-            // Format the crop variety name to have uppercase letters and dashes instead of spaces
-            $cropVarietyName = str_replace(' ', '-', ucwords(strtolower($crop_variety)));
-
-            // Check if the current crop variety is different from the new one
-            if ($current_crop_variety != $crop_variety) {
-                // Fetch all existing unique codes from the crop table
-                $queryUniqueCodes = "SELECT unique_code FROM crop WHERE unique_code LIKE '$prefix%'";
-                $resultUniqueCodes = pg_query($conn, $queryUniqueCodes);
-
-                // Extract the highest number from the existing codes
-                $existingNumbers = [];
-                while ($row = pg_fetch_assoc($resultUniqueCodes)) {
-                    preg_match('/(\d+)$/', $row['unique_code'], $matches);
-                    if (isset($matches[1])) {
-                        $existingNumbers[] = intval($matches[1]);
-                    }
-                }
-
-                if (empty($existingNumbers)) {
-                    // If no existing codes, set the current number to 0
-                    $currentNumber = 0;
-                } else {
-                    $currentNumber = max($existingNumbers);
-                }
-
-                // Generate the new unique code
-                $newUniqueCode = $prefix . 'V' . $cropVarietyName . ($currentNumber + 1);
-            } else {
-                // If the current crop variety is the same, use the current unique code
-                $newUniqueCode = $currentUniqueCode;
-            }
-        }
-
         // update utilization cultural table
         $query_utilCultural = "UPDATE utilization_cultural_importance SET significance = $1, \"use\" = $2, indigenous_utilization = $3,
         remarkable_features = $4 WHERE utilization_cultural_id = $5";
@@ -4587,11 +4495,11 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         }
 
         // update crop table
-        $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, unique_code = $3, meaning_of_name = $4,
-        crop_seed_image = $5 where crop_id = $6";
+        $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, meaning_of_name = $3,
+        crop_seed_image = $4 where crop_id = $5";
 
         $valueCrops = array(
-            $crop_variety, $crop_description, $newUniqueCode, $meaning_of_name, $finalimgSeed, $crop_id
+            $crop_variety, $crop_description, $meaning_of_name, $finalimgSeed, $crop_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -4656,42 +4564,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
             // Id's for corn traits
             $vegetative_state_corn_id = handleEmpty($_POST['vegetative_state_cornID']);
             $reproductive_state_corn_id = handleEmpty($_POST['reproductive_state_cornID']);
-            $pest_resistance_corn_id = handleEmpty($_POST['pest_resistance_cornID']);
 
             // Handle corn category traits
-            // abiotic resistance
-            $query_abioticRes = "UPDATE abiotic_resistance set drought = $1, salinity = $2, heat = $3, abiotic_other = $4, abiotic_other_desc = $5 WHERE abiotic_resistance_id = $6";
-            $query_run_abioticRes = pg_query_params($conn, $query_abioticRes, array($drought, $salinity, $heat, $abiotic_other, $abiotic_other_desc, $abiotic_resistance_id));
-            if ($query_run_abioticRes) {
-            } else {
-                echo "Error: " . pg_last_error($conn);
-                exit(0);
-            }
-
-            // disease resistance
-            $query_diseaseRes = "UPDATE disease_resistance set bacterial = $1, viral = $2, fungus = $3 WHERE disease_resistance_id = $4";
-            $query_run_diseaseRes = pg_query_params($conn, $query_diseaseRes, array($bacterial, $viral, $fungus, $disease_resistance_id));
-            if ($query_run_diseaseRes) {
-                echo "success";
-            } else {
-                echo "Error: " . pg_last_error($conn);
-                exit(0);
-            }
-
-            // pest resistance corn
-            $query_pestRes = "UPDATE pest_resistance_corn set corn_borers = $1, earworms = $2, spider_mites = $3, corn_black_bug = $4, corn_army_worms = $5, leaf_aphid = $6, corn_cutworms = $7, corn_birds = $8, 
-            corn_ants = $9, corn_rats = $10, corn_others = $11, corn_others_desc = $12 where pest_resistance_corn_id = $13";
-            $query_run_pestRes = pg_query_params($conn, $query_pestRes, array(
-                $corn_borers, $earworms, $spider_mites, $corn_black_bug, $corn_army_worms, $leaf_aphid, $corn_cutworms, $corn_birds,
-                $corn_ants, $corn_rats, $corn_others, $corn_others_desc, $pest_resistance_corn_id
-            ));
-            if ($query_run_pestRes) {
-                echo "success";
-            } else {
-                echo "Error: " . pg_last_error($conn);
-                exit(0);
-            }
-
             // seed traits
             $query_seedTraits = "UPDATE seed_traits set seed_length = $1, seed_width = $2, seed_shape = $3, seed_color = $4 where seed_traits_id = $5";
             $query_run_seedTraits = pg_query_params($conn, $query_seedTraits, array($seed_length, $seed_width, $seed_shape, $seed_color, $seed_traits_id));

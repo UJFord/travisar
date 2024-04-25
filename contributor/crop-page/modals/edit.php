@@ -355,7 +355,7 @@
                                 diseaseIds.forEach(function(disease_id) {
                                     $('#disease_resistance_Edit' + disease_id).prop('checked', true);
                                 });
-                                console.log(diseaseIds);
+                                //console.log(diseaseIds);
                             }
 
                             // abiotic resistance
@@ -364,7 +364,7 @@
                                 abioticIds.forEach(function(abiotic_id) {
                                     $('#abiotic_resistance_Edit' + abiotic_id).prop('checked', true);
                                 });
-                                console.log(abioticIds);
+                                //console.log(abioticIds);
                             }
 
                             $('#pest_other_checkEdit').prop('checked', value['pest_other'] == 1);
