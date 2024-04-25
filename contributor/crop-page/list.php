@@ -160,11 +160,6 @@
                                 <h6 class="text-secondary small-font"><?= $formatted_date; ?></h6>
                             </td>
 
-                            <!-- edit -->
-                            <!-- <td>
-                                <a href="#" class="btn btn-success btn-sm edit_data admin-only" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">Edit</a>
-                            </td> -->
-
                             <!-- status -->
                             <td>
                                 <span class=" small-font bg-dark-subtle w-auto py-1 px-2 rounded"><?= $row['action']; ?></span>

@@ -62,7 +62,7 @@ require "../../functions/functions.php";
 
             <!-- MODAL -->
             <!-- add -->
-            <?php //require "modals/add.php"; ?>
+            <?php require "modals/add.php"; ?>
             <!-- edit -->
             <?php //require "modals/edit.php"; ?>
             <!-- view -->
@@ -190,21 +190,14 @@ require "../../functions/functions.php";
                     // console.log(data); // Log the response data
                     // Rest of your code
                     var municipalitiesDropdown = document.getElementById('Municipality');
-                    municipalitiesDropdown.innerHTML = '<option value="" disabled selected hidden class="colorize">Select One</option>'; // Clear existing options
-
-                    // Add the default "Select an option" option
-                    // var defaultOption = document.createElement('option');
-                    // defaultOption.value = 'null';
-                    // defaultOption.text = 'Select a Municipality';
-                    // defaultOption.disabled = true;
-                    // defaultOption.selected = true;
-                    // municipalitiesDropdown.appendChild(defaultOption);
+                    // Clear existing options ang add default value
+                    municipalitiesDropdown.innerHTML = '<option value="" disabled selected hidden class="colorize">Select One</option>';
 
                     // Add the fetched municipalities as options in the dropdown
                     data.forEach(municipality => {
                         var option = document.createElement('option');
-                        option.value = municipality;
-                        option.text = municipality;
+                        option.value = municipality['municipality_id'];
+                        option.text = municipality['municipality_name'];
                         municipalitiesDropdown.appendChild(option);
                     });
                 });
@@ -231,20 +224,11 @@ require "../../functions/functions.php";
                     var barangayDropdown = document.getElementById('Barangay');
                     barangayDropdown.innerHTML = '<option value="" disabled selected hidden class="colorize">Select One</option>'; // Clear existing options
 
-
-                    // Add the default "Select an option" option
-                    // var defaultOption = document.createElement('option');
-                    // defaultOption.value = 'null';
-                    // defaultOption.text = 'Select a Barangay';
-                    // defaultOption.disabled = true;
-                    // defaultOption.selected = true;
-                    // barangayDropdown.appendChild(defaultOption);
-
                     // Add the fetched municipalities as options in the dropdown
                     data.forEach(barangay => {
                         var option = document.createElement('option');
-                        option.value = barangay;
-                        option.text = barangay;
+                        option.value = barangay['barangay_id'];
+                        option.text = barangay[['barangay_name']];
                         barangayDropdown.appendChild(option);
                         // console.log('option');
                     });
