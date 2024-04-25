@@ -43,17 +43,22 @@
                     <div class="container">
                         <div class="tab-content mt-2">
                             <!-- general -->
-                            <?php //require "edit-tabs/gen.php" ?>
+                            <?php require "edit-tabs/gen.php" ?>
                             <!-- cultural -->
-                            <?php //require "edit-tabs/cultural.php" ?>
+                            <?php require "edit-tabs/cultural.php"
+                            ?>
                             <!-- more optional info -->
-                            <?php //require "edit-tabs/more.php" ?>
+                            <?php require "edit-tabs/more.php"
+                            ?>
                             <!-- agro info -->
-                            <?php //require "edit-tabs/agro.php" ?>
+                            <?php require "edit-tabs/agro.php"
+                            ?>
                             <!-- sensory info -->
-                            <?php //require "edit-tabs/sensory.php" ?>
+                            <?php require "edit-tabs/sensory.php"
+                            ?>
                             <!-- references -->
-                            <?php //require "edit-tabs/references.php" ?>
+                            <?php require "edit-tabs/references.php"
+                            ?>
                             <!-- confirm -->
                             <?php require "edit-tabs/confirm.php" ?>
                         </div>
@@ -253,9 +258,9 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        // console.log(value['action']);
+                        console.log(value['pest_resistances']);
 
-                        // set modal name depending if it is draft or edit
+                        // set modal name and buttons depending if it is draft or edit
                         if (value['action'] === 'draft') {
                             $('#edit-label').text('Draft');
                             $('#draftButton').show();
@@ -305,42 +310,72 @@
                             // morph traits for corn
                             // vegetative state
                             $('#corn-heightEdit').append($('<option>', {
-                                value: value['corn_plant_height']
+                                value: value['corn_plant_height'],
+                                text: value['corn_plant_height'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
                             $('#corn-leafWidth-Edit').append($('<option>', {
-                                value: value['corn_leaf_width']
+                                value: value['corn_leaf_width'],
+                                text: value['corn_leaf_width'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
                             $('#corn-leafLength-Edit').append($('<option>', {
-                                value: value['corn_leaf_length']
+                                value: value['corn_leaf_length'],
+                                text: value['corn_leaf_length'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
 
                             // Reproductive state corn
-                            $('#corn-yield-capacity-Edit').val(value['corn_yield_capacity']);
+                            $('#corn-yield-capacity-Edit').append($('<option>', {
+                                value: value['corn_yield_capacity'],
+                                text: value['corn_yield_capacity'],
+                                selected: true,
+                                style: 'display: none;'
+                            }));
                             $('#corn-seed-length-Edit').val(value['seed_length']);
                             $('#corn-seed-width-Edit').val(value['seed_width']);
                             $('#corn-seed-shape-Edit').val(value['seed_shape']);
                             $('#corn-seed-color-Edit').val(value['seed_color']);
 
-                            // pest resistance corn
-                            $('#cornBorers-Edit').prop('checked', value['corn_borers'] == 1);
-                            $('#Earworm-Edit').prop('checked', value['earworms'] == 1);
-                            $('#spider-mites-Edit').prop('checked', value['spider_mites'] == 1);
-                            $('#corn-blackBug-Edit').prop('checked', value['corn_black_bug'] == 1);
-                            $('#corn-army-worms-Edit').prop('checked', value['corn_army_worms'] == 1);
-                            $('#leaf-aphid-Edit').prop('checked', value['leaf_aphid'] == 1);
-                            $('#corn-cutWorms-Edit').prop('checked', value['corn_cutworms'] == 1);
-                            $('#rice-Birds-Edit').prop('checked', value['corn_birds'] == 1);
-                            $('#corn-ants-Edit').prop('checked', value['corn_ants'] == 1);
-                            $('#corn-rats-Edit').prop('checked', value['corn_rats'] == 1);
-                            $('#corn-other-check-Edit').prop('checked', value['corn_others'] == 1);
+                            // pest resistances
+                            if (value['pest_resistances']) {
+                                var pestIds = value['pest_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
+                                pestIds.forEach(function(pest_id) {
+                                    $('#pest_resistance_Edit' + pest_id).prop('checked', true);
+                                });
+                                //console.log(pestIds);
+                            }
+
+                            // disease resistance
+                            if (value['disease_resistances']) {
+                                var diseaseIds = value['disease_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
+                                diseaseIds.forEach(function(disease_id) {
+                                    $('#disease_resistance_Edit' + disease_id).prop('checked', true);
+                                });
+                                console.log(diseaseIds);
+                            }
+
+                            // abiotic resistance
+                            if (value['abiotic_resistances']) {
+                                var abioticIds = value['abiotic_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
+                                abioticIds.forEach(function(abiotic_id) {
+                                    $('#abiotic_resistance_Edit' + abiotic_id).prop('checked', true);
+                                });
+                                console.log(abioticIds);
+                            }
+
+                            $('#pest_other_checkEdit').prop('checked', value['pest_other'] == 1);
                             // Show the 'Other' textarea if 'other' checkbox is checked
-                            if ($('#corn-other-check-Edit').prop('checked')) {
-                                $('.corn-pest-other-edit').show();
+                            if ($('#pest_other_checkEdit').prop('checked')) {
+                                $('.pest-otherEdit').show();
                             } else {
-                                $('.corn-pest-other-edit').hide();
+                                $('.pest-otherEdit').hide();
                             }
                             // Set the value of the 'Other' textarea
-                            $('#corn-other-Edit').val(value['corn_others_desc']);
+                            $('#pest-otherEdit').val(value['pest_other_desc']);
 
                             // disease resistance corn
                             $('#corn-Bacterial-Edit').prop('checked', value['bacterial'] == 1);
@@ -674,26 +709,33 @@
                         // Update the select data of loc.php locations
                         $('#crop_variety_select').append($('<option>', {
                             value: value['crop_variety'],
-                            text: value['crop_variety']
+                            text: value['crop_variety'],
+                            selected: true, // Make the option selected
+                            style: 'display: none;' // Hide the option
                         }));
+
                         $('#BarangaySelect').append($('<option>', {
                             value: value['barangay_name'],
-                            text: value['barangay_name']
+                            text: value['barangay_name'],
+                            selected: true,
+                            style: 'display: none;'
                         }));
                         $('#MunicipalitySelect').append($('<option>', {
                             value: value['municipality_name'],
-                            text: value['municipality_name']
+                            text: value['municipality_name'],
+                            selected: true,
+                            style: 'display: none;'
                         }));
 
                         // Add municipality to the array
                         municipalities.push(value['municipality_name']);
 
                         // Append options to MunicipalitySelect
-                        $('#MunicipalitySelect').empty(); // Clear previous options
-                        municipalities.forEach(function(municipality) {
-                            var selected = (municipality === value['municipality_name']) ? 'selected' : '';
-                            $('#MunicipalitySelect').append('<option value="' + municipality + '" ' + selected + '>' + municipality + '</option>');
-                        });
+                        // $('#MunicipalitySelect').empty(); // Clear previous options
+                        // municipalities.forEach(function(municipality) {
+                        //     var selected = (municipality === value['municipality_name']) ? 'selected' : '';
+                        //     $('#MunicipalitySelect').append('<option value="' + municipality + '" ' + selected + '>' + municipality + '</option>');
+                        // });
 
                         // Add a marker to the map based on the coordinates if they exist
                         if (value['coordinates']) {

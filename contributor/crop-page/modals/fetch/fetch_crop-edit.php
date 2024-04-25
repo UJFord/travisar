@@ -21,22 +21,34 @@ if (isset($_POST['click_edit_btn'])) {
 
     if ($get_category_name === 'Corn') {
         // Fetch data from the crop table and join with crop_location
-        $query = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join municipality
-        on crop_location.municipality_id = municipality.municipality_id left join users on crop.user_id = users.user_id left join barangay
-        on crop_location.barangay_id = barangay.barangay_id left join province on province.province_id = municipality.province_id
-        left join category_variety on crop.category_variety_id = category_variety.category_variety_id left join terrain on terrain.terrain_id = crop.terrain_id
-        left join category on category.category_id = crop.category_id left join utilization_cultural_importance on  crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id
-        left join corn_traits on crop.crop_id = corn_traits.crop_id left join vegetative_state_corn on corn_traits.vegetative_state_corn_id = vegetative_state_corn.vegetative_state_corn_id
-        left join reproductive_state_corn on corn_traits.reproductive_state_corn_id = reproductive_state_corn.reproductive_state_corn_id
-        left join corn_pest_resistance on corn_traits.corn_traits_id = corn_pest_resistance.corn_traits_id left join pest_resistance on pest_resistance.pest_resistance_id = corn_pest_resistance.pest_resistance_id
-        left join corn_disease_resistance on corn_traits.corn_traits_id = corn_disease_resistance.corn_traits_id left join disease_resistance on disease_resistance.disease_resistance_id = corn_disease_resistance.disease_resistance_id
-        left join corn_abiotic_resistance on corn_traits.corn_traits_id = corn_abiotic_resistance.corn_traits_id left join abiotic_resistance on abiotic_resistance.abiotic_resistance_id = corn_abiotic_resistance.abiotic_resistance_id
-        left join corn_pest_resistance_other on corn_pest_resistance_other.corn_pest_other_id = corn_traits.corn_pest_other_id
-        left join corn_abiotic_resistance_other on corn_abiotic_resistance_other.corn_abiotic_other_id = corn_traits.corn_abiotic_other_id
-        left join seed_traits on seed_traits.seed_traits_id = reproductive_state_corn.seed_traits_id
-        left join \"references\" on \"references\".crop_id = crop.crop_id
-        left join \"status\" on \"status\".status_id = crop.status_id
+        $query = "SELECT DISTINCT crop.*, crop_location.*, municipality.*, users.*, barangay.*, province.*, category_variety.*, terrain.*, category.*, utilization_cultural_importance.*, corn_traits.*, vegetative_state_corn.*, reproductive_state_corn.*, 
+        ARRAY(SELECT DISTINCT corn_pest_resistance.pest_resistance_id FROM corn_pest_resistance WHERE corn_pest_resistance.corn_traits_id = corn_traits.corn_traits_id) AS pest_resistances,
+        ARRAY(SELECT DISTINCT corn_disease_resistance.disease_resistance_id FROM corn_disease_resistance WHERE corn_disease_resistance.corn_traits_id = corn_traits.corn_traits_id) AS disease_resistances,
+        ARRAY(SELECT DISTINCT corn_abiotic_resistance.abiotic_resistance_id FROM corn_abiotic_resistance WHERE corn_abiotic_resistance.corn_traits_id = corn_traits.corn_traits_id) AS abiotic_resistances,
+        corn_pest_resistance_other.*, corn_abiotic_resistance_other.*, seed_traits.*, \"references\".*, \"status\".*
+        FROM crop
+        LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id
+        LEFT JOIN municipality ON crop_location.municipality_id = municipality.municipality_id
+        LEFT JOIN users ON crop.user_id = users.user_id
+        LEFT JOIN barangay ON crop_location.barangay_id = barangay.barangay_id
+        LEFT JOIN province ON province.province_id = municipality.province_id
+        LEFT JOIN category_variety ON crop.category_variety_id = category_variety.category_variety_id
+        LEFT JOIN terrain ON terrain.terrain_id = crop.terrain_id
+        LEFT JOIN category ON category.category_id = crop.category_id
+        LEFT JOIN utilization_cultural_importance ON crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id
+        LEFT JOIN corn_traits ON crop.crop_id = corn_traits.crop_id
+        LEFT JOIN vegetative_state_corn ON corn_traits.vegetative_state_corn_id = vegetative_state_corn.vegetative_state_corn_id
+        LEFT JOIN reproductive_state_corn ON corn_traits.reproductive_state_corn_id = reproductive_state_corn.reproductive_state_corn_id
+        LEFT JOIN corn_pest_resistance ON corn_traits.corn_traits_id = corn_pest_resistance.corn_traits_id
+        LEFT JOIN corn_disease_resistance ON corn_traits.corn_traits_id = corn_disease_resistance.corn_traits_id
+        LEFT JOIN corn_abiotic_resistance ON corn_traits.corn_traits_id = corn_abiotic_resistance.corn_traits_id
+        LEFT JOIN corn_pest_resistance_other ON corn_pest_resistance_other.corn_pest_other_id = corn_traits.corn_pest_other_id
+        LEFT JOIN corn_abiotic_resistance_other ON corn_abiotic_resistance_other.corn_abiotic_other_id = corn_traits.corn_abiotic_other_id
+        LEFT JOIN seed_traits ON seed_traits.seed_traits_id = reproductive_state_corn.seed_traits_id
+        LEFT JOIN \"references\" ON \"references\".crop_id = crop.crop_id
+        LEFT JOIN \"status\" ON \"status\".status_id = crop.status_id
         WHERE crop.crop_id = $1";
+
         $query_run = pg_query_params($conn, $query, array($crop_id));
 
         if (pg_num_rows($query_run) > 0) {

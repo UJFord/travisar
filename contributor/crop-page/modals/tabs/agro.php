@@ -124,7 +124,7 @@
         </div>
     </div>
 </div>
-
+<!--  script for the other checkboxes -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
         const pest_other_check = document.getElementById('pest_other_check');

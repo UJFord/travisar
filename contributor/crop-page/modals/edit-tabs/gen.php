@@ -232,7 +232,7 @@
             <select id="ProvinceEdit" name="province" class="form-control mb-2">
                 <?php
                 // Fetch distinct province names from the location table
-                $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";
+                $queryProvince = "SELECT DISTINCT province_name, province_id FROM province ORDER BY province_name ASC";
                 $query_run = pg_query($conn, $queryProvince);
 
                 $count = pg_num_rows($query_run);
@@ -242,8 +242,9 @@
 
                     while ($row = pg_fetch_assoc($query_run)) {
                         $province_name = $row['province_name'];
+                        $province_id = $row['province_id'];
                 ?>
-                        <option value="<?= $province_name; ?>"><?= $province_name; ?></option>
+                        <option value="<?= $province_id; ?>"><?= $province_name; ?></option>
                 <?php
                     }
                 }
@@ -553,7 +554,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 <!-- SCRIPT for location tab -->
-<script>
+<!-- <script>
     // FORMS SIDE
     // Get references to the select elements
     const neighborhoodValueEdit = document.getElementById('neighborhoodEdit');
@@ -636,7 +637,7 @@
     // Call the populateBarangay function initially to populate the municipalities dropdown based on the default selected municipality
     var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
     populateBarangayEdit(selectedMunicipality, initialBarangay);
-</script>
+</script> -->
 
 <!-- script for limiting the input in coordinates just to numbers, commas, periods, and spaces -->
 <script>
