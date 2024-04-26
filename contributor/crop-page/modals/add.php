@@ -72,10 +72,10 @@
                 </div>
 
                 <!-- footer -->
-                <div class="modal-footer d-flex justify-content-between">
+                <div class="modal-footer d-flex justify-content-end">
                     <div class="">
-                        <button type="submit" name="save" class="btn btn-success">Save</button>
                         <button type="button" id="cancel-modal-btn" class="btn border bg-light">Cancel</button>
+                        <button type="submit" name="save" class="btn btn-success">Save</button>
                     </div>
                 </div>
             </form>
