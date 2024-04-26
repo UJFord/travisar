@@ -340,33 +340,6 @@
                             $('#corn-seed-shape-Edit').val(value['seed_shape']);
                             $('#corn-seed-color-Edit').val(value['seed_color']);
 
-                            // pest resistances
-                            if (value['pest_resistances']) {
-                                var pestIds = value['pest_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
-                                pestIds.forEach(function(pest_id) {
-                                    $('#pest_resistance_Edit' + pest_id).prop('checked', true);
-                                });
-                                //console.log(pestIds);
-                            }
-
-                            // disease resistance
-                            if (value['disease_resistances']) {
-                                var diseaseIds = value['disease_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
-                                diseaseIds.forEach(function(disease_id) {
-                                    $('#disease_resistance_Edit' + disease_id).prop('checked', true);
-                                });
-                                //console.log(diseaseIds);
-                            }
-
-                            // abiotic resistance
-                            if (value['abiotic_resistances']) {
-                                var abioticIds = value['abiotic_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
-                                abioticIds.forEach(function(abiotic_id) {
-                                    $('#abiotic_resistance_Edit' + abiotic_id).prop('checked', true);
-                                });
-                                //console.log(abioticIds);
-                            }
-
                             $('#pest_other_checkEdit').prop('checked', value['corn_pest_other']);
                             // Show the 'Other' textarea if 'other' checkbox is checked
                             if ($('#pest_other_checkEdit').prop('checked')) {
@@ -469,33 +442,6 @@
                                 $('#hardness-Hard-Edit').prop('checked', true);
                             }
 
-                            // pest resistances
-                            if (value['pest_resistances']) {
-                                var pestIds = value['pest_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
-                                pestIds.forEach(function(pest_id) {
-                                    $('#pest_resistance_Edit' + pest_id).prop('checked', true);
-                                });
-                                //console.log(pestIds);
-                            }
-
-                            // disease resistance
-                            if (value['disease_resistances']) {
-                                var diseaseIds = value['disease_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
-                                diseaseIds.forEach(function(disease_id) {
-                                    $('#disease_resistance_Edit' + disease_id).prop('checked', true);
-                                });
-                                //console.log(diseaseIds);
-                            }
-
-                            // abiotic resistance
-                            if (value['abiotic_resistances']) {
-                                var abioticIds = value['abiotic_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
-                                abioticIds.forEach(function(abiotic_id) {
-                                    $('#abiotic_resistance_Edit' + abiotic_id).prop('checked', true);
-                                });
-                                //console.log(abioticIds);
-                            }
-
                             $('#pest_other_checkEdit').prop('checked', value['rice_pest_other']);
                             // Show the 'Other' textarea if 'other' checkbox is checked
                             if ($('#pest_other_checkEdit').prop('checked')) {
@@ -554,51 +500,57 @@
                             $('#rootCrop-sweetness-Edit').val(value['sweetness']);
                             $('#rootCrop-remarkableFeatures-Edit').val(value['rootcrop_remarkable_features']);
 
-                            // pest resistance rootCrop
-                            $('#rootAphids-Edit').prop('checked', value['root_aphids'] == 1);
-                            $('#root-knot-nematodes-Edit').prop('checked', value['root_knot_nematodes'] == 1);
-                            $('#rootCrop-cutworms-Edit').prop('checked', value['rootcrop_cutworms'] == 1);
-                            $('#rootCrop-whiteGRubs-Edit').prop('checked', value['white_grubs'] == 1);
-                            $('#Termites-Edit').prop('checked', value['termites'] == 1);
-                            $('#Weevils-Edit').prop('checked', value['weevils'] == 1);
-                            $('#flea-beetles-Edit').prop('checked', value['flea_beetles'] == 1);
-                            $('#rootCrop-snails-Edit').prop('checked', value['rootcrop_snails'] == 1);
-                            $('#rootCrop-ants-Edit').prop('checked', value['rootcrop_ants'] == 1);
-                            $('#rootCrop-rats-Edit').prop('checked', value['rootcrop_rats'] == 1);
-                            $('#rootCrop-other-check-Edit').prop('checked', value['rootcrop_others'] == 1);
+                            $('#pest_other_checkEdit').prop('checked', value['rootcrop_pest_other']);
                             // Show the 'Other' textarea if 'other' checkbox is checked
-                            if ($('#rootCrop-other-check-Edit').prop('checked')) {
-                                $('.rootCrop-other').show();
+                            if ($('#pest_other_checkEdit').prop('checked')) {
+                                $('#pest-otherEdit').removeClass('d-none'); // Remove the 'd-none' class to show the element
                             } else {
-                                $('.rootCrop-other').hide();
+                                $('#pest-otherEdit').addClass('d-none'); // Add the 'd-none' class to hide the element
                             }
                             // Set the value of the 'Other' textarea
-                            $('#rootCrop-other-Edit').val(value['rootcrop_others_desc']);
+                            $('#pestEdit').val(value['rootcrop_pest_other_desc']);
 
-                            // disease resistance rootCrop
-                            $('#rootCrop-Bacterial-Edit').prop('checked', value['bacterial'] == 1);
-                            $('#rootCrop-Fungus-Edit').prop('checked', value['fungus'] == 1);
-                            $('#rootCrop-Viral-Edit').prop('checked', value['viral'] == 1);
-
-                            // abiotic resistance resistance rootCrop
-                            $('#rootCrop-Drought-Edit').prop('checked', value['drought'] == 1);
-                            $('#rootCrop-Salinity-Edit').prop('checked', value['salinity'] == 1);
-                            $('#rootCrop-Heat-Edit').prop('checked', value['heat'] == 1);
-                            $('#rootCrop-abiotic-Edit').prop('checked', value['abiotic_other'] == 1);
+                            $('#abiotic_other_checkEdit').prop('checked', value['rootcrop_abiotic_other']);
                             // Show the 'Other' textarea if 'other' checkbox is checked
-                            // baliktad ang if else statement kay katok ang code ambot nganuman
-                            if ($('#rootCrop-abiotic-Edit').prop('checked')) {
-                                $('.rootCrop-abiotic-other').show();
+                            if ($('#abiotic_other_checkEdit').prop('checked')) {
+                                $('#abiotic_otherEdit').removeClass('d-none');
                             } else {
-                                $('.rootCrop-abiotic-other').hide();
+                                $('#abiotic_otherEdit').addClass('d-none');
                             }
                             // Set the value of the 'Other' textarea
-                            $('#rootCrop-abiotic-other-Edit').val(value['abiotic_other_desc']);
+                            $('#abiotic_other-descEdit').val(value['rootcrop_abiotic_other_desc']);
                         } else {
                             // Default case, hide all divs
                             $('#corn-Edit').hide();
                             $('#riceMorph-Edit').hide();
                             $('#root_cropMorph-Edit').hide();
+                        }
+
+                        // pest resistances
+                        if (value['pest_resistances']) {
+                            var pestIds = value['pest_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
+                            pestIds.forEach(function(pest_id) {
+                                $('#pest_resistance_Edit' + pest_id).prop('checked', true);
+                            });
+                            //console.log(pestIds);
+                        }
+
+                        // disease resistance
+                        if (value['disease_resistances']) {
+                            var diseaseIds = value['disease_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
+                            diseaseIds.forEach(function(disease_id) {
+                                $('#disease_resistance_Edit' + disease_id).prop('checked', true);
+                            });
+                            //console.log(diseaseIds);
+                        }
+
+                        // abiotic resistance
+                        if (value['abiotic_resistances']) {
+                            var abioticIds = value['abiotic_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
+                            abioticIds.forEach(function(abiotic_id) {
+                                $('#abiotic_resistance_Edit' + abiotic_id).prop('checked', true);
+                            });
+                            //console.log(abioticIds);
                         }
 
                         // crop_id
