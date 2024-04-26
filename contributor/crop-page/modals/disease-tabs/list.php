@@ -87,8 +87,8 @@
 
                             <!-- category -->
                             <td>
-                                <div class="small-font">
-                                    <h6 class="m-0"><?= $row['disease_name'] ?></h6>
+                                <div class="">
+                                    <h6 class="m-0 small-font"><?= $row['disease_name'] ?></h6>
                                 </div>
                             </td>
 

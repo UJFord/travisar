@@ -141,7 +141,7 @@
                                     <?php
                                     if (pg_num_rows($query_run_category)) {
                                         $category = pg_fetch_assoc($query_run_category);
-                                        echo '<h6 class=" m-0">' . $category['category_name'] . '</h6>';
+                                        echo '<h6 class="small-font m-0">' . $category['category_name'] . '</h6>';
                                     } else {
                                         echo "No category added.";
                                     }
@@ -152,12 +152,12 @@
                             <!-- Variety name -->
                             <td>
                                 <!-- Variety name -->
-                                <a href="view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
+                                <a class="small-font" href="view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
                             </td>
 
                             <!-- date created -->
                             <td>
-                                <h6 class=""><?= $formatted_date; ?></h6>
+                                <h6 class="small-font"><?= $formatted_date; ?></h6>
                             </td>
 
                             <td>
@@ -178,14 +178,14 @@
                                         break;
                                 }
                                 ?>
-                                <span class="w-auto py-1 px-2 rounded <?= $statusClass; ?>">
+                                <span class="w-auto py-1 px-2 rounded small-font <?= $statusClass; ?>">
                                     <?= $row['action']; ?>
                                 </span>
                             </td>
 
                             <!-- remarks -->
-                            <td class="text-end">
-                                <h6 class=""><?= $row['remarks']; ?></h6>
+                            <td class="text-center">
+                                <h6 class="small-font"><?= $row['remarks']; ?></h6>
                             </td>
 
                             <!-- ellipsis menu butn -->
