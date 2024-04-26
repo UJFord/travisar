@@ -27,7 +27,7 @@
                                     <label for="province-Name" class="form-label small-font">Province Name<span style="color: red;">*</span></label>
                                     <select name="province_name_1" id="province-Name" class="form-select">
                                         <?php
-                                        $queryProv = "SELECT DISTINCT province_name from location order by province_name ASC";
+                                        $queryProv = "SELECT DISTINCT province_name, province_id from province order by province_name ASC";
                                         $query_run = pg_query($conn, $queryProv);
 
                                         $count = pg_num_rows($query_run);
@@ -37,8 +37,9 @@
                                             // loop for displaying all categories
                                             while ($row = pg_fetch_assoc($query_run)) {
                                                 $province_name = $row['province_name'];
+                                                $province_id = $row['province_id'];
                                         ?>
-                                                <option value="<?= $province_name; ?>"><?= $province_name; ?></option>
+                                                <option value="<?= $province_id; ?>"><?= $province_name; ?></option>
                                             <?php
                                             }
                                             ?>
@@ -91,7 +92,7 @@
                     <label for="province-Name" class="form-label small-font">Province Name<span style="color: red;">*</span></label>
                     <select name="province_name_${rowCounter}" id="province-Name" class="form-select">
                         <?php
-                        $queryProv = "SELECT DISTINCT province_name from location order by province_name ASC";
+                        $queryProv = "SELECT DISTINCT province_name, province_id from province order by province_name ASC";
                         $query_run = pg_query($conn, $queryProv);
 
                         $count = pg_num_rows($query_run);
@@ -101,8 +102,9 @@
                             // loop for displaying all categories
                             while ($row = pg_fetch_assoc($query_run)) {
                                 $province_name = $row['province_name'];
+                                $province_id = $row['province_id'];
                         ?>
-                                <option value="<?= $province_name; ?>"><?= $province_name; ?></option>
+                                <option value="<?= $province_id; ?>"><?= $province_name; ?></option>
                             <?php
                             }
                             ?>

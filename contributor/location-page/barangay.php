@@ -44,7 +44,7 @@ require "../../functions/functions.php";
     <!-- NAV -->
     <?php require "../nav/nav.php"; ?>
 
-<?php
+    <?php
     include "../../functions/message.php";
     ?>
 
@@ -111,30 +111,22 @@ require "../../functions/functions.php";
                 </div>
 
                 <?php
-                    // Set the number of items to display per page
-                    $items_per_page = 10;
+                // Set the number of items to display per page
+                $items_per_page = 10;
 
-                    // Get the current page number
-                    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+                // Get the current page number
+                $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-                    // Calculate the offset based on the current page and items per page
-                    $offset = ($current_page - 1) * $items_per_page;
+                // Calculate the offset based on the current page and items per page
+                $offset = ($current_page - 1) * $items_per_page;
 
-                    // Count the total number of rows for pagination for approved crops
-                    $total_rows_query_location = "SELECT COUNT(*) FROM location";
-                    $total_rows_result_location = pg_query($conn, $total_rows_query_location);
-                    $total_row_location = pg_fetch_row($total_rows_result_location)[0];
+                // Count the total number of rows for pagination for pending crops
+                $total_rows_query_barangay = "SELECT COUNT(*) FROM barangay";
+                $total_rows_result_barangay = pg_query($conn, $total_rows_query_barangay);
+                $total_rows_barangay = pg_fetch_row($total_rows_result_barangay)[0];
 
-                    // Calculate the total number of pages for approved crops
-                    $total_pages_location = ceil($total_row_location / $items_per_page);
-
-                    // Count the total number of rows for pagination for pending crops
-                    $total_rows_query_barangay = "SELECT COUNT(*) FROM barangay";
-                    $total_rows_result_barangay = pg_query($conn, $total_rows_query_barangay);
-                    $total_rows_barangay = pg_fetch_row($total_rows_result_barangay)[0];
-
-                    // Calculate the total number of pages for pending crops
-                    $total_pages_barangay = ceil($total_rows_barangay / $items_per_page);
+                // Calculate the total number of pages for pending crops
+                $total_pages_barangay = ceil($total_rows_barangay / $items_per_page);
                 ?>
 
                 <!-- dib ni sya para ma set ang mga tabs na data -->
@@ -152,6 +144,7 @@ require "../../functions/functions.php";
                                             All
                                         </label>
                                     </th>
+                                    <th class="col text-dark-emphasis small-font" scope="col">Municipality</th>
                                     <th class="col text-dark-emphasis small-font" scope="col">Barangay</th>
                                     <th class="col-3 text-dark-emphasis text-center small-font" scope="col">Date Added</th>
                                     <th col-4 class="col-1 text-center">
@@ -168,7 +161,7 @@ require "../../functions/functions.php";
                             <!-- table body -->
                             <tbody class="table-group-divider fw-bold overflow-scroll">
                                 <?php
-                                $query_barangay = "SELECT * FROM barangay ORDER BY barangay_id ASC LIMIT $items_per_page OFFSET $offset";
+                                $query_barangay = "SELECT * FROM barangay left join municipality on municipality.municipality_id = barangay.municipality_id ORDER BY barangay_id ASC LIMIT $items_per_page OFFSET $offset";
                                 $query_run_barangay = pg_query($conn, $query_barangay);
 
                                 if ($query_run_barangay) {
@@ -179,9 +172,12 @@ require "../../functions/functions.php";
                                             <th scope="row"><input class="form-check-input" type="checkbox"></th>
                                             <input type="hidden" name="barangay_id" value="<?= $row['barangay_id']; ?>">
                                             <td>
-                                                <!-- municipality name -->
+                                                <!-- Municipality name -->
+                                                <h6><?= $row['municipality_name']; ?></h6>
+                                            </td>
+                                            <td>
+                                                <!-- Barangay name -->
                                                 <a href=""><?= $row['barangay_name']; ?></a>
-                                                <div class="text-secondary small-font fw-normal"><?= $row['municipality_name']; ?></div>
                                             </td>
                                             <!-- date added -->
                                             <td class="small-font text-center text-secondary fw-normal">
@@ -217,7 +213,8 @@ require "../../functions/functions.php";
             <!-- add Barangay -->
             <?php require "modals/add-barangay.php"; ?>
             <!-- edit barangay -->
-            <?php require "modals/edit-barangay.php"; ?>
+            <?php require "modals/edit-barangay.php";
+            ?>
         </div>
     </div>
 
@@ -286,17 +283,9 @@ require "../../functions/functions.php";
                 let url = '';
                 let dataKey = '';
                 let modalId = '';
-
-                if (row.classList.contains('edit_data_brgy')) {
-                    url = 'code/code-brgy.php';
-                    dataKey = 'barangay_id';
-                    modalId = 'edit-item-modal-brgy';
-                } else {
-                    url = 'code/code-muni.php';
-                    dataKey = 'location_id';
-                    modalId = 'edit-item-modal';
-                }
-
+                url = 'code/code-brgy.php';
+                dataKey = 'barangay_id';
+                modalId = 'edit-item-modal-brgy';
                 // Assuming you have jQuery available
                 $.ajax({
                     url: url,
@@ -320,13 +309,17 @@ require "../../functions/functions.php";
                             // crop_id
                             $('#crop_id').val(id);
 
-                            // data of location table
-                            $('#province-Name').val(value['province_name']);
-                            $('#municipality-Name').val(value['municipality_name']);
-
                             // data of barangay table
                             $('#municipality-Name-Edit').val(value['municipality_name']);
+                            // data of municipality table
+                            $('#municipality-Name-Edit').append($('<option>', {
+                                value: value['municipality_id'],
+                                text: value['municipality_name'],
+                                selected: true, // Make the option selected
+                                style: 'display: none;' // Hide the option
+                            }));
                             $('#barangay-Name').val(value['barangay_name']);
+
 
                             // setting the the value of the id of location and barangay depending on the tab
                             $('#' + dataKey + '-Edit').val(value[dataKey]);
@@ -359,4 +352,5 @@ if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
     exit();
 }
 ?>
+
 </html>

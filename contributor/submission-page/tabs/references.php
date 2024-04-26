@@ -1,16 +1,16 @@
 <!-- refernces -->
-<div class="fade tab-pane" id="edit-references-tab-pane" role="tabpanel" aria-labelledby="edit-gen-tab" tabindex="0">
+<div class="fade tab-pane" id="references-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
     <!-- Links -->
     <h6 class="fw-semibold mt-4 mb-3">Links</h6>
 
-    <div id="new-url-container-Edit" class="mb-4">
+    <div id="new-url-container" class="mb-4">
     </div>
 
     <div class="row mb-3">
         <div class="col-12">
             <div class="text-primary">
                 <i class="fa-solid fa-circle-plus me-1"></i>
-                <a href="javascript:void(0)" id="add-new-reference-Edit" class="link-underline-primary">New Reference</a>
+                <a href="javascript:void(0)" id="add-new-reference" class="link-underline-primary">New Reference</a>
             </div>
         </div>
     </div>
@@ -24,32 +24,32 @@
 </div>
 
 <script>
-    let referenceNumbersEdit = []; // Tracks all used reference numbers
+    let referenceNumbers = []; // Tracks all used reference numbers
 
-    const newUrlContainerEdit = document.getElementById('new-url-container-Edit');
-    const addNewReferenceEdit = document.getElementById('add-new-reference-Edit');
+    const newUrlContainer = document.getElementById('new-url-container');
+    const addNewReference = document.getElementById('add-new-reference');
 
-    addNewReferenceEdit.addEventListener('click', function() {
+    addNewReference.addEventListener('click', function() {
         const urlListItem = document.createElement('div');
-        urlListItem.classList.add('url-list-item', 'mb-2');
+        urlListItem.classList.add('url-list-item-edit', 'mb-2');
 
         const label = document.createElement('label');
         label.classList.add('form-label', 'small-font');
 
         // Find the first unused reference number (avoiding duplicates)
-        let referenceNumberEdit = 1;
-        while (referenceNumbersEdit.includes(referenceNumberEdit)) {
-            referenceNumberEdit++;
+        let referenceNumber = 1;
+        while (referenceNumbers.includes(referenceNumber)) {
+            referenceNumber++;
         }
-        referenceNumbersEdit.push(referenceNumberEdit); // Track used number
-        label.textContent = `Reference ${referenceNumberEdit}`;
+        referenceNumbers.push(referenceNumber); // Track used number
+        label.textContent = `Reference ${referenceNumber}`;
 
         const inputWrapper = document.createElement('div');
         inputWrapper.classList.add('d-flex');
 
         const urlInput = document.createElement('input');
         urlInput.type = 'text';
-        urlInput.name = 'references_' + referenceNumberEdit;
+        urlInput.name = 'references_' + referenceNumber;
         urlInput.classList.add('form-control', 'small-font');
         urlInput.placeholder = 'ex. https://www.google.com/';
 
@@ -61,7 +61,7 @@
         removeButton.addEventListener('click', function() {
             urlListItem.remove();
             const removedNumber = parseInt(label.textContent.split(' ')[1]); // Extract reference number
-            referenceNumbersEdit = referenceNumbersEdit.filter(num => num !== removedNumber); // Remove used number
+            referenceNumbers = referenceNumbers.filter(num => num !== removedNumber); // Remove used number
             renumberExistingReferences(); // Renumber remaining items after deletion
         });
 
@@ -71,17 +71,17 @@
         urlListItem.appendChild(label);
         urlListItem.appendChild(inputWrapper);
 
-        newUrlContainerEdit.appendChild(urlListItem);
+        newUrlContainer.appendChild(urlListItem);
     });
 
     function renumberExistingReferences() {
-        const existingReferences = newUrlContainerEdit.querySelectorAll('.url-list-item');
+        const existingReferences = newUrlContainer.querySelectorAll('.url-list-item');
         let currentNumber = 1;
         existingReferences.forEach((item, index) => {
             const itemLabel = item.querySelector('label');
             // Check if reference number needs update based on current index (sequence)
-            if (referenceNumbersEdit[index] !== currentNumber) {
-                referenceNumbersEdit[index] = currentNumber; // Update used numbers array
+            if (referenceNumbers[index] !== currentNumber) {
+                referenceNumbers[index] = currentNumber; // Update used numbers array
             }
             itemLabel.textContent = `Reference ${currentNumber}`;
             currentNumber++;

@@ -111,30 +111,22 @@ require "../../functions/functions.php";
                 </div>
 
                 <?php
-                    // Set the number of items to display per page
-                    $items_per_page = 10;
+                // Set the number of items to display per page
+                $items_per_page = 10;
 
-                    // Get the current page number
-                    $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+                // Get the current page number
+                $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
 
-                    // Calculate the offset based on the current page and items per page
-                    $offset = ($current_page - 1) * $items_per_page;
+                // Calculate the offset based on the current page and items per page
+                $offset = ($current_page - 1) * $items_per_page;
 
-                    // Count the total number of rows for pagination for approved crops
-                    $total_rows_query_location = "SELECT COUNT(*) FROM location";
-                    $total_rows_result_location = pg_query($conn, $total_rows_query_location);
-                    $total_row_location = pg_fetch_row($total_rows_result_location)[0];
+                // Count the total number of rows for pagination for approved crops
+                $total_rows_query_location = "SELECT COUNT(*) FROM municipality";
+                $total_rows_result_location = pg_query($conn, $total_rows_query_location);
+                $total_row_location = pg_fetch_row($total_rows_result_location)[0];
 
-                    // Calculate the total number of pages for approved crops
-                    $total_pages_location = ceil($total_row_location / $items_per_page);
-
-                    // Count the total number of rows for pagination for pending crops
-                    $total_rows_query_barangay = "SELECT COUNT(*) FROM barangay";
-                    $total_rows_result_barangay = pg_query($conn, $total_rows_query_barangay);
-                    $total_rows_barangay = pg_fetch_row($total_rows_result_barangay)[0];
-
-                    // Calculate the total number of pages for pending crops
-                    $total_pages_barangay = ceil($total_rows_barangay / $items_per_page);
+                // Calculate the total number of pages for approved crops
+                $total_pages_location = ceil($total_row_location / $items_per_page);
                 ?>
 
                 <!-- dib ni sya para ma set ang mga tabs na data -->
@@ -152,6 +144,7 @@ require "../../functions/functions.php";
                                             All
                                         </label>
                                     </th>
+                                    <th class="col text-dark-emphasis small-font" scope="col">Province</th>
                                     <th class="col text-dark-emphasis small-font" scope="col">Municipality</th>
                                     <th class="col-3 small-font text-dark-emphasis text-center">Date Added</th>
                                     <th class="col-1 text-center">
@@ -168,41 +161,43 @@ require "../../functions/functions.php";
                             <!-- table body -->
                             <tbody class="table-group-divider fw-bold overflow-scroll">
                                 <?php
-                                $query_pending = "SELECT * FROM location ORDER BY location_id ASC LIMIT $items_per_page OFFSET $offset";
+                                $query_pending = "SELECT * FROM municipality left join province on province.province_id = municipality.province_id ORDER BY municipality.municipality_id ASC LIMIT $items_per_page OFFSET $offset";
                                 $query_run_location = pg_query($conn, $query_pending);
 
                                 if ($query_run_location) {
                                     while ($row = pg_fetch_array($query_run_location)) {
-                                        // // Convert the string to a DateTime object
-                                        // $date = new DateTime($row['input_date']);
-                                        // // Format the date to display up to the minute
-                                        // $formatted_date = $date->format('Y-m-d H:i');
+                                        // Convert the string to a DateTime object
+                                        $date = new DateTime($row['municipality_date']);
+                                        // Format the date to display up to the minute
+                                        $formatted_date = $date->format('Y-m-d H:i');
 
                                 ?>
                                         <tr id="row1">
                                             <!-- checkbox -->
                                             <th scope="row"><input class="form-check-input" type="checkbox"></th>
 
-                                            <input type="hidden" name="location_id" value="<?= $row['location_id']; ?>">
+                                            <input type="hidden" name="municipality_id" value="<?= $row['municipality_id']; ?>">
 
                                             <td>
                                                 <!-- Province name -->
+                                                <h6><?= $row['province_name']; ?></h6>
+                                            </td>
+
+                                            <td>
+                                                <!-- Municipality name -->
                                                 <a href=""><?= $row['municipality_name']; ?></a>
-                                                <!-- municipality -->
-                                                <div class="small-font text-secondary fw-normal"><?= $row['province_name']; ?></div>
                                             </td>
 
                                             <!-- date added -->
                                             <td class="small-font text-center text-secondary fw-normal">
-                                                12-123-51
-                                                <!-- <?= $formatted_date; ?> -->
+                                                <?= $formatted_date; ?>
                                             </td>
 
                                             <!-- Action -->
                                             <td>
                                                 <form class="d-flex justify-content-center">
                                                     <!-- edit -->
-                                                    <a href="#" class="btn btn-primary me-1 edit_data" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['location_id']; ?>"><i class="fa-regular fa-pen-to-square"></i></a>
+                                                    <a href="#" class="btn btn-primary me-1 edit_data" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['municipality_id']; ?>"><i class="fa-regular fa-pen-to-square"></i></a>
                                                     <!-- delete -->
                                                     <button type="submit" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button>
                                                 </form>
@@ -229,7 +224,8 @@ require "../../functions/functions.php";
             <!-- add Location -->
             <?php require "modals/add-municipality.php"; ?>
             <!-- edit location -->
-            <?php require "modals/edit-municipality.php"; ?>
+            <?php require "modals/edit-municipality.php";
+            ?>
         </div>
     </div>
 
@@ -288,60 +284,44 @@ require "../../functions/functions.php";
     <!-- script for edit data -->
     <script>
         // EDIT SCRIPT
-        const tableRows = document.querySelectorAll('.edit_data_brgy, .edit_data');
+        const tableRows = document.querySelectorAll('.edit_data');
 
         tableRows.forEach(row => {
 
             row.addEventListener('click', () => {
                 const id = row.getAttribute('data-id');
 
-                let url = '';
-                let dataKey = '';
-                let modalId = '';
-
-                if (row.classList.contains('edit_data_brgy')) {
-                    url = 'code/code-brgy.php';
-                    dataKey = 'barangay_id';
-                    modalId = 'edit-item-modal-brgy';
-                } else {
-                    url = 'code/code-muni.php';
-                    dataKey = 'location_id';
-                    modalId = 'edit-item-modal';
-                }
-
                 // Assuming you have jQuery available
                 $.ajax({
-                    url: url,
+                    url: "code/code-muni.php",
                     type: 'POST',
                     data: {
                         'click_edit_btn': true,
-                        [dataKey]: id, // Make sure barangay_id or location_id is included
+                        "municipality_id": id, // Make sure barangay_id or municipality_id is included
                     },
 
                     success: function(response) {
                         // Handle the response from the PHP script
                         // console.log('Response:', response);
 
-                        // Clear the current preview
-                        $('#preview').empty();
-
                         $.each(response, function(key, value) {
                             // Append options to select element
-                            console.log(value['province_name']);
+                            console.log(value['municipality_id']);
 
                             // crop_id
                             $('#crop_id').val(id);
 
-                            // data of location table
-                            $('#prov-Name').val(value['province_name']);
+                            // data of municipality table
+                            $('#prov-Name').append($('<option>', {
+                                value: value['province_id'],
+                                text: value['province_name'],
+                                selected: true, // Make the option selected
+                                style: 'display: none;' // Hide the option
+                            }));
                             $('#municipality-Name').val(value['municipality_name']);
 
-                            // data of barangay table
-                            $('#municipality-Name-Edit').val(value['municipality_name']);
-                            $('#barangay-Name').val(value['barangay_name']);
-
                             // setting the the value of the id of location and barangay depending on the tab
-                            $('#' + dataKey + '-Edit').val(value[dataKey]);
+                            $('#municipality_id-Edit').val(value['municipality_id']);
                         });
                     },
                     error: function(xhr, status, error) {
@@ -352,7 +332,7 @@ require "../../functions/functions.php";
                 });
 
                 // Show the modal
-                const dataModal = new bootstrap.Modal(document.getElementById(modalId), {
+                const dataModal = new bootstrap.Modal(document.getElementById('edit-item-modal'), {
                     keyboard: false
                 });
                 dataModal.show();

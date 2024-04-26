@@ -53,7 +53,7 @@
 
         // Get the categories and municipalities filter from the URL
         $category_filter = !empty($_GET['categories']) ? "AND category_id IN (" . implode(',', explode(',', $_GET['categories'])) . ")" : '';
-        $municipality_filter = !empty($_GET['municipalities']) ? "AND location_id IN (" . implode(',', explode(',', $_GET['municipalities'])) . ")" : '';
+        $municipality_filter = !empty($_GET['municipalities']) ? "AND municipality_id IN (" . implode(',', explode(',', $_GET['municipalities'])) . ")" : '';
 
         ?>
 
@@ -128,7 +128,7 @@
 
                             <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
                             <!-- hidden id for location to be used for filter function for location to be found -->
-                            <input type="hidden" name="location_id" value="<?= $row['location_id']; ?>">
+                            <input type="hidden" name="municipality_id" value="<?= $row['municipality_id']; ?>">
 
                             <!-- checkbox -->
                             <th scope="row">
@@ -137,11 +137,11 @@
 
                             <!-- category -->
                             <td>
-                                <div class="small-font">
+                                <div class="">
                                     <?php
                                     if (pg_num_rows($query_run_category)) {
                                         $category = pg_fetch_assoc($query_run_category);
-                                        echo '<h6 class="text-secondary small-font m-0">' . $category['category_name'] . '</h6>';
+                                        echo '<h6 class="small-font m-0">' . $category['category_name'] . '</h6>';
                                     } else {
                                         echo "No category added.";
                                     }
@@ -152,34 +152,40 @@
                             <!-- Variety name -->
                             <td>
                                 <!-- Variety name -->
-                                <a href="view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
+                                <a class="small-font" href="view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
                             </td>
 
                             <!-- date created -->
                             <td>
-                                <h6 class="text-secondary small-font"><?= $formatted_date; ?></h6>
+                                <h6 class="small-font"><?= $formatted_date; ?></h6>
                             </td>
 
-                            <!-- edit -->
-                            <!-- <td>
-                                <a href="#" class="btn btn-success btn-sm edit_data admin-only" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['crop_id']; ?>">Edit</a>
-                            </td> -->
-
-                            <!-- status -->
                             <td>
-                                <span class=" small-font bg-dark-subtle w-auto py-1 px-2 rounded"><?= $row['action']; ?></span>
+                                <?php
+                                $statusClass = '';
+                                switch ($row['action']) {
+                                    case 'approved':
+                                        $statusClass = 'text-success'; // Green text for approved
+                                        break;
+                                    case 'rejected':
+                                        $statusClass = 'text-danger'; // Red text for rejected
+                                        break;
+                                    case 'draft':
+                                        $statusClass = 'text-primary'; // Blue text for draft
+                                        break;
+                                    default:
+                                        $statusClass = 'text-dark'; // Default text color
+                                        break;
+                                }
+                                ?>
+                                <span class="w-auto py-1 px-2 rounded small-font <?= $statusClass; ?>">
+                                    <?= $row['action']; ?>
+                                </span>
                             </td>
 
                             <!-- remarks -->
                             <td class="text-center">
-                                <div class="dropdown row-btn">
-                                    <button class="btn transparent dropdown-toggle row-action-btn remarks-btn p-0 p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="row-btn fa-regular fa-comment p-2 m-0 rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu remarks-menu p-2">
-                                        <textarea class="form-control remarks-text" placeholder="No remarks" style="height: 180px;" disabled><?= $row['remarks']; ?></textarea>
-                                    </div>
-                                </div>
+                                <h6 class="small-font"><?= $row['remarks']; ?></h6>
                             </td>
 
                             <!-- ellipsis menu butn -->

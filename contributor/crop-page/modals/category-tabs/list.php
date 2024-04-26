@@ -93,7 +93,7 @@
                             <!-- category -->
                             <td>
                                 <div class="small-font">
-                                    <h6 class="text-secondary small-font m-0"><?= $row['category_name'] ?></h6>
+                                    <h6 class="small-font m-0"><?= $row['category_name'] ?></h6>
                                 </div>
                             </td>
 

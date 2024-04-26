@@ -17,7 +17,7 @@ if (isset($_POST['save'])) {
     // Ensure that the arrays have the same length
     if (count($municipality_name) === count($barangay_name)) {
         // Prepare the query
-        $query = "INSERT INTO barangay (municipality_name, barangay_name) VALUES ";
+        $query = "INSERT INTO barangay (municipality_id, barangay_name) VALUES ";
         $params = [];
         $valueStrings = [];
 
@@ -46,10 +46,11 @@ if (isset($_POST['save'])) {
 
 if (isset($_POST['update'])) {
     $barangay_id = $_POST['barangay_id'];
+    $municipality_id = $_POST['municipality_id'];
     $barangay_name = $_POST['barangay_name'];
 
-    $query = "UPDATE barangay set barangay_name = $1 where barangay_id = $2";
-    $query_run = pg_query_params($conn, $query, array($barangay_name, $barangay_id));
+    $query = "UPDATE barangay set municipality_id = $1, barangay_name = $2 where barangay_id = $3";
+    $query_run = pg_query_params($conn, $query, array($municipality_id, $barangay_name, $barangay_id));
 
     if ($query_run !== false) {
         $affected_rows = pg_affected_rows($query_run);
@@ -73,7 +74,7 @@ if (isset($_POST['click_edit_btn'])) {
         $arrayresult = [];
 
         // Fetch data from the barangay table
-        $query = "SELECT * FROM barangay WHERE barangay_id = $1";
+        $query = "SELECT * FROM barangay left join municipality on municipality.municipality_id = barangay.municipality_id WHERE barangay_id = $1";
         $query_run = pg_query_params($conn, $query, array($barangay_id));
 
         if (pg_num_rows($query_run) > 0) {

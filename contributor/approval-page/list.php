@@ -20,7 +20,6 @@
 
         // Count the total number of rows for pagination
         $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action IN ('pending', 'updating')";
-
         $total_rows_result = pg_query($conn, $total_rows_query);
         $total_rows = pg_fetch_row($total_rows_result)[0];
 
@@ -33,7 +32,7 @@
 
         // Get the categories and municipalities filter from the URL
         $category_filter = !empty($_GET['categories']) ? "AND category_id IN (" . implode(',', explode(',', $_GET['categories'])) . ")" : '';
-        $municipality_filter = !empty($_GET['municipalities']) ? "AND location_id IN (" . implode(',', explode(',', $_GET['municipalities'])) . ")" : '';
+        $municipality_filter = !empty($_GET['municipalities']) ? "AND municipality_id IN (" . implode(',', explode(',', $_GET['municipalities'])) . ")" : '';
 
         ?>
 
@@ -64,7 +63,6 @@
                             </ul>
                         </div>
                     </th>
-
                 </tr>
             </thead>
 
@@ -75,7 +73,7 @@
                 $query = "SELECT * FROM crop 
                 LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
                 LEFT JOIN status ON status.status_id = crop.status_id 
-                WHERE 1=1 $search_condition $category_filter $municipality_filter AND status.action IN ('pending', 'updating')
+                WHERE 1=1 $search_condition $category_filter $municipality_filter AND status.action IN ('pending', 'updating') 
                 ORDER BY crop.crop_id DESC 
                 LIMIT $items_per_page OFFSET $offset";
                 $query_run = pg_query($conn, $query);
@@ -96,10 +94,9 @@
                         $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
                 ?>
                         <tr data-id="<?= $row['crop_id']; ?>" class="rowlink view_data admin-only" href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">
-
                             <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
                             <!-- hidden id for location to be used for filter function for location to be found -->
-                            <input type="hidden" name="location_id" value="<?= $row['location_id']; ?>">
+                            <input type="hidden" name="municipality_id" value="<?= $row['municipality_id']; ?>">
 
                             <!-- checkbox -->
                             <th scope="row">
@@ -108,11 +105,11 @@
 
                             <!-- category -->
                             <td>
-                                <div class="small-font">
+                                <div class="">
                                     <?php
                                     if (pg_num_rows($query_run_category)) {
                                         $category = pg_fetch_assoc($query_run_category);
-                                        echo '<h6 class="text-secondary small-font m-0">' . $category['category_name'] . '</h6>';
+                                        echo '<h6 class="small-font m-0">' . $category['category_name'] . '</h6>';
                                     } else {
                                         echo "No category added.";
                                     }
@@ -123,29 +120,40 @@
                             <!-- Variety name -->
                             <td>
                                 <!-- Variety name -->
-                                <a href="../crop-page/view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
+                                <a class="small-font" href="../crop-page/view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
                             </td>
 
                             <!-- date created -->
                             <td>
-                                <h6 class="text-secondary small-font"><?= $formatted_date; ?></h6>
+                                <h6 class="small-font"><?= $formatted_date; ?></h6>
                             </td>
 
-                            <!-- status -->
                             <td>
-                                <span class=" small-font bg-dark-subtle w-auto py-1 px-2 rounded"><?= $row['action']; ?></span>
+                                <?php
+                                $statusClass = '';
+                                switch ($row['action']) {
+                                    case 'approved':
+                                        $statusClass = 'text-success'; // Green text for approved
+                                        break;
+                                    case 'rejected':
+                                        $statusClass = 'text-danger'; // Red text for rejected
+                                        break;
+                                    case 'draft':
+                                        $statusClass = 'text-primary'; // Blue text for draft
+                                        break;
+                                    default:
+                                        $statusClass = 'text-dark'; // Default text color
+                                        break;
+                                }
+                                ?>
+                                <span class="w-auto py-1 px-2 rounded small-font <?= $statusClass; ?>">
+                                    <?= $row['action']; ?>
+                                </span>
                             </td>
 
                             <!-- remarks -->
                             <td class="text-center">
-                                <div class="dropdown row-btn">
-                                    <button class="btn transparent dropdown-toggle row-action-btn remarks-btn p-0 p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="row-btn fa-regular fa-comment p-2 m-0 rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu remarks-menu p-2">
-                                        <textarea class="form-control remarks-text" placeholder="No remarks" style="height: 180px;" disabled><?= $row['remarks']; ?></textarea>
-                                    </div>
-                                </div>
+                                <h6 class="small-font"><?= $row['remarks']; ?></h6>
                             </td>
 
                             <!-- ellipsis menu butn -->
@@ -179,3 +187,19 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+<script>
+    // Make table rows clickable
+    $(document).ready(function() {
+        // Add click event to table rows
+        $('tbody tr[data-href]').on("click", function(event) {
+            // Check if the click target or any of its ancestors is a button or checkbox
+            if (
+                !$(event.target).is('.row-btn, :checkbox') &&
+                !$(event.target).closest('.row-btn, :checkbox').length
+            ) {
+                // Navigate to the URL specified in the data-href attribute
+                window.location.href = $(this).attr('data-href');
+            }
+        });
+    });
+</script>

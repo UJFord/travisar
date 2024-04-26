@@ -24,7 +24,7 @@
                 <?php endif; ?>
 
                 <li class="nav-item dropdown">
-                    <a class="dropdown-toggle main-nav-item nav-link" role="button" id="addressesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="dropdown-toggle main-nav-item nav-link admin-only" role="button" id="addressesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         Crop Management
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="addressesDropdown">
@@ -43,6 +43,9 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="../crop-page/crop-category.php">Crop Category</a></li>
                                     <li><a class="dropdown-item" href="../crop-page/category-variety.php">Category Variety</a></li>
+                                    <li><a class="dropdown-item" href="../crop-page/pest-resistance.php">Pest Resistances</a></li>
+                                    <li><a class="dropdown-item" href="../crop-page/disease-resistance.php">Disease Resistances</a></li>
+                                    <li><a class="dropdown-item" href="../crop-page/abiotic-resistance.php">Abiotic Resistances</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">

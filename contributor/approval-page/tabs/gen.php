@@ -265,12 +265,6 @@
             <h6 name="first_name" id="firstName"></h6>
         </div>
 
-        <!-- Unique Code -->
-        <div class="col">
-            <label class="form-label small-font">Unique Code:</label>
-            <h6 name="unique_code" id="uniqueCode"></h6>
-        </div>
-
         <!-- Date created -->
         <div class="col">
             <label class="form-label small-font">Date Created:</label>
@@ -423,7 +417,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 <!-- SCRIPT for location tab -->
-<script>
+<!-- <script>
     // FORMS SIDE
     // Get references to the select elements
     const neighborhoodValueEdit = document.getElementById('neighborhoodEdit');
@@ -436,7 +430,7 @@
     // Function to populate municipalities dropdown based on selected province
     const populateMunicipalitiesEdit = async (selectedProvince, initialVal) => {
         try {
-            const response = await fetch(`../crop-page/modals/fetch/fetch_location-edit.php?province=${selectedProvince}`);
+            const response = await fetch(`fetch/fetch_location-edit.php?province=${selectedProvince}`);
             const data = await response.json();
             // console.log(data);
 
@@ -463,7 +457,7 @@
     // Function to populate barangay dropdown based on selected municipality
     const populateBarangayEdit = async (selectedMunicipality, initialVal) => {
         try {
-            const response = await fetch(`../crop-page/modals/fetch/fetch_location-edit.php?municipality=${selectedMunicipality}`);
+            const response = await fetch(`fetch/fetch_location-edit.php?municipality=${selectedMunicipality}`);
             const data = await response.json();
             // console.log(data);
 
@@ -506,7 +500,7 @@
     // Call the populateBarangay function initially to populate the municipalities dropdown based on the default selected municipality
     var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
     populateBarangayEdit(selectedMunicipality, initialBarangay);
-</script>
+</script> -->
 
 <!-- script for limiting the input in coordinates just to numbers, commas, periods, and spaces -->
 <script>

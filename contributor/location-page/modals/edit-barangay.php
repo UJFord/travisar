@@ -21,8 +21,29 @@
                             <div class="row mb-3 location-row">
                                 <!-- municipality name -->
                                 <div class="col-5">
-                                    <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
-                                    <input type="text" id="municipality-Name-Edit" name="municipality_name" class="form-control" readonly disabled>
+                                    <label for="municipality-Name-Edit" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
+                                    <select name="municipality_id" id="municipality-Name-Edit" class="form-select">
+                                        <?php
+                                        $queryMuni = "SELECT * from municipality order by municipality_name ASC";
+                                        $query_run = pg_query($conn, $queryMuni);
+
+                                        $count = pg_num_rows($query_run);
+
+                                        // if count is greater than 0 there is data
+                                        if ($count > 0) {
+                                            // loop for displaying all categories
+                                            while ($row = pg_fetch_assoc($query_run)) {
+                                                $municipality_name = $row['municipality_name'];
+                                                $municipality_id = $row['municipality_id'];
+                                        ?>
+                                                <option value="<?= $municipality_id; ?>"><?= $municipality_name; ?></option>
+                                            <?php
+                                            }
+                                            ?>
+                                        <?php
+                                        }
+                                        ?>
+                                    </select>
                                 </div>
 
                                 <!-- barangay name -->

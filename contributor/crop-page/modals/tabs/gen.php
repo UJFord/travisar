@@ -199,7 +199,7 @@
     </div>
 
     <!-- Vegetative image -->
-    <div class="row mb-3">
+    <!-- <div class="row mb-3">
         <label for="imageInputVegetative" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Vegetative Stage</span>
@@ -208,10 +208,10 @@
             <input class="col-6 mb-0 form-control form-control-sm" name="crop_vegetative_image[]" type="file" id="imageInputVegetative" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewVeg')" multiple>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewVeg"></div>
-    </div>
+    </div> -->
 
     <!-- Reproductive image -->
-    <div class="row mb-5">
+    <!-- <div class="row mb-5">
         <label for="imageInputReproductive" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Reproductive Stage</span>
@@ -220,7 +220,7 @@
             <input class="mb-0 form-control form-control-sm" type="file" name="crop_reproductive_image[]" id="imageInputReproductive" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewReproductive')" multiple>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewReproductive"></div>
-    </div>
+    </div> -->
 
     <!-- MAP -->
     <h6 class="fw-semibold mt-4 mb-3">Location</h6>
@@ -232,7 +232,7 @@
             <select id="Province" name="province" class="form-select mb-2" readonly>
                 <?php
                 // Fetch distinct province names from the location table
-                $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";
+                $queryProvince = "SELECT DISTINCT province_name, province_id FROM province ORDER BY province_name ASC";
                 $query_run = pg_query($conn, $queryProvince);
 
                 $count = pg_num_rows($query_run);
@@ -241,8 +241,9 @@
                 if ($count > 0) {
                     while ($row = pg_fetch_assoc($query_run)) {
                         $province_name = $row['province_name'];
+                        $province_id = $row['province_id'];
                 ?>
-                        <option value="<?= $province_name; ?>"><?= $province_name; ?></option>
+                        <option value="<?= $province_id; ?>"><?= $province_name; ?></option>
                 <?php
                     }
                 }
@@ -257,7 +258,7 @@
 
             <!-- barangay -->
             <label for="Barangay" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
-            <select id="Barangay" name="barangay" class="form-select mb-2" required>
+            <select id="Barangay" name="barangay" class="form-select mb-2">
                 <option value="" disabled selected hidden>Select One</option>
                 <!-- option is automatically shown through js depending on the municipality selected -->
             </select>

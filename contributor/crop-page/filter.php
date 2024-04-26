@@ -56,16 +56,15 @@
             </div>
 
             <?php
-            $query = "SELECT * FROM location order by municipality_name ASC";
+            $query = "SELECT * FROM municipality order by municipality_name ASC";
             $query_run = pg_query($conn, $query);
 
             if ($query_run) {
                 while ($row = pg_fetch_array($query_run)) {
             ?>
-                    <!-- municipality filters -->
                     <div id="municipality-filters" class="collapse show w-100 mb-2">
-                        <input class="form-check-input municipality-filter" type="checkbox" id="location<?= $row['location_id']; ?>" value="<?= $row['location_id']; ?>">
-                        <label for="location<?= $row['location_id']; ?>"><?= $row['municipality_name']; ?></label>
+                        <input class="form-check-input municipality-filter" type="checkbox" id="municipality<?= $row['municipality_id']; ?>" value="<?= $row['municipality_id']; ?>">
+                        <label for="municipality<?= $row['municipality_id']; ?>"><?= $row['municipality_name']; ?></label>
                     </div>
             <?php
                 }
@@ -93,7 +92,7 @@
 
     let cropChev = document.querySelector('#cropChev');
     let munChev = document.querySelector('#munChev');
-    let contChev = document.querySelector('#contChev');
+    //let contChev = document.querySelector('#contChev');
 
     function toggleChevron(element) {
         element.classList.toggle('rotate-chevron');

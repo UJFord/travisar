@@ -53,13 +53,17 @@
                             <!-- more optional info -->
                             <?php require "tabs/more.php" ?>
                             <!-- agronomic traits -->
-                            <?php require "tabs/agro.php" ?>
+                            <?php require "tabs/agro.php" 
+                            ?>
                             <!-- sensory traits -->
-                            <?php require "tabs/sensory.php" ?>
+                            <?php require "tabs/sensory.php" 
+                            ?>
                             <!-- cultural -->
-                            <?php require "tabs/cultural.php" ?>
+                            <?php require "tabs/cultural.php" 
+                            ?>
                             <!-- references -->
-                            <?php require "tabs/references.php" ?>
+                            <?php require "tabs/references.php" 
+                            ?>
                             <!-- confirm -->
                             <?php require "tabs/confirm.php" ?>
 
@@ -68,10 +72,10 @@
                 </div>
 
                 <!-- footer -->
-                <div class="modal-footer d-flex justify-content-between">
+                <div class="modal-footer d-flex justify-content-end">
                     <div class="">
-                        <button type="submit" name="save" class="btn btn-success">Save</button>
                         <button type="button" id="cancel-modal-btn" class="btn border bg-light">Cancel</button>
+                        <button type="submit" name="save" class="btn btn-success">Save</button>
                     </div>
                 </div>
             </form>
@@ -363,23 +367,6 @@
         var categoryVarietySelect = document.getElementById('categoryVariety');
         categoryVarietySelect.innerHTML = '<option value="" disabled selected hidden class="colorize">Select One</option>'; // Clear existing options
 
-        // Add the default option
-        //var defaultOption = document.createElement('option');
-        //defaultOption.text = "Select a Variety";
-        //defaultOption.value = "null";
-        //defaultOption.disabled = true;
-        //defaultOption.selected = true;
-        //categoryVarietySelect.appendChild(defaultOption);
-
-        // var defaultOption = document.createElement('option');
-        // defaultOption.text = "Select One...";
-        // // defaultOption.disabled = true;
-        // defaultOption.selected = true;
-        // defaultOption.hidden = true;
-        // defaultOption.classList.add("small-font");
-        // defaultOption.style.color = "green";
-        // categoryVarietySelect.appendChild(defaultOption);
-
         // Add other options
         varieties.forEach(function(variety) {
             var option = document.createElement('option');
@@ -398,10 +385,6 @@
         var cornMorph = document.getElementById('cornMorph');
         var riceMorph = document.getElementById('riceMorph');
         var rootCropMorph = document.getElementById('root_cropMorph');
-        // agronomic traits
-        var cornAgro = document.getElementById('cornAgro');
-        var riceAgro = document.getElementById('riceAgro');
-        var rootCropAgro = document.getElementById('root_cropAgro');
 
         // sensory tab
         var sensoryTab = document.getElementById('sensory-tab');
@@ -410,40 +393,37 @@
         var withSensory_More = document.getElementById('withSensory-More');
         var withoutSensory_More = document.getElementById('withoutSensory-More');
 
-        // Hide all morphological characteristics sections
-        cornMorph.style.display = 'none';
-        riceMorph.style.display = 'none';
-        rootCropMorph.style.display = 'none';
+        // Hide all sections
+        [cornMorph, riceMorph, rootCropMorph, sensoryTab, withSensory, withoutSensory, withSensory_More, withoutSensory_More]
+        .forEach(element => {
+            if (element) {
+                element.style.display = 'none';
+            }
+        });
 
-        // Hide all agronomic characteristics sections
-        cornAgro.style.display = 'none';
-        riceAgro.style.display = 'none';
-        rootCropAgro.style.display = 'none';
-
-        // Hide rice sensory tab
-        sensoryTab.style.display = 'none';
-        withSensory.style.display = 'none';
-        withoutSensory.style.display = 'none';
-        withSensory_More.style.display = 'none';
-        withoutSensory_More.style.display = 'none';
-
-        // Show the relevant morphological characteristics section based on selected category
+        // Show the relevant sections based on selected category
+        // check if the category exists
         if (categoryId === '4') {
-            cornMorph.style.display = 'block';
-            cornAgro.style.display = 'block';
-            withoutSensory.style.display = 'block';
-            withoutSensory_More.style.display = 'block';
+            [cornMorph, withoutSensory, withoutSensory_More]
+            .forEach(element => {
+                if (element) {
+                    element.style.display = 'block';
+                }
+            });
         } else if (categoryId === '1') {
-            riceMorph.style.display = 'block';
-            riceAgro.style.display = 'block';
-            sensoryTab.style.display = 'block';
-            withSensory.style.display = 'block';
-            withSensory_More.style.display = 'block';
+            [riceMorph, sensoryTab, withSensory, withSensory_More]
+            .forEach(element => {
+                if (element) {
+                    element.style.display = 'block';
+                }
+            });
         } else if (categoryId === '2') {
-            rootCropMorph.style.display = 'block';
-            rootCropAgro.style.display = 'block';
-            withoutSensory.style.display = 'block';
-            withoutSensory_More.style.display = 'block';
+            [rootCropMorph, withoutSensory, withoutSensory_More]
+            .forEach(element => {
+                if (element) {
+                    element.style.display = 'block';
+                }
+            });
         }
     }
 
