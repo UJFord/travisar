@@ -33,7 +33,7 @@
         </div>
 
         <!-- Other -->
-        <div id="pest-otherEdit" class="d-none row mt-3 mb-5">
+        <div id="pest-otherEdit" class="row mt-3 mb-5">
             <div class="col-12 mb-0">
                 <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
                 <textarea name="pest_other_desc" id="pestEdit" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
@@ -100,7 +100,7 @@
         </div>
 
         <!-- Other -->
-        <div id="abiotic_otherEdit" class="d-none row mt-3 mb-3">
+        <div id="abiotic_otherEdit" class="row mt-3 mb-3">
             <div class="col-12 mb-2">
                 <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
                 <textarea name="abiotic_other_desc" id="abiotic_other-descEdit" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>

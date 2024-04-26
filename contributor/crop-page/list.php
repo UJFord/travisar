@@ -53,7 +53,7 @@
 
         // Get the categories and municipalities filter from the URL
         $category_filter = !empty($_GET['categories']) ? "AND category_id IN (" . implode(',', explode(',', $_GET['categories'])) . ")" : '';
-        $municipality_filter = !empty($_GET['municipalities']) ? "AND location_id IN (" . implode(',', explode(',', $_GET['municipalities'])) . ")" : '';
+        $municipality_filter = !empty($_GET['municipalities']) ? "AND municipality_id IN (" . implode(',', explode(',', $_GET['municipalities'])) . ")" : '';
 
         ?>
 
@@ -137,11 +137,11 @@
 
                             <!-- category -->
                             <td>
-                                <div class="small-font">
+                                <div class="">
                                     <?php
                                     if (pg_num_rows($query_run_category)) {
                                         $category = pg_fetch_assoc($query_run_category);
-                                        echo '<h6 class="text-secondary small-font m-0">' . $category['category_name'] . '</h6>';
+                                        echo '<h6 class=" m-0">' . $category['category_name'] . '</h6>';
                                     } else {
                                         echo "No category added.";
                                     }
@@ -157,24 +157,35 @@
 
                             <!-- date created -->
                             <td>
-                                <h6 class="text-secondary small-font"><?= $formatted_date; ?></h6>
+                                <h6 class=""><?= $formatted_date; ?></h6>
                             </td>
 
-                            <!-- status -->
                             <td>
-                                <span class=" small-font bg-dark-subtle w-auto py-1 px-2 rounded"><?= $row['action']; ?></span>
+                                <?php
+                                $statusClass = '';
+                                switch ($row['action']) {
+                                    case 'approved':
+                                        $statusClass = 'text-success'; // Green text for approved
+                                        break;
+                                    case 'rejected':
+                                        $statusClass = 'text-danger'; // Red text for rejected
+                                        break;
+                                    case 'draft':
+                                        $statusClass = 'text-primary'; // Blue text for draft
+                                        break;
+                                    default:
+                                        $statusClass = 'text-dark'; // Default text color
+                                        break;
+                                }
+                                ?>
+                                <span class="w-auto py-1 px-2 rounded <?= $statusClass; ?>">
+                                    <?= $row['action']; ?>
+                                </span>
                             </td>
 
                             <!-- remarks -->
-                            <td class="text-center">
-                                <div class="dropdown row-btn">
-                                    <button class="btn transparent dropdown-toggle row-action-btn remarks-btn p-0 p-0" type="button" data-bs-toggle="dropdown" aria-expanded="false">
-                                        <i class="row-btn fa-regular fa-comment p-2 m-0 rounded"></i>
-                                    </button>
-                                    <div class="dropdown-menu remarks-menu p-2">
-                                        <textarea class="form-control remarks-text" placeholder="No remarks" style="height: 180px;" disabled><?= $row['remarks']; ?></textarea>
-                                    </div>
-                                </div>
+                            <td class="text-end">
+                                <h6 class=""><?= $row['remarks']; ?></h6>
                             </td>
 
                             <!-- ellipsis menu butn -->

@@ -367,7 +367,7 @@
                                 //console.log(abioticIds);
                             }
 
-                            $('#pest_other_checkEdit').prop('checked', value['pest_other'] == 1);
+                            $('#pest_other_checkEdit').prop('checked', value['corn_pest_other']);
                             // Show the 'Other' textarea if 'other' checkbox is checked
                             if ($('#pest_other_checkEdit').prop('checked')) {
                                 $('.pest-otherEdit').show();
@@ -375,7 +375,17 @@
                                 $('.pest-otherEdit').hide();
                             }
                             // Set the value of the 'Other' textarea
-                            $('#pest-otherEdit').val(value['pest_other_desc']);
+                            $('#pest-otherEdit').val(value['corn_pest_other_desc']);
+
+                            $('#abiotic_other_checkEdit').prop('checked', value['corn_abiotic_other']);
+                            // Show the 'Other' textarea if 'other' checkbox is checked
+                            if ($('#abiotic_other_checkEdit').prop('checked')) {
+                                $('.abiotic_otherEdit').show();
+                            } else {
+                                $('.abiotic_otherEdit').hide();
+                            }
+                            // Set the value of the 'Other' textarea
+                            $('#abiotic_otherEdit').val(value['corn_abiotic_other_desc']);
 
                             // disease resistance corn
                             $('#corn-Bacterial-Edit').prop('checked', value['bacterial'] == 1);
