@@ -3850,7 +3850,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
         exit(0);
     }
-} 
+}
 
 if (isset($_POST['draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Encoder') {
     // Begin the database transaction
@@ -5776,15 +5776,20 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
         }
 
         // id's
-        $crop_id = handleEmpty($_POST['crop_id']);
-        $disease_resistance_id = handleEmpty($_POST['disease_resistanceID']);
-        $abiotic_resistance_rice_id = handleEmpty($_POST['abiotic_resistance_riceID']);
         $crop_location_id = handleEmpty($_POST['crop_location_id']);
+        $crop_id = handleEmpty($_POST['crop_id']);
+        $seed_traits_id = handleEmpty($_POST['seed_traitsID']);
         $utilization_cultural_id = handleEmpty($_POST['utilization_culturalID']);
-        $abiotic_resistance_id = handleEmpty($_POST['abiotic_resistanceID']);
-        $status_id = $_POST['statusID'];
-        $seed_traits_id = $_POST['seed_traitsID'];
+        $corn_pest_other_id = handleEmpty($_POST['corn_pest_otherID']);
+        $corn_abiotic_other_id = handleEmpty($_POST['corn_abiotic_otherID']);
+        $rice_pest_other_id = handleEmpty($_POST['rice_pest_otherID']);
+        $rice_abiotic_other_id = handleEmpty($_POST['rice_abiotic_otherID']);
+        $rootcrop_pest_other_id = handleEmpty($_POST['rootcrop_pest_otherID']);
+        $rootcrop_abiotic_other_id = handleEmpty($_POST['rootcrop_abiotic_otherID']);
+        $category_id = handleEmpty($_POST['categoryID']);
         $references_id = $_POST['referencesID'];
+        $status_id = $_POST['statusID'];
+
         // get the old image
         $current_image_seed = handleEmpty($_POST['current_image_seed']);
 
@@ -5805,7 +5810,6 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $corn_traits_id = handleEmpty($_POST['corn_traitsID']);
             $vegetative_state_corn_id = handleEmpty($_POST['vegetative_state_cornID']);
             $reproductive_state_corn_id = handleEmpty($_POST['reproductive_state_cornID']);
-            $pest_resistance_corn_id = handleEmpty($_POST['pest_resistance_cornID']);
 
             // Delete from Crop table
             $query_delete_crop = "DELETE FROM crop WHERE crop_id = $1";
@@ -5879,8 +5883,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             }
 
             // Delete from Disease Resistance table
-            $query_delete_disease_res = "DELETE FROM disease_resistance WHERE disease_resistance_id = $1";
-            $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$disease_resistance_id]);
+            $query_delete_disease_res = "DELETE FROM corn_disease_resistance WHERE corn_traits_id = $1";
+            $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$corn_traits_id]);
 
             if (!$query_run_delete_disease_res) {
                 echo "Error: " . pg_last_error($conn);
@@ -5888,8 +5892,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             }
 
             // Delete from Abiotic Resistance table
-            $query_delete_abiotic_res = "DELETE FROM abiotic_resistance WHERE abiotic_resistance_id = $1";
-            $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$abiotic_resistance_id]);
+            $query_delete_abiotic_res = "DELETE FROM corn_abiotic_resistance WHERE corn_traits_id = $1";
+            $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$corn_traits_id]);
 
             if (!$query_run_delete_abiotic_res) {
                 echo "Error: " . pg_last_error($conn);
@@ -5897,8 +5901,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             }
 
             // Delete from Pest Resistance_corn table
-            $query_delete_pest_res = "DELETE FROM pest_resistance_corn WHERE pest_resistance_corn_id = $1";
-            $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$pest_resistance_corn_id]);
+            $query_delete_pest_res = "DELETE FROM corn_pest_resistance WHERE corn_traits_id = $1";
+            $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$corn_traits_id]);
 
             if (!$query_run_delete_pest_res) {
                 echo "Error: " . pg_last_error($conn);
@@ -5928,6 +5932,24 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_seed_traits = pg_query_params($conn, $query_delete_seed_traits, [$seed_traits_id]);
 
             if (!$query_run_delete_seed_traits) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from pest other resistance table
+            $query_delete_pestOther = "DELETE FROM corn_pest_resistance_other WHERE corn_pest_other_id = $1";
+            $query_run_delete_pestOther = pg_query_params($conn, $query_delete_pestOther, [$corn_pest_other_id]);
+
+            if (!$query_run_delete_pestOther) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from abiotic other resistance table
+            $query_delete_abioticOther = "DELETE FROM corn_abiotic_resistance_other WHERE corn_abiotic_other_id = $1";
+            $query_run_delete_abioticOther = pg_query_params($conn, $query_delete_abioticOther, [$corn_abiotic_other_id]);
+
+            if (!$query_run_delete_abioticOther) {
                 echo "Error: " . pg_last_error($conn);
                 die();
             }
