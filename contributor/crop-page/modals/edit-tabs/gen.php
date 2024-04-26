@@ -160,7 +160,7 @@
         <!-- variety name -->
         <div class="col mb-2">
             <label for="crop_variety" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
-            <input id="crop_variety" type="text" name="crop_variety" class="form-control" required>
+            <input id="crop_variety" type="text" name="crop_variety" class="form-control">
         </div>
 
         <!-- Meaning of Name -->

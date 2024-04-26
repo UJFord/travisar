@@ -258,7 +258,7 @@
 
             <!-- barangay -->
             <label for="Barangay" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
-            <select id="Barangay" name="barangay" class="form-select mb-2" required>
+            <select id="Barangay" name="barangay" class="form-select mb-2">
                 <option value="" disabled selected hidden>Select One</option>
                 <!-- option is automatically shown through js depending on the municipality selected -->
             </select>
