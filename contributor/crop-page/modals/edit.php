@@ -258,7 +258,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['pest_resistances']);
+                        // console.log(value['pest_resistances']);
 
                         // set modal name and buttons depending if it is draft or edit
                         if (value['action'] === 'draft') {
@@ -634,6 +634,7 @@
                         $('#corn_abiotic_otherID').val(value['corn_abiotic_other_id']);
 
                         // id for rice
+                        $('#rice_traitsID').val(value['rice_traits_id']);
                         $('#pest_resistance_riceID').val(value['pest_resistance_rice_id']);
                         $('#vegetative_state_riceID').val(value['vegetative_state_rice_id']);
                         $('#reproductive_state_riceID').val(value['reproductive_state_rice_id']);
@@ -722,26 +723,34 @@
                         }));
 
                         $('#BarangaySelect').append($('<option>', {
-                            value: value['barangay_name'],
+                            value: value['barangay_id'],
                             text: value['barangay_name'],
                             selected: true,
                             style: 'display: none;'
                         }));
                         $('#MunicipalitySelect').append($('<option>', {
-                            value: value['municipality_name'],
+                            value: value['municipality_id'],
                             text: value['municipality_name'],
                             selected: true,
                             style: 'display: none;'
                         }));
 
-                        // Add municipality to the array
-                        municipalities.push(value['municipality_name']);
+                        // // Ensure municipalitiesID array is defined
+                        // var municipalitiesID = [];
+                        // var municipalitiesName = [];
 
-                        // Append options to MunicipalitySelect
+                        // // Add municipality to the array
+                        // municipalitiesID.push(value['municipality_id']);
+                        // municipalitiesName.push(value['municipality_name']);
+
+                        // // Save the selected municipality ID
+                        // var selectedMunicipalityID = value['municipality_id'];
+
+                        // // Append options to MunicipalitySelect
                         // $('#MunicipalitySelect').empty(); // Clear previous options
-                        // municipalities.forEach(function(municipality) {
-                        //     var selected = (municipality === value['municipality_name']) ? 'selected' : '';
-                        //     $('#MunicipalitySelect').append('<option value="' + municipality + '" ' + selected + '>' + municipality + '</option>');
+                        // municipalitiesID.forEach(function(municipalityID, index) {
+                        //     var selected = (municipalityID === selectedMunicipalityID) ? 'selected' : '';
+                        //     $('#MunicipalitySelect').append('<option value="' + municipalityID + '" ' + selected + '>' + municipalitiesName[index] + '</option>');
                         // });
 
                         // Add a marker to the map based on the coordinates if they exist
