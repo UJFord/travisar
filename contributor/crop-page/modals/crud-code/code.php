@@ -6024,33 +6024,6 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
                 die();
             }
 
-            // Delete from Disease Resistance table
-            $query_delete_disease_res = "DELETE FROM disease_resistance WHERE disease_resistance_id = $1";
-            $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$disease_resistance_id]);
-
-            if (!$query_run_delete_disease_res) {
-                echo "Error: " . pg_last_error($conn);
-                die();
-            }
-
-            // Delete from Abiotic Resistance table
-            $query_delete_abiotic_res = "DELETE FROM abiotic_resistance_rice WHERE abiotic_resistance_rice_id = $1";
-            $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$abiotic_resistance_rice_id]);
-
-            if (!$query_run_delete_abiotic_res) {
-                echo "Error: " . pg_last_error($conn);
-                die();
-            }
-
-            // Delete from Pest Resistance_rice table
-            $query_delete_pest_res = "DELETE FROM pest_resistance_rice WHERE pest_resistance_rice_id = $1";
-            $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$pest_resistance_rice_id]);
-
-            if (!$query_run_delete_pest_res) {
-                echo "Error: " . pg_last_error($conn);
-                die();
-            }
-
             // Delete from Vegetative state table
             $query_delete_veg_state = "DELETE FROM vegetative_state_rice WHERE vegetative_state_rice_id = $1";
             $query_run_delete_veg_state = pg_query_params($conn, $query_delete_veg_state, [$vegetative_state_rice_id]);
@@ -6101,6 +6074,51 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_seed_traits = pg_query_params($conn, $query_delete_seed_traits, [$seed_traits_id]);
 
             if (!$query_run_delete_seed_traits) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Disease Resistance table
+            $query_delete_disease_res = "DELETE FROM rice_disease_resistance WHERE rice_traits_id = $1";
+            $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$rice_traits_id]);
+
+            if (!$query_run_delete_disease_res) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Abiotic Resistance table
+            $query_delete_abiotic_res = "DELETE FROM rice_abiotic_resistance WHERE rice_traits_id = $1";
+            $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$rice_traits_id]);
+
+            if (!$query_run_delete_abiotic_res) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Pest Resistance_rice table
+            $query_delete_pest_res = "DELETE FROM rice_pest_resistance WHERE rice_traits_id = $1";
+            $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$rice_traits_id]);
+
+            if (!$query_run_delete_pest_res) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from pest other resistance table
+            $query_delete_pestOther = "DELETE FROM rice_pest_resistance_other WHERE rice_pest_other_id = $1";
+            $query_run_delete_pestOther = pg_query_params($conn, $query_delete_pestOther, [$rice_pest_other_id]);
+
+            if (!$query_run_delete_pestOther) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from abiotic other resistance table
+            $query_delete_abioticOther = "DELETE FROM rice_abiotic_resistance_other WHERE rice_abiotic_other_id = $1";
+            $query_run_delete_abioticOther = pg_query_params($conn, $query_delete_abioticOther, [$rice_abiotic_other_id]);
+
+            if (!$query_run_delete_abioticOther) {
                 echo "Error: " . pg_last_error($conn);
                 die();
             }
@@ -6182,9 +6200,18 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
                 die();
             }
 
+            // Delete from Vegetative state table
+            $query_delete_veg_state = "DELETE FROM vegetative_state_rootcrop WHERE vegetative_state_rootcrop_id = $1";
+            $query_run_delete_veg_state = pg_query_params($conn, $query_delete_veg_state, [$vegetative_state_rootcrop_id]);
+
+            if (!$query_run_delete_veg_state) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
             // Delete from Disease Resistance table
-            $query_delete_disease_res = "DELETE FROM disease_resistance WHERE disease_resistance_id = $1";
-            $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$disease_resistance_id]);
+            $query_delete_disease_res = "DELETE FROM rootcrop_disease_resistance WHERE root_crop_traits_id = $1";
+            $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$root_crop_traits_id]);
 
             if (!$query_run_delete_disease_res) {
                 echo "Error: " . pg_last_error($conn);
@@ -6192,8 +6219,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             }
 
             // Delete from Abiotic Resistance table
-            $query_delete_abiotic_res = "DELETE FROM abiotic_resistance WHERE abiotic_resistance_id = $1";
-            $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$abiotic_resistance_id]);
+            $query_delete_abiotic_res = "DELETE FROM rootcrop_abiotic_resistance WHERE root_crop_traits_id = $1";
+            $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$root_crop_traits_id]);
 
             if (!$query_run_delete_abiotic_res) {
                 echo "Error: " . pg_last_error($conn);
@@ -6201,19 +6228,28 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             }
 
             // Delete from Pest Resistance_rootcrop table
-            $query_delete_pest_res = "DELETE FROM pest_resistance_rootcrop WHERE pest_resistance_rootcrop_id = $1";
-            $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$pest_resistance_rootcrop_id]);
+            $query_delete_pest_res = "DELETE FROM rootcrop_pest_resistance WHERE root_crop_traits_id = $1";
+            $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$root_crop_traits_id]);
 
             if (!$query_run_delete_pest_res) {
                 echo "Error: " . pg_last_error($conn);
                 die();
             }
 
-            // Delete from Vegetative state table
-            $query_delete_veg_state = "DELETE FROM vegetative_state_rootcrop WHERE vegetative_state_rootcrop_id = $1";
-            $query_run_delete_veg_state = pg_query_params($conn, $query_delete_veg_state, [$vegetative_state_rootcrop_id]);
+            // Delete from pest other resistance table
+            $query_delete_pestOther = "DELETE FROM rootcrop_pest_resistance_other WHERE rootcrop_pest_other_id = $1";
+            $query_run_delete_pestOther = pg_query_params($conn, $query_delete_pestOther, [$rootcrop_pest_other_id]);
 
-            if (!$query_run_delete_veg_state) {
+            if (!$query_run_delete_pestOther) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from abiotic other resistance table
+            $query_delete_abioticOther = "DELETE FROM rootcrop_abiotic_resistance_other WHERE rootcrop_abiotic_other_id = $1";
+            $query_run_delete_abioticOther = pg_query_params($conn, $query_delete_abioticOther, [$rootcrop_abiotic_other_id]);
+
+            if (!$query_run_delete_abioticOther) {
                 echo "Error: " . pg_last_error($conn);
                 die();
             }
