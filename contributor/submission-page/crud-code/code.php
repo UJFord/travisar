@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "../../../../functions/connections.php";
+require "../../../functions/connections.php";
 
 if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
     // Begin the database transaction
@@ -406,7 +406,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $get_category_name = $row_categoryName['category_name'];
         } else {
             $_SESSION['message'] = "No category selected";
-            header("location: ../../crop.php");
+            header("location: ../submission.php");
             exit();
         }
 
@@ -876,7 +876,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop Created Successfully";
         pg_query($conn, "COMMIT");
-        header("Location: ../../crop.php");
+        header("Location: ../submission.php");
         exit(0);
     } catch (Exception $e) {
         // Rollback the transaction if an error occurs
@@ -1293,7 +1293,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $get_category_name = $row_categoryName['category_name'];
         } else {
             $_SESSION['message'] = "No category selected";
-            header("location: ../../crop.php");
+            header("location: ../submission.php");
             exit();
         }
 
@@ -1763,7 +1763,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop Created Successfully";
         pg_query($conn, "COMMIT");
-        header("Location: ../../crop.php");
+        header("Location: ../submission.php");
         exit(0);
     } catch (Exception $e) {
         // message for error
@@ -1955,7 +1955,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 } else {
                     // Display error message for invalid file format
                     $_SESSION['message'] = "Invalid file format for image";
-                    header("location: ../../crop.php");
+                    header("location: ../submission.php");
                     die();
                 }
             }
@@ -2030,7 +2030,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         //     } else {
         //         // Display error message for invalid file format
         //         $_SESSION['message'] = "invalid ang file format image";
-        //         header("location: ../../crop.php");
+        //         header("location: ../submission.php");
         //         die();
         //     }
 
@@ -2094,7 +2094,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         //     } else {
         //         // Display error message for invalid file format
         //         $_SESSION['message'] = "invalid ang file format image";
-        //         header("location: ../../crop.php");
+        //         header("location: ../submission.php");
         //         die();
         //     }
 
@@ -2176,7 +2176,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
             $get_category_name = $row_categoryName['category_name'];
         } else {
             $_SESSION['message'] = "No category selected";
-            header("location: ../../crop.php");
+            header("location: ../submission.php");
             exit();
         }
 
@@ -2800,7 +2800,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop Edited Successfully";
         pg_query($conn, "COMMIT");
-        header("Location: ../../crop.php");
+        header("Location: ../submission.php");
         exit(0);
     } catch (Exception $e) {
         // message for error
@@ -2990,7 +2990,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 } else {
                     // Display error message for invalid file format
                     $_SESSION['message'] = "Invalid file format for image";
-                    header("location: ../../crop.php");
+                    header("location: ../submission.php");
                     die();
                 }
             }
@@ -3065,7 +3065,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         //     } else {
         //         // Display error message for invalid file format
         //         $_SESSION['message'] = "invalid ang file format image";
-        //         header("location: ../../crop.php");
+        //         header("location: ../submission.php");
         //         die();
         //     }
 
@@ -3129,7 +3129,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         //     } else {
         //         // Display error message for invalid file format
         //         $_SESSION['message'] = "invalid ang file format image";
-        //         header("location: ../../crop.php");
+        //         header("location: ../submission.php");
         //         die();
         //     }
 
@@ -3211,7 +3211,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
             $get_category_name = $row_categoryName['category_name'];
         } else {
             $_SESSION['message'] = "No category selected";
-            header("location: ../../crop.php");
+            header("location: ../submission.php");
             exit();
         }
 
@@ -3835,7 +3835,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop Edited Successfully";
         pg_query($conn, "COMMIT");
-        header("Location: ../../crop.php");
+        header("Location: ../submission.php");
         exit(0);
     } catch (Exception $e) {
         // message for error
@@ -4256,7 +4256,7 @@ if (isset($_POST['draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'
             $get_category_name = $row_categoryName['category_name'];
         } else {
             $_SESSION['message'] = "No category selected";
-            header("location: ../../crop.php");
+            header("location: ../submission.php");
             exit();
         }
 
@@ -4726,7 +4726,7 @@ if (isset($_POST['draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop Created Successfully";
         pg_query($conn, "COMMIT");
-        header("Location: ../../crop.php");
+        header("Location: ../submission.php");
         exit(0);
     } catch (Exception $e) {
         // message for error
@@ -4913,7 +4913,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
                 } else {
                     // Display error message for invalid file format
                     $_SESSION['message'] = "Invalid file format for image";
-                    header("location: ../../crop.php");
+                    header("location: ../submission.php");
                     die();
                 }
             }
@@ -4988,7 +4988,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         //     } else {
         //         // Display error message for invalid file format
         //         $_SESSION['message'] = "invalid ang file format image";
-        //         header("location: ../../crop.php");
+        //         header("location: ../submission.php");
         //         die();
         //     }
 
@@ -5052,7 +5052,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         //     } else {
         //         // Display error message for invalid file format
         //         $_SESSION['message'] = "invalid ang file format image";
-        //         header("location: ../../crop.php");
+        //         header("location: ../submission.php");
         //         die();
         //     }
 
@@ -5120,7 +5120,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
             $get_category_name = $row_categoryName['category_name'];
         } else {
             $_SESSION['message'] = "No category selected";
-            header("location: ../../crop.php");
+            header("location: ../submission.php");
             exit();
         }
 
@@ -5744,7 +5744,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop Edited Successfully";
         pg_query($conn, "COMMIT");
-        header("Location: ../../crop.php");
+        header("Location: ../submission.php");
         exit(0);
     } catch (Exception $e) {
         // message for error
@@ -5761,7 +5761,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
     }
 } else if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
     $_SESSION['message'] = "Not Enough Authority";
-    header('Location: ../../crop.php');
+    header('Location: ../submission.php');
     exit();
 }
 
@@ -6258,7 +6258,7 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop Deleted Successfully";
         pg_query($conn, "COMMIT");
-        header("Location: ../../crop.php");
+        header("Location: ../submission.php");
         exit(0);
     } catch (Exception $e) {
         // message for error

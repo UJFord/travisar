@@ -1,13 +1,32 @@
 <!-- STYLE -->
 <style>
     .image-upload-container {
-        /* Adjust width and height as needed */
-        /* border: 1px solid #ccc;
-        border-radius: 5px; */
         cursor: pointer;
     }
 
-    .preview-containerEdit {
+    .remove-image {
+        width: 1rem;
+        aspect-ratio: 1/1;
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        border: none;
+        border-bottom-left-radius: 0.3rem;
+        -webkit-border-bottom-left-radius: 0.3rem;
+        -moz-border-radius-bottomleft: 0.3rem;
+        color: red;
+        font-weight: bold;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.43);
+        font-size: 0.8rem;
+    }
+
+    .remove-image:hover {
+        /* background: rgba(255, 255, 255, 0.79); */
+        background: white;
+    }
+
+    .preview-container {
         max-height: 10rem;
     }
 
@@ -31,6 +50,17 @@
         /* Adjust spacing between images as needed */
     }
 
+    .preview-image button {
+        position: absolute;
+        top: 0;
+        right: 0;
+        background-color: transparent;
+        border: none;
+        cursor: pointer;
+        padding: 5px;
+        /* Adjust padding around button */
+    }
+
     .preview-image button:hover {
         background-color: rgba(255, 0, 0, 0.2);
         /* Red hover effect */
@@ -43,146 +73,112 @@
         color: red;
     }
 
-    .img-thumbnail {
-        /* Customize styling of preview images */
-        max-width: 5rem;
-        max-height: 5rem;
-        aspect-ratio: 1/1;
-    }
-
     /* step navigation icon colors */
     .lighter-color {
         color: #4e5663;
     }
 
-    /* hiding the scrollbar */
-    #previewEdit {
-        scrollbar-width: none;
-        /* Firefox */
-        -ms-overflow-style: none;
-        /* Internet Explorer 10+ */
-    }
-
+    /* map */
     #map {
         aspect-ratio: 1/1;
-    }
-
-    .preview-image button {
-        position: absolute;
-        top: 0;
-        right: 0;
-        background-color: transparent;
-        border: none;
-        cursor: pointer;
-        padding: 5px;
-        /* Adjust padding around button */
-    }
-
-    .remove-imageEdit {
-        position: absolute;
-        background: none;
-        border: none;
-        color: red;
-        font-weight: bold;
-        cursor: pointer;
     }
 </style>
 <!-- leaflet -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <!-- GENERAL TAB -->
-<div class="fade show active tab-pane" id="edit-gen-tab-pane" role="tabpanel" aria-labelledby="edit-gen-tab" tabindex="0">
-    <!-- hidden data -->
-    <div>
-        <!-- common id's -->
-        <!-- crop_id -->
-        <!-- userID -->
-        <input id="userID" type="hidden" name="userID" class="form-control">
-        <input id="crop_id" type="hidden" name="crop_id" class="form-control">
-        <!-- categoryID -->
-        <input id="categoryID" type="hidden" name="categoryID" class="form-control">
-        <!-- category_varietyID -->
-        <input id="category_varietyID" type="hidden" name="category_varietyID" class="form-control">
-        <!-- terrainID -->
-        <input id="terrainID" type="hidden" name="terrainID" class="form-control">
-        <!-- cultural_aspect_id -->
-        <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
-        <!-- current_crop_variety -->
-        <input id="current_crop_variety" type="hidden" name="current_crop_variety" class="form-control">
-        <!-- currentUniqueCode -->
-        <input id="currentUniqueCode" type="hidden" name="currentUniqueCode" class="form-control">
-        <!-- disease_resistanceID -->
-        <input id="disease_resistanceID" type="hidden" name="disease_resistanceID" class="form-control">
-        <!-- seed_traitsID -->
-        <input id="seed_traitsID" type="hidden" name="seed_traitsID" class="form-control">
-        <!-- utilization_culturalID -->
-        <input id="utilization_culturalID" type="hidden" name="utilization_culturalID" class="form-control">
-        <!-- abiotic_resistanceID -->
-        <input id="abiotic_resistanceID" type="hidden" name="abiotic_resistanceID" class="form-control">
-        <!-- statusID -->
-        <input id="statusID" type="hidden" name="statusID" class="form-control">
-        <!-- referencesID -->
-        <input id="referencesID" type="hidden" name="referencesID" class="form-control">
-        <!-- unique_codeID -->
-        <input id="unique_codeID" type="hidden" name="unique_codeID" class="form-control">
+<div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
+    <!-- Category and Crop Field -->
+    <h6 class="fw-semibold mt-4 mb-3">General Information</h6>
+    <div class="row mb-2">
+        <!-- Category Name -->
+        <div class="col-6">
+            <label for="Category" class="form-label small-font">Crop Category<span class="text-danger ms-1">*</span></label>
+            <select name="category_id" id="Category" class="form-select">
+                <?php
+                // get the data of category from DB
+                $queryCategory = "SELECT * FROM category ORDER BY category_name ASC";
+                $query_run = pg_query($conn, $queryCategory);
 
-        <!-- corn id's -->
-        <!-- corn_traitsID -->
-        <input id="corn_traitsID" type="hidden" name="corn_traitsID" class="form-control">
-        <!-- vegetative_state_cornID -->
-        <input id="vegetative_state_cornID" type="hidden" name="vegetative_state_cornID" class="form-control">
-        <!-- reproductive_state_cornID -->
-        <input id="reproductive_state_cornID" type="hidden" name="reproductive_state_cornID" class="form-control">
-        <!-- pest_resistance_cornID -->
-        <input id="pest_resistance_cornID" type="hidden" name="pest_resistance_cornID" class="form-control">
+                $count = pg_num_rows($query_run);
 
-        <!-- rice id's -->
-        <!-- abiotic_resistance_riceID -->
-        <input id="abiotic_resistance_riceID" type="hidden" name="abiotic_resistance_riceID" class="form-control">
-        <!-- pest_resistance_riceID -->
-        <input id="pest_resistance_riceID" type="hidden" name="pest_resistance_riceID" class="form-control">
-        <!-- vegetative_state_riceID -->
-        <input id="vegetative_state_riceID" type="hidden" name="vegetative_state_riceID" class="form-control">
-        <!-- reproductive_state_riceID -->
-        <input id="reproductive_state_riceID" type="hidden" name="reproductive_state_riceID" class="form-control">
-        <!-- panicle_traits_riceID -->
-        <input id="panicle_traits_riceID" type="hidden" name="panicle_traits_riceID" class="form-control">
-        <!-- flag_leaf_traits_riceID -->
-        <input id="flag_leaf_traits_riceID" type="hidden" name="flag_leaf_traits_riceID" class="form-control">
-        <!-- sensory_traits_riceID -->
-        <input id="sensory_traits_riceID" type="hidden" name="sensory_traits_riceID" class="form-control">
+                // if count is greater than 0 there is data
+                if ($count > 0) {
+                    // loop for displaying all categories
+                    while ($row = pg_fetch_assoc($query_run)) {
+                        $category_id = $row['category_id'];
+                        $category_name = $row['category_name'];
+                ?>
+                        <option value="<?= $category_id; ?>"><?= $category_name; ?></option>
+                    <?php
+                    }
+                    ?>
+                <?php
+                }
+                ?>
+            </select>
+        </div>
 
-        <!-- root crop id's -->
-        <!-- root_crop_traitsID -->
-        <input id="root_crop_traitsID" type="hidden" name="root_crop_traitsID" class="form-control">
-        <!-- vegetative_state_rootcropID -->
-        <input id="vegetative_state_rootcropID" type="hidden" name="vegetative_state_rootcropID" class="form-control">
-        <!-- pest_resistance_rootcropID -->
-        <input id="pest_resistance_rootcropID" type="hidden" name="pest_resistance_rootcropID" class="form-control">
-        <!-- rootcrop_traitsID -->
-        <input id="rootcrop_traitsID" type="hidden" name="rootcrop_traitsID" class="form-control">
+        <!-- Category Variety -->
+        <div class="col" id="category-Variety">
+            <label for="categoryVariety" class="form-label small-font">Variety<span class="text-danger ms-1">*</span></label>
+            <select name="category_variety_id" id="categoryVariety" class="form-select color-default-child">
+            </select>
+        </div>
     </div>
 
-    <h6 class="fw-semibold mt-4 mb-3">General Info</h6>
-    <!-- variety name, meaning of name -->
+    <!-- variety name,  -->
     <div class="row mb-2">
         <!-- variety name -->
         <div class="col mb-2">
-            <label for="crop_variety" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
-            <input id="crop_variety" type="text" name="crop_variety" class="form-control" required>
+            <label for="Variety-Name" class="form-label small-font">Local/Variety Name<span class="text-danger ms-1">*</span></label>
+            <input id="Variety-Name" type="text" name="crop_variety" class="form-control">
         </div>
 
         <!-- Meaning of Name -->
         <div class="col mb-2">
-            <label class="form-label small-font">Meaning of Name(if any)</label>
-            <input type="text" id="nameMeaning" name="meaning_of_name" class="form-control">
+            <label class="form-label small-font">Meaning of Name (if any)</label>
+            <input type="text" name="meaning_of_name" class="form-control">
+        </div>
+    </div>
+
+    <!-- terrain -->
+    <div class="row mb-2">
+        <!-- terrain -->
+        <div class="col-6">
+            <label for="terrain" class="form-label small-font">Terrain<span style="color: red;">*</span></label>
+            <select name="terrain_id" id="terrain" class="form-select">
+                <option value="" disabled selected hidden>Select One</option>
+                <?php
+                // get the data of terrain from DB
+                // gi set ra nako na permi last ang other nga terrain og ascending sya based sa catgory name
+                $queryterrain = "SELECT * FROM terrain ORDER BY terrain_name ASC";
+                $query_run = pg_query($conn, $queryterrain);
+
+                $count = pg_num_rows($query_run);
+
+                // if count is greater than 0 there is data
+                if ($count > 0) {
+                    // loop for displaying all categories
+                    while ($row = pg_fetch_assoc($query_run)) {
+                        $terrain_id = $row['terrain_id'];
+                        $terrain_name = $row['terrain_name'];
+                ?>
+                        <option value="<?= $terrain_id; ?>"><?= $terrain_name; ?></option>
+                    <?php
+                    }
+                    ?>
+                <?php
+                }
+                ?>
+            </select>
         </div>
     </div>
 
     <!-- DESCRIPTION -->
     <div class="row mb-5">
         <div class="col">
-            <label for="description" class="form-label small-font">Description</label>
-            <textarea name="crop_description" id="description" rows="2" class="form-control"></textarea>
+            <label for="desc" class="form-label small-font">Description</label>
+            <textarea name="crop_description" id="desc" rows="2" class="form-control"></textarea>
         </div>
     </div>
 
@@ -192,66 +188,62 @@
     <div id="coords-help" class="form-text mb-3" style="font-size: 0.7rem;">Hold <span class="fw-bold">ctrl</span> or <span class="fw-bold">shift</span> and click the images to upload multiple files</div>
     <!-- Seed image -->
     <div class="row mb-3">
-        <label for="imageInputSeedEdit" class="d-flex align-items-center rounded small-font mb-2">
+        <label for="imageInputSeed" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Seed</span>
         </label>
         <div class="d-flex flex-column image-upload-container col-6">
-            <input type="hidden" name="current_image_seed" id="old_image_seed">
-            <input class="mb-0 form-control form-control-sm" type="file" id="imageInputSeedEdit" accept="image/jpeg,image/png" name="crop_seed_image[]" multiple>
+            <input class="mb-0 form-control form-control-sm" name="crop_seed_image[]" type="file" id="imageInputSeed" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewSeed')" multiple>
         </div>
-        <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewSeedEdit"></div>
+        <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewSeed"></div>
     </div>
 
-    <!-- vegetative stage image -->
-    <div class="row mb-3">
-        <label for="imageInputVegetativeEdit" class="d-flex align-items-center rounded small-font mb-2">
+    <!-- Vegetative image -->
+    <!-- <div class="row mb-3">
+        <label for="imageInputVegetative" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Vegetative Stage</span>
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
-            <input type="hidden" name="current_image_veg" id="old_image_veg">
-            <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetativeEdit" accept="image/jpeg,image/png" name="crop_vegetative_image" single onchange="previewVegetativeImageEdit()">
+            <input class="col-6 mb-0 form-control form-control-sm" name="crop_vegetative_image[]" type="file" id="imageInputVegetative" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewVeg')" multiple>
         </div>
-        <!-- <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewVegEdit"></div> -->
-    </div>
+        <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewVeg"></div>
+    </div> -->
 
-    <!-- reproductive stage -->
-    <div class="row mb-5">
-        <label for="imageInputReproductiveEdit" class="d-flex align-items-center rounded small-font mb-2">
+    <!-- Reproductive image -->
+    <!-- <div class="row mb-5">
+        <label for="imageInputReproductive" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Reproductive Stage</span>
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
-            <input type="hidden" name="current_image_rep" id="old_image_rep">
-            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductiveEdit" accept="image/jpeg,image/png" name="crop_reproductive_image" single onchange="previewReproductiveImageEdit()">
+            <input class="mb-0 form-control form-control-sm" type="file" name="crop_reproductive_image[]" id="imageInputReproductive" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewReproductive')" multiple>
         </div>
-        <!-- <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewReproductiveEdit"></div> -->
-    </div>
+        <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewReproductive"></div>
+    </div> -->
 
+    <!-- MAP -->
     <h6 class="fw-semibold mt-4 mb-3">Location</h6>
-    <!-- location -->
     <div id="locationData" class="row mb-3">
         <!-- form -->
         <div class="col-6 location-Data">
-            <input type="hidden" name="crop_location_id" id="crop_location_id">
             <!-- Province dropdown -->
-            <label for="ProvinceEdit" class="form-label small-font">Province <span style="color: red;">*</span></label>
-            <select id="ProvinceEdit" name="province" class="form-control mb-2">
+            <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
+            <select id="Province" name="province" class="form-select mb-2" readonly>
                 <?php
                 // Fetch distinct province names from the location table
-                $queryProvince = "SELECT DISTINCT province_name FROM location ORDER BY province_name ASC";
+                $queryProvince = "SELECT DISTINCT province_name, province_id FROM province ORDER BY province_name ASC";
                 $query_run = pg_query($conn, $queryProvince);
 
                 $count = pg_num_rows($query_run);
 
                 // If there is data, display distinct province names
                 if ($count > 0) {
-
                     while ($row = pg_fetch_assoc($query_run)) {
                         $province_name = $row['province_name'];
+                        $province_id = $row['province_id'];
                 ?>
-                        <option value="<?= $province_name; ?>"><?= $province_name; ?></option>
+                        <option value="<?= $province_id; ?>"><?= $province_name; ?></option>
                 <?php
                     }
                 }
@@ -259,286 +251,127 @@
             </select>
 
             <!-- Municipality dropdown -->
-            <label for="MunicipalitySelect" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
-            <select id="MunicipalitySelect" name="municipality" class="form-select mb-2">
+            <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
+            <select id="Municipality" name="municipality" class="form-select mb-2">
+                <!-- option is automatically shown through js depending on the province -->
             </select>
 
             <!-- barangay -->
-            <label for="BarangaySelect" class="form-label small-font mb-0">Sitio <span style="color: red;">*</span></label>
-            <select id="BarangaySelect" name="barangay" class="form-select mb-2">
+            <label for="Barangay" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
+            <select id="Barangay" name="barangay" class="form-select mb-2">
+                <option value="" disabled selected hidden>Select One</option>
+                <!-- option is automatically shown through js depending on the municipality selected -->
             </select>
 
+            <!-- sitio -->
+            <label for="Sitio" class="form-label small-font mb-0">Sitio</label>
+            <input id="Sitio" name="sitio_name" type="text" class="form-control mb-2">
+
             <!-- coordinates -->
-            <label for="coordEdit" class="form-label small-font mb-0">Coordinates</label>
-            <input id="coordEdit" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
-            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (latitude , longitude)</div>
-            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">The blue Marker is for the old/current location</div>
+            <label for="coordInput" class="form-label small-font mb-0">Coordinates(if any)</label>
+            <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
+            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (<span class="fw-bold">latitude , longitude</span>)</div>
+
         </div>
         <!-- map -->
-        <div id="mapEdit" class="col border">
-        </div>
-    </div>
-
-    <!-- Contributed, Unique Code, and Date Created -->
-    <dv class="row mb-3">
-        <!-- Contributed By -->
-        <div class="col">
-            <label class="form-label small-font">Contributed By:</label>
-            <h6 name="first_name" id="firstName"></h6>
-        </div>
-
-        <!-- Unique Code -->
-        <div class="col">
-            <label class="form-label small-font">Unique Code:</label>
-            <h6 name="unique_code" id="uniqueCode"></h6>
-        </div>
-
-        <!-- Date created -->
-        <div class="col">
-            <label class="form-label small-font">Date Created:</label>
-            <h6 name="input_date" id="input_dateEdit"></h6>
-        </div>
-    </dv>
-
-    <!-- Categories, Other Category, and Category Variety -->
-    <div class="row mb-3">
-        <!-- Category -->
-        <div class="col">
-            <label class="form-label small-font">Category:</label>
-            <h6 name="category_id" id="CategoryEdit"></h6>
-        </div>
-
-        <!-- other category name if exist -->
-        <div class="col" id="otherCategoryInputEdit" style="display: none;">
-            <label class="form-label small-font">Other Category Name:</label>
-            <h6 name="other_category_name" id="otherCategoryEdit"></h6>
-        </div>
-
-        <!-- Category Variety -->
-        <div class="col">
-            <label class="form-label small-font">Category Variety:</label>
-            <h6 name="category_variety_name" id="categoryVarietyEdit"></h6>
-        </div>
-
-        <!-- Terrain -->
-        <div class="col">
-            <label class="form-label small-font">Terrain:</label>
-            <h6 name="terrain_id" id="categoryTerrainEdit"></h6>
+        <div id="map" class="col border">
         </div>
     </div>
 
     <!-- STEP NAVIGATION -->
     <div class="row">
         <div class="col d-flex justify-content-end">
-            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open morphological tab" onclick="switchTab('edit-more')">Next<i class="fa-solid fa-angles-right ms-2"></i></button>
+            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('more')">Next<i class="fa-solid fa-angles-right ms-2"></i></button>
         </div>
     </div>
 </div>
 
-<!-- SCRIPT for edit tab for the image-->
+<!-- map input -->
+<!-- SCRIPT for add tab-->
+
+<!-- IMAGE PREVIEW HANDLING -->
 <script defer>
-    // handling to show all image inputs
-    const imageInputEdit = document.getElementById('imageInputSeedEdit');
-    const previewContainerEdit = document.querySelector('.preview-containerEdit');
-    let oldImage = ''; // Variable to store the old image URL or filename
+    function previewImage(input, previewId) {
+        const previewContainer = document.getElementById(previewId);
+        previewContainer.innerHTML = ""; // Clear previous previews
 
-    // Function to fetch the old image when editing an item
-    function fetchOldImage(image) {
-        oldImage = image; // Store the old image URL or filename
-    }
+        const files = input.files;
+        const selectedFiles = []; // Array to store selected files
 
-    function addOldImageFile(oldImageFilename) {
-        if (oldImageFilename && oldImageFilename.trim() !== '') {
-            var dataTransfer = new DataTransfer();
-            Array.from(imageInputEdit.files).forEach(function(file) {
-                dataTransfer.items.add(file);
-            });
-            var oldImageFile = new File([null], oldImageFilename, {
-                type: 'image/png'
-            });
-            dataTransfer.items.add(oldImageFile);
-            imageInputEdit.files = dataTransfer.files;
-        }
-    }
-
-    // function to display and remove the image selected
-    $(document).ready(function() {
-        $('input[type="file"]').on("change", function() {
-            var files = $(this)[0].files;
-            $('#previewSeedEdit').empty();
-
-            // Loop through the files and append them to the preview container
-            $.each(files, function(i, file) {
-                var reader = new FileReader();
+        if (files.length > 0) {
+            previewContainer.classList.remove("d-none"); // Show preview container
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
                 reader.onload = function(e) {
-                    $('#previewSeedEdit').prepend('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-imageEdit" data-index="' + i + '"><i class="fa-solid fa-xmark"></i></button></div>');
-                }
-                reader.readAsDataURL(file);
-            });
+                    const imgContainer = document.createElement("div");
+                    imgContainer.classList.add("preview-image-container");
+                    previewContainer.appendChild(imgContainer);
 
-            // If there's an old image, append it to the preview container and set the value of the hidden input field
-            if (oldImage) {
-                var oldImageFilenames = oldImage.split(',');
-                oldImageFilenames.forEach(function(filename, index) {
-                    $('#previewSeedEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="../crop-page/modals/img/' + filename.trim() + '" class="img-thumbnail"/><button class="remove-imageEdit" data-index="' + (files.length + index) + '"><i class="fa-solid fa-xmark"></i></button></div>');
+                    const img = document.createElement("img");
+                    img.src = e.target.result;
+                    img.classList.add("img-thumbnail", "mb-2", "preview-image");
+                    imgContainer.appendChild(img);
 
-                    // Add the old image file to the files array
-                    addOldImageFile(filename.trim());
-                });
+                    const deleteButton = document.createElement("button");
+                    deleteButton.innerHTML = "<i class='fa-solid fa-xmark'></i>";
+                    deleteButton.classList.add("remove-image");
+                    imgContainer.appendChild(deleteButton);
+
+                    // Add selected file to the array
+                    selectedFiles.push(files[i]);
+                };
+                reader.readAsDataURL(files[i]);
             }
 
-            console.log("Remaining images after change:", imageInputEdit.files);
-            checkForContent();
-        });
+            // Add event listener for delete buttons
+            $(document).on("click", ".remove-image", function() {
+                var index = $(this).index(".remove-image");
+                var input = $('input[type="file"]')[0];
+                var newFiles = Array.from(input.files);
+                newFiles.splice(index, 1);
 
-        //* if you input multiple images and you added a wrong one you can delete it
-        //* this code will remove the one you deleted from existing image array
-        //* and the remaining images is transferred to another array and is considered as a new input
-        $(document).on("click", ".remove-imageEdit", function() {
-            var index = $(this).data("index");
-            console.log("Removing image at index:", index);
+                // Clear the preview container
+                previewContainer.innerHTML = "";
 
-            var newFiles = Array.from(imageInputEdit.files).filter((_, i) => i !== index);
-            var dataTransfer = new DataTransfer();
-            newFiles.forEach(function(file) {
-                dataTransfer.items.add(file);
+                //* mao ni tung mag transfer sa data to another input
+                var dataTransfer = new DataTransfer();
+                // Preview the remaining images
+                newFiles.forEach(function(file) {
+                    dataTransfer.items.add(file);
+                    const imgContainer = document.createElement("div");
+                    imgContainer.classList.add("preview-image-container");
+                    previewContainer.appendChild(imgContainer);
+
+                    const img = document.createElement("img");
+                    img.src = URL.createObjectURL(file);
+                    img.classList.add("img-thumbnail", "mb-2", "preview-image");
+                    imgContainer.appendChild(img);
+
+                    const deleteButton = document.createElement("button");
+                    deleteButton.innerHTML = "<i class='fa-solid fa-xmark'></i>";
+                    deleteButton.classList.add("remove-image");
+                    imgContainer.appendChild(deleteButton);
+                });
+                input.files = dataTransfer.files;
+
+                // Remove only the clicked image and delete button
+                $(this).prev("img").remove();
+                $(this).remove();
             });
-
-            // Update the input files and reset the indexes
-            imageInputEdit.files = dataTransfer.files;
-            $('#previewSeedEdit').empty();
-            Array.from(imageInputEdit.files).forEach(function(file, index) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#previewSeedEdit').prepend('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-imageEdit" data-index="' + index + '"><i class="fa-solid fa-xmark"></i></button></div>');
-                }
-                reader.readAsDataURL(file);
-            });
-
-            console.log("New files array after removal:", imageInputEdit.files);
-            checkForContent();
-        });
-
-        // Add event listener for the hidden.bs.modal event
-        $('#add-item-modal, #edit-item-modal').on('hidden.bs.modal', function() {
-            imageInputEdit.value = ''; // Reset file input
-            $('#previewSeedEdit').empty(); // Clear preview container
-            checkForContent();
-        });
-    });
-
-    // to show the border only when there a picture inside
-    // const previewContainer = document.getElementById('previewContainer');
-    function checkForContent() {
-        if (previewContainerEdit.hasChildNodes()) {
-            previewContainerEdit.classList.add('border');
         } else {
-            previewContainerEdit.classList.remove('border');
+            previewContainer.classList.add("d-none"); // Hide preview container if no files selected
         }
+        // **Update logic to use selectedFiles array for upload**
+        // (This part depends on your specific upload functionality)
+
+        // Replace existing upload logic with code that uses selectedFiles
     }
-
-    // Call initially on page load
-    checkForContent();
-
-    // Call whenever content might change within the container
-    previewContainerEdit.addEventListener('DOMNodeInserted', checkForContent);
-    previewContainerEdit.addEventListener('DOMNodeRemoved', checkForContent);
-</script>
-
-<!-- SCRIPT for add tab-->
-<script defer>
-    // function previewSeedImageEdit() {
-    //     const imageInputEdit = document.getElementById("imageInputSeedEdit");
-    //     const previewContainerEdit = document.getElementById("previewSeedEdit");
-
-    //     // Check if a file is selected
-    //     if (imageInputEdit.files && imageInputEdit.files[0]) {
-    //         const reader = new FileReader();
-
-    //         reader.onload = function(e) {
-    //             const previewImage = new Image();
-    //             previewImage.src = e.target.result;
-    //             previewImage.onload = function() {
-    //                 previewContainerEdit.innerHTML = ""; // Clear previous content
-    //                 previewContainerEdit.appendChild(previewImage);
-    //             };
-    //         };
-
-    //         reader.readAsDataURL(imageInputEdit.files[0]);
-
-    //         // show preview
-    //         previewContainerEdit.classList.remove("d-none");
-    //     } else {
-    //         // Clear the preview container if no file is selected
-    //         previewContainerEdit.innerHTML = "";
-    //         // hide preview
-    //         previewContainerEdit.classList.add("d-none");
-    //     }
-    // }
-
-    // function previewVegetativeImageEdit() {
-    //     const imageInputEdit = document.getElementById("imageInputVegetativeEdit");
-    //     const previewContainerEdit = document.getElementById("previewVegEdit");
-
-    //     // Check if a file is selected
-    //     if (imageInputEdit.files && imageInputEdit.files[0]) {
-    //         const reader = new FileReader();
-
-    //         reader.onload = function(e) {
-    //             const previewImage = new Image();
-    //             previewImage.src = e.target.result;
-    //             previewImage.onload = function() {
-    //                 previewContainerEdit.innerHTML = ""; // Clear previous content
-    //                 previewContainerEdit.appendChild(previewImage);
-    //             };
-    //         };
-
-    //         reader.readAsDataURL(imageInputEdit.files[0]);
-
-    //         // show preview
-    //         previewContainerEdit.classList.remove("d-none");
-    //     } else {
-    //         // Clear the preview container if no file is selected
-    //         previewContainerEdit.innerHTML = "";
-    //         // hide preview
-    //         previewContainerEdit.classList.add("d-none");
-    //     }
-    // }
-
-    // function previewReproductiveImageEdit() {
-    //     const imageInputEdit = document.getElementById("imageInputReproductiveEdit");
-    //     const previewContainerEdit = document.getElementById("previewReproductiveEdit");
-
-    //     // Check if a file is selected
-    //     if (imageInputEdit.files && imageInputEdit.files[0]) {
-    //         const reader = new FileReader();
-
-    //         reader.onload = function(e) {
-    //             const previewImage = new Image();
-    //             previewImage.src = e.target.result;
-    //             previewImage.onload = function() {
-    //                 previewContainerEdit.innerHTML = ""; // Clear previous content
-    //                 previewContainerEdit.appendChild(previewImage);
-    //             };
-    //         };
-
-    //         reader.readAsDataURL(imageInputEdit.files[0]);
-
-    //         // show preview
-    //         previewContainerEdit.classList.remove("d-none");
-    //     } else {
-    //         // Clear the preview container if no file is selected
-    //         previewContainerEdit.innerHTML = "";
-    //         // hide preview
-    //         previewContainerEdit.classList.add("d-none");
-    //     }
-    // }
 </script>
 
 <!-- script for limiting the input for the crop variety name -->
 <script>
     // Get the input element
-    var inputElement = document.getElementById('crop_variety');
+    var inputElement = document.getElementById('Variety-Name');
 
     // Add an event listener for keypress event
     inputElement.addEventListener('keypress', function(e) {
@@ -561,98 +394,16 @@
 <!-- leaflet requirement -->
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
-<!-- SCRIPT for location tab -->
-<script>
-    // FORMS SIDE
-    // Get references to the select elements
-    const neighborhoodValueEdit = document.getElementById('neighborhoodEdit');
-    const municipalitySelectEdit = document.getElementById('MunicipalitySelect');
-    const barangaySelectEdit = document.getElementById('BarangaySelect');
-
-    let initialMunicipality = '';
-    let initialBarangay = '';
-
-    // Function to populate municipalities dropdown based on selected province
-    const populateMunicipalitiesEdit = async (selectedProvince, initialVal) => {
-        try {
-            const response = await fetch(`../crop-page/modals/fetch/fetch_location-edit.php?province=${selectedProvince}`);
-            const data = await response.json();
-            // console.log(data);
-
-            const municipalitiesDropdown = document.getElementById('MunicipalitySelect');
-            municipalitiesDropdown.innerHTML = '';
-
-            data.forEach((municipality) => {
-                const option = document.createElement('option');
-                option.value = municipality;
-                option.text = municipality;
-                municipalitiesDropdown.appendChild(option);
-            });
-
-            // Set the initial value if available
-            if (initialVal) {
-                municipalitiesDropdown.value = initialVal;
-            }
-
-        } catch (error) {
-            console.error('Error fetching municipalities:', error);
-        }
-    };
-
-    // Function to populate barangay dropdown based on selected municipality
-    const populateBarangayEdit = async (selectedMunicipality, initialVal) => {
-        try {
-            const response = await fetch(`../crop-page/modals/fetch/fetch_location-edit.php?municipality=${selectedMunicipality}`);
-            const data = await response.json();
-            // console.log(data);
-
-            const barangayDropdown = document.getElementById('BarangaySelect');
-            barangayDropdown.innerHTML = '';
-
-            data.forEach((barangay) => {
-                const option = document.createElement('option');
-                option.value = barangay;
-                option.text = barangay;
-                barangayDropdown.appendChild(option);
-            });
-
-            // Set the initial value if available
-            if (initialVal) {
-                barangayDropdown.value = initialVal;
-            }
-
-        } catch (error) {
-            console.error('Error fetching barangays:', error);
-        }
-    };
-
-    // Call the populateMunicipalities function when the province dropdown value changes
-    document.getElementById('ProvinceEdit').addEventListener('change', function() {
-        var selectedProvince = document.getElementById('ProvinceEdit').value;
-        populateMunicipalitiesEdit(selectedProvince, initialMunicipality);
-    });
-
-    // Call the populateBarangay function when the municipality dropdown value changes
-    document.getElementById('MunicipalitySelect').addEventListener('change', function() {
-        var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
-        populateBarangayEdit(selectedMunicipality, initialBarangay);
-    });
-
-    // Call the populateMunicipalities function initially to populate the municipalities dropdown based on the default selected province
-    var selectedProvince = document.getElementById('ProvinceEdit').value;
-    populateMunicipalitiesEdit(selectedProvince, initialMunicipality);
-
-    // Call the populateBarangay function initially to populate the municipalities dropdown based on the default selected municipality
-    var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
-    populateBarangayEdit(selectedMunicipality, initialBarangay);
-</script>
-
 <!-- script for limiting the input in coordinates just to numbers, commas, periods, and spaces -->
 <script>
-    document.getElementById('coordEdit').addEventListener('input', function(event) {
-        const regex = /^[0-9.,\s]*$/;
+    document.getElementById('coordInput').addEventListener('input', function(event) {
+        const regex = /^[0-9.,\s-]*$/; // Updated regex to allow "-" sign
         if (!regex.test(event.target.value)) {
-            event.target.value = event.target.value.replace(/[^0-9.,\s]/g, '');
+            event.target.value = event.target.value.replace(/[^0-9.,\s-]/g, '');
         }
     });
+</script>
+
+<!-- MAP -->
+<script>
 </script>

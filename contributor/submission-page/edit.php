@@ -17,45 +17,50 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel-edit" name="Form" action="code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
+            <form id="form-panel-edit" name="Form" action="crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
                 <div class="modal-body edit-modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link active small-font modal-tab" id="edit-gen-tab" data-bs-toggle="tab" data-bs-target="#edit-gen-tab-pane" type="button" role="tab" aria-controls="edit-gen-tab-pane" aria-selected="false"><i class="fa-solid fa-lightbulb me-1"></i>General</button>
+                            <button class="nav-link active small-font modal-tab text-dark" id="edit-gen-tab" data-bs-toggle="tab" data-bs-target="#edit-gen-tab-pane" type="button" role="tab" aria-controls="edit-gen-tab-pane" aria-selected="false"><i class="fa-solid fa-lightbulb me-1"></i>General</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-more-tab" data-bs-toggle="tab" data-bs-target="#edit-more-tab-pane" type="button" role="tab" aria-controls="edit-more-tab-pane" aria-selected="true"><i class="fa-solid fa-leaf me-1"></i>Morphology</button>
+                            <button class="nav-link small-font modal-tab text-dark" id="edit-more-tab" data-bs-toggle="tab" data-bs-target="#edit-more-tab-pane" type="button" role="tab" aria-controls="edit-more-tab-pane" aria-selected="true"><i class="fa-solid fa-leaf me-1"></i>Morphology</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-sensory-tab" data-bs-toggle="tab" data-bs-target="#edit-sensory-tab-pane" type="button" role="tab" aria-controls="edit-sensory-tab-pane" aria-selected="true"><i class="fa-solid fa-utensils me-1"></i>Sensory</button>
+                            <button class="nav-link small-font modal-tab text-dark" id="edit-sensory-tab" data-bs-toggle="tab" data-bs-target="#edit-sensory-tab-pane" type="button" role="tab" aria-controls="edit-sensory-tab-pane" aria-selected="true"><i class="fa-solid fa-utensils me-1"></i>Sensory</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-agro-tab" data-bs-toggle="tab" data-bs-target="#edit-agro-tab-pane" type="button" role="tab" aria-controls="edit-agro-tab-pane" aria-selected="true"><i class="fa-solid fa-seedling me-1"></i>Agronomy</button>
+                            <button class="nav-link small-font modal-tab text-dark" id="edit-agro-tab" data-bs-toggle="tab" data-bs-target="#edit-agro-tab-pane" type="button" role="tab" aria-controls="edit-agro-tab-pane" aria-selected="true"><i class="fa-solid fa-seedling me-1"></i>Agronomy</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-cultural-tab" data-bs-toggle="tab" data-bs-target="#edit-cultural-tab-pane" type="button" role="tab" aria-controls="edit-cultural-tab-pane" aria-selected="false"><i class="fa-solid fa-sun me-1"></i>Importance</button>
+                            <button class="nav-link small-font modal-tab text-dark" id="edit-cultural-tab" data-bs-toggle="tab" data-bs-target="#edit-cultural-tab-pane" type="button" role="tab" aria-controls="edit-cultural-tab-pane" aria-selected="false"><i class="fa-solid fa-sun me-1"></i>Importance</button>
                         </li>
                         <li class="nav-item" role="presentation">
-                            <button class="nav-link small-font modal-tab" id="edit-references-tab" data-bs-toggle="tab" data-bs-target="#edit-references-tab-pane" type="button" role="tab" aria-controls="edit-references-tab-pane" aria-selected="false"><i class="fa-solid fa-book me-1"></i></i>References</button>
+                            <button class="nav-link small-font modal-tab text-dark" id="edit-references-tab" data-bs-toggle="tab" data-bs-target="#edit-references-tab-pane" type="button" role="tab" aria-controls="edit-references-tab-pane" aria-selected="false"><i class="fa-solid fa-book me-1"></i></i>References</button>
                         </li>
                     </ul>
                     <div class="container">
                         <div class="tab-content mt-2">
                             <!-- general -->
-                            <?php require "tabs/gen.php" ?>
+                            <?php require "edit-tabs/gen.php" ?>
                             <!-- cultural -->
-                            <?php require "tabs/cultural.php" ?>
+                            <?php require "edit-tabs/cultural.php"
+                            ?>
                             <!-- more optional info -->
-                            <?php require "tabs/more.php" ?>
+                            <?php require "edit-tabs/more.php"
+                            ?>
                             <!-- agro info -->
-                            <?php require "tabs/agro.php" ?>
+                            <?php require "edit-tabs/agro.php"
+                            ?>
                             <!-- sensory info -->
-                            <?php require "tabs/sensory.php" ?>
+                            <?php require "edit-tabs/sensory.php"
+                            ?>
                             <!-- references -->
-                            <?php require "tabs/references.php" ?>
+                            <?php require "edit-tabs/references.php"
+                            ?>
                             <!-- confirm -->
-                            <?php require "tabs/confirm.php" ?>
+                            <?php require "edit-tabs/confirm.php" ?>
                         </div>
                     </div>
                 </div>
@@ -65,7 +70,8 @@
                     <button type="button" id="deleteButton" class="btn btn-danger" data-id="delete">Delete</i></button>
                     <div class="">
                         <button type="button" id="cancel-modal-btn-edit" class="btn border bg-light">Cancel</button>
-                        <button type="submit" id="editButton" name="update" class="btn btn-success">Save</button>
+                        <button type="submit" id="editButton" name="edit" class="btn btn-success">Save</button>
+                        <button type="submit" id="draftButton" name="save_draft" class="btn btn-success">Save</button>
                     </div>
                 </div>
             </form>
@@ -176,6 +182,18 @@
         var riceMorph = document.getElementById('riceMorph-Edit');
         var rootCropMorph = document.getElementById('root_cropMorph-Edit');
 
+        // Disable inputs based on the selected category
+        if (selectedCategory !== '4') {
+            disableInputs(cornMorph);
+        }
+
+        if (selectedCategory !== '1') {
+            disableInputs(riceMorph);
+        }
+
+        if (selectedCategory !== '2') {
+            disableInputs(rootCropMorph);
+        }
         // Form is valid, submit the form
         submitForm();
     });
@@ -189,7 +207,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "code/code.php",
+                url: "crud-code/code.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,
@@ -240,9 +258,9 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['action']);
+                        console.log(value['corn_abiotic_other_desc']);
 
-                        // set modal name depending if it is draft or edit
+                        // set modal name and buttons depending if it is draft or edit
                         if (value['action'] === 'draft') {
                             $('#edit-label').text('Draft');
                             $('#draftButton').show();
@@ -261,16 +279,16 @@
                             var imageFilenamesSeed = value['crop_seed_image'].split(',');
                             // Iterate over each filename and append an image element to the preview container
                             imageFilenamesSeed.forEach(function(filename) {
-                                $('#previewSeedEdit').append(`<img src="../crop-page/modals/img/${filename.trim()}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                                $('#previewSeedEdit').append(`<img src="img/${filename.trim()}" class="m-2 img-thumbnail" style="height: 200px;">`);
                             });
                         }
 
                         if (value['crop_vegetative_image'] != null && value['crop_vegetative_image'] != '') {
-                            $('#previewVegEdit').append(`<img src="../crop-page/modals/img/${value['crop_vegetative_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                            $('#previewVegEdit').append(`<img src="img/${value['crop_vegetative_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
                         }
 
                         if (value['crop_reproductive_image'] != null && value['crop_reproductive_image'] != '') {
-                            $('#previewReproductiveEdit').append(`<img src="../crop-page/modals/img/${value['crop_reproductive_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                            $('#previewReproductiveEdit').append(`<img src="img/${value['crop_reproductive_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
                         }
 
                         // setting the available data on the traits tab depending on the category of the selected crop
@@ -288,68 +306,59 @@
                             $('#edit-sensory-tab').hide();
                             $('#withSensory-Edit').hide();
                             $('#withSensory-Edit-More').hide();
-                            $('#riceMorph-Edit :input').prop('disabled', true);
-                            $('#root_cropMorph-Edit :input').prop('disabled', true);
 
                             // morph traits for corn
                             // vegetative state
                             $('#corn-heightEdit').append($('<option>', {
-                                value: value['corn_plant_height']
+                                value: value['corn_plant_height'],
+                                text: value['corn_plant_height'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
                             $('#corn-leafWidth-Edit').append($('<option>', {
-                                value: value['corn_leaf_width']
+                                value: value['corn_leaf_width'],
+                                text: value['corn_leaf_width'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
                             $('#corn-leafLength-Edit').append($('<option>', {
-                                value: value['corn_leaf_length']
+                                value: value['corn_leaf_length'],
+                                text: value['corn_leaf_length'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
 
                             // Reproductive state corn
-                            $('#corn-yield-capacity-Edit').val(value['corn_yield_capacity']);
+                            $('#corn-yield-capacity-Edit').append($('<option>', {
+                                value: value['corn_yield_capacity'],
+                                text: value['corn_yield_capacity'],
+                                selected: true,
+                                style: 'display: none;'
+                            }));
                             $('#corn-seed-length-Edit').val(value['seed_length']);
                             $('#corn-seed-width-Edit').val(value['seed_width']);
                             $('#corn-seed-shape-Edit').val(value['seed_shape']);
                             $('#corn-seed-color-Edit').val(value['seed_color']);
 
-                            // pest resistance corn
-                            $('#cornBorers-Edit').prop('checked', value['corn_borers'] == 1);
-                            $('#Earworm-Edit').prop('checked', value['earworms'] == 1);
-                            $('#spider-mites-Edit').prop('checked', value['spider_mites'] == 1);
-                            $('#corn-blackBug-Edit').prop('checked', value['corn_black_bug'] == 1);
-                            $('#corn-army-worms-Edit').prop('checked', value['corn_army_worms'] == 1);
-                            $('#leaf-aphid-Edit').prop('checked', value['leaf_aphid'] == 1);
-                            $('#corn-cutWorms-Edit').prop('checked', value['corn_cutworms'] == 1);
-                            $('#rice-Birds-Edit').prop('checked', value['corn_birds'] == 1);
-                            $('#corn-ants-Edit').prop('checked', value['corn_ants'] == 1);
-                            $('#corn-rats-Edit').prop('checked', value['corn_rats'] == 1);
-                            $('#corn-other-check-Edit').prop('checked', value['corn_others'] == 1);
+                            $('#pest_other_checkEdit').prop('checked', value['corn_pest_other']);
                             // Show the 'Other' textarea if 'other' checkbox is checked
-                            if ($('#corn-other-check-Edit').prop('checked')) {
-                                $('.corn-pest-other-edit').show();
+                            if ($('#pest_other_checkEdit').prop('checked')) {
+                                $('#pest-otherEdit').removeClass('d-none'); // Remove the 'd-none' class to show the element
                             } else {
-                                $('.corn-pest-other-edit').hide();
+                                $('#pest-otherEdit').addClass('d-none'); // Add the 'd-none' class to hide the element
                             }
                             // Set the value of the 'Other' textarea
-                            $('#corn-other-Edit').val(value['corn_others_desc']);
+                            $('#pestEdit').val(value['corn_pest_other_desc']);
 
-                            // disease resistance corn
-                            $('#corn-Bacterial-Edit').prop('checked', value['bacterial'] == 1);
-                            $('#corn-Fungus-Edit').prop('checked', value['fungus'] == 1);
-                            $('#corn-Viral-Edit').prop('checked', value['viral'] == 1);
-
-                            // abiotic resistance resistance corn
-                            $('#corn-Drought-Edit').prop('checked', value['drought'] == 1);
-                            $('#corn-Salinity-Edit').prop('checked', value['salinity'] == 1);
-                            $('#corn-Heat-Edit').prop('checked', value['heat'] == 1);
-                            $('#corn-abiotic-other-check-Edit').prop('checked', value['abiotic_other'] == 1);
+                            $('#abiotic_other_checkEdit').prop('checked', value['corn_abiotic_other']);
                             // Show the 'Other' textarea if 'other' checkbox is checked
-                            // baliktad ang if else statement kay katok ang code ambot nganuman
-                            if ($('#corn-abiotic-other-check-Edit').prop('checked')) {
-                                $('.corn-abiotic-other').show();
+                            if ($('#abiotic_other_checkEdit').prop('checked')) {
+                                $('#abiotic_otherEdit').removeClass('d-none');
                             } else {
-                                $('.corn-abiotic-other').hide();
+                                $('#abiotic_otherEdit').addClass('d-none');
                             }
                             // Set the value of the 'Other' textarea
-                            $('#corn-abiotic-other-Edit').val(value['abiotic_other_desc']);
+                            $('#abiotic_other-descEdit').val(value['corn_abiotic_other_desc']);
                         } else if (value['category_name'] === 'Rice') {
                             // Show the div for Rice
                             $('#riceMorph-Edit').show();
@@ -364,29 +373,38 @@
                             $('#root_cropAgro-Edit').hide();
                             $('#withoutSensory-Edit').hide();
                             $('#withoutSensory-Edit-More').hide();
-                            $('#cornMorph-Edit :input').prop('disabled', true);
-                            $('#root_cropMorph-Edit :input').prop('disabled', true);
 
                             // morph traits for rice
                             // vegetative state
-                            if (value['rice_plant_height'] === 'Tall') {
-                                $('#height-tall-Edit').prop('checked', true);
-                            } else if (value['rice_plant_height'] === 'Average') {
-                                $('#height-average-Edit').prop('checked', true);
-                            } else if (value['rice_plant_height'] === 'Short') {
-                                $('#height-short-Edit').prop('checked', true);
-                            }
+                            $('#height-tall-Edit').append($('<option>', {
+                                value: value['rice_plant_height'],
+                                text: value['rice_plant_height'],
+                                selected: true,
+                                style: 'display: none;'
+                            }));
                             $('#leafWidth-Edit').append($('<option>', {
                                 value: value['rice_leaf_width'],
+                                text: value['rice_leaf_width'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
                             $('#leafLength-Edit').append($('<option>', {
-                                value: value['rice_leaf_length']
+                                value: value['rice_leaf_length'],
+                                text: value['rice_leaf_length'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
                             $('#tilleringAbility-Edit').append($('<option>', {
-                                value: value['rice_tillering_ability']
+                                value: value['rice_tillering_ability'],
+                                text: value['rice_tillering_ability'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
                             $('#rice-maturityTime-Edit').append($('<option>', {
-                                value: value['rice_maturity_time']
+                                value: value['rice_maturity_time'],
+                                text: value['rice_maturity_time'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
 
                             // Reproductive state rice
@@ -424,47 +442,25 @@
                                 $('#hardness-Hard-Edit').prop('checked', true);
                             }
 
-                            // pest resistance rice
-                            $('#riceBorers-Edit').prop('checked', value['rice_borers'] == 1);
-                            $('#riceSnail-Edit').prop('checked', value['rice_snail'] == 1);
-                            $('#Hoppers-Edit').prop('checked', value['hoppers'] == 1);
-                            $('#rice-blackBug-Edit').prop('checked', value['rice_black_bug'] == 1);
-                            $('#Leptocorisa-Edit').prop('checked', value['leptocorisa'] == 1);
-                            $('#leaf-folder-Edit').prop('checked', value['leaf_folder'] == 1);
-                            $('#rice-birds-Edit').prop('checked', value['rice_birds'] == 1);
-                            $('#rice-ants-Edit').prop('checked', value['rice_ants'] == 1);
-                            $('#rice-rats-Edit').prop('checked', value['rice_rats'] == 1);
-                            $('#rice-armyWorms-Edit').prop('checked', value['rice_army_worms'] == 1);
-                            $('#rice-other-check-Edit').prop('checked', value['rice_others'] == 1);
+                            $('#pest_other_checkEdit').prop('checked', value['rice_pest_other']);
                             // Show the 'Other' textarea if 'other' checkbox is checked
-                            if ($('#rice-other-check-Edit').prop('checked')) {
-                                $('.rice-pest-other-edit').show();
+                            if ($('#pest_other_checkEdit').prop('checked')) {
+                                $('#pest-otherEdit').removeClass('d-none'); // Remove the 'd-none' class to show the element
                             } else {
-                                $('.rice-pest-other-edit').hide();
+                                $('#pest-otherEdit').addClass('d-none'); // Add the 'd-none' class to hide the element
                             }
                             // Set the value of the 'Other' textarea
-                            $('#rice-other-Edit').val(value['rice_others_desc']);
+                            $('#pestEdit').val(value['rice_pest_other_desc']);
 
-                            // disease resistance rice
-                            $('#rice-Bacterial-Edit').prop('checked', value['bacterial'] == 1);
-                            $('#rice-Fungus-Edit').prop('checked', value['fungus'] == 1);
-                            $('#rice-Viral-Edit').prop('checked', value['viral'] == 1);
-
-                            // abiotic resistance resistance rice
-                            $('#riceDrought-Edit').prop('checked', value['rice_drought'] == 1);
-                            $('#riceSalinity-Edit').prop('checked', value['rice_salinity'] == 1);
-                            $('#riceHeat-Edit').prop('checked', value['rice_heat'] == 1);
-                            $('#harmful-radiation-Edit').prop('checked', value['harmful_radiation'] == 1);
-                            $('#rice-abiotic-other-check-Edit').prop('checked', value['rice_abiotic_other'] == 1);
+                            $('#abiotic_other_checkEdit').prop('checked', value['rice_abiotic_other']);
                             // Show the 'Other' textarea if 'other' checkbox is checked
-                            // baliktad ang if else statement kay katok ang code ambot nganuman
-                            if ($('#rice-abiotic-other-check-Edit').prop('checked')) {
-                                $('.rice-abiotic-other').show();
+                            if ($('#abiotic_other_checkEdit').prop('checked')) {
+                                $('#abiotic_otherEdit').removeClass('d-none');
                             } else {
-                                $('.rice-abiotic-other').hide();
+                                $('#abiotic_otherEdit').addClass('d-none');
                             }
                             // Set the value of the 'Other' textarea
-                            $('#rice-abiotic-other-desc-Edit').val(value['rice_abiotic_other_desc']);
+                            $('#abiotic_other-descEdit').val(value['rice_abiotic_other_desc']);
                         } else if (value['category_name'] === 'Root Crop') {
                             // Show the div for Root Crop
                             $('#root_cropMorph-Edit').show();
@@ -479,8 +475,6 @@
                             $('#edit-sensory-tab').hide();
                             $('#withSensory-Edit').hide();
                             $('#withSensory-Edit-More').hide();
-                            $('#riceMorph-Edit :input').prop('disabled', true);
-                            $('#cornMorph-Edit :input').prop('disabled', true);
 
                             // morph traits for rootCrop
                             // vegetative state
@@ -506,46 +500,25 @@
                             $('#rootCrop-sweetness-Edit').val(value['sweetness']);
                             $('#rootCrop-remarkableFeatures-Edit').val(value['rootcrop_remarkable_features']);
 
-                            // pest resistance rootCrop
-                            $('#rootAphids-Edit').prop('checked', value['root_aphids'] == 1);
-                            $('#root-knot-nematodes-Edit').prop('checked', value['root_knot_nematodes'] == 1);
-                            $('#rootCrop-cutworms-Edit').prop('checked', value['rootcrop_cutworms'] == 1);
-                            $('#rootCrop-whiteGRubs-Edit').prop('checked', value['white_grubs'] == 1);
-                            $('#Termites-Edit').prop('checked', value['termites'] == 1);
-                            $('#Weevils-Edit').prop('checked', value['weevils'] == 1);
-                            $('#flea-beetles-Edit').prop('checked', value['flea_beetles'] == 1);
-                            $('#rootCrop-snails-Edit').prop('checked', value['rootcrop_snails'] == 1);
-                            $('#rootCrop-ants-Edit').prop('checked', value['rootcrop_ants'] == 1);
-                            $('#rootCrop-rats-Edit').prop('checked', value['rootcrop_rats'] == 1);
-                            $('#rootCrop-other-check-Edit').prop('checked', value['rootcrop_others'] == 1);
+                            $('#pest_other_checkEdit').prop('checked', value['rootcrop_pest_other']);
                             // Show the 'Other' textarea if 'other' checkbox is checked
-                            if ($('#rootCrop-other-check-Edit').prop('checked')) {
-                                $('.rootCrop-other').show();
+                            if ($('#pest_other_checkEdit').prop('checked')) {
+                                $('#pest-otherEdit').removeClass('d-none'); // Remove the 'd-none' class to show the element
                             } else {
-                                $('.rootCrop-other').hide();
+                                $('#pest-otherEdit').addClass('d-none'); // Add the 'd-none' class to hide the element
                             }
                             // Set the value of the 'Other' textarea
-                            $('#rootCrop-other-Edit').val(value['rootcrop_others_desc']);
+                            $('#pestEdit').val(value['rootcrop_pest_other_desc']);
 
-                            // disease resistance rootCrop
-                            $('#rootCrop-Bacterial-Edit').prop('checked', value['bacterial'] == 1);
-                            $('#rootCrop-Fungus-Edit').prop('checked', value['fungus'] == 1);
-                            $('#rootCrop-Viral-Edit').prop('checked', value['viral'] == 1);
-
-                            // abiotic resistance resistance rootCrop
-                            $('#rootCrop-Drought-Edit').prop('checked', value['drought'] == 1);
-                            $('#rootCrop-Salinity-Edit').prop('checked', value['salinity'] == 1);
-                            $('#rootCrop-Heat-Edit').prop('checked', value['heat'] == 1);
-                            $('#rootCrop-abiotic-Edit').prop('checked', value['abiotic_other'] == 1);
+                            $('#abiotic_other_checkEdit').prop('checked', value['rootcrop_abiotic_other']);
                             // Show the 'Other' textarea if 'other' checkbox is checked
-                            // baliktad ang if else statement kay katok ang code ambot nganuman
-                            if ($('#rootCrop-abiotic-Edit').prop('checked')) {
-                                $('.rootCrop-abiotic-other').show();
+                            if ($('#abiotic_other_checkEdit').prop('checked')) {
+                                $('#abiotic_otherEdit').removeClass('d-none');
                             } else {
-                                $('.rootCrop-abiotic-other').hide();
+                                $('#abiotic_otherEdit').addClass('d-none');
                             }
                             // Set the value of the 'Other' textarea
-                            $('#rootCrop-abiotic-other-Edit').val(value['abiotic_other_desc']);
+                            $('#abiotic_other-descEdit').val(value['rootcrop_abiotic_other_desc']);
                         } else {
                             // Default case, hide all divs
                             $('#corn-Edit').hide();
@@ -553,22 +526,41 @@
                             $('#root_cropMorph-Edit').hide();
                         }
 
+                        // pest resistances
+                        if (value['pest_resistances']) {
+                            var pestIds = value['pest_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
+                            pestIds.forEach(function(pest_id) {
+                                $('#pest_resistance_Edit' + pest_id).prop('checked', true);
+                            });
+                            //console.log(pestIds);
+                        }
+
+                        // disease resistance
+                        if (value['disease_resistances']) {
+                            var diseaseIds = value['disease_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
+                            diseaseIds.forEach(function(disease_id) {
+                                $('#disease_resistance_Edit' + disease_id).prop('checked', true);
+                            });
+                            //console.log(diseaseIds);
+                        }
+
+                        // abiotic resistance
+                        if (value['abiotic_resistances']) {
+                            var abioticIds = value['abiotic_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
+                            abioticIds.forEach(function(abiotic_id) {
+                                $('#abiotic_resistance_Edit' + abiotic_id).prop('checked', true);
+                            });
+                            //console.log(abioticIds);
+                        }
+
                         // crop_id
                         $('#crop_id').val(id);
-                        // userID
-                        $('#userID').val(value['user_id']);
                         // statusID
                         $('#statusID').val(value['status_id']);
                         // referencesID
                         $('#referencesID').val(value['references_id']);
                         // categoryID
                         $('#categoryID').val(value['category_id']);
-                        // category_varietyID
-                        $('#category_varietyID').val(value['category_variety_id']);
-                        // terrainID
-                        $('#terrainID').val(value['terrain_id']);
-                        // unique_codeID
-                        $('#unique_codeID').val(value['unique_code']);
                         // current_crop_variety
                         $('#current_crop_variety').val(value['crop_variety']);
                         // currentUniqueCode
@@ -596,20 +588,28 @@
                         $('#vegetative_state_cornID').val(value['vegetative_state_corn_id']);
                         $('#reproductive_state_cornID').val(value['reproductive_state_corn_id']);
                         $('#pest_resistance_cornID').val(value['pest_resistance_corn_id']);
+                        $('#corn_pest_otherID').val(value['corn_pest_other_id']);
+                        $('#corn_abiotic_otherID').val(value['corn_abiotic_other_id']);
 
                         // id for rice
+                        $('#rice_traitsID').val(value['rice_traits_id']);
                         $('#pest_resistance_riceID').val(value['pest_resistance_rice_id']);
                         $('#vegetative_state_riceID').val(value['vegetative_state_rice_id']);
                         $('#reproductive_state_riceID').val(value['reproductive_state_rice_id']);
                         $('#panicle_traits_riceID').val(value['panicle_traits_rice_id']);
                         $('#flag_leaf_traits_riceID').val(value['flag_leaf_traits_rice_id']);
                         $('#sensory_traits_riceID').val(value['sensory_traits_rice_id']);
+                        $('#rice_pest_otherID').val(value['rice_pest_other_id']);
+                        $('#rice_abiotic_otherID').val(value['rice_abiotic_other_id']);
 
                         // id for root crop
                         $('#root_crop_traitsID').val(value['root_crop_traits_id']);
                         $('#vegetative_state_rootcropID').val(value['vegetative_state_rootcrop_id']);
                         $('#pest_resistance_rootcropID').val(value['pest_resistance_rootcrop_id']);
                         $('#rootcrop_traitsID').val(value['rootcrop_traits_id']);
+                        $('#corn_pest_otherID').val(value['corn_pest_other_id']);
+                        $('#rootcrop_pest_otherID').val(value['rootcrop_pest_other_id']);
+                        $('#rootcrop_abiotic_otherID').val(value['rootcrop_abiotic_other_id']);
 
                         // old image/current image
                         $('#old_image_seed').val(value['crop_seed_image']);
@@ -669,32 +669,47 @@
                         }
 
                         //loc.php
-                        $('#neighborhoodEdit').val(value['neighborhood']);
+                        $('#SitioEdit').val(value['sitio_name']);
                         // coordInput
                         $('#coordEdit').val(value['coordinates']);
                         // Update the select data of loc.php locations
                         $('#crop_variety_select').append($('<option>', {
                             value: value['crop_variety'],
-                            text: value['crop_variety']
+                            text: value['crop_variety'],
+                            selected: true, // Make the option selected
+                            style: 'display: none;' // Hide the option
                         }));
+
                         $('#BarangaySelect').append($('<option>', {
-                            value: value['barangay_name'],
-                            text: value['barangay_name']
+                            value: value['barangay_id'],
+                            text: value['barangay_name'],
+                            selected: true,
+                            style: 'display: none;'
                         }));
                         $('#MunicipalitySelect').append($('<option>', {
-                            value: value['municipality_name'],
-                            text: value['municipality_name']
+                            value: value['municipality_id'],
+                            text: value['municipality_name'],
+                            selected: true,
+                            style: 'display: none;'
                         }));
 
-                        // Add municipality to the array
-                        municipalities.push(value['municipality_name']);
+                        // // Ensure municipalitiesID array is defined
+                        // var municipalitiesID = [];
+                        // var municipalitiesName = [];
 
-                        // Append options to MunicipalitySelect
-                        $('#MunicipalitySelect').empty(); // Clear previous options
-                        municipalities.forEach(function(municipality) {
-                            var selected = (municipality === value['municipality_name']) ? 'selected' : '';
-                            $('#MunicipalitySelect').append('<option value="' + municipality + '" ' + selected + '>' + municipality + '</option>');
-                        });
+                        // // Add municipality to the array
+                        // municipalitiesID.push(value['municipality_id']);
+                        // municipalitiesName.push(value['municipality_name']);
+
+                        // // Save the selected municipality ID
+                        // var selectedMunicipalityID = value['municipality_id'];
+
+                        // // Append options to MunicipalitySelect
+                        // $('#MunicipalitySelect').empty(); // Clear previous options
+                        // municipalitiesID.forEach(function(municipalityID, index) {
+                        //     var selected = (municipalityID === selectedMunicipalityID) ? 'selected' : '';
+                        //     $('#MunicipalitySelect').append('<option value="' + municipalityID + '" ' + selected + '>' + municipalitiesName[index] + '</option>');
+                        // });
 
                         // Add a marker to the map based on the coordinates if they exist
                         if (value['coordinates']) {

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "../../../../functions/connections.php";
+require "../../../functions/connections.php";
 
 if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
     // Begin the database transaction
