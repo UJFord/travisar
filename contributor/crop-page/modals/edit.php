@@ -258,7 +258,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        // console.log(value['pest_resistances']);
+                        console.log(value['corn_abiotic_other_desc']);
 
                         // set modal name and buttons depending if it is draft or edit
                         if (value['action'] === 'draft') {
@@ -370,42 +370,22 @@
                             $('#pest_other_checkEdit').prop('checked', value['corn_pest_other']);
                             // Show the 'Other' textarea if 'other' checkbox is checked
                             if ($('#pest_other_checkEdit').prop('checked')) {
-                                $('.pest-otherEdit').show();
+                                $('#pest-otherEdit').removeClass('d-none'); // Remove the 'd-none' class to show the element
                             } else {
-                                $('.pest-otherEdit').hide();
+                                $('#pest-otherEdit').addClass('d-none'); // Add the 'd-none' class to hide the element
                             }
                             // Set the value of the 'Other' textarea
-                            $('#pest-otherEdit').val(value['corn_pest_other_desc']);
+                            $('#pestEdit').val(value['corn_pest_other_desc']);
 
                             $('#abiotic_other_checkEdit').prop('checked', value['corn_abiotic_other']);
                             // Show the 'Other' textarea if 'other' checkbox is checked
                             if ($('#abiotic_other_checkEdit').prop('checked')) {
-                                $('.abiotic_otherEdit').show();
+                                $('#abiotic_otherEdit').removeClass('d-none');
                             } else {
-                                $('.abiotic_otherEdit').hide();
+                                $('#abiotic_otherEdit').addClass('d-none');
                             }
                             // Set the value of the 'Other' textarea
-                            $('#abiotic_otherEdit').val(value['corn_abiotic_other_desc']);
-
-                            // disease resistance corn
-                            $('#corn-Bacterial-Edit').prop('checked', value['bacterial'] == 1);
-                            $('#corn-Fungus-Edit').prop('checked', value['fungus'] == 1);
-                            $('#corn-Viral-Edit').prop('checked', value['viral'] == 1);
-
-                            // abiotic resistance resistance corn
-                            $('#corn-Drought-Edit').prop('checked', value['drought'] == 1);
-                            $('#corn-Salinity-Edit').prop('checked', value['salinity'] == 1);
-                            $('#corn-Heat-Edit').prop('checked', value['heat'] == 1);
-                            $('#corn-abiotic-other-check-Edit').prop('checked', value['abiotic_other'] == 1);
-                            // Show the 'Other' textarea if 'other' checkbox is checked
-                            // baliktad ang if else statement kay katok ang code ambot nganuman
-                            if ($('#corn-abiotic-other-check-Edit').prop('checked')) {
-                                $('.corn-abiotic-other').show();
-                            } else {
-                                $('.corn-abiotic-other').hide();
-                            }
-                            // Set the value of the 'Other' textarea
-                            $('#corn-abiotic-other-Edit').val(value['abiotic_other_desc']);
+                            $('#abiotic_other-descEdit').val(value['corn_abiotic_other_desc']);
                         } else if (value['category_name'] === 'Rice') {
                             // Show the div for Rice
                             $('#riceMorph-Edit').show();
@@ -423,24 +403,35 @@
 
                             // morph traits for rice
                             // vegetative state
-                            if (value['rice_plant_height'] === 'Tall') {
-                                $('#height-tall-Edit').prop('checked', true);
-                            } else if (value['rice_plant_height'] === 'Average') {
-                                $('#height-average-Edit').prop('checked', true);
-                            } else if (value['rice_plant_height'] === 'Short') {
-                                $('#height-short-Edit').prop('checked', true);
-                            }
+                            $('#height-tall-Edit').append($('<option>', {
+                                value: value['rice_plant_height'],
+                                text: value['rice_plant_height'],
+                                selected: true,
+                                style: 'display: none;'
+                            }));
                             $('#leafWidth-Edit').append($('<option>', {
                                 value: value['rice_leaf_width'],
+                                text: value['rice_leaf_width'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
                             $('#leafLength-Edit').append($('<option>', {
-                                value: value['rice_leaf_length']
+                                value: value['rice_leaf_length'],
+                                text: value['rice_leaf_length'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
                             $('#tilleringAbility-Edit').append($('<option>', {
-                                value: value['rice_tillering_ability']
+                                value: value['rice_tillering_ability'],
+                                text: value['rice_tillering_ability'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
                             $('#rice-maturityTime-Edit').append($('<option>', {
-                                value: value['rice_maturity_time']
+                                value: value['rice_maturity_time'],
+                                text: value['rice_maturity_time'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
 
                             // Reproductive state rice
@@ -478,47 +469,52 @@
                                 $('#hardness-Hard-Edit').prop('checked', true);
                             }
 
-                            // pest resistance rice
-                            $('#riceBorers-Edit').prop('checked', value['rice_borers'] == 1);
-                            $('#riceSnail-Edit').prop('checked', value['rice_snail'] == 1);
-                            $('#Hoppers-Edit').prop('checked', value['hoppers'] == 1);
-                            $('#rice-blackBug-Edit').prop('checked', value['rice_black_bug'] == 1);
-                            $('#Leptocorisa-Edit').prop('checked', value['leptocorisa'] == 1);
-                            $('#leaf-folder-Edit').prop('checked', value['leaf_folder'] == 1);
-                            $('#rice-birds-Edit').prop('checked', value['rice_birds'] == 1);
-                            $('#rice-ants-Edit').prop('checked', value['rice_ants'] == 1);
-                            $('#rice-rats-Edit').prop('checked', value['rice_rats'] == 1);
-                            $('#rice-armyWorms-Edit').prop('checked', value['rice_army_worms'] == 1);
-                            $('#rice-other-check-Edit').prop('checked', value['rice_others'] == 1);
+                            // pest resistances
+                            if (value['pest_resistances']) {
+                                var pestIds = value['pest_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
+                                pestIds.forEach(function(pest_id) {
+                                    $('#pest_resistance_Edit' + pest_id).prop('checked', true);
+                                });
+                                //console.log(pestIds);
+                            }
+
+                            // disease resistance
+                            if (value['disease_resistances']) {
+                                var diseaseIds = value['disease_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
+                                diseaseIds.forEach(function(disease_id) {
+                                    $('#disease_resistance_Edit' + disease_id).prop('checked', true);
+                                });
+                                //console.log(diseaseIds);
+                            }
+
+                            // abiotic resistance
+                            if (value['abiotic_resistances']) {
+                                var abioticIds = value['abiotic_resistances'].replace('{', '').replace('}', '').split(',').map(Number).filter(Boolean); // Remove curly braces, convert string to array of numbers, and remove NaN and falsy values
+                                abioticIds.forEach(function(abiotic_id) {
+                                    $('#abiotic_resistance_Edit' + abiotic_id).prop('checked', true);
+                                });
+                                //console.log(abioticIds);
+                            }
+
+                            $('#pest_other_checkEdit').prop('checked', value['rice_pest_other']);
                             // Show the 'Other' textarea if 'other' checkbox is checked
-                            if ($('#rice-other-check-Edit').prop('checked')) {
-                                $('.rice-pest-other-edit').show();
+                            if ($('#pest_other_checkEdit').prop('checked')) {
+                                $('#pest-otherEdit').removeClass('d-none'); // Remove the 'd-none' class to show the element
                             } else {
-                                $('.rice-pest-other-edit').hide();
+                                $('#pest-otherEdit').addClass('d-none'); // Add the 'd-none' class to hide the element
                             }
                             // Set the value of the 'Other' textarea
-                            $('#rice-other-Edit').val(value['rice_others_desc']);
+                            $('#pestEdit').val(value['rice_pest_other_desc']);
 
-                            // disease resistance rice
-                            $('#rice-Bacterial-Edit').prop('checked', value['bacterial'] == 1);
-                            $('#rice-Fungus-Edit').prop('checked', value['fungus'] == 1);
-                            $('#rice-Viral-Edit').prop('checked', value['viral'] == 1);
-
-                            // abiotic resistance resistance rice
-                            $('#riceDrought-Edit').prop('checked', value['rice_drought'] == 1);
-                            $('#riceSalinity-Edit').prop('checked', value['rice_salinity'] == 1);
-                            $('#riceHeat-Edit').prop('checked', value['rice_heat'] == 1);
-                            $('#harmful-radiation-Edit').prop('checked', value['harmful_radiation'] == 1);
-                            $('#rice-abiotic-other-check-Edit').prop('checked', value['rice_abiotic_other'] == 1);
+                            $('#abiotic_other_checkEdit').prop('checked', value['rice_abiotic_other']);
                             // Show the 'Other' textarea if 'other' checkbox is checked
-                            // baliktad ang if else statement kay katok ang code ambot nganuman
-                            if ($('#rice-abiotic-other-check-Edit').prop('checked')) {
-                                $('.rice-abiotic-other').show();
+                            if ($('#abiotic_other_checkEdit').prop('checked')) {
+                                $('#abiotic_otherEdit').removeClass('d-none');
                             } else {
-                                $('.rice-abiotic-other').hide();
+                                $('#abiotic_otherEdit').addClass('d-none');
                             }
                             // Set the value of the 'Other' textarea
-                            $('#rice-abiotic-other-desc-Edit').val(value['rice_abiotic_other_desc']);
+                            $('#abiotic_other-descEdit').val(value['rice_abiotic_other_desc']);
                         } else if (value['category_name'] === 'Root Crop') {
                             // Show the div for Root Crop
                             $('#root_cropMorph-Edit').show();
