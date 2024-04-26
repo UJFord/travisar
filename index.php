@@ -4,7 +4,7 @@
 <head>
     <meta charset="utf-8">
     <!-- <meta http-equiv="refresh" content="0;url=login/login-form.php"> -->
-    <meta http-equiv="refresh" content="0;url=visitor/landing.php">
+    <meta http-equiv="refresh" content="0;url=visitor/home.php">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Travisar</title>
 

@@ -15,9 +15,11 @@
     <link rel="stylesheet" href="css/landing.css?v=1.0">
 </head>
 
-<body>
+<body class="bg-light">
     <!-- NAVBAR -->
     <?php require "nav/nav.php" ?>
+
+
 
     <!-- SCRIPT -->
     <!-- bootstrap -->

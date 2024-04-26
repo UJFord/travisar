@@ -17,13 +17,15 @@ switch ($current_page_path) {
 }
 ?>
 
+<!-- font awesome kit -->
+<script src="https://kit.fontawesome.com/57e83eb6e4.js" crossorigin="anonymous"></script>
 
 <!-- NAVBAR -->
 <div class="navbar navbar-dark navbar-expand-sm" id="main-nav">
     <div class="container">
 
         <!-- logo -->
-        <a href="" class="navbar-brand h1">Travis</a>
+        <a href="" class="navbar-brand h1"><i class="fa-solid fa-crop-simple"></i></a>
 
         <!-- hamburger button for mobile -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="navLink">
@@ -31,7 +33,7 @@ switch ($current_page_path) {
         </button>
         <!-- nav links -->
         <div class="collapse navbar-collapse" id="navLink">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+            <ul class="navbar-nav me-auto mb-2 mb-lg-0 d-flex mx-auto">
                 <!-- home page link -->
                 <li class="nav-item">
                     <!-- add active class when at home.php -->
@@ -50,6 +52,6 @@ switch ($current_page_path) {
         </div>
 
         <!-- contributors link -->
-        <a href="" class="link-dark link-offset-3 link-underline link-underline-opacity-0 rounded-pill px-3 py-2" id="contributor-link">Contribute to Travis</a>
+        <a href="../login/login-form.php" class="link-light link-offset-3 link-underline link-underline-opacity-0 rounded-pill px-3 py-2" id="contributor-link">Contribute to Travis</a>
     </div>
 </div>
