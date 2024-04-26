@@ -24,7 +24,7 @@
                 <?php endif; ?>
 
                 <li class="nav-item dropdown">
-                    <a class="dropdown-toggle main-nav-item nav-link" role="button" id="addressesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="dropdown-toggle main-nav-item nav-link admin-only" role="button" id="addressesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         Crop Management
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="addressesDropdown">
