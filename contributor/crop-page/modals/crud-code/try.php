@@ -879,8 +879,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         header("Location: ../../crop.php");
         exit(0);
     } catch (Exception $e) {
-        // message for error
-        $_SESSION['message'] = 'Crop not Saved';
         // Rollback the transaction if an error occurs
         pg_query($conn, "ROLLBACK");
         // Log the error message
@@ -4916,7 +4914,6 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
     header('Location: ../../crop.php');
     exit();
 }
-
 
 if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
     // Begin the database transaction
