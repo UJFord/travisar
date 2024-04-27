@@ -150,15 +150,15 @@
     <!-- Contributed, Unique Code, and Date Created -->
     <dv class="row mb-3">
         <!-- Contributed By -->
-        <div class="col">
-            <label class="form-label small-font">Contributed By:</label>
-            <h6 name="first_name" id="firstName"></h6>
+        <div class="col-3">
+            <label class="form-label">Contributed By:</label>
+            <h6 class="small-font" name="first_name" id="firstName"></h6>
         </div>
 
         <!-- Date created -->
-        <div class="col">
-            <label class="form-label small-font">Date Created:</label>
-            <h6 name="input_date" id="input_dateEdit"></h6>
+        <div class="col-3">
+            <label class="form-label">Date Created:</label>
+            <h6 class="small-font" name="input_date" id="input_dateEdit"></h6>
         </div>
     </dv>
 
@@ -166,26 +166,26 @@
     <div class="row mb-3">
         <!-- Category -->
         <div class="col">
-            <label class="form-label small-font">Category:</label>
-            <h6 name="category_id" id="CategoryEdit"></h6>
+            <label class="form-label">Category:</label>
+            <h6 class="small-font" name="category_id" id="CategoryEdit"></h6>
         </div>
 
         <!-- other category name if exist -->
         <div class="col" id="otherCategoryInputEdit" style="display: none;">
-            <label class="form-label small-font">Other Category Name:</label>
-            <h6 name="other_category_name" id="otherCategoryEdit"></h6>
+            <label class="form-label">Other Category Name:</label>
+            <h6 class="small-font" name="other_category_name" id="otherCategoryEdit"></h6>
         </div>
 
         <!-- Category Variety -->
         <div class="col">
-            <label class="form-label small-font">Category Variety:</label>
-            <h6 name="category_variety_name" id="categoryVarietyEdit"></h6>
+            <label class="form-label">Category Variety:</label>
+            <h6 class="small-font" name="category_variety_name" id="categoryVarietyEdit"></h6>
         </div>
 
         <!-- Terrain -->
         <div class="col">
-            <label class="form-label small-font">Terrain:</label>
-            <h6 name="terrain_id" id="categoryTerrainEdit"></h6>
+            <label class="form-label">Terrain:</label>
+            <h6 class="small-font" name="terrain_id" id="categoryTerrainEdit"></h6>
         </div>
     </div>
 
@@ -193,22 +193,22 @@
     <div class="row mb-2">
         <!-- variety name -->
         <div class="col mb-2">
-            <label for="crop_variety" class="form-label small-font">Variety Name:</label>
-            <h6 name="crop_variety" id="crop_variety"></h6>
+            <label for="crop_variety" class="form-label">Variety Name:</label>
+            <h6 class="small-font" name="crop_variety" id="crop_variety"></h6>
         </div>
 
         <!-- Meaning of Name -->
         <div class="col mb-2">
-            <label class="form-label small-font">Meaning of Name(if any):</label>
-            <h6 name="meaning_of_name" id="nameMeaning"></h6>
+            <label class="form-label">Meaning of Name(if any):</label>
+            <h6 class="small-font" name="meaning_of_name" id="nameMeaning"></h6>
         </div>
     </div>
 
     <!-- DESCRIPTION -->
     <div class="row mb-5">
         <div class="col">
-            <label for="description" class="form-label small-font">Description:</label>
-            <h6 name="crop_description" id="description"></h6>
+            <label for="description" class="form-label">Description:</label>
+            <h6 class="small-font" name="crop_description" id="description"></h6>
         </div>
     </div>
 
@@ -216,7 +216,7 @@
     <h6 class="fw-semibold mt-4 mb-3">Images for Stages</h6>
     <!-- Seed image -->
     <div class="row mb-3">
-        <label for="imageInputSeedEdit" class="d-flex align-items-center rounded small-font mb-2">
+        <label for="imageInputSeedEdit" class="d-flex align-items-center rounded mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Seed</span>
         </label>
@@ -225,7 +225,7 @@
 
     <!-- vegetative stage image -->
     <!-- <div class="row mb-3">
-        <label for="imageInputVegetativeEdit" class="d-flex align-items-center rounded small-font mb-2">
+        <label for="imageInputVegetativeEdit" class="d-flex align-items-center rounded mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Vegetative Stage</span>
         </label>
@@ -234,7 +234,7 @@
 
     <!-- reproductive stage -->
     <!-- <div class="row mb-5">
-        <label for="imageInputReproductiveEdit" class="d-flex align-items-center rounded small-font mb-2">
+        <label for="imageInputReproductiveEdit" class="d-flex align-items-center rounded mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Reproductive Stage</span>
         </label>
@@ -248,24 +248,24 @@
         <div class="col-6 location-Data">
             <input type="hidden" name="crop_location_id" id="crop_location_id">
             <!-- Province dropdown -->
-            <label for="ProvinceEdit" class="form-label small-font">Province: </label>
-            <h6 name="province" id="ProvinceEdit" class="mb-3"></h6>
+            <label for="ProvinceEdit" class="form-label">Province: </label>
+            <h6 class="small-font" name="province" id="ProvinceEdit" class="mb-3"></h6>
 
             <!-- Municipality dropdown -->
-            <label for="MunicipalitySelect" class="form-label small-font">Municipality: </label>
-            <h6 name="municipality" id="MunicipalitySelect" class="mb-3"></h6>
+            <label for="MunicipalitySelect" class="form-label">Municipality: </label>
+            <h6 class="small-font" name="municipality" id="MunicipalitySelect" class="mb-3"></h6>
 
             <!-- barangay -->
-            <label for="BarangaySelect" class="form-label small-font mb-0">Barangay: </label>
-            <h6 name="barangay" id="BarangaySelect" class="mb-3"></h6>
+            <label for="BarangaySelect" class="form-label mb-0">Barangay: </label>
+            <h6 class="small-font" name="barangay" id="BarangaySelect" class="mb-3"></h6>
 
             <!-- Sitio -->
-            <label for="SitioEdit" class="form-label small-font mb-0">Sitio: </label>
-            <h6 name="sitio" id="SitioEdit" class="mb-3"></h6>
+            <label for="SitioEdit" class="form-label mb-0">Sitio: </label>
+            <h6 class="small-font" name="sitio" id="SitioEdit" class="mb-3"></h6>
 
             <!-- coordinates -->
-            <label for="coordEdit" class="form-label small-font mb-0">Coordinates: </label>
-            <h6 name="coordinates" id="coordEdit"></h6>
+            <label for="coordEdit" class="form-label mb-0">Coordinates: </label>
+            <h6 class="small-font" name="coordinates" id="coordEdit"></h6>
         </div>
         <!-- map -->
         <div id="mapEdit" class="col border">
@@ -275,7 +275,7 @@
     <!-- STEP NAVIGATION -->
     <div class="row">
         <div class="col d-flex justify-content-end">
-            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open morphological tab" onclick="switchTab('edit-more')">Next<i class="fa-solid fa-angles-right ms-2"></i></button>
+            <button class="btn btn-light border fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open morphological tab" onclick="switchTab('edit-more')">Next<i class="fa-solid fa-angles-right ms-2"></i></button>
         </div>
     </div>
 </div>
