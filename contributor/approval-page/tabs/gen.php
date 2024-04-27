@@ -147,6 +147,21 @@
     </div>
 
     <h6 class="fw-semibold mt-4 mb-3">General Info</h6>
+    <!-- Contributed, Unique Code, and Date Created -->
+    <dv class="row mb-3">
+        <!-- Contributed By -->
+        <div class="col">
+            <label class="form-label small-font">Contributed By:</label>
+            <h6 name="first_name" id="firstName"></h6>
+        </div>
+
+        <!-- Date created -->
+        <div class="col">
+            <label class="form-label small-font">Date Created:</label>
+            <h6 name="input_date" id="input_dateEdit"></h6>
+        </div>
+    </dv>
+
     <!-- Categories, Other Category, and Category Variety -->
     <div class="row mb-3">
         <!-- Category -->
@@ -178,13 +193,13 @@
     <div class="row mb-2">
         <!-- variety name -->
         <div class="col mb-2">
-            <label for="crop_variety" class="form-label small-font">Variety Name</label>
+            <label for="crop_variety" class="form-label small-font">Variety Name:</label>
             <h6 name="crop_variety" id="crop_variety"></h6>
         </div>
 
         <!-- Meaning of Name -->
         <div class="col mb-2">
-            <label class="form-label small-font">Meaning of Name(if any)</label>
+            <label class="form-label small-font">Meaning of Name(if any):</label>
             <h6 name="meaning_of_name" id="nameMeaning"></h6>
         </div>
     </div>
@@ -192,7 +207,7 @@
     <!-- DESCRIPTION -->
     <div class="row mb-5">
         <div class="col">
-            <label for="description" class="form-label small-font">Description</label>
+            <label for="description" class="form-label small-font">Description:</label>
             <h6 name="crop_description" id="description"></h6>
         </div>
     </div>
@@ -245,8 +260,8 @@
             <h6 name="barangay" id="BarangaySelect" class="mb-3"></h6>
 
             <!-- Sitio -->
-            <label for="coordEdit" class="form-label small-font mb-0">Sitio: </label>
-            <h6 name="sitio" id="coordEdit" class="mb-3"></h6>
+            <label for="SitioEdit" class="form-label small-font mb-0">Sitio: </label>
+            <h6 name="sitio" id="SitioEdit" class="mb-3"></h6>
 
             <!-- coordinates -->
             <label for="coordEdit" class="form-label small-font mb-0">Coordinates: </label>
@@ -256,21 +271,6 @@
         <div id="mapEdit" class="col border">
         </div>
     </div>
-
-    <!-- Contributed, Unique Code, and Date Created -->
-    <dv class="row mb-3">
-        <!-- Contributed By -->
-        <div class="col">
-            <label class="form-label small-font">Contributed By:</label>
-            <h6 name="first_name" id="firstName"></h6>
-        </div>
-
-        <!-- Date created -->
-        <div class="col">
-            <label class="form-label small-font">Date Created:</label>
-            <h6 name="input_date" id="input_dateEdit"></h6>
-        </div>
-    </dv>
 
     <!-- STEP NAVIGATION -->
     <div class="row">

@@ -10,7 +10,7 @@ if (isset($_POST['approve'])) {
     $result = pg_query($conn, $select);
     if ($result) {
         $_SESSION['message'] = "Crop Approved";
-        header("location: approval.php");
+        header("location: pending.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {
         // Log the error or display a more user-friendly message
@@ -30,7 +30,7 @@ if (isset($_POST['update'])) {
         $get_category_name = $row_categoryName['category_name'];
     } else {
         $_SESSION['message'] = "No category available, incomplete data";
-        header("location: ../crop.php");
+        header("location: pending.php");
         exit();
     }
 
@@ -1208,7 +1208,7 @@ if (isset($_POST['update'])) {
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop Update Approved";
         pg_query($conn, "COMMIT");
-        header("Location: approval.php");
+        header("Location: pending.php");
         exit(0);
     } catch (Exception $e) {
         // message for error
@@ -1236,7 +1236,7 @@ if (isset($_POST['rejected'])) {
     $result = pg_query($conn, $select);
     if ($result) {
         $_SESSION['message'] = "Crop Rejected";
-        header("location: approval.php");
+        header("location: pending.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {
         // Log the error or display a more user-friendly message

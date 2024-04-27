@@ -56,7 +56,7 @@ require "../../functions/functions.php";
             <!-- FILTERS -->
             <?php require "../crop-page/filter.php"; ?>
             <!-- List -->
-            <?php require "list.php"; ?>
+            <?php require "rejected-list.php"; ?>
             <!-- view -->
             <?php require "view.php"; ?>
         </div>

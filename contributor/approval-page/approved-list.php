@@ -5,7 +5,7 @@
         <!-- HEADING -->
         <div class="d-flex justify-content-between">
             <!-- title -->
-            <h4 class="fw-semibold" style="font-size: 1.5rem;">Approval</h4>
+            <h4 class="fw-semibold" style="font-size: 1.5rem;">Pending</h4>
         </div>
 
         <?php
@@ -19,7 +19,7 @@
         $offset = ($current_page - 1) * $items_per_page;
 
         // Count the total number of rows for pagination
-        $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action IN ('pending', 'updating')";
+        $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action IN ('approved')";
         $total_rows_result = pg_query($conn, $total_rows_query);
         $total_rows = pg_fetch_row($total_rows_result)[0];
 
@@ -73,7 +73,7 @@
                 $query = "SELECT * FROM crop 
                 LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
                 LEFT JOIN status ON status.status_id = crop.status_id 
-                WHERE 1=1 $search_condition $category_filter $municipality_filter AND status.action IN ('pending', 'updating') 
+                WHERE 1=1 $search_condition $category_filter $municipality_filter AND status.action IN ('approved') 
                 ORDER BY crop.crop_id DESC 
                 LIMIT $items_per_page OFFSET $offset";
                 $query_run = pg_query($conn, $query);
