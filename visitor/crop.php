@@ -19,6 +19,39 @@
     <!-- NAVBAR -->
     <?php require "nav/nav.php" ?>
 
+    <!-- FILTER -->
+    <div class="container-fluid border-bottom d-flex justify-content-center p-3">
+        <!-- search -->
+        <div class="input-group w-25 me-4">
+            <input type="text" class="form-control bg-light">
+            <button id="search-btn" class="input-group-text btn" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
+        </div>
+        <!-- filter -->
+        <!-- filter trigger -->
+        <button id="filter-trigger" type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#filter-modal">
+            <i class="fa-solid fa-sliders small-font me-2"></i>Filter
+        </button>
+
+        <!-- filter modal -->
+        <div id="filter-modal" class="modal fade" tabindex="-1" aria-labelledby="filter-modal" aria-hidden="true">
+            <div class="modal-dialog">
+                <div class="modal-content">
+                    <div class="modal-header d-flex justify-content-center position-relative">
+                        <h1 class="modal-title small-font" id="exampleModalLabel">FILTERS</h1>
+                        <button id="close-filter-btn" type="button" class="btn-close position-absolute small-font" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        ...
+                    </div>
+                    <div class="modal-footer">
+                        <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Close</button>
+                        <button type="button" class="btn btn-primary">Save changes</button>
+                    </div>
+                </div>
+            </div>
+        </div>
+    </div>
+
 
 
     <!-- SCRIPT -->
