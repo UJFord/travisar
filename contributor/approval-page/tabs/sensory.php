@@ -6,19 +6,19 @@
         <!-- Aroma -->
         <div class="col-12 mb-2">
             <label for="sensory-aroma-Edit" class="form-label small-font">Aroma</label>
-            <textarea name="aroma" id="sensory-aroma-Edit" cols="30" rows="2" class="form-control"></textarea>
+            <textarea name="aroma" id="sensory-aroma-Edit" cols="30" rows="2" class="form-control" disabled></textarea>
         </div>
 
         <!-- Quality of Cooked Rice -->
         <div class="col-22 mb-2">
             <label for="cooked-rice-Edit" class="form-label small-font">Quality of Cooked Rice</label>
-            <textarea name="quality_cooked_rice" id="cooked-rice-Edit" cols="30" rows="2" class="form-control"></textarea>
+            <textarea name="quality_cooked_rice" id="cooked-rice-Edit" cols="30" rows="2" class="form-control" disabled></textarea>
         </div>
 
         <!-- Quality of Leftover Rice -->
         <div class="col-12 mb-2">
             <label for="leftover-rice-Edit" class="form-label small-font">Quality of Leftover Rice</label>
-            <textarea name="quality_leftover_rice" id="leftover-rice-Edit" cols="30" rows="2" class="form-control"></textarea>
+            <textarea name="quality_leftover_rice" id="leftover-rice-Edit" cols="30" rows="2" class="form-control" disabled></textarea>
         </div>
     </div>
     <!-- Volume, Glutinous, and Hardness -->
@@ -27,7 +27,7 @@
         <div class="col-6 mb-3">
             <div class="small-font mb-2">Volume Expansion</div>
             <div class="form-check form-switch">
-                <input class="form-check-input" name="volume_expansion" type="checkbox" role="switch" id="volExpansionEdit" value="1">
+                <input class="form-check-input" name="volume_expansion" type="checkbox" role="switch" id="volExpansionEdit" value="1" disabled>
                 <label class="form-check-label small-font" for="volExpansionEdit">Does it rise?</label>
             </div>
         </div>
@@ -36,7 +36,7 @@
         <div class="col-6 mb-3">
             <div class="small-font mb-2">Glutinousity</div>
             <div class="form-check form-switch">
-                <input class="form-check-input" name="glutinous" type="checkbox" role="switch" id="glutinousityEdit" value="1">
+                <input class="form-check-input" name="glutinous" type="checkbox" role="switch" id="glutinousityEdit" value="1" disabled>
                 <label class="form-check-label small-font" for="glutinousityEdit">Is it Glutinous?</label>
             </div>
         </div>
@@ -46,11 +46,11 @@
             <div class="small-font mb-2">Hardness</div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label small-font" for="hardness-Soft-Edit">Soft</label>
-                <input class="form-check-input" type="radio" name="hardness" id="hardness-Soft-Edit" value="Soft">
+                <input class="form-check-input" type="radio" name="hardness" id="hardness-Soft-Edit" value="Soft" disabled>
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label small-font" for="hardness-Hard-Edit">Hard</label>
-                <input class="form-check-input" type="radio" name="hardness" id="hardness-Hard-Edit" value="Hard">
+                <input class="form-check-input" type="radio" name="hardness" id="hardness-Hard-Edit" value="Hard" disabled>
             </div>
         </div>
     </div>

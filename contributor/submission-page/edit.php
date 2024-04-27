@@ -42,6 +42,9 @@
                     </ul>
                     <div class="container">
                         <div class="tab-content mt-2">
+                            <input type="hidden" name="userID" value="<?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) {
+                                                                            echo $_SESSION['USER']['user_id'];
+                                                                        } ?>">
                             <!-- general -->
                             <?php require "edit-tabs/gen.php" ?>
                             <!-- cultural -->
@@ -291,6 +294,14 @@
                             $('#previewReproductiveEdit').append(`<img src="img/${value['crop_reproductive_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
                         }
 
+                        if (value['action'] == 'updating'){
+                            $('#cancel-modal-btn-edit').hide();
+                            $('#editButton').hide();
+                            $('#draftButton').hide();
+                            $('#deleteButton').hide();
+
+                        }
+
                         // setting the available data on the traits tab depending on the category of the selected crop
                         if (value['category_name'] === 'Corn') {
                             // Show the div for Corn
@@ -478,18 +489,23 @@
 
                             // morph traits for rootCrop
                             // vegetative state
-                            if (value['rootcrop_plant_height'] === 'Tall') {
-                                $('#rootCrop-height-tall-edit').prop('checked', true);
-                            } else if (value['rootcrop_plant_height'] === 'Average') {
-                                $('#rootCrop-height-average-edit').prop('checked', true);
-                            } else if (value['rootcrop_plant_height'] === 'Short') {
-                                $('#rootCrop-height-short-edit').prop('checked', true);
-                            }
+                            $('#rootCrop-height-tall-edit').append($('<option>', {
+                                value: value['rootcrop_plant_height'],
+                                text: value['rootcrop_plant_height'],
+                                selected: true,
+                                style: 'display: none;'
+                            }));
                             $('#rootCrop-leafWidth-Edit').append($('<option>', {
-                                value: value['rootcrop_leaf_width']
+                                value: value['rootcrop_leaf_width'],
+                                text: value['rootcrop_leaf_width'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
                             $('#rootCrop-leafLength-Edit').append($('<option>', {
-                                value: value['rootcrop_leaf_length']
+                                value: value['rootcrop_leaf_length'],
+                                text: value['rootcrop_leaf_length'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
                             $('#rootCrop-steam-leaf-desc-Edit').val(value['rootcrop_stem_leaf_desc']);
 
@@ -557,6 +573,12 @@
                         $('#crop_id').val(id);
                         // statusID
                         $('#statusID').val(value['status_id']);
+                        // terrainID
+                        $('#terrainID').val(value['terrain_id']);
+                        // category_varietyID
+                        $('#category_varietyID').val(value['category_variety_id']);
+                        // unique_codeID
+                        $('#unique_codeID').val(value['unique_code']);
                         // referencesID
                         $('#referencesID').val(value['references_id']);
                         // categoryID

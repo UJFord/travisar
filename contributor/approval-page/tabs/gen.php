@@ -224,22 +224,22 @@
     </div>
 
     <!-- vegetative stage image -->
-    <div class="row mb-3">
+    <!-- <div class="row mb-3">
         <label for="imageInputVegetativeEdit" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Vegetative Stage</span>
         </label>
-        <!-- <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewVegEdit"></div> -->
-    </div>
+        <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewVegEdit"></div>
+    </div> -->
 
     <!-- reproductive stage -->
-    <div class="row mb-5">
+    <!-- <div class="row mb-5">
         <label for="imageInputReproductiveEdit" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Reproductive Stage</span>
         </label>
-        <!-- <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewReproductiveEdit"></div> -->
-    </div>
+        <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewReproductiveEdit"></div>
+    </div> -->
 
     <h6 class="fw-semibold mt-4 mb-3">Location</h6>
     <!-- location -->

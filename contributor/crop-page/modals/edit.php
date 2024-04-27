@@ -478,18 +478,23 @@
 
                             // morph traits for rootCrop
                             // vegetative state
-                            if (value['rootcrop_plant_height'] === 'Tall') {
-                                $('#rootCrop-height-tall-edit').prop('checked', true);
-                            } else if (value['rootcrop_plant_height'] === 'Average') {
-                                $('#rootCrop-height-average-edit').prop('checked', true);
-                            } else if (value['rootcrop_plant_height'] === 'Short') {
-                                $('#rootCrop-height-short-edit').prop('checked', true);
-                            }
+                            $('#rootCrop-height-tall-edit').append($('<option>', {
+                                value: value['rootcrop_plant_height'],
+                                text: value['rootcrop_plant_height'],
+                                selected: true,
+                                style: 'display: none;'
+                            }));
                             $('#rootCrop-leafWidth-Edit').append($('<option>', {
-                                value: value['rootcrop_leaf_width']
+                                value: value['rootcrop_leaf_width'],
+                                text: value['rootcrop_leaf_width'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
                             $('#rootCrop-leafLength-Edit').append($('<option>', {
-                                value: value['rootcrop_leaf_length']
+                                value: value['rootcrop_leaf_length'],
+                                text: value['rootcrop_leaf_length'],
+                                selected: true,
+                                style: 'display: none;'
                             }));
                             $('#rootCrop-steam-leaf-desc-Edit').val(value['rootcrop_stem_leaf_desc']);
 
