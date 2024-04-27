@@ -1,5 +1,5 @@
 <div class="col col-3">
-    <div class="d-flex flex-column align-items-start rounded border overflow-hidden">
+    <div class="d-flex flex-column align-items-start rounded border overflow-hidden overflow-y-scroll" style="max-height: 600px;">
 
         <!-- title -->
         <div class="border-bottom d-flex align-items-center w-100 py-1 px-3 bg-light">
@@ -9,7 +9,6 @@
                 <i class="bi bi-question-circle"></i>
             </a>
         </div>
-
         <!-- filter actions -->
         <div class="d-flex py-3 px-3">
             <!-- search -->
@@ -54,6 +53,10 @@
                 <i id="varietyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">Variety</a>
             </div>
+            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">
+                (select crop category filter to show. only latest selected will matter)
+            </div>
+
             <!-- crops filters -->
             <div id="variety-filters" class="collapse show w-100 mb-2">
 
@@ -113,6 +116,21 @@
             ?>
         </div>
 
+
+        <!-- all barangay -->
+        <div class="pt-2 pb-1 px-3 w-100">
+            <div id="brgy-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#brgy-filters" role="button" aria-expanded="true" aria-controls="brgy-filters">
+                <i id="brgyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1"></i>
+                <a class="fw-bold text-success col text-decoration-none" href="">Barangay</a>
+            </div>
+            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">
+                (select barangay filter to show. only latest selected will matter)
+            </div>
+            <div id="brgy-filters" class="collapse show w-100 mb-2">
+
+            </div>
+        </div>
+
         <!-- button to submit filter -->
         <div class="d-flex py-3 px-3">
             <div class="input-group">
@@ -158,6 +176,44 @@
         checkbox.addEventListener('change', function() {
             if (this.checked) {
                 populateVarietyFilter(this.value);
+            }
+        });
+    });
+
+    // Function to fetch and populate the barangay filter based on the selected category
+    function populateBarangayFilter(municipalityid) {
+        let barangayFilter = document.getElementById('brgy-filters');
+        if (municipalityid !== '') {
+            // Fetch varieties based on the selected category using AJAX
+            fetch('modals/fetch/fetch_filter-brgy.php?municipality_id=' + municipalityid)
+                .then(response => response.json())
+                .then(data => {
+                    // Clear existing options
+                    barangayFilter.innerHTML = '';
+                    // Populate options
+                    data.forEach(barangay => {
+                        barangayFilter.innerHTML += `
+                            <div class="collapse show w-100 mb-2">
+                                <input class="form-check-input brgy-filter" type="checkbox" id="barangay${barangay.barangay_id}" value="${barangay.barangay_id}">
+                                <label for="barangay${barangay.barangay_id}">${barangay.barangay_name}</label>
+                            </div>
+                        `;
+                    });
+                    // Show the barangay filter
+                    barangayFilter.classList.add('show');
+                })
+                .catch(error => console.error('Error:', error));
+        } else {
+            // Hide the barangay filter if no category is selected
+            barangayFilter.classList.remove('show');
+        }
+    }
+
+    // Add event listeners to category checkboxes
+    document.querySelectorAll('.municipality-filter').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (this.checked) {
+                populateBarangayFilter(this.value);
             }
         });
     });
