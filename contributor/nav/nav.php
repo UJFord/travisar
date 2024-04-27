@@ -45,9 +45,9 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="../crop-page/crop-category.php">Crop Category</a></li>
                                     <li><a class="dropdown-item" href="../crop-page/category-variety.php">Category Variety</a></li>
-                                    <li><a class="dropdown-item" href="../crop-page/pest-resistance.php">Pest Resistances</a></li>
-                                    <li><a class="dropdown-item" href="../crop-page/disease-resistance.php">Disease Resistances</a></li>
                                     <li><a class="dropdown-item" href="../crop-page/abiotic-resistance.php">Abiotic Resistances</a></li>
+                                    <li><a class="dropdown-item" href="../crop-page/disease-resistance.php">Disease Resistances</a></li>
+                                    <li><a class="dropdown-item" href="../crop-page/pest-resistance.php">Pest Resistances</a></li>
                                 </ul>
                             </li>
                             <li class="dropdown">
@@ -55,7 +55,7 @@
                                 <ul class="dropdown-menu">
                                     <li><a class="dropdown-item" href="../location-page/barangay.php">Barangay</a></li>
                                     <li><a class="dropdown-item" href="../location-page/municipality.php">Municipality</a></li>
-                                    <li><a class="dropdown-item" href="../location-page/province.php">Province</a></li>
+                                    <!-- <li><a class="dropdown-item" href="../location-page/province.php">Province</a></li> -->
                                 </ul>
                             </li>
                             <li class="dropdown">

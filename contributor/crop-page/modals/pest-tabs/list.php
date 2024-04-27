@@ -44,7 +44,7 @@
             <thead>
                 <tr>
                     <th class="col thead-item" scope="col">
-                        <input class="form-check-input small-font" type="checkbox">
+                        <input class="row-checkbox form-check-input small-font" type="checkbox" id="checkAll">
                         <label class="form-check-label text-dark-emphasis small-font">
                             All
                         </label>
@@ -124,6 +124,29 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 <script>
+    // Make table rows clickable
+    $(document).ready(function() {
+        // Add click event to table rows
+        $('tbody tr[data-href]').on("click", function(event) {
+            // Check if the click target or any of its ancestors is a button or checkbox
+            if (
+                !$(event.target).is('.row-btn, :checkbox') &&
+                !$(event.target).closest('.row-btn, :checkbox').length
+            ) {
+                // Navigate to the URL specified in the data-href attribute
+                window.location.href = $(this).attr('data-href');
+            }
+        });
+    });
+</script>
+
+<script>
+    // Add event listener to the "All" checkbox
+    $('#checkAll').change(function() {
+        // Check or uncheck all checkboxes based on the state of the "All" checkbox
+        $('.row-checkbox').prop('checked', $(this).prop('checked'));
+    });
+
     // Make table rows clickable
     $(document).ready(function() {
         // Add click event to table rows

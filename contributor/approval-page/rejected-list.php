@@ -5,7 +5,7 @@
         <!-- HEADING -->
         <div class="d-flex justify-content-between">
             <!-- title -->
-            <h4 class="fw-semibold" style="font-size: 1.5rem;">Pending</h4>
+            <h4 class="fw-semibold" style="font-size: 1.5rem;">Rejected</h4>
         </div>
 
         <?php
@@ -41,12 +41,6 @@
             <!-- table head -->
             <thead>
                 <tr>
-                    <th class="col thead-item" scope="col">
-                        <input class="form-check-input small-font" type="checkbox">
-                        <label class="form-check-label text-dark-emphasis small-font">
-                            All
-                        </label>
-                    </th>
                     <th class="col text-dark-emphasis small-font" scope="col">Category</th>
                     <th class="col text-dark-emphasis small-font" scope="col">Name</th>
                     <th class="col text-dark-emphasis small-font" scope="col">Date</th>
@@ -97,11 +91,6 @@
                             <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
                             <!-- hidden id for location to be used for filter function for location to be found -->
                             <input type="hidden" name="municipality_id" value="<?= $row['municipality_id']; ?>">
-
-                            <!-- checkbox -->
-                            <th scope="row">
-                                <input class="row-checkbox form-check-input small-font" type="checkbox">
-                            </th>
 
                             <!-- category -->
                             <td>
