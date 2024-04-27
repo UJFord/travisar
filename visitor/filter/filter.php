@@ -60,11 +60,10 @@
                                     while ($row = pg_fetch_array($query_run)) {
                                 ?>
                                         <!-- crops filters -->
-                                        <div class="form-check mb-2 w-25">
-                                            <input type="checkbox" class="form-check-input">
-                                            <label for="" class="form-check-label"><?= $row['municipality_name'] ?></label>
+                                        <div id="municipality-filter" class="form-check mb-2 w-25">
+                                            <input type="checkbox" class="form-check-input municipality-filter" id="municipality<?= $row['municipality_id'] ?>" value="<?= $row['municipality_id'] ?>">
+                                            <label for="municipality<?= $row['municipality_id'] ?>" class="form-check-label"><?= $row['municipality_name'] ?></label>
                                         </div>
-
                                 <?php
                                     }
                                 } else {
@@ -107,17 +106,29 @@
                         <h5 class="filter-title">Barangay</h5>
                         <div class="row">
                             <div class="d-flex flex-wrap">
+                                <!-- Barangay filters -->
+                                <div id="brgy-filters" class="form-check mb-2 w-25">
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
+                    <!-- pest resistance -->
+                    <div class="container border-bottom pb-w mb-4">
+                        <h5 class="filter-title">Pest Resistance</h5>
+                        <div class="row">
+                            <div class="d-flex flex-wrap">
                                 <?php
-                                $query = "SELECT * FROM municipality order by municipality_name ASC";
+                                $query = "SELECT * FROM pest_resistance order by pest_name ASC";
                                 $query_run = pg_query($conn, $query);
 
                                 if ($query_run) {
                                     while ($row = pg_fetch_array($query_run)) {
                                 ?>
-                                        <!-- crops filters -->
-                                        <div id="brgy-filters" class="form-check mb-2 w-25">
+                                        <div class="form-check mb-2 w-25">
+                                            <input type="checkbox" class="form-check-input">
+                                            <label for="" class="form-check-label"><?= $row['pest_name'] ?></label>
                                         </div>
-
                                 <?php
                                     }
                                 } else {
@@ -128,135 +139,28 @@
                         </div>
                     </div>
 
-                    <!-- pest resistance -->
-                    <div class="container border-bottom pb-w mb-4">
-                        <h5 class="filter-title">Pest Resistance</h5>
-                        <div class="row">
-                            <div class="d-flex flex-wrap">
-                                <!-- Ants -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Ants</label>
-                                </div>
-                                <!-- Army Worms -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Army Worms</label>
-                                </div>
-                                <!-- Birds -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Birds</label>
-                                </div>
-                                <!-- Black Bugs -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Black Bugs</label>
-                                </div>
-                                <!-- Borers -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Borers</label>
-                                </div>
-                                <!-- Cut Worms -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Cut Worms</label>
-                                </div>
-                                <!-- Earthworms -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Earthworms</label>
-                                </div>
-                                <!-- Flea Beetles -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Flea Beetles</label>
-                                </div>
-                                <!-- Hoppers -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Hoppers</label>
-                                </div>
-                                <!-- Leaf Aphids -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Leaf Aphids</label>
-                                </div>
-                                <!-- Leaf Folder -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Leaf Folder</label>
-                                </div>
-                                <!-- Rats -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Rats</label>
-                                </div>
-                                <!-- Root-knot Nematodes -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Root-knot Nematodes</label>
-                                </div>
-                                <!-- Root Aphids -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Root Aphids</label>
-                                </div>
-                                <!-- Snails -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Snails</label>
-                                </div>
-                                <!-- Spider Mites -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Spider Mites</label>
-                                </div>
-                                <!-- Stink Bug -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Stink Bug</label>
-                                </div>
-                                <!-- Termites -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Termites</label>
-                                </div>
-                                <!-- Weevils -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Weevils</label>
-                                </div>
-                                <!-- White Grubs -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">White Grubs</label>
-                                </div>
-                            </div>
-                        </div>
-                    </div>
-
                     <!-- disease ressistance -->
                     <div class="container border-bottom pb-2 mb-4">
                         <h5 class="filter-title">Disease Resistance</h5>
                         <div class="row">
                             <div class="d-flex flex-wrap">
-                                <!-- Bacterial -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Bacterial</label>
-                                </div>
-                                <!-- Fungus -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Fungus</label>
-                                </div>
-                                <!-- Viral -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Viral</label>
-                                </div>
+                                <?php
+                                $query = "SELECT * FROM disease_resistance order by disease_name ASC";
+                                $query_run = pg_query($conn, $query);
+
+                                if ($query_run) {
+                                    while ($row = pg_fetch_array($query_run)) {
+                                ?>
+                                        <div class="form-check mb-2 w-25">
+                                            <input type="checkbox" class="form-check-input">
+                                            <label for="" class="form-check-label"><?= $row['disease_name'] ?></label>
+                                        </div>
+                                <?php
+                                    }
+                                } else {
+                                    echo "No disease resistance found";
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -266,26 +170,23 @@
                         <h5 class="filter-title">Resistance to Abiotic Stress</h5>
                         <div class="row">
                             <div class="d-flex flex-wrap">
-                                <!-- Drought -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Drought</label>
-                                </div>
-                                <!-- Harmful Radiation -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Harmful Radiation</label>
-                                </div>
-                                <!-- Heat -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Heat</label>
-                                </div>
-                                <!-- Salinty -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Salinty</label>
-                                </div>
+                                <?php
+                                $query = "SELECT * FROM abiotic_resistance order by abiotic_name ASC";
+                                $query_run = pg_query($conn, $query);
+
+                                if ($query_run) {
+                                    while ($row = pg_fetch_array($query_run)) {
+                                ?>
+                                        <div class="form-check mb-2 w-25">
+                                            <input type="checkbox" class="form-check-input">
+                                            <label for="" class="form-check-label"><?= $row['abiotic_name'] ?></label>
+                                        </div>
+                                <?php
+                                    }
+                                } else {
+                                    echo "No abiotic resistance found";
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>

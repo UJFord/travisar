@@ -28,6 +28,43 @@ cropButtons.forEach(button => {
     });
 });
 
+// Function to fetch and populate the barangay filter based on the selected category
+function populateBarangayFilter(municipalityid) {
+    let barangayFilter = document.getElementById('brgy-filters');
+    if (municipalityid !== '') {
+        // Fetch varieties based on the selected category using AJAX
+        fetch('fetch/fetch_filter-brgy.php?municipality_id=' + municipalityid)
+            .then(response => response.json())
+            .then(data => {
+                // Clear existing options
+                barangayFilter.innerHTML = '';
+                // Populate options
+                data.forEach(barangay => {
+                    barangayFilter.innerHTML += `
+                            <div class="collapse show w-100 mb-2">
+                                <input class="form-check-input brgy-filter" type="checkbox" id="barangay${barangay.barangay_id}" value="${barangay.barangay_id}">
+                                <label for="barangay${barangay.barangay_id}">${barangay.barangay_name}</label>
+                            </div>
+                        `;
+                });
+                // Show the barangay filter
+                barangayFilter.classList.add('show');
+            })
+            .catch(error => console.error('Error:', error));
+    } else {
+        // Hide the barangay filter if no category is selected
+        barangayFilter.classList.remove('show');
+    }
+}
+// Add event listeners to category checkboxes
+document.querySelectorAll('.municipality-filter').forEach(checkbox => {
+    checkbox.addEventListener('change', function () {
+        if (this.checked) {
+            populateBarangayFilter(this.value);
+        }
+    });
+});
+
 // MAP
 
 // map center coordinates
