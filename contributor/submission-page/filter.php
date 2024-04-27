@@ -102,7 +102,7 @@
         let varietyFilter = document.getElementById('variety-filters');
         if (categoryId !== '') {
             // Fetch varieties based on the selected category using AJAX
-            fetch('modals/fetch/fetch_filter.php?category_id=' + categoryId)
+            fetch('fetch/fetch_filter.php?category_id=' + categoryId)
                 .then(response => response.json())
                 .then(data => {
                     // Clear existing options

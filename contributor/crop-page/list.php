@@ -1,7 +1,6 @@
 <!-- LIST -->
 <div class="col">
     <div class="container">
-
         <!-- HEADING -->
         <div class="d-flex justify-content-between">
             <!-- title -->
@@ -54,7 +53,7 @@
         // Get the categories and municipalities filter from the URL
         $category_filter = !empty($_GET['categories']) ? "AND category_id IN (" . implode(',', explode(',', $_GET['categories'])) . ")" : '';
         $municipality_filter = !empty($_GET['municipalities']) ? "AND municipality_id IN (" . implode(',', explode(',', $_GET['municipalities'])) . ")" : '';
-
+        $variety_filter = !empty($_GET['varieties']) ? "AND category_variety_id IN (" . implode(',', explode(',', $_GET['varieties'])) . ")" : '';
         ?>
 
         <!-- TABLE -->
@@ -63,14 +62,14 @@
             <thead>
                 <tr>
                     <th class="col thead-item" scope="col">
-                        <input class="form-check-input small-font" type="checkbox">
+                        <input class="row-checkbox form-check-input small-font" type="checkbox" id="checkAll">
                         <label class="form-check-label text-dark-emphasis small-font">
                             All
                         </label>
                     </th>
                     <th class="col text-dark-emphasis small-font" scope="col">Category</th>
                     <th class="col text-dark-emphasis small-font" scope="col">Name</th>
-                    <th class="col text-dark-emphasis small-font" scope="col">Date</th>
+                    <th class="col text-dark-emphasis small-font" scope="col">Date Created</th>
                     <!-- <th class="col text-dark-emphasis small-font" scope="col">Action</th> -->
                     <th class="col text-dark-emphasis small-font" scope="col">Status</th>
                     <th class="col text-dark-emphasis small-font text-center" scope="col">Remarks</th>
@@ -94,7 +93,7 @@
                 $query = "SELECT * FROM crop 
                 LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
                 LEFT JOIN status ON status.status_id = crop.status_id 
-                WHERE 1=1 $search_condition $category_filter $municipality_filter 
+                WHERE 1=1 $search_condition $category_filter $municipality_filter $variety_filter
                 ORDER BY crop.crop_id DESC 
                 LIMIT $items_per_page OFFSET $offset";
                 $query_run = pg_query($conn, $query);
@@ -121,7 +120,7 @@
                             <?php
                         } else {
                             ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="view.php?crop_id=<?= $row['crop_id'] ?>">
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="#">
                             <?php
                         }
                             ?>
@@ -137,7 +136,7 @@
 
                             <!-- category -->
                             <td>
-                                <div class="">
+                                <div>
                                     <?php
                                     if (pg_num_rows($query_run_category)) {
                                         $category = pg_fetch_assoc($query_run_category);
@@ -152,7 +151,7 @@
                             <!-- Variety name -->
                             <td>
                                 <!-- Variety name -->
-                                <a class="small-font" href="view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
+                                <a class="small-font" href="#" target=”_blank”><?= $row['crop_variety']; ?></a>
                             </td>
 
                             <!-- date created -->
@@ -219,7 +218,32 @@
 
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
+
 <script>
+    // Make table rows clickable
+    $(document).ready(function() {
+        // Add click event to table rows
+        $('tbody tr[data-href]').on("click", function(event) {
+            // Check if the click target or any of its ancestors is a button or checkbox
+            if (
+                !$(event.target).is('.row-btn, :checkbox') &&
+                !$(event.target).closest('.row-btn, :checkbox').length
+            ) {
+                // Navigate to the URL specified in the data-href attribute
+                window.location.href = $(this).attr('data-href');
+            }
+        });
+    });
+</script>
+
+<!-- script for checkbox -->
+<script>
+    // Add event listener to the "All" checkbox
+    $('#checkAll').change(function() {
+        // Check or uncheck all checkboxes based on the state of the "All" checkbox
+        $('.row-checkbox').prop('checked', $(this).prop('checked'));
+    });
+
     // Make table rows clickable
     $(document).ready(function() {
         // Add click event to table rows

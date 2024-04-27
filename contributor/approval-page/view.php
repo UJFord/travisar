@@ -340,27 +340,17 @@
 
                             // morph traits for rootCrop
                             // vegetative state
-                            if (value['rootcrop_plant_height'] === 'Tall') {
-                                $('#rootCrop-height-tall-edit').prop('checked', true);
-                            } else if (value['rootcrop_plant_height'] === 'Average') {
-                                $('#rootCrop-height-average-edit').prop('checked', true);
-                            } else if (value['rootcrop_plant_height'] === 'Short') {
-                                $('#rootCrop-height-short-edit').prop('checked', true);
-                            }
-                            $('#rootCrop-leafWidth-Edit').append($('<option>', {
-                                value: value['rootcrop_leaf_width']
-                            }));
-                            $('#rootCrop-leafLength-Edit').append($('<option>', {
-                                value: value['rootcrop_leaf_length']
-                            }));
-                            $('#rootCrop-steam-leaf-desc-Edit').val(value['rootcrop_stem_leaf_desc']);
+                            $('#rootCrop-height-Edit').text(value['rootcrop_plant_height']);
+                            $('#rootCrop-leafWidth-Edit').text(value['rootcrop_leaf_width']);
+                            $('#rootCrop-leafLength-Edit').text(value['rootcrop_leaf_length']);
+                            $('#rootCrop-steam-leaf-desc-Edit').text(value['rootcrop_stem_leaf_desc']);
 
                             // Reproductive state rootCrop
                             // Root Crop traits
-                            $('#rootCrop-eating-quality-Edit').val(value['eating_quality']);
-                            $('#rootCrop-color-Edit').val(value['rootcrop_color']);
-                            $('#rootCrop-sweetness-Edit').val(value['sweetness']);
-                            $('#rootCrop-remarkableFeatures-Edit').val(value['rootcrop_remarkable_features']);
+                            $('#rootCrop-eating-quality-Edit').text(value['eating_quality']);
+                            $('#rootCrop-color-Edit').text(value['rootcrop_color']);
+                            $('#rootCrop-sweetness-Edit').text(value['sweetness']);
+                            $('#rootCrop-remarkableFeatures-Edit').text(value['rootcrop_remarkable_features']);
 
                             $('#pest_other_checkEdit').prop('checked', value['rootcrop_pest_other']);
                             // Show the 'Other' textarea if 'other' checkbox is checked

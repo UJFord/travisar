@@ -25,9 +25,9 @@
                                 <!-- province name -->
                                 <div class="col-5">
                                     <label for="province-Name" class="form-label small-font">Province Name<span style="color: red;">*</span></label>
-                                    <select name="province_name_1" id="province-Name" class="form-select">
+                                    <select name="province_name_1" id="province-Name" class="form-control">
                                         <?php
-                                        $queryProv = "SELECT DISTINCT province_name, province_id from province order by province_name ASC";
+                                        $queryProv = "SELECT DISTINCT province_name, province_id from province where province_name = 'Sarangani'";
                                         $query_run = pg_query($conn, $queryProv);
 
                                         $count = pg_num_rows($query_run);
