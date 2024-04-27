@@ -110,6 +110,12 @@
         <input id="statusID" type="hidden" name="statusID" class="form-control">
         <!-- referencesID -->
         <input id="referencesID" type="hidden" name="referencesID" class="form-control">
+        <!-- terrainID -->
+        <input id="terrainID" type="hidden" name="terrainID" class="form-control">
+        <!-- unique_codeID -->
+        <input id="unique_codeID" type="hidden" name="unique_codeID" class="form-control">
+        <!-- category_varietyID -->
+        <input id="category_varietyID" type="hidden" name="category_varietyID" class="form-control">
 
         <!-- corn id's -->
         <!-- corn_traitsID -->

@@ -42,6 +42,9 @@
                     </ul>
                     <div class="container">
                         <div class="tab-content mt-2">
+                            <input type="hidden" name="userID" value="<?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) {
+                                                                            echo $_SESSION['USER']['user_id'];
+                                                                        } ?>">
                             <!-- general -->
                             <?php require "edit-tabs/gen.php" ?>
                             <!-- cultural -->
@@ -289,6 +292,14 @@
 
                         if (value['crop_reproductive_image'] != null && value['crop_reproductive_image'] != '') {
                             $('#previewReproductiveEdit').append(`<img src="img/${value['crop_reproductive_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                        }
+
+                        if (value['action'] == 'updating'){
+                            $('#cancel-modal-btn-edit').hide();
+                            $('#editButton').hide();
+                            $('#draftButton').hide();
+                            $('#deleteButton').hide();
+
                         }
 
                         // setting the available data on the traits tab depending on the category of the selected crop
@@ -557,6 +568,12 @@
                         $('#crop_id').val(id);
                         // statusID
                         $('#statusID').val(value['status_id']);
+                        // terrainID
+                        $('#terrainID').val(value['terrain_id']);
+                        // category_varietyID
+                        $('#category_varietyID').val(value['category_variety_id']);
+                        // unique_codeID
+                        $('#unique_codeID').val(value['unique_code']);
                         // referencesID
                         $('#referencesID').val(value['references_id']);
                         // categoryID
