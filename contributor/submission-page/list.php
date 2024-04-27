@@ -54,6 +54,9 @@
         // Get the categories and municipalities filter from the URL
         $category_filter = !empty($_GET['categories']) ? "AND category_id IN (" . implode(',', explode(',', $_GET['categories'])) . ")" : '';
         $municipality_filter = !empty($_GET['municipalities']) ? "AND municipality_id IN (" . implode(',', explode(',', $_GET['municipalities'])) . ")" : '';
+        $variety_filter = !empty($_GET['varieties']) ? "AND category_variety_id IN (" . implode(',', explode(',', $_GET['varieties'])) . ")" : '';
+        $terrain_filter = !empty($_GET['terrains']) ? "AND terrain_id IN (" . implode(',', explode(',', $_GET['terrains'])) . ")" : '';
+        $brgy_filter = !empty($_GET['barangay']) ? "AND barangay_id IN (" . implode(',', explode(',', $_GET['barangay'])) . ")" : '';
 
         $user_id = null; // Initialize the variable
 
@@ -99,7 +102,7 @@
                 $query = "SELECT * FROM crop 
                 LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
                 LEFT JOIN status ON status.status_id = crop.status_id 
-                WHERE 1=1 $search_condition $category_filter $municipality_filter AND user_id = $user_id
+                WHERE 1=1 $search_condition $category_filter $municipality_filter $variety_filter $terrain_filter $brgy_filter AND user_id = $user_id
                 ORDER BY crop.crop_id DESC 
                 LIMIT $items_per_page OFFSET $offset";
                 $query_run = pg_query($conn, $query);
