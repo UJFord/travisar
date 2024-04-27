@@ -55,7 +55,7 @@ require "../../functions/functions.php";
         <div class="row mt-3">
 
             <!-- FILTERS -->
-            <?php require "../crop-page/filter.php"; ?>
+            <?php require "filter.php"; ?>
 
             <!-- LIST -->
             <?php require "list.php"; ?>

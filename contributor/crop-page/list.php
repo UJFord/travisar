@@ -53,7 +53,7 @@
         // Get the categories and municipalities filter from the URL
         $category_filter = !empty($_GET['categories']) ? "AND category_id IN (" . implode(',', explode(',', $_GET['categories'])) . ")" : '';
         $municipality_filter = !empty($_GET['municipalities']) ? "AND municipality_id IN (" . implode(',', explode(',', $_GET['municipalities'])) . ")" : '';
-
+        $variety_filter = !empty($_GET['varieties']) ? "AND category_variety_id IN (" . implode(',', explode(',', $_GET['varieties'])) . ")" : '';
         ?>
 
         <!-- TABLE -->
@@ -69,7 +69,7 @@
                     </th>
                     <th class="col text-dark-emphasis small-font" scope="col">Category</th>
                     <th class="col text-dark-emphasis small-font" scope="col">Name</th>
-                    <th class="col text-dark-emphasis small-font" scope="col">Date</th>
+                    <th class="col text-dark-emphasis small-font" scope="col">Date Created</th>
                     <!-- <th class="col text-dark-emphasis small-font" scope="col">Action</th> -->
                     <th class="col text-dark-emphasis small-font" scope="col">Status</th>
                     <th class="col text-dark-emphasis small-font text-center" scope="col">Remarks</th>
@@ -93,7 +93,7 @@
                 $query = "SELECT * FROM crop 
                 LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
                 LEFT JOIN status ON status.status_id = crop.status_id 
-                WHERE 1=1 $search_condition $category_filter $municipality_filter 
+                WHERE 1=1 $search_condition $category_filter $municipality_filter $variety_filter
                 ORDER BY crop.crop_id DESC 
                 LIMIT $items_per_page OFFSET $offset";
                 $query_run = pg_query($conn, $query);
@@ -120,7 +120,7 @@
                             <?php
                         } else {
                             ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="view.php?crop_id=<?= $row['crop_id'] ?>">
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="#">
                             <?php
                         }
                             ?>
@@ -136,7 +136,7 @@
 
                             <!-- category -->
                             <td>
-                                <div class="">
+                                <div>
                                     <?php
                                     if (pg_num_rows($query_run_category)) {
                                         $category = pg_fetch_assoc($query_run_category);
@@ -151,7 +151,7 @@
                             <!-- Variety name -->
                             <td>
                                 <!-- Variety name -->
-                                <a class="small-font" href="view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
+                                <a class="small-font" href="#" target=”_blank”><?= $row['crop_variety']; ?></a>
                             </td>
 
                             <!-- date created -->
@@ -236,6 +236,7 @@
     });
 </script>
 
+<!-- script for checkbox -->
 <script>
     // Add event listener to the "All" checkbox
     $('#checkAll').change(function() {
