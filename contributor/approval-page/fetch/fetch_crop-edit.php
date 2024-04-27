@@ -85,8 +85,7 @@ if (isset($_POST['click_edit_btn'])) {
         LEFT JOIN sensory_traits_rice ON sensory_traits_rice.sensory_traits_rice_id = rice_traits.sensory_traits_rice_id
         LEFT JOIN \"references\" ON \"references\".crop_id = crop.crop_id
         left join \"status\" on \"status\".status_id = crop.status_id
-        WHERE crop.crop_id = $1
-        ";
+        WHERE crop.crop_id = $1";
         $query_run = pg_query_params($conn, $query, array($crop_id));
 
         if (pg_num_rows($query_run) > 0) {
