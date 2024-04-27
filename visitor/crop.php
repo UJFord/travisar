@@ -1,3 +1,9 @@
+<?php
+require "../functions/connections.php";
+require "../functions/functions.php";
+
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -30,8 +36,6 @@
 
     <!-- LIST -->
     <?php require "list/list.php" ?>
-
-
 
     <!-- SCRIPT -->
     <!-- jquery -->
