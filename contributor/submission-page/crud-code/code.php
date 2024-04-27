@@ -326,7 +326,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             }
 
             // Generate the new unique code
-            $newUniqueCode = $prefix . 'V' . ($currentNumber + 1);
+            $newUniqueCode = $prefix . 'V' . str_pad($currentNumber + 1, 4, '0', STR_PAD_LEFT);
         }
 
         //insert into utilization cultural table
@@ -1213,7 +1213,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             }
 
             // Generate the new unique code
-            $newUniqueCode = $prefix . 'V' . ($currentNumber + 1);
+            $newUniqueCode = $prefix . 'V' . str_pad($currentNumber + 1, 4, '0', STR_PAD_LEFT);
         }
 
         //insert into utilization cultural table
@@ -6033,7 +6033,7 @@ if (isset($_POST['draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'
             }
 
             // Generate the new unique code
-            $newUniqueCode = $prefix . 'V' . ($currentNumber + 1);
+            $newUniqueCode = $prefix . 'V' . str_pad($currentNumber + 1, 4, '0', STR_PAD_LEFT);
         }
 
         //insert into utilization cultural table
