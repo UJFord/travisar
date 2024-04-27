@@ -1,13 +1,16 @@
 <div class="container-fluid border-bottom d-flex justify-content-center p-3">
     <!-- search -->
     <div class="input-group w-25 me-4">
-        <input type="text" class="form-control bg-light">
+        <input type="text" id="searchInput" class="form-control bg-light" placeholder="Search" aria-label="Search" aria-describedby="filter-search">
         <button id="search-btn" class="input-group-text btn" type="button"><i class="fa-solid fa-magnifying-glass"></i></button>
     </div>
     <!-- filter -->
     <!-- filter trigger -->
     <button id="filter-trigger" type="button" class="btn btn-light" data-bs-toggle="modal" data-bs-target="#filter-modal">
         <i class="fa-solid fa-sliders small-font me-2"></i>Filter
+    </button>
+    <button id="clearButton" type="button" class="btn btn-light" onclick="clearSearch()">
+        <i class="fa-solid fa-eraser small-font me-2"></i>CLEAR
     </button>
 
     <!-- filter modal -->
@@ -35,7 +38,7 @@
                                     while ($row = pg_fetch_array($query_run)) {
                                 ?>
                                         <!-- crops filters -->
-                                        <input type="radio" name="crop_type" id="crop_<?= $row['category_name'] ?>" class="d-none">
+                                        <input type="radio" name="crop_type" id="crop_<?= $row['category_name'] ?>" class="d-none crop-filter" value="<?= $row['category_id'] ?>">
                                         <label for="crop_<?= $row['category_name'] ?>" class="filter-crop-type bg-dark bg-gradient text-light fw-semibold py-3 px-5 border-0"><?= $row['category_name'] ?></label>
                                 <?php
                                     }
@@ -88,8 +91,8 @@
                                 ?>
                                         <!-- terrain filters -->
                                         <div class="form-check mb-2 w-25">
-                                            <input type="checkbox" class="form-check-input">
-                                            <label for="" class="form-check-label"><?= $row['terrain_name'] ?></label>
+                                            <input type="checkbox" id="terrain<?= $row['terrain_id'] ?>" class="form-check-input terrain-filter" value="<?= $row['terrain_id'] ?>">
+                                            <label for="terrain<?= $row['terrain_id'] ?>" class="form-check-label"><?= $row['terrain_name'] ?></label>
                                         </div>
                                 <?php
                                     }
@@ -126,8 +129,8 @@
                                     while ($row = pg_fetch_array($query_run)) {
                                 ?>
                                         <div class="form-check mb-2 w-25">
-                                            <input type="checkbox" class="form-check-input">
-                                            <label for="" class="form-check-label"><?= $row['pest_name'] ?></label>
+                                            <input type="checkbox" id="pest<?= $row['pest_resistance_id'] ?>" class="form-check-input pest-filter" value="<?= $row['pest_resistance_id'] ?>">
+                                            <label for="pest<?= $row['pest_resistance_id'] ?>" class="form-check-label"><?= $row['pest_name'] ?></label>
                                         </div>
                                 <?php
                                     }
@@ -152,8 +155,8 @@
                                     while ($row = pg_fetch_array($query_run)) {
                                 ?>
                                         <div class="form-check mb-2 w-25">
-                                            <input type="checkbox" class="form-check-input">
-                                            <label for="" class="form-check-label"><?= $row['disease_name'] ?></label>
+                                            <input type="checkbox" id="disease<?= $row['disease_resistance_id'] ?>" class="form-check-input disease-filter" value="<?= $row['disease_resistance_id'] ?>">
+                                            <label for="disease<?= $row['disease_resistance_id'] ?>" class="form-check-label"><?= $row['disease_name'] ?></label>
                                         </div>
                                 <?php
                                     }
@@ -178,8 +181,8 @@
                                     while ($row = pg_fetch_array($query_run)) {
                                 ?>
                                         <div class="form-check mb-2 w-25">
-                                            <input type="checkbox" class="form-check-input">
-                                            <label for="" class="form-check-label"><?= $row['abiotic_name'] ?></label>
+                                            <input type="checkbox" id="abiotic<?= $row['abiotic_resistance_id'] ?>" class="form-check-input abiotic-filter" value="<?= $row['abiotic_resistance_id'] ?>">
+                                            <label for="abiotic<?= $row['abiotic_resistance_id'] ?>" class="form-check-label"><?= $row['abiotic_name'] ?></label>
                                         </div>
                                 <?php
                                     }
@@ -195,7 +198,7 @@
                 <!-- actions -->
                 <div class="modal-footer d-flex justify-content-between">
                     <button type="button" class="btn border btn-light bg-gradient">Clear All</button>
-                    <button type="button" class="btn btn-success bg-gradient">Apply Filter</button>
+                    <button id="searchButton" type="button" class="btn btn-success bg-gradient" onclick="applyFilters()">Apply Filter</button>
                 </div>
             </div>
         </div>

@@ -65,6 +65,91 @@ document.querySelectorAll('.municipality-filter').forEach(checkbox => {
     });
 });
 
+// Function to apply filters and update the table
+function applyFilters() {
+    let searchCondition = ''; // Initialize searchCondition here
+
+    const selectedCategories = Array.from(document.querySelectorAll('.crop-filter:checked')).map(checkbox => checkbox.value);
+    const selectedMunicipalities = Array.from(document.querySelectorAll('.municipality-filter:checked')).map(checkbox => checkbox.value);
+    const selectedVarieties = Array.from(document.querySelectorAll('.variety-filter:checked')).map(checkbox => checkbox.value);
+    const selectedTerrain = Array.from(document.querySelectorAll('.terrain-filter:checked')).map(checkbox => checkbox.value);
+    const selectedBrgy = Array.from(document.querySelectorAll('.brgy-filter:checked')).map(checkbox => checkbox.value);
+    const selectedPest = Array.from(document.querySelectorAll('.pest-filter:checked')).map(checkbox => checkbox.value);
+    const selectedDisease = Array.from(document.querySelectorAll('.disease-filter:checked')).map(checkbox => checkbox.value);
+    const selectedAbiotic = Array.from(document.querySelectorAll('.abiotic-filter:checked')).map(checkbox => checkbox.value);
+
+    // Build the search condition based on selected categories, municipalities, and the search value
+    if (selectedCategories.length > 0) {
+        searchCondition += `&categories=${selectedCategories.join(',')}`;
+        console.log(searchCondition);
+        console.log('Filter applied');
+    }
+    if (selectedMunicipalities.length > 0) {
+        searchCondition += `&municipalities=${selectedMunicipalities.join(',')}`;
+        console.log(searchCondition);
+        console.log('Filter applied');
+    }
+    if (selectedVarieties.length > 0) {
+        searchCondition += `&varieties=${selectedVarieties.join(',')}`;
+        console.log(searchCondition);
+        console.log('Filter applied');
+    }
+    if (selectedTerrain.length > 0) {
+        searchCondition += `&terrains=${selectedTerrain.join(',')}`;
+        console.log(searchCondition);
+        console.log('Filter applied');
+    }
+    if (selectedBrgy.length > 0) {
+        searchCondition += `&barangay=${selectedBrgy.join(',')}`;
+        console.log(searchCondition);
+        console.log('Filter applied');
+    }
+    if (selectedPest.length > 0) {
+        searchCondition += `&pest=${selectedPest.join(',')}`;
+        console.log(searchCondition);
+        console.log('Filter applied');
+    }
+    if (selectedDisease.length > 0) {
+        searchCondition += `&disease=${selectedDisease.join(',')}`;
+        console.log(searchCondition);
+        console.log('Filter applied');
+    }
+    if (selectedAbiotic.length > 0) {
+        searchCondition += `&abiotic=${selectedAbiotic.join(',')}`;
+        console.log(searchCondition);
+        console.log('Filter applied');
+    }
+
+    // Reload the table with the new filters
+    window.location.href = window.location.pathname + '?search=' + searchCondition;
+}
+// Modify the search function to store the search query in a session or URL parameter
+function search() {
+    var searchInput = document.getElementById("searchInput").value;
+    // Store the search query in a session or URL parameter
+    // For example, you can use localStorage to store the search query
+    localStorage.setItem('searchQuery', searchInput);
+    // Reload the page with the search query as a parameter
+    window.location.href = window.location.pathname + "?search=" + searchInput;
+}
+
+const searchInput = document.getElementById('searchInput');
+const clearButton = document.getElementById('clearButton');
+
+// Add a keyup event listener to the search input field
+searchInput.addEventListener('keyup', function (event) {
+    // Check if the Enter key is pressed (key code 13)
+    if (event.keyCode === 13) {
+        // Call the search function
+        search();
+    }
+});
+// Function to clear the search and hide the clear button
+function clearSearch() {
+    searchInput.value = '';
+    window.location.href = window.location.pathname;
+}
+
 // MAP
 
 // map center coordinates
