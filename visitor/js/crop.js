@@ -61,7 +61,7 @@ let icons = {
 // draw map
 L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     maxZoom: 19,
-    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>'
+    attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
 
 // draw markers
@@ -85,7 +85,8 @@ document.querySelectorAll('#crop-list-tbody tr').forEach(row => {
             // Create marker and add to map
             if (icon) {
                 L.marker([lat, lng], {icon: icon})
-                    .bindPopup(`<b>${category}</b><br>${variety}`)
+                    .bindPopup(`<b>${
+                        category}</b><br>${variety}`)
                     .addTo(map);
             } else {
                 console.error(`Icon for category "${category}" is not defined.`);
@@ -94,6 +95,15 @@ document.querySelectorAll('#crop-list-tbody tr').forEach(row => {
     }
 });
 
+$(document).ready(function(){
+    // Add click event to table rows
+    $('#crop-list-tbody tr[data-href]').on("click", function() {
+        // Get the URL from the data-href attribute
+        var url = $(this).attr('data-href');
+        // Navigate to the URL
+        window.location = url;
+    });
+});
 
 
 

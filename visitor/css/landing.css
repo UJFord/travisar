@@ -51,8 +51,16 @@ body{
 .list-head{
     font-family: "Montserrat", sans-serif;
 }
+#crop-list-tbody tr{
+    cursor: pointer ;
+}
 
 /* map */
 #map{
     min-height: 700px;
+}
+
+/* legend */
+.legend-ico{
+    width: 1rem;
 }
