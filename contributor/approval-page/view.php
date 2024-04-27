@@ -263,7 +263,7 @@
 
                             // morph traits for rice
                             // vegetative state
-                            $('#height-tall-Edit').text(value['rice_plant_height']);
+                            $('#rice-height-Edit').text(value['rice_plant_height']);
                             $('#leafWidth-Edit').text(value['rice_leaf_width']);
                             $('#leafLength-Edit').text(value['rice_leaf_length']);
                             $('#tilleringAbility-Edit').text(value['rice_tillering_ability']);
@@ -494,10 +494,10 @@
                         $('#categoryTerrainEdit').text(value['terrain_name']);
 
                         // Utilization and Cultural Importance
-                        $('#SignificanceEdit').val(value['significance']);
-                        $('#UseEdit').val(value['use']);
-                        $('#indigenous-utilization-Edit').val(value['indigenous_utilization']);
-                        $('#remarkable-features-Edit').val(value['remarkable_features']);
+                        $('#SignificanceEdit').text(value['significance']);
+                        $('#UseEdit').text(value['use']);
+                        $('#indigenous-utilization-Edit').text(value['indigenous_utilization']);
+                        $('#remarkable-features-Edit').text(value['remarkable_features']);
 
                         // References
                         let referenceNumber = 1; // Initialize reference number
