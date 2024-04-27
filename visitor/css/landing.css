@@ -1,3 +1,12 @@
+/* FONTS */
+/* nunito sans */
+@import url('https://fonts.googleapis.com/css2?family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap'); 
+
+/* body */
+body{
+    font-family: "Nunito Sans", sans-serif;
+}
+
 /* small font size */
 .small-font{
     font-size: 0.8rem !important;
@@ -25,4 +34,14 @@
 /* filter */
 #close-filter-btn{
     right: 1rem;
+}
+/* fitler crop */
+.filter-crop-type:hover{
+    box-shadow: inset 10px 0px 72px -10px rgba(82,82,82,0.72) !important;
+    cursor: pointer !important;
+}
+/* filter title */
+.filter-title{
+    font-family: "Nunito Sans", sans-serif;
+    font-weight: 600;
 }
