@@ -1,5 +1,7 @@
 <?php
 require "../functions/connections.php";
+require "../functions/functions.php";
+
 ?>
 
 <!doctype html>
@@ -28,7 +30,7 @@ require "../functions/connections.php";
 <body class="bg-light">
     <!-- NAVBAR -->
     <?php require "nav/nav.php" ?>
-w
+
     <!-- FILTER -->
     <?php require "filter/filter.php" ?>
 

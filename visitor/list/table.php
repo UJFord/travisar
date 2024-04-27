@@ -11,10 +11,27 @@
             <!-- crops -->
             <tbody id="crop-list-tbody">
                 <?php
+                // Set the number of items to display per page
+                $items_per_page = 10;
+
+                // Get the current page number
+                $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+                // Calculate the offset based on the current page and items per page
+                $offset = ($current_page - 1) * $items_per_page;
+
+                // Count the total number of rows for pagination
+                $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id";
+                $total_rows_result = pg_query($conn, $total_rows_query);
+                $total_rows = pg_fetch_row($total_rows_result)[0];
+
+                // Calculate the total number of pages
+                $total_pages = ceil($total_rows / $items_per_page);
+
                 // Get the search query from the session or URL parameter
                 $search = isset($_GET['search']) ? $_GET['search'] : '';
                 // Get the categories and municipalities filter from the URL
-                $category_filter = !empty($_GET['categories']) ? "AND category_id IN (" . implode(',', explode(',', $_GET['categories'])) . ")" : '';
+                $category_filter = !empty($_GET['categories']) ? "AND category.category_id IN (" . implode(',', explode(',', $_GET['categories'])) . ")" : '';
                 $municipality_filter = !empty($_GET['municipalities']) ? "AND municipality_id IN (" . implode(',', explode(',', $_GET['municipalities'])) . ")" : '';
                 $variety_filter = !empty($_GET['varieties']) ? "AND category_variety_id IN (" . implode(',', explode(',', $_GET['varieties'])) . ")" : '';
                 $terrain_filter = !empty($_GET['terrains']) ? "AND terrain_id IN (" . implode(',', explode(',', $_GET['terrains'])) . ")" : '';
@@ -36,7 +53,9 @@
                 LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
                 LEFT JOIN status ON status.status_id = crop.status_id 
                 LEFT JOIN category ON category.category_id = crop.category_id
-                $where_clause";
+                $where_clause
+                ORDER BY crop.crop_id DESC 
+                LIMIT $items_per_page OFFSET $offset";
                 $query_run = pg_query($conn, $query);
 
                 if ($query_run) {
@@ -59,22 +78,13 @@
             </tbody>
         </table>
     </div>
-    <!-- pagination -->
-    <nav class="d-flex justify-content-end py-2" aria-label="">
-        <ul class="pagination">
-            <li class="page-item">
-                <a class="page-link small-font text-dark fw-semibold btn-light" href="#" aria-label="Previous">
-                    <span aria-hidden="true"><i class="fa-solid fa-arrow-left-long"></i></span>
-                </a>
-            </li>
-            <li class="page-item"><a class="page-link small-font text-dark fw-semibold" href="#">1</a></li>
-            <li class="page-item"><a class="page-link small-font text-dark fw-semibold" href="#">2</a></li>
-            <li class="page-item"><a class="page-link small-font text-dark fw-semibold" href="#">3</a></li>
-            <li class="page-item">
-                <a class="page-link small-font text-dark fw-semibold btn-light" href="#" aria-label="Next">
-                    <span aria-hidden="true"><i class="fa-solid fa-arrow-right-long"></i></span>
-                </a>
-            </li>
-        </ul>
-    </nav>
+    <div class="row">
+
+        <!-- pagination -->
+        <?php generatePaginationLinks($total_pages, $current_page, 'page'); ?>
+        <!-- result counter -->
+        <div class="container small-font fw-semibold mb-2 text-center">
+            Showing Results <span class="text-primary"><?= $current_page ?></span> out of <span class="text-primary"><?= $total_pages; ?></span>
+        </div>
+    </div>
 </div>

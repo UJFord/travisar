@@ -117,7 +117,7 @@
                     </div>
 
                     <!-- pest resistance -->
-                    <div class="container border-bottom pb-w mb-4">
+                    <!-- <div class="container border-bottom pb-w mb-4">
                         <h5 class="filter-title">Pest Resistance</h5>
                         <div class="row">
                             <div class="d-flex flex-wrap">
@@ -140,10 +140,10 @@
                                 ?>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- disease ressistance -->
-                    <div class="container border-bottom pb-2 mb-4">
+                    <!-- <div class="container border-bottom pb-2 mb-4">
                         <h5 class="filter-title">Disease Resistance</h5>
                         <div class="row">
                             <div class="d-flex flex-wrap">
@@ -166,10 +166,10 @@
                                 ?>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
 
                     <!-- resistance to abiotic stress -->
-                    <div class="container pb-2">
+                    <!-- <div class="container pb-2">
                         <h5 class="filter-title">Resistance to Abiotic Stress</h5>
                         <div class="row">
                             <div class="d-flex flex-wrap">
@@ -192,7 +192,7 @@
                                 ?>
                             </div>
                         </div>
-                    </div>
+                    </div> -->
                 </div>
 
                 <!-- actions -->
