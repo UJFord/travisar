@@ -64,3 +64,13 @@ body{
 .legend-ico{
     width: 1rem;
 }
+
+
+
+
+
+/* view-crop-image */
+.view-crop-image{
+    max-width: 5rem;
+    aspect-ratio: 1/1;
+}

@@ -10,6 +10,10 @@
             </thead>
             <!-- crops -->
             <tbody id="crop-list-tbody">
+                <tr class="" latlng="6.086883, 125.031229" data-href="view-crop.php">
+                    <td class="text-secondary category">Rice</td>
+                    <td class="fw-bold overflow-x-auto variety">Sinandomeng</td>
+                </tr>
                 <?php
                 // Set the number of items to display per page
                 $items_per_page = 10;
