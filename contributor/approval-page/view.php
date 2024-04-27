@@ -63,7 +63,7 @@
                         <button type="submit" name="approve" class="btn btn-success me-2">Approve</i></button>
                     </div>
                     <div class="updateButton">
-                        <button type="button" id="cancel-modal-btn" class="btn border bg-light">Cancel</button>
+                        <button type="button" id="cancel-modal-btn-update" class="btn border bg-light">Cancel</button>
                         <button type="submit" name="update" class="btn btn-success me-2">Update</i></button>
                     </div>
                 </div>
@@ -624,6 +624,7 @@
         // Remove event listeners to prevent duplication
         document.getElementById('close-modal-btn').removeEventListener('click', closeModal);
         document.getElementById('cancel-modal-btn').removeEventListener('click', closeModal);
+        document.getElementById('cancel-modal-btn-update').removeEventListener('click', closeModal);
         document.getElementById('rejectButton').removeEventListener('click', rejectModalEdit);
 
         // Event listener for the close button
@@ -631,6 +632,7 @@
 
         // Event listener for the cancel button
         document.getElementById('cancel-modal-btn').addEventListener('click', closeModal);
+        document.getElementById('cancel-modal-btn-update').addEventListener('click', closeModal);
         document.getElementById('rejectButton').addEventListener('click', rejectModalEdit);
 
     }
@@ -640,22 +642,12 @@
 
     // Custom function to close the modal
     function closeModal() {
-        // Get the modal element
-        var confirmModal = document.getElementById('confirmModal');
+        var addModal = document.getElementById('view-item-modal');
+        var addModalInstance = bootstrap.Modal.getInstance(addModal);
+        addModalInstance.hide();
 
-        // Create a new Bootstrap modal instance if it doesn't exist
-        if (!confirmModalInstance) {
-            confirmModalInstance = new bootstrap.Modal(confirmModal);
-        }
-
-        // Show the confirmation modal
-        confirmModalInstance.show();
-        // to show which button should show on the confirm modal
-        document.getElementById('confirmCloseBtn').style.display = 'block';
-        document.getElementById('confirmRejectBtn').style.display = 'none';
-        // to show which label should show on the confirm modal
-        document.getElementById('close-label').style.display = 'block';
-        document.getElementById('reject-label').style.display = 'none';
+        // Remove the modal backdrop
+        $('.modal-backdrop').remove();
     }
 
     function rejectModalEdit(event) {
@@ -680,21 +672,6 @@
         document.getElementById('close-label').style.display = 'none';
         document.getElementById('reject-label').style.display = 'block';
     }
-
-    // Event listener for the confirm button click
-    document.getElementById('confirmCloseBtn').addEventListener('click', function() {
-        var confirmModal = document.getElementById('confirmModal');
-        var confirmModalInstance = bootstrap.Modal.getInstance(confirmModal);
-        confirmModalInstance.hide();
-
-        var addModal = document.getElementById('view-item-modal');
-        var addModalInstance = bootstrap.Modal.getInstance(addModal);
-        addModalInstance.hide();
-
-        // Remove the modal backdrop
-        $('.modal-backdrop').remove();
-    });
-
 
     // Event listener for when the modal is shown
     document.getElementById('view-item-modal').addEventListener('shown.bs.modal', function() {

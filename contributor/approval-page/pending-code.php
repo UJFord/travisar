@@ -39,17 +39,32 @@ if (isset($_POST['update'])) {
     try {
         if ($get_category_name === 'Corn') {
             // Fetch data from the crop table and join with crop_location
-            $query = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join location 
-            on crop_location.location_id = location.location_id left join users on crop.user_id = users.user_id left join barangay
-            on crop_location.barangay_id = barangay.barangay_id left join category_variety on crop.category_variety_id = category_variety.category_variety_id
-            left join category on category.category_id = crop.category_id left join utilization_cultural_importance on  crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id
-            left join corn_traits on crop.crop_id = corn_traits.crop_id left join vegetative_state_corn on corn_traits.vegetative_state_corn_id = vegetative_state_corn.vegetative_state_corn_id
-            left join reproductive_state_corn on corn_traits.reproductive_state_corn_id = reproductive_state_corn.reproductive_state_corn_id
-            left join pest_resistance_corn on corn_traits.pest_resistance_corn_id = pest_resistance_corn.pest_resistance_corn_id
-            left join disease_resistance on corn_traits.disease_resistance_id = disease_resistance.disease_resistance_id
-            left join abiotic_resistance on corn_traits.abiotic_resistance_id = abiotic_resistance.abiotic_resistance_id
-            left join seed_traits on seed_traits.seed_traits_id = reproductive_state_corn.seed_traits_id
-            left join status on status.status_id = crop.status_id
+            $query = "SELECT DISTINCT crop.*, crop_location.*, municipality.*, users.*, barangay.*, province.*, category_variety.*, terrain.*, category.*, utilization_cultural_importance.*, corn_traits.*, vegetative_state_corn.*, reproductive_state_corn.*, 
+            ARRAY(SELECT DISTINCT corn_pest_resistance.pest_resistance_id FROM corn_pest_resistance WHERE corn_pest_resistance.corn_traits_id = corn_traits.corn_traits_id) AS pest_resistances,
+            ARRAY(SELECT DISTINCT corn_disease_resistance.disease_resistance_id FROM corn_disease_resistance WHERE corn_disease_resistance.corn_traits_id = corn_traits.corn_traits_id) AS disease_resistances,
+            ARRAY(SELECT DISTINCT corn_abiotic_resistance.abiotic_resistance_id FROM corn_abiotic_resistance WHERE corn_abiotic_resistance.corn_traits_id = corn_traits.corn_traits_id) AS abiotic_resistances,
+            corn_pest_resistance_other.*, corn_abiotic_resistance_other.*, seed_traits.*, \"references\".*, \"status\".*
+            FROM crop
+            LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id
+            LEFT JOIN municipality ON crop_location.municipality_id = municipality.municipality_id
+            LEFT JOIN users ON crop.user_id = users.user_id
+            LEFT JOIN barangay ON crop_location.barangay_id = barangay.barangay_id
+            LEFT JOIN province ON province.province_id = municipality.province_id
+            LEFT JOIN category_variety ON crop.category_variety_id = category_variety.category_variety_id
+            LEFT JOIN terrain ON terrain.terrain_id = crop.terrain_id
+            LEFT JOIN category ON category.category_id = crop.category_id
+            LEFT JOIN utilization_cultural_importance ON crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id
+            LEFT JOIN corn_traits ON crop.crop_id = corn_traits.crop_id
+            LEFT JOIN vegetative_state_corn ON corn_traits.vegetative_state_corn_id = vegetative_state_corn.vegetative_state_corn_id
+            LEFT JOIN reproductive_state_corn ON corn_traits.reproductive_state_corn_id = reproductive_state_corn.reproductive_state_corn_id
+            LEFT JOIN corn_pest_resistance ON corn_traits.corn_traits_id = corn_pest_resistance.corn_traits_id
+            LEFT JOIN corn_disease_resistance ON corn_traits.corn_traits_id = corn_disease_resistance.corn_traits_id
+            LEFT JOIN corn_abiotic_resistance ON corn_traits.corn_traits_id = corn_abiotic_resistance.corn_traits_id
+            LEFT JOIN corn_pest_resistance_other ON corn_pest_resistance_other.corn_pest_other_id = corn_traits.corn_pest_other_id
+            LEFT JOIN corn_abiotic_resistance_other ON corn_abiotic_resistance_other.corn_abiotic_other_id = corn_traits.corn_abiotic_other_id
+            LEFT JOIN seed_traits ON seed_traits.seed_traits_id = reproductive_state_corn.seed_traits_id
+            LEFT JOIN \"references\" ON \"references\".crop_id = crop.crop_id
+            left join \"status\" on \"status\".status_id = crop.status_id
             WHERE crop.crop_id = $1";
             $query_run = pg_query_params($conn, $query, array($crop_idUpdate));
 
@@ -64,22 +79,24 @@ if (isset($_POST['update'])) {
                 $crop_reproductive_image = $crops['crop_reproductive_image'];
 
                 // location
-                $province_name = $crops['province_name'];
-                $municipality_name = $crops['municipality_name'];
+                $province_id = $crops['province_id'];
+                $municipality_id = $crops['municipality_id'];
                 $coordinates = $crops['coordinates'];
-                $barangay_name = $crops['barangay_name'];
+                $barangay_id = $crops['barangay_id'];
+                $sitio_name = $crops['sitio_name'];
 
-                // disease resistance
-                $bacterial = $crops['bacterial'];
-                $viral = $crops['viral'];
-                $fungus = $crops['fungus'];
+                // resistances
+                $pest_resistances = $crops['pest_resistances'];
+                $disease_resistances = $crops['disease_resistances'];
+                $abiotic_resistances = $crops['abiotic_resistances'];
 
-                // abiotic resistance
-                $drought = $crops['drought'];
-                $salinity = $crops['salinity'];
-                $heat = $crops['heat'];
-                $abiotic_other = $crops['abiotic_other'];
-                $abiotic_other_desc = $crops['abiotic_other_desc'];
+                // pest resistance other
+                $pest_other = $crops['corn_pest_other'];
+                $pest_other_desc = $crops['corn_pest_other_desc'];
+
+                // abiotic resistance other
+                $abiotic_other = $crops['corn_abiotic_other'];
+                $abiotic_other_desc = $crops['corn_abiotic_other_desc'];
 
                 // Utilization Cultural Importance
                 $significance = $crops['significance'];
@@ -103,42 +120,29 @@ if (isset($_POST['update'])) {
                 $seed_shape = $crops['seed_shape'];
                 $seed_color = $crops['seed_color'];
 
-                // pest resistance corn
-                $corn_borers = $crops['corn_borers'];
-                $earworms = $crops['earworms'];
-                $spider_mites = $crops['spider_mites'];
-                $corn_black_bug = $crops['corn_black_bug'];
-                $corn_army_worms = $crops['corn_army_worms'];
-                $leaf_aphid = $crops['leaf_aphid'];
-                $corn_cutworms = $crops['corn_cutworms'];
-                $corn_birds = $crops['corn_birds'];
-                $corn_ants = $crops['corn_ants'];
-                $corn_rats = $crops['corn_rats'];
-                $corn_others = $crops['corn_others'];
-                $corn_others_desc = $crops['corn_others_desc'];
-
                 //id's to be deleted when finished updating
                 $update_crop_id = $crops['crop_id'];
                 $update_status_id = $crops['status_id'];
                 $update_corn_traits_id = $crops['corn_traits_id'];
-                $update_disease_resistance_id = $crops['disease_resistance_id'];
-                $update_pest_resistance_corn_id = $crops['pest_resistance_corn_id'];
-                $update_abiotic_resistance_id = $crops['abiotic_resistance_id'];
                 $update_crop_location_id = $crops['crop_location_id'];
                 $update_seed_traits_id = $crops['seed_traits_id'];
                 $update_utilization_cultural_id = $crops['utilization_cultural_id'];
                 $update_vegetative_state_corn_id = $crops['vegetative_state_corn_id'];
                 $update_reproductive_state_corn_id = $crops['reproductive_state_corn_id'];
+                $update_corn_pest_other_id = $crops['corn_pest_other_id'];
+                $update_corn_abiotic_other_id = $crops['corn_abiotic_other_id'];
 
                 // get the unique code the remove the updating
                 $currentUniqueCode = $crops['unique_code'];
                 $updateUniqueCode = str_replace("-UPDATING", "", $currentUniqueCode);
 
                 // get the crop that should be updated
-                $query_Crop = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join location 
-                on crop_location.location_id = location.location_id left join barangay on crop_location.barangay_id = barangay.barangay_id
+                $query_Crop = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join municipality 
+                on crop_location.municipality_id = municipality.municipality_id left join barangay on crop_location.barangay_id = barangay.barangay_id
                 left join utilization_cultural_importance on  crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id left join category on crop.category_id = category.category_id
                 left join corn_traits on crop.crop_id = corn_traits.crop_id left join reproductive_state_corn on corn_traits.reproductive_state_corn_id = reproductive_state_corn.reproductive_state_corn_id
+                left join corn_pest_resistance_other on corn_pest_resistance_other.corn_pest_other_id = corn_traits.corn_pest_other_id
+                left join corn_abiotic_resistance_other on corn_abiotic_resistance_other.corn_abiotic_other_id = corn_traits.corn_abiotic_other_id
                 left join status on status.status_id = crop.status_id
                 WHERE crop.unique_code = $1";
 
@@ -148,15 +152,15 @@ if (isset($_POST['update'])) {
 
                     //id's of the crop that needs to be updated
                     $crop_id = $cropsUpdate['crop_id'];
+                    $corn_traits_id = $cropsUpdate['corn_traits_id'];
                     $category_id = $cropsUpdate['category_id'];
                     $crop_location_id = $cropsUpdate['crop_location_id'];
-                    $disease_resistance_id = $cropsUpdate['disease_resistance_id'];
-                    $abiotic_resistance_id = $cropsUpdate['abiotic_resistance_id'];
+                    $corn_abiotic_other_id = $cropsUpdate['corn_abiotic_other_id'];
+                    $corn_pest_other_id = $cropsUpdate['corn_pest_other_id'];
                     $seed_traits_id = $cropsUpdate['seed_traits_id'];
                     $utilization_cultural_id = $cropsUpdate['utilization_cultural_id'];
                     $vegetative_state_corn_id = $cropsUpdate['vegetative_state_corn_id'];
                     $reproductive_state_corn_id = $cropsUpdate['reproductive_state_corn_id'];
-                    $pest_resistance_corn_id = $cropsUpdate['pest_resistance_corn_id'];
                     $status_id = $cropsUpdate['status_id'];
                     $action = "approved";
                     $remarks = "Updating of crop data is approved.";
@@ -204,35 +208,9 @@ if (isset($_POST['update'])) {
                         exit(0);
                     }
 
-                    // Location Table
-                    // Get the location id
-                    $queryLoc = "SELECT location_id from location where province_name = $1 and municipality_name = $2";
-                    $query_run_loc = pg_query_params($conn, $queryLoc, array($province_name, $municipality_name));
-
-                    if ($query_run_loc) {
-                        $row_loc = pg_fetch_row(($query_run_loc));
-                        $location_id = $row_loc[0];
-                    } else {
-                        echo "Error: " . pg_last_error($conn);
-                        exit(0);
-                    }
-
-                    // Barangay Tab
-                    // get the barangay id
-                    $querybrgy = "SELECT barangay_id from barangay where barangay_name = $1";
-                    $query_run_brgy = pg_query_params($conn, $querybrgy, array($barangay_name));
-
-                    if ($query_run_brgy) {
-                        $row_brgy = pg_fetch_row(($query_run_brgy));
-                        $barangay_id = $row_brgy[0];
-                    } else {
-                        echo "Error: " . pg_last_error($conn);
-                        exit(0);
-                    }
-
                     // update Crop Location Table
-                    $query_CropLoc = "UPDATE crop_location set location_id = $1, barangay_id = $2, coordinates = $3 where crop_location_id = $4";
-                    $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($location_id, $barangay_id, $coordinates, $crop_location_id));
+                    $query_CropLoc = "UPDATE crop_location set municipality_id = $1, barangay_id = $2, coordinates = $3, sitio_name = $4 where crop_location_id = $5";
+                    $query_run_CropLoc = pg_query_params($conn, $query_CropLoc, array($municipality_id, $barangay_id, $coordinates, $sitio_name, $crop_location_id));
 
                     if ($query_run_CropLoc) {
                     } else {
@@ -241,39 +219,6 @@ if (isset($_POST['update'])) {
                     }
 
                     // Handle corn category traits
-                    // abiotic resistance
-                    $query_abioticRes = "UPDATE abiotic_resistance set drought = $1, salinity = $2, heat = $3, abiotic_other = $4, abiotic_other_desc = $5 WHERE abiotic_resistance_id = $6";
-                    $query_run_abioticRes = pg_query_params($conn, $query_abioticRes, array($drought, $salinity, $heat, $abiotic_other, $abiotic_other_desc, $abiotic_resistance_id));
-                    if ($query_run_abioticRes) {
-                    } else {
-                        echo "Error: " . pg_last_error($conn);
-                        exit(0);
-                    }
-
-                    // disease resistance
-                    $query_diseaseRes = "UPDATE disease_resistance set bacterial = $1, viral = $2, fungus = $3 WHERE disease_resistance_id = $4";
-                    $query_run_diseaseRes = pg_query_params($conn, $query_diseaseRes, array($bacterial, $viral, $fungus, $disease_resistance_id));
-                    if ($query_run_diseaseRes) {
-                        echo "success";
-                    } else {
-                        echo "Error: " . pg_last_error($conn);
-                        exit(0);
-                    }
-
-                    // pest resistance corn
-                    $query_pestRes = "UPDATE pest_resistance_corn set corn_borers = $1, earworms = $2, spider_mites = $3, corn_black_bug = $4, corn_army_worms = $5, leaf_aphid = $6, corn_cutworms = $7, corn_birds = $8, 
-                    corn_ants = $9, corn_rats = $10, corn_others = $11, corn_others_desc = $12 where pest_resistance_corn_id = $13";
-                    $query_run_pestRes = pg_query_params($conn, $query_pestRes, array(
-                        $corn_borers, $earworms, $spider_mites, $corn_black_bug, $corn_army_worms, $leaf_aphid, $corn_cutworms, $corn_birds,
-                        $corn_ants, $corn_rats, $corn_others, $corn_others_desc, $pest_resistance_corn_id
-                    ));
-                    if ($query_run_pestRes) {
-                        echo "success";
-                    } else {
-                        echo "Error: " . pg_last_error($conn);
-                        exit(0);
-                    }
-
                     // seed traits
                     $query_seedTraits = "UPDATE seed_traits set seed_length = $1, seed_width = $2, seed_shape = $3, seed_color = $4 where seed_traits_id = $5";
                     $query_run_seedTraits = pg_query_params($conn, $query_seedTraits, array($seed_length, $seed_width, $seed_shape, $seed_color, $seed_traits_id));
@@ -302,6 +247,177 @@ if (isset($_POST['update'])) {
                     } else {
                         echo "Error: " . pg_last_error($conn);
                         exit(0);
+                    }
+
+                    // check if the corn pest other resistance is null or not
+                    $query_getPest = "SELECT corn_pest_other_id FROM crop LEFT JOIN corn_traits ON corn_traits.crop_id = crop.crop_id WHERE crop.crop_id = $1";
+                    $query_run_getPest = pg_query_params($conn, $query_getPest, array($crop_id));
+
+                    // Check if the query returned any rows
+                    if (pg_num_rows($query_run_getPest) > 0) {
+                        $row_getPest = pg_fetch_row($query_run_getPest);
+                        $corn_pest_other_id = $row_getPest[0];
+
+                        // if the corn_pest_other_id is null or empty save it
+                        if ($corn_pest_other_id === null || $corn_pest_other_id === "") {
+
+                            // Insert data into the respective tables
+                            if ($pest_other) {
+
+                                // Insert into corn_pest_other table
+                                $queryPest_other = "INSERT INTO corn_pest_resistance_other (corn_pest_other, corn_pest_other_desc) VALUES ($1, $2) RETURNING corn_pest_other_id";
+                                $query_run_Pest_other = pg_query_params($conn, $queryPest_other, array($pest_other, $pest_other_desc));
+                                if ($query_run_Pest_other) {
+                                    $rowPest_other = pg_fetch_row($query_run_Pest_other);
+                                    $corn_pest_other_id = $rowPest_other[0];
+
+                                    // Insert into crop table
+                                    $query_cropInsert = "UPDATE corn_traits SET corn_pest_other_id = $1 WHERE corn_traits_id = $2";
+                                    $query_run_cropInsert = pg_query_params($conn, $query_cropInsert, array($corn_pest_other_id, $corn_traits_id));
+                                    if ($query_run_cropInsert) {
+                                        echo "success";
+                                    } else {
+                                        echo "Error: " . pg_last_error($conn);
+                                        exit(0);
+                                    }
+                                } else {
+                                    echo "Error: " . pg_last_error($conn);
+                                    exit(0);
+                                }
+                            }
+                        } else {
+                            // if it exists just update its data
+                            // pest resistance other corn
+                            $query_pestOther = "UPDATE corn_pest_resistance_other SET corn_pest_other = $1, corn_pest_other_desc = $2 WHERE corn_pest_other_id = $3";
+                            $query_run_pestOther = pg_query_params($conn, $query_pestOther, array($pest_other, $pest_other_desc, $corn_pest_other_id));
+                            if ($query_run_pestOther) {
+                                echo "success";
+                            } else {
+                                echo "Error: " . pg_last_error($conn);
+                                exit(0);
+                            }
+                        }
+                    }
+
+                    // check if the corn abiotic other resistance is null or not
+                    $query_getAbiotic = "SELECT corn_abiotic_other_id from crop left join corn_traits on corn_traits.crop_id = crop.crop_id where crop.crop_id = $1";
+                    $query_run_getAbiotic = pg_query_params($conn, $query_getAbiotic, array($crop_id));
+
+                    if ($query_run_getAbiotic) {
+                        if (pg_num_rows($query_run_getAbiotic) > 0) {
+                            $row_getAbiotic = pg_fetch_row($query_run_getAbiotic);
+                            $corn_abiotic_other_id = $row_getAbiotic[0];
+
+                            // if the corn_abiotic_other_id is null or empty save it
+                            if ($corn_abiotic_other_id === null || $corn_abiotic_other_id === "") {
+                                // Insert data into the respective tables
+                                if ($abiotic_other) {
+                                    // Insert into corn_Abiotic_other table
+                                    $queryAbiotic_other = "INSERT INTO corn_abiotic_resistance_other (corn_abiotic_other, corn_abiotic_other_desc) VALUES ($1, $2) returning corn_abiotic_other_id";
+                                    $query_run_Abiotic_other = pg_query_params($conn, $queryAbiotic_other, array($abiotic_other, $abiotic_other_desc));
+                                    if ($query_run_Abiotic_other) {
+                                        $rowAbiotic_other = pg_fetch_row($query_run_Abiotic_other);
+                                        $corn_abiotic_other_id = $rowAbiotic_other[0];
+
+                                        // Insert into crop table
+                                        $query_cropInsert = "UPDATE corn_traits set corn_abiotic_other_id = $1 where corn_traits_id = $2";
+                                        $query_run_cropInsert = pg_query_params($conn, $query_cropInsert, array($corn_abiotic_other_id, $corn_traits_id));
+                                        if ($query_run_cropInsert) {
+                                            echo "success";
+                                        } else {
+                                            echo "Error: " . pg_last_error($conn);
+                                            exit(0);
+                                        }
+                                    } else {
+                                        echo "Error: " . pg_last_error($conn);
+                                        exit(0);
+                                    }
+                                }
+                            } else {
+                                // if it exists just update its data
+                                // pest resistance other corn
+                                $query_abioticOther = "UPDATE corn_abiotic_resistance_other set corn_abiotic_other = $1, corn_abiotic_other_desc = $2 WHERE corn_abiotic_other_id = $3";
+                                $query_run_abioticOther = pg_query_params($conn, $query_abioticOther, array($abiotic_other, $abiotic_other_desc, $corn_abiotic_other_id));
+                                if ($query_run_abioticOther) {
+                                    echo "success";
+                                } else {
+                                    echo "Error: " . pg_last_error($conn);
+                                    exit(0);
+                                }
+                            }
+                        }
+                    }
+
+                    // Update the pest resistance
+                    if (isset($pest_resistances)) {
+                        // Delete existing pest resistances for the variety
+                        $query_delete_pest = "DELETE FROM corn_pest_resistance WHERE corn_traits_id = $1";
+                        $query_run_delete_pest = pg_query_params($conn, $query_delete_pest, array($corn_traits_id));
+
+                        // Split the string into an array of integers
+                        $pest_resistances_arr = explode(',', substr($pest_resistances, 1, -1));
+
+                        // Loop through the submitted pest resistance IDs
+                        foreach ($pest_resistances_arr as $pest_id) {
+                            // Assuming $corn_id contains the ID of the corn variety
+                            $corn_is_checked_pest = true; // Set to true since it's a boolean value
+
+                            // Insert the record into the database
+                            $query_pest = "INSERT INTO corn_pest_resistance (corn_traits_id, pest_resistance_id, corn_is_checked_pest) VALUES ($1, $2, $3)";
+                            $query_run_pest = pg_query_params($conn, $query_pest, array($corn_traits_id, $pest_id, $corn_is_checked_pest));
+                            if (!$query_run_pest) {
+                                echo "Error: " . pg_last_error($conn);
+                                exit(0);
+                            }
+                        }
+                    }
+
+                    // Update the disease resistance
+                    if (isset($disease_resistances)) {
+                        // Delete existing disease resistances for the variety
+                        $query_delete_disease = "DELETE FROM corn_disease_resistance WHERE corn_traits_id = $1";
+                        $query_run_delete_disease = pg_query_params($conn, $query_delete_disease, array($corn_traits_id));
+
+                        // Split the string into an array of integers
+                        $disease_resistances_arr = explode(',', substr($disease_resistances, 1, -1));
+
+                        // Loop through the submitted disease resistance IDs
+                        foreach ($disease_resistances_arr as $disease_id) {
+                            // Assuming $corn_id contains the ID of the corn variety
+                            $corn_is_checked_disease = true; // Set to true since it's a boolean value
+
+                            // Insert the record into the database
+                            $query_disease = "INSERT INTO corn_disease_resistance (corn_traits_id, disease_resistance_id, corn_is_checked_disease) VALUES ($1, $2, $3)";
+                            $query_run_disease = pg_query_params($conn, $query_disease, array($corn_traits_id, $disease_id, $corn_is_checked_disease));
+                            if (!$query_run_disease) {
+                                echo "Error: " . pg_last_error($conn);
+                                exit(0);
+                            }
+                        }
+                    }
+
+                    // Update the abiotic resistance
+                    if (isset($abiotic_resistances)) {
+                        // Delete existing abiotic resistances for the variety
+                        $query_delete_abiotic = "DELETE FROM corn_abiotic_resistance WHERE corn_traits_id = $1";
+                        $query_run_delete_abiotic = pg_query_params($conn, $query_delete_abiotic, array($corn_traits_id));
+
+                        // Split the string into an array of integers
+                        $abiotic_resistances_arr = explode(',', substr($abiotic_resistances, 1, -1));
+                
+                        // Loop through the submitted abiotic resistance IDs
+                        foreach ($abiotic_resistances_arr as $abiotic_id) {
+                            // Assuming $corn_id contains the ID of the corn variety
+                            $corn_is_checked_abiotic = true; // Set to true since it's a boolean value
+
+                            // Insert the record into the database
+                            $query_abiotic = "INSERT INTO corn_abiotic_resistance (corn_traits_id, abiotic_resistance_id, corn_is_checked_abiotic) VALUES ($1, $2, $3)";
+                            $query_run_abiotic = pg_query_params($conn, $query_abiotic, array($corn_traits_id, $abiotic_id, $corn_is_checked_abiotic));
+                            if (!$query_run_abiotic) {
+                                echo "Error: " . pg_last_error($conn);
+                                exit(0);
+                            }
+                        }
                     }
                 }
 
@@ -350,33 +466,6 @@ if (isset($_POST['update'])) {
                     die();
                 }
 
-                // Delete from Disease Resistance table
-                $query_delete_disease_res = "DELETE FROM disease_resistance WHERE disease_resistance_id = $1";
-                $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$update_disease_resistance_id]);
-
-                if (!$query_run_delete_disease_res) {
-                    echo "Error: " . pg_last_error($conn);
-                    die();
-                }
-
-                // Delete from Abiotic Resistance table
-                $query_delete_abiotic_res = "DELETE FROM abiotic_resistance WHERE abiotic_resistance_id = $1";
-                $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$update_abiotic_resistance_id]);
-
-                if (!$query_run_delete_abiotic_res) {
-                    echo "Error: " . pg_last_error($conn);
-                    die();
-                }
-
-                // Delete from Pest Resistance_corn table
-                $query_delete_pest_res = "DELETE FROM pest_resistance_corn WHERE pest_resistance_corn_id = $1";
-                $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$update_pest_resistance_corn_id]);
-
-                if (!$query_run_delete_pest_res) {
-                    echo "Error: " . pg_last_error($conn);
-                    die();
-                }
-
                 // Delete from Vegetative state table
                 $query_delete_veg_state = "DELETE FROM vegetative_state_corn WHERE vegetative_state_corn_id = $1";
                 $query_run_delete_veg_state = pg_query_params($conn, $query_delete_veg_state, [$update_vegetative_state_corn_id]);
@@ -400,6 +489,51 @@ if (isset($_POST['update'])) {
                 $query_run_delete_seed_traits = pg_query_params($conn, $query_delete_seed_traits, [$update_seed_traits_id]);
 
                 if (!$query_run_delete_seed_traits) {
+                    echo "Error: " . pg_last_error($conn);
+                    die();
+                }
+
+                // Delete from Disease Resistance table
+                $query_delete_disease_res = "DELETE FROM corn_disease_resistance WHERE corn_traits_id = $1";
+                $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$update_corn_traits_id]);
+
+                if (!$query_run_delete_disease_res) {
+                    echo "Error: " . pg_last_error($conn);
+                    die();
+                }
+
+                // Delete from Abiotic Resistance table
+                $query_delete_abiotic_res = "DELETE FROM corn_abiotic_resistance WHERE corn_traits_id = $1";
+                $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$update_corn_traits_id]);
+
+                if (!$query_run_delete_abiotic_res) {
+                    echo "Error: " . pg_last_error($conn);
+                    die();
+                }
+
+                // Delete from Pest Resistance_corn table
+                $query_delete_pest_res = "DELETE FROM corn_pest_resistance WHERE corn_traits_id = $1";
+                $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$update_corn_traits_id]);
+
+                if (!$query_run_delete_pest_res) {
+                    echo "Error: " . pg_last_error($conn);
+                    die();
+                }
+
+                // Delete from pest other resistance table
+                $query_delete_pestOther = "DELETE FROM corn_pest_resistance_other WHERE corn_pest_other_id = $1";
+                $query_run_delete_pestOther = pg_query_params($conn, $query_delete_pestOther, [$update_corn_pest_other_id]);
+
+                if (!$query_run_delete_pestOther) {
+                    echo "Error: " . pg_last_error($conn);
+                    die();
+                }
+
+                // Delete from abiotic other resistance table
+                $query_delete_abioticOther = "DELETE FROM corn_abiotic_resistance_other WHERE corn_abiotic_other_id = $1";
+                $query_run_delete_abioticOther = pg_query_params($conn, $query_delete_abioticOther, [$update_corn_abiotic_other_id]);
+
+                if (!$query_run_delete_abioticOther) {
                     echo "Error: " . pg_last_error($conn);
                     die();
                 }
