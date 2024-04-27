@@ -71,6 +71,15 @@ document.querySelectorAll('#crop-list-tbody tr').forEach(row => {
     // Extract category and variety
     let category = row.querySelector('.category').textContent.trim();
     let variety = row.querySelector('.variety').textContent.trim();
+    let viewLink = row.getAttribute('data-href');
+    
+    // bindPopup
+    let popup=`
+        <div class="container">
+            <h6 class="row d-flex justify-content-center fw-semibold">${variety}</h6>
+            <div class="row d-flex justify-content-end"><a class="small-font w-auto" href="${viewLink}">See More...</a></div>
+        </div>
+    `;
 
     // Extract latitude and longitude from latlng attribute
     let latLng = row.getAttribute('latlng');
@@ -85,8 +94,7 @@ document.querySelectorAll('#crop-list-tbody tr').forEach(row => {
             // Create marker and add to map
             if (icon) {
                 L.marker([lat, lng], {icon: icon})
-                    .bindPopup(`<b>${
-                        category}</b><br>${variety}`)
+                    .bindPopup(popup)
                     .addTo(map);
             } else {
                 console.error(`Icon for category "${category}" is not defined.`);
@@ -95,6 +103,7 @@ document.querySelectorAll('#crop-list-tbody tr').forEach(row => {
     }
 });
 
+// make rows clickable
 $(document).ready(function(){
     // Add click event to table rows
     $('#crop-list-tbody tr[data-href]').on("click", function() {
