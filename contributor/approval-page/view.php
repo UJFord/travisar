@@ -17,7 +17,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel-view" name="Form" action="code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel-view" name="Form" action="pending-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body edit-modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -106,7 +106,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "code.php",
+                url: "pending-code.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,
@@ -165,11 +165,17 @@
                             $('.updateButton').show();
                             // hide approve button
                             $('.approveButton').hide();
-                        } else {
+                        } else if (value['action'] === 'pending') {
                             // hide approve button
                             $('.approveButton').show();
                             // show update button
                             $('.updateButton').hide();
+                        } else {
+                            // hide approve button
+                            $('.approveButton').hide();
+                            // show update button
+                            $('.updateButton').hide();
+                            $('#rejectButton').hide();
                         }
 
                         // Fetch the old image and pass it to the fetchOldImage function
