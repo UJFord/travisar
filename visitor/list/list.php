@@ -24,7 +24,7 @@
         </div>
         <div class="w-auto">
             <img class="legend-ico" src="img/carrot-svgrepo-com.svg" alt="" srcset="">
-            Root Crops
+            Root Crop
         </div>
     </div>
 </div>

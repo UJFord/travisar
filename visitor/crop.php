@@ -1,3 +1,7 @@
+<?php
+require "../functions/connections.php";
+?>
+
 <!doctype html>
 <html lang="en">
 
@@ -24,14 +28,12 @@
 <body class="bg-light">
     <!-- NAVBAR -->
     <?php require "nav/nav.php" ?>
-
+w
     <!-- FILTER -->
     <?php require "filter/filter.php" ?>
 
     <!-- LIST -->
     <?php require "list/list.php" ?>
-
-
 
     <!-- SCRIPT -->
     <!-- jquery -->

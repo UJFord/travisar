@@ -24,10 +24,10 @@
 <body class="bg-light">
     <!-- NAVBAR -->
     <?php require "nav/nav.php" ?>
-
+    <!-- NAVBAR -->
+    <?php require "view-tab/crop.php" ?>
     <!-- FILTER -->
     <?php require "filter/filter.php" ?>
-
 
     <!-- SCRIPT -->
     <!-- jquery -->

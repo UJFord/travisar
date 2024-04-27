@@ -22,65 +22,55 @@
 
                 <!-- content -->
                 <div class="modal-body">
-
                     <!-- crop type -->
                     <div class="container border-bottom pb-2 mb-4">
                         <h5 class="filter-title">Crop Type</h5>
                         <div class="d-flex justify-content-center mb-2">
                             <div class="rounded d-flex flex-row overflow-hidden border">
-                                <input type="radio" name="crop_type" id="crop_corn" class="d-none">
-                                <label for="crop_corn" class="filter-crop-type bg-dark bg-gradient text-light fw-semibold py-3 px-5 border-0">Corn</label>
+                                <?php
+                                $query = "SELECT * FROM category order by category_name ASC";
+                                $query_run = pg_query($conn, $query);
 
-                                <input type="radio" name="crop_type" id="crop_rice" class="d-none">
-                                <label for="crop_rice" class="filter-crop-type bg-white bg-gradient text-dark fw-semibold py-3 px-5 border border-top-0 border-bottom-0">Rice</label>
-
-                                <input type="radio" name="crop_type" id="crop_other" class="d-none">
-                                <label for="crop_other" class="filter-crop-type bg-white bg-gradient text-dark fw-semibold py-3 px-5 border-0">Other</label>
+                                if ($query_run) {
+                                    while ($row = pg_fetch_array($query_run)) {
+                                ?>
+                                        <!-- crops filters -->
+                                        <input type="radio" name="crop_type" id="crop_<?= $row['category_name'] ?>" class="d-none">
+                                        <label for="crop_<?= $row['category_name'] ?>" class="filter-crop-type bg-dark bg-gradient text-light fw-semibold py-3 px-5 border-0"><?= $row['category_name'] ?></label>
+                                <?php
+                                    }
+                                } else {
+                                    echo "No category found";
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
-
 
                     <!-- municipality -->
                     <div class="container border-bottom pb-2 mb-4">
                         <h5 class="filter-title">Location</h5>
                         <div class="row">
                             <div class="d-flex flex-wrap">
-                                <!-- alabel -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Alabel</label>
-                                </div>
-                                <!-- Malapatan -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Malapatan</label>
-                                </div>
-                                <!-- Glan -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Glan</label>
-                                </div>
-                                <!-- Kiamba -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Kiamba</label>
-                                </div>
-                                <!-- Malungon -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Malungon</label>
-                                </div>
-                                <!-- Maasim -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Maasim</label>
-                                </div>
-                                <!-- Maitum -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Maitum</label>
-                                </div>
+                                <?php
+                                $query = "SELECT * FROM municipality order by municipality_name ASC";
+                                $query_run = pg_query($conn, $query);
+
+                                if ($query_run) {
+                                    while ($row = pg_fetch_array($query_run)) {
+                                ?>
+                                        <!-- crops filters -->
+                                        <div class="form-check mb-2 w-25">
+                                            <input type="checkbox" class="form-check-input">
+                                            <label for="" class="form-check-label"><?= $row['municipality_name'] ?></label>
+                                        </div>
+
+                                <?php
+                                    }
+                                } else {
+                                    echo "No municipality found";
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -90,31 +80,24 @@
                         <h5 class="filter-title">Terrain</h5>
                         <div class="row">
                             <div class="d-flex flex-wrap">
-                                <!-- Flat -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Flat</label>
-                                </div>
-                                <!-- Hillside -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Hillside</label>
-                                </div>
-                                <!-- Rolling -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Rolling</label>
-                                </div>
-                                <!-- Sloping -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Sloping</label>
-                                </div>
-                                <!-- Steep -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Steep</label>
-                                </div>
+                                <?php
+                                $query = "SELECT * FROM terrain order by terrain_name ASC";
+                                $query_run = pg_query($conn, $query);
+
+                                if ($query_run) {
+                                    while ($row = pg_fetch_array($query_run)) {
+                                ?>
+                                        <!-- terrain filters -->
+                                        <div class="form-check mb-2 w-25">
+                                            <input type="checkbox" class="form-check-input">
+                                            <label for="" class="form-check-label"><?= $row['terrain_name'] ?></label>
+                                        </div>
+                                <?php
+                                    }
+                                } else {
+                                    echo "No terrain found";
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>
@@ -124,46 +107,23 @@
                         <h5 class="filter-title">Barangay</h5>
                         <div class="row">
                             <div class="d-flex flex-wrap">
-                                <!-- Alegria -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Alegria</label>
-                                </div>
-                                <!-- Bagacay -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Bagacay</label>
-                                </div>
-                                <!-- Baluntay -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Baluntay</label>
-                                </div>
-                                <!-- Datak Angas -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Datak Angas</label>
-                                </div>
-                                <!-- Domolok -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Domolok</label>
-                                </div>
-                                <!-- Kawas -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Kawas</label>
-                                </div>
-                                <!-- Ladol -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Ladol</label>
-                                </div>
-                                <!-- Maribulan -->
-                                <div class="form-check mb-2 w-25">
-                                    <input type="checkbox" class="form-check-input">
-                                    <label for="" class="form-check-label">Maribulan</label>
-                                </div>
+                                <?php
+                                $query = "SELECT * FROM municipality order by municipality_name ASC";
+                                $query_run = pg_query($conn, $query);
+
+                                if ($query_run) {
+                                    while ($row = pg_fetch_array($query_run)) {
+                                ?>
+                                        <!-- crops filters -->
+                                        <div id="brgy-filters" class="form-check mb-2 w-25">
+                                        </div>
+
+                                <?php
+                                    }
+                                } else {
+                                    echo "No municipality found";
+                                }
+                                ?>
                             </div>
                         </div>
                     </div>

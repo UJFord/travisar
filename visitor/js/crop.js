@@ -9,8 +9,8 @@
 const cropButtons = document.querySelectorAll('.filter-crop-type');
 
 cropButtons.forEach(button => {
-    button.addEventListener('click', function() {
-        const radioId = `crop_${this.textContent.toLowerCase()}`;
+    button.addEventListener('click', function () {
+        const radioId = this.getAttribute('for');
         const radio = document.getElementById(radioId);
         radio.checked = true;
 
@@ -27,7 +27,6 @@ cropButtons.forEach(button => {
         this.classList.add('text-light');
     });
 });
-
 
 // MAP
 
@@ -72,9 +71,9 @@ document.querySelectorAll('#crop-list-tbody tr').forEach(row => {
     let category = row.querySelector('.category').textContent.trim();
     let variety = row.querySelector('.variety').textContent.trim();
     let viewLink = row.getAttribute('data-href');
-    
+
     // bindPopup
-    let popup=`
+    let popup = `
         <div class="container">
             <h6 class="row d-flex justify-content-center fw-semibold">${variety}</h6>
             <div class="row d-flex justify-content-end"><a class="small-font w-auto" href="${viewLink}">See More...</a></div>
@@ -85,7 +84,7 @@ document.querySelectorAll('#crop-list-tbody tr').forEach(row => {
     let latLng = row.getAttribute('latlng');
     if (latLng) {
         let [lat, lng] = latLng.split(',').map(coord => parseFloat(coord.trim()));
-        
+
         // Check if latitude and longitude values are valid
         if (!isNaN(lat) && !isNaN(lng)) {
             // Choose icon based on category
@@ -93,7 +92,7 @@ document.querySelectorAll('#crop-list-tbody tr').forEach(row => {
 
             // Create marker and add to map
             if (icon) {
-                L.marker([lat, lng], {icon: icon})
+                L.marker([lat, lng], { icon: icon })
                     .bindPopup(popup)
                     .addTo(map);
             } else {
@@ -104,9 +103,9 @@ document.querySelectorAll('#crop-list-tbody tr').forEach(row => {
 });
 
 // make rows clickable
-$(document).ready(function(){
+$(document).ready(function () {
     // Add click event to table rows
-    $('#crop-list-tbody tr[data-href]').on("click", function() {
+    $('#crop-list-tbody tr[data-href]').on("click", function () {
         // Get the URL from the data-href attribute
         var url = $(this).attr('data-href');
         // Navigate to the URL
