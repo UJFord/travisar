@@ -102,7 +102,7 @@
                         </label>
                     </th>
                     <th class="col-2 text-dark-emphasis small-font" scope="col">First Name</th>
-                    <th class="col-2 text-dark-emphasis text-center small-font" scope="col">Crops Contributed</th>
+                    <th class="col-2 text-dark-emphasis small-font" scope="col">Last Name</th>
                     <th class="col-2 text-dark-emphasis text-center small-font" scope="col">Date Created</th>
                     <th col-4 class="col-1 text-center">
                         <!-- add button -->
@@ -154,19 +154,16 @@
                             <th scope="row"><input class="form-check-input" type="checkbox"></th>
                             <input type="hidden" name="user_id" value="<?= $row['user_id']; ?>">
                             <td>
-                                <!-- First name -->
-                                <a href=""><?= $row['first_name']; ?></a>
-                                <!-- Last Name -->
-                                <h6 class="text-secondary small-font m-0"><?= $row['last_name']; ?></h6>
+                                <!-- First Name -->
+                                <h6 class="small-font m-0"><?= $row['first_name']; ?></h6>
                             </td>
-
-                            <!-- Crops Created -->
-                            <td class=" text-secondary small-font text-center fw-normal">
-                                <h6 class="text-secondary small-font m-0"><?= $row['contributed_crops']; ?></h6>
+                            <td>
+                                <!-- last Name -->
+                                <h6 class="small-font m-0"><?= $row['last_name']; ?></h6>
                             </td>
 
                             <!-- Date Created -->
-                            <td class=" text-secondary small-font text-center fw-normal">
+                            <td class="small-font text-center fw-normal">
                                 <?= $formatted_date; ?>
                             </td>
 

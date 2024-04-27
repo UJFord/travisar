@@ -28,7 +28,9 @@
                         Crop Management
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="addressesDropdown">
-                        <a class="dropdown-item" href="../approval-page/approval.php">Approval</a>
+                        <a class="dropdown-item" href="../approval-page/pending.php">Pending</a>
+                        <a class="dropdown-item" href="../approval-page/approved.php">Approved</a>
+                        <a class="dropdown-item" href="../approval-page/rejected.php">Rejected</a>
                     </ul>
                 </li>
 

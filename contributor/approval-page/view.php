@@ -17,7 +17,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel-view" name="Form" action="code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel-view" name="Form" action="pending-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body edit-modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -106,7 +106,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "code.php",
+                url: "pending-code.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,
@@ -165,11 +165,17 @@
                             $('.updateButton').show();
                             // hide approve button
                             $('.approveButton').hide();
-                        } else {
+                        } else if (value['action'] === 'pending') {
                             // hide approve button
                             $('.approveButton').show();
                             // show update button
                             $('.updateButton').hide();
+                        } else {
+                            // hide approve button
+                            $('.approveButton').hide();
+                            // show update button
+                            $('.updateButton').hide();
+                            $('#rejectButton').hide();
                         }
 
                         // Fetch the old image and pass it to the fetchOldImage function
@@ -272,16 +278,16 @@
                             $('#pan-features-Edit').text(value['panicle_remarkable_features']);
 
                             // seed traits
-                            $('#rice-seed-length-Edit').val(value['seed_length']);
-                            $('#rice-seed-width-Edit').val(value['seed_width']);
-                            $('#rice-seed-shape-Edit').val(value['seed_shape']);
-                            $('#rice-seed-color-Edit').val(value['seed_color']);
+                            $('#rice-seed-length-Edit').text(value['seed_length']);
+                            $('#rice-seed-width-Edit').text(value['seed_width']);
+                            $('#rice-seed-shape-Edit').text(value['seed_shape']);
+                            $('#rice-seed-color-Edit').text(value['seed_color']);
 
                             // flag leaf traits
-                            $('#flag-length-Edit').val(value['flag_length']);
-                            $('#flag-width-Edit').val(value['flag_width']);
-                            $('#Pubescence-Edit').val(value['pubescence']);
-                            $('#flag-features-Edit').val(value['flag_remarkable_features']);
+                            $('#flag-length-Edit').text(value['flag_length']);
+                            $('#flag-width-Edit').text(value['flag_width']);
+                            $('#Pubescence-Edit').text(value['pubescence']);
+                            $('#flag-features-Edit').text(value['flag_remarkable_features']);
                             $('#purplishStripes-Edit').prop('checked', value['purplish_stripes']);
 
                             // sensory traits of cooked rice
@@ -522,28 +528,18 @@
                         }
 
                         //loc.php
-                        $('#SitioEdit').val(value['sitio_name']);
+                        $('#ProvinceEdit').text(value['province_name']);
+                        $('#MunicipalitySelect').text(value['municipality_name']);
+                        $('#BarangaySelect').text(value['barangay_name']);
+                        $('#SitioEdit').text(value['sitio_name']);
                         // coordInput
-                        $('#coordEdit').val(value['coordinates']);
+                        $('#coordEdit').text(value['coordinates']);
                         // Update the select data of loc.php locations
                         $('#crop_variety_select').append($('<option>', {
                             value: value['crop_variety'],
                             text: value['crop_variety'],
                             selected: true, // Make the option selected
                             style: 'display: none;' // Hide the option
-                        }));
-
-                        $('#BarangaySelect').append($('<option>', {
-                            value: value['barangay_id'],
-                            text: value['barangay_name'],
-                            selected: true,
-                            style: 'display: none;'
-                        }));
-                        $('#MunicipalitySelect').append($('<option>', {
-                            value: value['municipality_id'],
-                            text: value['municipality_name'],
-                            selected: true,
-                            style: 'display: none;'
                         }));
 
                         // // Ensure municipalitiesID array is defined

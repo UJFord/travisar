@@ -15,7 +15,7 @@ if (isset($_POST['click_edit_btn'])) {
         $get_category_name = $row_categoryName['category_name'];
     } else {
         $_SESSION['message'] = "No category available, incomplete data";
-        header("location: ../../../crop.php");
+        header("location: ../pending.php");
         exit();
     }
 
@@ -131,6 +131,8 @@ if (isset($_POST['click_edit_btn'])) {
     } else {
         // Handle other categories or invalid category names
         // For example, set a default category or display an error message
-        echo '<h4>No record found</h4>';
+        $_SESSION['message'] = "No record found";
+        header("location: ../pending.php");
+        exit();
     }
 }
