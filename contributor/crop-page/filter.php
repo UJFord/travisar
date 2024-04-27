@@ -60,6 +60,33 @@
             </div>
         </div>
 
+        <!-- terrain -->
+        <div class="py-2 px-3 w-100 border-bottom">
+            <div id="terrain-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#terrain-filters" role="button" aria-expanded="true" aria-controls="terrain-filters">
+                <i id="terrainChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1"></i>
+                <a class="fw-bold text-success col text-decoration-none" href="">All Terrains</a>
+            </div>
+
+            <?php
+            $query = "SELECT * FROM terrain order by terrain_name ASC";
+            $query_run = pg_query($conn, $query);
+
+            if ($query_run) {
+                while ($row = pg_fetch_array($query_run)) {
+            ?>
+                    <!-- terrains filters -->
+                    <div id="terrain-filters" class="collapse show w-100 mb-2">
+                        <input class="form-check-input terrain-filter" type="checkbox" id="terrain<?= $row['terrain_id']; ?>" value="<?= $row['terrain_id']; ?>">
+                        <label for="terrain<?= $row['terrain_id']; ?>"><?= $row['terrain_name']; ?></label>
+                    </div>
+            <?php
+                }
+            } else {
+                echo "No terrain found";
+            }
+            ?>
+        </div>
+
         <!-- all municipalities -->
         <div class="pt-2 pb-1 px-3 w-100">
             <div id="mun-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#municipality-filters" role="button" aria-expanded="true" aria-controls="municipalty-filters">
@@ -138,10 +165,12 @@
     // chevron toggler
     let cropToggler = document.querySelector('#crop-filter-dropdown-toggler');
     let varietyToggler = document.querySelector('#variety-filter-dropdown-toggler');
+    let terrainToggler = document.querySelector('#terrain-filter-dropdown-toggler');
     let munToggler = document.querySelector('#mun-filter-dropdown-toggler');
 
     let cropChev = document.querySelector('#cropChev');
     let varietyChev = document.querySelector('#varietyChev');
+    let terrainChev = document.querySelector('#terrainChev');
     let munChev = document.querySelector('#munChev');
 
     function toggleChevron(element) {
@@ -150,5 +179,6 @@
 
     cropToggler.onclick = () => toggleChevron(cropChev);
     varietyToggler.onclick = () => toggleChevron(varietyChev);
+    terrainToggler.onclick = () => toggleChevron(terrainChev);
     munToggler.onclick = () => toggleChevron(munChev);
 </script>

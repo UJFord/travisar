@@ -157,6 +157,7 @@ require "../../functions/functions.php";
             const selectedCategories = Array.from(document.querySelectorAll('.crop-filter:checked')).map(checkbox => checkbox.value);
             const selectedMunicipalities = Array.from(document.querySelectorAll('.municipality-filter:checked')).map(checkbox => checkbox.value);
             const selectedVarieties = Array.from(document.querySelectorAll('.variety-filter:checked')).map(checkbox => checkbox.value);
+            const selectedTerrain = Array.from(document.querySelectorAll('.terrain-filter:checked')).map(checkbox => checkbox.value);
 
             // Build the search condition based on selected categories, municipalities, and the search value
             if (selectedCategories.length > 0) {
@@ -171,6 +172,11 @@ require "../../functions/functions.php";
             }
             if (selectedVarieties.length > 0) {
                 searchCondition += `&varieties=${selectedVarieties.join(',')}`;
+                console.log(searchCondition);
+                console.log('Filter applied');
+            }
+            if (selectedTerrain.length > 0) {
+                searchCondition += `&terrains=${selectedTerrain.join(',')}`;
                 console.log(searchCondition);
                 console.log('Filter applied');
             }
