@@ -85,8 +85,8 @@ require "../functions/connections.php";
                                         <td class="w-75 fw-semibold"><?= $crops['terrain_name'] ?></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" class="text-secondary w-25 fw-normal"><?= $crops['crop_description'] ?></th>
-                                        <td class="w-75 fw-semibold"></td>
+                                        <th scope="row" class="text-secondary w-25 fw-normal">Description</th>
+                                        <td class="w-75 fw-semibold"><?= $crops['crop_description'] ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="text-secondary w-25 fw-normal">Seed Image</th>
