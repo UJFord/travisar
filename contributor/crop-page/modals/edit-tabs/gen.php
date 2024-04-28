@@ -78,7 +78,25 @@
         /* Adjust padding around button */
     }
 
-    .remove-imageEdit {
+    .remove-imageEdit-seed {
+        position: absolute;
+        background: none;
+        border: none;
+        color: red;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .remove-imageEdit-veg {
+        position: absolute;
+        background: none;
+        border: none;
+        color: red;
+        font-weight: bold;
+        cursor: pointer;
+    }
+
+    .remove-imageEdit-repro {
         position: absolute;
         background: none;
         border: none;
@@ -329,64 +347,170 @@
 
 <!-- SCRIPT for edit tab for the image-->
 <script defer>
-    // handling to show all image inputs
-    const imageInputEdit = document.getElementById('imageInputSeedEdit');
+    const imageInputEditSeed = document.getElementById('imageInputSeedEdit');
+    const imageInputEditVeg = document.getElementById('imageInputVegetativeEdit');
+    const imageInputEditRepro = document.getElementById('imageInputReproductiveEdit');
     const previewContainerEdit = document.querySelector('.preview-containerEdit');
-    let oldImage = ''; // Variable to store the old image URL or filename
+    let oldImageSeed = ''; // Variable to store the old image URL or filename
+    let oldImageVeg = '';
+    let oldImageRepro = '';
 
     // Function to fetch the old image when editing an item
-    function fetchOldImage(image) {
-        oldImage = image; // Store the old image URL or filename
+    function fetchOldImageSeed(image) {
+        oldImageSeed = image; // Store the old image URL or filename
+    }
+    // Function to fetch the old image when editing an item
+    function fetchOldImageVeg(image) {
+        oldImageVeg = image; // Store the old image URL or filename
+    }
+    // Function to fetch the old image when editing an item
+    function fetchOldImageRepro(image) {
+        oldImageRepro = image; // Store the old image URL or filename
     }
 
-    function addOldImageFile(oldImageFilename) {
+    function addOldImageFileSeed(oldImageFilename) {
         if (oldImageFilename && oldImageFilename.trim() !== '') {
             var dataTransfer = new DataTransfer();
-            Array.from(imageInputEdit.files).forEach(function(file) {
+            Array.from(imageInputEditSeed.files).forEach(function(file) {
                 dataTransfer.items.add(file);
             });
             var oldImageFile = new File([null], oldImageFilename, {
                 type: 'image/png'
             });
             dataTransfer.items.add(oldImageFile);
-            imageInputEdit.files = dataTransfer.files;
+            imageInputEditSeed.files = dataTransfer.files;
         }
     }
 
-    // function to display and remove the image selected
-    $(document).ready(function() {
-        $('input[type="file"]').on("change", function() {
-            var files = $(this)[0].files;
-            $('#previewSeedEdit').empty();
-
-            // Loop through the files and append them to the preview container
-            $.each(files, function(i, file) {
-                var reader = new FileReader();
-                reader.onload = function(e) {
-                    $('#previewSeedEdit').prepend('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-imageEdit" data-index="' + i + '"><i class="fa-solid fa-xmark"></i></button></div>');
-                }
-                reader.readAsDataURL(file);
+    function addOldImageFileVeg(oldImageFilename) {
+        if (oldImageFilename && oldImageFilename.trim() !== '') {
+            var dataTransfer = new DataTransfer();
+            Array.from(imageInputEditVeg.files).forEach(function(file) {
+                dataTransfer.items.add(file);
             });
+            var oldImageFile = new File([null], oldImageFilename, {
+                type: 'image/png'
+            });
+            dataTransfer.items.add(oldImageFile);
+            imageInputEditVeg.files = dataTransfer.files;
+        }
+    }
 
-            // If there's an old image, append it to the preview container and set the value of the hidden input field
-            if (oldImage) {
-                var oldImageFilenames = oldImage.split(',');
-                oldImageFilenames.forEach(function(filename, index) {
-                    $('#previewSeedEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="modals/img/' + filename.trim() + '" class="img-thumbnail"/><button class="remove-imageEdit" data-index="' + (files.length + index) + '"><i class="fa-solid fa-xmark"></i></button></div>');
+    function addOldImageFileRepro(oldImageFilename) {
+        if (oldImageFilename && oldImageFilename.trim() !== '') {
+            var dataTransfer = new DataTransfer();
+            Array.from(imageInputEditRepro.files).forEach(function(file) {
+                dataTransfer.items.add(file);
+            });
+            var oldImageFile = new File([null], oldImageFilename, {
+                type: 'image/png'
+            });
+            dataTransfer.items.add(oldImageFile);
+            imageInputEditRepro.files = dataTransfer.files;
+        }
+    }
 
-                    // Add the old image file to the files array
-                    addOldImageFile(filename.trim());
-                });
+    // Function to handle seed image input
+    function handleSeedImageInput() {
+        const imageInputEditSeed = document.getElementById('imageInputSeedEdit');
+        const previewContainerEdit = document.getElementById('previewSeedEdit');
+
+        var files = $(this)[0].files;
+        $('#previewSeedEdit').empty();
+
+        // Loop through the files and append them to the preview container
+        $.each(files, function(i, file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#previewSeedEdit').prepend('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-imageEdit-seed" data-index="' + i + '"><i class="fa-solid fa-xmark"></i></button></div>');
             }
-
-            console.log("Remaining images after change:", imageInputEdit.files);
-            checkForContent();
+            reader.readAsDataURL(file);
         });
+
+        // If there's an old image, append it to the preview container and set the value of the hidden input field
+        if (oldImageSeed) {
+            var oldImageFilenames = oldImageSeed.split(',');
+            oldImageFilenames.forEach(function(filename, index) {
+                $('#previewSeedEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="modals/img/' + filename.trim() + '" class="img-thumbnail"/><button class="remove-imageEdit-seed" data-index="' + (files.length + index) + '"><i class="fa-solid fa-xmark"></i></button></div>');
+
+                // Add the old image file to the files array
+                addOldImageFileSeed(filename.trim());
+            });
+        }
+
+        console.log("Remaining images after change:", imageInputEditSeed.files);
+        checkForContent();
 
         //* if you input multiple images and you added a wrong one you can delete it
         //* this code will remove the one you deleted from existing image array
         //* and the remaining images is transferred to another array and is considered as a new input
-        $(document).on("click", ".remove-imageEdit", function() {
+        $(document).off("click", ".remove-imageEdit-seed").on("click", ".remove-imageEdit-seed", function() {
+            var index = $(this).data("index");
+            console.log("Removing image at index:", index);
+
+            var newFiles = Array.from(imageInputEditSeed.files).filter((_, i) => i !== index);
+            var dataTransfer = new DataTransfer();
+            newFiles.forEach(function(file) {
+                dataTransfer.items.add(file);
+            });
+
+            // Update the input files and reset the indexes
+            imageInputEditSeed.files = dataTransfer.files;
+            $('#previewSeedEdit').empty();
+            Array.from(imageInputEditSeed.files).forEach(function(file, index) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#previewSeedEdit').prepend('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-imageEdit-seed" data-index="' + index + '"><i class="fa-solid fa-xmark"></i></button></div>');
+                }
+                reader.readAsDataURL(file);
+            });
+
+            console.log("New files array after removal:", imageInputEditSeed.files);
+            checkForContent();
+        });
+
+        // Add event listener for the hidden.bs.modal event
+        $('#add-item-modal, #edit-item-modal').on('hidden.bs.modal', function() {
+            imageInputEditSeed.value = ''; // Reset file input
+            $('#previewSeedEdit').empty(); // Clear preview container
+            checkForContent();
+        });
+    }
+
+    // Function to handle vegetative stage image input
+    function handleVegetativeImageInput() {
+        const imageInputEdit = document.getElementById('imageInputVegetativeEdit');
+        const previewContainerEdit = document.getElementById('previewVegEdit');
+        var files = $(this)[0].files;
+        $('#previewVegEdit').empty();
+
+        // Loop through the files and append them to the preview container
+        $.each(files, function(i, file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#previewVegEdit').prepend('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-imageEdit-veg" data-index="' + i + '"><i class="fa-solid fa-xmark"></i></button></div>');
+            }
+            reader.readAsDataURL(file);
+        });
+
+        // If there's an old image, append it to the preview container and set the value of the hidden input field
+        if (oldImageVeg) {
+            var oldImageFilenames = oldImageVeg.split(',');
+            oldImageFilenames.forEach(function(filename, index) {
+                $('#previewVegEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="modals/img/' + filename.trim() + '" class="img-thumbnail"/><button class="remove-imageEdit-veg" data-index="' + (files.length + index) + '"><i class="fa-solid fa-xmark"></i></button></div>');
+
+                // Add the old image file to the files array
+                addOldImageFileVeg(filename.trim());
+            });
+        }
+
+        console.log("Remaining images after change:", imageInputEdit.files);
+        checkForContent();
+
+        //* if you input multiple images and you added a wrong one you can delete it
+        //* this code will remove the one you deleted from existing image array
+        //* and the remaining images is transferred to another array and is considered as a new input
+        $(document).off("click", ".remove-imageEdit-veg").on("click", ".remove-imageEdit-veg", function() {
             var index = $(this).data("index");
             console.log("Removing image at index:", index);
 
@@ -398,37 +522,99 @@
 
             // Update the input files and reset the indexes
             imageInputEdit.files = dataTransfer.files;
-            $('#previewSeedEdit').empty();
+            $('#previewVegEdit').empty();
             Array.from(imageInputEdit.files).forEach(function(file, index) {
                 var reader = new FileReader();
                 reader.onload = function(e) {
-                    $('#previewSeedEdit').prepend('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-imageEdit" data-index="' + index + '"><i class="fa-solid fa-xmark"></i></button></div>');
+                    $('#previewVegEdit').prepend('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-imageEdit-veg" data-index="' + index + '"><i class="fa-solid fa-xmark"></i></button></div>');
                 }
                 reader.readAsDataURL(file);
             });
 
             console.log("New files array after removal:", imageInputEdit.files);
             checkForContent();
+
+            // Add event listener for the hidden.bs.modal event
+            $('#add-item-modal, #edit-item-modal').on('hidden.bs.modal', function() {
+                imageInputEdit.value = ''; // Reset file input
+                $('#previewVegEdit').empty(); // Clear preview container
+                checkForContent();
+            });
         });
 
-        // Add event listener for the hidden.bs.modal event
-        $('#add-item-modal, #edit-item-modal').on('hidden.bs.modal', function() {
-            imageInputEdit.value = ''; // Reset file input
-            $('#previewSeedEdit').empty(); // Clear preview container
-            checkForContent();
+    }
+
+    // Function to handle reproductive stage image input
+    function handleReproductiveImageInput() {
+        const imageInputEdit = document.getElementById('imageInputReproductiveEdit');
+        const previewContainerEdit = document.getElementById('previewReproductiveEdit');
+        var files = $(this)[0].files;
+        $('#previewReproductiveEdit').empty();
+
+        // Loop through the files and append them to the preview container
+        $.each(files, function(i, file) {
+            var reader = new FileReader();
+            reader.onload = function(e) {
+                $('#previewReproductiveEdit').prepend('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-imageEdit-repro" data-index="' + i + '"><i class="fa-solid fa-xmark"></i></button></div>');
+            }
+            reader.readAsDataURL(file);
         });
-        // Add event listener for the hidden.bs.modal event
-        $('#add-item-modal, #edit-item-modal').on('hidden.bs.modal', function() {
-            imageInputEdit.value = ''; // Reset file input
-            $('#previewVegEdit').empty(); // Clear preview container
+
+        // If there's an old image, append it to the preview container and set the value of the hidden input field
+        if (oldImageRepro) {
+            var oldImageFilenames = oldImageRepro.split(',');
+            oldImageFilenames.forEach(function(filename, index) {
+                $('#previewReproductiveEdit').append('<div class="image-preview border rounded me-1 p-0"><img src="modals/img/' + filename.trim() + '" class="img-thumbnail"/><button class="remove-imageEdit-repro" data-index="' + (files.length + index) + '"><i class="fa-solid fa-xmark"></i></button></div>');
+
+                // Add the old image file to the files array
+                addOldImageFileRepro(filename.trim());
+            });
+        }
+
+        console.log("Remaining images after change:", imageInputEdit.files);
+        checkForContent();
+
+        //* if you input multiple images and you added a wrong one you can delete it
+        //* this code will remove the one you deleted from existing image array
+        //* and the remaining images is transferred to another array and is considered as a new input
+        $(document).off("click", ".remove-imageEdit-repro").on("click", ".remove-imageEdit-repro", function() {
+            var index = $(this).data("index");
+            console.log("Removing image at index:", index);
+
+            var newFiles = Array.from(imageInputEdit.files).filter((_, i) => i !== index);
+            var dataTransfer = new DataTransfer();
+            newFiles.forEach(function(file) {
+                dataTransfer.items.add(file);
+            });
+
+            // Update the input files and reset the indexes
+            imageInputEdit.files = dataTransfer.files;
+            $('#previewReproductiveEdit').empty();
+            Array.from(imageInputEdit.files).forEach(function(file, index) {
+                var reader = new FileReader();
+                reader.onload = function(e) {
+                    $('#previewReproductiveEdit').prepend('<div class="image-preview border rounded me-1 p-0"><img src="' + e.target.result + '" class="img-thumbnail"/><button class="remove-imageEdit-repro" data-index="' + index + '"><i class="fa-solid fa-xmark"></i></button></div>');
+                }
+                reader.readAsDataURL(file);
+            });
+
+            console.log("New files array after removal:", imageInputEdit.files);
             checkForContent();
+
+            // Add event listener for the hidden.bs.modal event
+            $('#add-item-modal, #edit-item-modal').on('hidden.bs.modal', function() {
+                imageInputEdit.value = ''; // Reset file input
+                $('#previewReproductiveEdit').empty(); // Clear preview container
+                checkForContent();
+            });
         });
-        // Add event listener for the hidden.bs.modal event
-        $('#add-item-modal, #edit-item-modal').on('hidden.bs.modal', function() {
-            imageInputEdit.value = ''; // Reset file input
-            $('#previewReproductiveEdit').empty(); // Clear preview container
-            checkForContent();
-        });
+    }
+
+    $(document).ready(function() {
+        // Call the correct function based on the image input change
+        $('#imageInputSeedEdit').on("change", handleSeedImageInput);
+        $('#imageInputVegetativeEdit').on("change", handleVegetativeImageInput);
+        $('#imageInputReproductiveEdit').on("change", handleReproductiveImageInput);
     });
 
     // to show the border only when there a picture inside

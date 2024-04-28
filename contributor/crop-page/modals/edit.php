@@ -272,11 +272,11 @@
                         }
 
                         // Fetch the old image and pass it to the fetchOldImage function
-                        fetchOldImage(value.crop_seed_image);
+                        fetchOldImageSeed(value.crop_seed_image);
                         // Fetch the old image and pass it to the fetchOldImage function
-                        fetchOldImage(value.crop_vegetative_image);
+                        fetchOldImageVeg(value.crop_vegetative_image);
                         // Fetch the old image and pass it to the fetchOldImage function
-                        fetchOldImage(value.crop_reproductive_image);
+                        fetchOldImageRepro(value.crop_reproductive_image);
 
                         if (value['crop_seed_image'] != null && value['crop_seed_image'] != '') {
                             // Split the image filenames by comma
