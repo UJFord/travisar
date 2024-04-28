@@ -6,7 +6,7 @@
 <nav id="main-nav" class="z-3 navbar navbar-expand-md border-bottom border-body">
     <div class="container">
         <!-- brand and navs -->
-        <a class="navbar-brand text-white" href="#"><i class="bi bi-crop"></i></a>
+        <a class="navbar-brand text-white" href="../../visitor/home.php"><i class="bi bi-crop"></i></a>
 
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarNav" aria-controls="navbarNav" aria-expanded="false" aria-label="Toggle navigation">
             <span class="navbar-toggler-icon"></span>
