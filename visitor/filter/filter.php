@@ -106,7 +106,9 @@
 
                     <!-- barangay -->
                     <div class="container border-bottom pb-2 mb-4">
-                        <h5 class="filter-title">Barangay</h5>
+                        <h5 class="filter-title col-2">Barangay</h5>
+                        <h6 class="small-font col-4">(select a municipality to show)</h6>
+
                         <div class="row">
                             <div class="d-flex flex-wrap">
                                 <!-- Barangay filters -->
