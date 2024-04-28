@@ -111,23 +111,17 @@ require "../functions/connections.php";
                                     <tr>
                                         <th scope="row" class="text-secondary w-25 fw-normal">Vegetative Stage Image</th>
                                         <td class="w-75 fw-semibold">
-                                            <img src="https://plus.unsplash.com/premium_photo-1669689974101-55f9aea22158?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="view-crop-image rounded m-1" alt="" srcset="">
-                                            <img src="https://plus.unsplash.com/premium_photo-1669689974101-55f9aea22158?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="view-crop-image rounded m-1" alt="" srcset="">
-                                            <img src="https://plus.unsplash.com/premium_photo-1669689974101-55f9aea22158?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="view-crop-image rounded m-1" alt="" srcset="">
-                                            <img src="https://plus.unsplash.com/premium_photo-1669689974101-55f9aea22158?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="view-crop-image rounded m-1" alt="" srcset="">
-                                            <img src="https://plus.unsplash.com/premium_photo-1669689974101-55f9aea22158?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="view-crop-image rounded m-1" alt="" srcset="">
-                                            <img src="https://plus.unsplash.com/premium_photo-1669689974101-55f9aea22158?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="view-crop-image rounded m-1" alt="" srcset="">
-                                            <img src="https://plus.unsplash.com/premium_photo-1669689974101-55f9aea22158?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="view-crop-image rounded m-1" alt="" srcset="">
+                                            
                                         </td>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="text-secondary w-25 fw-normal">Reproductive Stage Image</th>
                                         <td class="w-75 fw-semibold">
-                                            <img src="https://plus.unsplash.com/premium_photo-1669689974101-55f9aea22158?q=80&w=1976&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="view-crop-image rounded" alt="" srcset="">
+                                            
                                         </td>
                                     </tr>
                                     <tr>
-                                        <th id="latlng-container" scope="row" class="text-secondary w-25 fw-normal" latlng="<?= $crops['coordinates'] ?>">Location</th>
+                                        <th scope="row" class="latlng-container text-secondary w-25 fw-normal" latlng="<?= $crops['coordinates'] ?>">Location</th>
                                         <td class="w-75 fw-semibold">
                                             <?= $crops['sitio_name'] . ', ' . $crops['barangay_name'] . ', ' . $crops['municipality_name'] . ', ' . $crops['province_name'] ?>
                                         </td>
