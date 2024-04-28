@@ -175,12 +175,14 @@ require "../functions/connections.php";
 
                                     // Loop through the submitted pest resistance IDs
                                     foreach ($pest_resistances_arr as $pest_id) {
-                                        $queryPest = "SELECT pest_name FROM pest_resistance WHERE pest_resistance_id = $1";
-                                        $queryPest_run = pg_query_params($conn, $queryPest, array($pest_id));
+                                        if (!empty($pest_id)) {
+                                            $queryPest = "SELECT pest_name FROM pest_resistance WHERE pest_resistance_id = $1";
+                                            $queryPest_run = pg_query_params($conn, $queryPest, array($pest_id));
 
-                                        if (pg_num_rows($queryPest_run) > 0) {
-                                            $pest_name = pg_fetch_assoc($queryPest_run)['pest_name'];
-                                            $pest_names[] = $pest_name; // Append the name to the array
+                                            if (pg_num_rows($queryPest_run) > 0) {
+                                                $pest_name = pg_fetch_assoc($queryPest_run)['pest_name'];
+                                                $pest_names[] = $pest_name; // Append the name to the array
+                                            }
                                         }
                                     }
                                 }
@@ -195,12 +197,14 @@ require "../functions/connections.php";
 
                                     // Loop through the submitted disease resistance IDs
                                     foreach ($disease_resistances_arr as $disease_id) {
-                                        $queryDisease = "SELECT disease_name FROM disease_resistance WHERE disease_resistance_id = $1";
-                                        $queryDisease_run = pg_query_params($conn, $queryDisease, array($disease_id));
+                                        if (!empty($disease_id)) {
+                                            $queryDisease = "SELECT disease_name FROM disease_resistance WHERE disease_resistance_id = $1";
+                                            $queryDisease_run = pg_query_params($conn, $queryDisease, array($disease_id));
 
-                                        if (pg_num_rows($queryDisease_run) > 0) {
-                                            $disease_name = pg_fetch_assoc($queryDisease_run)['disease_name'];
-                                            $disease_names[] = $disease_name; // Append the name to the array
+                                            if (pg_num_rows($queryDisease_run) > 0) {
+                                                $disease_name = pg_fetch_assoc($queryDisease_run)['disease_name'];
+                                                $disease_names[] = $disease_name; // Append the name to the array
+                                            }
                                         }
                                     }
                                 }
@@ -212,19 +216,19 @@ require "../functions/connections.php";
                                 if (isset($abiotic_resistances)) {
                                     // Split the string into an array of integers
                                     $abiotic_resistances_arr = explode(',', substr($abiotic_resistances, 1, -1));
-
                                     // Loop through the submitted abiotic resistance IDs
                                     foreach ($abiotic_resistances_arr as $abiotic_id) {
-                                        $queryAbiotic = "SELECT abiotic_name FROM abiotic_resistance WHERE abiotic_resistance_id = $1";
-                                        $queryAbiotic_run = pg_query_params($conn, $queryAbiotic, array($abiotic_id));
+                                        if (!empty($abiotic_id)) {
+                                            $queryAbiotic = "SELECT abiotic_name FROM abiotic_resistance WHERE abiotic_resistance_id = $1";
+                                            $queryAbiotic_run = pg_query_params($conn, $queryAbiotic, array($abiotic_id));
 
-                                        if (pg_num_rows($queryAbiotic_run) > 0) {
-                                            $abiotic_name = pg_fetch_assoc($queryAbiotic_run)['abiotic_name'];
-                                            $abiotic_names[] = $abiotic_name; // Append the name to the array
+                                            if (pg_num_rows($queryAbiotic_run) > 0) {
+                                                $abiotic_name = pg_fetch_assoc($queryAbiotic_run)['abiotic_name'];
+                                                $abiotic_names[] = $abiotic_name; // Append the name to the array
+                                            }
                                         }
                                     }
                                 }
-
                         ?>
                                 <!-- Morphology -->
                                 <h5 class="fw-semibold">Morphological Traits</h5>
@@ -376,12 +380,14 @@ require "../functions/connections.php";
 
                                     // Loop through the submitted pest resistance IDs
                                     foreach ($pest_resistances_arr as $pest_id) {
-                                        $queryPest = "SELECT pest_name FROM pest_resistance WHERE pest_resistance_id = $1";
-                                        $queryPest_run = pg_query_params($conn, $queryPest, array($pest_id));
+                                        if (!empty($pest_id)) {
+                                            $queryPest = "SELECT pest_name FROM pest_resistance WHERE pest_resistance_id = $1";
+                                            $queryPest_run = pg_query_params($conn, $queryPest, array($pest_id));
 
-                                        if (pg_num_rows($queryPest_run) > 0) {
-                                            $pest_name = pg_fetch_assoc($queryPest_run)['pest_name'];
-                                            $pest_names[] = $pest_name; // Append the name to the array
+                                            if (pg_num_rows($queryPest_run) > 0) {
+                                                $pest_name = pg_fetch_assoc($queryPest_run)['pest_name'];
+                                                $pest_names[] = $pest_name; // Append the name to the array
+                                            }
                                         }
                                     }
                                 }
@@ -396,12 +402,14 @@ require "../functions/connections.php";
 
                                     // Loop through the submitted disease resistance IDs
                                     foreach ($disease_resistances_arr as $disease_id) {
-                                        $queryDisease = "SELECT disease_name FROM disease_resistance WHERE disease_resistance_id = $1";
-                                        $queryDisease_run = pg_query_params($conn, $queryDisease, array($disease_id));
+                                        if (!empty($disease_id)) {
+                                            $queryDisease = "SELECT disease_name FROM disease_resistance WHERE disease_resistance_id = $1";
+                                            $queryDisease_run = pg_query_params($conn, $queryDisease, array($disease_id));
 
-                                        if (pg_num_rows($queryDisease_run) > 0) {
-                                            $disease_name = pg_fetch_assoc($queryDisease_run)['disease_name'];
-                                            $disease_names[] = $disease_name; // Append the name to the array
+                                            if (pg_num_rows($queryDisease_run) > 0) {
+                                                $disease_name = pg_fetch_assoc($queryDisease_run)['disease_name'];
+                                                $disease_names[] = $disease_name; // Append the name to the array
+                                            }
                                         }
                                     }
                                 }
@@ -413,15 +421,16 @@ require "../functions/connections.php";
                                 if (isset($abiotic_resistances)) {
                                     // Split the string into an array of integers
                                     $abiotic_resistances_arr = explode(',', substr($abiotic_resistances, 1, -1));
-
                                     // Loop through the submitted abiotic resistance IDs
                                     foreach ($abiotic_resistances_arr as $abiotic_id) {
-                                        $queryAbiotic = "SELECT abiotic_name FROM abiotic_resistance WHERE abiotic_resistance_id = $1";
-                                        $queryAbiotic_run = pg_query_params($conn, $queryAbiotic, array($abiotic_id));
+                                        if (!empty($abiotic_id)) {
+                                            $queryAbiotic = "SELECT abiotic_name FROM abiotic_resistance WHERE abiotic_resistance_id = $1";
+                                            $queryAbiotic_run = pg_query_params($conn, $queryAbiotic, array($abiotic_id));
 
-                                        if (pg_num_rows($queryAbiotic_run) > 0) {
-                                            $abiotic_name = pg_fetch_assoc($queryAbiotic_run)['abiotic_name'];
-                                            $abiotic_names[] = $abiotic_name; // Append the name to the array
+                                            if (pg_num_rows($queryAbiotic_run) > 0) {
+                                                $abiotic_name = pg_fetch_assoc($queryAbiotic_run)['abiotic_name'];
+                                                $abiotic_names[] = $abiotic_name; // Append the name to the array
+                                            }
                                         }
                                     }
                                 }
@@ -697,12 +706,14 @@ require "../functions/connections.php";
 
                                     // Loop through the submitted pest resistance IDs
                                     foreach ($pest_resistances_arr as $pest_id) {
-                                        $queryPest = "SELECT pest_name FROM pest_resistance WHERE pest_resistance_id = $1";
-                                        $queryPest_run = pg_query_params($conn, $queryPest, array($pest_id));
+                                        if (!empty($pest_id)) {
+                                            $queryPest = "SELECT pest_name FROM pest_resistance WHERE pest_resistance_id = $1";
+                                            $queryPest_run = pg_query_params($conn, $queryPest, array($pest_id));
 
-                                        if (pg_num_rows($queryPest_run) > 0) {
-                                            $pest_name = pg_fetch_assoc($queryPest_run)['pest_name'];
-                                            $pest_names[] = $pest_name; // Append the name to the array
+                                            if (pg_num_rows($queryPest_run) > 0) {
+                                                $pest_name = pg_fetch_assoc($queryPest_run)['pest_name'];
+                                                $pest_names[] = $pest_name; // Append the name to the array
+                                            }
                                         }
                                     }
                                 }
@@ -717,12 +728,14 @@ require "../functions/connections.php";
 
                                     // Loop through the submitted disease resistance IDs
                                     foreach ($disease_resistances_arr as $disease_id) {
-                                        $queryDisease = "SELECT disease_name FROM disease_resistance WHERE disease_resistance_id = $1";
-                                        $queryDisease_run = pg_query_params($conn, $queryDisease, array($disease_id));
+                                        if (!empty($disease_id)) {
+                                            $queryDisease = "SELECT disease_name FROM disease_resistance WHERE disease_resistance_id = $1";
+                                            $queryDisease_run = pg_query_params($conn, $queryDisease, array($disease_id));
 
-                                        if (pg_num_rows($queryDisease_run) > 0) {
-                                            $disease_name = pg_fetch_assoc($queryDisease_run)['disease_name'];
-                                            $disease_names[] = $disease_name; // Append the name to the array
+                                            if (pg_num_rows($queryDisease_run) > 0) {
+                                                $disease_name = pg_fetch_assoc($queryDisease_run)['disease_name'];
+                                                $disease_names[] = $disease_name; // Append the name to the array
+                                            }
                                         }
                                     }
                                 }
@@ -734,15 +747,16 @@ require "../functions/connections.php";
                                 if (isset($abiotic_resistances)) {
                                     // Split the string into an array of integers
                                     $abiotic_resistances_arr = explode(',', substr($abiotic_resistances, 1, -1));
-
                                     // Loop through the submitted abiotic resistance IDs
                                     foreach ($abiotic_resistances_arr as $abiotic_id) {
-                                        $queryAbiotic = "SELECT abiotic_name FROM abiotic_resistance WHERE abiotic_resistance_id = $1";
-                                        $queryAbiotic_run = pg_query_params($conn, $queryAbiotic, array($abiotic_id));
+                                        if (!empty($abiotic_id)) {
+                                            $queryAbiotic = "SELECT abiotic_name FROM abiotic_resistance WHERE abiotic_resistance_id = $1";
+                                            $queryAbiotic_run = pg_query_params($conn, $queryAbiotic, array($abiotic_id));
 
-                                        if (pg_num_rows($queryAbiotic_run) > 0) {
-                                            $abiotic_name = pg_fetch_assoc($queryAbiotic_run)['abiotic_name'];
-                                            $abiotic_names[] = $abiotic_name; // Append the name to the array
+                                            if (pg_num_rows($queryAbiotic_run) > 0) {
+                                                $abiotic_name = pg_fetch_assoc($queryAbiotic_run)['abiotic_name'];
+                                                $abiotic_names[] = $abiotic_name; // Append the name to the array
+                                            }
                                         }
                                     }
                                 }
