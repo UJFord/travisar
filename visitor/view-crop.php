@@ -65,8 +65,8 @@ require "../functions/connections.php";
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th scope="row" class="text-secondary w-25 fw-normal">Crop Category</th>
-                                        <td class="w-75 fw-semibold w-75"><?= $crops['category_name'] ?></td>
+                                        <th  scope="row" class="text-secondary w-25 fw-normal">Crop Category</th>
+                                        <td id="crop-categ" class="w-75 fw-semibold w-75"><?= $crops['category_name'] ?></td>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="text-secondary w-25 fw-normal">Variety</th>
@@ -122,7 +122,7 @@ require "../functions/connections.php";
                                     </tr>
                                     <tr>
                                         <th scope="row" class="latlng-container text-secondary w-25 fw-normal" latlng="<?= $crops['coordinates'] ?>">Location</th>
-                                        <td class="w-75 fw-semibold">
+                                        <td id="addr" class="w-75 fw-semibold">
                                             <?= $crops['sitio_name'] . ', ' . $crops['barangay_name'] . ', ' . $crops['municipality_name'] . ', ' . $crops['province_name'] ?>
                                         </td>
                                     </tr>
