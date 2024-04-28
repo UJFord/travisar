@@ -196,7 +196,7 @@
     </div>
 
     <!-- vegetative stage image -->
-    <!-- <div class="row mb-3">
+    <div class="row mb-3">
         <label for="imageInputVegetativeEdit" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Vegetative Stage</span>
@@ -206,10 +206,10 @@
             <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetativeEdit" accept="image/jpeg,image/png" name="crop_vegetative_image" single onchange="previewVegetativeImageEdit()">
         </div>
         <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewVegEdit"></div>
-    </div> -->
+    </div>
 
     <!-- reproductive stage -->
-    <!-- <div class="row mb-5">
+    <div class="row mb-5">
         <label for="imageInputReproductiveEdit" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Reproductive Stage</span>
@@ -219,7 +219,7 @@
             <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductiveEdit" accept="image/jpeg,image/png" name="crop_reproductive_image" single onchange="previewReproductiveImageEdit()">
         </div>
         <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewReproductiveEdit"></div>
-    </div> -->
+    </div>
 
     <h6 class="fw-semibold mt-4 mb-3">Location</h6>
     <!-- location -->
