@@ -111,13 +111,13 @@ require "../functions/connections.php";
                                     <tr>
                                         <th scope="row" class="text-secondary w-25 fw-normal">Vegetative Stage Image</th>
                                         <td class="w-75 fw-semibold">
-                                            
+
                                         </td>
                                     </tr>
                                     <tr>
                                         <th scope="row" class="text-secondary w-25 fw-normal">Reproductive Stage Image</th>
                                         <td class="w-75 fw-semibold">
-                                            
+
                                         </td>
                                     </tr>
                                     <tr>
