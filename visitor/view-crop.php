@@ -77,7 +77,7 @@ require "../functions/connections.php";
                                         <td class="w-75 fw-semibold"><?= $crops['crop_variety'] ?></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" class="text-secondary w-25 fw-normal">Meanig of Name</th>
+                                        <th scope="row" class="text-secondary w-25 fw-normal">Meaning of Name</th>
                                         <td class="w-75 fw-semibold"><?= $crops['meaning_of_name'] ?></td>
                                     </tr>
                                     <tr>
