@@ -844,7 +844,7 @@ require "../functions/connections.php";
                                 </div>
 
                                 <!-- Root crop traits -->
-                                <h5 class="fw-semibold">Root Crop Traits</h5>
+                                <h5 class="fw-semibold">Sensory</h5>
                                 <div class="border rounded mb-5">
                                     <table id="crop-list-box" class="table table-borderless table-hover table-light rounded overflow-hidden mb-0">
                                         <thead>
