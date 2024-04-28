@@ -203,7 +203,7 @@
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
             <input type="hidden" name="current_image_veg" id="old_image_veg">
-            <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetativeEdit" accept="image/jpeg,image/png" name="crop_vegetative_image" single onchange="previewVegetativeImageEdit()">
+            <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetativeEdit" accept="image/jpeg,image/png" name="crop_vegetative_image" multiple>
         </div>
         <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewVegEdit"></div>
     </div>
@@ -216,7 +216,7 @@
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
             <input type="hidden" name="current_image_rep" id="old_image_rep">
-            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductiveEdit" accept="image/jpeg,image/png" name="crop_reproductive_image" single onchange="previewReproductiveImageEdit()">
+            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductiveEdit" accept="image/jpeg,image/png" name="crop_reproductive_image" multiple>
         </div>
         <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewReproductiveEdit"></div>
     </div>
@@ -415,6 +415,18 @@
         $('#add-item-modal, #edit-item-modal').on('hidden.bs.modal', function() {
             imageInputEdit.value = ''; // Reset file input
             $('#previewSeedEdit').empty(); // Clear preview container
+            checkForContent();
+        });
+        // Add event listener for the hidden.bs.modal event
+        $('#add-item-modal, #edit-item-modal').on('hidden.bs.modal', function() {
+            imageInputEdit.value = ''; // Reset file input
+            $('#previewVegEdit').empty(); // Clear preview container
+            checkForContent();
+        });
+        // Add event listener for the hidden.bs.modal event
+        $('#add-item-modal, #edit-item-modal').on('hidden.bs.modal', function() {
+            imageInputEdit.value = ''; // Reset file input
+            $('#previewReproductiveEdit').empty(); // Clear preview container
             checkForContent();
         });
     });
