@@ -81,7 +81,7 @@
                                 <i class="row-btn fa-solid fa-ellipsis-vertical px-3 py-2 m-0 rounded"></i>
                             </button>
                             <ul class="dropdown-menu">
-                                <li><a class="dropdown-item" href="#"><i class="fa-solid fa-trash text-danger text-center me-1" style="width: 20px;"></i>Delete Selected</a></li>
+                                <button id="deleteSelected" class="btn btn-danger dropdown-item"><i class="fa-solid fa-trash text-danger text-center me-1" style="width: 20px;"></i>Delete Selected</button>
                             </ul>
                         </div>
                     </th>
@@ -119,6 +119,10 @@
                         if ($row['action'] === 'draft' && $_SESSION['USER']['user_id'] == $row['user_id']) {
                         ?>
                             <tr data-id="<?= $row['crop_id']; ?>" class="rowlink edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal">
+                            <?php
+                        } else  if ($row['action'] === 'approved') {
+                            ?>
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="../../visitor/view-crop.php?crop_id=<?= $row['crop_id'] ?>">
                             <?php
                         } else {
                             ?>
