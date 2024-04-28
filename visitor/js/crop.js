@@ -193,11 +193,13 @@ document.querySelectorAll('#crop-list-tbody tr').forEach(row => {
     let category = row.querySelector('.category').textContent.trim();
     let variety = row.querySelector('.variety').textContent.trim();
     let viewLink = row.getAttribute('data-href');
+    let date_created = row.querySelector('.date_created').value.trim();
 
     // bindPopup
     let popup = `
         <div class="container">
             <h6 class="row d-flex justify-content-center fw-semibold">${variety}</h6>
+            <h6 class="row d-flex justify-content-center fw-semibold">${date_created}</h6>
             <div class="row d-flex justify-content-end"><a class="small-font w-auto" href="${viewLink}">See More...</a></div>
         </div>
     `;

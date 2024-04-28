@@ -10,10 +10,6 @@
             </thead>
             <!-- crops -->
             <tbody id="crop-list-tbody">
-                <tr class="" latlng="6.086883, 125.031229" data-href="view-crop.php">
-                    <td class="text-secondary category">Rice</td>
-                    <td class="fw-bold overflow-x-auto variety">Sinandomeng</td>
-                </tr>
                 <?php
                 // Set the number of items to display per page
                 $items_per_page = 10;
@@ -64,13 +60,19 @@
 
                 if ($query_run) {
                     while ($row = pg_fetch_assoc($query_run)) {
+                        // Convert the string to a DateTime object
+                        $date = new DateTime($row['input_date']);
+                        // Format the date to display up to the minute
+                        $formatted_date = $date->format('Y-m-d H:i');
+
                         $category_name = $row['category_name'];
                         // Replace "Root Crop" with "Root"
                         if ($category_name === "Root Crop") {
                             $category_name = "Root";
                         }
                 ?>
-                        <tr class="" latlng="<?= $row['coordinates'] ?>" data-href="view-crop.php?<?= $row['crop_id'] ?>">
+                        <tr class="" latlng="<?= $row['coordinates'] ?>" data-href="view-crop.php?crop_id=<?= $row['crop_id'] ?>">
+                            <input type="hidden" class="date_created" value="<?= $formatted_date ?>">
                             <td class="text-secondary category"><?= $category_name ?></td>
                             <td class="fw-bold overflow-x-auto variety"><?= $row['crop_variety'] ?></td>
                         </tr>
