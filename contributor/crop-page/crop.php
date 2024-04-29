@@ -413,6 +413,50 @@ require "../../functions/functions.php";
                     return null;
                 });
         }
+
+        // function to pin location from input by roger bairoy
+        document.addEventListener("DOMContentLoaded", function() {
+            var typingTimer; // Timer identifier
+            var doneTypingInterval = 1000; // Time in milliseconds (5 seconds)
+
+            // Function to update the map marker based on input location
+            function updateMap(location) {
+                // Parse the location string to extract latitude and longitude
+                var coordinates = location.split(',').map(function(coord) {
+                    return parseFloat(coord.trim());
+                });
+
+                // Check if coordinates are valid
+                if (coordinates.length === 2 && !isNaN(coordinates[0]) && !isNaN(coordinates[1])) {
+                    var lat = coordinates[0];
+                    var lng = coordinates[1];
+
+                    // Remove existing marker if any
+                    if (typeof marker !== 'undefined') {
+                        map.removeLayer(marker);
+                    }
+
+                    // Create a new marker at the specified coordinates and add it to the map
+                    marker = L.marker([lat, lng]).addTo(map);
+
+                    // Set the map view to the marker's location
+                    map.setView([lat, lng], 20); // Zoom level 12
+                } else {
+                    // Invalid coordinates
+                    console.error('Invalid location format');
+                }
+            }
+
+            // Event listener for location input field
+            document.getElementById('coordInput').addEventListener('input', function() {
+                clearTimeout(typingTimer);
+                var location = this.value;
+                typingTimer = setTimeout(function() {
+                    // Update the map marker based on the input location after 5 seconds of inactivity
+                    updateMap(location);
+                }, doneTypingInterval);
+            });
+        });
     </script>
 
     <!-- Script nf or the map for edit tab -->
@@ -591,6 +635,50 @@ require "../../functions/functions.php";
                     return null;
                 });
         }
+
+        // function to pin location from input by roger bairoy
+        document.addEventListener("DOMContentLoaded", function() {
+            var typingTimer; // Timer identifier
+            var doneTypingInterval = 1000; // Time in milliseconds (5 seconds)
+
+            // Function to update the map marker based on input location
+            function updateMap(locationEdit) {
+                // Parse the location string to extract latitude and longitude
+                var coordinates = locationEdit.split(',').map(function(coord) {
+                    return parseFloat(coord.trim());
+                });
+
+                // Check if coordinates are valid
+                if (coordinates.length === 2 && !isNaN(coordinates[0]) && !isNaN(coordinates[1])) {
+                    var lat = coordinates[0];
+                    var lng = coordinates[1];
+
+                    // Remove existing marker if any
+                    if (typeof marker !== 'undefined') {
+                        mapEdit.removeLayer(markerEdit);
+                    }
+
+                    // Create a new marker at the specified coordinates and add it to the mapEdit
+                    markerEdit = L.marker([lat, lng]).addTo(mapEdit);
+
+                    // Set the mapEdit view to the marker's location
+                    mapEdit.setView([lat, lng], 20); // Zoom level 12
+                } else {
+                    // Invalid coordinates
+                    console.error('Invalid location format');
+                }
+            }
+
+            // Event listener for location input field
+            document.getElementById('coordEdit').addEventListener('input', function() {
+                clearTimeout(typingTimer);
+                var locationEdit = this.value;
+                typingTimer = setTimeout(function() {
+                    // Update the map marker based on the input location after 5 seconds of inactivity
+                    updateMap(locationEdit);
+                }, doneTypingInterval);
+            });
+        });
     </script>
     <!-- allowing scrollspy in the modal -->
     <script>
@@ -600,6 +688,10 @@ require "../../functions/functions.php";
                 console.log($('[data-spy="scroll"]').scrollspy());
             });
         });
+    </script>
+    <!-- MAP coordinates it would redirect if you input-->
+    <script>
+
     </script>
 </body>
 

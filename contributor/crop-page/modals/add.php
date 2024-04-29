@@ -53,16 +53,16 @@
                             <!-- more optional info -->
                             <?php require "tabs/more.php" ?>
                             <!-- agronomic traits -->
-                            <?php require "tabs/agro.php" 
+                            <?php require "tabs/agro.php"
                             ?>
                             <!-- sensory traits -->
-                            <?php require "tabs/sensory.php" 
+                            <?php require "tabs/sensory.php"
                             ?>
                             <!-- cultural -->
-                            <?php require "tabs/cultural.php" 
+                            <?php require "tabs/cultural.php"
                             ?>
                             <!-- references -->
-                            <?php require "tabs/references.php" 
+                            <?php require "tabs/references.php"
                             ?>
                             <!-- confirm -->
                             <?php require "tabs/confirm.php" ?>
