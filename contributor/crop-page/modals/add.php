@@ -16,7 +16,7 @@
                 <button type="button" id="close-modal-btn" class="btn-close" aria-label="Close"></button>
             </div>
 
-            <div id="error-messages">
+            <div id="message-error">
             </div>
 
             <!-- body -->
@@ -315,6 +315,17 @@
 
         return isValid;
     }
+
+    // Prevent tab switching when there are validation errors
+    var tabPane = document.getElementById('myTab');
+    tabPane.addEventListener('show.bs.tab', function(event) {
+        if (!validateForm()) {
+            document.getElementById('message-error').innerHTML = "<div class='error text-center' style='color:red;'>To switch tab fill up required fields</div>";
+            event.preventDefault();
+        } else {
+            document.getElementById('message-error').innerHTML = "";
+        }
+    });
 
     function disableInputs(container) {
         var inputs = container.getElementsByTagName('input');
