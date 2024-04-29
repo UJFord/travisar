@@ -689,7 +689,7 @@ require "../../functions/functions.php";
             });
         });
     </script>
-    <!-- MAP coordinates it would redirect if you input-->
+    <!-- MAP -->
     <script>
 
     </script>

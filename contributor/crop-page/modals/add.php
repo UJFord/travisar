@@ -153,6 +153,8 @@
 <!-- for submission -->
 <script>
     document.getElementById('form-panel-add').addEventListener('submit', function(event) {
+        event.preventDefault(); // Prevent the form from submitting by default
+
         // Get the selected category
         var selectedCategory = document.getElementById('Category').value;
         var cornMorph = document.getElementById('cornMorph');
@@ -175,11 +177,9 @@
         // Validate the form
         if (validateForm()) {
             // If validation succeeds, submit the form
-            // console.log('Submit add');
             submitForm();
         }
     });
-
 
     // Function to submit the form and refresh notifications
     function submitForm() {
@@ -220,70 +220,100 @@
         var municipality = document.forms["Form"]["municipality"].value;
         var barangay = document.forms["Form"]["barangay"].value;
 
-        var errors = [];
+        var isValid = true;
+        var firstErrorElement = null;
 
         // Check if the required fields are not empty
         if (categoryID === "" || categoryID === null) {
-            errors.push("<div class='error text-center' style='color:red;'>Please select crop category.</div>");
-            document.getElementById('Category').classList.add('is-invalid'); // Add 'is-invalid' class to select field
+            document.getElementById('Category').classList.add('is-invalid');
+            document.getElementById('category-error').innerText = "Please select crop category.";
+            isValid = false;
+            if (!firstErrorElement) {
+                firstErrorElement = document.getElementById('Category');
+            }
         } else {
-            document.getElementById('Category').classList.remove('is-invalid'); // remove 'is-invalid' class to select field
+            document.getElementById('Category').classList.remove('is-invalid');
+            document.getElementById('category-error').innerText = "";
         }
 
-        if (category_varietyID === "null" || category_varietyID === "") {
-            errors.push("<div class='error text-center' style='color:red;'>Please select a category variety.</div>");
+        if (category_varietyID === null || category_varietyID === "") {
             document.getElementById('categoryVariety').classList.add('is-invalid');
+            document.getElementById('categoryVariety-error').innerText = "Please select a category variety.";
+            isValid = false;
+            if (!firstErrorElement) {
+                firstErrorElement = document.getElementById('categoryVariety');
+            }
         } else {
             document.getElementById('categoryVariety').classList.remove('is-invalid');
+            document.getElementById('categoryVariety-error').innerText = "";
         }
 
         if (cropVariety === "" || cropVariety === null) {
-            errors.push("<div class='error text-center' style='color:red;'>Please enter a variety name.</div>");
             document.getElementById('Variety-Name').classList.add('is-invalid');
+            document.getElementById('varietyName-error').innerText = "Please enter a variety name.";
+            isValid = false;
+            if (!firstErrorElement) {
+                firstErrorElement = document.getElementById('Variety-Name');
+            }
         } else {
             document.getElementById('Variety-Name').classList.remove('is-invalid');
+            document.getElementById('varietyName-error').innerText = "";
         }
 
-        if (terrainID === "null" || terrainID === "") {
-            errors.push("<div class='error text-center' style='color:red;'>Please select terrain.</div>");
+        if (terrainID === null || terrainID === "") {
             document.getElementById('terrain').classList.add('is-invalid');
+            document.getElementById('terrain-error').innerText = "Please enter a terrain name.";
+            isValid = false;
+            if (!firstErrorElement) {
+                firstErrorElement = document.getElementById('terrain');
+            }
         } else {
             document.getElementById('terrain').classList.remove('is-invalid');
+            document.getElementById('terrain-error').innerText = "";
         }
 
-        if (province === "null" || province === "") {
-            errors.push("<div class='error text-center' style='color:red;'>Please select a province.</div>");
+        if (province === null || province === "") {
             document.getElementById('Province').classList.add('is-invalid');
+            document.getElementById('province-error').innerText = "Please enter a province name.";
+            isValid = false;
+            if (!firstErrorElement) {
+                firstErrorElement = document.getElementById('Province');
+            }
         } else {
             document.getElementById('Province').classList.remove('is-invalid');
+            document.getElementById('province-error').innerText = "";
         }
 
-        if (municipality === "null" || municipality === "") {
-            errors.push("<div class='error text-center' style='color:red;'>Please select a municipality.</div>");
+        if (municipality === null || municipality === "") {
             document.getElementById('Municipality').classList.add('is-invalid');
+            document.getElementById('municipality-error').innerText = "Please enter a municipality name.";
+            isValid = false;
+            if (!firstErrorElement) {
+                firstErrorElement = document.getElementById('Municipality');
+            }
         } else {
             document.getElementById('Municipality').classList.remove('is-invalid');
+            document.getElementById('municipality-error').innerText = "";
         }
 
-        if (barangay === "null" || barangay === "") {
-            errors.push("<div class='error text-center' style='color:red;'>Please select a barangay.</div>");
+        if (barangay === null || barangay === "") {
             document.getElementById('Barangay').classList.add('is-invalid');
+            document.getElementById('barangay-error').innerText = "Please enter a barangay name.";
+            isValid = false;
+            if (!firstErrorElement) {
+                firstErrorElement = document.getElementById('Barangay');
+            }
         } else {
             document.getElementById('Barangay').classList.remove('is-invalid');
+            document.getElementById('barangay-error').innerText = "";
         }
 
-        // Display first error only
-        if (errors.length > 0) {
-            var errorString = errors[0]; // Get the first error
-            document.getElementById("error-messages").innerHTML = errorString;
-            // Prevent default form submission
-            event.preventDefault();
-            return false;
+        // Focus on the first element with an error
+        if (firstErrorElement) {
+            firstErrorElement.focus();
         }
 
-        // If no errors, clear error messages
-        document.getElementById("error-messages").innerHTML = "";
-        return true;
+        return isValid;
     }
 
     function disableInputs(container) {

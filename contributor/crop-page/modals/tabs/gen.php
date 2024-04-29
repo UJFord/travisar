@@ -160,6 +160,7 @@
                 }
                 ?>
             </select>
+            <div id="category-error" class="invalid-feedback"></div>
         </div>
 
         <!-- Category Variety -->
@@ -167,6 +168,7 @@
             <label for="categoryVariety" class="form-label small-font">Variety<span class="text-danger ms-1">*</span></label>
             <select name="category_variety_id" id="categoryVariety" class="form-select color-default-child">
             </select>
+            <div id="categoryVariety-error" class="invalid-feedback"></div>
         </div>
     </div>
 
@@ -176,6 +178,7 @@
         <div class="col mb-2">
             <label for="Variety-Name" class="form-label small-font">Local/Variety Name<span class="text-danger ms-1">*</span></label>
             <input id="Variety-Name" type="text" name="crop_variety" class="form-control">
+            <div id="varietyName-error" class="invalid-feedback"></div>
         </div>
 
         <!-- Meaning of Name -->
@@ -215,6 +218,7 @@
                 }
                 ?>
             </select>
+            <div id="terrain-error" class="invalid-feedback"></div>
         </div>
     </div>
 
@@ -293,12 +297,14 @@
                 }
                 ?>
             </select>
+            <div id="province-error" class="invalid-feedback"></div>
 
             <!-- Municipality dropdown -->
             <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
             <select id="Municipality" name="municipality" class="form-select mb-2">
                 <!-- option is automatically shown through js depending on the province -->
             </select>
+            <div id="municipality-error" class="invalid-feedback"></div>
 
             <!-- barangay -->
             <label for="Barangay" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
@@ -306,6 +312,7 @@
                 <option value="" disabled selected hidden>Select One</option>
                 <!-- option is automatically shown through js depending on the municipality selected -->
             </select>
+            <div id="barangay-error" class="invalid-feedback"></div>
 
             <!-- sitio -->
             <label for="Sitio" class="form-label small-font mb-0">Sitio</label>
