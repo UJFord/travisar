@@ -706,6 +706,125 @@ require "../../functions/functions.php";
             });
         });
     </script>
+
+    <!-- SCRIPT for the select datas for edit location tab -->
+    <script>
+        // FORMS SIDE
+        // Get references to the select elements
+        const neighborhoodValueEdit = document.getElementById('neighborhoodEdit');
+        const municipalitySelectEdit = document.getElementById('MunicipalitySelect');
+        const barangaySelectEdit = document.getElementById('BarangaySelect');
+
+        let initialMunicipality = '';
+        let initialBarangay = '';
+
+        // Function to populate municipalities dropdown based on selected province
+        // const populateMunicipalitiesEdit = async (selectedProvince, initialVal) => {
+        //     try {
+        //         const response = await fetch(`modals/fetch/fetch_location-edit.php?province=${selectedProvince}`);
+        //         const data = await response.json();
+        //         // console.log(data);
+
+        //         const municipalitiesDropdown = document.getElementById('MunicipalitySelect');
+        //         municipalitiesDropdown.innerHTML = '';
+
+        //         data.forEach((municipality) => {
+        //             const option = document.createElement('option');
+        //             option.value = municipality;
+        //             option.text = municipality;
+        //             municipalitiesDropdown.appendChild(option);
+        //         });
+
+        //         // Set the initial value if available
+        //         if (initialVal) {
+        //             municipalitiesDropdown.value = initialVal;
+        //         }
+
+        //     } catch (error) {
+        //         console.error('Error fetching municipalities:', error);
+        //     }
+        // };
+
+        // Function to populate barangay dropdown based on selected municipality
+        const populateBarangayEdit = async (selectedMunicipality, initialVal) => {
+            // Check if a municipality is selected
+            if (!selectedMunicipality) {
+                return;
+            }
+
+            try {
+                const response = await fetch(`modals/fetch/fetch_location-edit.php?municipality=${selectedMunicipality}`);
+                const data = await response.json();
+                // console.log(data);
+
+                const barangayDropdown = document.getElementById('BarangaySelect');
+                barangayDropdown.innerHTML = '';
+
+                data.forEach((barangay) => {
+                    const option = document.createElement('option');
+                    option.value = barangay;
+                    option.text = barangay;
+                    barangayDropdown.appendChild(option);
+                });
+
+                // Set the initial value if available
+                if (initialVal) {
+                    barangayDropdown.value = initialVal;
+                }
+
+            } catch (error) {
+                console.error('Error fetching barangays:', error);
+            }
+        };
+
+        // Call the populateMunicipalities function when the province dropdown value changes
+        document.getElementById('ProvinceEdit').addEventListener('change', function() {
+            var selectedProvince = document.getElementById('ProvinceEdit').value;
+            populateMunicipalitiesEdit(selectedProvince, initialMunicipality);
+        });
+
+        //! kanang automatic mag populate ang barangay biskang wala paka ni select og municipality
+        // Call the populateBarangay function when the municipality dropdown value changes
+        document.getElementById('MunicipalitySelect').addEventListener('change', function() {
+            var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
+            populateBarangayEdit(selectedMunicipality, initialBarangay);
+        });
+
+        //Call the populateMunicipalities function initially to populate the municipalities dropdown based on the default selected province
+        // var selectedProvince = document.getElementById('ProvinceEdit').value;
+        // populateMunicipalitiesEdit(selectedProvince, initialMunicipality);
+
+        // Call the populateBarangay function initially to populate the municipalities dropdown based on the default selected municipality
+        var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
+        populateBarangayEdit(selectedMunicipality, initialBarangay);
+
+        // Call the populateBarangay function when the municipality dropdown value changes
+        // to automatically go to the coordinated of the municipality
+        document.getElementById('MunicipalitySelect').addEventListener('change', function() {
+            var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
+            populateBarangayEdit(selectedMunicipality, "");
+
+            // Fetch coordinates for the selected municipality
+            fetch('modals/fetch/fetch_location-edit.php?pin_municipality=' + selectedMunicipality)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        var coordinatesString = data[0]['municipality_coordinates'];
+                        var coordinatesArray = coordinatesString.split(',').map(coord => parseFloat(coord.trim()));
+
+                        if (coordinatesArray.length === 2) {
+                            var latitude = coordinatesArray[0];
+                            var longitude = coordinatesArray[1];
+
+                            // Update the map and pin marker with the selected coordinates
+                            updateMapAndPinEdit(latitude, longitude);
+                            // Set the map view to the marker's location
+                            mapEdit.setView([latitude, longitude], 12); // Zoom level 12
+                        }
+                    }
+                });
+        });
+    </script>
     <!-- allowing scrollspy in the modal -->
     <script>
         $(document).ready(function() {
