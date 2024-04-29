@@ -66,7 +66,6 @@
                             ?>
                             <!-- confirm -->
                             <?php require "tabs/confirm.php" ?>
-
                         </div>
                     </div>
                 </div>
@@ -153,8 +152,6 @@
 <!-- for submission -->
 <script>
     document.getElementById('form-panel-add').addEventListener('submit', function(event) {
-        event.preventDefault(); // Prevent the form from submitting by default
-
         // Get the selected category
         var selectedCategory = document.getElementById('Category').value;
         var cornMorph = document.getElementById('cornMorph');
@@ -174,10 +171,17 @@
             disableInputs(rootCropMorph);
         }
 
-        // Validate the form
-        if (validateForm()) {
-            // If validation succeeds, submit the form
+        // Check if the form is being submitted as a draft
+        if (event.submitter.name === 'draft') {
+            // console.log('Submit na draft');
+            event.target.setAttribute('name', 'draft');
             submitForm();
+        } else {
+            // Validate the form if not submitted as a draft
+            if (validateForm()) {
+                // If validation succeeds, submit the form
+                submitForm();
+            }
         }
     });
 
@@ -196,7 +200,7 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
-                    // console.log('form is submitted add');
+                    console.log(data);
                     // Reset the form
                     form.reset();
                     // Reload unseen notifications
@@ -311,6 +315,7 @@
         // Focus on the first element with an error
         if (firstErrorElement) {
             firstErrorElement.focus();
+            event.preventDefault(); // Prevent the form from submitting by default
         }
 
         return isValid;

@@ -195,12 +195,12 @@
             disableInputs(rootCropMorph);
         }
         // Form is valid, submit the form
-        submitForm();
+        submitFormEdit();
     });
 
     // Function to submit the form and refresh notifications
-    function submitForm() {
-        console.log('submitForm function called');
+    function submitFormEdit() {
+        //console.log('submitForm function called');
         // Get the form reference
         var form = document.getElementById('form-panel-edit');
         // Trigger the form submission
@@ -214,7 +214,7 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
-                    console.log("Form submitted successfully", data);
+                    console.log("Form Edit submitted successfully", data);
                     // Reset the form
                     form.reset();
                     // Reload unseen notifications

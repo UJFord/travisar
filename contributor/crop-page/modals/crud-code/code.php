@@ -3874,7 +3874,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
     }
 }
 
-if (isset($_POST['draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Encoder') {
+if (isset($_POST['draft'])) {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {

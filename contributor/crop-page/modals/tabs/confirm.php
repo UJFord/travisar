@@ -7,13 +7,12 @@
             </div>
             <div class="modal-body">
                 Are you sure you want to close the modal? Any unsaved changes will be lost.
-                <div id="coords-help" class="form-text mb-2" style="font-size: 0.8rem;">(to be saved as draft fill up the required field first.)</div>
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-danger" id="confirmCloseBtn">Close Tab</button>
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" name="draft" class="btn btn-success">Save as Draft</button>
+                <button type="submit" id="confirmDraft" name="draft" class="btn btn-success">Save as Draft</button>
             </div>
         </div>
     </div>
