@@ -320,10 +320,10 @@
     var tabPane = document.getElementById('myTab');
     tabPane.addEventListener('show.bs.tab', function(event) {
         if (!validateForm()) {
-            document.getElementById('message-error').innerHTML = "<div class='error text-center' style='color:red;'>To switch tab fill up required fields</div>";
+            // document.getElementById('message-error').innerHTML = "<div class='error text-center' style='color:red;'>To switch tab fill up required fields</div>";
             event.preventDefault();
         } else {
-            document.getElementById('message-error').innerHTML = "";
+            // document.getElementById('message-error').innerHTML = "";
         }
     });
 

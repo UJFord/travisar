@@ -231,9 +231,9 @@ require "../../functions/functions.php";
         var selectedProvince = document.getElementById('Province').value;
         populateMunicipalities(selectedProvince);
 
-        // Function to populate municipalities dropdown based on selected province
+        // Function to populate barangays dropdown based on selected municipality
         function populateBarangay(selectedMunicipality) {
-            // Fetch municipalities based on the selected province
+            // Fetch barangays based on the selected municipality
             fetch('modals/fetch/fetch_location-add.php?municipality=' + selectedMunicipality)
                 .then(response => response.json())
                 .then(data => {
@@ -242,16 +242,39 @@ require "../../functions/functions.php";
                     var barangayDropdown = document.getElementById('Barangay');
                     barangayDropdown.innerHTML = '<option value="" disabled selected hidden class="colorize">Select One</option>'; // Clear existing options
 
-                    // Add the fetched municipalities as options in the dropdown
+                    // Add the fetched barangays as options in the dropdown
                     data.forEach(barangay => {
                         var option = document.createElement('option');
                         option.value = barangay['barangay_id'];
-                        option.text = barangay[['barangay_name']];
+                        option.text = barangay['barangay_name'];
                         barangayDropdown.appendChild(option);
-                        // console.log('option');
                     });
                 });
         }
+
+        // Call the populateBarangay function when the municipality dropdown value changes
+        document.getElementById('Municipality').addEventListener('change', function() {
+            var selectedMunicipality = document.getElementById('Municipality').value;
+            populateBarangay(selectedMunicipality);
+
+            // Fetch coordinates for the selected municipality
+            fetch('modals/fetch/fetch_location-add.php?pin_municipality=' + selectedMunicipality)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        var coordinatesString = data[0]['municipality_coordinates'];
+                        var coordinatesArray = coordinatesString.split(',').map(coord => parseFloat(coord.trim()));
+
+                        if (coordinatesArray.length === 2) {
+                            var latitude = coordinatesArray[0];
+                            var longitude = coordinatesArray[1];
+
+                            // Update the map and pin marker with the selected coordinates
+                            updateMapAndPin(latitude, longitude);
+                        }
+                    }
+                });
+        });
 
         // Call the populateBarangay function when the municipality dropdown value changes
         document.getElementById('Municipality').addEventListener('change', function() {
@@ -341,7 +364,7 @@ require "../../functions/functions.php";
             // Ensure comma separation, handle different input formats
             const parts = inputValue.split(/\s*,\s*/);
             if (parts.length !== 2) {
-                console.error("Invalid input format. Please enter coordinates in the format 'latitude, longitude'.");
+                //console.error("Invalid input format. Please enter coordinates in the format 'latitude, longitude'.");
                 return;
             }
 
@@ -642,7 +665,7 @@ require "../../functions/functions.php";
             var doneTypingInterval = 1000; // Time in milliseconds (5 seconds)
 
             // Function to update the map marker based on input location
-            function updateMap(locationEdit) {
+            function updateMapEdit(locationEdit) {
                 // Parse the location string to extract latitude and longitude
                 var coordinates = locationEdit.split(',').map(function(coord) {
                     return parseFloat(coord.trim());
@@ -675,7 +698,7 @@ require "../../functions/functions.php";
                 var locationEdit = this.value;
                 typingTimer = setTimeout(function() {
                     // Update the map marker based on the input location after 5 seconds of inactivity
-                    updateMap(locationEdit);
+                    updateMapEdit(locationEdit);
                 }, doneTypingInterval);
             });
         });
