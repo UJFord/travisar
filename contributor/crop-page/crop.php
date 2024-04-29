@@ -271,6 +271,8 @@ require "../../functions/functions.php";
 
                             // Update the map and pin marker with the selected coordinates
                             updateMapAndPin(latitude, longitude);
+                            // Set the map view to the marker's location
+                            map.setView([latitude, longitude], 12); // Zoom level 12
                         }
                     }
                 });
