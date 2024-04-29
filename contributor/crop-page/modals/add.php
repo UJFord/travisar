@@ -3,6 +3,15 @@
     .modal-tab:hover {
         color: grey;
     }
+
+    .modal-header {
+        position: relative;
+    }
+
+    #close-modal-btn {
+        position: fixed;
+        right: 21%;
+    }
 </style>
 
 <!-- HTML -->
@@ -13,7 +22,7 @@
             <!-- header -->
             <div class="modal-header">
                 <h5 class="modal-title" id="edit-item-modal-label">Add Crop</h5>
-                <button type="button" id="close-modal-btn" class="btn-close" aria-label="Close"></button>
+                <button type="button" id="close-modal-btn" class="btn-close navbar" aria-label="Close" id="navbar-example2" class="navbar navbar-light bg-light px-3"></button>
             </div>
 
             <div id="message-error">
@@ -91,6 +100,33 @@
         });
         dataModal.show();
     };
+</script> -->
+
+<!-- <script>
+    // Get the button element
+    var scrollToTopBtn = document.getElementById("scrollToTopBtn");
+
+    // When the user scrolls, update the button's position
+    window.onscroll = function() {
+        // Calculate the new top position of the button
+        var topPosition = window.pageYOffset + window.innerHeight - scrollToTopBtn.offsetHeight - 20;
+
+        // Set the button's new top position
+        scrollToTopBtn.style.top = topPosition + "px";
+
+        // Show or hide the button based on the scroll position
+        if (document.body.scrollTop > 10 || document.documentElement.scrollTop > 10) {
+            scrollToTopBtn.style.display = "block";
+        } else {
+            scrollToTopBtn.style.display = "none";
+        }
+    };
+
+    // When the user clicks on the button, scroll to the top of the document
+    scrollToTopBtn.addEventListener("click", function() {
+        document.body.scrollTop = 0; // For Safari
+        document.documentElement.scrollTop = 0; // For Chrome, Firefox, IE and Opera
+    });
 </script> -->
 
 <!-- SCRIPT for closing the modal -->
