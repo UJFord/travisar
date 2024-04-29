@@ -231,6 +231,10 @@ require "../../functions/functions.php";
         var selectedProvince = document.getElementById('Province').value;
         populateMunicipalities(selectedProvince);
 
+        // Call the populateBarangay function initially to populate the municipalities dropdown based on the default selected municipality
+        var selectedMunicipality = document.getElementById('Municipality').value;
+        populateBarangay(selectedMunicipality);
+
         // Function to populate barangays dropdown based on selected municipality
         function populateBarangay(selectedMunicipality) {
             // Fetch barangays based on the selected municipality
@@ -253,6 +257,7 @@ require "../../functions/functions.php";
         }
 
         // Call the populateBarangay function when the municipality dropdown value changes
+        // to automatically go to the coordinated of the municipality
         document.getElementById('Municipality').addEventListener('change', function() {
             var selectedMunicipality = document.getElementById('Municipality').value;
             populateBarangay(selectedMunicipality);
@@ -283,10 +288,6 @@ require "../../functions/functions.php";
             var selectedMunicipality = document.getElementById('Municipality').value;
             populateBarangay(selectedMunicipality);
         });
-
-        // Call the populateBarangay function initially to populate the municipalities dropdown based on the default selected municipality
-        var selectedMunicipality = document.getElementById('Municipality').value;
-        populateBarangay(selectedMunicipality);
 
         // initializnig map
         const map = L.map('map').setView([6.403013, 124.725062], 9); //starting position
@@ -484,7 +485,7 @@ require "../../functions/functions.php";
         });
     </script>
 
-    <!-- Script nf or the map for edit tab -->
+    <!-- Script for the map for edit tab -->
     <script>
         // initializnig map
         const mapEdit = L.map('mapEdit').setView([6.403013, 124.725062], 9); //starting position

@@ -3,11 +3,11 @@ require "../../../../functions/connections.php";
 
 // Check if the province parameter is set and not empty
 if (isset($_GET['province']) && !empty($_GET['province'])) {
-    $province_name = $_GET['province'];
+    $province_id = $_GET['province'];
 
     // Use prepared statements to prevent SQL injection
-    $queryMunicipality = "SELECT DISTINCT municipality_name FROM location WHERE province_name = $1 ORDER BY municipality_name ASC";
-    $resultMunicipality = pg_query_params($conn, $queryMunicipality, array($province_name));
+    $queryMunicipality = "SELECT DISTINCT municipality_name FROM location WHERE province_id = $1 ORDER BY municipality_name ASC";
+    $resultMunicipality = pg_query_params($conn, $queryMunicipality, array($province_id));
 
     if ($resultMunicipality) {
         $municipalities = array();
@@ -23,11 +23,11 @@ if (isset($_GET['province']) && !empty($_GET['province'])) {
         echo json_encode(array()); // Return an empty array as JSON
     }
 } elseif (isset($_GET['municipality']) && !empty($_GET['municipality'])) {
-    $municipality_name = $_GET['municipality'];
+    $municipality_id = $_GET['municipality'];
 
     // Use prepared statements to prevent SQL injection
-    $queryBarangay = "SELECT DISTINCT barangay_name FROM barangay WHERE municipality_name = $1 ORDER BY barangay_name ASC";
-    $resultBarangay = pg_query_params($conn, $queryBarangay, array($municipality_name));
+    $queryBarangay = "SELECT DISTINCT barangay_name FROM barangay WHERE municipality_id = $1 ORDER BY barangay_name ASC";
+    $resultBarangay = pg_query_params($conn, $queryBarangay, array($municipality_id));
 
     if ($resultBarangay) {
         $barangay = array();

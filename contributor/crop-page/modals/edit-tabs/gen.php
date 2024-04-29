@@ -272,6 +272,25 @@
             <!-- Municipality dropdown -->
             <label for="MunicipalitySelect" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
             <select id="MunicipalitySelect" name="municipality" class="form-select mb-2">
+                <?php
+                // Fetch distinct municipality names from the location table
+                $queryMunicipality = "SELECT DISTINCT municipality_name, municipality_id FROM municipality ORDER BY municipality_name ASC";
+                $query_runMunicipality = pg_query($conn, $queryMunicipality);
+
+                $count2 = pg_num_rows($query_runMunicipality);
+
+                // If there is data, display distinct municipality names
+                if ($count2 > 0) {
+
+                    while ($row = pg_fetch_assoc($query_runMunicipality)) {
+                        $municipality_name = $row['municipality_name'];
+                        $municipality_id = $row['municipality_id'];
+                ?>
+                        <option value="<?= $municipality_id; ?>"><?= $municipality_name; ?></option>
+                <?php
+                    }
+                }
+                ?>
             </select>
 
             <!-- barangay -->
@@ -663,7 +682,7 @@
 <script src="https://unpkg.com/leaflet@1.9.4/dist/leaflet.js" integrity="sha256-20nQCchB9co0qIjJZRGuk2/Z9VM+kNiyxNV1lvTlZBo=" crossorigin=""></script>
 
 <!-- SCRIPT for location tab -->
-<!-- <script>
+<script>
     // FORMS SIDE
     // Get references to the select elements
     const neighborhoodValueEdit = document.getElementById('neighborhoodEdit');
@@ -674,34 +693,39 @@
     let initialBarangay = '';
 
     // Function to populate municipalities dropdown based on selected province
-    const populateMunicipalitiesEdit = async (selectedProvince, initialVal) => {
-        try {
-            const response = await fetch(`modals/fetch/fetch_location-edit.php?province=${selectedProvince}`);
-            const data = await response.json();
-            // console.log(data);
+    // const populateMunicipalitiesEdit = async (selectedProvince, initialVal) => {
+    //     try {
+    //         const response = await fetch(`modals/fetch/fetch_location-edit.php?province=${selectedProvince}`);
+    //         const data = await response.json();
+    //         // console.log(data);
 
-            const municipalitiesDropdown = document.getElementById('MunicipalitySelect');
-            municipalitiesDropdown.innerHTML = '';
+    //         const municipalitiesDropdown = document.getElementById('MunicipalitySelect');
+    //         municipalitiesDropdown.innerHTML = '';
 
-            data.forEach((municipality) => {
-                const option = document.createElement('option');
-                option.value = municipality;
-                option.text = municipality;
-                municipalitiesDropdown.appendChild(option);
-            });
+    //         data.forEach((municipality) => {
+    //             const option = document.createElement('option');
+    //             option.value = municipality;
+    //             option.text = municipality;
+    //             municipalitiesDropdown.appendChild(option);
+    //         });
 
-            // Set the initial value if available
-            if (initialVal) {
-                municipalitiesDropdown.value = initialVal;
-            }
+    //         // Set the initial value if available
+    //         if (initialVal) {
+    //             municipalitiesDropdown.value = initialVal;
+    //         }
 
-        } catch (error) {
-            console.error('Error fetching municipalities:', error);
-        }
-    };
+    //     } catch (error) {
+    //         console.error('Error fetching municipalities:', error);
+    //     }
+    // };
 
     // Function to populate barangay dropdown based on selected municipality
     const populateBarangayEdit = async (selectedMunicipality, initialVal) => {
+        // Check if a municipality is selected
+        if (!selectedMunicipality) {
+            return;
+        }
+
         try {
             const response = await fetch(`modals/fetch/fetch_location-edit.php?municipality=${selectedMunicipality}`);
             const data = await response.json();
@@ -733,20 +757,21 @@
         populateMunicipalitiesEdit(selectedProvince, initialMunicipality);
     });
 
+    //! kanang automatic mag populate ang barangay biskang wala paka ni select og municipality
     // Call the populateBarangay function when the municipality dropdown value changes
     document.getElementById('MunicipalitySelect').addEventListener('change', function() {
         var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
         populateBarangayEdit(selectedMunicipality, initialBarangay);
     });
 
-    // Call the populateMunicipalities function initially to populate the municipalities dropdown based on the default selected province
-    var selectedProvince = document.getElementById('ProvinceEdit').value;
-    populateMunicipalitiesEdit(selectedProvince, initialMunicipality);
+    //Call the populateMunicipalities function initially to populate the municipalities dropdown based on the default selected province
+    // var selectedProvince = document.getElementById('ProvinceEdit').value;
+    // populateMunicipalitiesEdit(selectedProvince, initialMunicipality);
 
     // Call the populateBarangay function initially to populate the municipalities dropdown based on the default selected municipality
     var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
     populateBarangayEdit(selectedMunicipality, initialBarangay);
-</script> -->
+</script>
 
 <!-- script for limiting the input in coordinates just to numbers, commas, periods, and spaces -->
 <script>

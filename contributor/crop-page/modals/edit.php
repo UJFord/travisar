@@ -172,7 +172,7 @@
     });
 </script>
 
-<!-- script for getting the on the edit -->
+<!-- script for getting the data on the edit -->
 <script>
     document.getElementById('form-panel-edit').addEventListener('submit', function(event) {
 
