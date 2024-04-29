@@ -71,7 +71,6 @@
                     <div class="">
                         <button type="button" id="cancel-modal-btn-edit" class="btn border bg-light">Cancel</button>
                         <button type="submit" id="editButton" name="edit" class="btn btn-success">Save</button>
-                        <button type="submit" id="draftButton" name="save_draft" class="btn btn-success">Save</button>
                     </div>
                 </div>
             </form>
@@ -540,7 +539,7 @@
                             $('#abiotic_other-descEdit').val(value['rootcrop_abiotic_other_desc']);
                         } else {
                             // Default case, hide all divs
-                            $('#corn-Edit').hide();
+                            $('#cornMorph-Edit').hide();
                             $('#riceMorph-Edit').hide();
                             $('#root_cropMorph-Edit').hide();
                         }

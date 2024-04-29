@@ -29,7 +29,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
         $user_id = $_POST['user_id'];
         $action = 'pending';
-        $remarks = 'Crop pending waiting for approval';
+        $remarks = 'Crop pending';
 
         // pest resistance other
         $pest_other = isset($_POST['pest_other']) ? true : null;
@@ -177,117 +177,139 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $crop_seed_imageString = null;
         }
 
-        // Check if an image for crop reproductive image is selected
-        // if (isset($_FILES['crop_vegetative_image']['name']) && $_FILES['crop_vegetative_image']['name'] != '') {
-        //     $extension = array('jpg', 'jpeg', 'png', 'gif');
+        $crop_vegetative_imageArray = []; // Initialize the array
 
-        //     $filename = $_FILES['crop_vegetative_image']['name'];
-        //     $filename_tmp = $_FILES['crop_vegetative_image']['tmp_name'];
-        //     $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        // Check if an image for crop seed image is selected
+        if (isset($_FILES['crop_vegetative_image']['name']) && is_array($_FILES['crop_vegetative_image']['name'])) {
+            $extension = array('jpg', 'jpeg', 'png', 'gif');
 
-        //     if (in_array($ext, $extension)) {
-        //         // Auto rename image
-        //         $image = "Crop_Vegetative_Image_" . rand(000, 999) . '.' . $ext;
+            foreach ($_FILES['crop_vegetative_image']['name'] as $key => $value) {
+                $filename = $_FILES['crop_vegetative_image']['name'][$key];
+                $filename_tmp = $_FILES['crop_vegetative_image']['tmp_name'][$key];
+                $destination_path = "../img/" . $filename;
+                $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
-        //         // Check if the image name already exists in the database
-        //         while (true) {
-        //             $query = "SELECT crop_vegetative_image FROM crop WHERE crop_vegetative_image = $1";
-        //             $result = pg_query_params($conn, $query, array($image));
+                $finalimg = '';
 
-        //             if ($result === false) {
-        //                 break;
-        //             }
+                if (in_array($ext, $extension)) {
+                    // Auto rename image
+                    $image = "Crop_vegetative_image_" . rand(000, 999) . '.' . $ext;
 
-        //             $count = pg_num_rows($result);
+                    // Check if the image name already exists in the database
+                    while (true) {
+                        $query = "SELECT crop_vegetative_image FROM crop WHERE crop_vegetative_image = $1";
+                        $result = pg_query_params($conn, $query, array($image));
 
-        //             if ($count == 0) {
-        //                 break;
-        //             } else {
-        //                 // If the image name exists, generate a new one
-        //                 $image = "Crop_Vegetative_Image_" . rand(000, 999) . '.' . $ext;
-        //             }
-        //         }
+                        if ($result === false) {
+                            break;
+                        }
 
-        //         $source_path = $_FILES['crop_vegetative_image']['tmp_name'];
-        //         $destination_path = "../img/" . $image;
+                        $count = pg_num_rows($result);
 
-        //         // Upload the image
-        //         $upload = move_uploaded_file($source_path, $destination_path);
+                        if ($count == 0) {
+                            break;
+                        } else {
+                            // If the image name exists, generate a new one
+                            $image = "Crop_vegetative_image_" . rand(000, 999) . '.' . $ext;
+                        }
+                    }
 
-        //         // Check whether the image is uploaded or not
-        //         if (!$upload) {
-        //             echo "wala na upload ang image";
-        //             echo "Error: " . pg_last_error($conn);
-        //             die();
-        //         }
+                    $source_path = $_FILES['crop_vegetative_image']['tmp_name'][$key];
+                    $destination_path = "../img/" . $image;
 
-        //         $finalimg_vege = $image;
-        //     } else {
-        //         // Display error message for invalid file format
-        //         echo "invalid ang file format image";
-        //         echo "Error: " . pg_last_error($conn);
-        //         die();
-        //     }
-        // } else {
-        //     // If no image is selected, set it  
-        // }
-        // $crop_vegetative_image = $finalimg_vege;
+                    // Upload the image
+                    $upload = move_uploaded_file($source_path, $destination_path);
 
-        // Check if an image for crop reproductive image is selected
-        // if (isset($_FILES['crop_reproductive_image']['name']) && $_FILES['crop_reproductive_image']['name'] != '') {
-        //     $extension = array('jpg', 'jpeg', 'png', 'gif');
+                    // Check whether the image is uploaded or not
+                    if (!$upload) {
+                        echo "wala na upload ang image";
+                        echo "Error: " . pg_last_error($conn);
+                        die();
+                    }
 
-        //     $filename = $_FILES['crop_reproductive_image']['name'];
-        //     $filename_tmp = $_FILES['crop_reproductive_image']['tmp_name'];
-        //     $ext = pathinfo($filename, PATHINFO_EXTENSION);
+                    $finalimg_seed = $image;
+                    $crop_vegetative_imageArray[] = $finalimg_seed; // Add image name to the array
+                } else {
+                    // Display error message for invalid file format
+                    echo "invalid ang file format image";
+                    echo "Error: " . pg_last_error($conn);
+                }
+            }
+        }
 
-        //     if (in_array($ext, $extension)) {
-        //         // Auto rename image
-        //         $image = "Crop_Reproductive_Image_" . rand(000, 999) . '.' . $ext;
+        $crop_vegetative_imageString = implode(',', $crop_vegetative_imageArray);
 
-        //         // Check if the image name already exists in the database
-        //         while (true) {
-        //             $query = "SELECT crop_reproductive_image FROM crop WHERE crop_reproductive_image = $1";
-        //             $result = pg_query_params($conn, $query, array($image));
+        // If no image is selected, set it to null
+        if (empty($crop_vegetative_imageArray)) {
+            $crop_vegetative_imageString = null;
+        }
 
-        //             if ($result === false) {
-        //                 break;
-        //             }
+        $crop_reproductive_imageArray = []; // Initialize the array
 
-        //             $count = pg_num_rows($result);
+        // Check if an image for crop seed image is selected
+        if (isset($_FILES['crop_reproductive_image']['name']) && is_array($_FILES['crop_reproductive_image']['name'])) {
+            $extension = array('jpg', 'jpeg', 'png', 'gif');
 
-        //             if ($count == 0) {
-        //                 break;
-        //             } else {
-        //                 // If the image name exists, generate a new one
-        //                 $image = "Crop_Reproductive_Image_" . rand(000, 999) . '.' . $ext;
-        //             }
-        //         }
+            foreach ($_FILES['crop_reproductive_image']['name'] as $key => $value) {
+                $filename = $_FILES['crop_reproductive_image']['name'][$key];
+                $filename_tmp = $_FILES['crop_reproductive_image']['tmp_name'][$key];
+                $destination_path = "../img/" . $filename;
+                $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
-        //         $source_path = $_FILES['crop_reproductive_image']['tmp_name'];
-        //         $destination_path = "../img/" . $image;
+                $finalimg = '';
 
-        //         // Upload the image
-        //         $upload = move_uploaded_file($source_path, $destination_path);
+                if (in_array($ext, $extension)) {
+                    // Auto rename image
+                    $image = "Crop_reproductive_image_" . rand(000, 999) . '.' . $ext;
 
-        //         // Check whether the image is uploaded or not
-        //         if (!$upload) {
-        //             echo "wala na upload ang image";
-        //             echo "Error: " . pg_last_error($conn);
-        //             die();
-        //         }
+                    // Check if the image name already exists in the database
+                    while (true) {
+                        $query = "SELECT crop_reproductive_image FROM crop WHERE crop_reproductive_image = $1";
+                        $result = pg_query_params($conn, $query, array($image));
 
-        //         $finalimg_repro = $image;
-        //     } else {
-        //         // Display error message for invalid file format
-        //         echo "invalid ang file format image";
-        //         echo "Error: " . pg_last_error($conn);
-        //         die();
-        //     }
-        // } else {
-        //     // If no image is selected, set it  
-        // }
-        // $crop_reproductive_image = $finalimg_repro;
+                        if ($result === false) {
+                            break;
+                        }
+
+                        $count = pg_num_rows($result);
+
+                        if ($count == 0) {
+                            break;
+                        } else {
+                            // If the image name exists, generate a new one
+                            $image = "Crop_reproductive_image_" . rand(000, 999) . '.' . $ext;
+                        }
+                    }
+
+                    $source_path = $_FILES['crop_reproductive_image']['tmp_name'][$key];
+                    $destination_path = "../img/" . $image;
+
+                    // Upload the image
+                    $upload = move_uploaded_file($source_path, $destination_path);
+
+                    // Check whether the image is uploaded or not
+                    if (!$upload) {
+                        echo "wala na upload ang image";
+                        echo "Error: " . pg_last_error($conn);
+                        die();
+                    }
+
+                    $finalimg_seed = $image;
+                    $crop_reproductive_imageArray[] = $finalimg_seed; // Add image name to the array
+                } else {
+                    // Display error message for invalid file format
+                    echo "invalid ang file format image";
+                    echo "Error: " . pg_last_error($conn);
+                }
+            }
+        }
+
+        $crop_reproductive_imageString = implode(',', $crop_reproductive_imageArray);
+
+        // If no image is selected, set it to null
+        if (empty($crop_reproductive_imageArray)) {
+            $crop_reproductive_imageString = null;
+        }
 
         // for creating a unique code for each crops
         // Get the latest unique_code from the crop table
@@ -361,12 +383,12 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
         //insert into crop table
         $queryCrop = "INSERT INTO crop (crop_variety, crop_description, unique_code, meaning_of_name, category_id, user_id, 
-        category_variety_id, terrain_id, utilization_cultural_id, crop_seed_image, status_id)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING crop_id";
+        category_variety_id, terrain_id, utilization_cultural_id, crop_seed_image, crop_vegetative_image, crop_reproductive_image, status_id)
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12, $13) RETURNING crop_id";
 
         $valueCrops = array(
             $crop_variety, $crop_description, $newUniqueCode, $meaning_of_name, $category_id, $user_id, $category_variety_id,
-            $terrain_id, $utilization_cultural_id, $crop_seed_imageString, $status_id
+            $terrain_id, $utilization_cultural_id, $crop_seed_imageString, $crop_vegetative_imageString, $crop_reproductive_imageString, $status_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -879,6 +901,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         header("Location: ../../crop.php");
         exit(0);
     } catch (Exception $e) {
+        // message for error
+        $_SESSION['message'] = 'Crop not Saved';
         // Rollback the transaction if an error occurs
         pg_query($conn, "ROLLBACK");
         // Log the error message
@@ -2004,133 +2028,139 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
             $finalimgSeed = implode(',', $uploadedImages);
         }
 
-        // Check if an image for crop reproductive image is selected
-        // if (isset($_FILES['crop_vegetative_image']['name']) && $_FILES['crop_vegetative_image']['name'] != '') {
-        //     $extension = array('jpg', 'jpeg', 'png', 'gif');
+        $crop_vegetative_imageArray = []; // Initialize the array
 
-        //     $filename = $_FILES['crop_vegetative_image']['name'];
-        //     $filename_tmp = $_FILES['crop_vegetative_image']['tmp_name'];
-        //     $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        // Check if an image for crop seed image is selected
+        if (isset($_FILES['crop_vegetative_image']['name']) && is_array($_FILES['crop_vegetative_image']['name'])) {
+            $extension = array('jpg', 'jpeg', 'png', 'gif');
 
-        //     if (in_array($ext, $extension)) {
-        //         // Auto rename image
-        //         $image = "Crop_Vegetative_Image_" . rand(000, 999) . '.' . $ext;
+            foreach ($_FILES['crop_vegetative_image']['name'] as $key => $value) {
+                $filename = $_FILES['crop_vegetative_image']['name'][$key];
+                $filename_tmp = $_FILES['crop_vegetative_image']['tmp_name'][$key];
+                $destination_path = "../img/" . $filename;
+                $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
-        //         // Check if the image name already exists in the database
-        //         while (true) {
-        //             $query = "SELECT crop_vegetative_image FROM crop WHERE crop_vegetative_image = $1";
-        //             $result = pg_query_params($conn, $query, array($image));
+                $finalimg = '';
 
-        //             if ($result === false) {
-        //                 break;
-        //             }
+                if (in_array($ext, $extension)) {
+                    // Auto rename image
+                    $image = "Crop_vegetative_image_" . rand(000, 999) . '.' . $ext;
 
-        //             $count = pg_num_rows($result);
+                    // Check if the image name already exists in the database
+                    while (true) {
+                        $query = "SELECT crop_vegetative_image FROM crop WHERE crop_vegetative_image = $1";
+                        $result = pg_query_params($conn, $query, array($image));
 
-        //             if ($count == 0) {
-        //                 break;
-        //             } else {
-        //                 // If the image name exists, generate a new one
-        //                 $image = "Crop_Vegetative_Image_" . rand(000, 999) . '.' . $ext;
-        //             }
-        //         }
+                        if ($result === false) {
+                            break;
+                        }
 
-        //         $source_path = $_FILES['crop_vegetative_image']['tmp_name'];
-        //         $destination_path = "../img/" . $image;
+                        $count = pg_num_rows($result);
 
-        //         // Upload the image
-        //         $upload = move_uploaded_file($source_path, $destination_path);
+                        if ($count == 0) {
+                            break;
+                        } else {
+                            // If the image name exists, generate a new one
+                            $image = "Crop_vegetative_image_" . rand(000, 999) . '.' . $ext;
+                        }
+                    }
 
-        //         // Check whether the image is uploaded or not
-        //         if (!$upload) {
-        //             echo "wala na upload ang image";
-        //             echo "Error: " . pg_last_error($conn);
-        //             die();
-        //         }
+                    $source_path = $_FILES['crop_vegetative_image']['tmp_name'][$key];
+                    $destination_path = "../img/" . $image;
 
-        //         $finalimg_vege = $image;
-        //     } else {
-        //         // Display error message for invalid file format
-        //         $_SESSION['message'] = "invalid ang file format image";
-        //         header("location: ../../crop.php");
-        //         die();
-        //     }
+                    // Upload the image
+                    $upload = move_uploaded_file($source_path, $destination_path);
 
-        //     // Delete the current image based on the category
-        //     if ($current_image_veg != '') {
-        //         $delete_path = "../img/" . $current_image_veg;
-        //         if (file_exists($delete_path)) {
-        //             unlink($delete_path);
-        //         }
-        //     }
-        // } else {
-        //     // If no new image is selected, use the current image
-        //     $crop_vegetative_image = $current_image_veg;
-        // }
+                    // Check whether the image is uploaded or not
+                    if (!$upload) {
+                        echo "wala na upload ang image";
+                        echo "Error: " . pg_last_error($conn);
+                        die();
+                    }
 
-        // Check if an image for crop reproductive image is selected
-        // if (isset($_FILES['crop_reproductive_image']['name']) && $_FILES['crop_reproductive_image']['name'] != '') {
-        //     $extension = array('jpg', 'jpeg', 'png', 'gif');
+                    $finalimg_seed = $image;
+                    $crop_vegetative_imageArray[] = $finalimg_seed; // Add image name to the array
+                } else {
+                    // Display error message for invalid file format
+                    echo "invalid ang file format image";
+                    echo "Error: " . pg_last_error($conn);
+                }
+            }
+        }
 
-        //     $filename = $_FILES['crop_reproductive_image']['name'];
-        //     $filename_tmp = $_FILES['crop_reproductive_image']['tmp_name'];
-        //     $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        $crop_vegetative_imageString = implode(',', $crop_vegetative_imageArray);
 
-        //     if (in_array($ext, $extension)) {
-        //         // Auto rename image
-        //         $image = "Crop_Reproductive_Image_" . rand(000, 999) . '.' . $ext;
+        // If no image is selected, set it to null
+        if (empty($crop_vegetative_imageArray)) {
+            $crop_vegetative_imageString = null;
+        }
 
-        //         // Check if the image name already exists in the database
-        //         while (true) {
-        //             $query = "SELECT crop_reproductive_image FROM crop WHERE crop_reproductive_image = $1";
-        //             $result = pg_query_params($conn, $query, array($image));
+        $crop_reproductive_imageArray = []; // Initialize the array
 
-        //             if ($result === false) {
-        //                 break;
-        //             }
+        // Check if an image for crop seed image is selected
+        if (isset($_FILES['crop_reproductive_image']['name']) && is_array($_FILES['crop_reproductive_image']['name'])) {
+            $extension = array('jpg', 'jpeg', 'png', 'gif');
 
-        //             $count = pg_num_rows($result);
+            foreach ($_FILES['crop_reproductive_image']['name'] as $key => $value) {
+                $filename = $_FILES['crop_reproductive_image']['name'][$key];
+                $filename_tmp = $_FILES['crop_reproductive_image']['tmp_name'][$key];
+                $destination_path = "../img/" . $filename;
+                $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
-        //             if ($count == 0) {
-        //                 break;
-        //             } else {
-        //                 // If the image name exists, generate a new one
-        //                 $image = "Crop_Reproductive_Image_" . rand(000, 999) . '.' . $ext;
-        //             }
-        //         }
+                $finalimg = '';
 
-        //         $source_path = $_FILES['crop_reproductive_image']['tmp_name'];
-        //         $destination_path = "../img/" . $image;
+                if (in_array($ext, $extension)) {
+                    // Auto rename image
+                    $image = "Crop_reproductive_image_" . rand(000, 999) . '.' . $ext;
 
-        //         // Upload the image
-        //         $upload = move_uploaded_file($source_path, $destination_path);
+                    // Check if the image name already exists in the database
+                    while (true) {
+                        $query = "SELECT crop_reproductive_image FROM crop WHERE crop_reproductive_image = $1";
+                        $result = pg_query_params($conn, $query, array($image));
 
-        //         // Check whether the image is uploaded or not
-        //         if (!$upload) {
-        //             echo "wala na upload ang image";
-        //             echo "Error: " . pg_last_error($conn);
-        //             die();
-        //         }
+                        if ($result === false) {
+                            break;
+                        }
 
-        //         $finalimg_repro = $image;
-        //     } else {
-        //         // Display error message for invalid file format
-        //         $_SESSION['message'] = "invalid ang file format image";
-        //         header("location: ../../crop.php");
-        //         die();
-        //     }
+                        $count = pg_num_rows($result);
 
-        //     // Delete the current image based on the category
-        //     if ($current_image_rep != '') {
-        //         $delete_path = "../img/" . $current_image_rep;
-        //         if (file_exists($delete_path)) {
-        //             unlink($delete_path);
-        //         }
-        //     }
-        // } else {
-        //     // If no new image is selected, use the current image
-        //     $crop_reproductive_image = $current_image_rep;
-        // }
+                        if ($count == 0) {
+                            break;
+                        } else {
+                            // If the image name exists, generate a new one
+                            $image = "Crop_reproductive_image_" . rand(000, 999) . '.' . $ext;
+                        }
+                    }
+
+                    $source_path = $_FILES['crop_reproductive_image']['tmp_name'][$key];
+                    $destination_path = "../img/" . $image;
+
+                    // Upload the image
+                    $upload = move_uploaded_file($source_path, $destination_path);
+
+                    // Check whether the image is uploaded or not
+                    if (!$upload) {
+                        echo "wala na upload ang image";
+                        echo "Error: " . pg_last_error($conn);
+                        die();
+                    }
+
+                    $finalimg_seed = $image;
+                    $crop_reproductive_imageArray[] = $finalimg_seed; // Add image name to the array
+                } else {
+                    // Display error message for invalid file format
+                    echo "invalid ang file format image";
+                    echo "Error: " . pg_last_error($conn);
+                }
+            }
+        }
+
+        $crop_reproductive_imageString = implode(',', $crop_reproductive_imageArray);
+
+        // If no image is selected, set it to null
+        if (empty($crop_reproductive_imageArray)) {
+            $crop_reproductive_imageString = null;
+        }
 
         // for creating a unique code for each crop variety
         // Get the latest unique_code from the crop table
@@ -3886,17 +3916,17 @@ if (isset($_POST['draft'])) {
         // get all the data in the form
         // gen.php
         $crop_variety = handleEmpty($_POST['crop_variety']);
-        $category_variety_id = $_POST['category_variety_id'];
+        $category_variety_id = isset($_POST['category_variety_id']) ? handleEmpty($_POST['category_variety_id']) : null;
+        $terrain_id = isset($_POST['terrain_id']) ? handleEmpty($_POST['terrain_id']) : null;
         $crop_description = handleEmpty($_POST['crop_description']);
-        $terrain_id = handleEmpty($_POST['terrain_id']);
         $category_id = $_POST['category_id'];
 
         // loc.php
         $province_id = $_POST['province'];
-        $municipality_id = $_POST['municipality'];
+        $municipality_id = isset($_POST['municipality']) ? handleEmpty($_POST['municipality']) : null;
+        $barangay_id = isset($_POST['barangay']) ? handleEmpty($_POST['barangay']) : null;
         $meaning_of_name = handleEmpty($_POST['meaning_of_name']);
         $coordinates = handleEmpty($_POST['coordinates']);
-        $barangay_id = $_POST['barangay'];
         $sitio_name = $_POST['sitio_name'];
 
         $user_id = $_POST['user_id'];
@@ -3977,11 +4007,6 @@ if (isset($_POST['draft'])) {
         $sweetness = isset($_POST['sweetness']) ? handleEmpty($_POST['sweetness']) : null;
         $rootcrop_remarkable_features = isset($_POST['rootcrop_remarkable_features']) ? handleEmpty($_POST['rootcrop_remarkable_features']) : null;
 
-        // Validate the form data
-        if (empty($crop_variety) || empty($category_variety_id) || empty($category_id) || empty($terrain_id) || empty($province_id) || empty($municipality_id) || empty($barangay_id)) {
-            throw new Exception("All fields are required.");
-        }
-
         $crop_seed_imageArray = []; // Initialize the array
 
         // Check if an image for crop seed image is selected
@@ -4049,117 +4074,139 @@ if (isset($_POST['draft'])) {
             $crop_seed_imageString = null;
         }
 
-        // Check if an image for crop reproductive image is selected
-        // if (isset($_FILES['crop_vegetative_image']['name']) && $_FILES['crop_vegetative_image']['name'] != '') {
-        //     $extension = array('jpg', 'jpeg', 'png', 'gif');
+        $crop_vegetative_imageArray = []; // Initialize the array
 
-        //     $filename = $_FILES['crop_vegetative_image']['name'];
-        //     $filename_tmp = $_FILES['crop_vegetative_image']['tmp_name'];
-        //     $ext = pathinfo($filename, PATHINFO_EXTENSION);
+        // Check if an image for crop seed image is selected
+        if (isset($_FILES['crop_vegetative_image']['name']) && is_array($_FILES['crop_vegetative_image']['name'])) {
+            $extension = array('jpg', 'jpeg', 'png', 'gif');
 
-        //     if (in_array($ext, $extension)) {
-        //         // Auto rename image
-        //         $image = "Crop_Vegetative_Image_" . rand(000, 999) . '.' . $ext;
+            foreach ($_FILES['crop_vegetative_image']['name'] as $key => $value) {
+                $filename = $_FILES['crop_vegetative_image']['name'][$key];
+                $filename_tmp = $_FILES['crop_vegetative_image']['tmp_name'][$key];
+                $destination_path = "../img/" . $filename;
+                $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
-        //         // Check if the image name already exists in the database
-        //         while (true) {
-        //             $query = "SELECT crop_vegetative_image FROM crop WHERE crop_vegetative_image = $1";
-        //             $result = pg_query_params($conn, $query, array($image));
+                $finalimg = '';
 
-        //             if ($result === false) {
-        //                 break;
-        //             }
+                if (in_array($ext, $extension)) {
+                    // Auto rename image
+                    $image = "Crop_vegetative_image_" . rand(000, 999) . '.' . $ext;
 
-        //             $count = pg_num_rows($result);
+                    // Check if the image name already exists in the database
+                    while (true) {
+                        $query = "SELECT crop_vegetative_image FROM crop WHERE crop_vegetative_image = $1";
+                        $result = pg_query_params($conn, $query, array($image));
 
-        //             if ($count == 0) {
-        //                 break;
-        //             } else {
-        //                 // If the image name exists, generate a new one
-        //                 $image = "Crop_Vegetative_Image_" . rand(000, 999) . '.' . $ext;
-        //             }
-        //         }
+                        if ($result === false) {
+                            break;
+                        }
 
-        //         $source_path = $_FILES['crop_vegetative_image']['tmp_name'];
-        //         $destination_path = "../img/" . $image;
+                        $count = pg_num_rows($result);
 
-        //         // Upload the image
-        //         $upload = move_uploaded_file($source_path, $destination_path);
+                        if ($count == 0) {
+                            break;
+                        } else {
+                            // If the image name exists, generate a new one
+                            $image = "Crop_vegetative_image_" . rand(000, 999) . '.' . $ext;
+                        }
+                    }
 
-        //         // Check whether the image is uploaded or not
-        //         if (!$upload) {
-        //             echo "wala na upload ang image";
-        //             echo "Error: " . pg_last_error($conn);
-        //             die();
-        //         }
+                    $source_path = $_FILES['crop_vegetative_image']['tmp_name'][$key];
+                    $destination_path = "../img/" . $image;
 
-        //         $finalimg_vege = $image;
-        //     } else {
-        //         // Display error message for invalid file format
-        //         echo "invalid ang file format image";
-        //         echo "Error: " . pg_last_error($conn);
-        //         die();
-        //     }
-        // } else {
-        //     // If no image is selected, set it  
-        // }
-        // $crop_vegetative_image = $finalimg_vege;
+                    // Upload the image
+                    $upload = move_uploaded_file($source_path, $destination_path);
 
-        // Check if an image for crop reproductive image is selected
-        // if (isset($_FILES['crop_reproductive_image']['name']) && $_FILES['crop_reproductive_image']['name'] != '') {
-        //     $extension = array('jpg', 'jpeg', 'png', 'gif');
+                    // Check whether the image is uploaded or not
+                    if (!$upload) {
+                        echo "wala na upload ang image";
+                        echo "Error: " . pg_last_error($conn);
+                        die();
+                    }
 
-        //     $filename = $_FILES['crop_reproductive_image']['name'];
-        //     $filename_tmp = $_FILES['crop_reproductive_image']['tmp_name'];
-        //     $ext = pathinfo($filename, PATHINFO_EXTENSION);
+                    $finalimg_seed = $image;
+                    $crop_vegetative_imageArray[] = $finalimg_seed; // Add image name to the array
+                } else {
+                    // Display error message for invalid file format
+                    echo "invalid ang file format image";
+                    echo "Error: " . pg_last_error($conn);
+                }
+            }
+        }
 
-        //     if (in_array($ext, $extension)) {
-        //         // Auto rename image
-        //         $image = "Crop_Reproductive_Image_" . rand(000, 999) . '.' . $ext;
+        $crop_vegetative_imageString = implode(',', $crop_vegetative_imageArray);
 
-        //         // Check if the image name already exists in the database
-        //         while (true) {
-        //             $query = "SELECT crop_reproductive_image FROM crop WHERE crop_reproductive_image = $1";
-        //             $result = pg_query_params($conn, $query, array($image));
+        // If no image is selected, set it to null
+        if (empty($crop_vegetative_imageArray)) {
+            $crop_vegetative_imageString = null;
+        }
 
-        //             if ($result === false) {
-        //                 break;
-        //             }
+        $crop_reproductive_imageArray = []; // Initialize the array
 
-        //             $count = pg_num_rows($result);
+        // Check if an image for crop seed image is selected
+        if (isset($_FILES['crop_reproductive_image']['name']) && is_array($_FILES['crop_reproductive_image']['name'])) {
+            $extension = array('jpg', 'jpeg', 'png', 'gif');
 
-        //             if ($count == 0) {
-        //                 break;
-        //             } else {
-        //                 // If the image name exists, generate a new one
-        //                 $image = "Crop_Reproductive_Image_" . rand(000, 999) . '.' . $ext;
-        //             }
-        //         }
+            foreach ($_FILES['crop_reproductive_image']['name'] as $key => $value) {
+                $filename = $_FILES['crop_reproductive_image']['name'][$key];
+                $filename_tmp = $_FILES['crop_reproductive_image']['tmp_name'][$key];
+                $destination_path = "../img/" . $filename;
+                $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
-        //         $source_path = $_FILES['crop_reproductive_image']['tmp_name'];
-        //         $destination_path = "../img/" . $image;
+                $finalimg = '';
 
-        //         // Upload the image
-        //         $upload = move_uploaded_file($source_path, $destination_path);
+                if (in_array($ext, $extension)) {
+                    // Auto rename image
+                    $image = "Crop_reproductive_image_" . rand(000, 999) . '.' . $ext;
 
-        //         // Check whether the image is uploaded or not
-        //         if (!$upload) {
-        //             echo "wala na upload ang image";
-        //             echo "Error: " . pg_last_error($conn);
-        //             die();
-        //         }
+                    // Check if the image name already exists in the database
+                    while (true) {
+                        $query = "SELECT crop_reproductive_image FROM crop WHERE crop_reproductive_image = $1";
+                        $result = pg_query_params($conn, $query, array($image));
 
-        //         $finalimg_repro = $image;
-        //     } else {
-        //         // Display error message for invalid file format
-        //         echo "invalid ang file format image";
-        //         echo "Error: " . pg_last_error($conn);
-        //         die();
-        //     }
-        // } else {
-        //     // If no image is selected, set it  
-        // }
-        // $crop_reproductive_image = $finalimg_repro;
+                        if ($result === false) {
+                            break;
+                        }
+
+                        $count = pg_num_rows($result);
+
+                        if ($count == 0) {
+                            break;
+                        } else {
+                            // If the image name exists, generate a new one
+                            $image = "Crop_reproductive_image_" . rand(000, 999) . '.' . $ext;
+                        }
+                    }
+
+                    $source_path = $_FILES['crop_reproductive_image']['tmp_name'][$key];
+                    $destination_path = "../img/" . $image;
+
+                    // Upload the image
+                    $upload = move_uploaded_file($source_path, $destination_path);
+
+                    // Check whether the image is uploaded or not
+                    if (!$upload) {
+                        echo "wala na upload ang image";
+                        echo "Error: " . pg_last_error($conn);
+                        die();
+                    }
+
+                    $finalimg_seed = $image;
+                    $crop_reproductive_imageArray[] = $finalimg_seed; // Add image name to the array
+                } else {
+                    // Display error message for invalid file format
+                    echo "invalid ang file format image";
+                    echo "Error: " . pg_last_error($conn);
+                }
+            }
+        }
+
+        $crop_reproductive_imageString = implode(',', $crop_reproductive_imageArray);
+
+        // If no image is selected, set it to null
+        if (empty($crop_reproductive_imageArray)) {
+            $crop_reproductive_imageString = null;
+        }
 
         // for creating a unique code for each crops
         // Get the latest unique_code from the crop table
