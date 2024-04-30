@@ -63,6 +63,8 @@ require "../../functions/functions.php";
             <!-- MODAL -->
             <!-- add -->
             <?php require "modals/add.php"; ?>
+            <!-- add -->
+            <?php require "modals/draft.php"; ?>
             <!-- edit -->
             <?php require "modals/edit.php"; ?>
             <!-- view -->
@@ -583,7 +585,7 @@ require "../../functions/functions.php";
         }
 
         // Input handling function
-        function handleInputChange() {
+        function handleInputChangeEdit() {
             const inputValue = coordInputEdit.value.trim(); // Trim leading/trailing whitespace
 
             // Ensure comma separation, handle different input formats
@@ -615,7 +617,7 @@ require "../../functions/functions.php";
         });
 
         // Event listener for input changes
-        coordInputEdit.addEventListener('input', handleInputChange);
+        coordInputEdit.addEventListener('input', handleInputChangeEdit);
 
         // fetch data from openstreetmap nominatim
         function fetchDataEdit(lat, lng) {
@@ -702,6 +704,326 @@ require "../../functions/functions.php";
                 typingTimer = setTimeout(function() {
                     // Update the map marker based on the input location after 5 seconds of inactivity
                     updateMapEdit(locationEdit);
+                }, doneTypingInterval);
+            });
+        });
+    </script>
+
+    <!-- Script for the map for draft tab -->
+    <script>
+        // FORMS SIDE
+        // Get references to the select elements
+        // const neighbourhoodValue = document.getElementById('neighbourhood')
+        const municipalitySelectDraft = document.getElementById('MunicipalityDraft');
+        const barangaySelectDraft = document.getElementById('BarangayDraft');
+
+        // Function to populate municipalities dropdown based on selected province
+        function populateMunicipalitiesDraft(selectedProvince) {
+            // Fetch municipalities based on the selected province
+            fetch('modals/fetch/fetch_location-add.php?province=' + selectedProvince)
+                .then(response => response.json())
+                .then(data => {
+                    // console.log(data); // Log the response data
+                    // Rest of your code
+                    var municipalitiesDropdownDraft = document.getElementById('MunicipalityDraft');
+                    // Clear existing options ang add default value
+                    municipalitiesDropdownDraft.innerHTML = '<option value="" disabled selected hidden class="colorize">Select One</option>';
+
+                    // Add the fetched municipalities as options in the dropdown
+                    data.forEach(municipality => {
+                        var option = document.createElement('option');
+                        option.value = municipality['municipality_id'];
+                        option.text = municipality['municipality_name'];
+                        municipalitiesDropdownDraft.appendChild(option);
+                    });
+                });
+        }
+
+        // Call the populateMunicipalitiesDraft function when the province dropdown value changes
+        document.getElementById('ProvinceDraft').addEventListener('change', function() {
+            var selectedProvinceDraft = document.getElementById('ProvinceDraft').value;
+            populateMunicipalitiesDraft(selectedProvinceDraft);
+        });
+
+        // Call the populateMunicipalitiesDraft function initially to populate the municipalities dropdown based on the default selected province
+        var selectedProvinceDraft = document.getElementById('ProvinceDraft').value;
+        populateMunicipalitiesDraft(selectedProvinceDraft);
+
+        // Call the populateBarangayDraft function initially to populate the municipalities dropdown based on the default selected municipality
+        var selectedMunicipalityDraft = document.getElementById('MunicipalityDraft').value;
+        populateBarangayDraft(selectedMunicipalityDraft);
+
+        // Function to populate barangays dropdown based on selected municipality
+        function populateBarangayDraft(selectedMunicipalityDraft) {
+            // Fetch barangays based on the selected municipality
+            fetch('modals/fetch/fetch_location-add.php?municipality=' + selectedMunicipalityDraft)
+                .then(response => response.json())
+                .then(data => {
+                    // console.log(data); // Log the response data
+
+                    var barangayDropdownDraft = document.getElementById('BarangayDraft');
+                    barangayDropdownDraft.innerHTML = '<option value="" disabled selected hidden class="colorize">Select One</option>'; // Clear existing options
+
+                    // Add the fetched barangays as options in the dropdown
+                    data.forEach(barangay => {
+                        var option = document.createElement('option');
+                        option.value = barangay['barangay_id'];
+                        option.text = barangay['barangay_name'];
+                        barangayDropdownDraft.appendChild(option);
+                    });
+                });
+        }
+
+        // Call the populateBarangayDraft function when the municipality dropdown value changes
+        // to automatically go to the coordinated of the municipality
+        document.getElementById('MunicipalityDraft').addEventListener('change', function() {
+            var selectedMunicipalityDraft = document.getElementById('MunicipalityDraft').value;
+            populateBarangayDraft(selectedMunicipalityDraft);
+
+            // Fetch coordinates for the selected municipality
+            fetch('modals/fetch/fetch_location-add.php?pin_municipality=' + selectedMunicipalityDraft)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        var coordinatesString = data[0]['municipality_coordinates'];
+                        var coordinatesArray = coordinatesString.split(',').map(coord => parseFloat(coord.trim()));
+                        // input dom
+                        if (coordinatesArray.length === 2) {
+                            var latitude = coordinatesArray[0];
+                            var longitude = coordinatesArray[1];
+
+                            // Update the map and pin marker with the selected coordinates
+                            updateMapAndPinDraft(latitude, longitude);
+                            // Set the map view to the marker's location
+                            mapDraft.setView([latitude, longitude], 12); // Zoom level 12
+                            // Update the coordinates input field with the selected municipality's coordinates
+                            coordInputDraft.value = latitude.toFixed(6) + ', ' + longitude.toFixed(6);
+                        }
+                    }
+                });
+        });
+
+        // Call the populateBarangayDraft function when the municipality dropdown value changes
+        document.getElementById('MunicipalityDraft').addEventListener('change', function() {
+            var selectedMunicipalityDraft = document.getElementById('MunicipalityDraft').value;
+            populateBarangayDraft(selectedMunicipalityDraft);
+        });
+
+        // initializnig map
+        const mapDraft = L.map('mapDraft').setView([6.403013, 124.725062], 9); //starting position
+
+        // Declare marker globally
+        let markerDraft = null;
+
+        L.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, { //style URL
+            // tilesize
+            tileSize: 512,
+            // maxzoom
+            maxZoom: 18,
+            // i dont what this does but some says before different tile providers handle zoom differently
+            zoomOffset: -1,
+            // minzoom
+            minZoom: 9,
+            // copyright claim, because openstreetmaps require them
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            // i dont know what this does
+            crossOrigin: true
+        }).addTo(mapDraft);
+
+        // input dom
+        let coordInputDraft = document.querySelector('#coordInputDraft');
+
+        // managing map click
+        function onMapClickDraft(e) {
+            // Extract latitude and longitude from the LatLng object
+            const latitude = e.latlng.lat;
+            const longitude = e.latlng.lng;
+
+            // Join the coordinates as a comma-separated string
+            const formattedCoords = latitude.toFixed(6) + ", " + longitude.toFixed(6);
+
+            // Set the input value to the formatted coordinates
+            coordInputDraft.value = formattedCoords;
+
+            // Update the map and pin marker with the clicked coordinates
+            updateMapAndPinDraft(latitude, longitude);
+
+            // fetch data
+            console.log(latitude);
+            console.log(longitude);
+            let details = fetchDataDraft(latitude, longitude)
+                .then(details => {
+                    // set neighbourhood
+                    // neighbourhoodValueDraft.value = details.neighbourhood
+                    // set municipality
+                    // municipalitySelect.value = details.town;
+                    // set barangay
+                    // barangaySelect.value = details.village;
+
+                    console.log('Country:', details.country);
+                    console.log('State:', details.state);
+                    console.log('County:', details.county);
+                    console.log('City:', details.city);
+                    console.log('Town:', details.town);
+                    console.log('Borough:', details.borough);
+                    console.log('Village:', details.village);
+                    console.log('Suburb:', details.suburb);
+                    // console.log('Neighbourhood:', details.neighbourhood);
+                    // console.log('Neighbourhood:', details.neighbourhood);
+                    console.log('Settlement:', details.settlement);
+                    console.log('Major Streets:', details.majorStreets);
+                    console.log('Major and Minor Streets:', details.majorAndMinorStreets);
+                    console.log('Building:', details.building);
+                });
+        }
+
+        mapDraft.on('click', onMapClickDraft);
+
+        function updateMapAndPinDraft(latitude, longitude) {
+            // Remove potential existing marker
+            if (markerDraft) {
+                mapDraft.removeLayer(markerDraft);
+            }
+
+            // Convert input coordinates to Leaflet LatLng object
+            const latLng = L.latLng(latitude, longitude);
+
+            // Create a new marker if coordinates are valid
+            if (isValidLatLng(latLng)) {
+                markerDraft = L.marker(latLng, {
+                    icon: iconDraft // Use your preferred marker icon (e.g., redIcon)
+                });
+
+                // Add marker to the map
+                markerDraft.addTo(mapDraft);
+
+                // Center the map on the new marker
+                // map.setView(latLng, map.getZoom()+1); // Adjust zoom level as needed
+            } else {
+                // console.error("Invalid coordinates entered. Please enter valid latitude and longitude values.");
+            }
+        }
+
+        // Input handling function
+        function handleInputChangeDraft() {
+            const inputValue = coordInputDraft.value.trim(); // Trim leading/trailing whitespace
+
+            // Ensure comma separation, handle different input formats
+            const parts = inputValue.split(/\s*,\s*/);
+            if (parts.length !== 2) {
+                console.error("Invalid input format. Please enter coordinates in the format 'latitude, longitude'.");
+                return;
+            }
+
+            const latitude = parseFloat(parts[0]);
+            const longitude = parseFloat(parts[1]);
+
+            updateMapAndPinDraft(latitude, longitude);
+        }
+
+        // Utility function to validate LatLng object
+        function isValidLatLng(latLng) {
+            return !isNaN(latLng.lat) && !isNaN(latLng.lng) && -90 <= latLng.lat <= 90 && -180 <= latLng.lng <= 180;
+        }
+
+        // Marker initialization (adjust icon as needed)
+        const iconDraft = L.icon({
+            iconUrl: 'img/location-pin-svgrepo-com.svg',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        // Event listener for input changes
+        coordInputDraft.addEventListener('input', handleInputChangeDraft);
+
+        // fetch data from openstreetmap nominatim
+        function fetchDataDraft(lat, lng) {
+            return fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Fetch response as text
+                })
+                .then(data => {
+                    // Parse the XML string into a DOM structure
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(data, "text/xml");
+
+                    // Access information in the XML document
+                    const resultElement = xmlDoc.querySelector('result');
+                    const addressPartsElement = xmlDoc.querySelector('addressparts');
+
+                    // Extract details only if the tag exists
+                    const details = {};
+                    if (addressPartsElement) {
+                        details.country = addressPartsElement.querySelector('country')?.textContent || '';
+                        details.state = addressPartsElement.querySelector('state')?.textContent || '';
+                        details.county = addressPartsElement.querySelector('county')?.textContent || '';
+                        details.city = addressPartsElement.querySelector('city')?.textContent || '';
+                        details.town = addressPartsElement.querySelector('town')?.textContent || '';
+                        details.borough = addressPartsElement.querySelector('borough')?.textContent || '';
+                        details.village = addressPartsElement.querySelector('village')?.textContent || '';
+                        details.suburb = addressPartsElement.querySelector('suburb')?.textContent || '';
+                        details.neighbourhood = addressPartsElement.querySelector('neighbourhood')?.textContent || '';
+                        details.settlement = addressPartsElement.querySelector('settlement')?.textContent || '';
+                        details.majorStreets = addressPartsElement.querySelector('major_streets')?.textContent || '';
+                        details.majorAndMinorStreets = addressPartsElement.querySelector('major_and_minor_streets')?.textContent || '';
+                        details.building = addressPartsElement.querySelector('building')?.textContent || '';
+                    }
+
+                    return details;
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                    // Return null or handle error as needed
+                    return null;
+                });
+        }
+
+        // function to pin location from input by roger bairoy
+        document.addEventListener("DOMContentLoaded", function() {
+            var typingTimer; // Timer identifier
+            var doneTypingInterval = 1000; // Time in milliseconds (5 seconds)
+
+            // Function to update the map marker based on input location
+            function updateMapDraft(locationDraft) {
+                // Parse the location string to extract latitude and longitude
+                var coordinates = locationDraft.split(',').map(function(coord) {
+                    return parseFloat(coord.trim());
+                });
+
+                // Check if coordinates are valid
+                if (coordinates.length === 2 && !isNaN(coordinates[0]) && !isNaN(coordinates[1])) {
+                    var lat = coordinates[0];
+                    var lng = coordinates[1];
+
+                    // Remove existing marker if any
+                    if (typeof marker !== 'undefined') {
+                        mapDraft.removeLayer(markerDraft);
+                    }
+
+                    // Create a new marker at the specified coordinates and add it to the mapDraft
+                    markerDraft = L.marker([lat, lng]).addTo(mapDraft);
+
+                    // Set the mapDraft view to the marker's location
+                    mapDraft.setView([lat, lng], 20); // Zoom level 12
+                } else {
+                    // Invalid coordinates
+                    console.error('Invalid location format');
+                }
+            }
+
+            // Event listener for location input field
+            document.getElementById('coordInputDraft').addEventListener('input', function() {
+                clearTimeout(typingTimer);
+                var locationDraft = this.value;
+                typingTimer = setTimeout(function() {
+                    // Update the map marker based on the input location after 5 seconds of inactivity
+                    updateMapDraft(locationDraft);
                 }, doneTypingInterval);
             });
         });
