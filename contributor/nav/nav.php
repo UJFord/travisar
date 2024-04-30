@@ -40,6 +40,7 @@
                             Settings
                         </a>
                         <ul class="dropdown-menu" aria-labelledby="validationDropdown">
+
                             <li class="dropdown">
                                 <a class="dropdown-item dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Crop Settings</a>
                                 <ul class="dropdown-menu">
@@ -50,6 +51,7 @@
                                     <li><a class="dropdown-item" href="../crop-page/pest-resistance.php">Pest Resistances</a></li>
                                 </ul>
                             </li>
+
                             <li class="dropdown">
                                 <a class="dropdown-item dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">Location Settings</a>
                                 <ul class="dropdown-menu">
@@ -58,6 +60,7 @@
                                     <!-- <li><a class="dropdown-item" href="../location-page/province.php">Province</a></li> -->
                                 </ul>
                             </li>
+                            
                             <li class="dropdown">
                                 <a class="dropdown-item dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">User Accounts</a>
                                 <ul class="dropdown-menu">

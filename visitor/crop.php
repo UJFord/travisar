@@ -1,7 +1,6 @@
 <?php
-require "../functions/connections.php";
-require "../functions/functions.php";
-
+    require "../functions/connections.php";
+    require "../functions/functions.php";
 ?>
 
 <!doctype html>
@@ -43,7 +42,9 @@ require "../functions/functions.php";
     <!-- bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- custom -->
+    <script src="js/nav.js"></script>
     <script src="js/crop.js"></script>
+
 </body>
 
 </html>
