@@ -4,7 +4,7 @@
     <!-- Plant Height -->
     <div class="row mb-4">
         <div class="col-6">
-            <label class="small-font" for="corn_plant_heightDraft">Plant Height</label>
+            <label class="small-font" for="rice_plant_heightDraft">Plant Height</label>
             <select class="form-select" name="rice_plant_heightDraft" id="corn-height">
                 <option value="" disabled selected hidden>Select One</option>
                 <option value="Short">Short</option>
@@ -18,8 +18,8 @@
     <div class="row mb-4">
         <!-- leaf width -->
         <div class="col-6">
-            <label class="small-font" for="leafWidthDraft">Leaf Width</label>
-            <select name="rice_leaf_width" id="leafWidthDraft" class="form-select">
+            <label class="small-font" for="rice_leafWidthDraft">Leaf Width</label>
+            <select name="rice_leaf_width" id="rice_leafWidthDraft" class="form-select">
                 <option value="" disabled selected hidden>Select One</option>
                 <option value="Narrow">Narrow</option>
                 <option value="Average">Average</option>
@@ -31,8 +31,8 @@
 
         <!-- leaf length -->
         <div class="col-6">
-            <label class="small-font" for="leafLengthDraft">Leaf Length</label>
-            <select name="rice_leaf_length" id="leafLengthDraft" class="form-select">
+            <label class="small-font" for="rice_leafLengthDraft">Leaf Length</label>
+            <select name="rice_leaf_length" id="rice_leafLengthDraft" class="form-select">
                 <option value="" disabled selected hidden>Select One</option>
                 <option value="Short">Short</option>
                 <option value="Average">Average</option>
@@ -45,8 +45,8 @@
     <div class="row mb-5">
         <!-- Tillering ability -->
         <div class="col">
-            <label for="tilleringAbilityDraft" class="form-label small-font">Tillering Ability</label>
-            <select name="rice_tillering_ability" id="tilleringAbilityDraft" class="form-select">
+            <label for="rice_tilleringAbilityDraft" class="form-label small-font">Tillering Ability</label>
+            <select name="rice_tillering_ability" id="rice_tilleringAbilityDraft" class="form-select">
                 <option value="" disabled selected hidden>Select One</option>
                 <option value="High Tillering">High Tillering</option>
                 <option value="Low-tillering">Low-tillering</option>
@@ -55,8 +55,8 @@
 
         <!-- Maturity Time -->
         <div class="col">
-            <label for="maturityTimeDraft" class="form-label small-font">Maturity Time</label>
-            <select name="rice_maturity_time" id="maturityTimeDraft" class="form-select">
+            <label for="rice_maturityTimeDraft" class="form-label small-font">Maturity Time</label>
+            <select name="rice_maturity_time" id="rice_maturityTimeDraft" class="form-select">
                 <option value="" disabled selected hidden>Select One</option>
                 <option value="Early Maturing(3months)">Early Maturing (3months)</option>
                 <option value="Late Maturing (4-7months)">Late Maturing (4-7months)</option>
@@ -109,28 +109,28 @@
     <div class="row mb-5">
         <!-- Length -->
         <div class="col-6 mb-2">
-            <label for="seed-lengthDraft" class="form-label small-font">Seed Length</label>
+            <label for="rice-seed-lengthDraft" class="form-label small-font">Seed Length</label>
             <!-- <textarea name="seed_length" id="seed-length" cols="30" rows="1" class="form-control"></textarea> -->
             <input type="text" name="seed_length" id="seed-lengthDraft" class="form-control">
         </div>
 
         <!-- width -->
         <div class="col-6 mb-2">
-            <label for="seed-widthDraft" class="form-label small-font">Seed Width</label>
+            <label for="rice-seed-widthDraft" class="form-label small-font">Seed Width</label>
             <!-- <textarea name="seed_width" id="seed-width" cols="30" rows="1" class="form-control"></textarea> -->
             <input type="text" name="seed_width" id="seed-widthDraft" class="form-control">
         </div>
 
         <!-- Seed Shape -->
         <div class="col-6 mb-0">
-            <label for="seed-shapeDraft" class="form-label small-font">Seed Shape</label>
+            <label for="rice-seed-shapeDraft" class="form-label small-font">Seed Shape</label>
             <!-- <textarea name="seed_shape" id="seed-shape" cols="30" rows="2" class="form-control"></textarea> -->
             <input type="text" name="seed_shape" id="seed-shapeDraft" class="form-control">
         </div>
 
         <!-- Color-->
         <div class="col-6 mb-0">
-            <label for="seed-colorDraft" class="form-label small-font">Seed Color</label>
+            <label for="rice-seed-colorDraft" class="form-label small-font">Seed Color</label>
             <!-- <textarea name="seed_color" id="seed-color" cols="30" rows="2" class="form-control"></textarea> -->
             <input type="text" name="seed_color" id="seed-colorDraft" class="form-control">
         </div>
@@ -160,7 +160,7 @@
         <div class="col-6 mb-2 form-check form-switch px-5 py-3">
             <!-- <label for="purplishStripes" class="form-label small-font">Purplish Stripes?</label>
             <textarea name="purplish_stripes" id="purplishStripes" cols="30" rows="2" class="form-control"></textarea> -->
-            <input class="form-check-inputDraft" name="purplish_stripes" type="checkbox" role="switch" id="purplishStripes" value="1">
+            <input class="form-check-inputDraft" name="purplish_stripes" type="checkbox" role="switch" id="purplishStripesDraft" value="1">
             <label class="form-check-label small-font" for="purplishStripesDraft">With Purplish Stripes?</label>
         </div>
 

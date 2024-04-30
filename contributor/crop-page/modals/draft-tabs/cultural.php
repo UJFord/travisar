@@ -5,26 +5,26 @@
     <div class="row mb-4">
         <!-- Significance -->
         <div class="col-12 mb-2">
-            <label for="Significance" class="form-label small-font">Significance</label>
-            <textarea name="significance" id="Significance" cols="30" rows="2" class="form-control"></textarea>
+            <label for="Significance-Draft" class="form-label small-font">Significance</label>
+            <textarea name="significance" id="Significance-Draft" cols="30" rows="2" class="form-control"></textarea>
         </div>
 
         <!-- Use -->
         <div class="col-12 mb-2">
-            <label for="Use" class="form-label small-font">Use</label>
-            <textarea name="use" id="Use" cols="30" rows="2" class="form-control"></textarea>
+            <label for="Use-Draft" class="form-label small-font">Use</label>
+            <textarea id="Use-Draft" name="use" id="Use" cols="30" rows="2" class="form-control"></textarea>
         </div>
 
         <!-- Indigenous Utilization -->
         <div class="col-12 mb-2">
-            <label for="indigenous-utilization" class="form-label small-font">Indigenous Utilization</label>
-            <textarea name="indigenous_utilization" id="indigenous-utilization" cols="30" rows="2" class="form-control"></textarea>
+            <label for="indigenous-utilization-Draft" class="form-label small-font">Indigenous Utilization</label>
+            <textarea name="indigenous_utilization" id="indigenous-utilization-Draft" cols="30" rows="2" class="form-control"></textarea>
         </div>
 
         <!-- Remarkable Features-->
         <div class="col-12 mb-2">
-            <label for="remarkable-features" class="form-label small-font">Remarkable Features</label>
-            <textarea name="remarkable_features" id="remarkable-features" cols="30" rows="2" class="form-control"></textarea>
+            <label for="remarkable-features-Draft" class="form-label small-font">Remarkable Features</label>
+            <textarea name="remarkable_features" id="remarkable-features-Draft" cols="30" rows="2" class="form-control"></textarea>
         </div>
     </div>
 

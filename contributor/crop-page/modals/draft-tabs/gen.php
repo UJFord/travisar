@@ -138,10 +138,8 @@
         <input id="crop_idDraft" type="hidden" name="crop_idDraft" class="form-control">
         <!-- categoryIDdraft -->
         <input id="categoryIDdraft" type="hidden" name="categoryIDdraft" class="form-control">
-        <!-- cultural_aspect_id -->
-        <input id="cultural_aspect_id" type="hidden" name="cultural_aspect_id" class="form-control">
-        <!-- current_crop_variety -->
-        <input id="current_crop_variety" type="hidden" name="current_crop_variety" class="form-control">
+        <!-- current_crop_varietyDraft -->
+        <input id="current_crop_varietyDraft" type="hidden" name="current_crop_varietyDraft" class="form-control">
         <!-- seed_traitsIDdraft -->
         <input id="seed_traitsIDdraft" type="hidden" name="seed_traitsIDdraft" class="form-control">
         <!-- utilization_culturalIDdraft -->
@@ -150,6 +148,10 @@
         <input id="statusIDdraft" type="hidden" name="statusIDdraft" class="form-control">
         <!-- referencesIDdraft -->
         <input id="referencesIDdraft" type="hidden" name="referencesIDdraft" class="form-control">
+        <!-- currentUniqueCode -->
+        <input id="currentUniqueCode" type="hidden" name="currentUniqueCode" class="form-control">
+        <!-- crop_location_id-Draft -->
+        <input id="crop_location_id-Draft" type="hidden" name="crop_location_id-Draft" class="form-control">
 
         <!-- corn id's -->
         <!-- corn_traitsIDdraft -->
