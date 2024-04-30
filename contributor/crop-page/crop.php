@@ -280,6 +280,8 @@ require "../../functions/functions.php";
                             updateMapAndPin(latitude, longitude);
                             // Set the map view to the marker's location
                             map.setView([latitude, longitude], 12); // Zoom level 12
+                            // Update the coordinates input field with the selected municipality's coordinates
+                            coordInput.value = latitude.toFixed(6) + ', ' + longitude.toFixed(6);
                         }
                     }
                 });

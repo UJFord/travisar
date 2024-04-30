@@ -118,7 +118,7 @@
                         <?php
                         if ($row['action'] === 'draft' && $_SESSION['USER']['user_id'] == $row['user_id']) {
                         ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink draft_data" href="#" data-bs-toggle="modal" data-bs-target="#add-item-modal">
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink draft_data" href="#" data-bs-toggle="modal" data-bs-target="#draft-item-modal">
                             <?php
                         } else  if ($row['action'] === 'approved') {
                             ?>

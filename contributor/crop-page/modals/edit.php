@@ -12,7 +12,7 @@
 
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="edit-label"></h5>
+                <h5 class="modal-title" id="edit-label">Edit</h5>
                 <button type="button" id="close-modal-btn-edit" class="btn-close" aria-label="Close"></button>
             </div>
 
@@ -258,17 +258,6 @@
                     $.each(response, function(key, value) {
                         // Append options to select element
                         console.log(value['corn_abiotic_other_desc']);
-
-                        // set modal name and buttons depending if it is draft or edit
-                        if (value['action'] === 'draft') {
-                            $('#edit-label').text('Draft');
-                            $('#draftButton').show();
-                            $('#editButton').hide();
-                        } else {
-                            $('#edit-label').text('Edit');
-                            $('#editButton').show();
-                            $('#draftButton').hide();
-                        }
 
                         // Fetch the old image and pass it to the fetchOldImage function
                         fetchOldImageSeed(value.crop_seed_image);
