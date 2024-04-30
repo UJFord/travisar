@@ -5,8 +5,7 @@
     <div class="row mb-4">
         <div class="col-6">
             <label class="small-font" for="rice_plant_heightDraft">Plant Height</label>
-            <select class="form-select" name="rice_plant_heightDraft" id="corn-height">
-                <option value="" disabled selected hidden>Select One</option>
+            <select class="form-select" name="rice_plant_heightDraft" id="rice_plant_heightDraft">
                 <option value="Short">Short</option>
                 <option value="Typical">Typical</option>
                 <option value="Tall">Tall</option>
@@ -20,7 +19,6 @@
         <div class="col-6">
             <label class="small-font" for="rice_leafWidthDraft">Leaf Width</label>
             <select name="rice_leaf_width" id="rice_leafWidthDraft" class="form-select">
-                <option value="" disabled selected hidden>Select One</option>
                 <option value="Narrow">Narrow</option>
                 <option value="Average">Average</option>
                 <option value="Wide">Wide</option>
@@ -33,7 +31,6 @@
         <div class="col-6">
             <label class="small-font" for="rice_leafLengthDraft">Leaf Length</label>
             <select name="rice_leaf_length" id="rice_leafLengthDraft" class="form-select">
-                <option value="" disabled selected hidden>Select One</option>
                 <option value="Short">Short</option>
                 <option value="Average">Average</option>
                 <option value="Long">Long</option>
@@ -47,7 +44,6 @@
         <div class="col">
             <label for="rice_tilleringAbilityDraft" class="form-label small-font">Tillering Ability</label>
             <select name="rice_tillering_ability" id="rice_tilleringAbilityDraft" class="form-select">
-                <option value="" disabled selected hidden>Select One</option>
                 <option value="High Tillering">High Tillering</option>
                 <option value="Low-tillering">Low-tillering</option>
             </select>
@@ -57,7 +53,6 @@
         <div class="col">
             <label for="rice_maturityTimeDraft" class="form-label small-font">Maturity Time</label>
             <select name="rice_maturity_time" id="rice_maturityTimeDraft" class="form-select">
-                <option value="" disabled selected hidden>Select One</option>
                 <option value="Early Maturing(3months)">Early Maturing (3months)</option>
                 <option value="Late Maturing (4-7months)">Late Maturing (4-7months)</option>
             </select>
@@ -71,7 +66,6 @@
         <div class="col-6">
             <label for="rice-yield-capacityDraft" class="form-label small-font">Yield Capacity</label>
             <select name="rice_yield_capacity" id="rice-yield-capacityDraft" class="form-select">
-                <option value="" disabled selected hidden>Select One</option>
                 <option value="Low-Yielding">Low-Yielding</option>
                 <option value="High-Yielding">High-Yielding</option>
             </select>
@@ -101,7 +95,7 @@
         <!-- other_remarkable_feature-->
         <div class="col-12 mb-0">
             <label for="panicle-featuresDraft" class="form-label small-font">Other Remarkable Features</label>
-            <textarea class="form-control" name="panicle_remarkable_featuresDraft" id="pan-features" rows="3"></textarea>
+            <textarea class="form-control" name="panicle_remarkable_featuresDraft" id="panicle-featuresDraft" rows="3"></textarea>
         </div>
     </div>
 
@@ -111,28 +105,28 @@
         <div class="col-6 mb-2">
             <label for="rice-seed-lengthDraft" class="form-label small-font">Seed Length</label>
             <!-- <textarea name="seed_length" id="seed-length" cols="30" rows="1" class="form-control"></textarea> -->
-            <input type="text" name="seed_length" id="seed-lengthDraft" class="form-control">
+            <input type="text" name="seed_length" id="rice-seed-lengthDraft" class="form-control">
         </div>
 
         <!-- width -->
         <div class="col-6 mb-2">
             <label for="rice-seed-widthDraft" class="form-label small-font">Seed Width</label>
             <!-- <textarea name="seed_width" id="seed-width" cols="30" rows="1" class="form-control"></textarea> -->
-            <input type="text" name="seed_width" id="seed-widthDraft" class="form-control">
+            <input type="text" name="seed_width" id="rice-seed-widthDraft" class="form-control">
         </div>
 
         <!-- Seed Shape -->
         <div class="col-6 mb-0">
             <label for="rice-seed-shapeDraft" class="form-label small-font">Seed Shape</label>
             <!-- <textarea name="seed_shape" id="seed-shape" cols="30" rows="2" class="form-control"></textarea> -->
-            <input type="text" name="seed_shape" id="seed-shapeDraft" class="form-control">
+            <input type="text" name="seed_shape" id="rice-seed-shapeDraft" class="form-control">
         </div>
 
         <!-- Color-->
         <div class="col-6 mb-0">
             <label for="rice-seed-colorDraft" class="form-label small-font">Seed Color</label>
             <!-- <textarea name="seed_color" id="seed-color" cols="30" rows="2" class="form-control"></textarea> -->
-            <input type="text" name="seed_color" id="seed-colorDraft" class="form-control">
+            <input type="text" name="seed_color" id="rice-seed-colorDraft" class="form-control">
         </div>
     </div>
 

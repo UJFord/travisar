@@ -365,126 +365,6 @@
     }
 </script>
 
-<!-- JavaScript for the select for category variety ang show the morph, sensory and agro tab -->
-<script>
-    // JavaScript for the select for category variety
-    // Function to fetch and display initial category variety based on the initial category
-    document.addEventListener('DOMContentLoaded', function() {
-        // Fetch varieties for the initial selected category
-        var initialCategoryIdDraft = document.getElementById('CategoryDraft').value;
-        fetchVarietiesDraft(initialCategoryIdDraft);
-    });
-
-    // Function to fetch and display initial morphological characteristics based on the initial category
-    document.addEventListener('DOMContentLoaded', function() {
-        // Fetch the initial category value
-        var initialCategoryIdDraft = document.getElementById('CategoryDraft').value;
-        // Call the function to display the corresponding morphological characteristics
-        showMorphologicalCharacteristicsDraft(initialCategoryIdDraft);
-    });
-
-    // Event listener for changing the category select element
-    document.getElementById('CategoryDraft').addEventListener('change', function() {
-        var selectedCategoryDraft = this.value;
-        // Call the function to display the corresponding morphological characteristics
-        showMorphologicalCharacteristicsDraft(selectedCategoryDraft);
-    });
-
-    function fetchVarietiesDraft(categoryIdDraft) {
-        var xhrDraft = new XMLHttpRequest();
-        xhrDraft.onreadystatechange = function() {
-            if (this.readyState === 4) {
-                if (this.status === 200) {
-                    var varietiesDraft = JSON.parse(this.responseText);
-                    populateVarietiesDraft(varietiesDraft);
-                } else {
-                    console.error('Failed to fetch varieties. Status:', this.status);
-                }
-            }
-        };
-        xhrDraft.onerror = function() {
-            console.error('An error occurred during the request.');
-        };
-        xhrDraft.open('GET', 'modals/fetch/fetch_varieties.php?category_id=' + categoryIdDraft, true);
-        xhrDraft.send();
-    }
-
-    document.getElementById('CategoryDraft').addEventListener('change', function() {
-        var categoryIdDraft = this.value;
-        var categoryVarietySelectDraft = document.getElementById('categoryVarietyDraft');
-        var categoryVarietySelectContainerDraft = document.getElementById('category-VarietyDraft');
-        if (categoryIdDraft === '') {
-            categoryVarietySelectContainerDraft.style.display = 'none';
-        } else {
-            categoryVarietySelectContainerDraft.style.display = 'block';
-            fetchVarietiesDraft(categoryIdDraft);
-        }
-
-        // Call the function to display the corresponding morphological characteristics
-        showMorphologicalCharacteristicsDraft(categoryIdDraft);
-    });
-
-    function populateVarietiesDraft(varietiesDraft) {
-        var categoryVarietySelectDraft = document.getElementById('categoryVarietyDraft');
-        categoryVarietySelectDraft.innerHTML = '<option value="" disabled selected hidden class="colorize">Select One</option>'; // Clear existing options
-
-        // Add other options
-        varietiesDraft.forEach(function(variety) {
-            var option = document.createElement('option');
-            option.value = variety.category_variety_id;
-            option.text = variety.category_variety_name;
-            categoryVarietySelectDraft.appendChild(option);
-        });
-    }
-    // Function to display the morphological characteristics based on the selected category
-    function showMorphologicalCharacteristicsDraft(categoryIdDraft) {
-        // morph traits
-        var cornMorphDraft = document.getElementById('cornMorph-draft');
-        var riceMorphDraft = document.getElementById('riceMorph-draft');
-        var rootCropMorphDraft = document.getElementById('root_cropMorph-draft');
-
-        // sensory tab
-        var sensoryTabDraft = document.getElementById('draft-sensory-tab');
-        var withSensoryDraft = document.getElementById('withSensory-Draft');
-        var withoutSensoryDraft = document.getElementById('withoutSensory-Draft');
-        var withSensory_MoreDraft = document.getElementById('withSensory-More-Draft');
-        var withoutSensory_MoreDraft = document.getElementById('withoutSensory-More-Draft');
-
-        // Hide all sections
-        [cornMorphDraft, riceMorphDraft, rootCropMorphDraft, sensoryTabDraft, withSensoryDraft, withoutSensoryDraft, withSensory_MoreDraft, withoutSensory_MoreDraft]
-        .forEach(element => {
-            if (element) {
-                element.style.display = 'none';
-            }
-        });
-
-        // Show the relevant sections based on selected category
-        // check if the category exists
-        if (categoryIdDraft === '4') {
-            [cornMorphDraft, withoutSensoryDraft, withoutSensory_MoreDraft]
-            .forEach(element => {
-                if (element) {
-                    element.style.display = 'block';
-                }
-            });
-        } else if (categoryIdDraft === '1') {
-            [riceMorphDraft, sensoryTabDraft, withSensoryDraft, withSensory_MoreDraft]
-            .forEach(element => {
-                if (element) {
-                    element.style.display = 'block';
-                }
-            });
-        } else if (categoryIdDraft === '2') {
-            [rootCropMorphDraft, withoutSensoryDraft, withoutSensory_MoreDraft]
-            .forEach(element => {
-                if (element) {
-                    element.style.display = 'block';
-                }
-            });
-        }
-    }
-</script>
-
 <!-- script for getting draft data -->
 <script>
     // EDIT SCRIPT
@@ -517,7 +397,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['corn_pest_other']);
+                        console.log(value['rootcrop_leaf_width']);
 
                         // Fetch the old image and pass it to the fetchOldImage function
                         //fetchOldImageSeedDraft(value.crop_seed_image);
@@ -556,45 +436,78 @@
                         // setting the available data on the traits tab depending on the category of the selected crop
                         if (value['category_name'] === 'Corn') {
                             // Show the div for Corn
+                            $('#cornMorph-draft').show();
                             $('#withoutSensory-Draft').show();
                             $('#withoutSensory-More-Draft').show();
                             // Hide the divs for Rice and Root Crop
+                            $('#riceMorph-draft').hide();
+                            $('#root_cropMorph-draft').hide();
                             $('#draft-sensory-tab').hide();
                             $('#withSensory-Draft').hide();
                             $('#withSensory-More-Draft').hide();
 
                             // morph traits for corn
                             // vegetative state
-                            if (value['corn_plant_height']) {
+                            if (value['corn_plant_height'] != null && value['corn_plant_height'] != '') {
                                 $('#corn_plant_heightDraft').append($('<option>', {
                                     value: value['corn_plant_height'],
                                     text: value['corn_plant_height'],
                                     selected: true,
                                     style: 'display: none;'
                                 }));
+                            } else {
+                                $('#corn_plant_heightDraft').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
                             }
-                            if (value['corn_leaf_width']) {
+
+                            if (value['corn_leaf_width'] != null && value['corn_leaf_width'] != '') {
                                 $('#corn-leafWidthDraft').append($('<option>', {
                                     value: value['corn_leaf_width'],
                                     text: value['corn_leaf_width'],
                                     selected: true,
                                     style: 'display: none;'
                                 }));
+                            } else {
+                                $('#corn-leafWidthDraft').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
                             }
-                            if (value['corn_leaf_length']) {
+
+                            if (value['corn_leaf_length'] != null && value['corn_leaf_length'] != '') {
                                 $('#corn-leafLengthDraft').append($('<option>', {
                                     value: value['corn_leaf_length'],
                                     text: value['corn_leaf_length'],
                                     selected: true,
                                     style: 'display: none;'
                                 }));
+                            } else {
+                                $('#corn-leafLengthDraft').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
                             }
 
                             // Reproductive state corn
-                            if (value['corn_yield_capacity']) {
+                            if (value['corn_yield_capacity'] != null && value['corn_yield_capacity'] != '') {
                                 $('#corn-yield-capacityDraft').append($('<option>', {
                                     value: value['corn_yield_capacity'],
                                     text: value['corn_yield_capacity'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#corn-yield-capacityDraft').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
                                     selected: true,
                                     style: 'display: none;'
                                 }));
@@ -613,26 +526,14 @@
                                 $('#corn-seed-colorDraft').val(value['seed_color']);
                             }
 
-                            // if (value['corn_pest_other']) {
-                            //     $('#pest_other_checkDraft').prop('checked', value['corn_pest_other']);
-                            //     // Show the 'Other' textarea if 'other' checkbox is checked
-                            //     if ($('#pest_other_checkDraft').prop('checked')) {
-                            //         $('#pest-other-Draft').removeClass('d-none'); // Remove the 'd-none' class to show the element
-                            //     } else {
-                            //         $('#pest-other-Draft').addClass('d-none'); // Add the 'd-none' class to hide the element
-                            //     }
-                            //     // Set the value of the 'Other' textarea
-                            //     $('#pestDraft').val(value['corn_pest_other_desc']);
-                            // }
-
-                            // if (value['corn_pest_other']) {
-                            //     $('#pest_other_checkDraft').prop('checked', true);
-                            //     $('#pest-otherDraft').toggle(true);
-                            //     $('#pestDraft').val(value['corn_pest_other_desc']);
-                            // } else {
-                            //     $('#pest_other_checkDraft').prop('checked', false);
-                            //     $('#pest-otherDraft').toggle(false);
-                            // }
+                            if (value['corn_pest_other']) {
+                                $('#pest_other_checkDraft').prop('checked', true);
+                                $('#pest-otherDraft').toggle(true);
+                                $('#pestDraft').val(value['corn_pest_other_desc']);
+                            } else {
+                                $('#pest_other_checkDraft').prop('checked', false);
+                                $('#pest-otherDraft').toggle(false);
+                            }
 
                             if (value['corn_abiotic_other']) {
                                 $('#abiotic_other_checkDraft').prop('checked', true);
@@ -645,45 +546,81 @@
 
                         } else if (value['category_name'] === 'Rice') {
                             // Show the div for Rice
+                            $('#riceMorph-draft').show();
                             $('#draft-sensory-tab').show();
                             $('#withSensory-Draft').show();
                             $('#withSensory-More-Draft').show();
                             // Hide the divs for Corn and Root Crop
+                            $('#cornMorph-draft').hide();
+                            $('#root_cropMorph-draft').hide();
                             $('#withoutSensory-Draft').hide();
                             $('#withoutSensory-More-Draft').hide();
 
                             // morph traits for rice
                             // vegetative state
-                            $('#rice_plant_heightDraft').append($('<option>', {
-                                value: value['rice_plant_height'],
-                                text: value['rice_plant_height'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
-                            $('#rice_leafWidthDraft').append($('<option>', {
-                                value: value['rice_leaf_width'],
-                                text: value['rice_leaf_width'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
-                            $('#rice_leafLengthDraft').append($('<option>', {
-                                value: value['rice_leaf_length'],
-                                text: value['rice_leaf_length'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
-                            $('#rice_tilleringAbilityDraft').append($('<option>', {
-                                value: value['rice_tillering_ability'],
-                                text: value['rice_tillering_ability'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
-                            $('#rice_maturityTimeDraft').append($('<option>', {
-                                value: value['rice_maturity_time'],
-                                text: value['rice_maturity_time'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
+                            if (value['rice_plant_height'] != null && value['rice_plant_height'] != '') {
+                                $('#rice_plant_heightDraft').append($('<option>', {
+                                    value: value['rice_plant_height'],
+                                    text: value['rice_plant_height'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#rice_plant_heightDraft').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
+
+                            if (value['rice_leaf_width'] != null && value['rice_leaf_width'] != '') {
+                                $('#rice_leafWidthDraft').append($('<option>', {
+                                    value: value['rice_leaf_width'],
+                                    text: value['rice_leaf_width'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#rice_leafWidthDraft').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
+
+                            if (value['rice_tillering_ability'] != null && value['rice_tillering_ability'] != '') {
+                                $('#rice_tilleringAbilityDraft').append($('<option>', {
+                                    value: value['rice_tillering_ability'],
+                                    text: value['rice_tillering_ability'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#rice_tilleringAbilityDraft').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
+
+                            if (value['rice_maturity_time'] != null && value['rice_maturity_time'] != '') {
+                                $('#rice_maturityTimeDraft').append($('<option>', {
+                                    value: value['rice_maturity_time'],
+                                    text: value['rice_maturity_time'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#rice_maturityTimeDraft').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
 
                             // Reproductive state rice
                             $('#rice-yield-capacityDraft').val(value['rice_yield_capacity']);
@@ -720,54 +657,84 @@
                                 $('#hardness-HardDraft').prop('checked', true);
                             }
 
-                            $('#pest_other_checkDraft').prop('checked', value['rice_pest_other']);
-                            // Show the 'Other' textarea if 'other' checkbox is checked
-                            if ($('#pest_other_checkDraft').prop('checked')) {
-                                $('#pest-otherDraft').removeClass('d-none'); // Remove the 'd-none' class to show the element
+                            if (value['rice_pest_other']) {
+                                $('#pest_other_checkDraft').prop('checked', true);
+                                $('#pest-otherDraft').toggle(true);
+                                $('#pestDraft').val(value['rice_pest_other_desc']);
                             } else {
-                                $('#pest-otherDraft').addClass('d-none'); // Add the 'd-none' class to hide the element
+                                $('#pest_other_checkDraft').prop('checked', false);
+                                $('#pest-otherDraft').toggle(false);
                             }
-                            // Set the value of the 'Other' textarea
-                            $('#pestDraft').val(value['rice_pest_other_desc']);
 
-                            $('#abiotic_other_checkDraft').prop('checked', value['rice_abiotic_other']);
-                            // Show the 'Other' textarea if 'other' checkbox is checked
-                            if ($('#abiotic_other_checkDraft').prop('checked')) {
-                                $('#abiotic_other-Draft').removeClass('d-none');
+                            if (value['rice_abiotic_other']) {
+                                $('#abiotic_other_checkDraft').prop('checked', true);
+                                $('#abiotic_other-Draft').toggle(true);
+                                $('#abiotic_otherDraft').val(value['rice_abiotic_other_desc']);
                             } else {
-                                $('#abiotic_other-Draft').addClass('d-none');
+                                $('#abiotic_other_checkDraft').prop('checked', false);
+                                $('#abiotic_other-Draft').toggle(false);
                             }
-                            // Set the value of the 'Other' textarea
-                            $('#abiotic_otherDraft').val(value['rice_abiotic_other_desc']);
                         } else if (value['category_name'] === 'Root Crop') {
                             // Show the div for Root Crop
+                            $('#root_cropMorph-draft').show();
                             $('#withoutSensory-Draft').show();
                             $('#withoutSensory-More-Draft').show();
                             // Hide the divs for Corn and Rice
+                            $('#cornMorph-draft').hide();
+                            $('#riceMorph-draft').hide();
                             $('#draft-sensory-tab').hide();
                             $('#withSensory-Draft').hide();
                             $('#withSensory-More-Draft').hide();
 
                             // morph traits for rootCrop
                             // vegetative state
-                            $('#rootCrop-heightDraft').append($('<option>', {
-                                value: value['rootcrop_plant_height'],
-                                text: value['rootcrop_plant_height'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
-                            $('#rootCrop-leafWidthDraft').append($('<option>', {
-                                value: value['rootcrop_leaf_width'],
-                                text: value['rootcrop_leaf_width'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
-                            $('#rootCrop-leafLengthDraft').append($('<option>', {
-                                value: value['rootcrop_leaf_length'],
-                                text: value['rootcrop_leaf_length'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
+                            if (value['rootcrop_plant_height'] != null && value['rootcrop_plant_height'] != '') {
+                                $('#rootcrop-heightDraft').append($('<option>', {
+                                    value: value['rootcrop_plant_height'],
+                                    text: value['rootcrop_plant_height'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#rootcrop-heightDraft').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
+
+                            if (value['rootcrop_leaf_width'] != null && value['rootcrop_leaf_width'] != '') {
+                                $('#rootcrop-leafWidthDraft').append($('<option>', {
+                                    value: value['rootcrop_leaf_width'],
+                                    text: value['rootcrop_leaf_width'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#rootcrop-leafWidthDraft').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
+
+                            if (value['rootcrop_leaf_length'] != null && value['rootcrop_leaf_length'] != '') {
+                                $('#rootcrop-leafLengthDraft').append($('<option>', {
+                                    value: value['rootcrop_leaf_length'],
+                                    text: value['rootcrop_leaf_length'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#rootcrop-leafLengthDraft').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
                             $('#rootCrop-steam-leaf-descDraft').val(value['rootcrop_stem_leaf_desc']);
 
                             // Reproductive state rootCrop
@@ -777,25 +744,23 @@
                             $('#rootCrop-sweetnessDraft').val(value['sweetness']);
                             $('#rootCrop-remarkableFeaturesDraft').val(value['rootcrop_remarkable_features']);
 
-                            $('#pest_other_checkDraft').prop('checked', value['rootcrop_pest_other']);
-                            // Show the 'Other' textarea if 'other' checkbox is checked
-                            if ($('#pest_other_checkDraft').prop('checked')) {
-                                $('#pest-otherDraft').removeClass('d-none'); // Remove the 'd-none' class to show the element
+                            if (value['rootcrop_pest_other']) {
+                                $('#pest_other_checkDraft').prop('checked', true);
+                                $('#pest-otherDraft').toggle(true);
+                                $('#pestDraft').val(value['rootcrop_pest_other_desc']);
                             } else {
-                                $('#pest-otherDraft').addClass('d-none'); // Add the 'd-none' class to hide the element
+                                $('#pest_other_checkDraft').prop('checked', false);
+                                $('#pest-otherDraft').toggle(false);
                             }
-                            // Set the value of the 'Other' textarea
-                            $('#pestDraft').val(value['rootcrop_pest_other_desc']);
 
-                            $('#abiotic_other_checkDraft').prop('checked', value['rootcrop_abiotic_other']);
-                            // Show the 'Other' textarea if 'other' checkbox is checked
-                            if ($('#abiotic_other_checkDraft').prop('checked')) {
-                                $('#abiotic_other-Draft').removeClass('d-none');
+                            if (value['rootcrop_abiotic_other']) {
+                                $('#abiotic_other_checkDraft').prop('checked', true);
+                                $('#abiotic_other-Draft').toggle(true);
+                                $('#abiotic_otherDraft').val(value['rootcrop_abiotic_other_desc']);
                             } else {
-                                $('#abiotic_other-Draft').addClass('d-none');
+                                $('#abiotic_other_checkDraft').prop('checked', false);
+                                $('#abiotic_other-Draft').toggle(false);
                             }
-                            // Set the value of the 'Other' textarea
-                            $('#abiotic_otherDraft').val(value['rootcrop_abiotic_other_desc']);
                         }
                         // pest resistances
                         if (value['pest_resistances']) {
@@ -1012,4 +977,124 @@
             });
         });
     });
+</script>
+
+<!-- JavaScript for the select for category variety ang show the morph, sensory and agro tab -->
+<script>
+    // JavaScript for the select for category variety
+    // Function to fetch and display initial category variety based on the initial category
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fetch varieties for the initial selected category
+        var initialCategoryIdDraft = document.getElementById('CategoryDraft').value;
+        fetchVarietiesDraft(initialCategoryIdDraft);
+    });
+
+    // Function to fetch and display initial morphological characteristics based on the initial category
+    document.addEventListener('DOMContentLoaded', function() {
+        // Fetch the initial category value
+        var initialCategoryIdDraft = document.getElementById('CategoryDraft').value;
+        // Call the function to display the corresponding morphological characteristics
+        showMorphologicalCharacteristicsDraft(initialCategoryIdDraft);
+    });
+
+    // Event listener for changing the category select element
+    document.getElementById('CategoryDraft').addEventListener('change', function() {
+        var selectedCategoryDraft = this.value;
+        // Call the function to display the corresponding morphological characteristics
+        showMorphologicalCharacteristicsDraft(selectedCategoryDraft);
+    });
+
+    function fetchVarietiesDraft(categoryIdDraft) {
+        var xhrDraft = new XMLHttpRequest();
+        xhrDraft.onreadystatechange = function() {
+            if (this.readyState === 4) {
+                if (this.status === 200) {
+                    var varietiesDraft = JSON.parse(this.responseText);
+                    populateVarietiesDraft(varietiesDraft);
+                } else {
+                    console.error('Failed to fetch varieties. Status:', this.status);
+                }
+            }
+        };
+        xhrDraft.onerror = function() {
+            console.error('An error occurred during the request.');
+        };
+        xhrDraft.open('GET', 'modals/fetch/fetch_varieties.php?category_id=' + categoryIdDraft, true);
+        xhrDraft.send();
+    }
+
+    document.getElementById('CategoryDraft').addEventListener('change', function() {
+        var categoryIdDraft = this.value;
+        var categoryVarietySelectDraft = document.getElementById('categoryVarietyDraft');
+        var categoryVarietySelectContainerDraft = document.getElementById('category-VarietyDraft');
+        if (categoryIdDraft === '') {
+            categoryVarietySelectContainerDraft.style.display = 'none';
+        } else {
+            categoryVarietySelectContainerDraft.style.display = 'block';
+            fetchVarietiesDraft(categoryIdDraft);
+        }
+
+        // Call the function to display the corresponding morphological characteristics
+        showMorphologicalCharacteristicsDraft(categoryIdDraft);
+    });
+
+    function populateVarietiesDraft(varietiesDraft) {
+        var categoryVarietySelectDraft = document.getElementById('categoryVarietyDraft');
+        categoryVarietySelectDraft.innerHTML = '<option value="" disabled selected hidden class="colorize">Select One</option>'; // Clear existing options
+
+        // Add other options
+        varietiesDraft.forEach(function(variety) {
+            var option = document.createElement('option');
+            option.value = variety.category_variety_id;
+            option.text = variety.category_variety_name;
+            categoryVarietySelectDraft.appendChild(option);
+        });
+    }
+    // Function to display the morphological characteristics based on the selected category
+    function showMorphologicalCharacteristicsDraft(categoryIdDraft) {
+        // morph traits
+        var cornMorphDraft = document.getElementById('cornMorph-draft');
+        var riceMorphDraft = document.getElementById('riceMorph-draft');
+        var rootCropMorphDraft = document.getElementById('root_cropMorph-draft');
+
+        // sensory tab
+        var sensoryTabDraft = document.getElementById('draft-sensory-tab');
+        var withSensoryDraft = document.getElementById('withSensory-Draft');
+        var withoutSensoryDraft = document.getElementById('withoutSensory-Draft');
+        var withSensory_MoreDraft = document.getElementById('withSensory-More-Draft');
+        var withoutSensory_MoreDraft = document.getElementById('withoutSensory-More-Draft');
+
+        // Hide all sections
+        [cornMorphDraft, riceMorphDraft, rootCropMorphDraft, sensoryTabDraft, withSensoryDraft, withoutSensoryDraft, withSensory_MoreDraft, withoutSensory_MoreDraft]
+        .forEach(element => {
+            if (element) {
+                element.style.display = 'none';
+            }
+        });
+
+        // Show the relevant sections based on selected category
+        // check if the category exists
+        if (categoryIdDraft === '4') {
+            [cornMorphDraft, withoutSensoryDraft, withoutSensory_MoreDraft]
+            .forEach(element => {
+                if (element) {
+                    element.style.display = 'block';
+                }
+            });
+        } else if (categoryIdDraft === '1') {
+            [riceMorphDraft, sensoryTabDraft, withSensoryDraft, withSensory_MoreDraft]
+            .forEach(element => {
+                if (element) {
+                    element.style.display = 'block';
+                }
+            });
+        } else if (categoryIdDraft === '2') {
+            [rootCropMorphDraft, withoutSensoryDraft, withoutSensory_MoreDraft]
+            .forEach(element => {
+                if (element) {
+                    element.style.display = 'block';
+                }
+            });
+        }
+    }
 </script>
