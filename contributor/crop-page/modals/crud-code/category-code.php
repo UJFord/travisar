@@ -41,24 +41,32 @@ if (isset($_POST['edit']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
 }
 
 if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator')) {
-
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {
-
         $category_name = $_POST['category_name'];
 
-        $query = "INSERT into category (category_name) values($1) returning category_id";
-        $query_run = pg_query_params($conn, $query, array($category_name));
+        $query_getName = "SELECT category_name from category where category_name = $1";
+        $query_getName_run = pg_query_params($conn, $query_getName, array($category_name));
 
-        if ($query_run) {
-            $_SESSION['message'] = "Category created Successfully";
+        if ($query_getName_run) {
+            $_SESSION['message'] = "Category already exists.";
             pg_query($conn, "COMMIT");
             header("location: ../../crop-category.php");
             exit();
         } else {
-            echo "Error: " . pg_last_error($conn);
-            exit(0);
+            $query = "INSERT into category (category_name) values($1) returning category_id";
+            $query_run = pg_query_params($conn, $query, array($category_name));
+
+            if ($query_run) {
+                $_SESSION['message'] = "Category created successfully.";
+                pg_query($conn, "COMMIT");
+                header("location: ../../crop-category.php");
+                exit();
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
         }
     } catch (Exception $e) {
         // message for error
