@@ -2130,46 +2130,6 @@ if (isset($_POST['draft'])) {
             $crop_reproductive_imageString = null;
         }
 
-        // for creating a unique code for each crops
-        // Get the latest unique_code from the crop table
-        $queryLatestCode = "SELECT category_name FROM category WHERE category_id = $1";
-        $resultLatestCode = pg_query_params($conn, $queryLatestCode, array($category_id));
-
-        if ($resultLatestCode) {
-            $latestCodeRow = pg_fetch_assoc($resultLatestCode);
-            $latestCode = $latestCodeRow['category_name'];
-
-            // Extract the first letter of each word in the category name
-            $prefix = '';
-            $words = explode(' ', $latestCode);
-            foreach ($words as $word) {
-                $prefix .= strtoupper(substr($word, 0, 1));
-            }
-
-            // Fetch all existing unique codes from the crop table
-            $queryUniqueCodes = "SELECT unique_code FROM crop WHERE unique_code LIKE '$prefix%'";
-            $resultUniqueCodes = pg_query($conn, $queryUniqueCodes);
-
-            // Extract the highest number from the existing codes
-            $existingNumbers = [];
-            while ($row = pg_fetch_assoc($resultUniqueCodes)) {
-                preg_match('/(\d+)$/', $row['unique_code'], $matches);
-                if (isset($matches[1])) {
-                    $existingNumbers[] = intval($matches[1]);
-                }
-            }
-
-            if (empty($existingNumbers)) {
-                // If no existing codes, set the current number to 0
-                $currentNumber = 0;
-            } else {
-                $currentNumber = max($existingNumbers);
-            }
-
-            // Generate the new unique code
-            $newUniqueCode = $prefix . 'V' . '-' . str_pad($currentNumber + 1, 4, '0', STR_PAD_LEFT);
-        }
-
         //insert into utilization cultural table
         $query_utilCultural = "INSERT INTO utilization_cultural_importance (significance, \"use\", indigenous_utilization, remarkable_features)
             VALUES ($1, $2, $3, $4) RETURNING utilization_cultural_id";
@@ -2201,12 +2161,12 @@ if (isset($_POST['draft'])) {
         }
 
         //insert into crop table
-        $queryCrop = "INSERT INTO crop (crop_variety, crop_description, unique_code, meaning_of_name, category_id, user_id, 
+        $queryCrop = "INSERT INTO crop (crop_variety, crop_description, meaning_of_name, category_id, user_id, 
         category_variety_id, terrain_id, utilization_cultural_id, crop_seed_image, status_id)
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11) RETURNING crop_id";
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10) RETURNING crop_id";
 
         $valueCrops = array(
-            $crop_variety, $crop_description, $newUniqueCode, $meaning_of_name, $category_id, $user_id, $category_variety_id,
+            $crop_variety, $crop_description, $meaning_of_name, $category_id, $user_id, $category_variety_id,
             $terrain_id, $utilization_cultural_id, $crop_seed_imageString, $status_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);

@@ -31,7 +31,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel-draft" name="Form" action="modals/crud-code/code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
+            <form id="form-panel-draft" name="Form" action="modals/crud-code/draft-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class="py-3 px-5">
                 <div class="modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTabDraft" role="tablist">
@@ -84,6 +84,7 @@
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-end">
                     <div class="">
+                        <button type="submit" id="" name="delete" class="btn btn-danger">Delete</button>
                         <button type="button" id="cancel-modal-btn-draft" class="btn border bg-light">Cancel</button>
                         <button type="submit" id="draftButton-draft" name="save_draft" class="btn btn-success">Save</button>
                     </div>
@@ -151,9 +152,10 @@
         form.reset();
     });
 
-
     // Event listener for when the modal is shown
     document.getElementById('draft-item-modal').addEventListener('shown.bs.modal', function() {
+        // Reset to the first tab
+        document.getElementById('draft-gen-tab').click();
         setupModalEventListenersDraft();
     });
 
@@ -161,6 +163,13 @@
     document.getElementById('confirmModalDraft').addEventListener('hidden.bs.modal', function() {
         // Reset the confirmModalInstanceDraft
         confirmModalInstanceDraft = null;
+    });
+
+    // Event listener for the modal show event
+    $('#draft-item-modal').on('show.bs.modal', function(e) {
+        // Reset the form
+        var form = document.getElementById('form-panel-draft');
+        form.reset();
     });
 </script>
 
@@ -208,7 +217,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "modals/crud-code/code.php",
+                url: "modals/crud-code/draft-code.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,
@@ -903,18 +912,9 @@
                         if (value['sitio_name']) {
                             $('#SitioDraft').val(value['sitio_name']);
                         }
-                        // Update the select data of loc.php locations
-                        if (value['category_name']) {
-                            $('#Category').append($('<option>', {
-                                value: value['category_name'],
-                                text: value['category_name'],
-                                selected: true, // Make the option selected
-                                style: 'display: none;' // Hide the option
-                            }));
-                        }
                         if (value['category_name']) {
                             $('#CategoryDraft').append($('<option>', {
-                                value: value['category_name'],
+                                value: value['category_id'],
                                 text: value['category_name'],
                                 selected: true, // Make the option selected
                                 style: 'display: none;' // Hide the option
@@ -922,7 +922,7 @@
                         }
                         if (value['category_variety_name']) {
                             $('#categoryVarietyDraft').append($('<option>', {
-                                value: value['category_variety_name'],
+                                value: value['category_variety_id'],
                                 text: value['category_variety_name'],
                                 selected: true, // Make the option selected
                                 style: 'display: none;' // Hide the option
@@ -930,7 +930,7 @@
                         }
                         if (value['terrain_name']) {
                             $('#terrainDraft').append($('<option>', {
-                                value: value['terrain_name'],
+                                value: value['terrain_id'],
                                 text: value['terrain_name'],
                                 selected: true, // Make the option selected
                                 style: 'display: none;' // Hide the option

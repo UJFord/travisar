@@ -1,5 +1,7 @@
 <?php
+session_start();
 require "../../../../functions/connections.php";
+
 
 if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
     // Begin the database transaction
@@ -19,14 +21,14 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         $current_image_seed = handleEmpty($_POST['current_image_seed']);
         $current_image_veg = handleEmpty($_POST['current_image_veg']);
         $current_image_rep = handleEmpty($_POST['current_image_rep']);
-        $category_id = handleEmpty($_POST['category_id']);
+        echo $category_id = handleEmpty($_POST['category_id']);
         $category_variety_id = handleEmpty($_POST['category_variety_id']);
         $terrain_id = handleEmpty($_POST['terrain_id']);
 
         // status
         $action = "approved";
         $remarks = "Crop approved.";
-        $status_id = $_POST['statusID'];
+        $status_id = $_POST['statusIDdraft'];
 
         // loc.php
         $province_id = $_POST['province'];
@@ -39,16 +41,16 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         $crop_location_id = handleEmpty($_POST['crop_location_id-Draft']);
         $crop_id = handleEmpty($_POST['crop_idDraft']);
         $seed_traits_id = handleEmpty($_POST['seed_traitsIDdraft']);
-        $utilization_cultural_id = handleEmpty($_POST['utilization_culturalIDDraft']);
-        $corn_pest_other_id = handleEmpty($_POST['corn_pest_otherIDDraft']);
-        $corn_abiotic_other_id = handleEmpty($_POST['corn_abiotic_otherIDDraft']);
-        $rice_pest_other_id = handleEmpty($_POST['rice_pest_otherIDDraft']);
-        $rice_abiotic_other_id = handleEmpty($_POST['rice_abiotic_otherIDDraft']);
-        $rootcrop_pest_other_id = handleEmpty($_POST['rootcrop_pest_otherIDDraft']);
-        $rootcrop_abiotic_other_id = handleEmpty($_POST['rootcrop_abiotic_otherIDDraft']);
-        $corn_traits_id = handleEmpty($_POST['corn_traitsIDDraft']);
-        $rice_traits_id = handleEmpty($_POST['rice_traitsIDDraft']);
-        $root_crop_traits_id = handleEmpty($_POST['root_crop_traitsIDDraft']);
+        $utilization_cultural_id = handleEmpty($_POST['utilization_culturalIDdraft']);
+        $corn_pest_other_id = handleEmpty($_POST['corn_pest_otherIDdraft']);
+        $corn_abiotic_other_id = handleEmpty($_POST['corn_abiotic_otherIDdraft']);
+        $rice_pest_other_id = handleEmpty($_POST['rice_pest_otherIDdraft']);
+        $rice_abiotic_other_id = handleEmpty($_POST['rice_abiotic_otherIDdraft']);
+        $rootcrop_pest_other_id = handleEmpty($_POST['rootcrop_pest_otherIDdraft']);
+        $rootcrop_abiotic_other_id = handleEmpty($_POST['rootcrop_abiotic_otherIDdraft']);
+        $corn_traits_id = handleEmpty($_POST['corn_traitsIDdraft']);
+        $rice_traits_id = handleEmpty($_POST['rice_traitsIDdraft']);
+        $root_crop_traits_id = handleEmpty($_POST['root_crop_traitsIDdraft']);
 
         // pest resistance other
         $pest_other = isset($_POST['pest_other']) ? true : null;
@@ -125,7 +127,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         $rootcrop_remarkable_features = isset($_POST['rootcrop_remarkable_features']) ? handleEmpty($_POST['rootcrop_remarkable_features']) : null;
 
         // Validate the form data
-        if (empty($crop_variety) || empty($province_id) || empty($municipality_id) || empty($barangay_id) || empty($category_id) || empty($category_variety_id)) {
+        if (empty($crop_variety) || empty($municipality_id) || empty($barangay_id) || empty($category_id) || empty($category_variety_id)) {
             $_SESSION['message'] = "A required field is empty please fill the required fields.";
             header("location: ../../crop.php");
             exit();
@@ -278,43 +280,38 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
             $finalimgVeg = implode(',', $uploadedImagesVeg);
         }
 
-        $crop_reproductive_imageArray = []; // Initialize the array
-
-        // Check if an image for crop seed image is selected
-        if (isset($_FILES['crop_reproductive_image']['name']) && is_array($_FILES['crop_reproductive_image']['name'])) {
+        // Array to store uploaded Vegetative image  names
+        $uploadedImagesRepro = [];
+        // Function to update crop seed image
+        if (isset($_FILES['crop_reproductive_image']['name'][0]) && is_array($_FILES['crop_reproductive_image']['name']) && $_FILES['crop_reproductive_image']['name'][0] != "") {
             $extension = array('jpg', 'jpeg', 'png', 'gif');
 
-            foreach ($_FILES['crop_reproductive_image']['name'] as $key => $value) {
-                $filename = $_FILES['crop_reproductive_image']['name'][$key];
-                $filename_tmp = $_FILES['crop_reproductive_image']['tmp_name'][$key];
-                $destination_path = "../img/" . $filename;
+            foreach ($_FILES['crop_reproductive_image']['name'] as $key => $filename) {
                 $ext = pathinfo($filename, PATHINFO_EXTENSION);
 
-                $finalimg = '';
-
                 if (in_array($ext, $extension)) {
-                    // Auto rename image
-                    $image = "Crop_reproductive_image_" . rand(000, 999) . '.' . $ext;
+                    $image = $filename;
 
                     // Check if the image name already exists in the database
-                    while (true) {
-                        $query = "SELECT crop_reproductive_image FROM crop WHERE crop_reproductive_image = $1";
-                        $result = pg_query_params($conn, $query, array($image));
+                    // Check if any version of the image name already exists in the database
+                    $query = "SELECT crop_reproductive_image FROM crop WHERE crop_reproductive_image LIKE $1";
+                    $result = pg_query_params($conn, $query, array('%' . $image . '%'));
 
-                        if ($result === false) {
-                            break;
-                        }
-
-                        $count = pg_num_rows($result);
-
-                        if ($count == 0) {
-                            break;
-                        } else {
-                            // If the image name exists, generate a new one
-                            $image = "Crop_reproductive_image_" . rand(000, 999) . '.' . $ext;
-                        }
+                    if ($result === false) {
+                        die("Database query failed");
                     }
 
+                    $count = pg_num_rows($result);
+
+                    if ($count == 0) {
+                        $image = "Crop_Reproductive_Image_" . rand(000, 999) . '.' . $ext;
+                    } else {
+                        // If image exists in database, use it as is
+                        $uploadedImagesRepro[] = $image;
+                        continue; // Skip the rest of the loop for this image
+                    }
+
+                    $uploadedImagesRepro[] = $image;
                     $source_path = $_FILES['crop_reproductive_image']['tmp_name'][$key];
                     $destination_path = "../img/" . $image;
 
@@ -323,30 +320,78 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
 
                     // Check whether the image is uploaded or not
                     if (!$upload) {
-                        echo "wala na upload ang image";
-                        echo "Error: " . pg_last_error($conn);
+                        echo "Image upload failed";
                         die();
                     }
-
-                    $finalimg_seed = $image;
-                    $crop_reproductive_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
                     // Display error message for invalid file format
-                    echo "invalid ang file format image";
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Invalid file format for image";
+                    header("location: ../../crop.php");
+                    die();
                 }
             }
+
+            $finalimgRepro = implode(',', $uploadedImagesRepro);
+
+            // Delete images that are not present in the new input
+            if ($current_image_veg != '') {
+                $currentVegImages = explode(',', $current_image_veg);
+
+                foreach ($currentVegImages as $image) {
+                    if (!in_array($image, $uploadedImagesRepro)) {
+                        $delete_path = "../img/" . $image;
+                        if (file_exists($delete_path)) {
+                            unlink($delete_path);
+                        }
+                    }
+                }
+            }
+        } else {
+            // If no new image is selected, use the current image
+            $currentReproImages = explode(',', $current_image_rep);
+            $uploadedImagesRepro = array_merge($uploadedImagesRepro, $currentReproImages);
+            $finalimgRepro = implode(',', $uploadedImagesRepro);
         }
 
-        $crop_reproductive_imageString = implode(',', $crop_reproductive_imageArray);
-
-        // If no image is selected, set it to null
-        if (empty($crop_reproductive_imageArray)) {
-            $crop_reproductive_imageString = null;
-        }
-
-        // for creating a unique code for each crop variety
+        // for creating a unique code for each crops
         // Get the latest unique_code from the crop table
+        $queryLatestCode = "SELECT category_name FROM category WHERE category_id = $1";
+        $resultLatestCode = pg_query_params($conn, $queryLatestCode, array($category_id));
+
+        if ($resultLatestCode) {
+            $latestCodeRow = pg_fetch_assoc($resultLatestCode);
+            $latestCode = $latestCodeRow['category_name'];
+
+            // Extract the first letter of each word in the category name
+            $prefix = '';
+            $words = explode(' ', $latestCode);
+            foreach ($words as $word) {
+                $prefix .= strtoupper(substr($word, 0, 1));
+            }
+
+            // Fetch all existing unique codes from the crop table
+            $queryUniqueCodes = "SELECT unique_code FROM crop WHERE unique_code LIKE '$prefix%'";
+            $resultUniqueCodes = pg_query($conn, $queryUniqueCodes);
+
+            // Extract the highest number from the existing codes
+            $existingNumbers = [];
+            while ($row = pg_fetch_assoc($resultUniqueCodes)) {
+                preg_match('/(\d+)$/', $row['unique_code'], $matches);
+                if (isset($matches[1])) {
+                    $existingNumbers[] = intval($matches[1]);
+                }
+            }
+
+            if (empty($existingNumbers)) {
+                // If no existing codes, set the current number to 0
+                $currentNumber = 0;
+            } else {
+                $currentNumber = max($existingNumbers);
+            }
+
+            // Generate the new unique code
+            $newUniqueCode = $prefix . 'V' . '-' . str_pad($currentNumber + 1, 4, '0', STR_PAD_LEFT);
+        }
 
         // update utilization cultural table
         $query_utilCultural = "UPDATE utilization_cultural_importance SET significance = $1, \"use\" = $2, indigenous_utilization = $3,
@@ -363,11 +408,12 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         }
 
         // update crop table
-        $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, meaning_of_name = $3,
-        crop_seed_image = $4 where crop_id = $5";
+        $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, meaning_of_name = $3, crop_seed_image = $4, category_variety_id = $5,
+        terrain_id = $6, crop_vegetative_image = $7, crop_reproductive_image = $8
+        where crop_id = $9";
 
         $valueCrops = array(
-            $crop_variety, $crop_description, $meaning_of_name, $finalimgSeed, $crop_id
+            $crop_variety, $crop_description, $meaning_of_name, $finalimgSeed, $category_variety_id, $terrain_id, $finalimgVeg, $finalimgRepro, $crop_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -1034,6 +1080,516 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
 
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop Edited Successfully";
+        pg_query($conn, "COMMIT");
+        header("Location: ../../crop.php");
+        exit(0);
+    } catch (Exception $e) {
+        // message for error
+        $_SESSION['message'] = 'Crop not Saved';
+        // Rollback the transaction if an error occurs
+        pg_query($conn, "ROLLBACK");
+        // Log the error message
+        error_log("Error: " . $e->getMessage());
+        // Handle the error
+        echo "Error: " . $e->getMessage();
+        // Display the error message
+        echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
+        exit(0);
+    }
+}
+
+if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
+    // Begin the database transaction
+    pg_query($conn, "BEGIN");
+    try {
+        // Function to handle empty values
+        function handleEmpty($value)
+        {
+            return empty($value) ? null : $value;
+        }
+
+        // id's
+        $crop_location_id = handleEmpty($_POST['crop_location_id']);
+        $crop_id = handleEmpty($_POST['crop_idDraft']);
+        $seed_traits_id = handleEmpty($_POST['seed_traitsID']);
+        $utilization_cultural_id = handleEmpty($_POST['utilization_culturalID']);
+        $corn_pest_other_id = handleEmpty($_POST['corn_pest_otherID']);
+        $corn_abiotic_other_id = handleEmpty($_POST['corn_abiotic_otherID']);
+        $rice_pest_other_id = handleEmpty($_POST['rice_pest_otherID']);
+        $rice_abiotic_other_id = handleEmpty($_POST['rice_abiotic_otherID']);
+        $rootcrop_pest_other_id = handleEmpty($_POST['rootcrop_pest_otherID']);
+        $rootcrop_abiotic_other_id = handleEmpty($_POST['rootcrop_abiotic_otherID']);
+        $category_id = handleEmpty($_POST['categoryID']);
+        $references_id = $_POST['referencesID'];
+        $status_id = $_POST['statusID'];
+
+        // get the old image
+        $current_image_seed = handleEmpty($_POST['current_image_seed']);
+
+        $get_name = "SELECT category_name FROM crop left join category on crop.category_id = category.category_id where crop.crop_id = $1";
+        $query_run = pg_query_params($conn, $get_name, array($crop_id));
+
+        if ($query_run) {
+            $row_categoryName = pg_fetch_assoc(($query_run));
+            $get_category_name = $row_categoryName['category_name'];
+        } else {
+            $_SESSION['message'] = "No category available, incomplete data";
+            header("location: ../crop.php");
+            exit();
+        }
+
+        if ($get_category_name === 'Corn') {
+            // Id's for corn traits
+            $corn_traits_id = handleEmpty($_POST['corn_traitsID']);
+            $vegetative_state_corn_id = handleEmpty($_POST['vegetative_state_cornID']);
+            $reproductive_state_corn_id = handleEmpty($_POST['reproductive_state_cornID']);
+
+            // Delete from Crop table
+            $query_delete_crop = "DELETE FROM crop WHERE crop_id = $1";
+            $query_run_delete_crop = pg_query_params($conn, $query_delete_crop, [$crop_id]);
+
+            if (!$query_run_delete_crop) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete images in ../img/ directory
+            $imagesPath = "../img/";
+            $currentSeedImages = explode(',', $current_image_seed);
+
+            foreach ($currentSeedImages as $image) {
+                $delete_path = $imagesPath . $image;
+                if (file_exists($delete_path)) {
+                    unlink($delete_path);
+                }
+            }
+
+            // Delete from Crop Location table
+            $query_delete_crop_loc = "DELETE FROM crop_location WHERE crop_location_id = $1";
+            $query_run_delete_crop_loc = pg_query_params($conn, $query_delete_crop_loc, [$crop_location_id]);
+
+            if (!$query_run_delete_crop_loc) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Utilization and cultural importance table
+            $query_delete_util_cultural = "DELETE FROM utilization_cultural_importance WHERE utilization_cultural_id = $1";
+            $query_run_delete_util_cultural = pg_query_params($conn, $query_delete_util_cultural, [$utilization_cultural_id]);
+
+            if (!$query_run_delete_util_cultural) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Status table
+            $query_delete_Status = "DELETE FROM status WHERE status_id = $1";
+            $query_run_delete_Status = pg_query_params($conn, $query_delete_Status, [$status_id]);
+
+            if (!$query_run_delete_Status) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            if (is_array($references_id)) {
+                foreach ($references_id as $ref_id) {
+                    if (!($ref_id === '' || $ref_id === null)) {
+                        // Delete from references table
+                        $query_delete_Reference = "DELETE FROM \"references\" WHERE references_id = $1";
+                        $query_run_delete_Reference = pg_query_params($conn, $query_delete_Reference, array($ref_id));
+
+                        if (!$query_run_delete_Reference) {
+                            echo "Error: " . pg_last_error($conn);
+                            die();
+                        }
+                    }
+                }
+            }
+
+            // Delete from Corn Traits table
+            $query_delete_corn_Traits = "DELETE FROM corn_traits WHERE corn_traits_id = $1";
+            $query_run_delete_corn_Traits = pg_query_params($conn, $query_delete_corn_Traits, [$corn_traits_id]);
+
+            if (!$query_run_delete_corn_Traits) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Disease Resistance table
+            $query_delete_disease_res = "DELETE FROM corn_disease_resistance WHERE corn_traits_id = $1";
+            $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$corn_traits_id]);
+
+            if (!$query_run_delete_disease_res) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Abiotic Resistance table
+            $query_delete_abiotic_res = "DELETE FROM corn_abiotic_resistance WHERE corn_traits_id = $1";
+            $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$corn_traits_id]);
+
+            if (!$query_run_delete_abiotic_res) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Pest Resistance_corn table
+            $query_delete_pest_res = "DELETE FROM corn_pest_resistance WHERE corn_traits_id = $1";
+            $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$corn_traits_id]);
+
+            if (!$query_run_delete_pest_res) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Vegetative state table
+            $query_delete_veg_state = "DELETE FROM vegetative_state_corn WHERE vegetative_state_corn_id = $1";
+            $query_run_delete_veg_state = pg_query_params($conn, $query_delete_veg_state, [$vegetative_state_corn_id]);
+
+            if (!$query_run_delete_veg_state) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Reproductive state table
+            $query_delete_repro_state = "DELETE FROM reproductive_state_corn WHERE reproductive_state_corn_id = $1";
+            $query_run_delete_repro_state = pg_query_params($conn, $query_delete_repro_state, [$reproductive_state_corn_id]);
+
+            if (!$query_run_delete_repro_state) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from seed traits table
+            $query_delete_seed_traits = "DELETE FROM seed_traits WHERE seed_traits_id = $1";
+            $query_run_delete_seed_traits = pg_query_params($conn, $query_delete_seed_traits, [$seed_traits_id]);
+
+            if (!$query_run_delete_seed_traits) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from pest other resistance table
+            $query_delete_pestOther = "DELETE FROM corn_pest_resistance_other WHERE corn_pest_other_id = $1";
+            $query_run_delete_pestOther = pg_query_params($conn, $query_delete_pestOther, [$corn_pest_other_id]);
+
+            if (!$query_run_delete_pestOther) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from abiotic other resistance table
+            $query_delete_abioticOther = "DELETE FROM corn_abiotic_resistance_other WHERE corn_abiotic_other_id = $1";
+            $query_run_delete_abioticOther = pg_query_params($conn, $query_delete_abioticOther, [$corn_abiotic_other_id]);
+
+            if (!$query_run_delete_abioticOther) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+        } else if ($get_category_name === 'Rice') {
+            //id's for rice
+            $rice_traits_id = handleEmpty($_POST['rice_traitsID']);
+            $vegetative_state_rice_id = handleEmpty($_POST['vegetative_state_riceID']);
+            $reproductive_state_rice_id = handleEmpty($_POST['reproductive_state_riceID']);
+            $pest_resistance_rice_id = handleEmpty($_POST['pest_resistance_riceID']);
+            $flag_leaf_traits_rice_id = handleEmpty($_POST['flag_leaf_traits_riceID']);
+            $panicle_traits_rice_id = handleEmpty($_POST['panicle_traits_riceID']);
+            $sensory_traits_rice_id = handleEmpty($_POST['sensory_traits_riceID']);
+
+            // Delete from Crop table
+            $query_delete_crop = "DELETE FROM crop WHERE crop_id = $1";
+            $query_run_delete_crop = pg_query_params($conn, $query_delete_crop, [$crop_id]);
+
+            if (!$query_run_delete_crop) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Crop Location table
+            $query_delete_crop_loc = "DELETE FROM crop_location WHERE crop_location_id = $1";
+            $query_run_delete_crop_loc = pg_query_params($conn, $query_delete_crop_loc, [$crop_location_id]);
+
+            if (!$query_run_delete_crop_loc) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Utilization and cultural importance table
+            $query_delete_util_cultural = "DELETE FROM utilization_cultural_importance WHERE utilization_cultural_id = $1";
+            $query_run_delete_util_cultural = pg_query_params($conn, $query_delete_util_cultural, [$utilization_cultural_id]);
+
+            if (!$query_run_delete_util_cultural) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Status table
+            $query_delete_Status = "DELETE FROM status WHERE status_id = $1";
+            $query_run_delete_Status = pg_query_params($conn, $query_delete_Status, [$status_id]);
+
+            if (!$query_run_delete_Status) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // delete from reference table if available
+            if (is_array($references_id)) {
+                foreach ($references_id as $ref_id) {
+                    if (!($ref_id === '' || $ref_id === null)) {
+                        // Delete from references table
+                        $query_delete_Reference = "DELETE FROM \"references\" WHERE references_id = $1";
+                        $query_run_delete_Reference = pg_query_params($conn, $query_delete_Reference, array($ref_id));
+
+                        if (!$query_run_delete_Reference) {
+                            echo "Error: " . pg_last_error($conn);
+                            die();
+                        }
+                    }
+                }
+            }
+
+            // Delete from rice Traits table
+            $query_delete_rice_Traits = "DELETE FROM rice_traits WHERE rice_traits_id = $1";
+            $query_run_delete_rice_Traits = pg_query_params($conn, $query_delete_rice_Traits, [$rice_traits_id]);
+
+            if (!$query_run_delete_rice_Traits) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Vegetative state table
+            $query_delete_veg_state = "DELETE FROM vegetative_state_rice WHERE vegetative_state_rice_id = $1";
+            $query_run_delete_veg_state = pg_query_params($conn, $query_delete_veg_state, [$vegetative_state_rice_id]);
+
+            if (!$query_run_delete_veg_state) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Reproductive state table
+            $query_delete_repro_state = "DELETE FROM reproductive_state_rice WHERE reproductive_state_rice_id = $1";
+            $query_run_delete_repro_state = pg_query_params($conn, $query_delete_repro_state, [$reproductive_state_rice_id]);
+
+            if (!$query_run_delete_repro_state) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from panicle traits table
+            $query_delete_panicleTraits = "DELETE FROM panicle_traits_rice WHERE panicle_traits_rice_id = $1";
+            $query_run_delete_panicleTraits = pg_query_params($conn, $query_delete_panicleTraits, [$panicle_traits_rice_id]);
+
+            if (!$query_run_delete_panicleTraits) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from flag leaf traits table
+            $query_delete_flagLeaf = "DELETE FROM flag_leaf_traits_rice WHERE flag_leaf_traits_rice_id = $1";
+            $query_run_delete_flagLeaf = pg_query_params($conn, $query_delete_flagLeaf, [$flag_leaf_traits_rice_id]);
+
+            if (!$query_run_delete_flagLeaf) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from sensory traits table
+            $query_delete_sensoryTraits = "DELETE FROM sensory_traits_rice WHERE sensory_traits_rice_id = $1";
+            $query_run_delete_sensoryTraits = pg_query_params($conn, $query_delete_sensoryTraits, [$sensory_traits_rice_id]);
+
+            if (!$query_run_delete_sensoryTraits) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from seed traits table
+            $query_delete_seed_traits = "DELETE FROM seed_traits WHERE seed_traits_id = $1";
+            $query_run_delete_seed_traits = pg_query_params($conn, $query_delete_seed_traits, [$seed_traits_id]);
+
+            if (!$query_run_delete_seed_traits) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Disease Resistance table
+            $query_delete_disease_res = "DELETE FROM rice_disease_resistance WHERE rice_traits_id = $1";
+            $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$rice_traits_id]);
+
+            if (!$query_run_delete_disease_res) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Abiotic Resistance table
+            $query_delete_abiotic_res = "DELETE FROM rice_abiotic_resistance WHERE rice_traits_id = $1";
+            $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$rice_traits_id]);
+
+            if (!$query_run_delete_abiotic_res) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Pest Resistance_rice table
+            $query_delete_pest_res = "DELETE FROM rice_pest_resistance WHERE rice_traits_id = $1";
+            $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$rice_traits_id]);
+
+            if (!$query_run_delete_pest_res) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from pest other resistance table
+            $query_delete_pestOther = "DELETE FROM rice_pest_resistance_other WHERE rice_pest_other_id = $1";
+            $query_run_delete_pestOther = pg_query_params($conn, $query_delete_pestOther, [$rice_pest_other_id]);
+
+            if (!$query_run_delete_pestOther) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from abiotic other resistance table
+            $query_delete_abioticOther = "DELETE FROM rice_abiotic_resistance_other WHERE rice_abiotic_other_id = $1";
+            $query_run_delete_abioticOther = pg_query_params($conn, $query_delete_abioticOther, [$rice_abiotic_other_id]);
+
+            if (!$query_run_delete_abioticOther) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+        } else if ($get_category_name === 'Root Crop') {
+            //id's for root crop
+            $root_crop_traits_id = handleEmpty($_POST['root_crop_traitsID']);
+            $rootcrop_traits_id = handleEmpty($_POST['rootcrop_traitsID']);
+            $vegetative_state_rootcrop_id = handleEmpty($_POST['vegetative_state_rootcropID']);
+            $reproductive_state_rootcrop_id = handleEmpty($_POST['reproductive_state_rootcropID']);
+            $pest_resistance_rootcrop_id = handleEmpty($_POST['pest_resistance_rootcropID']);
+
+            // Delete from Crop table
+            $query_delete_crop = "DELETE FROM crop WHERE crop_id = $1";
+            $query_run_delete_crop = pg_query_params($conn, $query_delete_crop, [$crop_id]);
+
+            if (!$query_run_delete_crop) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Crop Location table
+            $query_delete_crop_loc = "DELETE FROM crop_location WHERE crop_location_id = $1";
+            $query_run_delete_crop_loc = pg_query_params($conn, $query_delete_crop_loc, [$crop_location_id]);
+
+            if (!$query_run_delete_crop_loc) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Utilization and cultural importance table
+            $query_delete_util_cultural = "DELETE FROM utilization_cultural_importance WHERE utilization_cultural_id = $1";
+            $query_run_delete_util_cultural = pg_query_params($conn, $query_delete_util_cultural, [$utilization_cultural_id]);
+
+            if (!$query_run_delete_util_cultural) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Status table
+            $query_delete_Status = "DELETE FROM status WHERE status_id = $1";
+            $query_run_delete_Status = pg_query_params($conn, $query_delete_Status, [$status_id]);
+
+            if (!$query_run_delete_Status) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // delete from reference table if available
+            if (is_array($references_id)) {
+                foreach ($references_id as $ref_id) {
+                    if (!($ref_id === '' || $ref_id === null)) {
+                        // Delete from references table
+                        $query_delete_Reference = "DELETE FROM \"references\" WHERE references_id = $1";
+                        $query_run_delete_Reference = pg_query_params($conn, $query_delete_Reference, array($ref_id));
+
+                        if (!$query_run_delete_Reference) {
+                            echo "Error: " . pg_last_error($conn);
+                            die();
+                        }
+                    }
+                }
+            }
+
+            // Delete from root_crop Traits table
+            $query_delete_root_crop_Traits = "DELETE FROM root_crop_traits WHERE root_crop_traits_id = $1";
+            $query_run_delete_root_crop_Traits = pg_query_params($conn, $query_delete_root_crop_Traits, [$root_crop_traits_id]);
+
+            if (!$query_run_delete_root_crop_Traits) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from rootcrop Traits table
+            $query_delete_rootcrop_Traits = "DELETE FROM rootcrop_traits WHERE rootcrop_traits_id = $1";
+            $query_run_delete_rootcrop_Traits = pg_query_params($conn, $query_delete_rootcrop_Traits, [$rootcrop_traits_id]);
+
+            if (!$query_run_delete_rootcrop_Traits) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Vegetative state table
+            $query_delete_veg_state = "DELETE FROM vegetative_state_rootcrop WHERE vegetative_state_rootcrop_id = $1";
+            $query_run_delete_veg_state = pg_query_params($conn, $query_delete_veg_state, [$vegetative_state_rootcrop_id]);
+
+            if (!$query_run_delete_veg_state) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Disease Resistance table
+            $query_delete_disease_res = "DELETE FROM rootcrop_disease_resistance WHERE root_crop_traits_id = $1";
+            $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$root_crop_traits_id]);
+
+            if (!$query_run_delete_disease_res) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Abiotic Resistance table
+            $query_delete_abiotic_res = "DELETE FROM rootcrop_abiotic_resistance WHERE root_crop_traits_id = $1";
+            $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$root_crop_traits_id]);
+
+            if (!$query_run_delete_abiotic_res) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Pest Resistance_rootcrop table
+            $query_delete_pest_res = "DELETE FROM rootcrop_pest_resistance WHERE root_crop_traits_id = $1";
+            $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$root_crop_traits_id]);
+
+            if (!$query_run_delete_pest_res) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from pest other resistance table
+            $query_delete_pestOther = "DELETE FROM rootcrop_pest_resistance_other WHERE rootcrop_pest_other_id = $1";
+            $query_run_delete_pestOther = pg_query_params($conn, $query_delete_pestOther, [$rootcrop_pest_other_id]);
+
+            if (!$query_run_delete_pestOther) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from abiotic other resistance table
+            $query_delete_abioticOther = "DELETE FROM rootcrop_abiotic_resistance_other WHERE rootcrop_abiotic_other_id = $1";
+            $query_run_delete_abioticOther = pg_query_params($conn, $query_delete_abioticOther, [$rootcrop_abiotic_other_id]);
+
+            if (!$query_run_delete_abioticOther) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+        }
+
+        // Commit the transaction if everything is successful
+        $_SESSION['message'] = "Crop Deleted Successfully";
         pg_query($conn, "COMMIT");
         header("Location: ../../crop.php");
         exit(0);

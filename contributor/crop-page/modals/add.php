@@ -151,9 +151,11 @@
         form.reset();
     });
 
-
     // Event listener for when the modal is shown
     document.getElementById('add-item-modal').addEventListener('shown.bs.modal', function() {
+        // Reset to the first tab
+        document.getElementById('gen-tab').click();
+        // Setup event listeners for the modal
         setupModalEventListeners();
     });
 
