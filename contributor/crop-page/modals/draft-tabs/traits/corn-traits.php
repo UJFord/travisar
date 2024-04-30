@@ -1,3 +1,4 @@
+
 <div id="cornMorph-draft">
     <!-- vegetative state -->
     <h6 class="fw-semibold mt-4 mb-3">Vegetative State</h6>

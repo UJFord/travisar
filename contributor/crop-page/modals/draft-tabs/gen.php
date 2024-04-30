@@ -247,7 +247,7 @@
         <!-- variety name -->
         <div class="col mb-2">
             <label for="Variety-NameDraft" class="form-label small-font">Local/Variety Name<span class="text-danger ms-1">*</span></label>
-            <input id="Variety-NameDraft" type="text" name="crop_variety" class="form-control">
+            <input id="Variety-NameDraft" type="text" name="" class="form-control">
             <div id="varietyName-error-draft" class="invalid-feedback"></div>
         </div>
 
