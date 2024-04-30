@@ -4,7 +4,7 @@
         cursor: pointer;
     }
 
-    .remove-image-seed {
+    .remove-image-seed-draft {
         width: 1rem;
         aspect-ratio: 1/1;
         position: absolute;
@@ -21,7 +21,7 @@
         font-size: 0.8rem;
     }
 
-    .remove-image-veg {
+    .remove-image-veg-draft {
         width: 1rem;
         aspect-ratio: 1/1;
         position: absolute;
@@ -38,7 +38,7 @@
         font-size: 0.8rem;
     }
 
-    .remove-image-repro {
+    .remove-image-repro-draft {
         width: 1rem;
         aspect-ratio: 1/1;
         position: absolute;
@@ -55,17 +55,17 @@
         font-size: 0.8rem;
     }
 
-    .remove-image-seed:hover {
+    .remove-image-seed-draft:hover {
         /* background: rgba(255, 255, 255, 0.79); */
         background: white;
     }
 
-    .remove-image-veg:hover {
+    .remove-image-veg-draft:hover {
         /* background: rgba(255, 255, 255, 0.79); */
         background: white;
     }
 
-    .remove-image-repro:hover {
+    .remove-image-repro-draft:hover {
         /* background: rgba(255, 255, 255, 0.79); */
         background: white;
     }
@@ -82,7 +82,7 @@
         -ms-overflow-style: none;
     }
 
-    .preview-image-container {
+    .preview-image-container-draft {
         position: relative;
     }
 
@@ -130,14 +130,84 @@
 <!-- leaflet -->
 <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <!-- GENERAL TAB -->
-<div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
+<div class="fade show active tab-pane" id="draft-gen-tab-pane" role="tabpanel" aria-labelledby="draft-gen-tab" tabindex="0">
+    <!-- hidden data for draft-->
+    <div>
+        <!-- common id's -->
+        <!-- crop_idDraft -->
+        <input id="crop_idDraft" type="hidden" name="crop_idDraft" class="form-control">
+        <!-- categoryIDdraft -->
+        <input id="categoryIDdraft" type="hidden" name="categoryIDdraft" class="form-control">
+        <!-- current_crop_varietyDraft -->
+        <input id="current_crop_varietyDraft" type="hidden" name="current_crop_varietyDraft" class="form-control">
+        <!-- seed_traitsIDdraft -->
+        <input id="seed_traitsIDdraft" type="hidden" name="seed_traitsIDdraft" class="form-control">
+        <!-- utilization_culturalIDdraft -->
+        <input id="utilization_culturalIDdraft" type="hidden" name="utilization_culturalIDdraft" class="form-control">
+        <!-- statusIDdraft -->
+        <input id="statusIDdraft" type="hidden" name="statusIDdraft" class="form-control">
+        <!-- referencesIDdraft -->
+        <input id="referencesIDdraft" type="hidden" name="referencesIDdraft" class="form-control">
+        <!-- currentUniqueCode -->
+        <input id="currentUniqueCode" type="hidden" name="currentUniqueCode" class="form-control">
+        <!-- crop_location_id-Draft -->
+        <input id="crop_location_id-Draft" type="hidden" name="crop_location_id-Draft" class="form-control">
+
+        <!-- corn id's -->
+        <!-- corn_traitsIDdraft -->
+        <input id="corn_traitsIDdraft" type="hidden" name="corn_traitsIDdraft" class="form-control">
+        <!-- vegetative_state_cornIDdraft -->
+        <input id="vegetative_state_cornIDdraft" type="hidden" name="vegetative_state_cornIDdraft" class="form-control">
+        <!-- reproductive_state_cornIDdraft -->
+        <input id="reproductive_state_cornIDdraft" type="hidden" name="reproductive_state_cornIDdraft" class="form-control">
+        <!-- corn_pest_otherIDdraft -->
+        <input id="corn_pest_otherIDdraft" type="hidden" name="corn_pest_otherIDdraft" class="form-control">
+        <!-- corn_abiotic_otherIDdraft -->
+        <input id="corn_abiotic_otherIDdraft" type="hidden" name="corn_abiotic_otherIDdraft" class="form-control">
+
+        <!-- rice id's -->
+        <!-- rice_traitsIDdraft -->
+        <input id="rice_traitsIDdraft" type="hidden" name="rice_traitsIDdraft" class="form-control">
+        <!-- vegetative_state_riceIDdraft -->
+        <input id="vegetative_state_riceIDdraft" type="hidden" name="vegetative_state_riceIDdraft" class="form-control">
+        <!-- reproductive_state_riceIDdraft -->
+        <input id="reproductive_state_riceIDdraft" type="hidden" name="reproductive_state_riceIDdraft" class="form-control">
+        <!-- panicle_traits_riceIDdraft -->
+        <input id="panicle_traits_riceIDdraft" type="hidden" name="panicle_traits_riceIDdraft" class="form-control">
+        <!-- flag_leaf_traits_riceIDdraft -->
+        <input id="flag_leaf_traits_riceIDdraft" type="hidden" name="flag_leaf_traits_riceIDdraft" class="form-control">
+        <!-- sensory_traits_riceIDdraft -->
+        <input id="sensory_traits_riceIDdraft" type="hidden" name="sensory_traits_riceIDdraft" class="form-control">
+        <!-- rice_pest_otherIDdraft -->
+        <input id="rice_pest_otherIDdraft" type="hidden" name="rice_pest_otherIDdraft" class="form-control">
+        <!-- rice_abiotic_otherIDdraft -->
+        <input id="rice_abiotic_otherIDdraft" type="hidden" name="rice_abiotic_otherIDdraft" class="form-control">
+
+        <!-- root crop id's -->
+        <!-- root_crop_traitsIDdraft -->
+        <input id="root_crop_traitsIDdraft" type="hidden" name="root_crop_traitsIDdraft" class="form-control">
+        <!-- vegetative_state_rootcropIDdraft -->
+        <input id="vegetative_state_rootcropIDdraft" type="hidden" name="vegetative_state_rootcropIDdraft" class="form-control">
+        <!-- rootcrop_traitsIDdraft -->
+        <input id="rootcrop_traitsIDdraft" type="hidden" name="rootcrop_traitsIDdraft" class="form-control">
+        <!-- rootcrop_pest_otherIDdraft -->
+        <input id="rootcrop_pest_otherIDdraft" type="hidden" name="rootcrop_pest_otherIDdraft" class="form-control">
+        <!-- rootcrop_abiotic_otherIDdraft -->
+        <input id="rootcrop_abiotic_otherIDdraft" type="hidden" name="rootcrop_abiotic_otherIDdraft" class="form-control">
+
+        <!-- image hidden -->
+        <input type="hidden" name="current_image_seed" id="old_image_seedDraft">
+        <input type="hidden" name="current_image_veg" id="old_image_vegDraft">
+        <input type="hidden" name="current_image_rep" id="old_image_repDraft">
+    </div>
+
     <!-- Category and Crop Field -->
     <h6 class="fw-semibold mt-4 mb-3">General Information</h6>
     <div class="row mb-2">
         <!-- Category Name -->
         <div class="col-6">
-            <label for="Category" class="form-label small-font">Crop Category<span class="text-danger ms-1">*</span></label>
-            <select name="category_id" id="Category" class="form-select">
+            <label for="CategoryDraft" class="form-label small-font">Crop Category<span class="text-danger ms-1">*</span></label>
+            <select name="category_id" id="CategoryDraft" class="form-select">
                 <?php
                 // get the data of category from DB
                 $queryCategory = "SELECT * FROM category ORDER BY category_name ASC";
@@ -160,15 +230,15 @@
                 }
                 ?>
             </select>
-            <div id="category-error" class="invalid-feedback"></div>
+            <div id="category-error-draft" class="invalid-feedback"></div>
         </div>
 
         <!-- Category Variety -->
-        <div class="col" id="category-Variety">
-            <label for="categoryVariety" class="form-label small-font">Variety<span class="text-danger ms-1">*</span></label>
-            <select name="category_variety_id" id="categoryVariety" class="form-select color-default-child">
+        <div class="col" id="category-VarietyDraft">
+            <label for="categoryVarietyDraft" class="form-label small-font">Variety<span class="text-danger ms-1">*</span></label>
+            <select name="category_variety_id" id="categoryVarietyDraft" class="form-select color-default-child">
             </select>
-            <div id="categoryVariety-error" class="invalid-feedback"></div>
+            <div id="categoryVariety-error-draft" class="invalid-feedback"></div>
         </div>
     </div>
 
@@ -176,15 +246,15 @@
     <div class="row mb-2">
         <!-- variety name -->
         <div class="col mb-2">
-            <label for="Variety-Name" class="form-label small-font">Local/Variety Name<span class="text-danger ms-1">*</span></label>
-            <input id="Variety-Name" type="text" name="crop_variety" class="form-control">
-            <div id="varietyName-error" class="invalid-feedback"></div>
+            <label for="Variety-NameDraft" class="form-label small-font">Local/Variety Name<span class="text-danger ms-1">*</span></label>
+            <input id="Variety-NameDraft" type="text" name="crop_variety" class="form-control">
+            <div id="varietyName-error-draft" class="invalid-feedback"></div>
         </div>
 
         <!-- Meaning of Name -->
         <div class="col mb-2">
-            <label for="nameMean" class="form-label small-font">Meaning of Name (if any)</label>
-            <input id="nameMean" type="text" name="meaning_of_name" class="form-control">
+            <label for="nameMeanDraft" class="form-label small-font">Meaning of Name (if any)</label>
+            <input id="nameMeanDraft" type="text" name="meaning_of_name" class="form-control">
         </div>
     </div>
 
@@ -192,8 +262,8 @@
     <div class="row mb-2">
         <!-- terrain -->
         <div class="col-6">
-            <label for="terrain" class="form-label small-font">Terrain<span style="color: red;">*</span></label>
-            <select name="terrain_id" id="terrain" class="form-select">
+            <label for="terrainDraft" class="form-label small-font">Terrain<span style="color: red;">*</span></label>
+            <select name="terrain_id" id="terrainDraft" class="form-select">
                 <option value="" disabled selected hidden>Select One</option>
                 <?php
                 // get the data of terrain from DB
@@ -218,15 +288,15 @@
                 }
                 ?>
             </select>
-            <div id="terrain-error" class="invalid-feedback"></div>
+            <div id="terrain-error-draft" class="invalid-feedback"></div>
         </div>
     </div>
 
     <!-- DESCRIPTION -->
     <div class="row mb-5">
         <div class="col">
-            <label for="desc" class="form-label small-font">Description</label>
-            <textarea name="crop_description" id="desc" rows="2" class="form-control"></textarea>
+            <label for="descDraft" class="form-label small-font">Description</label>
+            <textarea name="crop_description" id="descDraft" rows="2" class="form-control"></textarea>
         </div>
     </div>
 
@@ -236,38 +306,38 @@
     <div id="coords-help" class="form-text mb-3" style="font-size: 0.7rem;">Hold <span class="fw-bold">ctrl</span> or <span class="fw-bold">shift</span> and click the images to upload multiple files</div>
     <!-- Seed image -->
     <div class="row mb-3">
-        <label for="imageInputSeed" class="d-flex align-items-center rounded small-font mb-2">
+        <label for="imageInputSeedDraft" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Seed</span>
         </label>
         <div class="d-flex flex-column image-upload-container col-6">
-            <input class="mb-0 form-control form-control-sm" name="crop_seed_image[]" type="file" id="imageInputSeed" accept="image/jpeg,image/png" onchange="previewImageSeed(this, 'previewSeed')" multiple>
+            <input class="mb-0 form-control form-control-sm" name="crop_seed_image[]" type="file" id="imageInputSeedDraft" accept="image/jpeg,image/png" onchange="previewImageSeedDraft(this, 'previewSeedDraft')" multiple>
         </div>
-        <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewSeed"></div>
+        <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewSeedDraft"></div>
     </div>
 
     <!-- Vegetative image -->
     <div class="row mb-3">
-        <label for="imageInputVegetative" class="d-flex align-items-center rounded small-font mb-2">
+        <label for="imageInputVegetativeDraft" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Vegetative Stage</span>
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
-            <input class="col-6 mb-0 form-control form-control-sm" name="crop_vegetative_image[]" type="file" id="imageInputVegetative" accept="image/jpeg,image/png" onchange="previewImageVeg(this, 'previewVeg')" multiple>
+            <input class="col-6 mb-0 form-control form-control-sm" name="crop_vegetative_image[]" type="file" id="imageInputVegetativeDraft" accept="image/jpeg,image/png" onchange="previewImageVegDraft(this, 'previewVegDraft')" multiple>
         </div>
-        <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewVeg"></div>
+        <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewVegDraft"></div>
     </div>
 
     <!-- Reproductive image -->
     <div class="row mb-5">
-        <label for="imageInputReproductive" class="d-flex align-items-center rounded small-font mb-2">
+        <label for="imageInputReproductiveDraft" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Reproductive Stage</span>
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
-            <input class="mb-0 form-control form-control-sm" type="file" name="crop_reproductive_image[]" id="imageInputReproductive" accept="image/jpeg,image/png" onchange="previewImageRepro(this, 'previewReproductive')" multiple>
+            <input class="mb-0 form-control form-control-sm" type="file" name="crop_reproductive_image[]" id="imageInputReproductiveDraft" accept="image/jpeg,image/png" onchange="previewImageReproDraft(this, 'previewReproductiveDraft')" multiple>
         </div>
-        <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewReproductive"></div>
+        <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewReproductiveDraft"></div>
     </div>
 
     <!-- MAP -->
@@ -276,8 +346,8 @@
         <!-- form -->
         <div class="col-6 location-Data">
             <!-- Province dropdown -->
-            <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
-            <select id="Province" name="province" class="form-select mb-2" readonly>
+            <label for="ProvinceDraft" class="form-label small-font">Province <span style="color: red;">*</span></label>
+            <select id="ProvinceDraft" name="province" class="form-select mb-2" readonly>
                 <?php
                 // Fetch distinct province names from the location table
                 $queryProvince = "SELECT DISTINCT province_name, province_id FROM province ORDER BY province_name ASC";
@@ -297,42 +367,42 @@
                 }
                 ?>
             </select>
-            <div id="province-error" class="invalid-feedback"></div>
+            <div id="province-error-draft" class="invalid-feedback"></div>
 
             <!-- Municipality dropdown -->
-            <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
-            <select id="Municipality" name="municipality" class="form-select mb-2">
+            <label for="MunicipalityDraft" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
+            <select id="MunicipalityDraft" name="municipality" class="form-select mb-2">
                 <!-- option is automatically shown through js depending on the province -->
             </select>
-            <div id="municipality-error" class="invalid-feedback"></div>
+            <div id="municipality-error-draft" class="invalid-feedback"></div>
 
             <!-- barangay -->
-            <label for="Barangay" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
-            <select id="Barangay" name="barangay" class="form-select mb-2">
+            <label for="BarangayDraft" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
+            <select id="BarangayDraft" name="barangay" class="form-select mb-2">
                 <option value="" disabled selected hidden>Select One</option>
                 <!-- option is automatically shown through js depending on the municipality selected -->
             </select>
-            <div id="barangay-error" class="invalid-feedback"></div>
+            <div id="barangay-error-draft" class="invalid-feedback"></div>
 
             <!-- sitio -->
-            <label for="Sitio" class="form-label small-font mb-0">Sitio</label>
-            <input id="Sitio" name="sitio_name" type="text" class="form-control mb-2">
+            <label for="SitioDraft" class="form-label small-font mb-0">Sitio</label>
+            <input id="SitioDraft" name="sitio_name" type="text" class="form-control mb-2">
 
             <!-- coordinates -->
-            <label for="coordInput" class="form-label small-font mb-0">Coordinates(if any)</label>
-            <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
+            <label for="coordInputDraft" class="form-label small-font mb-0">Coordinates(if any)</label>
+            <input id="coordInputDraft" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
             <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (<span class="fw-bold">latitude , longitude - 5.7600, 125.3466</span>)</div>
 
         </div>
         <!-- map -->
-        <div id="map" class="col border">
+        <div id="mapDraft" class="col border">
         </div>
     </div>
 
     <!-- STEP NAVIGATION -->
     <div class="row">
         <div class="col d-flex justify-content-end">
-            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('more')">Next<i class="fa-solid fa-angles-right ms-2"></i></button>
+            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('draft-more')">Next<i class="fa-solid fa-angles-right ms-2"></i></button>
         </div>
     </div>
 </div>
@@ -342,7 +412,7 @@
 
 <!-- IMAGE PREVIEW HANDLING -->
 <script defer>
-    function previewImageSeed(input, previewId) {
+    function previewImageSeedDraft(input, previewId) {
         const previewContainer = document.getElementById(previewId);
         previewContainer.innerHTML = ""; // Clear previous previews
 
@@ -355,7 +425,7 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const imgContainer = document.createElement("div");
-                    imgContainer.classList.add("preview-image-container");
+                    imgContainer.classList.add("preview-image-container-draft");
                     previewContainer.appendChild(imgContainer);
 
                     const img = document.createElement("img");
@@ -365,7 +435,7 @@
 
                     const deleteButton = document.createElement("button");
                     deleteButton.innerHTML = "<i class='fa-solid fa-xmark'></i>";
-                    deleteButton.classList.add("remove-image-seed");
+                    deleteButton.classList.add("remove-image-seed-draft");
                     imgContainer.appendChild(deleteButton);
 
                     // Add selected file to the array
@@ -374,9 +444,9 @@
                 reader.readAsDataURL(files[i]);
             }
 
-            $(document).off("click", ".remove-image-seed").on("click", ".remove-image-seed", function() {
-                var index = $(this).index(".remove-image-seed");
-                var input = $('#imageInputSeed')[0];
+            $(document).off("click", ".remove-image-seed-draft").on("click", ".remove-image-seed-draft", function() {
+                var index = $(this).index(".remove-image-seed-draft");
+                var input = $('#imageInputSeedDraft')[0];
                 var newFiles = Array.from(input.files);
                 newFiles.splice(index, 1);
 
@@ -389,7 +459,7 @@
                 newFiles.forEach(function(file) {
                     dataTransfer.items.add(file);
                     const imgContainer = document.createElement("div");
-                    imgContainer.classList.add("preview-image-container");
+                    imgContainer.classList.add("preview-image-container-draft");
                     previewContainer.appendChild(imgContainer);
 
                     const img = document.createElement("img");
@@ -399,7 +469,7 @@
 
                     const deleteButton = document.createElement("button");
                     deleteButton.innerHTML = "<i class='fa-solid fa-xmark'></i>";
-                    deleteButton.classList.add("remove-image-seed");
+                    deleteButton.classList.add("remove-image-seed-draft");
                     imgContainer.appendChild(deleteButton);
                 });
                 input.files = dataTransfer.files;
@@ -413,7 +483,7 @@
         }
     }
 
-    function previewImageVeg(input, previewId) {
+    function previewImageVegDraft(input, previewId) {
         const previewContainer = document.getElementById(previewId);
         previewContainer.innerHTML = ""; // Clear previous previews
 
@@ -426,7 +496,7 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const imgContainer = document.createElement("div");
-                    imgContainer.classList.add("preview-image-container");
+                    imgContainer.classList.add("preview-image-container-draft");
                     previewContainer.appendChild(imgContainer);
 
                     const img = document.createElement("img");
@@ -436,7 +506,7 @@
 
                     const deleteButton = document.createElement("button");
                     deleteButton.innerHTML = "<i class='fa-solid fa-xmark'></i>";
-                    deleteButton.classList.add("remove-image-veg");
+                    deleteButton.classList.add("remove-image-veg-draft");
                     imgContainer.appendChild(deleteButton);
 
                     // Add selected file to the array
@@ -445,9 +515,9 @@
                 reader.readAsDataURL(files[i]);
             }
 
-            $(document).off("click", ".remove-image-veg").on("click", ".remove-image-veg", function() {
-                var index = $(this).index(".remove-image-veg");
-                var input = $('#imageInputVegetative')[0];
+            $(document).off("click", ".remove-image-veg-draft").on("click", ".remove-image-veg-draft", function() {
+                var index = $(this).index(".remove-image-veg-draft");
+                var input = $('#imageInputVegetativeDraft')[0];
                 var newFiles = Array.from(input.files);
                 newFiles.splice(index, 1);
 
@@ -460,7 +530,7 @@
                 newFiles.forEach(function(file) {
                     dataTransfer.items.add(file);
                     const imgContainer = document.createElement("div");
-                    imgContainer.classList.add("preview-image-container");
+                    imgContainer.classList.add("preview-image-container-draft");
                     previewContainer.appendChild(imgContainer);
 
                     const img = document.createElement("img");
@@ -470,7 +540,7 @@
 
                     const deleteButton = document.createElement("button");
                     deleteButton.innerHTML = "<i class='fa-solid fa-xmark'></i>";
-                    deleteButton.classList.add("remove-image-veg");
+                    deleteButton.classList.add("remove-image-veg-draft");
                     imgContainer.appendChild(deleteButton);
                 });
                 input.files = dataTransfer.files;
@@ -484,7 +554,7 @@
         }
     }
 
-    function previewImageRepro(input, previewId) {
+    function previewImageReproDraft(input, previewId) {
         const previewContainer = document.getElementById(previewId);
         previewContainer.innerHTML = ""; // Clear previous previews
 
@@ -497,7 +567,7 @@
                 const reader = new FileReader();
                 reader.onload = function(e) {
                     const imgContainer = document.createElement("div");
-                    imgContainer.classList.add("preview-image-container");
+                    imgContainer.classList.add("preview-image-container-draft");
                     previewContainer.appendChild(imgContainer);
 
                     const img = document.createElement("img");
@@ -507,7 +577,7 @@
 
                     const deleteButton = document.createElement("button");
                     deleteButton.innerHTML = "<i class='fa-solid fa-xmark'></i>";
-                    deleteButton.classList.add("remove-image-repro");
+                    deleteButton.classList.add("remove-image-repro-draft");
                     imgContainer.appendChild(deleteButton);
 
                     // Add selected file to the array
@@ -516,9 +586,9 @@
                 reader.readAsDataURL(files[i]);
             }
 
-            $(document).off("click", ".remove-image-repro").on("click", ".remove-image-repro", function() {
-                var index = $(this).index(".remove-image-repro");
-                var input = $('#imageInputReproductive')[0];
+            $(document).off("click", ".remove-image-repro-draft").on("click", ".remove-image-repro-draft", function() {
+                var index = $(this).index(".remove-image-repro-draft");
+                var input = $('#imageInputReproductiveDraft')[0];
                 var newFiles = Array.from(input.files);
                 newFiles.splice(index, 1);
 
@@ -531,7 +601,7 @@
                 newFiles.forEach(function(file) {
                     dataTransfer.items.add(file);
                     const imgContainer = document.createElement("div");
-                    imgContainer.classList.add("preview-image-container");
+                    imgContainer.classList.add("preview-image-container-draft");
                     previewContainer.appendChild(imgContainer);
 
                     const img = document.createElement("img");
@@ -541,7 +611,7 @@
 
                     const deleteButton = document.createElement("button");
                     deleteButton.innerHTML = "<i class='fa-solid fa-xmark'></i>";
-                    deleteButton.classList.add("remove-image-repro");
+                    deleteButton.classList.add("remove-image-repro-draft");
                     imgContainer.appendChild(deleteButton);
                 });
                 input.files = dataTransfer.files;
@@ -559,10 +629,10 @@
 <!-- script for limiting the input for the crop variety name -->
 <script>
     // Get the input element
-    var inputElement = document.getElementById('Variety-Name');
+    var inputElementDraft = document.getElementById('Variety-NameDraft');
 
     // Add an event listener for keypress event
-    inputElement.addEventListener('keypress', function(e) {
+    inputElementDraft.addEventListener('keypress', function(e) {
         // Get the key code of the pressed key
         var keyCode = e.keyCode || e.which;
 
@@ -584,7 +654,7 @@
 
 <!-- script for limiting the input in coordinates just to numbers, commas, periods, and spaces -->
 <script>
-    document.getElementById('coordInput').addEventListener('input', function(event) {
+    document.getElementById('coordInputDraft').addEventListener('input', function(event) {
         const regex = /^[0-9.,\s-]*$/; // Updated regex to allow "-" sign
         if (!regex.test(event.target.value)) {
             event.target.value = event.target.value.replace(/[^0-9.,\s-]/g, '');

@@ -81,6 +81,8 @@
                                 <i class="row-btn fa-solid fa-ellipsis-vertical px-3 py-2 m-0 rounded"></i>
                             </button>
                             <ul class="dropdown-menu">
+                                <!-- Add a hidden input field to store the selected row IDs -->
+                                <input type="hidden" id="selectedRows" name="selectedRows">
                                 <button id="deleteSelected" class="btn btn-danger dropdown-item"><i class="fa-solid fa-trash text-danger text-center me-1" style="width: 20px;"></i>Delete Selected</button>
                             </ul>
                         </div>
@@ -90,6 +92,7 @@
 
             <!-- table body -->
             <tbody class="table-group-divider fw-bold overflow-scroll">
+
                 <?php
                 // get the data from crops.
                 $query = "SELECT * FROM crop 
@@ -118,7 +121,7 @@
                         <?php
                         if ($row['action'] === 'draft' && $_SESSION['USER']['user_id'] == $row['user_id']) {
                         ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal">
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink draft_data" href="#" data-bs-toggle="modal" data-bs-target="#draft-item-modal">
                             <?php
                         } else  if ($row['action'] === 'approved') {
                             ?>
@@ -204,7 +207,15 @@
                                         <li>
                                             <a class="dropdown-item edit_data admin-only" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1 admin-only" style="width: 20px;"></i>Edit</a>
                                         </li>
-                                        <li><a class="dropdown-item admin-only" href="#"><i class="fa-solid fa-trash text-danger text-center me-1 admin-only" style="width: 20px;"></i>Delete</a></li>
+                                        <li>
+                                            <form action="modals/crud-code/massDelete-code.php" method="post" id="deleteForm">
+                                                <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
+                                                <input type="hidden" name="delete_row" value="1">
+                                                <button class="dropdown-item admin-only" type="submit" name="delete_row" id="deleteRow">
+                                                    <i class="fa-solid fa-trash text-danger text-center me-1 admin-only" style="width: 20px;"></i>Delete
+                                                </button>
+                                            </form>
+                                        </li>
                                     </ul>
                                 </div>
                             </td>
@@ -225,8 +236,8 @@
 <!-- jquery -->
 <script src="https://code.jquery.com/jquery-3.6.3.min.js"></script>
 
+<!-- Make table rows clickable -->
 <script>
-    // Make table rows clickable
     $(document).ready(function() {
         // Add click event to table rows
         $('tbody tr[data-href]').on("click", function(event) {
@@ -263,5 +274,88 @@
                 window.location.href = $(this).attr('data-href');
             }
         });
+    });
+</script>
+
+<!-- Add a click event listener to the "Delete Selected" button -->
+<script>
+    $('#deleteSelected').click(function() {
+        // Collect IDs of selected rows
+        var selectedIDs = [];
+        $('.row-checkbox:checked').each(function() {
+            selectedIDs.push($(this).closest('tr').data('id'));
+        });
+
+        // Store selected IDs in the hidden input field
+        $('#selectedRows').val(selectedIDs.join(','));
+
+        // Send AJAX request to delete selected rows
+        $.ajax({
+            url: 'delete.php', // Specify the URL of your delete script
+            method: 'POST',
+            data: {
+                ids: $('#selectedRows').val()
+            }, // Send IDs as a comma-separated string
+            success: function(response) {
+                // Refresh the page or update the table as needed
+                location.reload();
+            },
+            error: function(xhr, status, error) {
+                console.error(error);
+            }
+        });
+    });
+</script>
+
+<!-- to confirm if a user wants to delete table row data -->
+<script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Your script here
+        var deleteForm = document.getElementById('deleteForm');
+        var confirmModalInstanceEdit;
+
+        function deleteModalEdit(event) {
+            // Prevent the default behavior of the button (e.g., form submission)
+            event.preventDefault();
+
+            // Get the modal element
+            var confirmModal = document.getElementById('confirmModalDelete');
+
+            // Create a new Bootstrap modal instance if it doesn't exist
+            if (!confirmModalInstanceEdit) {
+                confirmModalInstanceEdit = new bootstrap.Modal(confirmModal);
+            }
+
+            // Show the modal
+            confirmModalInstanceEdit.show();
+
+            // Event listener for the confirm delete button
+            document.getElementById('confirmDeleteBtnRow').addEventListener('click', function() {
+                // Set the value of delete_row to 1 before submitting the form
+                document.querySelector('input[name="delete_row"]').value = "1";
+                // Submit the form
+                deleteForm.submit();
+            });
+        }
+
+        // Event listener for when the modal is shown
+        document.getElementById('confirmModalDelete').addEventListener('shown.bs.modal', function() {
+            // Setup event listeners for delete button in modal
+            setupModalEventListenersEdit();
+        });
+
+        // Event listener for when the confirmation modal is hidden
+        document.getElementById('confirmModalDelete').addEventListener('hidden.bs.modal', function() {
+            // Reset the confirmModalInstanceEdit
+            confirmModalInstanceEdit = null;
+        });
+
+        function setupModalEventListenersEdit() {
+            // Event listener for the delete button
+            document.getElementById('deleteRow').addEventListener('click', deleteModalEdit);
+        }
+
+        // Initialize event listener
+        setupModalEventListenersEdit();
     });
 </script>
