@@ -311,56 +311,92 @@
 
                             // morph traits for corn
                             // vegetative state
-                            $('#corn-heightEdit').append($('<option>', {
-                                value: value['corn_plant_height'],
-                                text: value['corn_plant_height'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
-                            $('#corn-leafWidth-Edit').append($('<option>', {
-                                value: value['corn_leaf_width'],
-                                text: value['corn_leaf_width'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
-                            $('#corn-leafLength-Edit').append($('<option>', {
-                                value: value['corn_leaf_length'],
-                                text: value['corn_leaf_length'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
+                            if (value['corn_plant_height'] === null || value['corn_plant_height'] === '') {
+                                $('#corn-heightEdit').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#corn-heightEdit').append($('<option>', {
+                                    value: value['corn_plant_height'],
+                                    text: value['corn_plant_height'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
 
-                            // Reproductive state corn
-                            $('#corn-yield-capacity-Edit').append($('<option>', {
-                                value: value['corn_yield_capacity'],
-                                text: value['corn_yield_capacity'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
+                            if (value['corn_leaf_width'] === null || value['corn_leaf_width'] === '') {
+                                $('#corn-leafWidth-Edit').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#corn-leafWidth-Edit').append($('<option>', {
+                                    value: value['corn_leaf_width'],
+                                    text: value['corn_leaf_width'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
+
+                            if (value['corn_leaf_length'] === null || value['corn_leaf_length'] === '') {
+                                $('#corn-leafLength-Edit').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#corn-leafLength-Edit').append($('<option>', {
+                                    value: value['corn_leaf_length'],
+                                    text: value['corn_leaf_length'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
+
+                            if (value['corn_yield_capacity'] === null || value['corn_yield_capacity'] === '') {
+                                $('#corn-yield-capacity-Edit').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#corn-yield-capacity-Edit').append($('<option>', {
+                                    value: value['corn_yield_capacity'],
+                                    text: value['corn_yield_capacity'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
+
                             $('#corn-seed-length-Edit').val(value['seed_length']);
                             $('#corn-seed-width-Edit').val(value['seed_width']);
                             $('#corn-seed-shape-Edit').val(value['seed_shape']);
                             $('#corn-seed-color-Edit').val(value['seed_color']);
 
-                            $('#pest_other_checkEdit').prop('checked', value['corn_pest_other']);
-                            // Show the 'Other' textarea if 'other' checkbox is checked
-                            if ($('#pest_other_checkEdit').prop('checked')) {
-                                $('#pest-otherEdit').removeClass('d-none'); // Remove the 'd-none' class to show the element
+                            if (value['corn_pest_other']) {
+                                $('#pest_other_checkEdit').prop('checked', true);
+                                $('#pest-otherEdit').toggle(true);
+                                $('#pestEdit').val(value['corn_pest_other_desc']);
                             } else {
-                                $('#pest-otherEdit').addClass('d-none'); // Add the 'd-none' class to hide the element
+                                $('#pest_other_checkEdit').prop('checked', false);
+                                $('#pest-otherEdit').toggle(false);
                             }
-                            // Set the value of the 'Other' textarea
-                            $('#pestEdit').val(value['corn_pest_other_desc']);
 
-                            $('#abiotic_other_checkEdit').prop('checked', value['corn_abiotic_other']);
-                            // Show the 'Other' textarea if 'other' checkbox is checked
-                            if ($('#abiotic_other_checkEdit').prop('checked')) {
-                                $('#abiotic_otherEdit').removeClass('d-none');
+                            if (value['corn_abiotic_other']) {
+                                $('#abiotic_other_checkEdit').prop('checked', true);
+                                $('#abiotic_otherEdit').toggle(true);
+                                $('#abiotic_other-descEdit').val(value['corn_abiotic_other_desc']);
                             } else {
-                                $('#abiotic_otherEdit').addClass('d-none');
+                                $('#abiotic_other_checkEdit').prop('checked', false);
+                                $('#abiotic_otherEdit').toggle(false);
                             }
-                            // Set the value of the 'Other' textarea
-                            $('#abiotic_other-descEdit').val(value['corn_abiotic_other_desc']);
                         } else if (value['category_name'] === 'Rice') {
                             // Show the div for Rice
                             $('#riceMorph-Edit').show();
@@ -378,39 +414,102 @@
 
                             // morph traits for rice
                             // vegetative state
-                            $('#height-tall-Edit').append($('<option>', {
-                                value: value['rice_plant_height'],
-                                text: value['rice_plant_height'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
-                            $('#leafWidth-Edit').append($('<option>', {
-                                value: value['rice_leaf_width'],
-                                text: value['rice_leaf_width'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
-                            $('#leafLength-Edit').append($('<option>', {
-                                value: value['rice_leaf_length'],
-                                text: value['rice_leaf_length'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
-                            $('#tilleringAbility-Edit').append($('<option>', {
-                                value: value['rice_tillering_ability'],
-                                text: value['rice_tillering_ability'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
-                            $('#rice-maturityTime-Edit').append($('<option>', {
-                                value: value['rice_maturity_time'],
-                                text: value['rice_maturity_time'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
+                            if (value['rice_plant_height'] === null || value['rice_plant_height'] === '') {
+                                $('#rice-height-Edit').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#rice-height-Edit').append($('<option>', {
+                                    value: value['rice_plant_height'],
+                                    text: value['rice_plant_height'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
 
-                            // Reproductive state rice
-                            $('#rice-yield-capacity-Edit').val(value['rice_yield_capacity']);
+                            if (value['rice_leaf_width'] === null || value['rice_leaf_width'] === '') {
+                                $('#leafWidth-Edit').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#leafWidth-Edit').append($('<option>', {
+                                    value: value['rice_leaf_width'],
+                                    text: value['rice_leaf_width'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
+
+                            if (value['rice_leaf_length'] === null || value['rice_leaf_length'] === '') {
+                                $('#leafLength-Edit').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#leafLength-Edit').append($('<option>', {
+                                    value: value['rice_leaf_length'],
+                                    text: value['rice_leaf_length'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
+
+                            if (value['rice_tillering_ability'] === null || value['rice_tillering_ability'] === '') {
+                                $('#tilleringAbility-Edit').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#tilleringAbility-Edit').append($('<option>', {
+                                    value: value['rice_tillering_ability'],
+                                    text: value['rice_tillering_ability'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
+
+                            if (value['rice_maturity_time'] === null || value['rice_maturity_time'] === '') {
+                                $('#rice-maturityTime-Edit').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#rice-maturityTime-Edit').append($('<option>', {
+                                    value: value['rice_maturity_time'],
+                                    text: value['rice_maturity_time'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
+
+                            if (value['rice_yield_capacity'] === null || value['rice_yield_capacity'] === '') {
+                                $('#rice-yield-capacity-Edit').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#rice-yield-capacity-Edit').append($('<option>', {
+                                    value: value['rice_yield_capacity'],
+                                    text: value['rice_yield_capacity'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
+
                             // panicle traits
                             $('#pan-length-Edit').val(value['panicle_length']);
                             $('#pan-width-Edit').val(value['panicle_width']);
@@ -444,25 +543,24 @@
                                 $('#hardness-Hard-Edit').prop('checked', true);
                             }
 
-                            $('#pest_other_checkEdit').prop('checked', value['rice_pest_other']);
-                            // Show the 'Other' textarea if 'other' checkbox is checked
-                            if ($('#pest_other_checkEdit').prop('checked')) {
-                                $('#pest-otherEdit').removeClass('d-none'); // Remove the 'd-none' class to show the element
+                            if (value['rice_pest_other']) {
+                                $('#pest_other_checkEdit').prop('checked', true);
+                                $('#pest-otherEdit').toggle(true);
+                                $('#pestEdit').val(value['rice_pest_other_desc']);
                             } else {
-                                $('#pest-otherEdit').addClass('d-none'); // Add the 'd-none' class to hide the element
+                                $('#pest_other_checkEdit').prop('checked', false);
+                                $('#pest-otherEdit').toggle(false);
                             }
-                            // Set the value of the 'Other' textarea
-                            $('#pestEdit').val(value['rice_pest_other_desc']);
 
-                            $('#abiotic_other_checkEdit').prop('checked', value['rice_abiotic_other']);
-                            // Show the 'Other' textarea if 'other' checkbox is checked
-                            if ($('#abiotic_other_checkEdit').prop('checked')) {
-                                $('#abiotic_otherEdit').removeClass('d-none');
+                            if (value['rice_abiotic_other']) {
+                                $('#abiotic_other_checkEdit').prop('checked', true);
+                                $('#abiotic_otherEdit').toggle(true);
+                                $('#abiotic_other-descEdit').val(value['rice_abiotic_other_desc']);
                             } else {
-                                $('#abiotic_otherEdit').addClass('d-none');
+                                $('#abiotic_other_checkEdit').prop('checked', false);
+                                $('#abiotic_otherEdit').toggle(false);
                             }
-                            // Set the value of the 'Other' textarea
-                            $('#abiotic_other-descEdit').val(value['rice_abiotic_other_desc']);
+
                         } else if (value['category_name'] === 'Root Crop') {
                             // Show the div for Root Crop
                             $('#root_cropMorph-Edit').show();
@@ -480,24 +578,54 @@
 
                             // morph traits for rootCrop
                             // vegetative state
-                            $('#rootCrop-height-tall-edit').append($('<option>', {
-                                value: value['rootcrop_plant_height'],
-                                text: value['rootcrop_plant_height'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
-                            $('#rootCrop-leafWidth-Edit').append($('<option>', {
-                                value: value['rootcrop_leaf_width'],
-                                text: value['rootcrop_leaf_width'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
-                            $('#rootCrop-leafLength-Edit').append($('<option>', {
-                                value: value['rootcrop_leaf_length'],
-                                text: value['rootcrop_leaf_length'],
-                                selected: true,
-                                style: 'display: none;'
-                            }));
+                            if (value['rootcrop_plant_height'] === null || value['rootcrop_plant_height'] === '') {
+                                $('#rootCrop-height-Edit').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#rootCrop-height-Edit').append($('<option>', {
+                                    value: value['rootcrop_plant_height'],
+                                    text: value['rootcrop_plant_height'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
+
+                            if (value['rootcrop_leaf_width'] === null || value['rootcrop_leaf_width'] === '') {
+                                $('#rootCrop-leafWidth-Edit').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#rootCrop-leafWidth-Edit').append($('<option>', {
+                                    value: value['rootcrop_leaf_width'],
+                                    text: value['rootcrop_leaf_width'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
+
+                            if (value['rootcrop_leaf_length'] === null || value['rootcrop_leaf_length'] === '') {
+                                $('#rootCrop-leafLength-Edit').append($('<option>', {
+                                    value: '',
+                                    text: 'Select an option',
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            } else {
+                                $('#rootCrop-leafLength-Edit').append($('<option>', {
+                                    value: value['rootcrop_leaf_length'],
+                                    text: value['rootcrop_leaf_length'],
+                                    selected: true,
+                                    style: 'display: none;'
+                                }));
+                            }
+
                             $('#rootCrop-steam-leaf-desc-Edit').val(value['rootcrop_stem_leaf_desc']);
 
                             // Reproductive state rootCrop
@@ -507,25 +635,23 @@
                             $('#rootCrop-sweetness-Edit').val(value['sweetness']);
                             $('#rootCrop-remarkableFeatures-Edit').val(value['rootcrop_remarkable_features']);
 
-                            $('#pest_other_checkEdit').prop('checked', value['rootcrop_pest_other']);
-                            // Show the 'Other' textarea if 'other' checkbox is checked
-                            if ($('#pest_other_checkEdit').prop('checked')) {
-                                $('#pest-otherEdit').removeClass('d-none'); // Remove the 'd-none' class to show the element
+                            if (value['rootcrop_pest_other']) {
+                                $('#pest_other_checkEdit').prop('checked', true);
+                                $('#pest-otherEdit').toggle(true);
+                                $('#pestEdit').val(value['rootcrop_pest_other_desc']);
                             } else {
-                                $('#pest-otherEdit').addClass('d-none'); // Add the 'd-none' class to hide the element
+                                $('#pest_other_checkEdit').prop('checked', false);
+                                $('#pest-otherEdit').toggle(false);
                             }
-                            // Set the value of the 'Other' textarea
-                            $('#pestEdit').val(value['rootcrop_pest_other_desc']);
 
-                            $('#abiotic_other_checkEdit').prop('checked', value['rootcrop_abiotic_other']);
-                            // Show the 'Other' textarea if 'other' checkbox is checked
-                            if ($('#abiotic_other_checkEdit').prop('checked')) {
-                                $('#abiotic_otherEdit').removeClass('d-none');
+                            if (value['rootcrop_abiotic_other']) {
+                                $('#abiotic_other_checkEdit').prop('checked', true);
+                                $('#abiotic_otherEdit').toggle(true);
+                                $('#abiotic_other-descEdit').val(value['rootcrop_abiotic_other_desc']);
                             } else {
-                                $('#abiotic_otherEdit').addClass('d-none');
+                                $('#abiotic_other_checkEdit').prop('checked', false);
+                                $('#abiotic_otherEdit').toggle(false);
                             }
-                            // Set the value of the 'Other' textarea
-                            $('#abiotic_other-descEdit').val(value['rootcrop_abiotic_other_desc']);
                         } else {
                             // Default case, hide all divs
                             $('#cornMorph-Edit').hide();
