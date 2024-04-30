@@ -53,6 +53,8 @@ require "../../functions/functions.php";
     <!-- MAIN -->
     <div class="container">
         <div class="row mt-3">
+            <!-- confirm-delete -->
+            <?php require "confirm-delete.php"; ?>
 
             <!-- FILTERS -->
             <?php require "filter.php"; ?>
@@ -67,9 +69,7 @@ require "../../functions/functions.php";
             <?php require "modals/draft.php"; ?>
             <!-- edit -->
             <?php require "modals/edit.php"; ?>
-            <!-- view -->
-            <?php // require "modals/view.php"; 
-            ?>
+
         </div>
     </div>
 
