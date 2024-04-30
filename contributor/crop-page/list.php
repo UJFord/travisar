@@ -211,7 +211,6 @@
                                             <form action="modals/crud-code/massDelete-code.php" method="post" id="deleteForm">
                                                 <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
                                                 <input type="hidden" name="delete_row" value="1">
-
                                                 <button class="dropdown-item admin-only" type="submit" name="delete_row" id="deleteRow">
                                                     <i class="fa-solid fa-trash text-danger text-center me-1 admin-only" style="width: 20px;"></i>Delete
                                                 </button>

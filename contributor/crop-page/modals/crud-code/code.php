@@ -2,6 +2,8 @@
 session_start();
 require "../../../../functions/connections.php";
 
+var_dump($_POST);
+die();
 if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");

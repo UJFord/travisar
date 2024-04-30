@@ -84,7 +84,7 @@
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-end">
                     <div class="">
-                        <button type="submit" id="" name="delete" class="btn btn-danger">Delete</button>
+                        <button type="button" id="deleteDraft" name="delete" class="btn btn-danger">Delete</button>
                         <button type="button" id="cancel-modal-btn-draft" class="btn border bg-light">Cancel</button>
                         <button type="submit" id="draftButton-draft" name="save_draft" class="btn btn-success">Save</button>
                     </div>
@@ -112,11 +112,13 @@
         // Remove event listeners to prevent duplication
         document.getElementById('close-modal-btn-draft').removeEventListener('click', closeModalDraft);
         document.getElementById('cancel-modal-btn-draft').removeEventListener('click', closeModalDraft);
+        document.getElementById('deleteDraft').removeEventListener('click', deleteModalDraft);
 
         // Event listener for the close button
         document.getElementById('close-modal-btn-draft').addEventListener('click', closeModalDraft);
 
         // Event listener for the cancel button
+        document.getElementById('deleteDraft').addEventListener('click', deleteModalDraft);
         document.getElementById('cancel-modal-btn-draft').addEventListener('click', closeModalDraft);
     }
 
@@ -135,6 +137,42 @@
 
         // Show the confirmation modal
         confirmModalInstanceDraft.show();
+
+        // to show which button should show on the confirm modal
+        document.getElementById('confirmCloseBtnDraft').style.display = 'block';
+        document.getElementById('confirmDeleteDraft').style.display = 'none';
+        // to show which label should show on the confirm modal
+        document.getElementById('close-label-draft').style.display = 'block';
+        document.getElementById('delete-label-draft').style.display = 'none';
+    }
+
+    function deleteModalDraft(event) {
+        // Prevent the default behavior of the button (e.g., form submission)
+        event.preventDefault();
+
+        // Get the id of the button clicked
+        var buttonIdDraft = event.target.getAttribute('data-id');
+
+        // Get the modal element
+        var confirmModalDraft = document.getElementById('confirmModalDraft');
+
+        // Create a new Bootstrap modal instance if it doesn't exist
+        if (!confirmModalInstanceDraft) {
+            confirmModalInstanceDraft = new bootstrap.Modal(confirmModalDraft);
+        }
+
+        // Show the confirmation modal
+        confirmModalInstanceDraft.show();
+
+        // Pass the buttonIdDraft to the confirm modal
+        document.getElementById('confirmModalDraft').setAttribute('data-id', buttonIdDraft);
+
+        // to show which button should show on the confirm modal
+        document.getElementById('confirmCloseBtnDraft').style.display = 'none';
+        document.getElementById('confirmDeleteDraft').style.display = 'block';
+        // to show which label should show on the confirm modal
+        document.getElementById('close-label-draft').style.display = 'none';
+        document.getElementById('delete-label-draft').style.display = 'block';
     }
 
     // Event listener for the confirm button click
@@ -199,6 +237,10 @@
         if (event.submitter.name === 'draft') {
             // console.log('Submit na draft');
             event.target.setAttribute('name', 'draft');
+            submitFormDraft();
+        } else if (event.submitter.name === 'delete') {
+            // console.log('Submit na draft');
+            event.target.setAttribute('name', 'delete');
             submitFormDraft();
         } else {
             // Validate the form if not submitted as a draft
