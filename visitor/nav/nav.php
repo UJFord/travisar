@@ -20,9 +20,6 @@ switch ($current_page_path) {
 }
 ?>
 
-<!-- font awesome kit -->
-<script src="https://kit.fontawesome.com/57e83eb6e4.js" crossorigin="anonymous"></script>
-
 <!-- NAVBAR -->
 <div class="navbar navbar-dark navbar-expand-sm" id="main-nav">
     <div class="container">
@@ -36,14 +33,18 @@ switch ($current_page_path) {
         </button>
         <!-- nav links -->
         <div class="collapse navbar-collapse" id="navLink">
-            <ul class="navbar-nav me-auto mb-2 mb-lg-0">
+
+            <!-- VISITOR -->
+            <ul class="navbar-nav me-auto">
+
                 <!-- home page link -->
                 <li class="nav-item">
                     <!-- add active class when at home.php -->
                     <a class="nav-link fw-bold me-2 <?php if ($current_page_isHome) {
-                                                            echo "active";
-                                                        } ?>" aria-current="page" href="home.php">Home</a>
+                                                        echo "active";
+                                                    } ?>" aria-current="page" href="home.php">Home</a>
                 </li>
+
                 <!-- crop page link -->
                 <li class="nav-item fw-bold me-2">
                     <!-- add active class when at crop.php -->
@@ -52,11 +53,18 @@ switch ($current_page_path) {
                                         } ?>" href="crop.php">Crops</a>
                 </li>
 
-                <!-- ADMIN -->
+                <!-- about -->
+                <li class="nav-item fw-semibold me-2">
+                    <a href="" class="nav-link">About</a>
+                </li>
+
+            </ul>
+
+            <!-- ADMIN -->
+            <ul class="navbar-nav">
 
                 <!-- all crops -->
-                <div class="nav-item  ms-5 me-2 border-start border-light
-                ">
+                <div class="nav-item me-2">
                     <a href="" class="nav-link">All Crops</a>
                 </div>
 
@@ -67,9 +75,11 @@ switch ($current_page_path) {
 
                 <!-- crop management -->
                 <div class="nav-item fw-semibold me-2 dropdown">
+
                     <a href="" id="mng-nav" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Crop Management
                     </a>
+
                     <ul class="dropdown-menu" aria-labelledby="mng-nav">
                         <li><a href="" class="dropdown-item">Pending</a></li>
                         <li><a href="" class="dropdown-item">Approved</a></li>
@@ -79,9 +89,11 @@ switch ($current_page_path) {
 
                 <!-- settings -->
                 <div class="nav-item fw-semibold me-2 dropdown">
+
                     <a href="#" id="set-nav" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Settings
                     </a>
+
                     <ul id="set-nav-menu" class="dropdown-menu">
 
                         <!-- crop settings -->
@@ -123,10 +135,24 @@ switch ($current_page_path) {
                     </ul>
                 </div>
 
+
+                <!-- user profile -->
+                <div class="nav-item fw-semibold me-2 dropdown">
+                    <a href="" id="profile-btn" class="nav-link dropdown-toggle d-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <i class="fa-solid fa-user"></i>
+                    </a>
+
+                    <ul class="dropdown-menu">
+                        <li>
+                            
+                        </li>
+                    </ul>
+                </div>
             </ul>
         </div>
 
         <!-- contributors link -->
-        <a href="../login/login-form.php" class="link-light link-offset-3 link-underline link-underline-opacity-0 rounded-pill px-3 py-2" id="contributor-link">Contribute to Travis</a>
+        <a id="contributor-link" href="../login/login-form.php" class="d-none link-light link-offset-3 link-underline link-underline-opacity-0 rounded-pill px-3 py-2">Contribute to Travis</a>
+
     </div>
 </div>

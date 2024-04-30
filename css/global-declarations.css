@@ -1,5 +1,10 @@
 /* IMPORTED FONTS */
-/* @import url('https://fonts.googleapis.com/css2?family=Open+Sans&display=swap'); */
+
+/* nunito sans */
+/* roboto */
+@import url('https://fonts.googleapis.com/css2?family=Montserrat:ital,wght@0,100..900;1,100..900&family=Nunito+Sans:ital,opsz,wght@0,6..12,200..1000;1,6..12,200..1000&display=swap');
+
+
 
 /* variable colors */
 :root{
@@ -21,9 +26,29 @@
 	box-sizing: border-box;
 }
 
+/* body */
 body{
-	/* font-family: "Open Sans", sans-serif; */
-	font-family: "Helvetica", sans-serif;
-	
-	
+    font-family: "Nunito Sans", sans-serif;
 }
+
+/* small font size */
+.small-font{
+    font-size: 0.8rem !important;
+}
+
+/* nav */
+#main-nav{
+    background-color: var(--mainBrand) ;
+    box-shadow: rgba(50, 50, 93, 0.25) 0px 13px 27px -5px, rgba(0, 0, 0, 0.3) 0px 8px 16px -8px;
+}
+	/* dropdown */
+	.dropdown-item:active{
+		background: var(--mainBrand);
+	}
+	/* contributor link */
+	#contributor-link{
+		background: #f5f5f51c;
+	}
+		#contributor-link:hover{
+			background: #e8e8e850;
+		}
