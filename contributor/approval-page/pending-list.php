@@ -1,9 +1,14 @@
+<style>
+    .tab_box {
+        border-bottom: 2px solid rgba(229, 229, 229);
+    }
+</style>
 <!-- LIST -->
 <div class="col">
     <div class="container">
 
         <!-- HEADING -->
-        <div class="d-flex justify-content-between">
+        <div class="tab_box d-flex justify-content-between">
             <!-- title -->
             <h4 class="fw-semibold" style="font-size: 1.5rem;">Pending</h4>
         </div>
@@ -44,8 +49,9 @@
             <thead>
                 <tr>
                     <th class="col text-dark-emphasis small-font" scope="col">Category</th>
-                    <th class="col text-dark-emphasis small-font" scope="col">Name</th>
-                    <th class="col text-dark-emphasis small-font" scope="col">Date</th>
+                    <th class="col text-dark-emphasis small-font" scope="col">Variety Name</th>
+                    <th class="col text-dark-emphasis small-font" scope="col">Location</th>
+                    <th class="col text-dark-emphasis small-font" scope="col">Date Submitted</th>
                     <!-- <th class="col text-dark-emphasis small-font" scope="col">Action</th> -->
                     <th class="col text-dark-emphasis small-font" scope="col">Status</th>
                     <th class="col text-dark-emphasis small-font text-center" scope="col">Remarks</th>
@@ -69,6 +75,7 @@
                 $query = "SELECT * FROM crop 
                 LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
                 LEFT JOIN status ON status.status_id = crop.status_id 
+                LEFT JOIN municipality on municipality.municipality_id = crop_location.municipality_id
                 WHERE 1=1 $search_condition $category_filter $municipality_filter $variety_filter $terrain_filter $brgy_filter AND status.action IN ('pending', 'updating') 
                 ORDER BY crop.crop_id DESC 
                 LIMIT $items_per_page OFFSET $offset";
@@ -114,9 +121,14 @@
                                 <a class="small-font" href="../crop-page/view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
                             </td>
 
+                            <!-- Location -->
+                            <td class="">
+                                <h6 class="small-font m-0"><?= $row['municipality_name']; ?></h6>
+                            </td>
+
                             <!-- date created -->
                             <td>
-                                <h6 class="small-font"><?= $formatted_date; ?></h6>
+                                <h6 class="small-font m-0"><?= $formatted_date; ?></h6>
                             </td>
 
                             <td>
@@ -144,7 +156,7 @@
 
                             <!-- remarks -->
                             <td class="text-center">
-                                <h6 class="small-font"><?= $row['remarks']; ?></h6>
+                                <h6 class="small-font m-0"><?= $row['remarks']; ?></h6>
                             </td>
 
                             <!-- ellipsis menu butn -->

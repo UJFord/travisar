@@ -1,8 +1,13 @@
+<style>
+    .tab_box {
+        border-bottom: 2px solid rgba(229, 229, 229);
+    }
+</style>
 <!-- LIST -->
 <div class="col">
     <div class="container">
         <!-- HEADING -->
-        <div class="d-flex justify-content-between">
+        <div class="tab_box d-flex justify-content-between">
             <!-- title -->
             <h4 class="fw-semibold" style="font-size: 1.5rem;">My Crops</h4>
             <!-- add button -->
@@ -173,12 +178,12 @@
 
                             <!-- Location -->
                             <td class="">
-                                <h6 class="small-font"><?= $row['municipality_name']; ?></h6>
+                                <h6 class="small-font m-0"><?= $row['municipality_name']; ?></h6>
                             </td>
 
                             <!-- date created -->
                             <td>
-                                <h6 class="small-font"><?= $formatted_date; ?></h6>
+                                <h6 class="small-font m-0"><?= $formatted_date; ?></h6>
                             </td>
 
                             <td>
@@ -206,7 +211,7 @@
 
                             <!-- remarks -->
                             <td class="text-center">
-                                <h6 class="small-font"><?= $row['remarks']; ?></h6>
+                                <h6 class="small-font m-0"><?= $row['remarks']; ?></h6>
                             </td>
 
                             <!-- ellipsis menu butn -->
