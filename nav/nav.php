@@ -20,6 +20,44 @@ switch ($current_page_path) {
     case "/travisar/visitor/view-crop.php":
         $current_page_isCrop = true;
         break;
+    case "/travisar/contributor/crop-page/crop.php":
+        $current_page_isCrop_page = true;
+        break;
+    case "/travisar/contributor/crop-page/category-variety.php":
+        $current_page_isVariety = true;
+        break;
+    case "/travisar/contributor/crop-page/crop-category.php":
+        $current_page_isCategory = true;
+        break;
+    case "/travisar/contributor/crop-page/abiotic-resistance.php":
+        $current_page_isAbiotic = true;
+        break;
+    case "/travisar/contributor/crop-page/disease-resistance.php":
+        $current_page_isDisease = true;
+        break;
+    case "/travisar/contributor/crop-page/pest-resistance.php":
+        $current_page_isPest = true;
+        break;
+    case "/travisar/contributor/submission-page/submission.php":
+        $current_page_isSubmission = true;
+        break;
+    case "/travisar/contributor/location-page/municipality.php":
+        $current_page_isMunicipality = true;
+        break;
+    case "/travisar/contributor/location-page/barangay.php":
+        $current_page_isBarangay = true;
+        break;
+
+        //! wala sya ga work diko kabalo deopdown mangud
+    case "/travisar/contributor/approval-page/pending.php":
+        $current_page_isManagement = true;
+        break;
+    case "/travisar/contributor/approval-page/approved.php":
+        $current_page_isManagement = true;
+        break;
+    case "/travisar/contributor/approval-page/rejected.php":
+        $current_page_isManagement = true;
+        break;
 }
 ?>
 
@@ -68,25 +106,37 @@ switch ($current_page_path) {
 
                 <!-- all crops -->
                 <div class="nav-item me-2">
-                    <a href="" class="nav-link" href="<?php echo BASE_URL . '/' . 'contributor/crop-page/crop.php'; ?>">All Crops</a>
+                    <a class="nav-link fw-bold me-2 <?php if ($current_page_isCrop_page) {
+                                                        echo "active";
+                                                    } ?>" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/crop-page/crop.php'; ?>">All Crops</a>
                 </div>
 
                 <!-- my crops -->
                 <div class="nav-item fw-semibold me-2">
-                    <a href="" class="nav-link">My Crops</a>
+                    <a class="nav-link fw-bold me-2 <?php if ($current_page_isSubmission) {
+                                                        echo "active";
+                                                    } ?>" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/submission-page/submission.php'; ?>">My Crops</a>
                 </div>
 
                 <!-- crop management -->
                 <div class="nav-item fw-semibold me-2 dropdown">
 
-                    <a href="" id="mng-nav" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a href="" id="mng-nav" class="nav-link dropdown-toggle<?php if ($current_page_isManagement) {
+                                                                                echo "active";
+                                                                            } ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Crop Management
                     </a>
 
                     <ul class="dropdown-menu" aria-labelledby="mng-nav">
-                        <li><a href="" class="dropdown-item">Pending</a></li>
-                        <li><a href="" class="dropdown-item">Approved</a></li>
-                        <li><a href="" class="dropdown-item">Rejected</a></li>
+                        <li>
+                            <a class="dropdown-item" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/pending.php'; ?>">Pending</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/approved.php'; ?>">Approved</a>
+                        </li>
+                        <li>
+                            <a class="dropdown-item" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/rejected.php'; ?>">Rejected</a>
+                        </li>
                     </ul>
                 </div>
 
@@ -105,11 +155,11 @@ switch ($current_page_path) {
                                 Crop Settings
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="set-nav-crop">
-                                <li><a href="#" class="dropdown-item">Crop Category</a></li>
-                                <li><a href="#" class="dropdown-item">Category Variety</a></li>
-                                <li><a href="#" class="dropdown-item">Abiotic Resistance</a></li>
-                                <li><a href="#" class="dropdown-item">Disease Resistance</a></li>
-                                <li><a href="#" class="dropdown-item">Pest Resistance</a></li>
+                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/crop-category.php'; ?>" class="dropdown-item">Crop Category</a></li>
+                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/category-variety.php'; ?>" class="dropdown-item">Category Variety</a></li>
+                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/abiotic-resistance.php'; ?>" class="dropdown-item">Abiotic Resistance</a></li>
+                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/disease-resistance.php'; ?>" class="dropdown-item">Disease Resistance</a></li>
+                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/pest-resistance.php'; ?>" class="dropdown-item">Pest Resistance</a></li>
                             </ul>
                         </li>
 
@@ -119,8 +169,8 @@ switch ($current_page_path) {
                                 Location Settings
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="set-nav-loc">
-                                <li><a href="#" class="dropdown-item">Barangay</a></li>
-                                <li><a href="#" class="dropdown-item">Municipality</a></li>
+                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/location-page/barangay.php'; ?>" class="dropdown-item">Barangay</a></li>
+                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/location-page/municipality.php'; ?>" class="dropdown-item">Municipality</a></li>
                             </ul>
                         </li>
 
@@ -130,8 +180,8 @@ switch ($current_page_path) {
                                 User Account
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="set-nav-usr">
-                                <li><a href="#" class="dropdown-item">Users</a></li>
-                                <li><a href="#" class="dropdown-item">Verification</a></li>
+                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/approval-page/partners.php'; ?>" class="dropdown-item">Users</a></li>
+                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/approval-page/verify-user.php'; ?>" class="dropdown-item">Verification</a></li>
                             </ul>
                         </li>
 

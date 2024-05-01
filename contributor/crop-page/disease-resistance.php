@@ -44,7 +44,7 @@ require "../../functions/functions.php";
 <body>
 
     <!-- NAV -->
-    <?php require "../nav/nav.php"; ?>
+    <?php require "../../nav/nav.php"; ?>
 
     <?php
     include "../../functions/message.php";
