@@ -1,5 +1,5 @@
-
 <?php
+session_start();
 require "../functions/connections.php";
 require "../functions/functions.php";
 ?>
