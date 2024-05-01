@@ -9,7 +9,7 @@
                 Are you sure you want to close the window? Any unsaved changes will be lost.
             </div>
             <div class="modal-body" id="delete-label">
-                Are you sure you want to delete the crop? All data would be lost.
+                Are you sure you want to delete the submission? All data would be lost.
             </div>
 
             <div class="modal-footer">
