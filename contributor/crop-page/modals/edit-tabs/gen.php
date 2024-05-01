@@ -243,7 +243,7 @@
     <!-- location -->
     <div id="locationData" class="row mb-3">
         <!-- form -->
-        <div class="col-6 location-Data">
+        <div class="col-4 location-Data">
             <input type="hidden" name="crop_location_id" id="crop_location_id">
             <!-- Province dropdown -->
             <label for="ProvinceEdit" class="form-label small-font">Province <span style="color: red;">*</span></label>
@@ -310,7 +310,7 @@
             <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">The blue Marker is for the old/current location</div>
         </div>
         <!-- map -->
-        <div id="mapEdit" class="col border">
+        <div id="mapEdit" class="col rounded">
         </div>
     </div>
 

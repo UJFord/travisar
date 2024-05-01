@@ -17,6 +17,8 @@ require "../../functions/functions.php";
 
     <!-- leaflet -->
 
+    <!-- leaflet -->
+    <link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
     <!-- bootstrap -->
     <!-- stylesheet -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.2/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-T3c6CoIi6uLrA9TneNEoa7RxnatzjcDSCmG1MXxSR1GAsXEV/Dwwykc2MPK8M2HN" crossorigin="anonymous">
@@ -304,12 +306,21 @@ require "../../functions/functions.php";
 
         // Initialize the map with the bounds
         const map = L.map('map', {
-            maxBounds: bounds, // Restrict map panning to these bounds
-            maxBoundsViscosity: 0.75, // Elastic bounce-back when panning outside bounds
+            // maxBounds: bounds, // Restrict map panning to these bounds
+            // maxBoundsViscosity: 0.75, // Elastic bounce-back when panning outside bounds
             // Set the initial view within the bounds
             center: [6.403013, 124.725062],
             zoom: 9
         });
+
+        // send resize event to browser to load map tiles
+        $(document).ready(function() {
+            setInterval(function() {
+                window.dispatchEvent(new Event("resize"));
+            }, 2000);
+        });
+
+        // let map = L.map('map').setView([6.403013, 124.725062], 9);
 
         // Declare marker globally
         let marker = null;
@@ -319,10 +330,11 @@ require "../../functions/functions.php";
             tileSize: 512,
             // maxzoom
             maxZoom: 18,
+            minZoom: 9,
             // i dont what this does but some says before different tile providers handle zoom differently
             zoomOffset: -1,
-            // minzoom
-            minZoom: 9,
+
+            edgeBufferTiles: 5,
             // copyright claim, because openstreetmaps require them
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             // i dont know what this does
