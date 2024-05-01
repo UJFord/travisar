@@ -1,3 +1,12 @@
+<style>
+    #modalDialog {
+        margin-top: 35vh;
+    }
+
+    #confirmModalEdit {
+        backdrop-filter: blur(5px);
+    }
+</style>
 <div class="modal fade" id="confirmModalEdit" tabindex="-1" aria-labelledby="confirmModalEditLabel" aria-hidden="true">
     <div class="modal-dialog">
         <div class="modal-content">
