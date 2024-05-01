@@ -5,7 +5,7 @@
         <!-- HEADING -->
         <div class="d-flex justify-content-between">
             <!-- title -->
-            <h4 class="fw-semibold" style="font-size: 1.5rem;">Abiotic Resistances</h4>
+            <h4 class="fw-semibold" style="font-size: 1.5rem;">List of Abiotic Resistances</h4>
             <th col-4 class="col-1 text-center">
                 <!-- add button -->
                 <button id="add-crop-btn" class="btn btn-secondary encoder-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#add-item-modal">

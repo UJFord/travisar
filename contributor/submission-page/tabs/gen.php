@@ -4,7 +4,7 @@
         cursor: pointer;
     }
 
-    .remove-image {
+    .remove-image-seed {
         width: 1rem;
         aspect-ratio: 1/1;
         position: absolute;
@@ -21,7 +21,51 @@
         font-size: 0.8rem;
     }
 
-    .remove-image:hover {
+    .remove-image-veg {
+        width: 1rem;
+        aspect-ratio: 1/1;
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        border: none;
+        border-bottom-left-radius: 0.3rem;
+        -webkit-border-bottom-left-radius: 0.3rem;
+        -moz-border-radius-bottomleft: 0.3rem;
+        color: red;
+        font-weight: bold;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.43);
+        font-size: 0.8rem;
+    }
+
+    .remove-image-repro {
+        width: 1rem;
+        aspect-ratio: 1/1;
+        position: absolute;
+        top: 0.5rem;
+        right: 0.5rem;
+        border: none;
+        border-bottom-left-radius: 0.3rem;
+        -webkit-border-bottom-left-radius: 0.3rem;
+        -moz-border-radius-bottomleft: 0.3rem;
+        color: red;
+        font-weight: bold;
+        cursor: pointer;
+        background: rgba(255, 255, 255, 0.43);
+        font-size: 0.8rem;
+    }
+
+    .remove-image-seed:hover {
+        /* background: rgba(255, 255, 255, 0.79); */
+        background: white;
+    }
+
+    .remove-image-veg:hover {
+        /* background: rgba(255, 255, 255, 0.79); */
+        background: white;
+    }
+
+    .remove-image-repro:hover {
         /* background: rgba(255, 255, 255, 0.79); */
         background: white;
     }
@@ -116,6 +160,7 @@
                 }
                 ?>
             </select>
+            <div id="category-error" class="invalid-feedback"></div>
         </div>
 
         <!-- Category Variety -->
@@ -123,6 +168,7 @@
             <label for="categoryVariety" class="form-label small-font">Variety<span class="text-danger ms-1">*</span></label>
             <select name="category_variety_id" id="categoryVariety" class="form-select color-default-child">
             </select>
+            <div id="categoryVariety-error" class="invalid-feedback"></div>
         </div>
     </div>
 
@@ -132,12 +178,13 @@
         <div class="col mb-2">
             <label for="Variety-Name" class="form-label small-font">Local/Variety Name<span class="text-danger ms-1">*</span></label>
             <input id="Variety-Name" type="text" name="crop_variety" class="form-control">
+            <div id="varietyName-error" class="invalid-feedback"></div>
         </div>
 
         <!-- Meaning of Name -->
         <div class="col mb-2">
-            <label class="form-label small-font">Meaning of Name (if any)</label>
-            <input type="text" name="meaning_of_name" class="form-control">
+            <label for="nameMean" class="form-label small-font">Meaning of Name (if any)</label>
+            <input id="nameMean" type="text" name="meaning_of_name" class="form-control">
         </div>
     </div>
 
@@ -171,6 +218,7 @@
                 }
                 ?>
             </select>
+            <div id="terrain-error" class="invalid-feedback"></div>
         </div>
     </div>
 
@@ -193,34 +241,34 @@
             <span>Seed</span>
         </label>
         <div class="d-flex flex-column image-upload-container col-6">
-            <input class="mb-0 form-control form-control-sm" name="crop_seed_image[]" type="file" id="imageInputSeed" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewSeed')" multiple>
+            <input class="mb-0 form-control form-control-sm" name="crop_seed_image[]" type="file" id="imageInputSeed" accept="image/jpeg,image/png" onchange="previewImageSeed(this, 'previewSeed')" multiple>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewSeed"></div>
     </div>
 
     <!-- Vegetative image -->
-    <!-- <div class="row mb-3">
+    <div class="row mb-3">
         <label for="imageInputVegetative" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Vegetative Stage</span>
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
-            <input class="col-6 mb-0 form-control form-control-sm" name="crop_vegetative_image[]" type="file" id="imageInputVegetative" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewVeg')" multiple>
+            <input class="col-6 mb-0 form-control form-control-sm" name="crop_vegetative_image[]" type="file" id="imageInputVegetative" accept="image/jpeg,image/png" onchange="previewImageVeg(this, 'previewVeg')" multiple>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewVeg"></div>
-    </div> -->
+    </div>
 
     <!-- Reproductive image -->
-    <!-- <div class="row mb-5">
+    <div class="row mb-5">
         <label for="imageInputReproductive" class="d-flex align-items-center rounded small-font mb-2">
             <i class="fa-solid fa-image me-2"></i>
             <span>Reproductive Stage</span>
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
-            <input class="mb-0 form-control form-control-sm" type="file" name="crop_reproductive_image[]" id="imageInputReproductive" accept="image/jpeg,image/png" onchange="previewImage(this, 'previewReproductive')" multiple>
+            <input class="mb-0 form-control form-control-sm" type="file" name="crop_reproductive_image[]" id="imageInputReproductive" accept="image/jpeg,image/png" onchange="previewImageRepro(this, 'previewReproductive')" multiple>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewReproductive"></div>
-    </div> -->
+    </div>
 
     <!-- MAP -->
     <h6 class="fw-semibold mt-4 mb-3">Location</h6>
@@ -249,12 +297,14 @@
                 }
                 ?>
             </select>
+            <div id="province-error" class="invalid-feedback"></div>
 
             <!-- Municipality dropdown -->
             <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
             <select id="Municipality" name="municipality" class="form-select mb-2">
                 <!-- option is automatically shown through js depending on the province -->
             </select>
+            <div id="municipality-error" class="invalid-feedback"></div>
 
             <!-- barangay -->
             <label for="Barangay" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
@@ -262,6 +312,7 @@
                 <option value="" disabled selected hidden>Select One</option>
                 <!-- option is automatically shown through js depending on the municipality selected -->
             </select>
+            <div id="barangay-error" class="invalid-feedback"></div>
 
             <!-- sitio -->
             <label for="Sitio" class="form-label small-font mb-0">Sitio</label>
@@ -270,7 +321,7 @@
             <!-- coordinates -->
             <label for="coordInput" class="form-label small-font mb-0">Coordinates(if any)</label>
             <input id="coordInput" name="coordinates" type="text" class="form-control" aria-describedby="coords-help">
-            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (<span class="fw-bold">latitude , longitude</span>)</div>
+            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (<span class="fw-bold">latitude , longitude - 5.7600, 125.3466</span>)</div>
 
         </div>
         <!-- map -->
@@ -291,7 +342,7 @@
 
 <!-- IMAGE PREVIEW HANDLING -->
 <script defer>
-    function previewImage(input, previewId) {
+    function previewImageSeed(input, previewId) {
         const previewContainer = document.getElementById(previewId);
         previewContainer.innerHTML = ""; // Clear previous previews
 
@@ -314,7 +365,7 @@
 
                     const deleteButton = document.createElement("button");
                     deleteButton.innerHTML = "<i class='fa-solid fa-xmark'></i>";
-                    deleteButton.classList.add("remove-image");
+                    deleteButton.classList.add("remove-image-seed");
                     imgContainer.appendChild(deleteButton);
 
                     // Add selected file to the array
@@ -323,10 +374,9 @@
                 reader.readAsDataURL(files[i]);
             }
 
-            // Add event listener for delete buttons
-            $(document).on("click", ".remove-image", function() {
-                var index = $(this).index(".remove-image");
-                var input = $('input[type="file"]')[0];
+            $(document).off("click", ".remove-image-seed").on("click", ".remove-image-seed", function() {
+                var index = $(this).index(".remove-image-seed");
+                var input = $('#imageInputSeed')[0];
                 var newFiles = Array.from(input.files);
                 newFiles.splice(index, 1);
 
@@ -349,7 +399,7 @@
 
                     const deleteButton = document.createElement("button");
                     deleteButton.innerHTML = "<i class='fa-solid fa-xmark'></i>";
-                    deleteButton.classList.add("remove-image");
+                    deleteButton.classList.add("remove-image-seed");
                     imgContainer.appendChild(deleteButton);
                 });
                 input.files = dataTransfer.files;
@@ -361,10 +411,148 @@
         } else {
             previewContainer.classList.add("d-none"); // Hide preview container if no files selected
         }
-        // **Update logic to use selectedFiles array for upload**
-        // (This part depends on your specific upload functionality)
+    }
 
-        // Replace existing upload logic with code that uses selectedFiles
+    function previewImageVeg(input, previewId) {
+        const previewContainer = document.getElementById(previewId);
+        previewContainer.innerHTML = ""; // Clear previous previews
+
+        const files = input.files;
+        const selectedFiles = []; // Array to store selected files
+
+        if (files.length > 0) {
+            previewContainer.classList.remove("d-none"); // Show preview container
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgContainer = document.createElement("div");
+                    imgContainer.classList.add("preview-image-container");
+                    previewContainer.appendChild(imgContainer);
+
+                    const img = document.createElement("img");
+                    img.src = e.target.result;
+                    img.classList.add("img-thumbnail", "mb-2", "preview-image");
+                    imgContainer.appendChild(img);
+
+                    const deleteButton = document.createElement("button");
+                    deleteButton.innerHTML = "<i class='fa-solid fa-xmark'></i>";
+                    deleteButton.classList.add("remove-image-veg");
+                    imgContainer.appendChild(deleteButton);
+
+                    // Add selected file to the array
+                    selectedFiles.push(files[i]);
+                };
+                reader.readAsDataURL(files[i]);
+            }
+
+            $(document).off("click", ".remove-image-veg").on("click", ".remove-image-veg", function() {
+                var index = $(this).index(".remove-image-veg");
+                var input = $('#imageInputVegetative')[0];
+                var newFiles = Array.from(input.files);
+                newFiles.splice(index, 1);
+
+                // Clear the preview container
+                previewContainer.innerHTML = "";
+
+                //* mao ni tung mag transfer sa data to another input
+                var dataTransfer = new DataTransfer();
+                // Preview the remaining images
+                newFiles.forEach(function(file) {
+                    dataTransfer.items.add(file);
+                    const imgContainer = document.createElement("div");
+                    imgContainer.classList.add("preview-image-container");
+                    previewContainer.appendChild(imgContainer);
+
+                    const img = document.createElement("img");
+                    img.src = URL.createObjectURL(file);
+                    img.classList.add("img-thumbnail", "mb-2", "preview-image");
+                    imgContainer.appendChild(img);
+
+                    const deleteButton = document.createElement("button");
+                    deleteButton.innerHTML = "<i class='fa-solid fa-xmark'></i>";
+                    deleteButton.classList.add("remove-image-veg");
+                    imgContainer.appendChild(deleteButton);
+                });
+                input.files = dataTransfer.files;
+
+                // Remove only the clicked image and delete button
+                $(this).prev("img").remove();
+                $(this).remove();
+            });
+        } else {
+            previewContainer.classList.add("d-none"); // Hide preview container if no files selected
+        }
+    }
+
+    function previewImageRepro(input, previewId) {
+        const previewContainer = document.getElementById(previewId);
+        previewContainer.innerHTML = ""; // Clear previous previews
+
+        const files = input.files;
+        const selectedFiles = []; // Array to store selected files
+
+        if (files.length > 0) {
+            previewContainer.classList.remove("d-none"); // Show preview container
+            for (let i = 0; i < files.length; i++) {
+                const reader = new FileReader();
+                reader.onload = function(e) {
+                    const imgContainer = document.createElement("div");
+                    imgContainer.classList.add("preview-image-container");
+                    previewContainer.appendChild(imgContainer);
+
+                    const img = document.createElement("img");
+                    img.src = e.target.result;
+                    img.classList.add("img-thumbnail", "mb-2", "preview-image");
+                    imgContainer.appendChild(img);
+
+                    const deleteButton = document.createElement("button");
+                    deleteButton.innerHTML = "<i class='fa-solid fa-xmark'></i>";
+                    deleteButton.classList.add("remove-image-repro");
+                    imgContainer.appendChild(deleteButton);
+
+                    // Add selected file to the array
+                    selectedFiles.push(files[i]);
+                };
+                reader.readAsDataURL(files[i]);
+            }
+
+            $(document).off("click", ".remove-image-repro").on("click", ".remove-image-repro", function() {
+                var index = $(this).index(".remove-image-repro");
+                var input = $('#imageInputReproductive')[0];
+                var newFiles = Array.from(input.files);
+                newFiles.splice(index, 1);
+
+                // Clear the preview container
+                previewContainer.innerHTML = "";
+
+                //* mao ni tung mag transfer sa data to another input
+                var dataTransfer = new DataTransfer();
+                // Preview the remaining images
+                newFiles.forEach(function(file) {
+                    dataTransfer.items.add(file);
+                    const imgContainer = document.createElement("div");
+                    imgContainer.classList.add("preview-image-container");
+                    previewContainer.appendChild(imgContainer);
+
+                    const img = document.createElement("img");
+                    img.src = URL.createObjectURL(file);
+                    img.classList.add("img-thumbnail", "mb-2", "preview-image");
+                    imgContainer.appendChild(img);
+
+                    const deleteButton = document.createElement("button");
+                    deleteButton.innerHTML = "<i class='fa-solid fa-xmark'></i>";
+                    deleteButton.classList.add("remove-image-repro");
+                    imgContainer.appendChild(deleteButton);
+                });
+                input.files = dataTransfer.files;
+
+                // Remove only the clicked image and delete button
+                $(this).prev("img").remove();
+                $(this).remove();
+            });
+        } else {
+            previewContainer.classList.add("d-none"); // Hide preview container if no files selected
+        }
     }
 </script>
 
@@ -406,4 +594,5 @@
 
 <!-- MAP -->
 <script>
+
 </script>

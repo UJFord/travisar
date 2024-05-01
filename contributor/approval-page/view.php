@@ -178,9 +178,6 @@
                             $('#rejectButton').hide();
                         }
 
-                        // Fetch the old image and pass it to the fetchOldImage function
-                        fetchOldImage(value.crop_seed_image);
-
                         if (value['crop_seed_image'] != null && value['crop_seed_image'] != '') {
                             // Split the image filenames by comma
                             var imageFilenamesSeed = value['crop_seed_image'].split(',');
@@ -191,11 +188,21 @@
                         }
 
                         if (value['crop_vegetative_image'] != null && value['crop_vegetative_image'] != '') {
-                            $('#previewVegEdit').append(`<img src="../crop-page/modals/img/${value['crop_vegetative_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                            // Split the image filenames by comma
+                            var imageFilenamesVeg = value['crop_vegetative_image'].split(',');
+                            // Iterate over each filename and append an image element to the preview container
+                            imageFilenamesVeg.forEach(function(filename) {
+                                $('#previewVegEdit').append(`<img src="../crop-page/modals/img/${filename.trim()}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                            });
                         }
 
                         if (value['crop_reproductive_image'] != null && value['crop_reproductive_image'] != '') {
-                            $('#previewReproductiveEdit').append(`<img src="../crop-page/modals/img/${value['crop_reproductive_image']}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                            // Split the image filenames by comma
+                            var imageFilenamesRepro = value['crop_reproductive_image'].split(',');
+                            // Iterate over each filename and append an image element to the preview container
+                            imageFilenamesRepro.forEach(function(filename) {
+                                $('#previewReproductiveEdit').append(`<img src="../crop-page/modals/img/${filename.trim()}" class="m-2 img-thumbnail" style="height: 200px;">`);
+                            });
                         }
 
                         // setting the available data on the traits tab depending on the category of the selected crop

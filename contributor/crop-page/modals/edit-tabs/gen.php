@@ -221,7 +221,7 @@
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
             <input type="hidden" name="current_image_veg" id="old_image_veg">
-            <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetativeEdit" accept="image/jpeg,image/png" name="crop_vegetative_image" multiple>
+            <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetativeEdit" accept="image/jpeg,image/png" name="crop_vegetative_image[]" multiple>
         </div>
         <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewVegEdit"></div>
     </div>
@@ -234,7 +234,7 @@
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
             <input type="hidden" name="current_image_rep" id="old_image_rep">
-            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductiveEdit" accept="image/jpeg,image/png" name="crop_reproductive_image" multiple>
+            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductiveEdit" accept="image/jpeg,image/png" name="crop_reproductive_image[]" multiple>
         </div>
         <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewReproductiveEdit"></div>
     </div>
@@ -653,7 +653,6 @@
     previewContainerEdit.addEventListener('DOMNodeInserted', checkForContent);
     previewContainerEdit.addEventListener('DOMNodeRemoved', checkForContent);
 </script>
-
 
 <!-- script for limiting the input for the crop variety name -->
 <script>

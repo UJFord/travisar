@@ -681,7 +681,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop Deleted Successfully";
         pg_query($conn, "COMMIT");
-        header("Location: ../../crop.php");
+        header("Location: ../crop.php");
         exit(0);
     } catch (Exception $e) {
         // message for error

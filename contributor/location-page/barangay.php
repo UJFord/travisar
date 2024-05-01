@@ -72,18 +72,6 @@ require "../../functions/functions.php";
                     padding: 18px;
                 }
 
-                @keyframes moving {
-                    from {
-                        transform: translateX(50px);
-                        opacity: 0;
-                    }
-
-                    to {
-                        transform: translateX(0px);
-                        opacity: 1;
-                    }
-                }
-
                 .add-loc-btn {
                     background: var(--mainBrand);
                     border: none;

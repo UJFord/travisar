@@ -2,7 +2,7 @@
 session_start();
 require "../../../../functions/connections.php";
 
-// var_dump($_POST);
+// var_dump($_FILES);
 // die();
 if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
     // Begin the database transaction
@@ -3058,10 +3058,10 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
 
         // update crop table
         $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, meaning_of_name = $3,
-        crop_seed_image = $4 where crop_id = $5";
+        crop_seed_image = $4, crop_vegetative_image =$5, crop_reproductive_image = $6 where crop_id = $7";
 
         $valueCrops = array(
-            $crop_variety, $crop_description, $meaning_of_name, $finalimgSeed, $crop_id
+            $crop_variety, $crop_description, $meaning_of_name, $finalimgSeed, $finalimgVeg, $finalimgRepro, $crop_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 

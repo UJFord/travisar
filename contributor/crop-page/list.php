@@ -1,8 +1,13 @@
+<style>
+    .tab_box {
+        border-bottom: 2px solid rgba(229, 229, 229);
+    }
+</style>
 <!-- LIST -->
 <div class="col">
     <div class="container">
         <!-- HEADING -->
-        <div class="d-flex justify-content-between">
+        <div class="tab_box d-flex justify-content-between">
             <!-- title -->
             <h4 class="fw-semibold" style="font-size: 1.5rem;">All Crops</h4>
             <!-- add button -->
@@ -70,7 +75,8 @@
                         </label>
                     </th>
                     <th class="col text-dark-emphasis small-font" scope="col">Category</th>
-                    <th class="col text-dark-emphasis small-font" scope="col">Name</th>
+                    <th class="col text-dark-emphasis small-font" scope="col">Variety Name</th>
+                    <th class="col text-dark-emphasis small-font" scope="col">Location</th>
                     <th class="col text-dark-emphasis small-font" scope="col">Date Created</th>
                     <!-- <th class="col text-dark-emphasis small-font" scope="col">Action</th> -->
                     <th class="col text-dark-emphasis small-font" scope="col">Status</th>
@@ -97,7 +103,8 @@
                 // get the data from crops.
                 $query = "SELECT * FROM crop 
                 LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
-                LEFT JOIN status ON status.status_id = crop.status_id 
+                LEFT JOIN status ON status.status_id = crop.status_id
+                LEFT JOIN municipality on municipality.municipality_id = crop_location.municipality_id
                 WHERE 1=1 $search_condition $category_filter $municipality_filter $variety_filter $terrain_filter $brgy_filter
                 ORDER BY crop.crop_id DESC 
                 LIMIT $items_per_page OFFSET $offset";
@@ -134,7 +141,7 @@
                         }
                             ?>
 
-                            <input type="text" name="crop_id" value="<?= $row['crop_id']; ?>">
+                            <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
                             <!-- hidden id for location to be used for filter function for location to be found -->
                             <input type="hidden" name="municipality_id" value="<?= $row['municipality_id']; ?>">
 
@@ -163,9 +170,14 @@
                                 <a class="small-font" href="#" target=”_blank”><?= $row['crop_variety']; ?></a>
                             </td>
 
+                            <!-- Location -->
+                            <td class="text-center">
+                                <h6 class="small-font m-0"><?= $row['municipality_name']; ?></h6>
+                            </td>
+
                             <!-- date created -->
                             <td>
-                                <h6 class="small-font"><?= $formatted_date; ?></h6>
+                                <h6 class="small-font m-0"><?= $formatted_date; ?></h6>
                             </td>
 
                             <td>
@@ -193,7 +205,7 @@
 
                             <!-- remarks -->
                             <td class="text-center">
-                                <h6 class="small-font"><?= $row['remarks']; ?></h6>
+                                <h6 class="small-font m-0"><?= $row['remarks']; ?></h6>
                             </td>
 
                             <!-- ellipsis menu butn -->
