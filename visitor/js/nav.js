@@ -1,9 +1,6 @@
 // NAVBAR
-
 // for nested dropdowns
 $(document).ready(function() {
-
-
     $('.dropend').each(function() {
         var $dropdown = $(this);
         var $button = $dropdown.find('.set-nav-toggler');

@@ -24,7 +24,6 @@ require "../../functions/functions.php";
     <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- custom -->
-
     <!-- global declarations -->
     <link rel="stylesheet" href="../../css/global-declarations.css">
     <!-- specific for this file -->
@@ -43,7 +42,7 @@ require "../../functions/functions.php";
 <body>
 
     <!-- NAV -->
-    <?php require "../nav/nav.php"; ?>
+    <?php require "../../nav/nav.php"; ?>
     <?php require "../../functions/message.php"; ?>
 
     <!-- MAIN -->
@@ -65,6 +64,7 @@ require "../../functions/functions.php";
     <script src="https://kit.fontawesome.com/57e83eb6e4.js" crossorigin="anonymous"></script>
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="../../visitor/js/nav.js"></script>
     <!-- search function -->
     <script>
         function filterTable() {

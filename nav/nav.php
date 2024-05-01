@@ -9,6 +9,11 @@ $current_page_path = $_SERVER['REQUEST_URI'];
 // current page html boolean
 $current_page_isHome = false;
 $current_page_isCrop = false;
+$current_page_isCrop_page = false;
+$current_page_isSettings = false;
+$current_page_isSubmission = false;
+$current_page_isManagement = false;
+
 
 switch ($current_page_path) {
     case "/travisar/visitor/home.php":
@@ -24,28 +29,34 @@ switch ($current_page_path) {
         $current_page_isCrop_page = true;
         break;
     case "/travisar/contributor/crop-page/category-variety.php":
-        $current_page_isVariety = true;
+        $current_page_isSettings = true;
         break;
     case "/travisar/contributor/crop-page/crop-category.php":
-        $current_page_isCategory = true;
+        $current_page_isSettings = true;
         break;
     case "/travisar/contributor/crop-page/abiotic-resistance.php":
-        $current_page_isAbiotic = true;
+        $current_page_isSettings = true;
         break;
     case "/travisar/contributor/crop-page/disease-resistance.php":
-        $current_page_isDisease = true;
+        $current_page_isSettings = true;
         break;
     case "/travisar/contributor/crop-page/pest-resistance.php":
-        $current_page_isPest = true;
+        $current_page_isSettings = true;
+        break;
+    case "/travisar/contributor/location-page/municipality.php":
+        $current_page_isSettings = true;
+        break;
+    case "/travisar/contributor/location-page/barangay.php":
+        $current_page_isSettings = true;
+        break;
+    case "/travisar/contributor/user-page/partners.php":
+        $current_page_isSettings = true;
+        break;
+    case "/travisar/contributor/user-page/verify-user.php":
+        $current_page_isSettings = true;
         break;
     case "/travisar/contributor/submission-page/submission.php":
         $current_page_isSubmission = true;
-        break;
-    case "/travisar/contributor/location-page/municipality.php":
-        $current_page_isMunicipality = true;
-        break;
-    case "/travisar/contributor/location-page/barangay.php":
-        $current_page_isBarangay = true;
         break;
 
         //! wala sya ga work diko kabalo deopdown mangud
@@ -121,7 +132,7 @@ switch ($current_page_path) {
                 <!-- crop management -->
                 <div class="nav-item fw-semibold me-2 dropdown">
 
-                    <a href="" id="mng-nav" class="nav-link dropdown-toggle<?php if ($current_page_isManagement) {
+                    <a href="" id="mng-nav" class="nav-link dropdown-toggle <?php if ($current_page_isManagement) {
                                                                                 echo "active";
                                                                             } ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Crop Management
@@ -129,13 +140,13 @@ switch ($current_page_path) {
 
                     <ul class="dropdown-menu" aria-labelledby="mng-nav">
                         <li>
-                            <a class="dropdown-item" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/pending.php'; ?>">Pending</a>
+                            <a class="dropdown-item" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/pending.php'; ?>">Pending</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/approved.php'; ?>">Approved</a>
+                            <a class="dropdown-item" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/approved.php'; ?>">Approved</a>
                         </li>
                         <li>
-                            <a class="dropdown-item" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/rejected.php'; ?>">Rejected</a>
+                            <a class="dropdown-item" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/rejected.php'; ?>">Rejected</a>
                         </li>
                     </ul>
                 </div>
@@ -143,7 +154,9 @@ switch ($current_page_path) {
                 <!-- settings -->
                 <div class="nav-item fw-semibold me-4 dropdown">
 
-                    <a href="#" id="set-nav" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a href="#" id="set-nav" class="nav-link dropdown-toggle <?php if ($current_page_isSettings) {
+                                                                                    echo "active";
+                                                                                } ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                         Settings
                     </a>
 
@@ -180,8 +193,8 @@ switch ($current_page_path) {
                                 User Account
                             </button>
                             <ul class="dropdown-menu" aria-labelledby="set-nav-usr">
-                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/approval-page/partners.php'; ?>" class="dropdown-item">Users</a></li>
-                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/approval-page/verify-user.php'; ?>" class="dropdown-item">Verification</a></li>
+                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/user-page/partners.php'; ?>" class="dropdown-item">Users</a></li>
+                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/user-page/verify-user.php'; ?>" class="dropdown-item">Verification</a></li>
                             </ul>
                         </li>
 
@@ -227,7 +240,5 @@ switch ($current_page_path) {
             <!-- VISITOR -->
             <a id="contributor-link" href="../login/login-form.php" class="d-none link-light link-offset-3 link-underline link-underline-opacity-0 rounded-pill px-3 py-2">Contribute to Travis</a>
         </div>
-
-
     </div>
 </div>

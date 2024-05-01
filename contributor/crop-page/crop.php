@@ -82,7 +82,7 @@ require "../../functions/functions.php";
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <!-- CUSTOM -->
-    <script src="../../js/nav.js"></script>
+    <script src="../../visitor/js/nav.js"></script>
     <!-- to Capitalized all first letter in all inputs and textarea -->
     <script>
         $(document).ready(function() {

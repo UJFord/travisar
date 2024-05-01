@@ -76,6 +76,7 @@ require "../../functions/functions.php";
     <script src="https://kit.fontawesome.com/57e83eb6e4.js" crossorigin="anonymous"></script>
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <script src="../../visitor/js/nav.js"></script>
     <!-- to Capitalized all first letter in all inputs and textarea -->
     <script>
         $(document).ready(function() {
