@@ -1,25 +1,60 @@
 <?php
+session_start();
 require "../../../../functions/connections.php";
 
 if (isset($_POST['save'])) {
-    $disease_name = [];
+    $disease_names = [];
 
-    // Loop through the $_POST data to extract pest names
+    // Loop through the $_POST data to extract disease names
     foreach ($_POST as $key => $value) {
         if (strpos($key, 'disease_name_') !== false) {
-            $disease_name[] = $value;
+            $disease_names[] = $value;
         }
     }
 
-    // Prepare the query
+    // Check if any disease name is empty
+    if (empty($disease_names)) {
+        $_SESSION['message'] = "No data was submitted";
+        header("location: ../../disease-resistance.php");
+        exit;
+    }
+
+    $error_flag = false;
+
+    // Check each disease name individually
+    foreach ($disease_names as $disease_name) {
+        // Prepare the query to check if the data already exists
+        $check_query = "SELECT COUNT(*) FROM disease_resistance WHERE disease_name = $1";
+        $check_params = [$disease_name];
+
+        // Execute the check query
+        $check_query_run = pg_query_params($conn, $check_query, $check_params);
+
+        // Fetch the result
+        $result = pg_fetch_assoc($check_query_run);
+
+        // Check if the data already exists
+        if ($result['count'] > 0) {
+            $_SESSION['message'] = "Disease '$disease_name' already exists";
+            $error_flag = true;
+        }
+    }
+
+    if ($error_flag) {
+
+        header("location: ../../disease-resistance.php");
+        exit;
+    }
+
+    // Prepare the query for insertion
     $query = "INSERT INTO disease_resistance (disease_name) VALUES ";
     $params = [];
     $valueStrings = [];
 
-    // Generate placeholders and parameters for each pest name
-    for ($i = 0; $i < count($disease_name); $i++) {
+    // Generate placeholders and parameters for each disease name
+    for ($i = 0; $i < count($disease_names); $i++) {
         $valueStrings[] = "($" . ($i + 1) . ")";
-        $params[] = $disease_name[$i];
+        $params[] = $disease_names[$i];
     }
 
     $query .= implode(", ", $valueStrings);
@@ -35,6 +70,8 @@ if (isset($_POST['save'])) {
         echo "Error updating record"; // Display an error message if the query fails
     }
 }
+
+
 
 if (isset($_POST['edit'])) {
     $disease_resistance_id = $_POST['disease_idEdit'];

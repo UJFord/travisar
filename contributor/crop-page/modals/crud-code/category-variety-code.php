@@ -10,21 +10,29 @@ if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
         $category_id = $_POST['category_id'];
         $category_variety_name = $_POST['category_variety_name'];
 
-        $query = "INSERT into category_variety (category_id, category_variety_name) values($1, $2) returning category_variety_id";
-        $query_run = pg_query_params($conn, $query, array($category_id, $category_variety_name));
-
-        if ($query_run) {
-            $row_category = pg_fetch_row($query_run);
-            $category_variety_id = $row_category[0];
+        $query_getName = "SELECT category_variety_name from category_variety where category_variety_name = $1";
+        $query_getName_run = pg_query_params($conn, $query_getName, array($category_variety_name));
+        if ($query_getName_run) {
+            $_SESSION['message'] = "Category Variety already exists.";
+            pg_query($conn, "COMMIT");
+            header("location: ../../category-variety.php");
         } else {
-            echo "Error: " . pg_last_error($conn);
-            exit(0);
-        }
+            $query = "INSERT into category_variety (category_id, category_variety_name) values($1, $2) returning category_variety_id";
+            $query_run = pg_query_params($conn, $query, array($category_id, $category_variety_name));
 
-        $_SESSION['message'] = "Category Variety created Successfully";
-        pg_query($conn, "COMMIT");
-        header("location: ../../category-variety.php");
-        exit();
+            if ($query_run) {
+                $row_category = pg_fetch_row($query_run);
+                $category_variety_id = $row_category[0];
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
+
+            $_SESSION['message'] = "Category Variety created Successfully";
+            pg_query($conn, "COMMIT");
+            header("location: ../../category-variety.php");
+            exit();
+        }
     } catch (Exception $e) {
         // message for error
         $_SESSION['message'] = 'Category Variety not Created';

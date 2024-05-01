@@ -1,65 +1,75 @@
 <?php
+session_start();
 require "../../../../functions/connections.php";
+// var_dump($_POST);
+// die();
+if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator')) {
+    $abiotic_names = [];
 
-if (isset($_POST['save'])) {
-    $abiotic_name = [];
-
-    // Loop through the $_POST data to extract pest names
+    // Loop through the $_POST data to extract abiotic names
     foreach ($_POST as $key => $value) {
         if (strpos($key, 'abiotic_name_') !== false) {
-            $abiotic_name[] = $value;
+            $abiotic_names[] = $value;
         }
     }
 
-    // Prepare the query
-    $query = "INSERT INTO abiotic_resistance (abiotic_name) VALUES ";
-    $params = [];
-    $valueStrings = [];
+    // Check if abiotic_names array is not empty
+    if (!empty($abiotic_names)) {
+        $error_flag = false;
 
-    // Generate placeholders and parameters for each pest name
-    for ($i = 0; $i < count($abiotic_name); $i++) {
-        $valueStrings[] = "($" . ($i + 1) . ")";
-        $params[] = $abiotic_name[$i];
-    }
+        // Check each abiotic name individually
+        foreach ($abiotic_names as $abiotic_name) {
+            // Prepare the query to check if the data already exists
+            $check_query = "SELECT COUNT(*) FROM abiotic_resistance WHERE abiotic_name = $1";
+            $check_params = [$abiotic_name];
 
-    $query .= implode(", ", $valueStrings);
+            // Execute the check query
+            $check_query_run = pg_query_params($conn, $check_query, $check_params);
 
-    // Execute the query with parameters
-    $query_run = pg_query_params($conn, $query, $params);
+            // Fetch the result
+            $result = pg_fetch_assoc($check_query_run);
 
-    if ($query_run) {
-        $_SESSION['message'] = "Abiotic created successfully";
-        header("location: ../../abiotic-resistance.php");
-        exit; // Ensure that the script stops executing after the redirect header
-    } else {
-        echo "Error updating record"; // Display an error message if the query fails
-    }
-}
+            // Check if the data already exists
+            if ($result['count'] > 0) {
+                $_SESSION['message'] = "Abiotic '$abiotic_name' already exists";
+                $error_flag = true;
+            }
+        }
 
-if (isset($_POST['edit'])) {
-    $abiotic_resistance_id = $_POST['abiotic_idEdit'];
-    $abiotic_name = $_POST['abiotic_nameEdit'];
-    $query = "UPDATE abiotic_resistance set abiotic_name = $1 where abiotic_resistance_id = $2";
-    $query_run = pg_query_params($conn, $query, array($abiotic_name, $abiotic_resistance_id));
+        if ($error_flag) {
+            header("location: ../../abiotic-resistance.php");
+            exit;
+        }
 
-    if ($query_run !== false) {
-        $affected_rows = pg_affected_rows($query_run);
-        if ($affected_rows > 0) {
-            $_SESSION['message'] = "Abiotic Resistance updated successfully";
+        // Prepare the query for insertion
+        $query = "INSERT INTO abiotic_resistance (abiotic_name) VALUES ";
+        $params = [];
+        $valueStrings = [];
+
+        // Generate placeholders and parameters for each abiotic name
+        for ($i = 0; $i < count($abiotic_names); $i++) {
+            $valueStrings[] = "($" . ($i + 1) . ")";
+            $params[] = $abiotic_names[$i];
+        }
+
+        $query .= implode(", ", $valueStrings);
+
+        // Execute the query with parameters
+        $query_run = pg_query_params($conn, $query, $params);
+
+        if ($query_run) {
+            $_SESSION['message'] = "Abiotic created successfully";
             header("location: ../../abiotic-resistance.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
-            echo "Error: Location ID not found";
-            exit(0);
+            echo "Error updating record"; // Display an error message if the query fails
         }
     } else {
-        echo "Error: " . pg_last_error($conn);
-        exit(0);
+        echo "Error: No abiotic names provided";
     }
 }
 
-// var_dump($_POST);
-// die();
+
 if (isset($_POST['delete']) && $_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
@@ -89,6 +99,28 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Admin' || $_SESSION['rank']
         echo "Error: " . $e->getMessage();
         // Display the error message
         echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
+        exit(0);
+    }
+}
+
+if (isset($_POST['edit']) && $_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator') {
+    $abiotic_resistance_id = $_POST['abiotic_idEdit'];
+    $abiotic_name = $_POST['abiotic_nameEdit'];
+    $query = "UPDATE abiotic_resistance set abiotic_name = $1 where abiotic_resistance_id = $2";
+    $query_run = pg_query_params($conn, $query, array($abiotic_name, $abiotic_resistance_id));
+
+    if ($query_run !== false) {
+        $affected_rows = pg_affected_rows($query_run);
+        if ($affected_rows > 0) {
+            $_SESSION['message'] = "Abiotic Resistance updated successfully";
+            header("location: ../../abiotic-resistance.php");
+            exit; // Ensure that the script stops executing after the redirect header
+        } else {
+            echo "Error: Location ID not found";
+            exit(0);
+        }
+    } else {
+        echo "Error: " . pg_last_error($conn);
         exit(0);
     }
 }

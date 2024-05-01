@@ -1,40 +1,73 @@
 <?php
+session_start();
 require "../../../../functions/connections.php";
 
 if (isset($_POST['save'])) {
-    $pest_name = [];
+    $pest_names = [];
 
     // Loop through the $_POST data to extract pest names
     foreach ($_POST as $key => $value) {
         if (strpos($key, 'pest_name_') !== false) {
-            $pest_name[] = $value;
+            $pest_names[] = $value;
         }
     }
 
-    // Prepare the query
-    $query = "INSERT INTO pest_resistance (pest_name) VALUES ";
-    $params = [];
-    $valueStrings = [];
+    // Check if pest_names array is not empty
+    if (!empty($pest_names)) {
+        $error_flag = false;
 
-    // Generate placeholders and parameters for each pest name
-    for ($i = 0; $i < count($pest_name); $i++) {
-        $valueStrings[] = "($" . ($i + 1) . ")";
-        $params[] = $pest_name[$i];
-    }
+        // Check each pest name individually
+        foreach ($pest_names as $pest_name) {
+            // Prepare the query to check if the data already exists
+            $check_query = "SELECT COUNT(*) FROM pest_resistance WHERE pest_name = $1";
+            $check_params = [$pest_name];
 
-    $query .= implode(", ", $valueStrings);
+            // Execute the check query
+            $check_query_run = pg_query_params($conn, $check_query, $check_params);
 
-    // Execute the query with parameters
-    $query_run = pg_query_params($conn, $query, $params);
+            // Fetch the result
+            $result = pg_fetch_assoc($check_query_run);
 
-    if ($query_run) {
-        $_SESSION['message'] = "Pest created successfully";
-        header("location: ../../pest-resistance.php");
-        exit; // Ensure that the script stops executing after the redirect header
+            // Check if the data already exists
+            if ($result['count'] > 0) {
+                $_SESSION['message'] = "Pest '$pest_name' already exists";
+                $error_flag = true;
+            }
+        }
+
+        if ($error_flag) {
+            header("location: ../../pest-resistance.php");
+            exit;
+        }
+
+        // Prepare the query for insertion
+        $query = "INSERT INTO pest_resistance (pest_name) VALUES ";
+        $params = [];
+        $valueStrings = [];
+
+        // Generate placeholders and parameters for each pest name
+        for ($i = 0; $i < count($pest_names); $i++) {
+            $valueStrings[] = "($" . ($i + 1) . ")";
+            $params[] = $pest_names[$i];
+        }
+
+        $query .= implode(", ", $valueStrings);
+
+        // Execute the query with parameters
+        $query_run = pg_query_params($conn, $query, $params);
+
+        if ($query_run) {
+            $_SESSION['message'] = "Pest created successfully";
+            header("location: ../../pest-resistance.php");
+            exit; // Ensure that the script stops executing after the redirect header
+        } else {
+            echo "Error updating record"; // Display an error message if the query fails
+        }
     } else {
-        echo "Error updating record"; // Display an error message if the query fails
+        echo "Error: No pest names provided";
     }
 }
+
 
 if (isset($_POST['edit'])) {
     $pest_resistance_id = $_POST['pest_idEdit'];

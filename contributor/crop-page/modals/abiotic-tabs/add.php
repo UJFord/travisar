@@ -36,7 +36,7 @@
                 <div class="modal-footer d-flex justify-content-end">
                     <div class="">
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" name="save" onclick="validateAndSubmitForm()" class="btn btn-success">Save</button>
+                        <button type="submit" name="save" class="btn btn-success">Save</button>
                     </div>
                 </div>
             </form>
@@ -84,41 +84,6 @@
             rowCounter = 1; // Reset the row counter
         });
     });
-
-    document.getElementById('form-panel').addEventListener('submit', function(event) {
-        // console.log('Submit add');
-        submitForm();
-    });
-
-
-    // Function to submit the form and refresh notifications
-    function submitForm() {
-        console.log('submitForm function called');
-        // Get the form reference
-        var form = document.getElementById('form-panel');
-        // Trigger the form submission
-        if (form) {
-            // Perform AJAX submission or other necessary actions
-            $.ajax({
-                url: "modals/code/disease-code.php",
-                method: "POST",
-                data: new FormData(form),
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function(data) {
-                    // Reset the form
-                    form.reset();
-                    // Reload unseen notifications
-                    load_unseen_notification();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error("Form submission error:", textStatus, errorThrown);
-                    // Handle error if needed
-                }
-            });
-        }
-    }
 
     // tab switching
     // next button
