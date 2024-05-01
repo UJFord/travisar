@@ -1,3 +1,4 @@
+
 <?php
 require "../functions/connections.php";
 require "../functions/functions.php";
