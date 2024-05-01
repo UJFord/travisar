@@ -52,3 +52,8 @@ body{
 		#contributor-link:hover{
 			background: #e8e8e850;
 		}
+
+	/* profile action */
+	#logout-link:active{
+		background: rgba(255, 0, 0, 0.336);
+	}

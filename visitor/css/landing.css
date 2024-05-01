@@ -1,4 +1,40 @@
-/* FONTS */
+/* #carousel-container{
+    max-height: 500px
+} */
+	/* carousel */
+	/* .carousel-image {
+		
+		filter: brightness(65%);
+		height: 120vw;
+		max-height: 500px;
+		background-blend-mode: multiply;
+		background-size: cover;
+		background-position: center;
+		background-repeat: no-repeat;
+	} */
+		/* caption */
+		/* .carousel-caption h5{
+			font-size: 3em;
+			color: var(--headColor);
+			font-family: 'Pacifico', cursive;
+		} */
+/* CAROUSEL */
+#carousel{
+    max-height: 500px;
+}
+    .carousel-img{
+        height: 500px;
+        object-fit: cover;
+    }
+    .carousel-item {
+    transition: transform 0.6s ease;
+    }
+
+
+
+
+
+
 
 /* search */
 #search-btn, #filter-trigger{

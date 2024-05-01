@@ -21,7 +21,7 @@ switch ($current_page_path) {
 ?>
 
 <!-- NAVBAR -->
-<div class="navbar navbar-dark navbar-expand-sm" id="main-nav">
+<div class="navbar navbar-dark navbar-expand-md" id="main-nav">
     <div class="container">
 
         <!-- logo -->
@@ -61,98 +61,12 @@ switch ($current_page_path) {
             </ul>
 
             <!-- ADMIN -->
-            <ul class="navbar-nav">
+            <?php require 'nav/admin-nav.php'?>
 
-                <!-- all crops -->
-                <div class="nav-item me-2">
-                    <a href="" class="nav-link">All Crops</a>
-                </div>
-
-                <!-- my crops -->
-                <div class="nav-item fw-semibold me-2">
-                    <a href="" class="nav-link">My Crops</a>
-                </div>
-
-                <!-- crop management -->
-                <div class="nav-item fw-semibold me-2 dropdown">
-
-                    <a href="" id="mng-nav" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Crop Management
-                    </a>
-
-                    <ul class="dropdown-menu" aria-labelledby="mng-nav">
-                        <li><a href="" class="dropdown-item">Pending</a></li>
-                        <li><a href="" class="dropdown-item">Approved</a></li>
-                        <li><a href="" class="dropdown-item">Rejected</a></li>
-                    </ul>
-                </div>
-
-                <!-- settings -->
-                <div class="nav-item fw-semibold me-2 dropdown">
-
-                    <a href="#" id="set-nav" class="nav-link dropdown-toggle" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Settings
-                    </a>
-
-                    <ul id="set-nav-menu" class="dropdown-menu">
-
-                        <!-- crop settings -->
-                        <li class="dropend">
-                            <button id="set-nav-crop" role="button" class="dropdown-item dropdown-toggle set-nav-toggler" data-bs-toggle="dropdown" aria-expanded="false">
-                                Crop Settings
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="set-nav-crop">
-                                <li><a href="#" class="dropdown-item">Crop Category</a></li>
-                                <li><a href="#" class="dropdown-item">Category Variety</a></li>
-                                <li><a href="#" class="dropdown-item">Abiotic Resistance</a></li>
-                                <li><a href="#" class="dropdown-item">Disease Resistance</a></li>
-                                <li><a href="#" class="dropdown-item">Pest Resistance</a></li>
-                            </ul>
-                        </li>
-
-                        <!-- location settings -->
-                        <li class="dropend">
-                            <button id="set-nav-loc" role="button" class="dropdown-item dropdown-toggle set-nav-toggler" data-bs-toggle="dropdown" aria-expanded="false">
-                                Location Settings
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="set-nav-loc">
-                                <li><a href="#" class="dropdown-item">Barangay</a></li>
-                                <li><a href="#" class="dropdown-item">Municipality</a></li>
-                            </ul>
-                        </li>
-
-                        <!-- user accounts -->
-                        <li class="dropend">
-                            <button id="set-nav-usr" role="button" class="dropdown-item dropdown-toggle set-nav-toggler" data-bs-toggle="dropdown" aria-expanded="false">
-                                User Account
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="set-nav-usr">
-                                <li><a href="#" class="dropdown-item">Users</a></li>
-                                <li><a href="#" class="dropdown-item">Verification</a></li>
-                            </ul>
-                        </li>
-
-                    </ul>
-                </div>
-
-
-                <!-- user profile -->
-                <div class="nav-item fw-semibold me-2 dropdown">
-                    <a href="" id="profile-btn" class="nav-link dropdown-toggle d-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-user"></i>
-                    </a>
-
-                    <ul class="dropdown-menu">
-                        <li>
-                            
-                        </li>
-                    </ul>
-                </div>
-            </ul>
+            <!-- VISITOR -->
+            <?php require 'nav/visit-nav.php'?>
         </div>
 
-        <!-- contributors link -->
-        <a id="contributor-link" href="../login/login-form.php" class="d-none link-light link-offset-3 link-underline link-underline-opacity-0 rounded-pill px-3 py-2">Contribute to Travis</a>
 
     </div>
 </div>
