@@ -23,7 +23,7 @@
         <!-- all crops -->
         <div class="py-2 px-3 w-100 border-bottom">
             <div id="crop-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#crop-filters" role="button" aria-expanded="true" aria-controls="crop-filters">
-                <i id="cropChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1"></i>
+                <i id="cropChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">All Crops</a>
             </div>
 
@@ -35,7 +35,7 @@
                 while ($row = pg_fetch_array($query_run)) {
             ?>
                     <!-- crops filters -->
-                    <div id="crop-filters" class="collapse show w-100 mb-2">
+                    <div id="crop-filters" class="collapse w-100 mb-2">
                         <input class="form-check-input crop-filter" type="checkbox" id="category<?= $row['category_id']; ?>" value="<?= $row['category_id']; ?>">
                         <label for="category<?= $row['category_id']; ?>"><?= $row['category_name']; ?></label>
                     </div>
@@ -50,15 +50,12 @@
         <!-- Varieties -->
         <div class="py-2 px-3 w-100 border-bottom">
             <div id="variety-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#variety-filters" role="button" aria-expanded="true" aria-controls="variety-filters">
-                <i id="varietyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1"></i>
+                <i id="varietyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">Variety</a>
-            </div>
-            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">
-                (select crop category filter to show. only latest selected will matter)
             </div>
 
             <!-- crops filters -->
-            <div id="variety-filters" class="collapse show w-100 mb-2">
+            <div id="variety-filters" class="collapse w-100 mb-2">
 
             </div>
         </div>
@@ -66,7 +63,7 @@
         <!-- terrain -->
         <div class="py-2 px-3 w-100 border-bottom">
             <div id="terrain-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#terrain-filters" role="button" aria-expanded="true" aria-controls="terrain-filters">
-                <i id="terrainChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1"></i>
+                <i id="terrainChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">All Terrains</a>
             </div>
 
@@ -78,7 +75,7 @@
                 while ($row = pg_fetch_array($query_run)) {
             ?>
                     <!-- terrains filters -->
-                    <div id="terrain-filters" class="collapse show w-100 mb-2">
+                    <div id="terrain-filters" class="collapse w-100 mb-2">
                         <input class="form-check-input terrain-filter" type="checkbox" id="terrain<?= $row['terrain_id']; ?>" value="<?= $row['terrain_id']; ?>">
                         <label for="terrain<?= $row['terrain_id']; ?>"><?= $row['terrain_name']; ?></label>
                     </div>
@@ -93,7 +90,7 @@
         <!-- all municipalities -->
         <div class="pt-2 pb-1 px-3 w-100">
             <div id="mun-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#municipality-filters" role="button" aria-expanded="true" aria-controls="municipalty-filters">
-                <i id="munChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1"></i>
+                <i id="munChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1 rotate-chevron"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">All Municipalities</a>
             </div>
 
@@ -104,7 +101,7 @@
             if ($query_run) {
                 while ($row = pg_fetch_array($query_run)) {
             ?>
-                    <div id="municipality-filters" class="collapse show w-100 mb-2">
+                    <div id="municipality-filters" class="collapse w-100 mb-2">
                         <input class="form-check-input municipality-filter" type="checkbox" id="municipality<?= $row['municipality_id']; ?>" value="<?= $row['municipality_id']; ?>">
                         <label for="municipality<?= $row['municipality_id']; ?>"><?= $row['municipality_name']; ?></label>
                     </div>
@@ -116,17 +113,13 @@
             ?>
         </div>
 
-
         <!-- all barangay -->
         <div class="pt-2 pb-1 px-3 w-100">
             <div id="brgy-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#brgy-filters" role="button" aria-expanded="true" aria-controls="brgy-filters">
-                <i id="brgyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1"></i>
+                <i id="brgyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1 rotate-chevron"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">Barangay</a>
             </div>
-            <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">
-                (select barangay filter to show. only latest selected will matter)
-            </div>
-            <div id="brgy-filters" class="collapse show w-100 mb-2">
+            <div id="brgy-filters" class="collapse w-100 mb-2">
 
             </div>
         </div>
@@ -145,6 +138,7 @@
     // Function to fetch and populate the variety filter based on the selected category
     function populateVarietyFilter(categoryId) {
         let varietyFilter = document.getElementById('variety-filters');
+        let varietyChev = document.getElementById('varietyChev');
         if (categoryId !== '') {
             // Fetch varieties based on the selected category using AJAX
             fetch('modals/fetch/fetch_filter.php?category_id=' + categoryId)
@@ -163,6 +157,7 @@
                     });
                     // Show the variety filter
                     varietyFilter.classList.add('show');
+                    varietyChev.classList.toggle('rotate-chevron');
                 })
                 .catch(error => console.error('Error:', error));
         } else {
@@ -171,18 +166,10 @@
         }
     }
 
-    // Add event listeners to category checkboxes
-    document.querySelectorAll('.crop-filter').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            if (this.checked) {
-                populateVarietyFilter(this.value);
-            }
-        });
-    });
-
     // Function to fetch and populate the barangay filter based on the selected category
     function populateBarangayFilter(municipalityid) {
         let barangayFilter = document.getElementById('brgy-filters');
+        let barangayChev = document.getElementById('brgyChev');
         if (municipalityid !== '') {
             // Fetch varieties based on the selected category using AJAX
             fetch('modals/fetch/fetch_filter-brgy.php?municipality_id=' + municipalityid)
@@ -201,6 +188,7 @@
                     });
                     // Show the barangay filter
                     barangayFilter.classList.add('show');
+                    barangayChev.classList.toggle('rotate-chevron');
                 })
                 .catch(error => console.error('Error:', error));
         } else {
@@ -209,25 +197,61 @@
         }
     }
 
+    // Function to clear variety filter
+    function clearVarietyFilter() {
+        let varietyFilter = document.getElementById('variety-filters');
+        varietyFilter.innerHTML = '';
+        varietyFilter.classList.remove('show');
+        let varietyChev = document.getElementById('varietyChev');
+        varietyChev.classList.toggle('rotate-chevron');
+    }
+
+    // Function to clear barangay filter
+    function clearBarangayFilter() {
+        let barangayFilter = document.getElementById('brgy-filters');
+        barangayFilter.innerHTML = '';
+        barangayFilter.classList.remove('show');
+        let barangayChev = document.getElementById('brgyChev');
+        barangayChev.classList.toggle('rotate-chevron');
+    }
+
     // Add event listeners to category checkboxes
+    document.querySelectorAll('.crop-filter').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (!this.checked) {
+                clearVarietyFilter();
+            }
+            if (this.checked) {
+                populateVarietyFilter(this.value);
+            }
+        });
+    });
+
+    // Add event listeners to municipality checkboxes
     document.querySelectorAll('.municipality-filter').forEach(checkbox => {
         checkbox.addEventListener('change', function() {
+            if (!this.checked) {
+                clearBarangayFilter();
+            }
             if (this.checked) {
                 populateBarangayFilter(this.value);
             }
         });
     });
 
+
     // chevron toggler
     let cropToggler = document.querySelector('#crop-filter-dropdown-toggler');
     let varietyToggler = document.querySelector('#variety-filter-dropdown-toggler');
     let terrainToggler = document.querySelector('#terrain-filter-dropdown-toggler');
     let munToggler = document.querySelector('#mun-filter-dropdown-toggler');
+    let brgyToggler = document.querySelector('#brgy-filter-dropdown-toggler');
 
     let cropChev = document.querySelector('#cropChev');
     let varietyChev = document.querySelector('#varietyChev');
     let terrainChev = document.querySelector('#terrainChev');
     let munChev = document.querySelector('#munChev');
+    let brgyChev = document.querySelector('#brgyChev');
 
     function toggleChevron(element) {
         element.classList.toggle('rotate-chevron');
@@ -237,4 +261,5 @@
     varietyToggler.onclick = () => toggleChevron(varietyChev);
     terrainToggler.onclick = () => toggleChevron(terrainChev);
     munToggler.onclick = () => toggleChevron(munChev);
+    brgyToggler.onclick = () => toggleChevron(brgyChev);
 </script>
