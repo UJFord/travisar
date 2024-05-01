@@ -1,8 +1,8 @@
-<!-- get current page to choose the active link -->
 <?php
 // Define the base URL of your local server
-$base_url = "http://localhost/travisar"; // Change this to match your local server address and port
+define('BASE_URL', 'http://localhost/travisar');
 
+//get current page to choose the active link
 // current page path
 $current_page_path = $_SERVER['REQUEST_URI'];
 
@@ -45,7 +45,7 @@ switch ($current_page_path) {
                     <!-- add active class when at home.php -->
                     <a class="nav-link fw-bold me-2 <?php if ($current_page_isHome) {
                                                         echo "active";
-                                                    } ?>" aria-current="page" href="<?php echo $base_url . '/' . 'visitor/home.php'; ?>">Home</a>
+                                                    } ?>" aria-current="page" href="<?php echo BASE_URL . '/' . 'visitor/home.php'; ?>">Home</a>
                 </li>
 
                 <!-- crop page link -->
@@ -53,7 +53,7 @@ switch ($current_page_path) {
                     <!-- add active class when at crop.php -->
                     <a class="nav-link <?php if ($current_page_isCrop) {
                                             echo "active";
-                                        } ?>" href="<?php echo $base_url . '/' . 'visitor/crop.php'; ?>">Crops</a>
+                                        } ?>" href="<?php echo BASE_URL . '/' . 'visitor/crop.php'; ?>">Crops</a>
                 </li>
 
                 <!-- about -->
@@ -68,7 +68,7 @@ switch ($current_page_path) {
 
                 <!-- all crops -->
                 <div class="nav-item me-2">
-                    <a href="" class="nav-link" href="<?php echo $base_url . '/' . 'contributor/crop-page/crop.php'; ?>">All Crops</a>
+                    <a href="" class="nav-link" href="<?php echo BASE_URL . '/' . 'contributor/crop-page/crop.php'; ?>">All Crops</a>
                 </div>
 
                 <!-- my crops -->
