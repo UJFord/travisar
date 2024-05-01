@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "../../../../functions/connections.php";
+require "../../../functions/connections.php";
 
 
 if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
@@ -24,7 +24,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
             $get_category_name = $row_categoryName['category_name'];
         } else {
             $_SESSION['message'] = "No category available, incomplete data";
-            header("location: ../crop.php");
+            header("location: ../submission.php");
             exit();
         }
 
@@ -79,8 +79,8 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                     die();
                 }
 
-                // Delete images in ../img/ directory
-                $imagesPath = "../img/";
+                // Delete images in ../../crop-page/modals/img/ directory
+                $imagesPath = "../../crop-page/modals/img/";
                 $currentSeedImages = explode(',', $current_image_seed);
 
                 foreach ($currentSeedImages as $image) {
@@ -90,8 +90,8 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                     }
                 }
 
-                // Delete images in ../img/ directory
-                $imagesPath = "../img/";
+                // Delete images in ../../crop-page/modals/img/ directory
+                $imagesPath = "../../crop-page/modals/img/";
                 $currentVegImages = explode(',', $current_image_veg);
 
                 foreach ($currentVegImages as $image) {
@@ -101,8 +101,8 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                     }
                 }
 
-                // Delete images in ../img/ directory
-                $imagesPath = "../img/";
+                // Delete images in ../../crop-page/modals/img/ directory
+                $imagesPath = "../../crop-page/modals/img/";
                 $currentReproImages = explode(',', $current_image_repro);
 
                 foreach ($currentReproImages as $image) {
@@ -289,8 +289,8 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                     die();
                 }
 
-                // Delete images in ../img/ directory
-                $imagesPath = "../img/";
+                // Delete images in ../../crop-page/modals/img/ directory
+                $imagesPath = "../../crop-page/modals/img/";
                 $currentSeedImages = explode(',', $current_image_seed);
 
                 foreach ($currentSeedImages as $image) {
@@ -300,8 +300,8 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                     }
                 }
 
-                // Delete images in ../img/ directory
-                $imagesPath = "../img/";
+                // Delete images in ../../crop-page/modals/img/ directory
+                $imagesPath = "../../crop-page/modals/img/";
                 $currentVegImages = explode(',', $current_image_veg);
 
                 foreach ($currentVegImages as $image) {
@@ -311,8 +311,8 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                     }
                 }
 
-                // Delete images in ../img/ directory
-                $imagesPath = "../img/";
+                // Delete images in ../../crop-page/modals/img/ directory
+                $imagesPath = "../../crop-page/modals/img/";
                 $currentReproImages = explode(',', $current_image_repro);
 
                 foreach ($currentReproImages as $image) {
@@ -528,8 +528,8 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                     die();
                 }
 
-                // Delete images in ../img/ directory
-                $imagesPath = "../img/";
+                // Delete images in ../../crop-page/modals/img/ directory
+                $imagesPath = "../../crop-page/modals/img/";
                 $currentSeedImages = explode(',', $current_image_seed);
 
                 foreach ($currentSeedImages as $image) {
@@ -539,8 +539,8 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                     }
                 }
 
-                // Delete images in ../img/ directory
-                $imagesPath = "../img/";
+                // Delete images in ../../crop-page/modals/img/ directory
+                $imagesPath = "../../crop-page/modals/img/";
                 $currentVegImages = explode(',', $current_image_veg);
 
                 foreach ($currentVegImages as $image) {
@@ -550,8 +550,8 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                     }
                 }
 
-                // Delete images in ../img/ directory
-                $imagesPath = "../img/";
+                // Delete images in ../../crop-page/modals/img/ directory
+                $imagesPath = "../../crop-page/modals/img/";
                 $currentReproImages = explode(',', $current_image_repro);
 
                 foreach ($currentReproImages as $image) {
@@ -681,7 +681,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop Deleted Successfully";
         pg_query($conn, "COMMIT");
-        header("Location: ../crop.php");
+        header("Location: ../submission.php");
         exit(0);
     } catch (Exception $e) {
         // message for error

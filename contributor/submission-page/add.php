@@ -3,6 +3,15 @@
     .modal-tab:hover {
         color: grey;
     }
+
+    .modal-header {
+        position: relative;
+    }
+
+    #close-modal-btn {
+        position: fixed;
+        right: 21%;
+    }
 </style>
 
 <!-- HTML -->
@@ -12,11 +21,13 @@
         <div class="modal-content">
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="edit-item-modal-label">Add Crop</h5>
-                <button type="button" id="close-modal-btn" class="btn-close" aria-label="Close"></button>
+                <h5 class="modal-title" id="add-label">Add Crops</h5>
+                <div>
+                    <button type="button" id="close-modal-btn" class="btn-close navbar" aria-label="Close" id="navbar-example2" class="navbar navbar-light bg-light px-3"></button>
+                </div>
             </div>
 
-            <div id="error-messages">
+            <div id="message-error">
             </div>
 
             <!-- body -->
@@ -62,7 +73,6 @@
                             <?php require "tabs/references.php" ?>
                             <!-- confirm -->
                             <?php require "tabs/confirm.php" ?>
-
                         </div>
                     </div>
                 </div>
@@ -71,7 +81,7 @@
                 <div class="modal-footer d-flex justify-content-end">
                     <div class="">
                         <button type="button" id="cancel-modal-btn" class="btn border bg-light">Cancel</button>
-                        <button type="submit" name="save" class="btn btn-success">Save</button>
+                        <button type="submit" id="saveButton" name="save" class="btn btn-success">Save</button>
                     </div>
                 </div>
             </form>
@@ -131,11 +141,17 @@
         var addModal = document.getElementById('add-item-modal');
         var addModalInstance = bootstrap.Modal.getInstance(addModal);
         addModalInstance.hide();
-    });
+        var form = document.getElementById('form-panel-add');
 
+        // Reset the form
+        form.reset();
+    });
 
     // Event listener for when the modal is shown
     document.getElementById('add-item-modal').addEventListener('shown.bs.modal', function() {
+        // Reset to the first tab
+        document.getElementById('gen-tab').click();
+        // Setup event listeners for the modal
         setupModalEventListeners();
     });
 
@@ -168,14 +184,19 @@
             disableInputs(rootCropMorph);
         }
 
-        // Validate the form
-        if (validateForm()) {
-            // If validation succeeds, submit the form
-            // console.log('Submit add');
+        // Check if the form is being submitted as a draft
+        if (event.submitter.name === 'draft') {
+            // console.log('Submit na draft');
+            event.target.setAttribute('name', 'draft');
             submitForm();
+        } else {
+            // Validate the form if not submitted as a draft
+            if (validateForm()) {
+                // If validation succeeds, submit the form
+                submitForm();
+            }
         }
     });
-
 
     // Function to submit the form and refresh notifications
     function submitForm() {
@@ -192,7 +213,7 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
-                    // console.log('form is submitted add');
+                    console.log(data);
                     // Reset the form
                     form.reset();
                     // Reload unseen notifications
@@ -216,71 +237,113 @@
         var municipality = document.forms["Form"]["municipality"].value;
         var barangay = document.forms["Form"]["barangay"].value;
 
-        var errors = [];
+        var isValid = true;
+        var firstErrorElement = null;
 
         // Check if the required fields are not empty
         if (categoryID === "" || categoryID === null) {
-            errors.push("<div class='error text-center' style='color:red;'>Please select crop category.</div>");
-            document.getElementById('Category').classList.add('is-invalid'); // Add 'is-invalid' class to select field
+            document.getElementById('Category').classList.add('is-invalid');
+            document.getElementById('category-error').innerText = "Please select crop category.";
+            isValid = false;
+            if (!firstErrorElement) {
+                firstErrorElement = document.getElementById('Category');
+            }
         } else {
-            document.getElementById('Category').classList.remove('is-invalid'); // remove 'is-invalid' class to select field
+            document.getElementById('Category').classList.remove('is-invalid');
+            document.getElementById('category-error').innerText = "";
         }
 
-        if (category_varietyID === "null" || category_varietyID === "") {
-            errors.push("<div class='error text-center' style='color:red;'>Please select a category variety.</div>");
+        if (category_varietyID === null || category_varietyID === "") {
             document.getElementById('categoryVariety').classList.add('is-invalid');
+            document.getElementById('categoryVariety-error').innerText = "Please select a category variety.";
+            isValid = false;
+            if (!firstErrorElement) {
+                firstErrorElement = document.getElementById('categoryVariety');
+            }
         } else {
             document.getElementById('categoryVariety').classList.remove('is-invalid');
+            document.getElementById('categoryVariety-error').innerText = "";
         }
 
         if (cropVariety === "" || cropVariety === null) {
-            errors.push("<div class='error text-center' style='color:red;'>Please enter a variety name.</div>");
             document.getElementById('Variety-Name').classList.add('is-invalid');
+            document.getElementById('varietyName-error').innerText = "Please enter a variety name.";
+            isValid = false;
+            if (!firstErrorElement) {
+                firstErrorElement = document.getElementById('Variety-Name');
+            }
         } else {
             document.getElementById('Variety-Name').classList.remove('is-invalid');
+            document.getElementById('varietyName-error').innerText = "";
         }
 
-        if (terrainID === "null" || terrainID === "") {
-            errors.push("<div class='error text-center' style='color:red;'>Please select terrain.</div>");
+        if (terrainID === null || terrainID === "") {
             document.getElementById('terrain').classList.add('is-invalid');
+            document.getElementById('terrain-error').innerText = "Please enter a terrain name.";
+            isValid = false;
+            if (!firstErrorElement) {
+                firstErrorElement = document.getElementById('terrain');
+            }
         } else {
             document.getElementById('terrain').classList.remove('is-invalid');
+            document.getElementById('terrain-error').innerText = "";
         }
 
-        if (province === "null" || province === "") {
-            errors.push("<div class='error text-center' style='color:red;'>Please select a province.</div>");
+        if (province === null || province === "") {
             document.getElementById('Province').classList.add('is-invalid');
+            document.getElementById('province-error').innerText = "Please enter a province name.";
+            isValid = false;
+            if (!firstErrorElement) {
+                firstErrorElement = document.getElementById('Province');
+            }
         } else {
             document.getElementById('Province').classList.remove('is-invalid');
+            document.getElementById('province-error').innerText = "";
         }
 
-        if (municipality === "null" || municipality === "") {
-            errors.push("<div class='error text-center' style='color:red;'>Please select a municipality.</div>");
+        if (municipality === null || municipality === "") {
             document.getElementById('Municipality').classList.add('is-invalid');
+            document.getElementById('municipality-error').innerText = "Please enter a municipality name.";
+            isValid = false;
+            if (!firstErrorElement) {
+                firstErrorElement = document.getElementById('Municipality');
+            }
         } else {
             document.getElementById('Municipality').classList.remove('is-invalid');
+            document.getElementById('municipality-error').innerText = "";
         }
 
-        if (barangay === "null" || barangay === "") {
-            errors.push("<div class='error text-center' style='color:red;'>Please select a barangay.</div>");
+        if (barangay === null || barangay === "") {
             document.getElementById('Barangay').classList.add('is-invalid');
+            document.getElementById('barangay-error').innerText = "Please enter a barangay name.";
+            isValid = false;
+            if (!firstErrorElement) {
+                firstErrorElement = document.getElementById('Barangay');
+            }
         } else {
             document.getElementById('Barangay').classList.remove('is-invalid');
+            document.getElementById('barangay-error').innerText = "";
         }
 
-        // Display first error only
-        if (errors.length > 0) {
-            var errorString = errors[0]; // Get the first error
-            document.getElementById("error-messages").innerHTML = errorString;
-            // Prevent default form submission
-            event.preventDefault();
-            return false;
+        // Focus on the first element with an error
+        if (firstErrorElement) {
+            firstErrorElement.focus();
+            event.preventDefault(); // Prevent the form from submitting by default
         }
 
-        // If no errors, clear error messages
-        document.getElementById("error-messages").innerHTML = "";
-        return true;
+        return isValid;
     }
+
+    // Prevent tab switching when there are validation errors
+    var tabPane = document.getElementById('myTab');
+    tabPane.addEventListener('show.bs.tab', function(event) {
+        if (!validateForm()) {
+            // document.getElementById('message-error').innerHTML = "<div class='error text-center' style='color:red;'>To switch tab fill up required fields</div>";
+            event.preventDefault();
+        } else {
+            // document.getElementById('message-error').innerHTML = "";
+        }
+    });
 
     function disableInputs(container) {
         var inputs = container.getElementsByTagName('input');
@@ -300,7 +363,7 @@
     }
 </script>
 
-<!-- JavaScript for the select for category variety -->
+<!-- JavaScript for the select for category variety ang show the morph, sensory and agro tab -->
 <script>
     // JavaScript for the select for category variety
     // Function to fetch and display initial category variety based on the initial category
@@ -371,10 +434,7 @@
             categoryVarietySelect.appendChild(option);
         });
     }
-</script>
 
-<!-- script for the morphological and agronomic characteristics display -->
-<script>
     // Function to display the morphological characteristics based on the selected category
     function showMorphologicalCharacteristics(categoryId) {
         // morph traits
@@ -422,24 +482,4 @@
             });
         }
     }
-
-    // Function to display the morphological and agronomy tab data based on the selected category
-    function noCategory(categoryId) {
-        // Your existing code to show/hide sections based on the category...
-
-        // Check if the categoryId is empty or null
-        if (!categoryId) {
-            // Show an alert to prompt the user to select a crop category
-            alert('Please select a crop category to view the data in this tab.');
-        }
-    }
-
-    // Add event listeners to the "More" and "Agro" tabs
-    document.getElementById('more-tab').addEventListener('click', function() {
-        noCategory(document.getElementById('Category').value);
-    });
-
-    document.getElementById('agro-tab').addEventListener('click', function() {
-        noCategory(document.getElementById('Category').value);
-    });
 </script>

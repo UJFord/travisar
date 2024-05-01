@@ -15,7 +15,7 @@ if (isset($_POST['click_edit_btn'])) {
         $get_category_name = $row_categoryName['category_name'];
     } else {
         $_SESSION['message'] = "No category available, incomplete data";
-        header("location: ../../../crop.php");
+        header("location: ../submission.php");
         exit();
     }
 
