@@ -181,10 +181,10 @@ if (isset($_POST['update'])) {
 
                     // update crop table
                     $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, meaning_of_name = $3,
-                    crop_seed_image = $4 where crop_id = $5";
+                    crop_seed_image = $4, crop_vegetative_image =$5, crop_reproductive_image = $6 where crop_id = $7";
 
                     $valueCrops = array(
-                        $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_id
+                        $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_vegetative_image, $crop_reproductive_image, $crop_id
                     );
                     $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -709,10 +709,10 @@ if (isset($_POST['update'])) {
 
                     // update crop table
                     $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, meaning_of_name = $3,
-                    crop_seed_image = $4 where crop_id = $5";
+                    crop_seed_image = $4, crop_vegetative_image =$5, crop_reproductive_image = $6 where crop_id = $7";
 
                     $valueCrops = array(
-                        $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_id
+                        $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_vegetative_image, $crop_reproductive_image, $crop_id
                     );
                     $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
@@ -1255,10 +1255,10 @@ if (isset($_POST['update'])) {
 
                     // update crop table
                     $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, meaning_of_name = $3,
-                    crop_seed_image = $4 where crop_id = $5";
+                    crop_seed_image = $4, crop_vegetative_image =$5, crop_reproductive_image = $6 where crop_id = $7";
 
                     $valueCrops = array(
-                        $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_id
+                        $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_vegetative_image, $crop_reproductive_image, $crop_id
                     );
                     $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
