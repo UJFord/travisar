@@ -221,7 +221,7 @@
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
             <input type="hidden" name="current_image_veg" id="old_image_veg">
-            <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetativeEdit" accept="image/jpeg,image/png" name="crop_vegetative_image" multiple>
+            <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetativeEdit" accept="image/jpeg,image/png" name="crop_vegetative_image[]" multiple>
         </div>
         <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewVegEdit"></div>
     </div>
@@ -234,7 +234,7 @@
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
             <input type="hidden" name="current_image_rep" id="old_image_rep">
-            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductiveEdit" accept="image/jpeg,image/png" name="crop_reproductive_image" multiple>
+            <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductiveEdit" accept="image/jpeg,image/png" name="crop_reproductive_image[]" multiple>
         </div>
         <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewReproductiveEdit"></div>
     </div>
@@ -432,8 +432,6 @@
     // Function to handle seed image input
     function handleSeedImageInput() {
         const imageInputEditSeed = document.getElementById('imageInputSeedEdit');
-        const previewContainerEdit = document.getElementById('previewSeedEdit');
-
         var files = $(this)[0].files;
         $('#previewSeedEdit').empty();
 
@@ -499,7 +497,6 @@
     // Function to handle vegetative stage image input
     function handleVegetativeImageInput() {
         const imageInputEdit = document.getElementById('imageInputVegetativeEdit');
-        const previewContainerEdit = document.getElementById('previewVegEdit');
         var files = $(this)[0].files;
         $('#previewVegEdit').empty();
 
@@ -566,7 +563,6 @@
     // Function to handle reproductive stage image input
     function handleReproductiveImageInput() {
         const imageInputEdit = document.getElementById('imageInputReproductiveEdit');
-        const previewContainerEdit = document.getElementById('previewReproductiveEdit');
         var files = $(this)[0].files;
         $('#previewReproductiveEdit').empty();
 
@@ -645,7 +641,6 @@
             previewContainerEdit.classList.remove('border');
         }
     }
-
     // Call initially on page load
     checkForContent();
 
@@ -653,7 +648,6 @@
     previewContainerEdit.addEventListener('DOMNodeInserted', checkForContent);
     previewContainerEdit.addEventListener('DOMNodeRemoved', checkForContent);
 </script>
-
 
 <!-- script for limiting the input for the crop variety name -->
 <script>
