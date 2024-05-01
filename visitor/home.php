@@ -21,7 +21,7 @@
 
 <body>
     <!-- NAVBAR -->
-    <?php require "nav/nav.php" ?>
+    <?php require "../nav/nav.php" ?>
 
     <!-- CAROUSEL -->
     <div id="carousel" class="carousel slide" data-bs-ride="carousel">

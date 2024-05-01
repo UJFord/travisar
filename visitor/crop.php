@@ -31,7 +31,7 @@ require "../functions/functions.php";
 
 <body class="bg-light">
     <!-- NAVBAR -->
-    <?php require "nav/nav.php" ?>
+    <?php require "../nav/nav.php" ?>
 
     <!-- FILTER -->
     <?php require "filter/filter.php" ?>
