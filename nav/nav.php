@@ -111,134 +111,143 @@ switch ($current_page_path) {
                 </li>
 
             </ul>
+            <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) :
+            ?>
+                <!-- ADMIN -->
+                <ul class="navbar-nav">
+                    <!-- all crops -->
+                    <div class="nav-item me-2 encoder-only">
+                        <a class="nav-link fw-bold me-2 <?php if ($current_page_isCrop_page) {
+                                                            echo "active";
+                                                        } ?>" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/crop-page/crop.php'; ?>">All Crops</a>
+                    </div>
 
-            <!-- ADMIN -->
-            <ul class="navbar-nav">
+                    <!-- my crops -->
+                    <div class="nav-item fw-semibold me-2 encoder-only">
+                        <a class="nav-link fw-bold me-2 <?php if ($current_page_isSubmission) {
+                                                            echo "active";
+                                                        } ?>" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/submission-page/submission.php'; ?>">My Crops</a>
+                    </div>
 
-                <!-- all crops -->
-                <div class="nav-item me-2">
-                    <a class="nav-link fw-bold me-2 <?php if ($current_page_isCrop_page) {
-                                                        echo "active";
-                                                    } ?>" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/crop-page/crop.php'; ?>">All Crops</a>
-                </div>
+                    <!-- crop management -->
+                    <div class="nav-item fw-semibold me-2 dropdown admin-only">
 
-                <!-- my crops -->
-                <div class="nav-item fw-semibold me-2">
-                    <a class="nav-link fw-bold me-2 <?php if ($current_page_isSubmission) {
-                                                        echo "active";
-                                                    } ?>" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/submission-page/submission.php'; ?>">My Crops</a>
-                </div>
-
-                <!-- crop management -->
-                <div class="nav-item fw-semibold me-2 dropdown">
-
-                    <a href="" id="mng-nav" class="nav-link dropdown-toggle <?php if ($current_page_isManagement) {
-                                                                                echo "active";
-                                                                            } ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Crop Management
-                    </a>
-
-                    <ul class="dropdown-menu" aria-labelledby="mng-nav">
-                        <li>
-                            <a class="dropdown-item" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/pending.php'; ?>">Pending</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/approved.php'; ?>">Approved</a>
-                        </li>
-                        <li>
-                            <a class="dropdown-item" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/rejected.php'; ?>">Rejected</a>
-                        </li>
-                    </ul>
-                </div>
-
-                <!-- settings -->
-                <div class="nav-item fw-semibold me-4 dropdown">
-
-                    <a href="#" id="set-nav" class="nav-link dropdown-toggle <?php if ($current_page_isSettings) {
+                        <a href="" id="mng-nav" class="nav-link dropdown-toggle <?php if ($current_page_isManagement) {
                                                                                     echo "active";
                                                                                 } ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        Settings
-                    </a>
+                            Crop Management
+                        </a>
 
-                    <ul id="set-nav-menu" class="dropdown-menu  dropdown-menu-md-end">
+                        <ul class="dropdown-menu" aria-labelledby="mng-nav">
+                            <li>
+                                <a class="dropdown-item" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/pending.php'; ?>">Pending</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/approved.php'; ?>">Approved</a>
+                            </li>
+                            <li>
+                                <a class="dropdown-item" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/rejected.php'; ?>">Rejected</a>
+                            </li>
+                        </ul>
+                    </div>
 
-                        <!-- crop settings -->
-                        <li class="dropend">
-                            <button id="set-nav-crop" role="button" class="dropdown-item dropdown-toggle set-nav-toggler" data-bs-toggle="dropdown" aria-expanded="false">
-                                Crop Settings
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="set-nav-crop">
-                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/crop-category.php'; ?>" class="dropdown-item">Crop Category</a></li>
-                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/category-variety.php'; ?>" class="dropdown-item">Category Variety</a></li>
-                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/abiotic-resistance.php'; ?>" class="dropdown-item">Abiotic Resistance</a></li>
-                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/disease-resistance.php'; ?>" class="dropdown-item">Disease Resistance</a></li>
-                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/pest-resistance.php'; ?>" class="dropdown-item">Pest Resistance</a></li>
-                            </ul>
-                        </li>
+                    <!-- settings -->
+                    <div class="nav-item fw-semibold me-4 dropdown admin-only">
 
-                        <!-- location settings -->
-                        <li class="dropend">
-                            <button id="set-nav-loc" role="button" class="dropdown-item dropdown-toggle set-nav-toggler" data-bs-toggle="dropdown" aria-expanded="false">
-                                Location Settings
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="set-nav-loc">
-                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/location-page/barangay.php'; ?>" class="dropdown-item">Barangay</a></li>
-                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/location-page/municipality.php'; ?>" class="dropdown-item">Municipality</a></li>
-                            </ul>
-                        </li>
+                        <a href="#" id="set-nav" class="nav-link dropdown-toggle <?php if ($current_page_isSettings) {
+                                                                                        echo "active";
+                                                                                    } ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            Settings
+                        </a>
 
-                        <!-- user accounts -->
-                        <li class="dropend">
-                            <button id="set-nav-usr" role="button" class="dropdown-item dropdown-toggle set-nav-toggler" data-bs-toggle="dropdown" aria-expanded="false">
-                                User Account
-                            </button>
-                            <ul class="dropdown-menu" aria-labelledby="set-nav-usr">
-                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/user-page/partners.php'; ?>" class="dropdown-item">Users</a></li>
-                                <li><a href="<?php echo BASE_URL . '/' . 'contributor/user-page/verify-user.php'; ?>" class="dropdown-item">Verification</a></li>
-                            </ul>
-                        </li>
+                        <ul id="set-nav-menu" class="dropdown-menu  dropdown-menu-md-end">
 
-                    </ul>
-                </div>
+                            <!-- crop settings -->
+                            <li class="dropend">
+                                <button id="set-nav-crop" role="button" class="dropdown-item dropdown-toggle set-nav-toggler" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Crop Settings
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="set-nav-crop">
+                                    <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/crop-category.php'; ?>" class="dropdown-item">Crop Category</a></li>
+                                    <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/category-variety.php'; ?>" class="dropdown-item">Crop Variety</a></li>
+                                    <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/disease-resistance.php'; ?>" class="dropdown-item">Diseases</a></li>
+                                    <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/pest-resistance.php'; ?>" class="dropdown-item">Pests</a></li>
+                                    <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/abiotic-resistance.php'; ?>" class="dropdown-item">Abiotic Resistance</a></li>
 
+                                </ul>
+                            </li>
 
-                <!-- user profile -->
-                <div class="nav-item fw-semibold me-2 dropdown">
-                    <a href="" id="profile-btn" class="nav-link dropdown-toggle d-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
-                        <i class="fa-solid fa-user"></i>
-                    </a>
+                            <!-- location settings -->
+                            <li class="dropend">
+                                <button id="set-nav-loc" role="button" class="dropdown-item dropdown-toggle set-nav-toggler" data-bs-toggle="dropdown" aria-expanded="false">
+                                    Location Settings
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="set-nav-loc">
+                                    <li><a href="<?php echo BASE_URL . '/' . 'contributor/location-page/municipality.php'; ?>" class="dropdown-item">Municipality</a></li>
+                                    <li><a href="<?php echo BASE_URL . '/' . 'contributor/location-page/barangay.php'; ?>" class="dropdown-item">Barangay</a></li>
+                                </ul>
+                            </li>
 
-                    <ul class="dropdown-menu dropdown-menu-md-end">
+                            <!-- user accounts -->
+                            <li class="dropend">
+                                <button id="set-nav-usr" role="button" class="dropdown-item dropdown-toggle set-nav-toggler" data-bs-toggle="dropdown" aria-expanded="false">
+                                    User Account
+                                </button>
+                                <ul class="dropdown-menu" aria-labelledby="set-nav-usr">
+                                    <li><a href="<?php echo BASE_URL . '/' . 'contributor/user-page/partners.php'; ?>" class="dropdown-item">Users</a></li>
+                                    <li><a href="<?php echo BASE_URL . '/' . 'contributor/user-page/verify-user.php'; ?>" class="dropdown-item">Verification</a></li>
+                                </ul>
+                            </li>
+                        </ul>
+                    </div>
 
-                        <!-- login info -->
-                        <li>
-                            <a href="" class="dropdown-item d-flex align-items-center pb-2">
-                                <i class="fa-solid fa-address-card me-2" style="width:20px"></i>
-                                <div>
-                                    <div class="small-font">Logged In as</div>
-                                    <div class="fw-semibold">John Doe</div>
-                                </div>
-                            </a>
-                        </li>
+                    <!-- user profile -->
+                    <div class="nav-item fw-semibold me-2 dropdown">
+                        <a href="" id="profile-btn" class="nav-link dropdown-toggle d-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-user"></i>
+                        </a>
 
-                        <!-- settings -->
-                        <li>
-                            <a href="" class="dropdown-item"><i class="fa-solid fa-gears me-2"></i>Settings</a>
-                        </li>
+                        <ul class="dropdown-menu dropdown-menu-md-end">
 
-                        <li class="dropdown-divider m-0"></li>
+                            <!-- login info -->
+                            <li>
+                                <a href="" class="dropdown-item d-flex align-items-center pb-2">
+                                    <i class="fa-solid fa-address-card me-2" style="width:20px"></i>
+                                    <div>
+                                        <div class="small-font">Logged In as</div>
+                                        <div class="fw-semibold"><strong><?= $_SESSION['USER']['first_name']; ?></strong></div>
+                                    </div>
+                                </a>
+                            </li>
 
-                        <!-- logout -->
-                        <li>
-                            <a href="" id="logout-link" class="dropdown-item text-danger"><i class="fa-solid fa-right-from-bracket me-2" style="width:20px"></i>Logout</a>
-                        </li>
-                    </ul>
-                </div>
+                            <!-- settings -->
+                            <li>
+                                <a href="" class="dropdown-item"><i class="fa-solid fa-gears me-2"></i>Settings</a>
+                            </li>
 
-            </ul>
+                            <li class="dropdown-divider m-0"></li>
 
-            <!-- VISITOR -->
-            <a id="contributor-link" href="../login/login-form.php" class="d-none link-light link-offset-3 link-underline link-underline-opacity-0 rounded-pill px-3 py-2">Contribute to Travis</a>
+                            <!-- logout -->
+                            <li>
+                                <a href="<?php echo BASE_URL . '/' . 'login/logout.php'; ?>" id="logout-link" class="dropdown-item text-danger"><i class="fa-solid fa-right-from-bracket me-2" style="width:20px"></i>Logout</a>
+                            </li>
+                        </ul>
+                    </div>
+
+                </ul>
+            <?php endif; ?>
+
+            <?php if (!isset($_SESSION['LOGGED_IN']) || !$_SESSION['LOGGED_IN']) : ?>
+                <!-- VISITOR -->
+                <a id="contributor-link" href="<?php echo BASE_URL . '/' . 'login/login-form.php'; ?>" class="link-light link-offset-3 link-underline link-underline-opacity-0 rounded-pill px-3 py-2">Contribute to Travis</a>
+            <?php endif; ?>
         </div>
     </div>
 </div>
+
+<!-- Jquery -->
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<!-- script for access control -->
+<script src="<?php echo BASE_URL . '/js/access-control.js'; ?>" defer></script>
+<!-- script for access js -->
+<script src="<?php echo BASE_URL . '/js/access.js'; ?>" defer></script>

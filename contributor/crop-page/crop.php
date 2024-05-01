@@ -44,7 +44,8 @@ require "../../functions/functions.php";
 <body>
 
     <!-- NAV -->
-    <?php // require "../nav/nav.php"; ?>
+    <?php // require "../nav/nav.php"; 
+    ?>
     <?php require "../../nav/nav.php"; ?>
 
     <?php
@@ -296,8 +297,19 @@ require "../../functions/functions.php";
             populateBarangay(selectedMunicipality);
         });
 
-        // initializnig map
-        const map = L.map('map').setView([6.403013, 124.725062], 9); //starting position
+        // Define the bounds of your map
+        const southWest = L.latLng(5, 123.0); // Lower left corner of the bounds
+        const northEast = L.latLng(7, 127.0); // Upper right corner of the bounds
+        const bounds = L.latLngBounds(southWest, northEast);
+
+        // Initialize the map with the bounds
+        const map = L.map('map', {
+            maxBounds: bounds, // Restrict map panning to these bounds
+            maxBoundsViscosity: 0.75, // Elastic bounce-back when panning outside bounds
+            // Set the initial view within the bounds
+            center: [6.403013, 124.725062],
+            zoom: 9
+        });
 
         // Declare marker globally
         let marker = null;

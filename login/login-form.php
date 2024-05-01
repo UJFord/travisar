@@ -9,7 +9,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     $errors = login($_POST);
     if (count($errors) == 0) {
-        header("location: ../contributor/crop-page/crop.php");
+        header("location: ../visitor/home.php");
         die();
     }
 }

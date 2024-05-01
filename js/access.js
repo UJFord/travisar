@@ -31,7 +31,7 @@ document.addEventListener("DOMContentLoaded", function () {
         setVisibility(adminElements, false);
         setVisibility(encoderElements, false);
         // Redirect to a different page or show an access denied message
-        window.location.replace("../../login/login-form.php");
+        window.location.replace("http://localhost/travisar/login/login-form.php");
         // Or show a message
         document.body.innerHTML = "<h1>Access Denied</h1>";
     } else {

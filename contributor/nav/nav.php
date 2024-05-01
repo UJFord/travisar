@@ -24,7 +24,7 @@
                 <?php endif; ?>
 
                 <li class="nav-item dropdown">
-                    <a class="dropdown-toggle main-nav-item nav-link admin-only" role="button" id="addressesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
+                    <a class="dropdown-toggle main-nav-item nav-link" role="button" id="addressesDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                         Crop Management
                     </a>
                     <ul class="dropdown-menu" aria-labelledby="addressesDropdown">
@@ -34,8 +34,8 @@
                     </ul>
                 </li>
 
-                <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
-                    <li class="nav-item dropdown curator-only admin-only">
+                <?php //if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
+                    <li class="nav-item dropdown curator-only">
                         <a class="main-nav-item nav-link dropdown-toggle" role="button" id="validationDropdown" data-bs-toggle="dropdown" aria-expanded="false">
                             Settings
                         </a>
@@ -70,7 +70,7 @@
                             </li>
                         </ul>
                     </li>
-                <?php endif; ?>
+                <?php //endif; ?>
             </ul>
             <!-- profile -->
             <div id="profile-container" class="dropdown">

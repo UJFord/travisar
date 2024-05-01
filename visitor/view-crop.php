@@ -1,5 +1,6 @@
 <?php
 require "../functions/connections.php";
+require "../functions/functions.php";
 ?>
 
 <!doctype html>
@@ -23,6 +24,7 @@ require "../functions/connections.php";
     <link rel="stylesheet" href="../css/global-declarations.css?v=1.0">
     <!-- landing.css -->
     <link rel="stylesheet" href="css/landing.css?v=1.0">
+
 </head>
 
 <body class="bg-light">
@@ -65,7 +67,7 @@ require "../functions/connections.php";
                                 </thead>
                                 <tbody>
                                     <tr>
-                                        <th  scope="row" class="text-secondary w-25 fw-normal">Crop Category</th>
+                                        <th scope="row" class="text-secondary w-25 fw-normal">Crop Category</th>
                                         <td id="crop-categ" class="w-75 fw-semibold w-75"><?= $crops['category_name'] ?></td>
                                     </tr>
                                     <tr>
