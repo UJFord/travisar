@@ -1,31 +1,60 @@
 <?php
+session_start();
 require "../../../functions/connections.php";
 
 if (isset($_POST['save'])) {
-    $municipality_name = [];
-    $barangay_name = [];
+    $municipality_names = [];
+    $barangay_names = [];
 
-    // Loop through the $_POST data to extract province and municipality names
+    // Loop through the $_POST data to extract municipality and barangay names
     foreach ($_POST as $key => $value) {
         if (strpos($key, 'municipality_name_') !== false) {
-            $municipality_name[] = $value;
+            $municipality_names[] = $value;
         } elseif (strpos($key, 'barangay_name_') !== false) {
-            $barangay_name[] = $value;
+            $barangay_names[] = $value;
         }
     }
 
     // Ensure that the arrays have the same length
-    if (count($municipality_name) === count($barangay_name)) {
-        // Prepare the query
+    if (count($municipality_names) === count($barangay_names)) {
+        $error_flag = false;
+
+        // Check each pair of municipality and barangay names individually
+        foreach ($municipality_names as $index => $municipality_name) {
+            $barangay_name = $barangay_names[$index];
+
+            // Prepare the query to check if the data already exists
+            $check_query = "SELECT COUNT(*) FROM barangay WHERE municipality_id = $1 AND barangay_name = $2";
+            $check_params = [$municipality_name, $barangay_name];
+
+            // Execute the check query
+            $check_query_run = pg_query_params($conn, $check_query, $check_params);
+
+            // Fetch the result
+            $result = pg_fetch_assoc($check_query_run);
+
+            // Check if the data already exists
+            if ($result['count'] > 0) {
+                $_SESSION['message'] = "Municipality and Barangay '$barangay_name' pair already exists";
+                $error_flag = true;
+            }
+        }
+
+        if ($error_flag) {
+            header("location: ../barangay.php");
+            exit;
+        }
+
+        // Prepare the query for insertion
         $query = "INSERT INTO barangay (municipality_id, barangay_name) VALUES ";
         $params = [];
         $valueStrings = [];
 
-        // Generate placeholders and parameters for each location
-        for ($i = 0; $i < count($municipality_name); $i++) {
+        // Generate placeholders and parameters for each pair of municipality and barangay names
+        for ($i = 0; $i < count($municipality_names); $i++) {
             $valueStrings[] = "($" . ($i * 2 + 1) . ", $" . ($i * 2 + 2) . ")";
-            $params[] = $municipality_name[$i];
-            $params[] = $barangay_name[$i];
+            $params[] = $municipality_names[$i];
+            $params[] = $barangay_names[$i];
         }
 
         $query .= implode(", ", $valueStrings);
@@ -40,7 +69,7 @@ if (isset($_POST['save'])) {
             echo "Error updating record"; // Display an error message if the query fails
         }
     } else {
-        echo "Error: Number of province names and municipality names do not match";
+        echo "Error: Number of municipality names and barangay names do not match";
     }
 }
 

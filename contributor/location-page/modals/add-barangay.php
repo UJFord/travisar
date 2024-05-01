@@ -48,7 +48,7 @@
                                         ?>
                                     </select>
                                 </div>
-                                
+
 
                                 <!-- barangay name -->
                                 <div class="col-5">
@@ -61,12 +61,11 @@
                 </div>
 
                 <!-- footer -->
-                <div class="modal-footer d-flex justify-content-between">
+                <div class="modal-footer d-flex justify-content-end">
                     <div class="">
-                        <button type="submit" name="save" onclick="validateAndSubmitForm()" class="btn btn-success">Save</button>
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" name="save" onclick="validateAndSubmitForm()" class="btn btn-success">Save</button>
                     </div>
-                    <button type="button" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
                 </div>
             </form>
         </div>

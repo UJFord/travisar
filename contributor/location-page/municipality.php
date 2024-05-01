@@ -88,26 +88,26 @@ require "../../functions/functions.php";
                     background: var(--mainBrand);
                     border: none;
                 }
-            </style>
 
+                #addProvince{
+                    margin-right: 7vh;
+                }
+            </style>
+            <?php require "modals/municipality-filter.php" ?>
             <!-- LIST -->
-            <div class="container">
+            <div class="container col">
 
                 <!-- HEADING -->
                 <div class="tab_box d-flex justify-content-between">
-                    <!-- Button Tabs -->
-                    <div>
-                        <button class="tab_btn active" id="locationTab" disabled>Municipality</button>
-                        <div class="line"></div>
-                    </div>
-                    <!-- filter actions -->
-                    <div class="d-flex py-3 px-3">
-                        <!-- search -->
-                        <div class="input-group">
-                            <input type="text" id="searchInput" class="form-control" placeholder="Search Location" aria-label="Search" aria-describedby="filter-search">
-                            <span class="input-group-text" id="filter-search"><i class="bi bi-search"></i></span>
-                        </div>
-                    </div>
+                    <!-- title -->
+                    <h4 class="fw-semibold" style="font-size: 1.5rem;">Barangay List</h4>
+                    <th class="col-1 text-center">
+                        <!-- add button -->
+                        <button type="button" id="addProvince" class="btn btn-secondary add-loc-btn p-2 btn small-font" name="addProvince" data-bs-toggle="modal" data-bs-target="#add-item-modal">
+                            Add New
+                            <i class="fa-solid fa-plus"></i>
+                        </button>
+                    </th>
                 </div>
 
                 <?php
@@ -127,6 +127,10 @@ require "../../functions/functions.php";
 
                 // Calculate the total number of pages for approved crops
                 $total_pages_location = ceil($total_row_location / $items_per_page);
+
+                // Get the search query from the session or URL parameter
+                $search = isset($_GET['search']) ? $_GET['search'] : '';
+                $search_condition = $search ? "AND municipality_name ILIKE '%$search%'" : '';
                 ?>
 
                 <!-- dib ni sya para ma set ang mga tabs na data -->
@@ -147,21 +151,17 @@ require "../../functions/functions.php";
                                     <th class="col text-dark-emphasis small-font" scope="col">Province</th>
                                     <th class="col text-dark-emphasis small-font" scope="col">Municipality</th>
                                     <th class="col-3 small-font text-dark-emphasis text-center">Date Added</th>
-                                    <th class="col-1 text-center">
-                                        <!-- add button -->
-                                        <button type="button" id="addProvince" class="btn btn-secondary add-loc-btn p-2 btn small-font" name="addProvince" data-bs-toggle="modal" data-bs-target="#add-item-modal">
-                                            New
-                                            <i class="fa-solid fa-plus"></i>
-                                        </button>
-                                    </th>
-                                    <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th>
+                                    <th class="col-3 small-font text-dark-emphasis text-center">Action</th>
+                                    <!-- <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th> -->
                                 </tr>
                             </thead>
 
                             <!-- table body -->
                             <tbody class="table-group-divider fw-bold overflow-scroll">
                                 <?php
-                                $query_pending = "SELECT * FROM municipality left join province on province.province_id = municipality.province_id ORDER BY municipality.municipality_id ASC LIMIT $items_per_page OFFSET $offset";
+                                $query_pending = "SELECT * FROM municipality left join province on province.province_id = municipality.province_id 
+                                where 1=1 $search_condition
+                                ORDER BY municipality.municipality_id DESC LIMIT $items_per_page OFFSET $offset";
                                 $query_run_location = pg_query($conn, $query_pending);
 
                                 if ($query_run_location) {
@@ -204,7 +204,7 @@ require "../../functions/functions.php";
                                             </td>
 
                                             <!-- ellipsis menu butn -->
-                                            <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td>
+                                            <!-- <td class="text-end"><i class="fa-solid fa-ellipsis-vertical btn"></i></td> -->
                                         </tr>
                                 <?php
                                     }
@@ -238,48 +238,33 @@ require "../../functions/functions.php";
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <!-- search function -->
     <script>
-        function filterTable() {
-            var input, filter, table, tr, td, i, j, txtValue;
-            input = document.getElementById("searchInput");
-            filter = input.value.toUpperCase();
+        // Modify the search function to store the search query in a session or URL parameter
+        function search() {
+            var searchInput = document.getElementById("searchInput").value;
+            // Store the search query in a session or URL parameter
+            // For example, you can use localStorage to store the search query
+            localStorage.setItem('searchQuery', searchInput);
+            // Reload the page with the search query as a parameter
+            window.location.href = window.location.pathname + "?search=" + searchInput;
+        }
 
-            // Determine which table is currently active
-            var activeTable = document.querySelector('.gen_info.active table');
-            tr = activeTable.getElementsByTagName("tr");
+        const searchInput = document.getElementById('searchInput');
+        const clearButton = document.getElementById('clearButton');
 
-            for (i = 0; i < tr.length; i++) {
-                var found = false;
-                if (i === 0) {
-                    tr[i].style.display = "";
-                    continue; // Skip the header row
-                }
-                for (j = 0; j < tr[i].getElementsByTagName("td").length; j++) {
-                    td = tr[i].getElementsByTagName("td")[j];
-                    if (td) {
-                        txtValue = td.textContent || td.innerText;
-                        if (txtValue.toUpperCase().indexOf(filter) > -1) {
-                            found = true;
-                            break;
-                        }
-                    }
-                }
-                tr[i].style.display = found ? "" : "none";
+        // Add a keyup event listener to the search input field
+        searchInput.addEventListener('keyup', function(event) {
+            // Check if the Enter key is pressed (key code 13)
+            if (event.keyCode === 13) {
+                // Call the search function
+                search();
             }
-        }
-
-        // Add event listener to search input
-        document.getElementById('searchInput').addEventListener('keyup', filterTable);
-
-        // Reset search input when tab is switched
-        function resetSearchInput() {
-            document.getElementById("searchInput").value = "";
-            filterTable(); // Trigger filtering to show all rows
-        }
-
-        // Add event listener to tab buttons to reset search input
-        document.querySelectorAll('.tab_btn').forEach(tab => {
-            tab.addEventListener('click', resetSearchInput);
         });
+
+        // Function to clear the search and hide the clear button
+        function clearSearch() {
+            searchInput.value = '';
+            window.location.href = window.location.pathname;
+        }
     </script>
     <!-- script for edit data -->
     <script>

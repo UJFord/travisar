@@ -1,4 +1,5 @@
 <?php
+session_start();
 require "../../../functions/connections.php";
 
 if (isset($_POST['save'])) {
@@ -16,12 +17,40 @@ if (isset($_POST['save'])) {
 
     // Ensure that the arrays have the same length
     if (count($province_names) === count($municipality_names)) {
-        // Prepare the query
+        $error_flag = false;
+
+        // Check each pair of province and municipality names individually
+        foreach ($province_names as $index => $province_name) {
+            $municipality_name = $municipality_names[$index];
+
+            // Prepare the query to check if the data already exists
+            $check_query = "SELECT COUNT(*) FROM municipality WHERE province_id = $1 AND municipality_name = $2";
+            $check_params = [$province_name, $municipality_name];
+
+            // Execute the check query
+            $check_query_run = pg_query_params($conn, $check_query, $check_params);
+
+            // Fetch the result
+            $result = pg_fetch_assoc($check_query_run);
+
+            // Check if the data already exists
+            if ($result['count'] > 0) {
+                $_SESSION['message'] = "Province and Municipality '$municipality_name' pair already exists";
+                $error_flag = true;
+            }
+        }
+
+        if ($error_flag) {
+            header("location: ../municipality.php");
+            exit;
+        }
+
+        // Prepare the query for insertion
         $query = "INSERT INTO municipality (province_id, municipality_name) VALUES ";
         $params = [];
         $valueStrings = [];
 
-        // Generate placeholders and parameters for each location
+        // Generate placeholders and parameters for each pair of province and municipality names
         for ($i = 0; $i < count($province_names); $i++) {
             $valueStrings[] = "($" . ($i * 2 + 1) . ", $" . ($i * 2 + 2) . ")";
             $params[] = $province_names[$i];
@@ -44,6 +73,7 @@ if (isset($_POST['save'])) {
         echo "Error: Number of province names and municipality names do not match";
     }
 }
+
 
 if (isset($_POST['update'])) {
     $municipality_id = $_POST['municipality_id'];
