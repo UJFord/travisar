@@ -58,13 +58,12 @@
                 </div>
 
                 <!-- footer -->
-                <div class="modal-footer d-flex justify-content-between">
+                <div class="modal-footer d-flex justify-content-end">
                     <div class="">
                         <input type="hidden" name="location_id" id="location_id-Edit">
-                        <button type="submit" name="update" onclick="validateAndSubmitForm()" class="btn btn-success">Edit</button>
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" name="update" onclick="validateAndSubmitForm()" class="btn btn-success">Edit</button>
                     </div>
-                    <button type="button" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
                 </div>
             </form>
         </div>

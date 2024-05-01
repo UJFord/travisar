@@ -155,7 +155,7 @@ require "../../functions/functions.php";
                                     <th class="col text-dark-emphasis small-font" scope="col">Municipality</th>
                                     <th class="col text-dark-emphasis small-font" scope="col">Barangay</th>
                                     <th class="col-3 text-dark-emphasis text-center small-font" scope="col">Date Added</th>
-                                    <th class="col-3 text-dark-emphasis text-center small-font" scope="col">Action</th>
+                                    <th class="col-3 text-dark-emphasis text-center small-font admin-only" scope="col">Action</th>
                                     <!-- <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th> -->
                                 </tr>
                             </thead>
@@ -193,11 +193,14 @@ require "../../functions/functions.php";
                                             </td>
                                             <!-- Action -->
                                             <td>
-                                                <form class="d-flex justify-content-center">
+                                                <form class="d-flex justify-content-center admin-only" action="code/massDelete-code.php" method="post" id="deleteForm">
                                                     <!-- edit -->
-                                                    <a href="#" class="btn btn-primary me-1 edit_data_brgy" data-toggle="modal" data-target="#dataModalEdit" data-id="<?= $row['barangay_id']; ?>"><i class="fa-regular fa-pen-to-square"></i></a>
-                                                    <!-- delete -->
-                                                    <button type="submit" name="delete" class="btn btn-danger curator-only"><i class="fa-solid fa-trash"></i></button>
+                                                    <a href="#" class="btn btn-primary me-1 edit_data_brgy admin-only" data-toggle="modal" data-target="#dataModalEdit" data-id="<?= $row['barangay_id']; ?>">Edit</a>
+                                                    <input type="hidden" name="barangay_id" value="<?= $row['barangay_id']; ?>">
+                                                    <input type="hidden" name="delete_brgy" value="1">
+                                                    <button type="submit" name="delete_brgy" id="deleteRow" class="btn btn-danger admin-only">
+                                                        Delete
+                                                    </button>
                                                 </form>
                                             </td>
                                             <!-- ellipsis menu button -->
@@ -221,8 +224,9 @@ require "../../functions/functions.php";
             <!-- add Barangay -->
             <?php require "modals/add-barangay.php"; ?>
             <!-- edit barangay -->
-            <?php require "modals/edit-barangay.php";
-            ?>
+            <?php require "modals/edit-barangay.php"; ?>
+            <!-- confirm barangay -->
+            <?php require "modals/confirm-delete.php"; ?>
         </div>
     </div>
 
@@ -351,6 +355,7 @@ require "../../functions/functions.php";
         });
     </script>
 
+    <!-- script for all checkbox -->
     <script>
         // Add event listener to the "All" checkbox
         $('#checkAll').change(function() {
@@ -371,6 +376,59 @@ require "../../functions/functions.php";
                     window.location.href = $(this).attr('data-href');
                 }
             });
+        });
+    </script>
+
+    <!-- to confirm if a user wants to delete table row data -->
+    <script>
+        document.addEventListener("DOMContentLoaded", function() {
+            // Your script here
+            var deleteForm = document.getElementById('deleteForm');
+            var confirmModalInstanceEdit;
+
+            function deleteModalEdit(event) {
+                // Prevent the default behavior of the button (e.g., form submission)
+                event.preventDefault();
+
+                // Get the modal element
+                var confirmModal = document.getElementById('confirmModalDelete');
+
+                // Create a new Bootstrap modal instance if it doesn't exist
+                if (!confirmModalInstanceEdit) {
+                    confirmModalInstanceEdit = new bootstrap.Modal(confirmModal);
+                }
+
+                // Show the modal
+                confirmModalInstanceEdit.show();
+
+                // Event listener for the confirm delete button
+                document.getElementById('confirmDeleteBtnRow').addEventListener('click', function() {
+                    // Set the value of delete_brgy to 1 before submitting the form
+                    document.querySelector('input[name="delete_brgy"]').value = "1";
+                    // Submit the form
+                    deleteForm.submit();
+                });
+            }
+
+            // Event listener for when the modal is shown
+            document.getElementById('confirmModalDelete').addEventListener('shown.bs.modal', function() {
+                // Setup event listeners for delete button in modal
+                setupModalEventListenersEdit();
+            });
+
+            // Event listener for when the confirmation modal is hidden
+            document.getElementById('confirmModalDelete').addEventListener('hidden.bs.modal', function() {
+                // Reset the confirmModalInstanceEdit
+                confirmModalInstanceEdit = null;
+            });
+
+            function setupModalEventListenersEdit() {
+                // Event listener for the delete button
+                document.getElementById('deleteRow').addEventListener('click', deleteModalEdit);
+            }
+
+            // Initialize event listener
+            setupModalEventListenersEdit();
         });
     </script>
 </body>

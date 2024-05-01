@@ -500,7 +500,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         exit(0);
     } catch (Exception $e) {
         // message for error
-        $_SESSION['message'] = 'Crop not Saved';
+        $_SESSION['message'] = 'Crop not Deleted';
         // Rollback the transaction if an error occurs
         pg_query($conn, "ROLLBACK");
         // Log the error message
