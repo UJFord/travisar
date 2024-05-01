@@ -274,7 +274,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
             }
         } else {
             // If no new image is selected, use the current image
-            $currentVegImages = explode(',', $current_image_seed);
+            $currentVegImages = explode(',', $current_image_veg);
             $uploadedImagesVeg = array_merge($uploadedImagesVeg, $currentVegImages);
             $finalimgVeg = implode(',', $uploadedImagesVeg);
         }
