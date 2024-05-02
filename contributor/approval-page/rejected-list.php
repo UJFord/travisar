@@ -5,7 +5,7 @@
 </style>
 <!-- LIST -->
 <div class="col">
-    <div class="container">
+    <div class="container" style="min-height: 615px; max-height:615px;">
 
         <!-- HEADING -->
         <div class="tab_box d-flex justify-content-between">

@@ -133,112 +133,99 @@
     </div>
 </div>
 
-<!-- SCRIPT -->
+<!-- script for populating varieties and barangay and the chevron toggler -->
 <script>
-    // Function to fetch and populate the variety filter based on the selected category
-    function populateVarietyFilter(categoryId) {
-        let varietyFilter = document.getElementById('variety-filters');
-        let varietyChev = document.getElementById('varietyChev');
-        if (categoryId !== '') {
-            // Fetch varieties based on the selected category using AJAX
-            fetch('fetch/fetch_filter.php?category_id=' + categoryId)
-                .then(response => response.json())
-                .then(data => {
-                    // Clear existing options
-                    varietyFilter.innerHTML = '';
-                    // Populate options
-                    data.forEach(variety => {
-                        varietyFilter.innerHTML += `
-                            <div class="collapse show w-100 mb-2">
-                                <input class="form-check-input variety-filter" type="checkbox" id="category_variety${variety.category_variety_id}" value="${variety.category_variety_id}">
-                                <label for="category_variety${variety.category_variety_id}">${variety.category_variety_name}</label>
-                            </div>
-                        `;
-                    });
-                    // Show the variety filter
-                    varietyFilter.classList.add('show');
-                    varietyChev.classList.toggle('rotate-chevron');
-                })
-                .catch(error => console.error('Error:', error));
-        } else {
-            // Hide the variety filter if no category is selected
-            varietyFilter.classList.remove('show');
-        }
-    }
+    let selectedMunicipalities = [];
 
-    // Function to fetch and populate the barangay filter based on the selected category
-    function populateBarangayFilter(municipalityid) {
+    // Function to fetch and populate the barangay filter based on the selected municipalities
+    function populateBarangayFilter() {
         let barangayFilter = document.getElementById('brgy-filters');
         let barangayChev = document.getElementById('brgyChev');
-        if (municipalityid !== '') {
-            // Fetch varieties based on the selected category using AJAX
+
+        // Clear existing options
+        barangayFilter.innerHTML = '';
+
+        // Fetch and populate barangay options for each selected municipality
+        selectedMunicipalities.forEach(municipalityid => {
             fetch('fetch/fetch_filter-brgy.php?municipality_id=' + municipalityid)
                 .then(response => response.json())
                 .then(data => {
-                    // Clear existing options
-                    barangayFilter.innerHTML = '';
                     // Populate options
                     data.forEach(barangay => {
                         barangayFilter.innerHTML += `
-                            <div class="collapse show w-100 mb-2">
-                                <input class="form-check-input brgy-filter" type="checkbox" id="barangay${barangay.barangay_id}" value="${barangay.barangay_id}">
-                                <label for="barangay${barangay.barangay_id}">${barangay.barangay_name}</label>
-                            </div>
-                        `;
+                        <div class="collapse show w-100 mb-2">
+                            <input class="form-check-input brgy-filter" type="checkbox" id="barangay${barangay.barangay_id}" value="${barangay.barangay_id}">
+                            <label for="barangay${barangay.barangay_id}">${barangay.barangay_name}</label>
+                        </div>
+                    `;
                     });
                     // Show the barangay filter
                     barangayFilter.classList.add('show');
-                    barangayChev.classList.toggle('rotate-chevron');
+                    barangayChev.classList.add('rotate-chevron');
                 })
                 .catch(error => console.error('Error:', error));
-        } else {
-            // Hide the barangay filter if no category is selected
-            barangayFilter.classList.remove('show');
-        }
+        });
     }
 
-    // Function to clear variety filter
-    function clearVarietyFilter() {
+    // Add event listeners to municipality checkboxes
+    document.querySelectorAll('.municipality-filter').forEach(checkbox => {
+        checkbox.addEventListener('change', function() {
+            if (!this.checked) {
+                // Remove unchecked municipality from the array
+                selectedMunicipalities = selectedMunicipalities.filter(id => id !== this.value);
+            } else {
+                // Add checked municipality to the array
+                selectedMunicipalities.push(this.value);
+            }
+            populateBarangayFilter();
+        });
+    });
+
+    let selectedCategories = [];
+
+    // Function to fetch and populate the variety filter based on the selected categories
+    function populateVarietyFilter() {
         let varietyFilter = document.getElementById('variety-filters');
-        varietyFilter.innerHTML = '';
-        varietyFilter.classList.remove('show');
         let varietyChev = document.getElementById('varietyChev');
-        varietyChev.classList.toggle('rotate-chevron');
-    }
 
-    // Function to clear barangay filter
-    function clearBarangayFilter() {
-        let barangayFilter = document.getElementById('brgy-filters');
-        barangayFilter.innerHTML = '';
-        barangayFilter.classList.remove('show');
-        let barangayChev = document.getElementById('brgyChev');
-        barangayChev.classList.toggle('rotate-chevron');
+        // Clear existing options
+        varietyFilter.innerHTML = '';
+
+        // Fetch and populate variety options for each selected category
+        selectedCategories.forEach(categoryId => {
+            fetch('fetch/fetch_filter.php?category_id=' + categoryId)
+                .then(response => response.json())
+                .then(data => {
+                    // Populate options
+                    data.forEach(variety => {
+                        varietyFilter.innerHTML += `
+                        <div class="collapse show w-100 mb-2">
+                            <input class="form-check-input variety-filter" type="checkbox" id="category_variety${variety.category_variety_id}" value="${variety.category_variety_id}">
+                            <label for="category_variety${variety.category_variety_id}">${variety.category_variety_name}</label>
+                        </div>
+                    `;
+                    });
+                    // Show the variety filter
+                    varietyFilter.classList.add('show');
+                    varietyChev.classList.add('rotate-chevron');
+                })
+                .catch(error => console.error('Error:', error));
+        });
     }
 
     // Add event listeners to category checkboxes
     document.querySelectorAll('.crop-filter').forEach(checkbox => {
         checkbox.addEventListener('change', function() {
             if (!this.checked) {
-                clearVarietyFilter();
+                // Remove unchecked category from the array
+                selectedCategories = selectedCategories.filter(id => id !== this.value);
+            } else {
+                // Add checked category to the array
+                selectedCategories.push(this.value);
             }
-            if (this.checked) {
-                populateVarietyFilter(this.value);
-            }
+            populateVarietyFilter();
         });
     });
-
-    // Add event listeners to municipality checkboxes
-    document.querySelectorAll('.municipality-filter').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            if (!this.checked) {
-                clearBarangayFilter();
-            }
-            if (this.checked) {
-                populateBarangayFilter(this.value);
-            }
-        });
-    });
-
 
     // chevron toggler
     let cropToggler = document.querySelector('#crop-filter-dropdown-toggler');
