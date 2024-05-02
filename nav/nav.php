@@ -170,8 +170,9 @@ switch ($current_page_path) {
                                     Crop Settings
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="set-nav-crop">
-                                    <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/crop-category.php'; ?>" class="dropdown-item">Crop Category</a></li>
+                                    <!-- <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/crop-category.php'; ?>" class="dropdown-item">Crop Category</a></li> -->
                                     <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/category-variety.php'; ?>" class="dropdown-item">Crop Variety</a></li>
+                                    <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/terrain.php'; ?>" class="dropdown-item">Terrain</a></li>
                                     <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/disease-resistance.php'; ?>" class="dropdown-item">Diseases</a></li>
                                     <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/pest-resistance.php'; ?>" class="dropdown-item">Pests</a></li>
                                     <li><a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/abiotic-resistance.php'; ?>" class="dropdown-item">Abiotic Resistance</a></li>
