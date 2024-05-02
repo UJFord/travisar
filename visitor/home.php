@@ -104,13 +104,13 @@ require "../functions/functions.php";
 
                         <!-- navigate to about -->
                         <div class="card p-0 mb-3">
-                            <img src="https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&w=600" class="card-img-top sys-link-img-half" alt="...">
+                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top sys-link-img-half" alt="...">
                             <div class="card-body">
                                 <h5 class="card-title fw-bold">About Travis</h5>
                                 <p class="card-text">Explore Our Website for Detailed Information on Our Crop Initiatives, Projects, and Collaborative Efforts in Agricultural Development.</p>
                             </div>
                             <div class="card-footer">
-                                <a href="#" class="btn btn-light border float-end">Check Out!</a>
+                                <a href="#" class="btn btn-light border float-end streched-link">Check Out!</a>
                             </div>
                         </div>
                     </div>
@@ -145,10 +145,12 @@ require "../functions/functions.php";
                                 Partners
                             </div>
                             <div class="row card-body d-flex">
-                                <a href="" class="col-4 btn btn-link link-secondary fs-5"><img src="img/msu-gensan-logo-85758e.png" class="partners-item" alt="" srcset=""></i></a>
-                                <a href="" class="col-4 btn btn-link link-secondary fs-5"><img src="img/Province_of_Sarangani_-_Official_Seal.png" class="partners-item" alt="" srcset=""></i></a>
-                                <a href="" class="col-4 btn btn-link link-secondary fs-5"><img src="img/Department_of_Agriculture_of_the_Philippines.png" class="partners-item" alt="" srcset=""></i></a>
-                                <a href="" class="col-4 btn btn-link link-secondary fs-5"><img src="img/430144392_852452413559156_7438506279784221589_n.jpg" class="partners-item" alt="" srcset=""></i></a>
+                                <a href="https://msugensan.edu.ph/" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/msu-gensan-logo-85758e.png" class="partners-item" alt="" srcset=""></i></a>
+                                <a href="https://www.facebook.com/JITSmsugsc" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/jits.jpg" class="partners-item" alt="" srcset=""></i></a>
+                                <a href="https://www.facebook.com/opagsarangani/" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/Province_of_Sarangani_-_Official_Seal.png" class="partners-item" alt="" srcset=""></i></a>
+                                <a href="https://saad.da.gov.ph/priority_provinces/region-xii/sarangani" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/saad.png" class="partners-item" alt="" srcset=""></i></a>
+                                <a href="" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/Department_of_Agriculture_of_the_Philippines.png" class="partners-item" alt="" srcset=""></i></a>
+                                <a href="https://kiamba.gov.ph/" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/kiamba.png" class="partners-item" alt="" srcset=""></i></a>
                             </div>
                         </div>
                     </div>
