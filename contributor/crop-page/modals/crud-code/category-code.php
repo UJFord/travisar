@@ -49,24 +49,37 @@ if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
         $query_getName = "SELECT category_name from category where category_name = $1";
         $query_getName_run = pg_query_params($conn, $query_getName, array($category_name));
 
+        // Check if the query was successful
         if ($query_getName_run) {
-            $_SESSION['message'] = "Category already exists.";
-            pg_query($conn, "COMMIT");
-            header("location: ../../crop-category.php");
-            exit();
-        } else {
-            $query = "INSERT into category (category_name) values($1) returning category_id";
-            $query_run = pg_query_params($conn, $query, array($category_name));
+            // Fetch the result set
+            $existing_category = pg_fetch_assoc($query_getName_run);
 
-            if ($query_run) {
-                $_SESSION['message'] = "Category created successfully.";
+            // Check if a category was fetched
+            if ($existing_category) {
+                // Category exists
+                $_SESSION['message'] = "Category already exists.";
                 pg_query($conn, "COMMIT");
                 header("location: ../../crop-category.php");
                 exit();
             } else {
-                echo "Error: " . pg_last_error($conn);
-                exit(0);
+                // Category does not exist, proceed with insertion
+                $query = "INSERT into category (category_name) values($1) returning category_id";
+                $query_run = pg_query_params($conn, $query, array($category_name));
+
+                if ($query_run) {
+                    $_SESSION['message'] = "Category created successfully.";
+                    pg_query($conn, "COMMIT");
+                    header("location: ../../crop-category.php");
+                    exit();
+                } else {
+                    echo "Error: " . pg_last_error($conn);
+                    exit(0);
+                }
             }
+        } else {
+            // Error executing the query
+            echo "Error: " . pg_last_error($conn);
+            exit(0);
         }
     } catch (Exception $e) {
         // message for error
