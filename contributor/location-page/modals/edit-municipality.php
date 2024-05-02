@@ -21,7 +21,7 @@
                             <div class="row mb-3 location-row">
                                 <input type="hidden" name="municipality_id" id="municipality_id-Edit">
                                 <!-- province name -->
-                                <div class="col-5">
+                                <div class="col">
                                     <label for="prov-Name" class="form-label small-font">Province Name<span style="color: red;">*</span></label>
                                     <select name="province_id" id="prov-Name" class="form-select">
                                         <?php
@@ -48,10 +48,17 @@
                                 </div>
 
                                 <!-- municipality name -->
-                                <div class="col-5">
+                                <div class="col">
                                     <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
                                     <input type="text" id="municipality-Name" name="municipality_name" class="form-control">
                                 </div>
+                                <!-- municipality name -->
+                                <div class="col">
+                                    <label for="Coordinates" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
+                                    <input type="text" id="Coordinates" name="coordinates" class="form-control">
+                                </div>
+                                <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (<span class="fw-bold">latitude , longitude - 5.7600, 125.3466</span>)</div>
+
                             </div>
                         </div>
                     </div>

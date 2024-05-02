@@ -344,7 +344,7 @@
     <h6 class="fw-semibold mt-4 mb-3">Location</h6>
     <div id="locationData" class="row mb-3">
         <!-- form -->
-        <div class="col-6 location-Data">
+        <div class="col-4 location-Data">
             <!-- Province dropdown -->
             <label for="ProvinceDraft" class="form-label small-font">Province <span style="color: red;">*</span></label>
             <select id="ProvinceDraft" name="province" class="form-select mb-2" readonly>
@@ -395,7 +395,7 @@
 
         </div>
         <!-- map -->
-        <div id="mapDraft" class="col border">
+        <div id="mapDraft" class="col rounded">
         </div>
     </div>
 

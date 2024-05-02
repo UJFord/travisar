@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "../../../../functions/connections.php";
+require "../../../functions/connections.php";
 
 if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
     // Begin the database transaction
