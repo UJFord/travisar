@@ -32,10 +32,19 @@
 
 /* SYSTEM LINKS */
 .sys-link-img{
-    height: 200px;
+    height: 250px;
+    object-fit: cover;
+}
+.sys-link-img-half{
+    height: 150px;
     object-fit: cover;
 }
 
+/* PARTNERS */
+.partners-item{
+    max-width: 4rem;
+    object-fit: cover;
+}
 
 
 

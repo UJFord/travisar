@@ -65,11 +65,12 @@ require "../functions/functions.php";
     <div class="container my-5">
         <div class="row">
 
+            <!-- system links -->
             <div class="col-8">
                 <div class="row d-flex flex-column align-items-center">
 
                     <!-- navigate to crops -->
-                    <div class="card col-6 p-0 mb-3">
+                    <div class="card col-9 p-0 mb-3">
                         <img src="https://images.unsplash.com/photo-1592997571659-0b21ff64313b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top sys-link-img" alt="...">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">Crops</h5>
@@ -79,7 +80,7 @@ require "../functions/functions.php";
                     </div>
 
                     <!-- navigate to map -->
-                    <div class="card col-6 p-0 mb-3">
+                    <div class="card col-9 p-0 mb-3">
                         <img src="img/map.png" class="card-img-top sys-link-img" alt="...">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">Map</h5>
@@ -88,17 +89,71 @@ require "../functions/functions.php";
                         </div>
                     </div>
 
-                    <!-- navigate to contributors -->
-                    <div class="card col-6 p-0 mb-3">
-                        <img src="https://images.unsplash.com/photo-1508780709619-79562169bc64?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top sys-link-img" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold">Contribute</h5>
-                            <p class="card-text">Share Your Knowledge and Help Enrich Our Database for Better Agricultural Insights.</p>
-                            <a href="#" class="btn btn-light border float-end">Sign Up Now!</a>
+                    <div class="col-9 d-flex flex-row justify-content-between p-0">
+                        <!-- navigate to contributors -->
+                        <div class="card p-0 mb-3 me-3">
+                            <img src="https://images.unsplash.com/photo-1508780709619-79562169bc64?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top sys-link-img-half" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Contribute</h5>
+                                <p class="card-text">Join Our Community and Share Your Valuable Knowledge to Enrich Our Comprehensive Database, Enhancing Agricultural Insights for Sustainable Development.</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="#" class="btn btn-light border float-end">Sign Up Now!</a>
+                            </div>
+                        </div>
+
+                        <!-- navigate to about -->
+                        <div class="card p-0 mb-3">
+                            <img src="https://images.pexels.com/photos/1438072/pexels-photo-1438072.jpeg?auto=compress&cs=tinysrgb&w=600" class="card-img-top sys-link-img-half" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">About Travis</h5>
+                                <p class="card-text">Explore Our Website for Detailed Information on Our Crop Initiatives, Projects, and Collaborative Efforts in Agricultural Development.</p>
+                            </div>
+                            <div class="card-footer">
+                                <a href="#" class="btn btn-light border float-end">Check Out!</a>
+                            </div>
                         </div>
                     </div>
-
                 </div>
+            </div>
+
+            <div class="col">
+
+                <!-- socicals -->
+                <div class="row d-flex flex-column align-items-center mb-5">
+                    <div class="col-10">
+                        <div class="card">
+                            <div class="card-header">
+                                Socials
+                            </div>
+                            <div class="card-body d-flex">
+                                <a href="" class="btn btn-link link-secondary fs-5"><i class="fa-brands fa-facebook"></i></a>
+                                <a href="" class="btn btn-link link-secondary fs-5"><i class="fa-brands fa-youtube"></i></i></a>
+                                <a href="" class="btn btn-link link-secondary fs-5"><i class="fa-brands fa-square-x-twitter"></i></a>
+                                <a href="" class="btn btn-link link-secondary fs-5"><i class="fa-brands fa-viber"></i></a>
+                                <a href="" class="btn btn-link link-secondary fs-5"><i class="fa-brands fa-github"></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
+                <!-- partners -->
+                <div class="row d-flex flex-column align-items-center">
+                    <div class="col-10">
+                        <div class="card">
+                            <div class="card-header">
+                                Partners
+                            </div>
+                            <div class="row card-body d-flex">
+                                <a href="" class="col-4 btn btn-link link-secondary fs-5"><img src="img/msu-gensan-logo-85758e.png" class="partners-item" alt="" srcset=""></i></a>
+                                <a href="" class="col-4 btn btn-link link-secondary fs-5"><img src="img/Province_of_Sarangani_-_Official_Seal.png" class="partners-item" alt="" srcset=""></i></a>
+                                <a href="" class="col-4 btn btn-link link-secondary fs-5"><img src="img/Department_of_Agriculture_of_the_Philippines.png" class="partners-item" alt="" srcset=""></i></a>
+                                <a href="" class="col-4 btn btn-link link-secondary fs-5"><img src="img/430144392_852452413559156_7438506279784221589_n.jpg" class="partners-item" alt="" srcset=""></i></a>
+                            </div>
+                        </div>
+                    </div>
+                </div>
+
             </div>
 
         </div>
