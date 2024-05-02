@@ -54,9 +54,9 @@
         </div>
 
         <!-- Varieties -->
-        <div class="py-2 px-3 w-100 border-bottom">
+        <div class="py-2 px-3 w-100 border-bottom" id="variety-div">
             <div id="variety-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#variety-filters" role="button" aria-expanded="true" aria-controls="variety-filters">
-                <i id="varietyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
+                <i id="varietyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">Varieties</a>
             </div>
 
@@ -227,14 +227,14 @@
                     });
                     // Show the variety filter
                     varietyFilter.classList.add('show');
-                    varietyChev.classList.add('rotate-chevron');
+                    // varietyChev.classList.add('rotate-chevron');
                 })
                 .catch(error => console.error('Error:', error));
         });
     }
     // Function to show or hide the variety filter based on the selected categories
     function toggleVarietyFilterVisibility() {
-        let varietyFilter = document.getElementById('variety-filters');
+        let varietyFilter = document.getElementById('variety-div');
         let selectedCategoryCheckboxes = document.querySelectorAll('.crop-filter:checked');
 
         if (selectedCategoryCheckboxes.length > 0) {
@@ -283,8 +283,30 @@
     terrainToggler.onclick = () => toggleChevron(terrainChev);
     munToggler.onclick = () => toggleChevron(munChev);
     brgyToggler.onclick = () => toggleChevron(brgyChev);
-    
+
     // Hide the variety and barangay filters initially
-    document.getElementById('variety-filters').classList.add('hidden');
+    document.getElementById('variety-div').classList.add('hidden');
     document.getElementById('brgy-filters').classList.add('hidden');
+
+    // Check if all category checkboxes are unchecked
+    function checkAllCategoryCheckboxesUnchecked() {
+        let selectedCategoryCheckboxes = document.querySelectorAll('.crop-filter:checked');
+        return selectedCategoryCheckboxes.length === 0;
+    }
+
+    // Check if all municipality checkboxes are unchecked
+    function checkAllMunicipalityCheckboxesUnchecked() {
+        let selectedMunicipalityCheckboxes = document.querySelectorAll('.municipality-filter:checked');
+        return selectedMunicipalityCheckboxes.length === 0;
+    }
+
+    // Check if all category checkboxes are unchecked and hide variety filter
+    if (checkAllCategoryCheckboxesUnchecked()) {
+        document.getElementById('variety-div').classList.add('hidden');
+    }
+
+    // Check if all municipality checkboxes are unchecked and hide barangay filter
+    if (checkAllMunicipalityCheckboxesUnchecked()) {
+        document.getElementById('brgy-filters').classList.add('hidden');
+    }
 </script>
