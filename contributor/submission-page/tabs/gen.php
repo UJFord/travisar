@@ -128,7 +128,6 @@
     }
 </style>
 <!-- leaflet -->
-<link rel="stylesheet" href="https://unpkg.com/leaflet@1.9.4/dist/leaflet.css" integrity="sha256-p4NxAoJBhIIN+hmNHrzRCf9tD/miZyoHS5obTRR9BMY=" crossorigin="" />
 <!-- GENERAL TAB -->
 <div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
     <!-- Category and Crop Field -->
@@ -274,7 +273,7 @@
     <h6 class="fw-semibold mt-4 mb-3">Location</h6>
     <div id="locationData" class="row mb-3">
         <!-- form -->
-        <div class="col-6 location-Data">
+        <div class="col-4 location-Data">
             <!-- Province dropdown -->
             <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
             <select id="Province" name="province" class="form-select mb-2" readonly>
@@ -325,7 +324,7 @@
 
         </div>
         <!-- map -->
-        <div id="map" class="col border">
+        <div id="map" class="col rounded">
         </div>
     </div>
 

@@ -5,7 +5,7 @@
 </style>
 <!-- LIST -->
 <div class="col">
-    <div class="container">
+    <div class="container" style="min-height: 615px; max-height:615px;">
 
         <!-- HEADING -->
         <div class="tab_box d-flex justify-content-between">
@@ -118,7 +118,7 @@
                             <!-- Variety name -->
                             <td>
                                 <!-- Variety name -->
-                                <a class="small-font" href="../crop-page/view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
+                                <a class="small-font" href="#" target=”_blank”><?= $row['crop_variety']; ?></a>
                             </td>
 
                             <!-- Location -->

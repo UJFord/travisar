@@ -4,7 +4,7 @@
     }
 </style>
 <!-- LIST -->
-<div class="col">
+<div class="col" style="min-height: 615px; max-height:615px;">
     <div class="container">
 
         <!-- HEADING -->
@@ -119,7 +119,7 @@
                             <!-- Variety name -->
                             <td>
                                 <!-- Variety name -->
-                                <a class="small-font" href="../crop-page/view.php?crop_id=<?= $row['crop_id'] ?>" target=”_blank”><?= $row['crop_variety']; ?></a>
+                                <a class="small-font" href="#" target=”_blank”><?= $row['crop_variety']; ?></a>
                             </td>
 
                             <!-- Location -->
