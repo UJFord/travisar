@@ -1,5 +1,5 @@
-<div class="col col-3">
-    <div class="d-flex flex-column align-items-start rounded border overflow-hidden overflow-y-scroll" style="max-height: 600px;">
+<div class="col col-3" style="min-height: 615px; max-height:615px;">
+    <div class="d-flex flex-column align-items-start rounded border overflow-hidden overflow-y-scroll" style="min-height: 600px; max-height:600px;">
 
         <!-- title -->
         <div class="border-bottom d-flex align-items-center w-100 py-1 px-3 bg-light">
