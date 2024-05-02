@@ -24,7 +24,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
             $get_category_name = $row_categoryName['category_name'];
         } else {
             $_SESSION['message'] = "No category available, incomplete data";
-            header("location: ../crop.php");
+            header("location: ../../crop.php");
             exit();
         }
 
@@ -681,7 +681,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop Deleted Successfully";
         pg_query($conn, "COMMIT");
-        header("Location: ../crop.php");
+        header("Location: ../../crop.php");
         exit(0);
     } catch (Exception $e) {
         // message for error
