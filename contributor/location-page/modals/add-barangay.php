@@ -55,6 +55,12 @@
                                     <label for="barangay-Name" class="form-label small-font">Barangay Name<span style="color: red;">*</span></label>
                                     <input type="text" name="barangay_name_1" class="form-control">
                                 </div>
+
+                                <!-- Coordinates -->
+                                <div class="col-5">
+                                    <label for="barangay-coordinates" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
+                                    <input type="text" name="barangay_coordinates_1" class="form-control">
+                                </div>
                             </div>
                         </div>
                     </div>
@@ -116,6 +122,11 @@
                 <div class="col-5">
                     <label for="Barangay-Name" class="form-label small-font">Barangay Name<span style="color: red;">*</span></label>
                     <input type="text" name="barangay_name_${rowCounter}" class="form-control">
+                </div>
+                <!-- Coordinates -->
+                <div class="col-5">
+                    <label for="barangay-coordinates" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
+                    <input type="text" name="barangay_coordinates_${rowCounter}" class="form-control">
                 </div>
                 <div class="col-2" style="padding-top: 25px;">
                     <button type="button" class="btn btn-secondary remove-row" style="background-color: #dc3545;">Remove</button>
