@@ -61,6 +61,49 @@ require "../functions/functions.php";
         </button>
     </div>
 
+    <!-- SYSTEM LINKS -->
+    <div class="container my-5">
+        <div class="row">
+
+            <div class="col-8">
+                <div class="row d-flex flex-column align-items-center">
+
+                    <!-- navigate to crops -->
+                    <div class="card col-6 p-0 mb-3">
+                        <img src="https://images.unsplash.com/photo-1592997571659-0b21ff64313b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top sys-link-img" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Crops</h5>
+                            <p class="card-text">Discover Traditional Crops Cultivated in Sarangani and Uncover the Rich Agricultural Heritage of the Region.</p>
+                            <a href="#" class="btn btn-light border float-end">Explore Now!</a>
+                        </div>
+                    </div>
+
+                    <!-- navigate to map -->
+                    <div class="card col-6 p-0 mb-3">
+                        <img src="img/map.png" class="card-img-top sys-link-img" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Map</h5>
+                            <p class="card-text">Navigate Our Map for an Interactive Journey Through the Rich Diversity of Traditional Agriculture in the Region.</p>
+                            <a href="#" class="btn btn-light border float-end">Navigate Now!</a>
+                        </div>
+                    </div>
+
+                    <!-- navigate to contributors -->
+                    <div class="card col-6 p-0 mb-3">
+                        <img src="https://images.unsplash.com/photo-1508780709619-79562169bc64?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top sys-link-img" alt="...">
+                        <div class="card-body">
+                            <h5 class="card-title fw-bold">Contribute</h5>
+                            <p class="card-text">Share Your Knowledge and Help Enrich Our Database for Better Agricultural Insights.</p>
+                            <a href="#" class="btn btn-light border float-end">Sign Up Now!</a>
+                        </div>
+                    </div>
+
+                </div>
+            </div>
+
+        </div>
+    </div>
+
     <!-- SCRIPT -->
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
