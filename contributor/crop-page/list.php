@@ -13,23 +13,10 @@
             <!-- add button -->
             <div class="z-1 dropdown">
                 <!-- dropdown -->
-                <button id="add-crop-btn" class="btn btn-secondary dropdown-toggle encoder-only" type="button" data-bs-toggle="dropdown" aria-expanded="false">
+                <button id="add-crop-btn" class="btn btn-secondary encoder-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#add-item-modal">
                     Add New
+                    <i class="fa-solid fa-plus"></i>
                 </button>
-                <!-- list -->
-                <ul class="dropdown-menu dropdown-menu-end p-0 overflow-hidden">
-                    <!-- add item -->
-                    <li class="p-0">
-                        <!-- single item -->
-                        <button type="button" class="dropdown-item p-2 btn" data-bs-toggle="modal" data-bs-target="#add-item-modal">
-                            <i class="fa-solid fa-circle-plus me-2 small-font"></i><span>Crop</span>
-                        </button>
-                        <!-- import csv -->
-                        <button type="button" class="dropdown-item p-2 btn" data-bs-toggle="modal" data-bs-target="">
-                            <i class="fa-solid fa-file-circle-plus me-2 small-font"></i><span>Sheet</span>
-                        </button>
-                    </li>
-                </ul>
             </div>
         </div>
 

@@ -10,7 +10,7 @@
 
     #close-modal-btn {
         position: fixed;
-        right: 21%;
+        right: 23%;
     }
 </style>
 

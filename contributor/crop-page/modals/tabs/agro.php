@@ -3,7 +3,7 @@
     <div>
         <!-- pest resistance -->
         <h6 class="fw-semibold mt-4 mb-3">Pest Resistance</h6>
-        <div class="row">
+        <div class="row mb-2">
             <div class="col-4">
                 <?php
                 // get the data of category from DB
@@ -11,7 +11,7 @@
                 $query_run = pg_query($conn, $query);
 
                 $count = pg_num_rows($query_run);
-                $checkbox_limit = 10; // Set the number of checkboxes per column
+                $checkbox_limit = 7; // Set the number of checkboxes per column
                 $checkbox_count = 0; // Initialize checkbox count
 
                 // if count is greater than 0 there is data
