@@ -1,4 +1,5 @@
 <?php
+session_start();
 require "../functions/connections.php";
 require "../functions/functions.php";
 ?>
@@ -21,7 +22,7 @@ require "../functions/functions.php";
 
     <!-- CUSTOM CSS -->
     <!-- global -->
-    <link rel="stylesheet" href="../css/global-declarations.css?v=1.0">
+    <link rel="stylesheet" href="../css/global-declarations.css">
     <!-- landing.css -->
     <link rel="stylesheet" href="css/landing.css?v=1.0">
 
@@ -29,7 +30,7 @@ require "../functions/functions.php";
 
 <body class="bg-light">
     <!-- NAVBAR -->
-    <?php require "nav/nav.php" ?>
+    <?php require "../nav/nav.php" ?>
     <!-- NAVBAR -->
     <?php require "view-tab/crop.php" ?>
 

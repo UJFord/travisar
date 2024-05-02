@@ -9,5 +9,5 @@ require '../functions/connections.php';
 session_destroy(); //  unsets $_SESSION['user']
 
 // Redirect to login page
-header('location:../login/login-form.php');
+header('location:../visitor/home.php');
 ?>

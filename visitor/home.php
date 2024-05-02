@@ -20,7 +20,7 @@ require "../functions/functions.php";
 
     <!-- CUSTOM CSS -->
     <!-- global -->
-    <link rel="stylesheet" href="../css/global-declarations.css?v=1.0">
+    <link rel="stylesheet" href="../css/global-declarations.css">
     <!-- landing.css -->
     <link rel="stylesheet" href="css/landing.css?v=1.0">
     <!-- script for access control -->

@@ -306,8 +306,8 @@ require "../../functions/functions.php";
 
         // Initialize the map with the bounds
         const map = L.map('map', {
-            // maxBounds: bounds, // Restrict map panning to these bounds
-            // maxBoundsViscosity: 0.75, // Elastic bounce-back when panning outside bounds
+            maxBounds: bounds, // Restrict map panning to these bounds
+            maxBoundsViscosity: 0.75, // Elastic bounce-back when panning outside bounds
             // Set the initial view within the bounds
             center: [6.403013, 124.725062],
             zoom: 9
@@ -415,7 +415,7 @@ require "../../functions/functions.php";
 
         // Marker initialization (adjust icon as needed)
         const icon = L.icon({
-            iconUrl: 'img/location-pin-svgrepo-com.svg',
+            iconUrl: '../img/location-pin-svgrepo-com.svg',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/images/marker-shadow.png',
             iconSize: [25, 41],
             iconAnchor: [12, 41],
@@ -637,7 +637,7 @@ require "../../functions/functions.php";
 
         // Marker initialization (adjust icon as needed)
         const iconEdit = L.icon({
-            iconUrl: 'img/location-pin-svgrepo-com.svg',
+            iconUrl: '../img/location-pin-svgrepo-com.svg',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/images/marker-shadow.png',
             iconSize: [25, 41],
             iconAnchor: [12, 41],
@@ -957,7 +957,7 @@ require "../../functions/functions.php";
 
         // Marker initialization (adjust icon as needed)
         const iconDraft = L.icon({
-            iconUrl: 'img/location-pin-svgrepo-com.svg',
+            iconUrl: '../img/location-pin-svgrepo-com.svg',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/images/marker-shadow.png',
             iconSize: [25, 41],
             iconAnchor: [12, 41],
