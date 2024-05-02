@@ -84,7 +84,7 @@ require "../functions/functions.php";
                         <img src="img/map.png" class="card-img-top sys-link-img" alt="...">
                         <div class="card-body">
                             <h5 class="card-title fw-bold">Map</h5>
-                            <p class="card-text">Navigate Our Map for an Interactive Journey Through the Rich Diversity of Traditional Agriculture in the Region.</p>
+                            <p class="card-text">Navigate Our Map for an Interactive Journey Through the Rich Diversity of Traditional Agriculture in the Province.</p>
                             <a href="#" class="btn btn-light border float-end">Navigate Now!</a>
                         </div>
                     </div>
