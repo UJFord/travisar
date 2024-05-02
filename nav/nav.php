@@ -77,7 +77,9 @@ switch ($current_page_path) {
     <div class="container">
 
         <!-- logo -->
-        <a href="home.php" class="navbar-brand h1"><i class="fa-solid fa-crop-simple"></i></a>
+        <a href="<?php echo BASE_URL . '/' . 'visitor/home.php'; ?>" class="navbar-brand h1 <?php if ($current_page_isHome) {
+                                                                                                echo "active";
+                                                                                            } ?>"><i class="fa-solid fa-crop-simple"></i></a>
 
         <!-- hamburger button for mobile -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="navLink">
