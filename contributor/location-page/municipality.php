@@ -312,6 +312,8 @@ require "../../functions/functions.php";
 
                             // setting the the value of the id of location and barangay depending on the tab
                             $('#municipality_id-Edit').val(value['municipality_id']);
+                            $('#Coordinates').val(value['municipality_coordinates']);
+
                         });
                     },
                     error: function(xhr, status, error) {

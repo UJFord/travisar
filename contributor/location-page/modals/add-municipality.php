@@ -15,15 +15,15 @@
             <!-- body -->
             <form id="form-panel" name="Form" action="code/code-muni.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
-                    <div>
+                    <!-- <div>
                         <button type="button" id="add-row" class="btn btn-secondary" style="margin-left: 10px; background-color: var(--mainBrand);">Add</button>
-                    </div>
+                    </div> -->
                     <div class="container">
                         <div id="locationData">
                             <!-- Province AND Municipality -->
                             <div class="row mb-3 location-row">
                                 <!-- province name -->
-                                <div class="col-5">
+                                <div class="col">
                                     <label for="province-Name" class="form-label small-font">Province Name<span style="color: red;">*</span></label>
                                     <select name="province_name_1" id="province-Name" class="form-control">
                                         <?php
@@ -50,10 +50,17 @@
                                 </div>
 
                                 <!-- municipality name -->
-                                <div class="col-5">
+                                <div class="col">
                                     <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
                                     <input type="text" name="municipality_name_1" class="form-control">
                                 </div>
+                                <!-- Coordinates -->
+                                <div class="col">
+                                    <label for="Coordinates" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
+                                    <input type="text" name="coordinates_1" class="form-control">
+                                </div>
+                                <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (<span class="fw-bold">latitude , longitude - 5.7600, 125.3466</span>)</div>
+
                             </div>
                         </div>
                     </div>
@@ -87,7 +94,7 @@
             const newRow = document.createElement('div');
             newRow.classList.add('row', 'mb-3', 'location-row');
             newRow.innerHTML = `
-                <div class="col-5">
+                <div class="col">
                     <label for="province-Name" class="form-label small-font">Province Name<span style="color: red;">*</span></label>
                     <select name="province_name_${rowCounter}" id="province-Name" class="form-select">
                         <?php
@@ -112,9 +119,14 @@
                         ?>
                     </select>
                 </div>
-                <div class="col-5">
+                <div class="col">
                     <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
                     <input type="text" name="municipality_name_${rowCounter}" class="form-control">
+                </div>
+                <!-- Coordinates -->
+                <div class="col">
+                    <label for="Coordinates" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
+                    <input type="text" name="coordinates_${rowCounter}" class="form-control">
                 </div>
                 <div class="col-2" style="padding-top: 25px;">
                     <button type="button" class="btn btn-secondary remove-row" style="background-color: #dc3545;">Remove</button>
