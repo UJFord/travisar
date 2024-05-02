@@ -14,7 +14,7 @@
             <!-- search -->
             <div class="input-group">
                 <span class="input-group-text" id="filter-search"><i class="bi bi-search"></i></span>
-                <input type="text" id="searchInput" class="form-control" placeholder="Search Crops" aria-label="Search" aria-describedby="filter-search">
+                <input type="text" id="searchInput" class="form-control small-font" placeholder="Search Crops" aria-label="Search" aria-describedby="filter-search">
                 <!-- Add a clear button -->
                 <button id="clearButton" class="btn btn-secondary" onclick="clearSearch()">Clear</button>
             </div>
@@ -88,7 +88,7 @@
         </div>
 
         <!-- all municipalities -->
-        <div class="pt-2 pb-1 px-3 w-100">
+        <div class="pt-2 pb-1 px-3 w-100 border-bottom">
             <div id="mun-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#municipality-filters" role="button" aria-expanded="true" aria-controls="municipalty-filters">
                 <i id="munChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1 rotate-chevron"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">All Municipalities</a>
@@ -114,7 +114,7 @@
         </div>
 
         <!-- all barangay -->
-        <div class="pt-2 pb-1 px-3 w-100">
+        <div class="pt-2 pb-1 px-3 w-100 border-bottom">
             <div id="brgy-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#brgy-filters" role="button" aria-expanded="true" aria-controls="brgy-filters">
                 <i id="brgyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1 rotate-chevron"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">Barangay</a>
