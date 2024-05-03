@@ -185,6 +185,7 @@
         <div class="col mb-2">
             <label for="crop_variety" class="form-label small-font">Variety Name<span style="color: red;">*</span></label>
             <input id="crop_variety" type="text" name="crop_variety" class="form-control">
+            <div id="varietyName-error-edit" class="invalid-feedback"></div>
         </div>
 
         <!-- Meaning of Name -->
@@ -274,6 +275,7 @@
                 }
                 ?>
             </select>
+            <div id="province-error-edit" class="invalid-feedback"></div>
 
             <!-- Municipality dropdown -->
             <label for="MunicipalitySelect" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
@@ -298,11 +300,13 @@
                 }
                 ?>
             </select>
+            <div id="municipality-error-edit" class="invalid-feedback"></div>
 
             <!-- barangay -->
             <label for="BarangaySelect" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
             <select id="BarangaySelect" name="barangay" class="form-select mb-2">
             </select>
+            <div id="barangay-error-edit" class="invalid-feedback"></div>
 
             <!-- Sitio -->
             <label for="SitioEdit" class="form-label small-font mb-0">Sitio</label>

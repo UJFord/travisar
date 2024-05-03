@@ -173,60 +173,6 @@
 
 <!-- script for getting the data on the edit -->
 <script>
-    document.getElementById('form-panel-edit').addEventListener('submit', function(event) {
-
-        // Get the selected category
-        var selectedCategory = document.getElementById('categoryID').value;
-        var cornMorph = document.getElementById('cornMorph-Edit');
-        var riceMorph = document.getElementById('riceMorph-Edit');
-        var rootCropMorph = document.getElementById('root_cropMorph-Edit');
-
-        // Disable inputs based on the selected category
-        if (selectedCategory !== '4') {
-            disableInputs(cornMorph);
-        }
-
-        if (selectedCategory !== '1') {
-            disableInputs(riceMorph);
-        }
-
-        if (selectedCategory !== '2') {
-            disableInputs(rootCropMorph);
-        }
-        // Form is valid, submit the form
-        submitFormEdit();
-    });
-
-    // Function to submit the form and refresh notifications
-    function submitFormEdit() {
-        //console.log('submitForm function called');
-        // Get the form reference
-        var form = document.getElementById('form-panel-edit');
-        // Trigger the form submission
-        if (form) {
-            // Perform AJAX submission or other necessary actions
-            $.ajax({
-                url: "modals/crud-code/code.php",
-                method: "POST",
-                data: new FormData(form),
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function(data) {
-                    console.log("Form Edit submitted successfully", data);
-                    // Reset the form
-                    form.reset();
-                    // Reload unseen notifications
-                    load_unseen_notification();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error("Form submission error:", textStatus, errorThrown);
-                    // Handle error if needed
-                }
-            });
-        }
-    }
-
     // EDIT SCRIPT
     const tableRows = document.querySelectorAll('.edit_data');
     // Define an array to store municipalities
@@ -876,16 +822,6 @@
         });
     });
 
-    // tab switching
-    // next button
-    function switchTab(tabName) {
-        // prevent submitting the form
-        event.preventDefault();
-
-        // Click the tab with id 'gen-tab'
-        document.getElementById(tabName + '-tab').click();
-    }
-
     $(document).ready(function() {
         // Initialize the modal
         const dataModal = new bootstrap.Modal(document.getElementById('edit-item-modal'), {
@@ -902,4 +838,149 @@
             });
         });
     });
+</script>
+
+<!-- script for submitting data -->
+<script>
+    var firstErrorElementEdit = null;
+    var currentTabEdit = 'edit-gen';
+
+    // Function to validate input
+    function validateFormEdit() {
+        var cropVariety = document.getElementById("crop_variety").value
+        var province = document.getElementById("ProvinceEdit").value
+        var municipality = document.getElementById("MunicipalitySelect").value
+        var barangay = document.getElementById("BarangaySelect").value
+
+        var isValidEdit = true;
+
+        // Check if the required fields are not empty
+        if (cropVariety === "" || cropVariety === null) {
+            document.getElementById('crop_variety').classList.add('is-invalid');
+            document.getElementById('varietyName-error-edit').innerText = "Please enter a variety name.";
+            isValidEdit = false;
+            if (!firstErrorElementEdit) {
+                firstErrorElementEdit = document.getElementById('crop_variety');
+            }
+        } else {
+            document.getElementById('crop_variety').classList.remove('is-invalid');
+            document.getElementById('varietyName-error-edit').innerText = "";
+        }
+
+        if (province === null || province === "") {
+            document.getElementById('ProvinceEdit').classList.add('is-invalid');
+            document.getElementById('province-error-edit').innerText = "Please enter a province name.";
+            isValidEdit = false;
+            if (!firstErrorElementEdit) {
+                firstErrorElementEdit = document.getElementById('ProvinceEdit');
+            }
+        } else {
+            document.getElementById('ProvinceEdit').classList.remove('is-invalid');
+            document.getElementById('province-error-edit').innerText = "";
+        }
+
+        if (municipality === null || municipality === "") {
+            document.getElementById('MunicipalitySelect').classList.add('is-invalid');
+            document.getElementById('municipality-error-edit').innerText = "Please enter a municipality name.";
+            isValidEdit = false;
+            if (!firstErrorElementEdit) {
+                firstErrorElementEdit = document.getElementById('MunicipalitySelect');
+            }
+        } else {
+            document.getElementById('MunicipalitySelect').classList.remove('is-invalid');
+            document.getElementById('municipality-error-edit').innerText = "";
+        }
+
+        if (barangay === null || barangay === "") {
+            document.getElementById('BarangaySelect').classList.add('is-invalid');
+            document.getElementById('barangay-error-edit').innerText = "Please enter a barangay name.";
+            isValidEdit = false;
+            if (!firstErrorElementEdit) {
+                firstErrorElementEdit = document.getElementById('BarangaySelect');
+            }
+        } else {
+            document.getElementById('BarangaySelect').classList.remove('is-invalid');
+            document.getElementById('barangay-error-edit').innerText = "";
+        }
+
+        // Focus on the first element with an error
+        if (firstErrorElementEdit) {
+            firstErrorElementEdit.focus();
+            event.preventDefault(); // Prevent the form from submitting by default
+            // Switch back to the tab with the error
+            switchTabEdit(currentTabEdit);
+        }
+
+        return isValidEdit;
+    }
+
+    document.getElementById('form-panel-edit').addEventListener('submit', function(event) {
+        // Reset the first error element before validation
+        firstErrorElementEdit = null;
+
+        // Get the selected category
+        var selectedCategoryEdit = document.getElementById('categoryID').value;
+        var cornMorphEdit = document.getElementById('cornMorph-Edit');
+        var riceMorphEdit = document.getElementById('riceMorph-Edit');
+        var rootCropMorphEdit = document.getElementById('root_cropMorph-Edit');
+
+        // Disable inputs based on the selected category
+        if (selectedCategoryEdit !== '4') {
+            disableInputs(cornMorphEdit);
+        }
+
+        if (selectedCategoryEdit !== '1') {
+            disableInputs(riceMorphEdit);
+        }
+
+        if (selectedCategoryEdit !== '2') {
+            disableInputs(rootCropMorphEdit);
+        }
+        if (validateFormEdit()) {
+            // If validation succeeds, submit the form
+            submitFormEdit();
+        }
+    });
+
+    // Function to submit the form and refresh notifications
+    function submitFormEdit() {
+        //console.log('submitForm function called');
+        // Get the form reference
+        var form = document.getElementById('form-panel-edit');
+        // Trigger the form submission
+        if (form) {
+            // Perform AJAX submission or other necessary actions
+            $.ajax({
+                url: "modals/crud-code/code.php",
+                method: "POST",
+                data: new FormData(form),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    console.log("Form Edit submitted successfully", data);
+                    // Reset the form
+                    form.reset();
+                    // Reload unseen notifications
+                    load_unseen_notification();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Form submission error:", textStatus, errorThrown);
+                    // Handle error if needed
+                }
+            });
+        }
+    }
+
+    // tab switching
+    // next button
+    function switchTabEdit(tabName) {
+        // prevent submitting the form
+        event.preventDefault();
+        // Set the currentTabEdit to the tabName
+        currentTabEdit = tabName;
+
+        // Click the tab with id 'gen-tab'
+        document.getElementById(tabName + '-tab').click();
+    }
 </script>

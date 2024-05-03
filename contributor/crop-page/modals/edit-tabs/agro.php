@@ -4,7 +4,7 @@
         <!-- pest resistance -->
         <h6 class="fw-semibold mt-4 mb-3">Pest Resistance</h6>
         <div class="row mb-2">
-            <div class="col-4">
+            <div class="col-4 mb-3">
                 <?php
                 // get the data of category from DB
                 $query = "SELECT * FROM pest_resistance ORDER BY pest_name ASC";
@@ -29,10 +29,10 @@
                         }
 
                         // Display the checkbox and label
-                        echo '<div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="pest_resistance[]" id="pest_resistance_Edit' . $pest_resistance_id . '" value="' . $pest_resistance_id . '">
-                    <label class="form-check-label small-font" for="pest_resistance_Edit' . $pest_resistance_id . '">' . $pest_name . '</label>
-                </div>';
+                        echo '<div class="form-check mb-3">
+                                <input class="form-check-input" type="checkbox" name="pest_resistance[]" id="pest_resistance_Edit' . $pest_resistance_id . '" value="' . $pest_resistance_id . '">
+                                <label class="form-check-label small-font" for="pest_resistance_Edit' . $pest_resistance_id . '">' . $pest_name . '</label>
+                            </div>';
 
                         // Increment the checkbox count
                         $checkbox_count++;
