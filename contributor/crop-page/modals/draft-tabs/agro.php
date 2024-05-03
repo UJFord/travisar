@@ -4,7 +4,7 @@
         <!-- pest resistance -->
         <h6 class="fw-semibold mt-4 mb-3">Pest Resistance</h6>
         <div class="row">
-            <div class="col-4">
+            <div class="col-4 mb-3">
                 <?php
                 // get the data of category from DB
                 $query = "SELECT * FROM pest_resistance ORDER BY pest_name ASC";
@@ -58,62 +58,92 @@
 
         <!-- Disease Resistance -->
         <h6 class="fw-semibold mt-4 mb-3">Disease Resistance</h6>
-        <div class="row mb-5 ps-3">
-            <?php
-            // get the data of category from DB
-            $query = "SELECT * FROM disease_resistance ORDER BY disease_name ASC";
-            $query_run = pg_query($conn, $query);
+        <div class="row mb-2">
+            <div class="col-4 mb-3">
+                <?php
+                // get the data of category from DB
+                $query = "SELECT * FROM disease_resistance ORDER BY disease_name ASC";
+                $query_run = pg_query($conn, $query);
 
-            $count = pg_num_rows($query_run);
+                $count = pg_num_rows($query_run);
+                $checkbox_limit = 7; // Set the number of checkboxes per column
+                $checkbox_count = 0; // Initialize checkbox count
 
-            // if count is greater than 0 there is data
-            if ($count > 0) {
-                // loop for displaying all categories
-                while ($row = pg_fetch_assoc($query_run)) {
-                    $disease_resistance_id = $row['disease_resistance_id'];
-                    $disease_name = $row['disease_name'];
-            ?>
-                    <div class="col-3 form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="disease_resistance[]" id="disease_resistance_Draft<?= $disease_resistance_id ?>" value="<?= $disease_resistance_id ?>">
-                        <label class="form-check-label small-font" for="disease_resistance_Draft<?= $disease_resistance_id ?>"><?= $disease_name ?></label>
-                    </div>
-            <?php
+                // if count is greater than 0 there is data
+                if ($count > 0) {
+                    // loop for displaying all categories
+                    while ($row = pg_fetch_assoc($query_run)) {
+                        $disease_resistance_id = $row['disease_resistance_id'];
+                        $disease_name = $row['disease_name'];
+
+                        // Check if the checkbox count has reached the limit
+                        if ($checkbox_count >= $checkbox_limit) {
+                            // Reset the checkbox count and close the current column
+                            echo '</div><div class="col-4 mb-3">';
+                            $checkbox_count = 0;
+                        }
+
+                        // Display the checkbox and label
+                        echo '<div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="disease_resistance[]" id="disease_resistance_Draft' . $disease_resistance_id . '" value="' . $disease_resistance_id . '">
+                                <label class="form-check-label small-font" for="disease_resistance_Draft' . $disease_resistance_id . '">' . $disease_name . '</label>
+                            </div>';
+
+                        // Increment the checkbox count
+                        $checkbox_count++;
+                    }
                 }
-            }
-            ?>
+                ?>
+            </div>
         </div>
 
         <!-- Resistance to Abiotic Stress -->
         <h6 class="fw-semibold mt-4 mb-3">Resistance to Abiotic Stress</h6>
-        <div class="row mb-0 ps-3">
-            <?php
-            // get the data of category from DB
-            $query = "SELECT * FROM abiotic_resistance ORDER BY abiotic_name ASC";
-            $query_run = pg_query($conn, $query);
+        <div class="row mb-2">
+            <div class="row mb-2">
+                <div class="col-4 mb-3">
+                    <?php
+                    // get the data of category from DB
+                    $query = "SELECT * FROM abiotic_resistance ORDER BY abiotic_name ASC";
+                    $query_run = pg_query($conn, $query);
 
-            $count = pg_num_rows($query_run);
+                    $count = pg_num_rows($query_run);
+                    $checkbox_limit = 7; // Set the number of checkboxes per column
+                    $checkbox_count = 0; // Initialize checkbox count
 
-            // if count is greater than 0 there is data
-            if ($count > 0) {
-                // loop for displaying all categories
-                while ($row = pg_fetch_assoc($query_run)) {
-                    $abiotic_resistance_id = $row['abiotic_resistance_id'];
-                    $abiotic_name = $row['abiotic_name'];
-            ?>
-                    <div class="col-3 form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="abiotic_resistance[]" id="abiotic_resistance_Draft<?= $abiotic_resistance_id ?>" value="<?= $abiotic_resistance_id ?>">
-                        <label class="form-check-label small-font" for="abiotic_resistance_Draft<?= $abiotic_resistance_id ?>"><?= $abiotic_name ?></label>
-                    </div>
-            <?php
-                }
-            }
-            ?>
-            <div class="col-3 form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="abiotic_other" id="abiotic_other_checkDraft" value="1">
-                <label class="form-check-label small-font" for="abiotic_other_checkDraft">Other</label>
+                    // if count is greater than 0 there is data
+                    if ($count > 0) {
+                        // loop for displaying all categories
+                        while ($row = pg_fetch_assoc($query_run)) {
+                            $abiotic_resistance_id = $row['abiotic_resistance_id'];
+                            $abiotic_name = $row['abiotic_name'];
+
+                            // Check if the checkbox count has reached the limit
+                            if ($checkbox_count >= $checkbox_limit) {
+                                // Reset the checkbox count and close the current column
+                                echo '</div><div class="col-4 mb-3">';
+                                $checkbox_count = 0;
+                            }
+
+                            // Display the checkbox and label
+                            echo '<div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="abiotic_resistance[]" id="abiotic_resistance_Draft' . $abiotic_resistance_id . '" value="' . $abiotic_resistance_id . '">
+                                <label class="form-check-label small-font" for="abiotic_resistance_Draft' . $abiotic_resistance_id . '">' . $abiotic_name . '</label>
+                            </div>';
+
+                            // Increment the checkbox count
+                            $checkbox_count++;
+                        }
+                    }
+                    ?>
+                </div>
             </div>
         </div>
 
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="abiotic_other" id="abiotic_other_checkDraft" value="1">
+            <label class="form-check-label small-font" for="abiotic_other_checkDraft">Other</label>
+        </div>
         <!-- Other -->
         <div id="abiotic_other-Draft" class="row mt-3 mb-3">
             <div class="col-12 mb-2">
@@ -146,14 +176,14 @@
         const pest_otherDraft = document.getElementById('pest-otherDraft');
 
         const abiotic_other_checkDraft = document.getElementById('abiotic_other_checkDraft');
-        const abiotic_otherDraft = document.getElementById('abiotic_other-Draft');
+        const abiotic_otherDraft = document.getElementById('abiotic_otherDraft');
 
         pest_other_checkDraft.addEventListener('change', function() {
-            pest_otherDraft.classList.toggle('d-none', !this.checked);
+            pest_otherDraft.style.display = this.checked ? 'block' : 'none';
         });
 
         abiotic_other_checkDraft.addEventListener('change', function() {
-            abiotic_otherDraft.classList.toggle('d-none', !this.checked);
+            abiotic_otherDraft.style.display = this.checked ? 'block' : 'none';
         });
     });
 </script>
