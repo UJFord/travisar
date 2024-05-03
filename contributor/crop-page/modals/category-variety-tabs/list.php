@@ -52,8 +52,8 @@
                             All
                         </label>
                     </th>
-                    <th class="col text-dark-emphasis small-font" scope="col">Category Name</th>
-                    <th class="col text-dark-emphasis small-font" scope="col">Category Variety Name</th>
+                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="category_name">Category Name</th>
+                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="variety_name">Category Variety Name</th>
                     <th class="col text-dark-emphasis text-end" scope="col">
                         <div class="dropdown">
                             <button class="btn tranparent dropdown-toggle row-btn row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -91,14 +91,14 @@
                             </th>
 
                             <!-- category name -->
-                            <td>
+                            <td data-col="category_name">
                                 <div class="small-font">
                                     <h6 class="small-font m-0"><?= $row['category_name'] ?></h6>
                                 </div>
                             </td>
 
                             <!-- category variety name -->
-                            <td>
+                            <td data-col="variety_name">
                                 <div class="small-font">
                                     <h6 class="small-font m-0"><?= $row['category_variety_name'] ?></h6>
                                 </div>
@@ -173,4 +173,43 @@
             }
         });
     });
+</script>
+
+
+<!-- Add a click event listener to each table header for sorting -->
+<script>
+    $(document).ready(function() {
+        $('th[data-sort]').on('click', function() {
+            var $th = $(this);
+            var column = $th.data('sort');
+            var direction = $th.hasClass('asc') ? 'desc' : 'asc';
+
+            // Remove asc/desc classes from all headers
+            $('th[data-sort]').removeClass('asc desc');
+
+            // Add asc/desc class to clicked header
+            $th.addClass(direction);
+
+            // Sort the table
+            sortTable(column, direction);
+        });
+    });
+
+    function sortTable(column, direction) {
+        var $tbody = $('tbody');
+        var $rows = $tbody.find('tr').toArray();
+
+        $rows.sort(function(a, b) {
+            var valA = $(a).find('td[data-col="' + column + '"]').text().toUpperCase();
+            var valB = $(b).find('td[data-col="' + column + '"]').text().toUpperCase();
+
+            if (direction === 'asc') {
+                return valA.localeCompare(valB);
+            } else {
+                return valB.localeCompare(valA);
+            }
+        });
+
+        $tbody.empty().append($rows);
+    }
 </script>

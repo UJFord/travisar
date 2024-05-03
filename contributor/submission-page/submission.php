@@ -34,6 +34,8 @@ require "../../functions/functions.php";
 
     <!-- script for access control -->
     <script src="../../js/access-control.js"></script>
+    <!-- script for the window alert -->
+    <script src="../../js/window.js"></script>
     <script>
         // Assume you have the userRole variable defined somewhere in your PHP code
         var userRole = "<?php echo isset($_SESSION['rank']) ? $_SESSION['rank'] : ''; ?>";
@@ -340,26 +342,26 @@ require "../../functions/functions.php";
         let coordInput = document.querySelector('#coordInput');
 
         // managing map click
-        function onMapClick(e) {
-            // Extract latitude and longitude from the LatLng object
-            const latitude = e.latlng.lat;
-            const longitude = e.latlng.lng;
+        // function onMapClick(e) {
+        //     // Extract latitude and longitude from the LatLng object
+        //     const latitude = e.latlng.lat;
+        //     const longitude = e.latlng.lng;
 
-            // Join the coordinates as a comma-separated string
-            const formattedCoords = latitude.toFixed(6) + ", " + longitude.toFixed(6);
+        //     // Join the coordinates as a comma-separated string
+        //     const formattedCoords = latitude.toFixed(6) + ", " + longitude.toFixed(6);
 
-            // Set the input value to the formatted coordinates
-            coordInput.value = formattedCoords;
+        //     // Set the input value to the formatted coordinates
+        //     coordInput.value = formattedCoords;
 
-            // Update the map and pin marker with the clicked coordinates
-            updateMapAndPin(latitude, longitude);
+        //     // Update the map and pin marker with the clicked coordinates
+        //     updateMapAndPin(latitude, longitude);
 
-            // fetch data
-            console.log(latitude);
-            console.log(longitude);
-        }
+        //     // fetch data
+        //     console.log(latitude);
+        //     console.log(longitude);
+        // }
 
-        map.on('click', onMapClick);
+        // map.on('click', onMapClick);
 
         function updateMapAndPin(latitude, longitude) {
             // Remove potential existing marker
@@ -557,50 +559,50 @@ require "../../functions/functions.php";
         let coordInputEdit = document.querySelector('#coordEdit');
 
         // managing map click
-        function onMapClickEdit(e) {
-            // Extract latitude and longitude from the LatLng object
-            const latitude = e.latlng.lat;
-            const longitude = e.latlng.lng;
+        // function onMapClickEdit(e) {
+        //     // Extract latitude and longitude from the LatLng object
+        //     const latitude = e.latlng.lat;
+        //     const longitude = e.latlng.lng;
 
-            // Join the coordinates as a comma-separated string
-            const formattedCoords = latitude.toFixed(6) + ", " + longitude.toFixed(6);
+        //     // Join the coordinates as a comma-separated string
+        //     const formattedCoords = latitude.toFixed(6) + ", " + longitude.toFixed(6);
 
-            // Set the input value to the formatted coordinates
-            coordInputEdit.value = formattedCoords;
+        //     // Set the input value to the formatted coordinates
+        //     coordInputEdit.value = formattedCoords;
 
-            // Update the map and pin marker with the clicked coordinates
-            updateMapAndPinEdit(latitude, longitude);
+        //     // Update the map and pin marker with the clicked coordinates
+        //     updateMapAndPinEdit(latitude, longitude);
 
-            // fetch data
-            console.log(latitude);
-            console.log(longitude);
-            let details = fetchDataEdit(latitude, longitude)
-                .then(details => {
-                    // set neighbourhood
-                    // neighbourhoodValueEdit.value = details.neighbourhood
-                    // set municipality
-                    // municipalitySelect.value = details.town;
-                    // set barangay
-                    // barangaySelect.value = details.village;
+        //     // fetch data
+        //     console.log(latitude);
+        //     console.log(longitude);
+        //     let details = fetchDataEdit(latitude, longitude)
+        //         .then(details => {
+        //             // set neighbourhood
+        //             // neighbourhoodValueEdit.value = details.neighbourhood
+        //             // set municipality
+        //             // municipalitySelect.value = details.town;
+        //             // set barangay
+        //             // barangaySelect.value = details.village;
 
-                    console.log('Country:', details.country);
-                    console.log('State:', details.state);
-                    console.log('County:', details.county);
-                    console.log('City:', details.city);
-                    console.log('Town:', details.town);
-                    console.log('Borough:', details.borough);
-                    console.log('Village:', details.village);
-                    console.log('Suburb:', details.suburb);
-                    // console.log('Neighbourhood:', details.neighbourhood);
-                    // console.log('Neighbourhood:', details.neighbourhood);
-                    console.log('Settlement:', details.settlement);
-                    console.log('Major Streets:', details.majorStreets);
-                    console.log('Major and Minor Streets:', details.majorAndMinorStreets);
-                    console.log('Building:', details.building);
-                });
-        }
+        //             console.log('Country:', details.country);
+        //             console.log('State:', details.state);
+        //             console.log('County:', details.county);
+        //             console.log('City:', details.city);
+        //             console.log('Town:', details.town);
+        //             console.log('Borough:', details.borough);
+        //             console.log('Village:', details.village);
+        //             console.log('Suburb:', details.suburb);
+        //             // console.log('Neighbourhood:', details.neighbourhood);
+        //             // console.log('Neighbourhood:', details.neighbourhood);
+        //             console.log('Settlement:', details.settlement);
+        //             console.log('Major Streets:', details.majorStreets);
+        //             console.log('Major and Minor Streets:', details.majorAndMinorStreets);
+        //             console.log('Building:', details.building);
+        //         });
+        // }
 
-        mapEdit.on('click', onMapClickEdit);
+        // mapEdit.on('click', onMapClickEdit);
 
         function updateMapAndPinEdit(latitude, longitude) {
             // Remove potential existing marker
@@ -896,50 +898,50 @@ require "../../functions/functions.php";
         let coordInputDraft = document.querySelector('#coordInputDraft');
 
         // managing map click
-        function onMapClickDraft(e) {
-            // Extract latitude and longitude from the LatLng object
-            const latitude = e.latlng.lat;
-            const longitude = e.latlng.lng;
+        // function onMapClickDraft(e) {
+        //     // Extract latitude and longitude from the LatLng object
+        //     const latitude = e.latlng.lat;
+        //     const longitude = e.latlng.lng;
 
-            // Join the coordinates as a comma-separated string
-            const formattedCoords = latitude.toFixed(6) + ", " + longitude.toFixed(6);
+        //     // Join the coordinates as a comma-separated string
+        //     const formattedCoords = latitude.toFixed(6) + ", " + longitude.toFixed(6);
 
-            // Set the input value to the formatted coordinates
-            coordInputDraft.value = formattedCoords;
+        //     // Set the input value to the formatted coordinates
+        //     coordInputDraft.value = formattedCoords;
 
-            // Update the map and pin marker with the clicked coordinates
-            updateMapAndPinDraft(latitude, longitude);
+        //     // Update the map and pin marker with the clicked coordinates
+        //     updateMapAndPinDraft(latitude, longitude);
 
-            // fetch data
-            console.log(latitude);
-            console.log(longitude);
-            let details = fetchDataDraft(latitude, longitude)
-                .then(details => {
-                    // set neighbourhood
-                    // neighbourhoodValueDraft.value = details.neighbourhood
-                    // set municipality
-                    // municipalitySelect.value = details.town;
-                    // set barangay
-                    // barangaySelect.value = details.village;
+        //     // fetch data
+        //     console.log(latitude);
+        //     console.log(longitude);
+        //     let details = fetchDataDraft(latitude, longitude)
+        //         .then(details => {
+        //             // set neighbourhood
+        //             // neighbourhoodValueDraft.value = details.neighbourhood
+        //             // set municipality
+        //             // municipalitySelect.value = details.town;
+        //             // set barangay
+        //             // barangaySelect.value = details.village;
 
-                    console.log('Country:', details.country);
-                    console.log('State:', details.state);
-                    console.log('County:', details.county);
-                    console.log('City:', details.city);
-                    console.log('Town:', details.town);
-                    console.log('Borough:', details.borough);
-                    console.log('Village:', details.village);
-                    console.log('Suburb:', details.suburb);
-                    // console.log('Neighbourhood:', details.neighbourhood);
-                    // console.log('Neighbourhood:', details.neighbourhood);
-                    console.log('Settlement:', details.settlement);
-                    console.log('Major Streets:', details.majorStreets);
-                    console.log('Major and Minor Streets:', details.majorAndMinorStreets);
-                    console.log('Building:', details.building);
-                });
-        }
+        //             console.log('Country:', details.country);
+        //             console.log('State:', details.state);
+        //             console.log('County:', details.county);
+        //             console.log('City:', details.city);
+        //             console.log('Town:', details.town);
+        //             console.log('Borough:', details.borough);
+        //             console.log('Village:', details.village);
+        //             console.log('Suburb:', details.suburb);
+        //             // console.log('Neighbourhood:', details.neighbourhood);
+        //             // console.log('Neighbourhood:', details.neighbourhood);
+        //             console.log('Settlement:', details.settlement);
+        //             console.log('Major Streets:', details.majorStreets);
+        //             console.log('Major and Minor Streets:', details.majorAndMinorStreets);
+        //             console.log('Building:', details.building);
+        //         });
+        // }
 
-        mapDraft.on('click', onMapClickDraft);
+        // mapDraft.on('click', onMapClickDraft);
 
         function updateMapAndPinDraft(latitude, longitude) {
             // Remove potential existing marker

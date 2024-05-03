@@ -34,9 +34,6 @@ switch ($current_page_path) {
     case "/travisar/visitor/view-crop.php":
         $current_page_isCrop = true;
         break;
-    case "/travisar/contributor/crop-page/crop.php":
-        $current_page_isCrop_page = true;
-        break;
     case "/travisar/contributor/crop-page/category-variety.php":
         $current_page_isSettings = true;
         break;
@@ -68,7 +65,9 @@ switch ($current_page_path) {
         $current_page_isSubmission = true;
         break;
 
-        //! wala sya ga work diko kabalo deopdown mangud
+    case "/travisar/contributor/crop-page/crop.php":
+        $current_page_isManagement = true;
+        break;
     case "/travisar/contributor/approval-page/pending.php":
         $current_page_isManagement = true;
         break;
@@ -99,7 +98,6 @@ switch ($current_page_path) {
 
             <!-- VISITOR -->
             <ul class="navbar-nav me-auto">
-
                 <!-- home page link -->
                 <li class="nav-item">
                     <!-- add active class when at home.php -->
@@ -107,7 +105,6 @@ switch ($current_page_path) {
                                                         echo "active";
                                                     } ?>" aria-current="page" href="<?php echo BASE_URL . '/' . 'visitor/home.php'; ?>">Home</a>
                 </li>
-
                 <!-- crop page link -->
                 <li class="nav-item fw-bold me-2">
                     <!-- add active class when at crop.php -->
@@ -122,22 +119,14 @@ switch ($current_page_path) {
                 </li>
 
             </ul>
-            <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) :
-            ?>
+            <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) :?>
                 <!-- ADMIN -->
                 <ul class="navbar-nav">
-                    <!-- all crops -->
-                    <div class="nav-item me-2 encoder-only">
-                        <a class="nav-link fw-bold me-2 <?php if ($current_page_isCrop_page) {
-                                                            echo "active";
-                                                        } ?>" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/crop-page/crop.php'; ?>">All Crops</a>
-                    </div>
-
                     <!-- my crops -->
                     <div class="nav-item fw-semibold me-2 encoder-only">
                         <a class="nav-link fw-bold me-2 <?php if ($current_page_isSubmission) {
                                                             echo "active";
-                                                        } ?>" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/submission-page/submission.php'; ?>">My Crops</a>
+                                                        } ?>" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/submission-page/submission.php'; ?>">My Listings</a>
                     </div>
 
                     <!-- crop management -->
@@ -150,6 +139,10 @@ switch ($current_page_path) {
                         </a>
 
                         <ul class="dropdown-menu" aria-labelledby="mng-nav">
+                            <li>
+                                <a class="dropdown-item" href="<?php echo BASE_URL . '/' . 'contributor/crop-page/crop.php'; ?>">All Crops</a>
+                            </li>
+                            </li>
                             <li>
                                 <a class="dropdown-item" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/pending.php'; ?>">Pending</a>
                             </li>

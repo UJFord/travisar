@@ -25,8 +25,8 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         $terrain_id = handleEmpty($_POST['terrain_id']);
 
         // status
-        $action = "approved";
-        $remarks = "Crop approved.";
+        $action = "Approved";
+        $remarks = "Approved.";
         $status_id = $_POST['statusIDdraft'];
 
         // loc.php
@@ -1118,8 +1118,8 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         $terrain_id = handleEmpty($_POST['terrain_id']);
 
         // status
-        $action = "pending";
-        $remarks = "Crop pending.";
+        $action = "Pending";
+        $remarks = "Pending.";
         $status_id = $_POST['statusIDdraft'];
 
         // loc.php
@@ -2189,7 +2189,6 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         exit(0);
     }
 }
-
 
 if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
     // Begin the database transaction

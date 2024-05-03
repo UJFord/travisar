@@ -4,12 +4,12 @@ require "../../functions/connections.php";
 if (isset($_POST['approve'])) {
     $crop_id = $_POST['crop_id'];
     $select = "UPDATE status
-        SET action = 'approved', remarks = 'Crop Approved'
+        SET action = 'Approved', remarks = 'Approved'
         WHERE status_id IN (SELECT status_id FROM crop WHERE crop_id = '$crop_id')";
 
     $result = pg_query($conn, $select);
     if ($result) {
-        $_SESSION['message'] = "Crop Approved";
+        $_SESSION['message'] = "Approved";
         header("location: pending.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {
@@ -162,7 +162,7 @@ if (isset($_POST['update'])) {
                     $corn_abiotic_other_id = $cropsUpdate['corn_abiotic_other_id'];
                     $corn_pest_other_id = $cropsUpdate['corn_pest_other_id'];
                     $status_id = $cropsUpdate['status_id'];
-                    $action = "approved";
+                    $action = "Approved";
                     $remarks = "Updating of crop data is approved.";
 
                     // update utilization cultural table
@@ -690,7 +690,7 @@ if (isset($_POST['update'])) {
                     $rice_pest_other_id = $cropsUpdate['rice_pest_other_id'];
 
                     $status_id = $cropsUpdate['status_id'];
-                    $action = "approved";
+                    $action = "Approved";
                     $remarks = "Updating of crop data is approved.";
 
                     // update utilization cultural table
@@ -1236,7 +1236,7 @@ if (isset($_POST['update'])) {
                     $status_id = $cropsUpdate['status_id'];
                     $rootcrop_abiotic_other_id = $cropsUpdate['rootcrop_abiotic_other_id'];
                     $rootcrop_pest_other_id = $cropsUpdate['rootcrop_pest_other_id'];
-                    $action = "approved";
+                    $action = "Approved";
                     $remarks = "Updating of crop data is approved.";
 
                     // update utilization cultural table
@@ -1620,12 +1620,12 @@ if (isset($_POST['rejected'])) {
     $crop_id = $_POST['crop_id'];
     $remarks = $_POST['remarks'];
     $select = "UPDATE status
-    SET action = 'rejected', remarks = '$remarks'
+    SET action = 'Rejected', remarks = '$remarks'
     WHERE status_id IN (SELECT status_id FROM crop WHERE crop_id = '$crop_id')";
 
     $result = pg_query($conn, $select);
     if ($result) {
-        $_SESSION['message'] = "Crop Rejected";
+        $_SESSION['message'] = "The submission is rejected.";
         header("location: pending.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {

@@ -1,14 +1,14 @@
 <style>
-    #modalDialog {
+    #modalDialogDraft {
         margin-top: 35vh;
     }
 
-    #confirmModal {
+    #confirmModalDraft {
         backdrop-filter: blur(5px);
     }
 </style>
 <div class="modal fade" id="confirmModalDraft" tabindex="-1" aria-labelledby="confirmModalLabel" aria-hidden="true">
-    <div class="modal-dialog" id="modalDialog">
+    <div class="modal-dialog" id="modalDialogDraft">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="confirmModalLabel">Confirm Action</h5>

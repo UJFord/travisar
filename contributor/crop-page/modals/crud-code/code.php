@@ -30,8 +30,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $sitio_name = $_POST['sitio_name'];
 
         $user_id = $_POST['user_id'];
-        $action = 'pending';
-        $remarks = 'Crop pending';
+        $action = 'Pending';
+        $remarks = 'Pending';
 
         // pest resistance other
         $pest_other = isset($_POST['pest_other']) ? true : null;
@@ -941,8 +941,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
         $sitio_name = $_POST['sitio_name'];
 
         $user_id = $_POST['user_id'];
-        $action = 'approved';
-        $remarks = 'Crop Approved';
+        $action = 'Approved';
+        $remarks = 'Approved';
 
         // pest resistance other
         $pest_other = isset($_POST['pest_other']) ? true : null;
@@ -1854,8 +1854,8 @@ if (isset($_POST['draft'])) {
         $sitio_name = $_POST['sitio_name'];
 
         $user_id = $_POST['user_id'];
-        $action = 'draft';
-        $remarks = 'draft';
+        $action = 'Draft';
+        $remarks = 'Draft';
 
         // pest resistance other
         $pest_other = isset($_POST['pest_other']) ? true : null;

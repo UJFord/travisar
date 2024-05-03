@@ -213,72 +213,8 @@
 
 <!-- for submission -->
 <script>
-    document.getElementById('form-panel-draft').addEventListener('submit', function(event) {
-        // Get the selected category
-        var selectedCategoryDraft = document.getElementById('CategoryDraft').value;
-        var cornMorphDraft = document.getElementById('cornMorph-draft');
-        var riceMorphDraft = document.getElementById('riceMorph-draft');
-        var rootCropMorphDraft = document.getElementById('root_cropMorph-draft');
-
-        // Disable inputs based on the selected category
-        if (selectedCategoryDraft !== '4') {
-            disableInputsDraft(cornMorphDraft);
-        }
-
-        if (selectedCategoryDraft !== '1') {
-            disableInputsDraft(riceMorphDraft);
-        }
-
-        if (selectedCategoryDraft !== '2') {
-            disableInputsDraft(rootCropMorphDraft);
-        }
-
-        // Check if the form is being submitted as a draft
-        if (event.submitter.name === 'draft') {
-            // console.log('Submit na draft');
-            event.target.setAttribute('name', 'draft');
-            submitFormDraft();
-        } else if (event.submitter.name === 'delete') {
-            // console.log('Submit na draft');
-            event.target.setAttribute('name', 'delete');
-            submitFormDraft();
-        } else {
-            // Validate the form if not submitted as a draft
-            if (validateFormDraft()) {
-                // If validation succeeds, submit the form
-                submitFormDraft();
-            }
-        }
-    });
-
-    // Function to submit the form and refresh notifications
-    function submitFormDraft() {
-        // Get the form reference
-        var form = document.getElementById('form-panel-draft');
-        // Trigger the form submission
-        if (form) {
-            // Perform AJAX submission or other necessary actions
-            $.ajax({
-                url: "modals/crud-code/draft-code.php",
-                method: "POST",
-                data: new FormData(form),
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function(data) {
-                    console.log(data);
-                    // Reset the form
-                    form.reset();
-                    // Reload unseen notifications
-                    load_unseen_notification();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error("Form submission error:", textStatus, errorThrown);
-                    // Handle error if needed
-                }
-            });
-        }
-    }
+    var firstErrorElementDraft = null;
+    var currentTabDraft = 'draft-gen';
 
     // Function to validate input
     function validateFormDraft() {
@@ -291,7 +227,6 @@
         var barangay = document.getElementById("BarangayDraft").value
 
         var isValidDraft = true;
-        var firstErrorElementDraft = null;
 
         // Check if the required fields are not empty
         if (categoryID === "" || categoryID === null) {
@@ -382,21 +317,93 @@
         if (firstErrorElementDraft) {
             firstErrorElementDraft.focus();
             event.preventDefault(); // Prevent the form from submitting by default
+            // Switch back to the tab with the error
+            switchTabDraft(currentTabDraft);
         }
 
         return isValidDraft;
     }
 
-    // Prevent tab switching when there are validation errors
-    var tabPaneDraft = document.getElementById('myTabDraft');
-    tabPaneDraft.addEventListener('show.bs.tab', function(event) {
-        if (!validateFormDraft()) {
-            // document.getElementById('message-error').innerHTML = "<div class='error text-center' style='color:red;'>To switch tab fill up required fields</div>";
-            event.preventDefault();
+    document.getElementById('form-panel-draft').addEventListener('submit', function(event) {
+        // Reset the first error element before validation
+        firstErrorElementDraft = null;
+
+        // Get the selected category
+        var selectedCategoryDraft = document.getElementById('CategoryDraft').value;
+        var cornMorphDraft = document.getElementById('cornMorph-draft');
+        var riceMorphDraft = document.getElementById('riceMorph-draft');
+        var rootCropMorphDraft = document.getElementById('root_cropMorph-draft');
+
+        // Disable inputs based on the selected category
+        if (selectedCategoryDraft !== '4') {
+            disableInputsDraft(cornMorphDraft);
+        }
+
+        if (selectedCategoryDraft !== '1') {
+            disableInputsDraft(riceMorphDraft);
+        }
+
+        if (selectedCategoryDraft !== '2') {
+            disableInputsDraft(rootCropMorphDraft);
+        }
+
+        // Check if the form is being submitted as a draft
+        if (event.submitter.name === 'draft') {
+            // console.log('Submit na draft');
+            event.target.setAttribute('name', 'draft');
+            submitFormDraft();
+        } else if (event.submitter.name === 'delete') {
+            // console.log('Submit na draft');
+            event.target.setAttribute('name', 'delete');
+            submitFormDraft();
         } else {
-            // document.getElementById('message-error').innerHTML = "";
+            // Validate the form if not submitted as a draft
+            if (validateFormDraft()) {
+                // If validation succeeds, submit the form
+                submitFormDraft();
+            }
         }
     });
+
+    // Function to submit the form and refresh notifications
+    function submitFormDraft() {
+        // Get the form reference
+        var form = document.getElementById('form-panel-draft');
+        // Trigger the form submission
+        if (form) {
+            // Perform AJAX submission or other necessary actions
+            $.ajax({
+                url: "modals/crud-code/draft-code.php",
+                method: "POST",
+                data: new FormData(form),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data);
+                    // Reset the form
+                    form.reset();
+                    // Reload unseen notifications
+                    load_unseen_notification();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Form submission error:", textStatus, errorThrown);
+                    // Handle error if needed
+                }
+            });
+        }
+    }
+
+    // Prevent tab switching when there are validation errors
+    // var tabPaneDraft = document.getElementById('myTabDraft');
+    // tabPaneDraft.addEventListener('show.bs.tab', function(event) {
+    //     if (!validateFormDraft()) {
+    //         // document.getElementById('message-error').innerHTML = "<div class='error text-center' style='color:red;'>To switch tab fill up required fields</div>";
+    //         event.preventDefault();
+    //     } else {
+    //         // document.getElementById('message-error').innerHTML = "";
+    //     }
+    // });
 
     function disableInputsDraft(container) {
         var inputs = container.getElementsByTagName('input');
@@ -410,6 +417,8 @@
     function switchTabDraft(tabName) {
         // prevent submitting the form
         event.preventDefault();
+        // Set the currentTabDraft to the tabName
+        currentTabDraft = tabName;
 
         // Click the tab with id 'gen-tab'
         document.getElementById(tabName + '-tab').click();

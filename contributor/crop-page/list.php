@@ -61,13 +61,12 @@
                             All
                         </label>
                     </th>
-                    <th class="col text-dark-emphasis small-font" scope="col">Category</th>
-                    <th class="col text-dark-emphasis small-font" scope="col">Variety Name</th>
-                    <th class="col text-dark-emphasis small-font" scope="col">Location</th>
-                    <th class="col text-dark-emphasis small-font" scope="col">Date Created</th>
-                    <!-- <th class="col text-dark-emphasis small-font" scope="col">Action</th> -->
-                    <th class="col text-dark-emphasis small-font" scope="col">Status</th>
-                    <th class="col text-dark-emphasis small-font text-center" scope="col">Remarks</th>
+                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="category">Category</th>
+                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="variety">Variety Name</th>
+                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="location">Location</th>
+                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="date">Date Created</th>
+                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="status">Status</th>
+                    <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="remarks">Remarks</th>
                     <th class="col text-dark-emphasis text-end" scope="col">
                         <div class="dropdown">
                             <button class="btn tranparent dropdown-toggle row-btn row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -113,11 +112,11 @@
                         $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
                 ?>
                         <?php
-                        if ($row['action'] === 'draft' && $_SESSION['USER']['user_id'] == $row['user_id']) {
+                        if ($row['action'] === 'Draft' && $_SESSION['USER']['user_id'] == $row['user_id']) {
                         ?>
                             <tr data-id="<?= $row['crop_id']; ?>" class="rowlink draft_data" href="#" data-bs-toggle="modal" data-bs-target="#draft-item-modal">
                             <?php
-                        } else  if ($row['action'] === 'approved') {
+                        } else  if ($row['action'] === 'Approved') {
                             ?>
                             <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="../../visitor/view-crop.php?crop_id=<?= $row['crop_id'] ?>">
                             <?php
@@ -138,7 +137,7 @@
                             </th>
 
                             <!-- category -->
-                            <td>
+                            <td data-col="category">
                                 <div>
                                     <?php
                                     if (pg_num_rows($query_run_category)) {
@@ -152,33 +151,39 @@
                             </td>
 
                             <!-- Variety name -->
-                            <td>
+                            <td data-col="variety">
                                 <!-- Variety name -->
                                 <a class="small-font" href="#" target=”_blank”><?= $row['crop_variety']; ?></a>
                             </td>
 
                             <!-- Location -->
-                            <td class="text-center">
+                            <td class="text-center" data-col="location">
                                 <h6 class="small-font m-0"><?= $row['municipality_name']; ?></h6>
                             </td>
 
                             <!-- date created -->
-                            <td>
+                            <td data-col="date">
                                 <h6 class="small-font m-0"><?= $formatted_date; ?></h6>
                             </td>
 
-                            <td>
+                            <td data-col="status">
                                 <?php
                                 $statusClass = '';
                                 switch ($row['action']) {
-                                    case 'approved':
-                                        $statusClass = 'text-success'; // Green text for approved
+                                    case 'Approved':
+                                        $statusClass = 'text-success'; // Green text for Approved
                                         break;
-                                    case 'rejected':
+                                    case 'Rejected':
                                         $statusClass = 'text-danger'; // Red text for rejected
                                         break;
-                                    case 'draft':
-                                        $statusClass = 'text-primary'; // Blue text for draft
+                                    case 'Draft':
+                                        $statusClass = 'text-primary'; // Blue text for Draft
+                                        break;
+                                    case 'Pending':
+                                        $statusClass = 'text-info'; // Cyan text for Pending
+                                        break;
+                                    case 'Updating':
+                                        $statusClass = 'text-light'; //  text for Updating
                                         break;
                                     default:
                                         $statusClass = 'text-dark'; // Default text color
@@ -191,7 +196,7 @@
                             </td>
 
                             <!-- remarks -->
-                            <td class="text-center">
+                            <td class="text-center" data-col="remarks">
                                 <h6 class="small-font m-0"><?= $row['remarks']; ?></h6>
                             </td>
 
@@ -357,4 +362,42 @@
         // Initialize event listener
         setupModalEventListenersEdit();
     });
+</script>
+
+<!-- Add a click event listener to each table header for sorting -->
+<script>
+    $(document).ready(function() {
+        $('th[data-sort]').on('click', function() {
+            var $th = $(this);
+            var column = $th.data('sort');
+            var direction = $th.hasClass('asc') ? 'desc' : 'asc';
+
+            // Remove asc/desc classes from all headers
+            $('th[data-sort]').removeClass('asc desc');
+
+            // Add asc/desc class to clicked header
+            $th.addClass(direction);
+
+            // Sort the table
+            sortTable(column, direction);
+        });
+    });
+
+    function sortTable(column, direction) {
+        var $tbody = $('tbody');
+        var $rows = $tbody.find('tr').toArray();
+
+        $rows.sort(function(a, b) {
+            var valA = $(a).find('td[data-col="' + column + '"]').text().toUpperCase();
+            var valB = $(b).find('td[data-col="' + column + '"]').text().toUpperCase();
+
+            if (direction === 'asc') {
+                return valA.localeCompare(valB);
+            } else {
+                return valB.localeCompare(valA);
+            }
+        });
+
+        $tbody.empty().append($rows);
+    }
 </script>

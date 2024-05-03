@@ -1,3 +1,9 @@
+<style>
+    .hidden {
+        display: none;
+    }
+</style>
+
 <div class="col col-3" style="min-height: 615px; max-height:615px;">
     <div class="d-flex flex-column align-items-start rounded border overflow-hidden overflow-y-scroll" style="min-height: 600px; max-height:600px;">
 
@@ -24,7 +30,7 @@
         <div class="py-2 px-3 w-100 border-bottom">
             <div id="crop-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#crop-filters" role="button" aria-expanded="true" aria-controls="crop-filters">
                 <i id="cropChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">All Crops</a>
+                <a class="fw-bold text-success col text-decoration-none" href="">Crops</a>
             </div>
 
             <?php
@@ -48,10 +54,10 @@
         </div>
 
         <!-- Varieties -->
-        <div class="py-2 px-3 w-100 border-bottom">
+        <div class="py-2 px-3 w-100 border-bottom" id="variety-div">
             <div id="variety-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#variety-filters" role="button" aria-expanded="true" aria-controls="variety-filters">
-                <i id="varietyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">Variety</a>
+                <i id="varietyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1"></i>
+                <a class="fw-bold text-success col text-decoration-none" href="">Varieties</a>
             </div>
 
             <!-- crops filters -->
@@ -64,7 +70,7 @@
         <div class="py-2 px-3 w-100 border-bottom">
             <div id="terrain-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#terrain-filters" role="button" aria-expanded="true" aria-controls="terrain-filters">
                 <i id="terrainChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">All Terrains</a>
+                <a class="fw-bold text-success col text-decoration-none" href="">Terrains</a>
             </div>
 
             <?php
@@ -91,7 +97,7 @@
         <div class="pt-2 pb-1 px-3 w-100 border-bottom">
             <div id="mun-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#municipality-filters" role="button" aria-expanded="true" aria-controls="municipalty-filters">
                 <i id="munChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1 rotate-chevron"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">All Municipalities</a>
+                <a class="fw-bold text-success col text-decoration-none" href="">Municipalities</a>
             </div>
 
             <?php
@@ -114,10 +120,10 @@
         </div>
 
         <!-- all barangay -->
-        <div class="pt-2 pb-1 px-3 w-100 border-bottom">
+        <div class="pt-2 pb-1 px-3 w-100 border-bottom" id="barangay-div">
             <div id="brgy-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#brgy-filters" role="button" aria-expanded="true" aria-controls="brgy-filters">
-                <i id="brgyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1 rotate-chevron"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">Barangay</a>
+                <i id="brgyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1"></i>
+                <a class="fw-bold text-success col text-decoration-none" href="">Barangays</a>
             </div>
             <div id="brgy-filters" class="collapse w-100 mb-2">
 
@@ -161,10 +167,23 @@
                     });
                     // Show the barangay filter
                     barangayFilter.classList.add('show');
-                    barangayChev.classList.add('rotate-chevron');
+                    // barangayChev.classList.add('rotate-chevron');
                 })
                 .catch(error => console.error('Error:', error));
         });
+    }
+    // Function to show or hide the barangay filter based on the selected municipalities
+    function toggleBarangayFilterVisibility() {
+        let barangayFilter = document.getElementById('barangay-div');
+        let selectedMunicipalityCheckboxes = document.querySelectorAll('.municipality-filter:checked');
+
+        if (selectedMunicipalityCheckboxes.length > 0) {
+            // Show the barangay filter
+            barangayFilter.classList.remove('hidden');
+        } else {
+            // Hide the barangay filter
+            barangayFilter.classList.add('hidden');
+        }
     }
 
     // Add event listeners to municipality checkboxes
@@ -178,6 +197,7 @@
                 selectedMunicipalities.push(this.value);
             }
             populateBarangayFilter();
+            toggleBarangayFilterVisibility();
         });
     });
 
@@ -207,10 +227,23 @@
                     });
                     // Show the variety filter
                     varietyFilter.classList.add('show');
-                    varietyChev.classList.add('rotate-chevron');
+                    // varietyChev.classList.add('rotate-chevron');
                 })
                 .catch(error => console.error('Error:', error));
         });
+    }
+    // Function to show or hide the variety filter based on the selected categories
+    function toggleVarietyFilterVisibility() {
+        let varietyFilter = document.getElementById('variety-div');
+        let selectedCategoryCheckboxes = document.querySelectorAll('.crop-filter:checked');
+
+        if (selectedCategoryCheckboxes.length > 0) {
+            // Show the variety filter
+            varietyFilter.classList.remove('hidden');
+        } else {
+            // Hide the variety filter
+            varietyFilter.classList.add('hidden');
+        }
     }
 
     // Add event listeners to category checkboxes
@@ -224,6 +257,7 @@
                 selectedCategories.push(this.value);
             }
             populateVarietyFilter();
+            toggleVarietyFilterVisibility();
         });
     });
 
@@ -249,4 +283,30 @@
     terrainToggler.onclick = () => toggleChevron(terrainChev);
     munToggler.onclick = () => toggleChevron(munChev);
     brgyToggler.onclick = () => toggleChevron(brgyChev);
+
+    // Hide the variety and barangay filters initially  
+    document.getElementById('variety-div').classList.add('hidden');
+    document.getElementById('barangay-div').classList.add('hidden');
+
+    // Check if all category checkboxes are unchecked
+    function checkAllCategoryCheckboxesUnchecked() {
+        let selectedCategoryCheckboxes = document.querySelectorAll('.crop-filter:checked');
+        return selectedCategoryCheckboxes.length === 0;
+    }
+
+    // Check if all municipality checkboxes are unchecked
+    function checkAllMunicipalityCheckboxesUnchecked() {
+        let selectedMunicipalityCheckboxes = document.querySelectorAll('.municipality-filter:checked');
+        return selectedMunicipalityCheckboxes.length === 0;
+    }
+
+    // Check if all category checkboxes are unchecked and hide variety filter
+    if (checkAllCategoryCheckboxesUnchecked()) {
+        document.getElementById('variety-div').classList.add('hidden');
+    }
+
+    // Check if all municipality checkboxes are unchecked and hide barangay filter
+    if (checkAllMunicipalityCheckboxesUnchecked()) {
+        document.getElementById('barangay-div').classList.add('hidden');
+    }
 </script>

@@ -33,7 +33,8 @@ require "../../functions/functions.php";
 
     <!-- script for access control -->
     <script src="../../js/access-control.js"></script>
-
+    <!-- script for the window alert -->
+    <script src="../../js/window.js"></script>
     <script>
         // Assume you have the userRole variable defined somewhere in your PHP code
         var userRole = "<?php echo isset($_SESSION['rank']) ? $_SESSION['rank'] : ''; ?>";

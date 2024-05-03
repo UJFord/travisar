@@ -160,12 +160,12 @@
                         console.log(value['corn_abiotic_other_desc']);
 
                         // setting which button should appear depending on it's status
-                        if (value['action'] === 'updating') {
+                        if (value['action'] === 'Updating') {
                             // show update button
                             $('.updateButton').show();
                             // hide approve button
                             $('.approveButton').hide();
-                        } else if (value['action'] === 'pending') {
+                        } else if (value['action'] === 'Pending') {
                             // hide approve button
                             $('.approveButton').show();
                             // show update button

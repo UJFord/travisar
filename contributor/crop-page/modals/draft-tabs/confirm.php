@@ -1,9 +1,9 @@
 <style>
-    #modalDialog {
+    #modalDialogDraft {
         margin-top: 35vh;
     }
 
-    #confirmModal {
+    #confirmModalDraft {
         backdrop-filter: blur(5px);
     }
 </style>

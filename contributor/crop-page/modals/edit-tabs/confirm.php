@@ -1,5 +1,5 @@
 <style>
-    #modalDialog {
+    #modalDialogEdit {
         margin-top: 35vh;
     }
 
@@ -8,7 +8,7 @@
     }
 </style>
 <div class="modal fade" id="confirmModalEdit" tabindex="-1" aria-labelledby="confirmModalEditLabel" aria-hidden="true">
-    <div class="modal-dialog">
+    <div class="modal-dialog" id="modalDialogEdit">
         <div class="modal-content">
             <div class="modal-header">
                 <h5 class="modal-title" id="confirmModalEditLabel">Confirm Action</h5>
@@ -23,7 +23,7 @@
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
-                <button type="submit" name="delete" class="btn btn-danger" id="confirmDeleteBtnEdit">Delete</button>
+                <button type="submit" name="delete" class="btn btn-success" id="confirmDeleteBtnEdit">Confirm</button>
                 <button type="button" class="btn btn-success" id="confirmCloseBtnEdit">Confirm</button>
             </div>
         </div>

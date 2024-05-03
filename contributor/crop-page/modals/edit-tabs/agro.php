@@ -4,7 +4,7 @@
         <!-- pest resistance -->
         <h6 class="fw-semibold mt-4 mb-3">Pest Resistance</h6>
         <div class="row mb-2">
-            <div class="col-4">
+            <div class="col-4 mb-3">
                 <?php
                 // get the data of category from DB
                 $query = "SELECT * FROM pest_resistance ORDER BY pest_name ASC";
@@ -30,9 +30,9 @@
 
                         // Display the checkbox and label
                         echo '<div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="pest_resistance[]" id="pest_resistance_Edit' . $pest_resistance_id . '" value="' . $pest_resistance_id . '">
-                    <label class="form-check-label small-font" for="pest_resistance_Edit' . $pest_resistance_id . '">' . $pest_name . '</label>
-                </div>';
+                                <input class="form-check-input" type="checkbox" name="pest_resistance[]" id="pest_resistance_Edit' . $pest_resistance_id . '" value="' . $pest_resistance_id . '">
+                                <label class="form-check-label small-font" for="pest_resistance_Edit' . $pest_resistance_id . '">' . $pest_name . '</label>
+                            </div>';
 
                         // Increment the checkbox count
                         $checkbox_count++;
@@ -42,6 +42,7 @@
             </div>
         </div>
 
+        <!-- Other checkbox -->
         <div class="form-check">
             <input class="form-check-input" type="checkbox" name="pest_other" id="pest_other_checkEdit" value="1">
             <label class="form-check-label small-font" for="pest_other_checkEdit">Other</label>
@@ -51,75 +52,105 @@
         <div id="pest-otherEdit" class="row mt-3 mb-5">
             <div class="col-12 mb-0">
                 <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
-                <textarea name="pest_other_desc" id="pestEdit" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
                 <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
+                <textarea name="pest_other_desc" id="pestEdit" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
             </div>
         </div>
 
         <!-- Disease Resistance -->
         <h6 class="fw-semibold mt-4 mb-3">Disease Resistance</h6>
-        <div class="row mb-5 ps-3">
-            <?php
-            // get the data of category from DB
-            $query = "SELECT * FROM disease_resistance ORDER BY disease_name ASC";
-            $query_run = pg_query($conn, $query);
+        <div class="row mb-2">
+            <div class="col-4 mb-3">
+                <?php
+                // get the data of category from DB
+                $query = "SELECT * FROM disease_resistance ORDER BY disease_name ASC";
+                $query_run = pg_query($conn, $query);
 
-            $count = pg_num_rows($query_run);
+                $count = pg_num_rows($query_run);
+                $checkbox_limit = 7; // Set the number of checkboxes per column
+                $checkbox_count = 0; // Initialize checkbox count
 
-            // if count is greater than 0 there is data
-            if ($count > 0) {
-                // loop for displaying all categories
-                while ($row = pg_fetch_assoc($query_run)) {
-                    $disease_resistance_id = $row['disease_resistance_id'];
-                    $disease_name = $row['disease_name'];
-            ?>
-                    <div class="col-3 form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="disease_resistance[]" id="disease_resistance_Edit<?= $disease_resistance_id ?>" value="<?= $disease_resistance_id ?>">
-                        <label class="form-check-label small-font" for="disease_resistance_Edit<?= $disease_resistance_id ?>"><?= $disease_name ?></label>
-                    </div>
-            <?php
+                // if count is greater than 0 there is data
+                if ($count > 0) {
+                    // loop for displaying all categories
+                    while ($row = pg_fetch_assoc($query_run)) {
+                        $disease_resistance_id = $row['disease_resistance_id'];
+                        $disease_name = $row['disease_name'];
+
+                        // Check if the checkbox count has reached the limit
+                        if ($checkbox_count >= $checkbox_limit) {
+                            // Reset the checkbox count and close the current column
+                            echo '</div><div class="col-4 mb-3">';
+                            $checkbox_count = 0;
+                        }
+
+                        // Display the checkbox and label
+                        echo '<div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="disease_resistance[]" id="disease_resistance_Edit' . $disease_resistance_id . '" value="' . $disease_resistance_id . '">
+                                <label class="form-check-label small-font" for="disease_resistance_Edit' . $disease_resistance_id . '">' . $disease_name . '</label>
+                            </div>';
+
+                        // Increment the checkbox count
+                        $checkbox_count++;
+                    }
                 }
-            }
-            ?>
+                ?>
+            </div>
         </div>
 
         <!-- Resistance to Abiotic Stress -->
         <h6 class="fw-semibold mt-4 mb-3">Resistance to Abiotic Stress</h6>
-        <div class="row mb-0 ps-3">
-            <?php
-            // get the data of category from DB
-            $query = "SELECT * FROM abiotic_resistance ORDER BY abiotic_name ASC";
-            $query_run = pg_query($conn, $query);
+        <div class="row mb-2">
+            <div class="col-4 mb-3">
+                <?php
+                // get the data of category from DB
+                $query = "SELECT * FROM abiotic_resistance ORDER BY abiotic_name ASC";
+                $query_run = pg_query($conn, $query);
 
-            $count = pg_num_rows($query_run);
+                $count = pg_num_rows($query_run);
+                $checkbox_limit = 7; // Set the number of checkboxes per column
+                $checkbox_count = 0; // Initialize checkbox count
 
-            // if count is greater than 0 there is data
-            if ($count > 0) {
-                // loop for displaying all categories
-                while ($row = pg_fetch_assoc($query_run)) {
-                    $abiotic_resistance_id = $row['abiotic_resistance_id'];
-                    $abiotic_name = $row['abiotic_name'];
-            ?>
-                    <div class="col-3 form-check form-check-inline">
-                        <input class="form-check-input" type="checkbox" name="abiotic_resistance[]" id="abiotic_resistance_Edit<?= $abiotic_resistance_id ?>" value="<?= $abiotic_resistance_id ?>">
-                        <label class="form-check-label small-font" for="abiotic_resistance_Edit<?= $abiotic_resistance_id ?>"><?= $abiotic_name ?></label>
-                    </div>
-            <?php
+                // if count is greater than 0 there is data
+                if ($count > 0) {
+                    // loop for displaying all categories
+                    while ($row = pg_fetch_assoc($query_run)) {
+                        $abiotic_resistance_id = $row['abiotic_resistance_id'];
+                        $abiotic_name = $row['abiotic_name'];
+
+                        // Check if the checkbox count has reached the limit
+                        if ($checkbox_count >= $checkbox_limit) {
+                            // Reset the checkbox count and close the current column
+                            echo '</div><div class="col-4 mb-3">';
+                            $checkbox_count = 0;
+                        }
+
+                        // Display the checkbox and label
+                        echo '<div class="form-check">
+                                <input class="form-check-input" type="checkbox" name="abiotic_resistance[]" id="abiotic_resistance_Edit' . $abiotic_resistance_id . '" value="' . $abiotic_resistance_id . '">
+                                <label class="form-check-label small-font" for="abiotic_resistance_Edit' . $abiotic_resistance_id . '">' . $abiotic_name . '</label>
+                            </div>';
+
+                        // Increment the checkbox count
+                        $checkbox_count++;
+                    }
                 }
-            }
-            ?>
-            <div class="col-3 form-check form-check-inline">
-                <input class="form-check-input" type="checkbox" name="abiotic_other" id="abiotic_other_checkEdit" value="1">
-                <label class="form-check-label small-font" for="abiotic_other_checkEdit">Other</label>
+                ?>
             </div>
+        </div>
+
+        <!-- other checkbox -->
+        <div class="form-check">
+            <input class="form-check-input" type="checkbox" name="abiotic_other" id="abiotic_other_checkEdit" value="1">
+            <label class="form-check-label small-font" for="abiotic_other_checkEdit">Other</label>
         </div>
 
         <!-- Other -->
         <div id="abiotic_otherEdit" class="row mt-3 mb-3">
             <div class="col-12 mb-2">
                 <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
-                <textarea name="abiotic_other_desc" id="abiotic_other-descEdit" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
                 <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
+                <textarea name="abiotic_other_desc" id="abiotic_other-descEdit" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
             </div>
         </div>
     </div>
@@ -149,11 +180,11 @@
         const abiotic_otherEdit = document.getElementById('abiotic_otherEdit');
 
         pest_other_checkEdit.addEventListener('change', function() {
-            pest_otherEdit.classList.toggle('d-none', !this.checked);
+            pest_otherEdit.style.display = this.checked ? 'block' : 'none';
         });
 
         abiotic_other_checkEdit.addEventListener('change', function() {
-            abiotic_otherEdit.classList.toggle('d-none', !this.checked);
+            abiotic_otherEdit.style.display = this.checked ? 'block' : 'none';
         });
     });
 </script>
