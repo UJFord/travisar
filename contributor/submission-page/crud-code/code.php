@@ -3609,7 +3609,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
         $corn_traits_id = handleEmpty($_POST['corn_traitsID']);
         $rice_traits_id = handleEmpty($_POST['rice_traitsID']);
         $root_crop_traits_id = handleEmpty($_POST['root_crop_traitsID']);
-        $category_id = handleEmpty($_POST['category_id']);
+        $category_id = handleEmpty($_POST['categoryID']);
 
         // pest resistance other
         $pest_other = isset($_POST['pest_other']) ? true : null;
@@ -3930,7 +3930,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
 
         // update crop table
         $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, meaning_of_name = $3,
-        crop_seed_image = $4, crop_vegetative_image =$5, crop_reproductive_image = $6,  where crop_id = $7";
+        crop_seed_image = $4, crop_vegetative_image =$5, crop_reproductive_image = $6  where crop_id = $7";
 
         $valueCrops = array(
             $crop_variety, $crop_description, $meaning_of_name, $finalimgSeed, $finalimgVeg, $finalimgRepro, $crop_id
