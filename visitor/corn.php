@@ -36,25 +36,122 @@
         <div class="row">
 
             <!-- FILTER -->
-            <?php require "filter/side-filter.php"?>
+            <?php require "filter/side-filter.php" ?>
 
             <!-- LIST -->
-            <div class="col">
-                <div class="rounded border table table-hover table-borderless">
-                    <thead>
-                        <tr>
-                            <th scope="col">Name</th>
-                            <th scope="col">Location</th>
-                        </tr>
-                    </thead>
-                    <tbody>
-                        <tr>
-                            
-                        </tr>
-                    </tbody>
+            <div id="crop-list-container" class="col">
+
+                <!-- table -->
+                <div id="crop-list-table" class="rounded border  overflow-y-auto">
+                    <table class="table table-hover table-borderless bg-transparent m-0">
+                        <thead>
+                            <tr class="border-bottom">
+                                <th scope="col" class="col-1 small-font text-secondary">Category</th>
+                                <th scope="col" class="col-4 small-font text-secondary">Name</th>
+                                <th scope="col" class="col small-font text-secondary">Location</th>
+                                <th scope="col" class="col-1 small-font text-secondary">Terrain</th>
+                            </tr>
+                        </thead>
+                        <tbody class="table-light">
+
+                            <tr>
+                                <td class="">Corn</td>
+                                <td class="fw-bolder">Sinandomeng</td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">Corn</td>
+                                <td class="fw-bolder">Sinandomeng</td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">Corn</td>
+                                <td class="fw-bolder">Sinandomeng</td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">Corn</td>
+                                <td class="fw-bolder">Sinandomeng</td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">Corn</td>
+                                <td class="fw-bolder">Sinandomeng</td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">Corn</td>
+                                <td class="fw-bolder">Sinandomeng</td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">Corn</td>
+                                <td class="fw-bolder">Sinandomeng</td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">Corn</td>
+                                <td class="fw-bolder">Sinandomeng</td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">Corn</td>
+                                <td class="fw-bolder">Sinandomeng</td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
+                            </tr>
+
+                            <tr>
+                                <td class="">Corn</td>
+                                <td class="fw-bolder">Sinandomeng</td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
+                                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
+                            </tr>
+
+                        </tbody>
+                    </table>
                 </div>
+
             </div>
         </div>
+
+        <!-- pagination -->
+        <div class="row mt-2">
+            <nav class=" d-flex justify-content-end">
+                <ul class="pagination ">
+                    <li class="page-item">
+                        <a class="page-link bg-light small-font link-dark fw-semibold" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link bg-light small-font link-dark fw-semibold" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link bg-light small-font link-dark fw-semibold" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link bg-light small-font link-dark fw-semibold" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link bg-light small-font link-dark fw-semibold" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+
     </div>
 
 

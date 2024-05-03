@@ -21,13 +21,26 @@
 }
 
 /* FILTER SIDE */
-#side-filter{
+#side-filter-container{
     max-height: 75vh;
 }
+#side-filter{
+    max-height: 100%;
+}
+
 .chevron-dropdown-btn{
     transition: transform 0.2s ease-in-out;
 }
 
 .rotate-chevron {
     transform: rotate(-90deg) translateX(-6px) translateY(8px);
+}
+
+/* LIST */
+/* TABLE */
+#crop-list-container{
+    max-height: 75vh;
+}
+#crop-list-table{
+    max-height: 100%;
 }
