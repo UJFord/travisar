@@ -120,9 +120,9 @@
         </div>
 
         <!-- all barangay -->
-        <div class="pt-2 pb-1 px-3 w-100 border-bottom">
+        <div class="pt-2 pb-1 px-3 w-100 border-bottom" id="barangay-div">
             <div id="brgy-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#brgy-filters" role="button" aria-expanded="true" aria-controls="brgy-filters">
-                <i id="brgyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1 rotate-chevron"></i>
+                <i id="brgyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">Barangays</a>
             </div>
             <div id="brgy-filters" class="collapse w-100 mb-2">
@@ -167,14 +167,14 @@
                     });
                     // Show the barangay filter
                     barangayFilter.classList.add('show');
-                    barangayChev.classList.add('rotate-chevron');
+                    // barangayChev.classList.add('rotate-chevron');
                 })
                 .catch(error => console.error('Error:', error));
         });
     }
     // Function to show or hide the barangay filter based on the selected municipalities
     function toggleBarangayFilterVisibility() {
-        let barangayFilter = document.getElementById('brgy-filters');
+        let barangayFilter = document.getElementById('barangay-div');
         let selectedMunicipalityCheckboxes = document.querySelectorAll('.municipality-filter:checked');
 
         if (selectedMunicipalityCheckboxes.length > 0) {
@@ -284,9 +284,9 @@
     munToggler.onclick = () => toggleChevron(munChev);
     brgyToggler.onclick = () => toggleChevron(brgyChev);
 
-    // Hide the variety and barangay filters initially
+    // Hide the variety and barangay filters initially  
     document.getElementById('variety-div').classList.add('hidden');
-    document.getElementById('brgy-filters').classList.add('hidden');
+    document.getElementById('barangay-div').classList.add('hidden');
 
     // Check if all category checkboxes are unchecked
     function checkAllCategoryCheckboxesUnchecked() {
@@ -307,6 +307,6 @@
 
     // Check if all municipality checkboxes are unchecked and hide barangay filter
     if (checkAllMunicipalityCheckboxesUnchecked()) {
-        document.getElementById('brgy-filters').classList.add('hidden');
+        document.getElementById('barangay-div').classList.add('hidden');
     }
 </script>
