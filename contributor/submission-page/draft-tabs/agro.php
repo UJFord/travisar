@@ -11,7 +11,7 @@
                 $query_run = pg_query($conn, $query);
 
                 $count = pg_num_rows($query_run);
-                $checkbox_limit = 10; // Set the number of checkboxes per column
+                $checkbox_limit = 7; // Set the number of checkboxes per column
                 $checkbox_count = 0; // Initialize checkbox count
 
                 // if count is greater than 0 there is data
@@ -51,8 +51,8 @@
         <div id="pest-otherDraft" class="row mt-3 mb-5">
             <div class="col-12 mb-0">
                 <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
-                <textarea name="pest_other_desc" id="pestDraft" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
                 <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
+                <textarea name="pest_other_desc" id="pestDraft" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
             </div>
         </div>
 
@@ -100,43 +100,41 @@
         <!-- Resistance to Abiotic Stress -->
         <h6 class="fw-semibold mt-4 mb-3">Resistance to Abiotic Stress</h6>
         <div class="row mb-2">
-            <div class="row mb-2">
-                <div class="col-4 mb-3">
-                    <?php
-                    // get the data of category from DB
-                    $query = "SELECT * FROM abiotic_resistance ORDER BY abiotic_name ASC";
-                    $query_run = pg_query($conn, $query);
+            <div class="col-4 mb-3">
+                <?php
+                // get the data of category from DB
+                $query = "SELECT * FROM abiotic_resistance ORDER BY abiotic_name ASC";
+                $query_run = pg_query($conn, $query);
 
-                    $count = pg_num_rows($query_run);
-                    $checkbox_limit = 7; // Set the number of checkboxes per column
-                    $checkbox_count = 0; // Initialize checkbox count
+                $count = pg_num_rows($query_run);
+                $checkbox_limit = 7; // Set the number of checkboxes per column
+                $checkbox_count = 0; // Initialize checkbox count
 
-                    // if count is greater than 0 there is data
-                    if ($count > 0) {
-                        // loop for displaying all categories
-                        while ($row = pg_fetch_assoc($query_run)) {
-                            $abiotic_resistance_id = $row['abiotic_resistance_id'];
-                            $abiotic_name = $row['abiotic_name'];
+                // if count is greater than 0 there is data
+                if ($count > 0) {
+                    // loop for displaying all categories
+                    while ($row = pg_fetch_assoc($query_run)) {
+                        $abiotic_resistance_id = $row['abiotic_resistance_id'];
+                        $abiotic_name = $row['abiotic_name'];
 
-                            // Check if the checkbox count has reached the limit
-                            if ($checkbox_count >= $checkbox_limit) {
-                                // Reset the checkbox count and close the current column
-                                echo '</div><div class="col-4 mb-3">';
-                                $checkbox_count = 0;
-                            }
+                        // Check if the checkbox count has reached the limit
+                        if ($checkbox_count >= $checkbox_limit) {
+                            // Reset the checkbox count and close the current column
+                            echo '</div><div class="col-4 mb-3">';
+                            $checkbox_count = 0;
+                        }
 
-                            // Display the checkbox and label
-                            echo '<div class="form-check">
+                        // Display the checkbox and label
+                        echo '<div class="form-check">
                                 <input class="form-check-input" type="checkbox" name="abiotic_resistance[]" id="abiotic_resistance_Draft' . $abiotic_resistance_id . '" value="' . $abiotic_resistance_id . '">
                                 <label class="form-check-label small-font" for="abiotic_resistance_Draft' . $abiotic_resistance_id . '">' . $abiotic_name . '</label>
                             </div>';
 
-                            // Increment the checkbox count
-                            $checkbox_count++;
-                        }
+                        // Increment the checkbox count
+                        $checkbox_count++;
                     }
-                    ?>
-                </div>
+                }
+                ?>
             </div>
         </div>
 
@@ -148,8 +146,8 @@
         <div id="abiotic_other-Draft" class="row mt-3 mb-3">
             <div class="col-12 mb-2">
                 <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
-                <textarea name="abiotic_other_desc" id="abiotic_otherDraft" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
                 <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
+                <textarea name="abiotic_other_desc" id="abiotic_otherDraft" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
             </div>
         </div>
     </div>
@@ -176,7 +174,7 @@
         const pest_otherDraft = document.getElementById('pest-otherDraft');
 
         const abiotic_other_checkDraft = document.getElementById('abiotic_other_checkDraft');
-        const abiotic_otherDraft = document.getElementById('abiotic_otherDraft');
+        const abiotic_otherDraft = document.getElementById('abiotic_other-Draft');
 
         pest_other_checkDraft.addEventListener('change', function() {
             pest_otherDraft.style.display = this.checked ? 'block' : 'none';

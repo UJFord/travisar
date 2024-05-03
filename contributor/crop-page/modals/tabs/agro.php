@@ -24,7 +24,7 @@
                         // Check if the checkbox count has reached the limit
                         if ($checkbox_count >= $checkbox_limit) {
                             // Reset the checkbox count and close the current column
-                            echo '</div><div class="col-4 mb-3">';
+                            echo '</div><div class="col-4">';
                             $checkbox_count = 0;
                         }
 
@@ -79,7 +79,7 @@
                         // Check if the checkbox count has reached the limit
                         if ($checkbox_count >= $checkbox_limit) {
                             // Reset the checkbox count and close the current column
-                            echo '</div><div class="col-4 mb-3">';
+                            echo '</div><div class="col-4">';
                             $checkbox_count = 0;
                         }
 
@@ -120,7 +120,7 @@
                         // Check if the checkbox count has reached the limit
                         if ($checkbox_count >= $checkbox_limit) {
                             // Reset the checkbox count and close the current column
-                            echo '</div><div class="col-4 mb-3">';
+                            echo '</div><div class="col-4">';
                             $checkbox_count = 0;
                         }
 

@@ -52,8 +52,8 @@
         <div id="pest-otherEdit" class="row mt-3 mb-5">
             <div class="col-12 mb-0">
                 <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
-                <textarea name="pest_other_desc" id="pestEdit" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
                 <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
+                <textarea name="pest_other_desc" id="pestEdit" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
             </div>
         </div>
 
@@ -149,8 +149,8 @@
         <div id="abiotic_otherEdit" class="row mt-3 mb-3">
             <div class="col-12 mb-2">
                 <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
-                <textarea name="abiotic_other_desc" id="abiotic_other-descEdit" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
                 <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
+                <textarea name="abiotic_other_desc" id="abiotic_other-descEdit" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
             </div>
         </div>
     </div>
