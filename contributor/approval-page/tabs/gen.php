@@ -245,7 +245,7 @@
     <!-- location -->
     <div id="locationData" class="row mb-3">
         <!-- form -->
-        <div class="col-6 location-Data">
+        <div class="col-4 location-Data">
             <input type="hidden" name="crop_location_id" id="crop_location_id">
             <!-- Province dropdown -->
             <label for="ProvinceEdit" class="form-label">Province: </label>
@@ -268,7 +268,7 @@
             <h6 class="small-font" name="coordinates" id="coordEdit"></h6>
         </div>
         <!-- map -->
-        <div id="mapEdit" class="col border">
+        <div id="mapEdit" class="col rounded">
         </div>
     </div>
 
