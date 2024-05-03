@@ -4,10 +4,12 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travis | Root Crops</title>
+    <title>Travis | Root</title>
 
     <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- font awesome kit -->
     <script src="https://kit.fontawesome.com/57e83eb6e4.js" crossorigin="anonymous"></script>
@@ -20,11 +22,15 @@
     <!-- CUSTOM CSS -->
     <!-- global -->
     <link rel="stylesheet" href="../css/global-declarations.css">
+    <link rel="stylesheet" href="css/crop.css">
 </head>
 
 <body class="bg-light">
     <!-- NAVBAR -->
     <?php require "../nav/nav.php" ?>
+
+    <!-- CATEGORY FILTER -->
+    <?php require "filter/categ-filter.php" ?>
 
     <!-- SCRIPT -->
     <!-- jquery -->

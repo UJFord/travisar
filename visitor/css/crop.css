@@ -19,3 +19,15 @@
     width: 1.2rem;
     object-fit: cover;
 }
+
+/* FILTER SIDE */
+#side-filter{
+    max-height: 75vh;
+}
+.chevron-dropdown-btn{
+    transition: transform 0.2s ease-in-out;
+}
+
+.rotate-chevron {
+    transform: rotate(-90deg) translateX(-6px) translateY(8px);
+}
