@@ -82,9 +82,10 @@ if (isset($_POST['update'])) {
     $barangay_id = $_POST['barangay_id'];
     $municipality_id = $_POST['municipality_id'];
     $barangay_name = $_POST['barangay_name'];
+    $barangay_coordinates = $_POST['coordinates'];
 
-    $query = "UPDATE barangay set municipality_id = $1, barangay_name = $2 where barangay_id = $3";
-    $query_run = pg_query_params($conn, $query, array($municipality_id, $barangay_name, $barangay_id));
+    $query = "UPDATE barangay set municipality_id = $1, barangay_name = $2, barangay_coordinates = $3 where barangay_id = $4";
+    $query_run = pg_query_params($conn, $query, array($municipality_id, $barangay_name, $barangay_coordinates, $barangay_id));
 
     if ($query_run !== false) {
         $affected_rows = pg_affected_rows($query_run);

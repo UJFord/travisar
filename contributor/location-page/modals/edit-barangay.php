@@ -54,8 +54,8 @@
 
                                 <!-- Coordinates -->
                                 <div class="col">
-                                    <label for="Coordinates" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
-                                    <input type="text" id="Coordinates" name="coordinates" class="form-control">
+                                    <label for="CoordinatesEdit" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
+                                    <input type="text" id="CoordinatesEdit" name="coordinates" class="form-control">
                                 </div>
                                 <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (<span class="fw-bold">latitude , longitude - 5.7600, 125.3466</span>)</div>
                             </div>

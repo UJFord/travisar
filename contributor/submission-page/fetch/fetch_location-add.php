@@ -62,6 +62,24 @@ if (isset($_GET['province']) && !empty($_GET['province'])) {
         error_log("Error fetching municipality coordinates: " . pg_last_error());
         echo json_encode(array()); // Return an empty array as JSON
     }
+} else if (isset($_GET['pin_barangay']) && !empty($_GET['pin_barangay'])) {
+    $barangay_id = $_GET['pin_barangay'];
+
+    // Fetch barangay coordinates from the database
+    $queryCoordinates = "SELECT barangay_coordinates FROM barangay WHERE barangay_id = $1";
+    $resultCoordinates = pg_query_params($conn, $queryCoordinates, array($barangay_id));
+
+    if ($resultCoordinates) {
+        $rowCoordinates = pg_fetch_assoc($resultCoordinates);
+        $barangayCoordinates = isset($rowCoordinates['barangay_coordinates']) ? $rowCoordinates['barangay_coordinates'] : '';
+
+        // Return the barangay coordinates as JSON
+        echo json_encode(array(array('barangay_coordinates' => $barangayCoordinates)));
+    } else {
+        // Handle database query error
+        error_log("Error fetching barangay coordinates: " . pg_last_error());
+        echo json_encode(array()); // Return an empty array as JSON
+    }
 } else {
     // If neither province nor municipality parameter is set or empty, return an empty array
     echo json_encode(array());

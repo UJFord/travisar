@@ -290,11 +290,33 @@ require "../../functions/functions.php";
                 });
         });
 
-        // Call the populateBarangay function when the municipality dropdown value changes
-        document.getElementById('Municipality').addEventListener('change', function() {
-            var selectedMunicipality = document.getElementById('Municipality').value;
-            populateBarangay(selectedMunicipality);
+        // Call the populateBarangay function when the Barangay dropdown value changes
+        document.getElementById('Barangay').addEventListener('change', function() {
+            var selectedBarangay = document.getElementById('Barangay').value;
+
+            // Fetch coordinates for the selected barangay
+            fetch('fetch/fetch_location-add.php?pin_barangay=' + selectedBarangay)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        var coordinatesString = data[0]['barangay_coordinates'];
+                        var coordinatesArray = coordinatesString.split(',').map(coord => parseFloat(coord.trim()));
+
+                        if (coordinatesArray.length === 2) {
+                            var latitude = coordinatesArray[0];
+                            var longitude = coordinatesArray[1];
+
+                            // Update the map and pin marker with the selected coordinates
+                            updateMapAndPin(latitude, longitude);
+                            // Set the map view to the marker's location
+                            map.setView([latitude, longitude], 12); // Zoom level 12
+                            // Update the coordinates input field with the selected barangay's coordinates
+                            coordInput.value = latitude.toFixed(6) + ', ' + longitude.toFixed(6);
+                        }
+                    }
+                });
         });
+
 
         // Define the bounds of your map
         const southWest = L.latLng(5, 123.0); // Lower left corner of the bounds
@@ -361,7 +383,7 @@ require "../../functions/functions.php";
         //     console.log(longitude);
         // }
 
-        // map.on('click', onMapClick);
+        //map.on('click', onMapClick);
 
         function updateMapAndPin(latitude, longitude) {
             // Remove potential existing marker

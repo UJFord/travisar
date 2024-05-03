@@ -323,7 +323,7 @@ require "../../functions/functions.php";
                                 style: 'display: none;' // Hide the option
                             }));
                             $('#barangay-Name').val(value['barangay_name']);
-                            $('#Coordinates').val(value['barangay_coordinates']);
+                            $('#CoordinatesEdit').val(value['barangay_coordinates']);
 
                             // setting the the value of the id of location and barangay depending on the tab
                             $('#' + dataKey + '-Edit').val(value[dataKey]);
