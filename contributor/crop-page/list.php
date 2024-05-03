@@ -113,11 +113,11 @@
                         $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
                 ?>
                         <?php
-                        if ($row['action'] === 'draft' && $_SESSION['USER']['user_id'] == $row['user_id']) {
+                        if ($row['action'] === 'Draft' && $_SESSION['USER']['user_id'] == $row['user_id']) {
                         ?>
                             <tr data-id="<?= $row['crop_id']; ?>" class="rowlink draft_data" href="#" data-bs-toggle="modal" data-bs-target="#draft-item-modal">
                             <?php
-                        } else  if ($row['action'] === 'approved') {
+                        } else  if ($row['action'] === 'Approved') {
                             ?>
                             <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="../../visitor/view-crop.php?crop_id=<?= $row['crop_id'] ?>">
                             <?php
@@ -171,14 +171,20 @@
                                 <?php
                                 $statusClass = '';
                                 switch ($row['action']) {
-                                    case 'approved':
-                                        $statusClass = 'text-success'; // Green text for approved
+                                    case 'Approved':
+                                        $statusClass = 'text-success'; // Green text for Approved
                                         break;
-                                    case 'rejected':
+                                    case 'Rejected':
                                         $statusClass = 'text-danger'; // Red text for rejected
                                         break;
-                                    case 'draft':
-                                        $statusClass = 'text-primary'; // Blue text for draft
+                                    case 'Draft':
+                                        $statusClass = 'text-primary'; // Blue text for Draft
+                                        break;
+                                    case 'Pending':
+                                        $statusClass = 'text-info'; // Cyan text for Pending
+                                        break;
+                                    case 'Updating':
+                                        $statusClass = 'text-light'; //  text for Updating
                                         break;
                                     default:
                                         $statusClass = 'text-dark'; // Default text color

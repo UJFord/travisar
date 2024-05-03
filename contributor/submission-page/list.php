@@ -119,7 +119,7 @@
                         $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
                 ?>
                         <?php
-                        if ($row['action'] === 'draft') {
+                        if ($row['action'] === 'Draft') {
                         ?>
                             <tr data-id="<?= $row['crop_id']; ?>" class="rowlink draft_data" href="#" data-bs-toggle="modal" data-bs-target="#draft-item-modal">
                             <?php
@@ -177,14 +177,20 @@
                                 <?php
                                 $statusClass = '';
                                 switch ($row['action']) {
-                                    case 'approved':
-                                        $statusClass = 'text-success'; // Green text for approved
+                                    case 'Approved':
+                                        $statusClass = 'text-success'; // Green text for Approved
                                         break;
-                                    case 'rejected':
+                                    case 'Rejected':
                                         $statusClass = 'text-danger'; // Red text for rejected
                                         break;
-                                    case 'draft':
-                                        $statusClass = 'text-primary'; // Blue text for draft
+                                    case 'Draft':
+                                        $statusClass = 'text-primary'; // Blue text for Draft
+                                        break;
+                                    case 'Pending':
+                                        $statusClass = 'text-info'; // Cyan text for Pending
+                                        break;
+                                    case 'Updating':
+                                        $statusClass = 'text-light'; //  text for Updating
                                         break;
                                     default:
                                         $statusClass = 'text-dark'; // Default text color

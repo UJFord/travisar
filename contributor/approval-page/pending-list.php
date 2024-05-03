@@ -24,7 +24,7 @@
         $offset = ($current_page - 1) * $items_per_page;
 
         // Count the total number of rows for pagination
-        $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action IN ('pending', 'updating')";
+        $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action IN ('Pending', 'Updating')";
         $total_rows_result = pg_query($conn, $total_rows_query);
         $total_rows = pg_fetch_row($total_rows_result)[0];
 
@@ -76,7 +76,7 @@
                 LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
                 LEFT JOIN status ON status.status_id = crop.status_id 
                 LEFT JOIN municipality on municipality.municipality_id = crop_location.municipality_id
-                WHERE 1=1 $search_condition $category_filter $municipality_filter $variety_filter $terrain_filter $brgy_filter AND status.action IN ('pending', 'updating') 
+                WHERE 1=1 $search_condition $category_filter $municipality_filter $variety_filter $terrain_filter $brgy_filter AND status.action IN ('Pending', 'Updating') 
                 ORDER BY crop.crop_id DESC 
                 LIMIT $items_per_page OFFSET $offset";
                 $query_run = pg_query($conn, $query);
@@ -135,14 +135,20 @@
                                 <?php
                                 $statusClass = '';
                                 switch ($row['action']) {
-                                    case 'approved':
-                                        $statusClass = 'text-success'; // Green text for approved
+                                    case 'Approved':
+                                        $statusClass = 'text-success'; // Green text for Approved
                                         break;
-                                    case 'rejected':
+                                    case 'Rejected':
                                         $statusClass = 'text-danger'; // Red text for rejected
                                         break;
-                                    case 'draft':
-                                        $statusClass = 'text-primary'; // Blue text for draft
+                                    case 'Draft':
+                                        $statusClass = 'text-primary'; // Blue text for Draft
+                                        break;
+                                    case 'Pending':
+                                        $statusClass = 'text-info'; // Cyan text for Pending
+                                        break;
+                                    case 'Updating':
+                                        $statusClass = 'text-warning'; //  text for Updating
                                         break;
                                     default:
                                         $statusClass = 'text-dark'; // Default text color
