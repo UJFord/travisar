@@ -30,7 +30,8 @@ require "../../functions/functions.php";
     <link rel="stylesheet" href="../css/crop-list.css">
     <!-- script for moment js -->
     <script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
-
+    <!-- script for the window alert -->
+    <script src="../../js/window.js"></script>
     <!-- script for access control -->
     <script src="../../js/access-control.js"></script>
 
