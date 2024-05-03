@@ -1,4 +1,4 @@
-<div id="crop-list-table" class="rounded border overflow-y-auto">
+<div id="crop-list-table" class="rounded border overflow-y-auto d-none">
     <table class="table table-hover table-borderless bg-transparent m-0">
         <thead>
             <tr class="border-bottom">
