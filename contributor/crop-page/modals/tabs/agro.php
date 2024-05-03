@@ -4,7 +4,7 @@
         <!-- pest resistance -->
         <h6 class="fw-semibold mt-4 mb-3">Pest Resistance</h6>
         <div class="row mb-2">
-            <div class="col-4">
+            <div class="col-4 mb-3">
                 <?php
                 // get the data of category from DB
                 $query = "SELECT * FROM pest_resistance ORDER BY pest_name ASC";
@@ -24,15 +24,15 @@
                         // Check if the checkbox count has reached the limit
                         if ($checkbox_count >= $checkbox_limit) {
                             // Reset the checkbox count and close the current column
-                            echo '</div><div class="col-4">';
+                            echo '</div><div class="col-4 mb-3">';
                             $checkbox_count = 0;
                         }
 
                         // Display the checkbox and label
                         echo '<div class="form-check">
-                    <input class="form-check-input" type="checkbox" name="pest_resistance[]" id="pest_resistance_' . $pest_resistance_id . '" value="' . $pest_resistance_id . '">
-                    <label class="form-check-label small-font" for="pest_resistance_' . $pest_resistance_id . '">' . $pest_name . '</label>
-                </div>';
+                                <input class="form-check-input" type="checkbox" name="pest_resistance[]" id="pest_resistance_' . $pest_resistance_id . '" value="' . $pest_resistance_id . '">
+                                <label class="form-check-label small-font" for="pest_resistance_' . $pest_resistance_id . '">' . $pest_name . '</label>
+                            </div>';
 
                         // Increment the checkbox count
                         $checkbox_count++;

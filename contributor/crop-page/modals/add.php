@@ -168,68 +168,8 @@
 
 <!-- for submission -->
 <script>
-    document.getElementById('form-panel-add').addEventListener('submit', function(event) {
-        // Get the selected category
-        var selectedCategory = document.getElementById('Category').value;
-        var cornMorph = document.getElementById('cornMorph');
-        var riceMorph = document.getElementById('riceMorph');
-        var rootCropMorph = document.getElementById('root_cropMorph');
-
-        // Disable inputs based on the selected category
-        if (selectedCategory !== '4') {
-            disableInputs(cornMorph);
-        }
-
-        if (selectedCategory !== '1') {
-            disableInputs(riceMorph);
-        }
-
-        if (selectedCategory !== '2') {
-            disableInputs(rootCropMorph);
-        }
-
-        // Check if the form is being submitted as a draft
-        if (event.submitter.name === 'draft') {
-            // console.log('Submit na draft');
-            event.target.setAttribute('name', 'draft');
-            submitForm();
-        } else {
-            // Validate the form if not submitted as a draft
-            if (validateForm()) {
-                // If validation succeeds, submit the form
-                submitForm();
-            }
-        }
-    });
-
-    // Function to submit the form and refresh notifications
-    function submitForm() {
-        // Get the form reference
-        var form = document.getElementById('form-panel-add');
-        // Trigger the form submission
-        if (form) {
-            // Perform AJAX submission or other necessary actions
-            $.ajax({
-                url: "modals/crud-code/code.php",
-                method: "POST",
-                data: new FormData(form),
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function(data) {
-                    console.log(data);
-                    // Reset the form
-                    form.reset();
-                    // Reload unseen notifications
-                    load_unseen_notification();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error("Form submission error:", textStatus, errorThrown);
-                    // Handle error if needed
-                }
-            });
-        }
-    }
+    var firstErrorElement = null;
+    var currentTab = 'gen';
 
     // Function to validate input
     function validateForm() {
@@ -242,7 +182,6 @@
         var barangay = document.forms["Form"]["barangay"].value;
 
         var isValid = true;
-        var firstErrorElement = null;
 
         // Check if the required fields are not empty
         if (categoryID === "" || categoryID === null) {
@@ -333,21 +272,89 @@
         if (firstErrorElement) {
             firstErrorElement.focus();
             event.preventDefault(); // Prevent the form from submitting by default
+            // Switch back to the tab with the error
+            switchTab(currentTab);
         }
 
         return isValid;
     }
 
-    // Prevent tab switching when there are validation errors
-    var tabPane = document.getElementById('myTab');
-    tabPane.addEventListener('show.bs.tab', function(event) {
-        if (!validateForm()) {
-            // document.getElementById('message-error').innerHTML = "<div class='error text-center' style='color:red;'>To switch tab fill up required fields</div>";
-            event.preventDefault();
+    document.getElementById('form-panel-add').addEventListener('submit', function(event) {
+        // Reset the first error element before validation
+        firstErrorElement = null;
+
+        // Get the selected category
+        var selectedCategory = document.getElementById('Category').value;
+        var cornMorph = document.getElementById('cornMorph');
+        var riceMorph = document.getElementById('riceMorph');
+        var rootCropMorph = document.getElementById('root_cropMorph');
+
+        // Disable inputs based on the selected category
+        if (selectedCategory !== '4') {
+            disableInputs(cornMorph);
+        }
+
+        if (selectedCategory !== '1') {
+            disableInputs(riceMorph);
+        }
+
+        if (selectedCategory !== '2') {
+            disableInputs(rootCropMorph);
+        }
+
+        // Check if the form is being submitted as a draft
+        if (event.submitter.name === 'draft') {
+            // console.log('Submit na draft');
+            event.target.setAttribute('name', 'draft');
+            submitForm();
         } else {
-            // document.getElementById('message-error').innerHTML = "";
+            // Validate the form if not submitted as a draft
+            if (validateForm()) {
+                // If validation succeeds, submit the form
+                submitForm();
+            }
         }
     });
+
+    // Function to submit the form and refresh notifications
+    function submitForm() {
+        // Get the form reference
+        var form = document.getElementById('form-panel-add');
+        // Trigger the form submission
+        if (form) {
+            // Perform AJAX submission or other necessary actions
+            $.ajax({
+                url: "modals/crud-code/code.php",
+                method: "POST",
+                data: new FormData(form),
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data);
+                    // Reset the form
+                    form.reset();
+                    // Reload unseen notifications
+                    load_unseen_notification();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Form submission error:", textStatus, errorThrown);
+                    // Handle error if needed
+                }
+            });
+        }
+    }
+
+    // Prevent tab switching when there are validation errors
+    // var tabPane = document.getElementById('myTab');
+    // tabPane.addEventListener('show.bs.tab', function(event) {
+    //     if (!validateForm()) {
+    //         // document.getElementById('message-error').innerHTML = "<div class='error text-center' style='color:red;'>To switch tab fill up required fields</div>";
+    //         event.preventDefault();
+    //     } else {
+    //         // document.getElementById('message-error').innerHTML = "";
+    //     }
+    // });
 
     function disableInputs(container) {
         var inputs = container.getElementsByTagName('input');
@@ -361,6 +368,8 @@
     function switchTab(tabName) {
         // prevent submitting the form
         event.preventDefault();
+        // Set the currentTab to the tabName
+        currentTab = tabName;
 
         // Click the tab with id 'gen-tab'
         document.getElementById(tabName + '-tab').click();
