@@ -149,9 +149,9 @@ require "../../functions/functions.php";
                                             All
                                         </label>
                                     </th>
-                                    <th class="col text-dark-emphasis small-font" scope="col">Province</th>
-                                    <th class="col text-dark-emphasis small-font" scope="col">Municipality</th>
-                                    <th class="col-3 small-font text-dark-emphasis text-center">Date Added</th>
+                                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="province">Province</th>
+                                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="municipality">Municipality</th>
+                                    <th class="col-3 small-font text-dark-emphasis text-center" data-sort="date">Date Added</th>
                                     <th class="col-3 small-font text-dark-emphasis text-center">Action</th>
                                     <!-- <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th> -->
                                 </tr>
@@ -179,18 +179,18 @@ require "../../functions/functions.php";
 
                                             <input type="hidden" name="municipality_id" value="<?= $row['municipality_id']; ?>">
 
-                                            <td>
+                                            <td data-col="province">
                                                 <!-- Province name -->
                                                 <h6><?= $row['province_name']; ?></h6>
                                             </td>
 
-                                            <td>
+                                            <td data-col="municipality">
                                                 <!-- Municipality name -->
                                                 <a href=""><?= $row['municipality_name']; ?></a>
                                             </td>
 
                                             <!-- date added -->
-                                            <td class="small-font text-center text-secondary fw-normal">
+                                            <td data-col="date" class="small-font text-center text-secondary fw-normal">
                                                 <?= $formatted_date; ?>
                                             </td>
 
@@ -408,6 +408,44 @@ require "../../functions/functions.php";
             setupModalEventListenersEdit();
         });
     </script>
+
+    <!-- Add a click event listener to each table header for sorting -->
+<script>
+    $(document).ready(function() {
+        $('th[data-sort]').on('click', function() {
+            var $th = $(this);
+            var column = $th.data('sort');
+            var direction = $th.hasClass('asc') ? 'desc' : 'asc';
+
+            // Remove asc/desc classes from all headers
+            $('th[data-sort]').removeClass('asc desc');
+
+            // Add asc/desc class to clicked header
+            $th.addClass(direction);
+
+            // Sort the table
+            sortTable(column, direction);
+        });
+    });
+
+    function sortTable(column, direction) {
+        var $tbody = $('tbody');
+        var $rows = $tbody.find('tr').toArray();
+
+        $rows.sort(function(a, b) {
+            var valA = $(a).find('td[data-col="' + column + '"]').text().toUpperCase();
+            var valB = $(b).find('td[data-col="' + column + '"]').text().toUpperCase();
+
+            if (direction === 'asc') {
+                return valA.localeCompare(valB);
+            } else {
+                return valB.localeCompare(valA);
+            }
+        });
+
+        $tbody.empty().append($rows);
+    }
+</script>
 </body>
 <!-- 
     to check if the user is logged in and has a rank of Encoder

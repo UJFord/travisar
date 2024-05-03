@@ -141,9 +141,9 @@ require "../../functions/functions.php";
                                             All
                                         </label>
                                     </th>
-                                    <th class="col text-dark-emphasis small-font" scope="col">Municipality</th>
-                                    <th class="col text-dark-emphasis small-font" scope="col">Barangay</th>
-                                    <th class="col-3 text-dark-emphasis text-center small-font" scope="col">Date Added</th>
+                                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="municipality">Municipality</th>
+                                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="barangay">Barangay</th>
+                                    <th class="col-3 text-dark-emphasis text-center small-font" scope="col" data-sort="date">Date Added</th>
                                     <th class="col-3 text-dark-emphasis text-center small-font admin-only" scope="col">Action</th>
                                     <!-- <th class="col-1 text-dark-emphasis text-end" scope="col"><i class="fa-solid fa-ellipsis-vertical btn"></i></th> -->
                                 </tr>
@@ -168,16 +168,16 @@ require "../../functions/functions.php";
                                             <!-- checkbox -->
                                             <th scope="row"><input class="row-checkbox form-check-input" type="checkbox"></th>
                                             <input type="hidden" name="barangay_id" value="<?= $row['barangay_id']; ?>">
-                                            <td>
+                                            <td data-col="municipality">
                                                 <!-- Municipality name -->
                                                 <h6><?= $row['municipality_name']; ?></h6>
                                             </td>
-                                            <td>
+                                            <td data-col="barangay">
                                                 <!-- Barangay name -->
                                                 <a href=""><?= $row['barangay_name']; ?></a>
                                             </td>
                                             <!-- date added -->
-                                            <td class="small-font text-center text-secondary fw-normal">
+                                            <td data-col="date" class="small-font text-center text-secondary fw-normal">
                                                 <?= $formatted_date ?>
                                             </td>
                                             <!-- Action -->
@@ -420,6 +420,44 @@ require "../../functions/functions.php";
             // Initialize event listener
             setupModalEventListenersEdit();
         });
+    </script>
+
+    <!-- Add a click event listener to each table header for sorting -->
+    <script>
+        $(document).ready(function() {
+            $('th[data-sort]').on('click', function() {
+                var $th = $(this);
+                var column = $th.data('sort');
+                var direction = $th.hasClass('asc') ? 'desc' : 'asc';
+
+                // Remove asc/desc classes from all headers
+                $('th[data-sort]').removeClass('asc desc');
+
+                // Add asc/desc class to clicked header
+                $th.addClass(direction);
+
+                // Sort the table
+                sortTable(column, direction);
+            });
+        });
+
+        function sortTable(column, direction) {
+            var $tbody = $('tbody');
+            var $rows = $tbody.find('tr').toArray();
+
+            $rows.sort(function(a, b) {
+                var valA = $(a).find('td[data-col="' + column + '"]').text().toUpperCase();
+                var valB = $(b).find('td[data-col="' + column + '"]').text().toUpperCase();
+
+                if (direction === 'asc') {
+                    return valA.localeCompare(valB);
+                } else {
+                    return valB.localeCompare(valA);
+                }
+            });
+
+            $tbody.empty().append($rows);
+        }
     </script>
 </body>
 
