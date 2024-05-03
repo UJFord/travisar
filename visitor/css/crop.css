@@ -37,10 +37,26 @@
 }
 
 /* LIST */
-/* TABLE */
 #crop-list-container{
     max-height: 75vh;
 }
 #crop-list-table, #crop-list-grid{
     max-height: 100%;
+}
+#crop-list-map{
+    height: 75vh;
+}
+/* TABLE */
+/* GRID */
+#crop-list-grid{
+    cursor: pointer;
+}
+    #crop-list-grid .card:hover{
+        box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
+    }
+/* MAP */
+#map-toggler{
+    width: 10rem;
+    left: 50%;
+    transform: translateX(-50%);
 }

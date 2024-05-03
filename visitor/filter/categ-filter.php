@@ -43,9 +43,9 @@ switch ($current_page_path) {
 
             <!-- view type -->
             <div class="col-1 d-flex justify-content-center align-items-center">
-                <button class="btn btn-light border m-2 px-2 py-1  d-flex flex-row " type="button">
-                    <i class="bi bi-grid-fill text-primary-emphasis"></i>
-                    <div class="fw-semibold"></div>
+                <button id="view-type-button" class="btn btn-light border m-2 px-2 py-1  d-flex flex-row " type="button">
+                    <i class="view-type-icon bi bi-list-ul fw-bolder text-primary-emphasis"></i>
+                    <i class="view-type-icon bi bi-grid-fill text-primary-emphasis d-none"></i>
                 </button>
             </div>
 

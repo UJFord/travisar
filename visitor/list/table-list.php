@@ -1,4 +1,4 @@
-<div id="crop-list-table" class="rounded border overflow-y-auto d-none">
+<div id="crop-list-table" class="rounded border overflow-y-auto">
     <table class="table table-hover table-borderless bg-transparent m-0">
         <thead>
             <tr class="border-bottom">
@@ -10,74 +10,39 @@
         </thead>
         <tbody id="crop-list-tbody" class="table-light">
 
-            <tr data-href="view.php">
-                <td class="">Corn</td>
-                <td class="fw-bolder">Sinandomeng</td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
+            <tr latlng="5.937518, 125.044659" data-href="view.php">
+                <td class="category">Corn</td>
+                <td class="fw-bolder variety">RC-160</td>
+                <td class="addr"><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
+                <td class="terrain"><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
             </tr>
 
-            <tr>
-                <td class="">Corn</td>
-                <td class="fw-bolder">Sinandomeng</td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
+            <tr latlng="6.130742, 125.397781" data-href="view.php">
+                <td class="category">Corn</td>
+                <td class="fw-bolder variety">Sinandomeng</td>
+                <td class="addr"><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
+                <td class="terrain"><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
             </tr>
 
-            <tr>
-                <td class="">Corn</td>
-                <td class="fw-bolder">Sinandomeng</td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
+            <tr latlng="6.064966, 124.818279" data-href="view.php">
+                <td class="category">Corn</td>
+                <td class="fw-bolder variety">Sinandomeng</td>
+                <td class="addr"><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
+                <td class="terrain"><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
             </tr>
 
-            <tr>
-                <td class="">Corn</td>
-                <td class="fw-bolder">Sinandomeng</td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
+            <tr latlng="5.954523, 125.285354" data-href="view.php">
+                <td class="category">Corn</td>
+                <td class="fw-bolder variety">Sinandomeng</td>
+                <td class="addr"><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
+                <td class="terrain"><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
             </tr>
 
-            <tr>
-                <td class="">Corn</td>
-                <td class="fw-bolder">Sinandomeng</td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
-            </tr>
-
-            <tr>
-                <td class="">Corn</td>
-                <td class="fw-bolder">Sinandomeng</td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
-            </tr>
-
-            <tr>
-                <td class="">Corn</td>
-                <td class="fw-bolder">Sinandomeng</td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
-            </tr>
-
-            <tr>
-                <td class="">Corn</td>
-                <td class="fw-bolder">Sinandomeng</td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
-            </tr>
-
-            <tr>
-                <td class="">Corn</td>
-                <td class="fw-bolder">Sinandomeng</td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
-            </tr>
-
-            <tr>
-                <td class="">Corn</td>
-                <td class="fw-bolder">Sinandomeng</td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
-                <td class=""><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
+            <tr latlng="6.145762, 125.276245" data-href="view.php">
+                <td class="category">Corn</td>
+                <td class="fw-bolder variety">Sinandomeng</td>
+                <td class="addr"><span class="d-block text-truncate" style="max-width: 300px;">Purok Katangawan, Poblacion, Alabel</span></td>
+                <td class="terrain"><span class="d-block text-truncate" style="max-width: 300px;">Flat</td>
             </tr>
 
         </tbody>

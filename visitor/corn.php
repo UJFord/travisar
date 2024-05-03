@@ -25,7 +25,7 @@
     <link rel="stylesheet" href="css/crop.css">
 </head>
 
-<body class="bg-light vh-100">
+<body class="bg-light vh-100 pb-5">
     <!-- NAVBAR -->
     <?php require "../nav/nav.php" ?>
 
@@ -42,11 +42,14 @@
             <div id="crop-list-container" class="col">
 
                 <!-- table -->
-                <?php require "list/table-list.php"?>
+                <?php require "list/table-list.php" ?>
 
                 <!-- grid -->
-                <div id="crop-list-grid" class="overflow-y-auto d-none">
+                <?php require "list/grid-list.php" ?>
 
+                <!-- map -->
+                <div id="crop-list-map" class="overflow-y-auto row d-none">
+                    <div id="mapList" class="col rounded"></div>
                 </div>
 
             </div>
@@ -74,6 +77,12 @@
         </div>
 
     </div>
+
+    <!-- map toggler -->
+    <button role="button" id="map-toggler" class="fixed-bottom rounded-pill bg-dark bg-gradient py-2 mb-5 text-light d-flex justify-content-center align-item-center  link-underline link-underline-opacity-0">
+        <span class="map-toggle"><i class="fa-solid fa-map me-2"></i>Map View</span>
+        <span class="list-toggle d-none"><i class="fa-solid fa-list me-2"></i>List View</span>
+    </button>
 
 
     <!-- SCRIPT -->
