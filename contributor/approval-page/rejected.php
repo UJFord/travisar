@@ -145,10 +145,28 @@ require "../../functions/functions.php";
         }
     </script>
 
-    <!-- Script nf or the map for edit tab -->
+    <!-- Script for the map for edit tab -->
     <script>
-        // initializnig map
-        const mapEdit = L.map('mapEdit').setView([6.403013, 124.725062], 9); //starting position
+        // Define the bounds of your map
+        const southWestEdit = L.latLng(5, 123.0); // Lower left corner of the bounds
+        const northEastEdit = L.latLng(7, 127.0); // Upper right corner of the bounds
+        const boundsEdit = L.latLngBounds(southWestEdit, northEastEdit);
+
+        // Initialize the map with the bounds
+        const mapEdit = L.map('mapEdit', {
+            maxBounds: boundsEdit, // Restrict map panning to these bounds
+            maxBoundsViscosity: 0.75, // Elastic bounce-back when panning outside bounds
+            // Set the initial view within the bounds
+            center: [6.403013, 124.725062],
+            zoom: 9
+        });
+
+        // send resize event to browser to load map tiles
+        $(document).ready(function() {
+            setInterval(function() {
+                window.dispatchEvent(new Event("resize"));
+            }, 2000);
+        });
 
         // Declare marker globally
         let markerEdit = null;
@@ -162,6 +180,7 @@ require "../../functions/functions.php";
             zoomOffset: -1,
             // minzoom
             minZoom: 9,
+            edgeBufferTiles: 5,
             // copyright claim, because openstreetmaps require them
             attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
             // i dont know what this does
@@ -172,50 +191,50 @@ require "../../functions/functions.php";
         let coordInputEdit = document.querySelector('#coordEdit');
 
         // managing map click
-        function onMapClickEdit(e) {
-            // Extract latitude and longitude from the LatLng object
-            const latitude = e.latlng.lat;
-            const longitude = e.latlng.lng;
+        // function onMapClickEdit(e) {
+        //     // Extract latitude and longitude from the LatLng object
+        //     const latitude = e.latlng.lat;
+        //     const longitude = e.latlng.lng;
 
-            // Join the coordinates as a comma-separated string
-            const formattedCoords = latitude.toFixed(6) + ", " + longitude.toFixed(6);
+        //     // Join the coordinates as a comma-separated string
+        //     const formattedCoords = latitude.toFixed(6) + ", " + longitude.toFixed(6);
 
-            // Set the input value to the formatted coordinates
-            coordInputEdit.value = formattedCoords;
+        //     // Set the input value to the formatted coordinates
+        //     coordInputEdit.value = formattedCoords;
 
-            // Update the map and pin marker with the clicked coordinates
-            updateMapAndPinEdit(latitude, longitude);
+        //     // Update the map and pin marker with the clicked coordinates
+        //     updateMapAndPinEdit(latitude, longitude);
 
-            // fetch data
-            console.log(latitude);
-            console.log(longitude);
-            let details = fetchDataEdit(latitude, longitude)
-                .then(details => {
-                    // set neighbourhood
-                    // neighbourhoodValueEdit.value = details.neighbourhood
-                    // set municipality
-                    // municipalitySelect.value = details.town;
-                    // set barangay
-                    // barangaySelect.value = details.village;
+        //     // fetch data
+        //     console.log(latitude);
+        //     console.log(longitude);
+        //     let details = fetchDataEdit(latitude, longitude)
+        //         .then(details => {
+        //             // set neighbourhood
+        //             // neighbourhoodValueEdit.value = details.neighbourhood
+        //             // set municipality
+        //             // municipalitySelect.value = details.town;
+        //             // set barangay
+        //             // barangaySelect.value = details.village;
 
-                    console.log('Country:', details.country);
-                    console.log('State:', details.state);
-                    console.log('County:', details.county);
-                    console.log('City:', details.city);
-                    console.log('Town:', details.town);
-                    console.log('Borough:', details.borough);
-                    console.log('Village:', details.village);
-                    console.log('Suburb:', details.suburb);
-                    // console.log('Neighbourhood:', details.neighbourhood);
-                    // console.log('Neighbourhood:', details.neighbourhood);
-                    console.log('Settlement:', details.settlement);
-                    console.log('Major Streets:', details.majorStreets);
-                    console.log('Major and Minor Streets:', details.majorAndMinorStreets);
-                    console.log('Building:', details.building);
-                });
-        }
+        //             console.log('Country:', details.country);
+        //             console.log('State:', details.state);
+        //             console.log('County:', details.county);
+        //             console.log('City:', details.city);
+        //             console.log('Town:', details.town);
+        //             console.log('Borough:', details.borough);
+        //             console.log('Village:', details.village);
+        //             console.log('Suburb:', details.suburb);
+        //             // console.log('Neighbourhood:', details.neighbourhood);
+        //             // console.log('Neighbourhood:', details.neighbourhood);
+        //             console.log('Settlement:', details.settlement);
+        //             console.log('Major Streets:', details.majorStreets);
+        //             console.log('Major and Minor Streets:', details.majorAndMinorStreets);
+        //             console.log('Building:', details.building);
+        //         });
+        // }
 
-        mapEdit.on('click', onMapClickEdit);
+        // mapEdit.on('click', onMapClickEdit);
 
         function updateMapAndPinEdit(latitude, longitude) {
             // Remove potential existing marker
@@ -243,7 +262,7 @@ require "../../functions/functions.php";
         }
 
         // Input handling function
-        function handleInputChange() {
+        function handleInputChangeEdit() {
             const inputValue = coordInputEdit.value.trim(); // Trim leading/trailing whitespace
 
             // Ensure comma separation, handle different input formats
@@ -266,7 +285,7 @@ require "../../functions/functions.php";
 
         // Marker initialization (adjust icon as needed)
         const iconEdit = L.icon({
-            iconUrl: 'img/location-pin-svgrepo-com.svg',
+            iconUrl: '../img/location-pin-svgrepo-com.svg',
             shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/images/marker-shadow.png',
             iconSize: [25, 41],
             iconAnchor: [12, 41],
@@ -275,7 +294,7 @@ require "../../functions/functions.php";
         });
 
         // Event listener for input changes
-        coordInputEdit.addEventListener('input', handleInputChange);
+        coordInputEdit.addEventListener('input', handleInputChangeEdit);
 
         // fetch data from openstreetmap nominatim
         function fetchDataEdit(lat, lng) {
@@ -321,6 +340,50 @@ require "../../functions/functions.php";
                     return null;
                 });
         }
+
+        // function to pin location from input by roger bairoy
+        document.addEventListener("DOMContentLoaded", function() {
+            var typingTimer; // Timer identifier
+            var doneTypingInterval = 1000; // Time in milliseconds (5 seconds)
+
+            // Function to update the map marker based on input location
+            function updateMapEdit(locationEdit) {
+                // Parse the location string to extract latitude and longitude
+                var coordinates = locationEdit.split(',').map(function(coord) {
+                    return parseFloat(coord.trim());
+                });
+
+                // Check if coordinates are valid
+                if (coordinates.length === 2 && !isNaN(coordinates[0]) && !isNaN(coordinates[1])) {
+                    var lat = coordinates[0];
+                    var lng = coordinates[1];
+
+                    // Remove existing marker if any
+                    if (typeof marker !== 'undefined') {
+                        mapEdit.removeLayer(markerEdit);
+                    }
+
+                    // Create a new marker at the specified coordinates and add it to the mapEdit
+                    markerEdit = L.marker([lat, lng]).addTo(mapEdit);
+
+                    // Set the mapEdit view to the marker's location
+                    mapEdit.setView([lat, lng], 20); // Zoom level 12
+                } else {
+                    // Invalid coordinates
+                    console.error('Invalid location format');
+                }
+            }
+
+            // Event listener for location input field
+            document.getElementById('coordEdit').addEventListener('input', function() {
+                clearTimeout(typingTimer);
+                var locationEdit = this.value;
+                typingTimer = setTimeout(function() {
+                    // Update the map marker based on the input location after 5 seconds of inactivity
+                    updateMapEdit(locationEdit);
+                }, doneTypingInterval);
+            });
+        });
     </script>
     <!-- allowing scrollspy in the modal -->
     <script>
