@@ -41,6 +41,6 @@
 #crop-list-container{
     max-height: 75vh;
 }
-#crop-list-table{
+#crop-list-table, #crop-list-grid{
     max-height: 100%;
 }
