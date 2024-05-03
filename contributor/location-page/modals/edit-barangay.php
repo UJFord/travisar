@@ -20,7 +20,7 @@
                             <!-- municipality AND barangay -->
                             <div class="row mb-3 location-row">
                                 <!-- municipality name -->
-                                <div class="col-5">
+                                <div class="col">
                                     <label for="municipality-Name-Edit" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
                                     <select name="municipality_id" id="municipality-Name-Edit" class="form-select">
                                         <?php
@@ -47,10 +47,17 @@
                                 </div>
 
                                 <!-- barangay name -->
-                                <div class="col-5">
-                                    <label for="barangay-Name" class="form-label small-font">Sitio Name<span style="color: red;">*</span></label>
+                                <div class="col">
+                                    <label for="barangay-Name" class="form-label small-font">Barangay Name<span style="color: red;">*</span></label>
                                     <input type="text" id="barangay-Name" name="barangay_name" class="form-control">
                                 </div>
+
+                                <!-- Coordinates -->
+                                <div class="col">
+                                    <label for="Coordinates" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
+                                    <input type="text" id="Coordinates" name="coordinates" class="form-control">
+                                </div>
+                                <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (<span class="fw-bold">latitude , longitude - 5.7600, 125.3466</span>)</div>
                             </div>
                         </div>
                     </div>
@@ -133,4 +140,14 @@
         // Click the tab with id 'gen-tab'
         document.getElementById(tabName + '-tab').click();
     }
+</script>
+
+<!-- script for limiting the input in coordinates just to numbers, commas, periods, and spaces -->
+<script>
+    document.getElementById('Coordinates').addEventListener('input', function(event) {
+        const regex = /^[0-9.,\s-]*$/; // Updated regex to allow "-" sign
+        if (!regex.test(event.target.value)) {
+            event.target.value = event.target.value.replace(/[^0-9.,\s-]/g, '');
+        }
+    });
 </script>

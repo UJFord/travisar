@@ -143,3 +143,13 @@
         document.getElementById(tabName + '-tab').click();
     }
 </script>
+
+<!-- script for limiting the input in coordinates just to numbers, commas, periods, and spaces -->
+<script>
+    document.getElementById('Coordinates').addEventListener('input', function(event) {
+        const regex = /^[0-9.,\s-]*$/; // Updated regex to allow "-" sign
+        if (!regex.test(event.target.value)) {
+            event.target.value = event.target.value.replace(/[^0-9.,\s-]/g, '');
+        }
+    });
+</script>

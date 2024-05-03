@@ -16,14 +16,14 @@
             <form id="form-panel" name="Form" action="code/code-brgy.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
                     <div>
-                        <button type="button" id="add-row-brgy" class="btn btn-secondary" style="margin-left: 10px; background-color: var(--mainBrand);">Add</button>
+                        <button type="button" id="add-row-brgy" class="btn btn-secondary mb-3" style="margin-left: 10px; background-color: var(--mainBrand);">Add</button>
                     </div>
                     <div class="container">
                         <div id="locationDataBrgy">
                             <!-- Municipality AND Barangay -->
                             <div class="row mb-3 location-brgy">
                                 <!-- municipality name -->
-                                <div class="col-5">
+                                <div class="col">
                                     <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
                                     <select name="municipality_name_1" id="municipality-Name" class="form-select">
                                         <?php
@@ -51,16 +51,18 @@
 
 
                                 <!-- barangay name -->
-                                <div class="col-5">
+                                <div class="col">
                                     <label for="barangay-Name" class="form-label small-font">Barangay Name<span style="color: red;">*</span></label>
                                     <input type="text" name="barangay_name_1" class="form-control">
                                 </div>
 
                                 <!-- Coordinates -->
-                                <div class="col-5">
-                                    <label for="barangay-coordinates" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
-                                    <input type="text" name="barangay_coordinates_1" class="form-control">
+                                <div class="col">
+                                    <label for="coordInput" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
+                                    <input type="text" id="coordInput" name="barangay_coordinates_1" class="form-control">
                                 </div>
+                                <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (<span class="fw-bold">latitude , longitude - 5.7600, 125.3466</span>)</div>
+
                             </div>
                         </div>
                     </div>
@@ -94,7 +96,7 @@
             const newRow = document.createElement('div');
             newRow.classList.add('row', 'mb-3', 'location-brgy');
             newRow.innerHTML = `
-                <div class="col-5">
+                <div class="col">
                     <label for="Municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
                     <select name="municipality_name_${rowCounter}" class="form-select">
                             <?php
@@ -119,12 +121,12 @@
                             ?>
                     </select>
                 </div>
-                <div class="col-5">
+                <div class="col">
                     <label for="Barangay-Name" class="form-label small-font">Barangay Name<span style="color: red;">*</span></label>
                     <input type="text" name="barangay_name_${rowCounter}" class="form-control">
                 </div>
                 <!-- Coordinates -->
-                <div class="col-5">
+                <div class="col">
                     <label for="barangay-coordinates" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
                     <input type="text" name="barangay_coordinates_${rowCounter}" class="form-control">
                 </div>
@@ -209,4 +211,14 @@
         // Click the tab with id 'gen-tab'
         document.getElementById(tabName + '-tab').click();
     }
+</script>
+
+<!-- script for limiting the input in coordinates just to numbers, commas, periods, and spaces -->
+<script>
+    document.getElementById('coordInput').addEventListener('input', function(event) {
+        const regex = /^[0-9.,\s-]*$/; // Updated regex to allow "-" sign
+        if (!regex.test(event.target.value)) {
+            event.target.value = event.target.value.replace(/[^0-9.,\s-]/g, '');
+        }
+    });
 </script>
