@@ -180,7 +180,7 @@
                                         $statusClass = 'text-primary'; // Blue text for Draft
                                         break;
                                     case 'Pending':
-                                        $statusClass = 'text-info'; // Cyan text for Pending
+                                        $statusClass = 'text-warning'; // Cyan text for Pending
                                         break;
                                     case 'Updating':
                                         $statusClass = 'text-light'; //  text for Updating

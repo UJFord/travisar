@@ -651,7 +651,7 @@
                         // category_varietyID
                         $('#category_varietyID').val(value['category_variety_id']);
                         // unique_codeID
-                        $('#unique_codeID').val(value['unique_code_id']);
+                        $('#unique_codeID').val(value['unique_code']);
                         // current_crop_variety
                         $('#current_crop_variety').val(value['crop_variety']);
                         // currentUniqueCode

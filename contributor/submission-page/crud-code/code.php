@@ -2696,6 +2696,8 @@ if (isset($_POST['draft'])) {
     }
 }
 
+// var_dump($_POST);
+// die();
 if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
