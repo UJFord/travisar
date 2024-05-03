@@ -15,13 +15,13 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body">
-                Are you sure you want to close the window? Any unsaved changes will be lost.
+                Are you sure you want to close the window? If you don't want to lose your data save it as draft otherwise confirm.
             </div>
 
             <div class="modal-footer">
-                <button type="button" class="btn btn-danger" id="confirmCloseBtn">Close Tab</button>
-                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <button type="submit" id="confirmDraft" name="draft" class="btn btn-success">Save as Draft</button>
+                <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
+                <button type="button" class="btn btn-primary" id="confirmCloseBtn">Confirm</button>
             </div>
         </div>
     </div>
