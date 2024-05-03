@@ -136,6 +136,7 @@
         <div class="col-6">
             <label for="Category" class="form-label small-font">Crop Category<span class="text-danger ms-1">*</span></label>
             <select name="category_id" id="Category" class="form-select">
+                <option value="" selected disabled hidden>Select an option.</option>
                 <?php
                 // get the data of category from DB
                 $queryCategory = "SELECT * FROM category ORDER BY category_name ASC";
@@ -165,6 +166,7 @@
         <div class="col" id="category-Variety">
             <label for="categoryVariety" class="form-label small-font">Variety<span class="text-danger ms-1">*</span></label>
             <select name="category_variety_id" id="categoryVariety" class="form-select color-default-child">
+            <option value="" selected disabled hidden>Select an option.</option>
             </select>
             <div id="categoryVariety-error" class="invalid-feedback"></div>
         </div>
