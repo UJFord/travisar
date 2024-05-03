@@ -1,0 +1,21 @@
+.categ-card:hover{
+    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+}
+
+.categ-card-icon{
+    width: 1.5rem;
+}
+
+/* FILTER BAR */
+/* category links */
+.bar-filter-categ:hover{
+    border-bottom: 5px rgb(184, 184, 184) solid !important;
+}
+.bar-filter-categ:active{
+    background: #e7e7e7;
+}
+
+.categ-link-img{
+    width: 1.2rem;
+    object-fit: cover;
+}
