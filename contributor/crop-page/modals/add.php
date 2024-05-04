@@ -171,6 +171,8 @@
     var firstErrorElement = null;
     var currentTab = 'gen';
     var seedImage = document.getElementById('imageInputSeed');
+    var vegImage = document.getElementById('imageInputVegetative');
+    var reproImage = document.getElementById('imageInputReproductive');
 
     // Function to validate input
     function validateForm(event) {
@@ -269,28 +271,30 @@
             document.getElementById('barangay-error').innerText = "";
         }
 
-        // Check if the image size exceeds the limit (3MB) for all image inputs
-        // var imageInputs = document.querySelectorAll('input[type="file"]');
-        // imageInputs.forEach(function(input) {
-        //     if (input.files.length > 0 && input.files[0].size > 3 * 1024 * 1024) {
-        //         input.classList.add('is-invalid');
-        //         input.nextElementSibling.innerText = "Image size exceeds the limit of 3MB.";
-        //         isValid = false;
-        //         if (!firstErrorElement) {
-        //             firstErrorElement = input;
-        //         }
-        //     } else {
-        //         input.classList.remove('is-invalid');
-        //         input.nextElementSibling.innerText = "";
-        //     }
-        // });
-
-        // Check if the image size exceeds the limit (3MB) for the seed image
+        // Check if the image size exceeds the limit (5MB) for the seed image
         if (seedImage.files.length > 0) {
-            var isValidImage = validateImages();
-            if (!isValidImage) {
+            var isValidImageSeed = validateImagesSeed();
+            if (!isValidImageSeed) {
                 isValid = false;
                 firstErrorElement = document.getElementById('imageInputSeed');
+            }
+        }
+
+        // Check if the image size exceeds the limit (5MB) for the seed image
+        if (vegImage.files.length > 0) {
+            var isValidImageVeg = validateImagesVeg();
+            if (!isValidImageVeg) {
+                isValid = false;
+                firstErrorElement = document.getElementById('imageInputVegetative');
+            }
+        }
+
+        // Check if the image size exceeds the limit (5MB) for the seed image
+        if (reproImage.files.length > 0) {
+            var isValidImageRepro = validateImagesRepro();
+            if (!isValidImageRepro) {
+                isValid = false;
+                firstErrorElement = document.getElementById('imageInputReproductive');
             }
         }
 
@@ -306,16 +310,16 @@
     }
 
     // Validation function
-    function validateImages() {
+    function validateImagesSeed() {
         var isValid = true;
-        var inputElement = document.getElementById('imageInputSeed');
-        var files = inputElement.files;
+        var inputElementSeed = document.getElementById('imageInputSeed');
+        var files = inputElementSeed.files;
 
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            if (file.size > 5 * 1024 * 1024) {
-                inputElement.classList.add('is-invalid');
-                document.getElementById('imageInputSeed-error').innerText = "Image exceeds 5mb";
+            if (file.size > 3 * 1024 * 1024) {
+                inputElementSeed.classList.add('is-invalid');
+                document.getElementById('imageInputSeed-error').innerText = "Image must now exceed 5MB.";
                 isValid = false;
                 if (!firstErrorElement) {
                     firstErrorElement = document.getElementById('imageInputSeed');
@@ -324,8 +328,58 @@
         }
 
         if (isValid) {
-            inputElement.classList.remove('is-invalid');
+            inputElementSeed.classList.remove('is-invalid');
             document.getElementById('imageInputSeed-error').innerText = "";
+        }
+
+        return isValid;
+    }
+
+    function validateImagesVeg() {
+        var isValid = true;
+        var inputElementVeg = document.getElementById('imageInputVegetative');
+        var files = inputElementVeg.files;
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (file.size > 3 * 1024 * 1024) {
+                inputElementVeg.classList.add('is-invalid');
+                document.getElementById('imageInputVegetative-error').innerText = "Image must now exceed 5MB.";
+                isValid = false;
+                if (!firstErrorElement) {
+                    firstErrorElement = document.getElementById('imageInputVegetative');
+                }
+            }
+        }
+
+        if (isValid) {
+            inputElementVeg.classList.remove('is-invalid');
+            document.getElementById('imageInputVegetative-error').innerText = "";
+        }
+
+        return isValid;
+    }
+
+    function validateImagesRepro() {
+        var isValid = true;
+        var inputElementRepro = document.getElementById('imageInputReproductive');
+        var files = inputElementRepro.files;
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (file.size > 3 * 1024 * 1024) {
+                inputElementRepro.classList.add('is-invalid');
+                document.getElementById('imageInputReproductive-error').innerText = "Image must now exceed 5MB.";
+                isValid = false;
+                if (!firstErrorElement) {
+                    firstErrorElement = document.getElementById('imageInputReproductive');
+                }
+            }
+        }
+
+        if (isValid) {
+            inputElementRepro.classList.remove('is-invalid');
+            document.getElementById('imageInputReproductive-error').innerText = "";
         }
 
         return isValid;
