@@ -1,3 +1,9 @@
+<?php
+session_start();
+require "../functions/connections.php";
+require "../functions/functions.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +48,7 @@
             <div id="crop-list-container" class="col">
 
                 <!-- table -->
-                <?php require "list/table-list.php" ?>
+                <?php require "list/corn-table-list.php" ?>
 
                 <!-- grid -->
                 <?php require "list/grid-list.php" ?>
@@ -75,7 +81,8 @@
                 </ul>
             </nav>
         </div>
-
+        <!-- Add pagination links -->
+        <?php generatePaginationLinks($total_pages, $current_page, 'page'); ?>
     </div>
 
     <!-- map toggler -->
@@ -83,7 +90,6 @@
         <span class="map-toggle"><i class="fa-solid fa-map me-2"></i>Map View</span>
         <span class="list-toggle d-none"><i class="fa-solid fa-list me-2"></i>List View</span>
     </button>
-
 
     <!-- SCRIPT -->
     <!-- jquery -->

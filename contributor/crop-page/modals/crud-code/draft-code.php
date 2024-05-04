@@ -2190,6 +2190,8 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
     }
 }
 
+var_dump($_POST);
+die();
 if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
@@ -2687,7 +2689,7 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
         exit(0);
     } catch (Exception $e) {
         // message for error
-        $_SESSION['message'] = 'Crop not Saved';
+        $_SESSION['message'] = 'Crop not deleted';
         // Rollback the transaction if an error occurs
         pg_query($conn, "ROLLBACK");
         // Log the error message
