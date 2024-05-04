@@ -9,7 +9,7 @@
         <!-- HEADING -->
         <div class="tab_box d-flex justify-content-between">
             <!-- title -->
-            <h4 class="fw-semibold" style="font-size: 1.5rem;">My Crops</h4>
+            <h4 class="fw-semibold" style="font-size: 1.5rem;">My listings</h4>
             <!-- add button -->
             <div class="z-1 dropdown">
                 <!-- dropdown -->
@@ -189,7 +189,7 @@
                                         $statusClass = 'text-info'; // Cyan text for Pending
                                         break;
                                     case 'Updating':
-                                        $statusClass = 'text-light'; //  text for Updating
+                                        $statusClass = 'text-warning'; //  text for Updating
                                         break;
                                     default:
                                         $statusClass = 'text-dark'; // Default text color
@@ -407,3 +407,4 @@
         $tbody.empty().append($rows);
     }
 </script>
+

@@ -140,32 +140,36 @@
             </div>
         </div>
 
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="abiotic_other" id="abiotic_other_checkDraft" value="1">
-            <label class="form-check-label small-font" for="abiotic_other_checkDraft">Other</label>
-        </div>
-        <!-- Other -->
-        <div id="abiotic_other-Draft" class="row mt-3 mb-3">
-            <div class="col-12 mb-2">
-                <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
-                <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
-                <textarea name="abiotic_other_desc" id="abiotic_otherDraft" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
+        <!-- other abiotic -->
+        <div class="mb-4">
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="abiotic_other" id="abiotic_other_checkDraft" value="1">
+                <label class="form-check-label small-font" for="abiotic_other_checkDraft">Other</label>
+            </div>
+            <!-- Other -->
+            <div id="abiotic_other-Draft" class="row mt-3 mb-3">
+                <div class="col-12 mb-2">
+                    <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
+                    <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
+                    <textarea name="abiotic_other_desc" id="abiotic_otherDraft" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
+                </div>
             </div>
         </div>
+
     </div>
 
     <!-- STEP NAVIGATION without Sensory -->
     <div class="row" id="withoutSensory-Draft">
         <div class="col d-flex justify-content-between">
             <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('draft-more', this)"><i class="fa-solid fa-angles-left me-2"></i>Previous</button>
-            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('draft-cultural', this)">Next<i class="fa-solid fa-angles-right me-2"></i></button>
+            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('draft-cultural', this)">Next <i class="fa-solid fa-angles-right me-2"></i></button>
         </div>
     </div>
     <!-- STEP NAVIGATION with Sensory -->
     <div class="row" id="withSensory-Draft">
         <div class="col d-flex justify-content-between">
             <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('draft-sensory', this)"><i class="fa-solid fa-angles-left me-2"></i>Previous</button>
-            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('draft-cultural', this)">Next<i class="fa-solid fa-angles-right me-2"></i></button>
+            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('draft-cultural', this)">Next <i class="fa-solid fa-angles-right me-2"></i></button>
         </div>
     </div>
 </div>
@@ -176,7 +180,7 @@
         const pest_otherDraft = document.getElementById('pest-otherDraft');
 
         const abiotic_other_checkDraft = document.getElementById('abiotic_other_checkDraft');
-        const abiotic_otherDraft = document.getElementById('abiotic_otherDraft');
+        const abiotic_otherDraft = document.getElementById('abiotic_other-Draft');
 
         pest_other_checkDraft.addEventListener('change', function() {
             pest_otherDraft.style.display = this.checked ? 'block' : 'none';

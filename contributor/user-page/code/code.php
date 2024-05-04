@@ -70,6 +70,58 @@ if (isset($_POST['approve'])) {
     }
 }
 
+// var_dump($_POST);
+// die();
+// for verify delete
+if (isset($_POST['delete'])) {
+    $user_id = $_POST['user_id'];
+
+    $query = "DELETE FROM users WHERE user_id = $1";
+    $query_run = pg_query_params($conn, $query, array($user_id));
+
+    if ($query_run !== false) {
+        $affected_rows = pg_affected_rows($query_run);
+        if ($affected_rows > 0) {
+            $_SESSION['message'] = "User rejected";
+            header("location: ../verify-user.php");
+            exit; // Ensure that the script stops executing after the redirect header
+        } else {
+            $_SESSION['error'] = "User not found";
+            header("location: ../verify-user.php");
+            exit;
+        }
+    } else {
+        $_SESSION['error'] = "Error deleting user: " . pg_last_error($conn);
+        header("location: ../verify-user.php");
+        exit;
+    }
+}
+
+// for edit user delete
+if (isset($_POST['delete_user'])) {
+    $user_id = $_POST['user_id'];
+
+    $query = "DELETE FROM users WHERE user_id = $1";
+    $query_run = pg_query_params($conn, $query, array($user_id));
+
+    if ($query_run !== false) {
+        $affected_rows = pg_affected_rows($query_run);
+        if ($affected_rows > 0) {
+            $_SESSION['message'] = "User deleted";
+            header("location: ../verify-user.php");
+            exit; // Ensure that the script stops executing after the redirect header
+        } else {
+            $_SESSION['error'] = "User not found";
+            header("location: ../verify-user.php");
+            exit;
+        }
+    } else {
+        $_SESSION['error'] = "Error deleting user: " . pg_last_error($conn);
+        header("location: ../verify-user.php");
+        exit;
+    }
+}
+
 if (isset($_POST['click_edit_btn'])) {
     $user_id = $_POST['user_id'];
     $first_name = $_POST['first_nameEdit'];

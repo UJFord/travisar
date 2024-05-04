@@ -4,7 +4,7 @@
     }
 </style>
 <div class="col col-3" style="min-height: 615px; max-height:615px;">
-    <div class="d-flex flex-column align-items-start rounded border overflow-hidden overflow-y-scroll" style="min-height: 600px; max-height:600px;">
+    <div class="flex-column align-items-start rounded border overflow-hidden overflow-y-scroll" style="min-height: 600px; max-height:600px;">
 
         <!-- title -->
         <div class="border-bottom d-flex align-items-center w-100 py-1 px-3 bg-light">
@@ -20,8 +20,6 @@
             <div class="input-group">
                 <span class="input-group-text" id="filter-search"><i class="bi bi-search"></i></span>
                 <input type="text" id="searchInput" class="form-control small-font" placeholder="Search Crops" aria-label="Search" aria-describedby="filter-search">
-                <!-- Add a clear button -->
-                <button id="clearButton" class="btn btn-secondary" onclick="clearSearch()">Clear</button>
             </div>
         </div>
 
@@ -121,7 +119,7 @@
         <!-- all barangay -->
         <div class="pt-2 pb-1 px-3 w-100 border-bottom" id="barangay-div">
             <div id="brgy-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#brgy-filters" role="button" aria-expanded="true" aria-controls="brgy-filters">
-                <i id="brgyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1 rotate-chevron"></i>
+                <i id="brgyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">Barangays</a>
             </div>
             <div id="brgy-filters" class="collapse w-100 mb-2">
@@ -130,9 +128,13 @@
         </div>
 
         <!-- button to submit filter -->
-        <div class="d-flex py-3 px-3">
-            <div class="input-group">
+        <div class="py-3 px-3 row">
+            <div class="input-group col">
                 <button id="searchButton" class="btn btn-primary" onclick="applyFilters()">Filter</button>
+            </div>
+            <div class="col">
+                <!-- Add a clear button -->
+                <button id="clearButton" class="btn btn-secondary hidden" onclick="clearSearch()">Clear</button>
             </div>
         </div>
     </div>
@@ -259,6 +261,34 @@
             toggleVarietyFilterVisibility();
         });
     });
+
+    // Function to show or hide the clear button based on selected filters and search input
+    function toggleClearButtonVisibility() {
+        let clearButton = document.getElementById('clearButton');
+        let selectedCategoryCheckboxes = document.querySelectorAll('.crop-filter:checked');
+        let selectedMunicipalityCheckboxes = document.querySelectorAll('.municipality-filter:checked');
+        let selectedTerrainCheckboxes = document.querySelectorAll('.terrain-filter:checked');
+        let searchInput = document.getElementById('searchInput').value.trim();
+
+        if (selectedCategoryCheckboxes.length > 0 || selectedMunicipalityCheckboxes.length > 0 || selectedTerrainCheckboxes.length > 0 || searchInput !== '') {
+            // Show the clear button
+            clearButton.classList.remove('hidden');
+        } else {
+            // Hide the clear button
+            clearButton.classList.add('hidden');
+        }
+    }
+
+    // Add event listeners to category, municipality, and terrain checkboxes
+    document.querySelectorAll('.crop-filter, .municipality-filter, .terrain-filter').forEach(checkbox => {
+        checkbox.addEventListener('change', toggleClearButtonVisibility);
+    });
+
+    // Add event listener to search input
+    document.getElementById('searchInput').addEventListener('input', toggleClearButtonVisibility);
+
+    // Check if any filters or search input are already populated on page load
+    toggleClearButtonVisibility();
 
     // chevron toggler
     let cropToggler = document.querySelector('#crop-filter-dropdown-toggler');

@@ -170,9 +170,9 @@
                             <!-- Action -->
                             <td>
                                 <!-- View -->
-                                <a href="#" class="btn btn-primary me-1 view-item-modal-partners" data-toggle="modal" data-target="#dataModalView" data-id="<?= $row['user_id']; ?>">view</a>
+                                <a href="#" class="btn btn-primary small-font me-1 view-item-modal-partners" data-toggle="modal" data-target="#dataModalView" data-id="<?= $row['user_id']; ?>">view</a>
                                 <!-- edit -->
-                                <a href="#" class="btn btn-success btn-sm edit_data admin-only" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['user_id']; ?>">Edit</a>
+                                <a href="#" class="btn btn-success small-font edit_data admin-only" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['user_id']; ?>">Edit</a>
                                 <!-- delete -->
                                 <!-- <button type="submit" name="delete" class="btn btn-danger"><i class="fa-solid fa-trash"></i></button> -->
                             </td>

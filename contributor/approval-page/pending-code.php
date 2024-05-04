@@ -1607,7 +1607,7 @@ if (isset($_POST['update'])) {
             }
         }
         // Commit the transaction if everything is successful
-        $_SESSION['message'] = "Crop Update Approved";
+        $_SESSION['message'] = "Update Approved";
         pg_query($conn, "COMMIT");
         header("Location: pending.php");
         exit(0);

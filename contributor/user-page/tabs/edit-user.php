@@ -107,16 +107,18 @@
                                 </div>
                             </div>
                         </div>
+
+                        <?php require "tabs/user-confirm.php"; ?>
                     </div>
                 </div>
 
                 <!-- footer -->
-                <div class="modal-footer d-flex justify-content-between">
+                <div class="modal-footer d-flex justify-content-end">
                     <div class="">
-                        <button type="submit" name="save" class="btn btn-success">Save</button>
+                        <button type="button" id="deleteButton" class="btn btn-danger">Delete</button>
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" id="rejectButton" name="save" class="btn btn-success">Save</button>
                     </div>
-                    <button type="button" class="btn btn-danger"><i class="fa-regular fa-trash-can"></i></button>
                 </div>
             </form>
         </div>
@@ -125,64 +127,39 @@
 
 <!-- for submission -->
 <script>
-    // EDIT SCRIPT
-    const tableRows = document.querySelectorAll('.edit_data');
-    tableRows.forEach(row => {
+    // Function to set up event listeners for the modal
+    function setupModalEventListenersEdit() {
+        // Remove event listeners to prevent duplication
+        //document.getElementById('rejectButton').removeEventListener('click', closeModalEdit);
+        document.getElementById('deleteButton').removeEventListener('click', deleteModalEdit);
 
-        row.addEventListener('click', () => {
-            const id = row.getAttribute('data-id');
+        // add Event listener for the button
+        //document.getElementById('rejectButton').addEventListener('click', closeModalEdit);
+        document.getElementById('deleteButton').addEventListener('click', deleteModalEdit);
+    }
+    // Global variable to store the modal instance
+    var confirmModalInstanceEdit;
 
-            // Use the crop_id as needed
-            // console.log("Crop ID: " + id);
+    // Custom function to close the modal
+    function closeModalEdit() {
+        // Get the modal element
+        var confirmModal = document.getElementById('confirmModalEdit');
 
-            // Assuming you have jQuery available
-            $.ajax({
-                url: 'modals/fetch.php',
-                type: 'POST',
-                data: {
-                    'click_edit_btn': true,
-                    'user_id': id,
-                },
-                success: function(response) {
-                    // Handle the response from the PHP script
-                    // console.log('Response:', response);
+        // Create a new Bootstrap modal instance if it doesn't exist
+        if (!confirmModalInstanceEdit) {
+            confirmModalInstanceEdit = new bootstrap.Modal(confirmModal);
+        }
 
-                    // Clear the current preview
-                    $('#preview').empty();
+        // Show the confirmation modal
+        confirmModalInstanceEdit.show();
 
-                    $.each(response, function(key, value) {
-                        // Append options to select element
-                        // console.log(value['rice_plant_height']);
-
-                        // crop_id
-                        $('#user_idEdit').val(id);
-                        $('#first-NameEdit').val(value['first_name']);
-                        $('#last-NameEdit').val(value['last_name']);
-                        $('#GenderEdit').val(value['gender']);
-                        $('#EmailEdit').val(value['email']);
-                        $('#user-NameEdit').val(value['username']);
-                        $('#AffiliationEdit').val(value['affiliation']);
-                        $('#Account_TypeEdit').val(value['crop_id']);
-                        $('#Account_TypeEdit').append($('<option>', {
-                            value: value['type_id'],
-                            text: value['type_name']
-                        }));
-                    });
-                },
-                error: function(xhr, status, error) {
-                    // Handle errors
-                    console.error('Error:', error);
-                }
-
-            });
-
-            // Show the modal
-            const dataModal = new bootstrap.Modal(document.getElementById('edit-item-modal-user'), {
-                keyboard: false
-            });
-            dataModal.show();
-        });
-    });
+        // to show which button should show on the confirm modal
+        document.getElementById('confirmApproveBtnEdit').style.display = 'block';
+        document.getElementById('confirmDeleteBtnEdit').style.display = 'none';
+        // to show which label should show on the confirm modal
+        document.getElementById('approve-label').style.display = 'block';
+        document.getElementById('delete-label').style.display = 'none';
+    }
     // Wait for the DOM to be fully loaded
     document.addEventListener("DOMContentLoaded", function() {
         // Get the form element
@@ -191,11 +168,58 @@
         form.addEventListener("submit", function(event) {
             // Prevent the default form submission behavior
             event.preventDefault();
-            if (validateFormEdit()) {
-                // If validation succeeds, submit the form
-                submitFormEdit();
+            if (event.submitter.name === 'delete') {
+                // console.log('Submit na draft');
+                event.target.setAttribute('name', 'delete');
+
+                deleteFormEdit();
+            } else {
+                // Validate the form if not submitted as a draft
+                if (validateFormEdit()) {
+                    // If validation succeeds, submit the form
+                    submitFormEdit();
+                }
             }
         });
+    });
+
+    function deleteModalEdit(event) {
+        // Prevent the default behavior of the button (e.g., form submission)
+        event.preventDefault();
+
+        // Get the id of the button clicked
+        var buttonId = event.target.getAttribute('data-id');
+
+        // Get the modal element
+        var confirmModal = document.getElementById('confirmModalEdit');
+
+        // Create a new Bootstrap modal instance if it doesn't exist
+        if (!confirmModalInstanceEdit) {
+            confirmModalInstanceEdit = new bootstrap.Modal(confirmModal);
+        }
+
+        // Show the confirmation modal
+        confirmModalInstanceEdit.show();
+
+        // Pass the buttonId to the confirm modal
+        document.getElementById('confirmModalEdit').setAttribute('data-id', buttonId);
+
+        // to show which button should show on the confirm modal
+        document.getElementById('confirmApproveBtnEdit').style.display = 'none';
+        document.getElementById('confirmDeleteBtnEdit').style.display = 'block';
+        // to show which label should show on the confirm modal
+        document.getElementById('approve-label').style.display = 'none';
+        document.getElementById('delete-label').style.display = 'block';
+    }
+    // Event listener for when the modal is shown
+    document.getElementById('edit-item-modal-user').addEventListener('shown.bs.modal', function() {
+        setupModalEventListenersEdit();
+    });
+
+    // Event listener for when the confirmation modal is hidden
+    document.getElementById('confirmModalEdit').addEventListener('hidden.bs.modal', function() {
+        // Reset the confirmModalInstanceEdit
+        confirmModalInstanceEdit = null;
     });
 
     // Function to validate input 
@@ -265,6 +289,38 @@
         document.getElementById("error-messages-Edit").innerHTML = "";
         return true;
     }
+    // Function to submit the form and refresh notifications
+    function deleteFormEdit() {
+        var form = document.getElementById('form-panel-Edit');
+        if (form) {
+            // Create a new FormData object
+            var formData = new FormData(form);
+
+            // Append additional data
+            formData.append('delete_user', 'true');
+
+            // Send a POST request using AJAX
+            $.ajax({
+                url: "code/code.php",
+                method: "POST",
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data);
+                    // Reset the form
+                    form.reset();
+                    // Reload the page or do other actions if needed
+                    location.reload();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Form submission error:", textStatus, errorThrown);
+                    // Handle error if needed
+                }
+            });
+        }
+    }
 
     // Function to submit the form and refresh notifications
     function submitFormEdit() {
@@ -298,4 +354,66 @@
             });
         }
     }
+</script>
+
+<!-- script for getting the user data -->
+<script>
+    // EDIT SCRIPT
+    const tableRows = document.querySelectorAll('.edit_data');
+    tableRows.forEach(row => {
+
+        row.addEventListener('click', () => {
+            const id = row.getAttribute('data-id');
+
+            // Use the crop_id as needed
+            // console.log("Crop ID: " + id);
+
+            // Assuming you have jQuery available
+            $.ajax({
+                url: 'modals/fetch.php',
+                type: 'POST',
+                data: {
+                    'click_edit_btn': true,
+                    'user_id': id,
+                },
+                success: function(response) {
+                    // Handle the response from the PHP script
+                    // console.log('Response:', response);
+
+                    // Clear the current preview
+                    $('#preview').empty();
+
+                    $.each(response, function(key, value) {
+                        // Append options to select element
+                        // console.log(value['rice_plant_height']);
+
+                        // crop_id
+                        $('#user_idEdit').val(id);
+                        $('#first-NameEdit').val(value['first_name']);
+                        $('#last-NameEdit').val(value['last_name']);
+                        $('#GenderEdit').val(value['gender']);
+                        $('#EmailEdit').val(value['email']);
+                        $('#user-NameEdit').val(value['username']);
+                        $('#AffiliationEdit').val(value['affiliation']);
+                        $('#Account_TypeEdit').val(value['crop_id']);
+                        $('#Account_TypeEdit').append($('<option>', {
+                            value: value['type_id'],
+                            text: value['type_name']
+                        }));
+                    });
+                },
+                error: function(xhr, status, error) {
+                    // Handle errors
+                    console.error('Error:', error);
+                }
+
+            });
+
+            // Show the modal
+            const dataModal = new bootstrap.Modal(document.getElementById('edit-item-modal-user'), {
+                keyboard: false
+            });
+            dataModal.show();
+        });
+    });
 </script>
