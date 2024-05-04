@@ -1,8 +1,3 @@
-<?php
-session_start();
-require "../functions/connections.php";
-require "../functions/functions.php";
-?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -42,7 +37,52 @@ require "../functions/functions.php";
 
     <!-- CATEGORY FILTER -->
     <?php require "filter/categ-filter.php" ?>
+    <div class="container my-4">
+        <div class="row">
 
+            <!-- FILTER -->
+            <?php require "filter/side-filter.php" ?>
+
+            <!-- LIST -->
+            <div id="crop-list-container" class="col">
+
+                <!-- table -->
+                <?php require "list/table-list.php" ?>
+
+                <!-- grid -->
+                <?php require "list/grid-list.php" ?>
+
+                <!-- map -->
+                <div id="crop-list-map" class="overflow-y-auto row d-none">
+                    <div id="mapList" class="col rounded"></div>
+                </div>
+
+            </div>
+        </div>
+
+        <!-- pagination -->
+        <div class="row mt-2">
+            <nav class=" d-flex justify-content-end">
+                <ul class="pagination ">
+                    <li class="page-item">
+                        <a class="page-link bg-light small-font link-dark fw-semibold" href="#" aria-label="Previous">
+                            <span aria-hidden="true">&laquo;</span>
+                        </a>
+                    </li>
+                    <li class="page-item"><a class="page-link bg-light small-font link-dark fw-semibold" href="#">1</a></li>
+                    <li class="page-item"><a class="page-link bg-light small-font link-dark fw-semibold" href="#">2</a></li>
+                    <li class="page-item"><a class="page-link bg-light small-font link-dark fw-semibold" href="#">3</a></li>
+                    <li class="page-item">
+                        <a class="page-link bg-light small-font link-dark fw-semibold" href="#" aria-label="Next">
+                            <span aria-hidden="true">&raquo;</span>
+                        </a>
+                    </li>
+                </ul>
+            </nav>
+        </div>
+        <!-- Add pagination links -->
+        <?php generatePaginationLinks($total_pages, $current_page, 'page'); ?>
+    </div>
     <!-- SCRIPT -->
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>

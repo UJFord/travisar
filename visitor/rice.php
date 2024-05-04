@@ -1,9 +1,3 @@
-<?php
-session_start();
-require "../functions/connections.php";
-require "../functions/functions.php";
-?>
-
 <!DOCTYPE html>
 <html lang="en">
 
@@ -53,7 +47,7 @@ require "../functions/functions.php";
             <div id="crop-list-container" class="col">
 
                 <!-- table -->
-                <?php require "list/rice-table-list.php" ?>
+                <?php require "list/table-list.php" ?>
 
                 <!-- grid -->
                 <?php require "list/grid-list.php" ?>
