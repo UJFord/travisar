@@ -16,7 +16,7 @@
 
             </div>
             <!-- body -->
-            <form id="form-panel-add" name="Form" action="modals/crud-code/terrain-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel-add" name="Form" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
                     <div class="container">
                         <div id="Add-User">
@@ -24,7 +24,9 @@
                             <div class="row mb-3">
                                 <!-- terrain name -->
                                 <div class="col">
-                                    <label for="terrain-Name" class="form-label small-font"><Caption></Caption>Terrain Name<span style="color: red;">*</span></label>
+                                    <label for="terrain-Name" class="form-label small-font">
+                                        <Caption></Caption>Terrain Name<span style="color: red;">*</span>
+                                    </label>
                                     <input type="text" id="terrain-Name" name="terrain_name" class="form-control">
                                 </div>
                             </div>
@@ -35,6 +37,7 @@
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-end">
                     <div class="">
+                        <input type="hidden" name="save">
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" name="save" class="btn btn-success">Save</button>
                     </div>
@@ -54,9 +57,11 @@
         form.addEventListener("submit", function(event) {
             // Validate the form
             if (validateForm()) {
-                // If validation succeeds, submit the form
-                submitForm();
+                // If validation succeeds, check if terrain name already exists
+                checkTerrainExists();
             }
+            // Prevent the default form submission behavior
+            event.preventDefault();
         });
     });
 
@@ -69,17 +74,15 @@
         // Check if the required fields are not empty
         if (terrainName === "" || terrainName === null) {
             errors.push("<div class='error text-center' style='color:red;'>Please fill up required fields.</div>");
-            document.getElementById('category-Name').classList.add('is-invalid'); // Add 'is-invalid' class to select field
+            document.getElementById('terrain-Name').classList.add('is-invalid'); // Add 'is-invalid' class to terrain name field
         } else {
-            document.getElementById('category-Name').classList.remove('is-invalid'); // Remove 'is-invalid' class if valid
+            document.getElementById('terrain-Name').classList.remove('is-invalid'); // Remove 'is-invalid' class if valid
         }
 
         // Display first error only
         if (errors.length > 0) {
             var errorString = errors[0]; // Get the first error
             document.getElementById("error-messages").innerHTML = errorString;
-            // Prevent the default form submission behavior
-            event.preventDefault();
             return false;
         }
 
@@ -88,10 +91,44 @@
         return true;
     }
 
+    // Function to check if terrain name already exists
+    function checkTerrainExists() {
+        var terrainName = document.forms["Form"]["terrain_name"].value;
+
+        // Send a GET request to check if the terrain name already exists
+        $.ajax({
+            url: "modals/fetch/fetch_terrain-tab.php",
+            method: "GET",
+            data: {
+                'check_terrain': terrainName
+            },
+            success: function(data) {
+                if (data.exists) {
+                    // Terrain name already exists, show error message
+                    document.getElementById("error-messages").innerHTML = "<div class='error text-center' style='color:red;'>Terrain name already exists.</div>";
+                } else {
+                    // Terrain name doesn't exist, submit the form
+                    submitForm();
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Terrain name check error:", textStatus, errorThrown);
+                // Handle error if needed
+            }
+        });
+    }
+
     // Function to submit the form and refresh notifications
     function submitForm() {
         var form = document.getElementById('form-panel-add');
         if (form) {
+            // Set the value of the hidden input field
+            var saveInput = document.createElement('input');
+            saveInput.type = 'hidden';
+            saveInput.name = 'action';
+            saveInput.value = 'save';
+            form.appendChild(saveInput);
+
             // Create a new FormData object
             var formData = new FormData(form);
 
@@ -104,7 +141,7 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
-                    // console.log(data);
+                    //console.log(data);
                     // Reset the form
                     form.reset();
                     // Reload the page or do other actions if needed

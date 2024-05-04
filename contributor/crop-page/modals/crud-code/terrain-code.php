@@ -2,6 +2,8 @@
 session_start();
 require "../../../../functions/connections.php";
 
+// var_dump($_POST);
+// die();
 if (isset($_POST['edit']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator')) {
 
     // Begin the database transaction
