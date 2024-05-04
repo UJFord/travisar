@@ -12,8 +12,18 @@ require "../functions/functions.php";
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <title>Travis | Home</title>
     <!-- CSS -->
+    <!-- google fonts -->
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <!-- kanit -->
+    <link href="https://fonts.googleapis.com/css2?family=Kanit:ital,wght@0,100;0,200;0,300;0,400;0,500;0,600;0,700;0,800;0,900;1,100;1,200;1,300;1,400;1,500;1,600;1,700;1,800;1,900&display=swap" rel="stylesheet">
+    <!-- freemen -->
+    <link href="https://fonts.googleapis.com/css2?family=Freeman&family=Kanit&display=swap" rel="stylesheet">
+
     <!-- bootstrap cdn -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+    <!-- bootstrap icons -->
+    <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
     <!-- font awesome kit -->
     <script src="https://kit.fontawesome.com/57e83eb6e4.js" crossorigin="anonymous"></script>
@@ -36,10 +46,88 @@ require "../functions/functions.php";
     <?php require "../nav/nav.php" ?>
 
     <!-- HEADER -->
-    <header id="head" class="container-fluid p-0">
+    <header id="head" class="container-fluid py-5">
+        <div class="container">
+            <div class="row">
 
-        <div class="parallax container-fluid"></div>
+                <!-- left -->
+                <div class="col-8 d-flex flex-column justify-content-end">
+                    <div id="head-text" class="fw-bolder fs-1 text-white ">Preserve Traditional Crop Farmer's Knowledge</div>
+                    <div id="head-subtitle" class=" fs-5 text-light mb-4">We Document Traditional Rice, Corn, and Root Crops of Sarangani</div>
+                    <div class="head-link ps-3 row">
+                        <a href="" class="col-2 btn btn-light fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">Crops List<i class="bi bi-arrow-right fw-bold"></i></a>
+                        <div class="col-2 text-light small-font">Over Hundreds of Crops Listed!</div>
+                    </div>
+                </div>
+
+                <!-- sarangani image -->
+                <div class="col">
+                    <div class="head-img-container d-flex justify-content-center align-items-center">
+                        <img id="head-img" src="img/sarMap.svg" alt="" srcset="">
+                    </div>
+                </div>
+            </div>
+        </div>
+
     </header>
+
+    <!-- FEATURES -->
+    <div class="container">
+        <div class="row my-5">
+
+            <!-- Crops List -->
+            <div class="col mx-3">
+                <div class="row fs-5">
+                    <!-- Icon -->
+                    <div class="col-1 d-flex justify-content-start align-items-center p-0">
+                        <i class="fa-solid fa-seedling"></i>
+                    </div>
+                    <!-- Description -->
+                    <div class="col fw-bold p-0">
+                        Crops List
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <p class="p-0">
+                        A webpage devoted to showcasing the various crops listed within our extensive agricultural database.</p>
+                </div>
+            </div>
+
+            <!-- Map -->
+            <div class="col mx-3">
+                <div class="row fs-5">
+                    <!-- Icon -->
+                    <div class="col-1 d-flex justify-content-start align-items-center p-0">
+                        <i class="fa-solid fa-earth-asia"></i>
+                    </div>
+                    <!-- Description -->
+                    <div class="col fw-bold p-0">
+                        Interactive Map
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <p class="p-0">A visual map displaying pins at the last known locations of each item in our database for easy reference and tracking.</p>
+                </div>
+            </div>
+
+            <!-- Contribute -->
+            <div class="col mx-3">
+                <div class="row fs-5">
+                    <!-- Icon -->
+                    <div class="col-1 d-flex justify-content-start align-items-center p-0">
+                        <i class="fa-solid fa-upload"></i>
+                    </div>
+                    <!-- Description -->
+                    <div class="col fw-bold">
+                        Contribute
+                    </div>
+                </div>
+                <div class="row mt-2">
+                    <p class="p-0">Be a contributor and join us in our goal to improve Travis.</p>
+                </div>
+            </div>
+        </div>
+    </div>
 
     <!-- SYSTEM LINKS -->
     <div class="container my-5">

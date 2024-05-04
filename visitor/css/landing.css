@@ -1,35 +1,26 @@
 /* HEADER */
-/* #head{
-    background-image: url('https://images.unsplash.com/photo-1583482246689-1e772830ca95?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
-    background-position: center;
-    background-size: cover;
-    background-repeat: no-repeat;
-} */
+#head{
+    /* background: url('https://images.unsplash.com/photo-1609554259810-ad331c1a9519?q=80&w=2076&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D'), linear-gradient(90deg, rgba(2,0,36,0.6951155462184874) 0%, rgba(1,0,24,0.5326505602240896) 40%, rgba(0,0,0,0.3925945378151261) 100%); */
 
-.parallax {
-  /* The image used */
-    background-image: url("https://images.unsplash.com/photo-1583482246689-1e772830ca95?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"), linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
+	background-image: url("https://images.unsplash.com/photo-1609554259810-ad331c1a9519?q=80&w=2076&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D");
+	
+    background-color: rgb(177, 177, 177); /* Set a background color to blend with */
+	background-blend-mode: multiply; /* Experiment with other blend modes */
 
-  /* Set a specific height */
-    /* min-height: 500px;   */
-    height: clamp(75vh, 75vh, 100vh);
-
-  /* Create the parallax scrolling effect */
-    background-attachment: fixed;
-    background-position: center;
-    background-repeat: no-repeat;
-    background-size: cover;
-    perspective: 1px; /* Enables perspective */
+	background-position: center;
+	background-size: cover;
+	background-repeat: no-repeat;
+	position: relative;
 }
-.parallax::before { /* Target a pseudo-element for background */
-    content: "";
-    position: absolute;
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    /* background-image: inherit; Inherit background image */
-    transform: translateZ(-50px); /* Move background away on Z-axis */
+
+#head-text{
+	font-family: "Freeman", sans-serif;
+	font-weight: 600;
+}
+#head-img{
+	aspect-ratio: 1/1;
+	object-fit: cover;
+	width: 20rem;
 }
 
 /* SYSTEM LINKS */
