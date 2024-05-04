@@ -1,3 +1,6 @@
+<?php
+require "../functions/connections.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -82,7 +85,7 @@
             </nav>
         </div>
         <!-- Add pagination links -->
-        <?php generatePaginationLinks($total_pages, $current_page, 'page'); ?>
+        <?php // generatePaginationLinks($total_pages, $current_page, 'page'); ?>
     </div>
 
     <!-- map toggler -->

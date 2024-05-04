@@ -81,8 +81,15 @@
             </nav>
         </div>
         <!-- Add pagination links -->
-        <?php generatePaginationLinks($total_pages, $current_page, 'page'); ?>
+        <?php //generatePaginationLinks($total_pages, $current_page, 'page'); ?>
     </div>
+
+    <!-- map toggler -->
+    <button role="button" id="map-toggler" class="fixed-bottom rounded-pill bg-dark bg-gradient py-2 mb-5 text-light d-flex justify-content-center align-item-center  link-underline link-underline-opacity-0">
+        <span class="map-toggle"><i class="fa-solid fa-map me-2"></i>Map View</span>
+        <span class="list-toggle d-none"><i class="fa-solid fa-list me-2"></i>List View</span>
+    </button>
+
     <!-- SCRIPT -->
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
@@ -90,6 +97,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- custom -->
     <script src="js/nav.js"></script>
+    <script src="js/sideFilter.js"></script>
+    <script src="js/list.js"></script>
 </body>
 
 </html>

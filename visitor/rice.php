@@ -1,3 +1,6 @@
+<?php
+require "../functions/connections.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,11 +26,6 @@
     <!-- global -->
     <link rel="stylesheet" href="../css/global-declarations.css">
     <link rel="stylesheet" href="css/crop.css"> <!-- script for access control -->
-    <script src="../js/access-control.js"></script>
-    <script>
-        // Assume you have the userRole variable defined somewhere in your PHP code
-        var userRole = "<?php echo isset($_SESSION['rank']) ? $_SESSION['rank'] : ''; ?>";
-    </script>
 </head>
 
 <body class="bg-light">
@@ -80,8 +78,16 @@
                 </ul>
             </nav>
         </div>
+
+        <!-- map toggler -->
+        <button role="button" id="map-toggler" class="fixed-bottom rounded-pill bg-dark bg-gradient py-2 mb-5 text-light d-flex justify-content-center align-item-center  link-underline link-underline-opacity-0">
+            <span class="map-toggle"><i class="fa-solid fa-map me-2"></i>Map View</span>
+            <span class="list-toggle d-none"><i class="fa-solid fa-list me-2"></i>List View</span>
+        </button>
+
         <!-- Add pagination links -->
-        <?php generatePaginationLinks($total_pages, $current_page, 'page'); ?>
+        <?php // generatePaginationLinks($total_pages, $current_page, 'page'); 
+        ?>
     </div>
     <!-- SCRIPT -->
     <!-- jquery -->
@@ -90,6 +96,8 @@
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- custom -->
     <script src="js/nav.js"></script>
+    <script src="js/sideFilter.js"></script>
+    <script src="js/list.js"></script>
 </body>
 
 </html>
