@@ -1,14 +1,36 @@
-/* CAROUSEL */
-#carousel{
-    max-height: 500px;
+/* HEADER */
+/* #head{
+    background-image: url('https://images.unsplash.com/photo-1583482246689-1e772830ca95?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D');
+    background-position: center;
+    background-size: cover;
+    background-repeat: no-repeat;
+} */
+
+.parallax {
+  /* The image used */
+    background-image: url("https://images.unsplash.com/photo-1583482246689-1e772830ca95?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D"), linear-gradient(rgba(0, 0, 0, 0.8), rgba(0, 0, 0, 0.8));
+
+  /* Set a specific height */
+    /* min-height: 500px;   */
+    height: clamp(75vh, 75vh, 100vh);
+
+  /* Create the parallax scrolling effect */
+    background-attachment: fixed;
+    background-position: center;
+    background-repeat: no-repeat;
+    background-size: cover;
+    perspective: 1px; /* Enables perspective */
 }
-    .carousel-img{
-        height: 500px;
-        object-fit: cover;
-    }
-    .carousel-item {
-    transition: transform 0.6s ease;
-    }
+.parallax::before { /* Target a pseudo-element for background */
+    content: "";
+    position: absolute;
+    top: 0;
+    left: 0;
+    right: 0;
+    bottom: 0;
+    /* background-image: inherit; Inherit background image */
+    transform: translateZ(-50px); /* Move background away on Z-axis */
+}
 
 /* SYSTEM LINKS */
 .sys-link-img{
