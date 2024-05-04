@@ -1,9 +1,17 @@
-.categ-card:hover{
-    box-shadow: rgba(0, 0, 0, 0.24) 0px 3px 8px;
+/* CATEG FILTER */
+.filter-item{
+    flex: 1;
 }
-
-.categ-card-icon{
-    width: 1.5rem;
+.filter-item span{
+    width: 2.5rem;
+}
+.filter-h{
+    height: 15rem;
+    font-weight: 800;
+	font-family: "Freeman", sans-serif;
+}
+.filter-h i{
+    font: 5rem;
 }
 
 /* FILTER BAR */

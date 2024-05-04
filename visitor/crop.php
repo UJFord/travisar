@@ -14,6 +14,8 @@ require "../functions/functions.php";
 
 	<!-- BOOTSTRAP -->
 	<link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
+	<!-- icons -->
+	<link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.min.css">
 
 	<!-- font awesome kit -->
 	<script src="https://kit.fontawesome.com/57e83eb6e4.js" crossorigin="anonymous"></script>
@@ -43,40 +45,39 @@ require "../functions/functions.php";
 	?>
 
 	<!-- CATEGORY FILTER -->
-	<div class="modal fade" id="categ-filter-modal" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="staticBackdropLabel" aria-hidden="true">
-		<div class="modal-dialog">
-			<div class="modal-content">
+	<div class="container h-75">
+		<div class="row h-100 d-flex justify-content-center align-items-center">
+			<div class="col-6 p-0">
 
-				<div class="modal-header">
-					<h1 class="modal-title mx-auto fs-6 fw-bold" id="staticBackdropLabel">Choose Category</h1>
-				</div>
+				<div class="row">Choose Category</div>
+				<div class="col-12 border rounded overflow-hidden filter-h p-0 m-0">
+					<div class="row h-100 w-100 p-0">
+						<div class="col p-0">
 
-				<div class="modal-body d-flex justify-content-around">
+							<a href="" class="h-100 w-100 d-flex justify-content-end align-items-end icon-link icon-link-hover link-underline link-underline-opacity-0 p-0 pb-2 border-end">
+								<span>All Crops</span>
+								<i class="bi bi-arrow-right fs-5 me-2"></i>
+							</a>
 
-					<!-- corn -->
-					<a href="corn.php" class="card categ-card w-25 link-underline link-underline-opacity-0">
-						<div class="card-body d-flex flex-column justify-content-center align-items-center">
-							<img class="categ-card-icon mb-2" src="img/black-corn.svg" alt="" srcset="">
-							<div class="fw-bold fs-5">Corn</div>
 						</div>
-					</a>
+						<div class="col d-flex flex-column align-items-stretch p-0 m-0">
 
-					<!-- rice -->
-					<a href="rice.php" class="card categ-card w-25 link-underline link-underline-opacity-0">
-						<div class="card-body d-flex flex-column justify-content-center align-items-center">
-							<img class="categ-card-icon mb-2" src="img/black-rice.svg" alt="" srcset="">
-							<div class="fw-bold fs-5">Rice</div>
+							<a href="" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-bottom w-100">
+								<span>Corn</span>
+								<i class="bi bi-arrow-right fs-5"></i>
+							</a>
+
+							<a href="" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-bottom">
+								<span>Rice</span>
+								<i class="bi bi-arrow-right fs-5"></i>
+							</a>
+
+							<a href="" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2">
+								<span>Root</span>
+								<i class="bi bi-arrow-right fs-5"></i>
+							</a>
 						</div>
-					</a>
-
-					<!-- root -->
-					<a href="root.php" class="card categ-card w-25 link-underline link-underline-opacity-0">
-						<div class="card-body d-flex flex-column justify-content-center align-items-center">
-							<img class="categ-card-icon mb-2" src="img/black-root.svg" alt="" srcset="">
-							<div class="fw-bold fs-5">Root</div>
-						</div>
-					</a>
-
+					</div>
 				</div>
 			</div>
 		</div>
