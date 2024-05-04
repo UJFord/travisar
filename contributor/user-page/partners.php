@@ -56,6 +56,8 @@ require "../../functions/functions.php";
             <?php require "tabs/edit-user.php"; ?>
             <!-- View -->
             <?php require "tabs/view.php"; ?>
+            <!-- confirm -->
+            <?php //require "tabs/confirm.php"; ?>
             <div>
             </div>
         </div>

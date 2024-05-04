@@ -52,7 +52,6 @@ require "../../functions/functions.php";
             <?php require "list-verify.php"; ?>
             <!-- View -->
             <?php require "tabs/view-verify.php"; ?>
-            <div>
             </div>
         </div>
     </div>
