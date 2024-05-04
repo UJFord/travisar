@@ -434,16 +434,8 @@
     }
 </script>
 
-<!-- JavaScript for the select for category variety ang show the morph, sensory and agro tab -->
+<!-- JavaScript for the select for category variety and show the morph, sensory, and agro tab -->
 <script>
-    // JavaScript for the select for category variety
-    // Function to fetch and display initial category variety based on the initial category
-    document.addEventListener('DOMContentLoaded', function() {
-        // Fetch varieties for the initial selected category
-        var initialCategoryId = document.getElementById('Category').value;
-        fetchVarieties(initialCategoryId);
-    });
-
     // Function to fetch and display initial morphological characteristics based on the initial category
     document.addEventListener('DOMContentLoaded', function() {
         // Fetch the initial category value
@@ -486,7 +478,7 @@
             categoryVarietySelectContainer.style.display = 'none';
         } else {
             categoryVarietySelectContainer.style.display = 'block';
-            fetchVarieties(categoryId);
+            fetchVarieties(categoryId); // This line is removed
         }
 
         // Call the function to display the corresponding morphological characteristics

@@ -376,11 +376,11 @@
 <script>
     // JavaScript for the select for category variety
     // Function to fetch and display initial category variety based on the initial category
-    document.addEventListener('DOMContentLoaded', function() {
-        // Fetch varieties for the initial selected category
-        var initialCategoryId = document.getElementById('Category').value;
-        fetchVarieties(initialCategoryId);
-    });
+    // document.addEventListener('DOMContentLoaded', function() {
+    //     // Fetch varieties for the initial selected category
+    //     var initialCategoryId = document.getElementById('Category').value;
+    //     fetchVarieties(initialCategoryId);
+    // });
 
     // Function to fetch and display initial morphological characteristics based on the initial category
     document.addEventListener('DOMContentLoaded', function() {
