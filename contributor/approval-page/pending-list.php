@@ -147,7 +147,7 @@
                                         $statusClass = 'text-info'; // Cyan text for Pending
                                         break;
                                     case 'Updating':
-                                        $statusClass = 'text-light'; //  text for Updating
+                                        $statusClass = 'text-warning'; //  text for Updating
                                         break;
                                     default:
                                         $statusClass = 'text-dark'; // Default text color
