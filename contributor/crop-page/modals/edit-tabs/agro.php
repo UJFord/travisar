@@ -139,34 +139,38 @@
             </div>
         </div>
 
-        <!-- other checkbox -->
-        <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="abiotic_other" id="abiotic_other_checkEdit" value="1">
-            <label class="form-check-label small-font" for="abiotic_other_checkEdit">Other</label>
-        </div>
+        <!-- other abiotic -->
+        <div class="mb-4">
+            <!-- other checkbox -->
+            <div class="form-check">
+                <input class="form-check-input" type="checkbox" name="abiotic_other" id="abiotic_other_checkEdit" value="1">
+                <label class="form-check-label small-font" for="abiotic_other_checkEdit">Other</label>
+            </div>
 
-        <!-- Other -->
-        <div id="abiotic_otherEdit" class="row mt-3 mb-3">
-            <div class="col-12 mb-2">
-                <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
-                <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
-                <textarea name="abiotic_other_desc" id="abiotic_other-descEdit" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
+            <!-- Other -->
+            <div id="abiotic_otherEdit" class="row mt-3 mb-3">
+                <div class="col-12 mb-2">
+                    <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
+                    <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
+                    <textarea name="abiotic_other_desc" id="abiotic_other-descEdit" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock"></textarea>
+                </div>
             </div>
         </div>
+
     </div>
 
     <!-- STEP NAVIGATION with out Sensory -->
     <div class="row" id="withoutSensory-Edit">
         <div class="col d-flex justify-content-between">
             <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('edit-more')"><i class="fa-solid fa-angles-left me-2"></i>Previous</button>
-            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('edit-cultural', this)">Next<i class="fa-solid fa-angles-right me-2"></i></button>
+            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('edit-cultural', this)">Next <i class="fa-solid fa-angles-right me-2"></i></button>
         </div>
     </div>
     <!-- STEP NAVIGATION with Sensory -->
     <div class="row" id="withSensory-Edit">
         <div class="col d-flex justify-content-between">
             <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('edit-sensory')"><i class="fa-solid fa-angles-left me-2"></i>Previous</button>
-            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('edit-cultural', this)">Next<i class="fa-solid fa-angles-right me-2"></i></button>
+            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('edit-cultural', this)">Next <i class="fa-solid fa-angles-right me-2"></i></button>
         </div>
     </div>
 </div>
