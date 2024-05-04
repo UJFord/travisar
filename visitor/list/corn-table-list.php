@@ -75,7 +75,7 @@
                         $category_name = "Corn";
 
             ?>
-                        <tr latlng="<?= $row['coordinates'] ?>" data-href="#">
+                        <tr latlng="<?= $row['barangay_coordinates'] ?>" data-href="#">
                             <td class="category"><?= $row['category_name'] ?></td>
                             <td class="fw-bolder variety"><?= $row['crop_variety'] ?></td>
                             <td class="addr">

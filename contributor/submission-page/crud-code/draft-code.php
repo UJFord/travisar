@@ -2678,6 +2678,58 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
                 echo "Error: " . pg_last_error($conn);
                 die();
             }
+        } else {
+            // Delete from Crop table
+            $query_delete_crop = "DELETE FROM crop WHERE crop_id = $1";
+            $query_run_delete_crop = pg_query_params($conn, $query_delete_crop, [$crop_id]);
+
+            if (!$query_run_delete_crop) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Crop Location table
+            $query_delete_crop_loc = "DELETE FROM crop_location WHERE crop_location_id = $1";
+            $query_run_delete_crop_loc = pg_query_params($conn, $query_delete_crop_loc, [$crop_location_id]);
+
+            if (!$query_run_delete_crop_loc) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Utilization and cultural importance table
+            $query_delete_util_cultural = "DELETE FROM utilization_cultural_importance WHERE utilization_cultural_id = $1";
+            $query_run_delete_util_cultural = pg_query_params($conn, $query_delete_util_cultural, [$utilization_cultural_id]);
+
+            if (!$query_run_delete_util_cultural) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // Delete from Status table
+            $query_delete_Status = "DELETE FROM status WHERE status_id = $1";
+            $query_run_delete_Status = pg_query_params($conn, $query_delete_Status, [$status_id]);
+
+            if (!$query_run_delete_Status) {
+                echo "Error: " . pg_last_error($conn);
+                die();
+            }
+
+            // delete from reference table if available
+            if (is_array($references_id)) {
+                foreach ($references_id as $ref_id) {
+                    if (!($ref_id === '' || $ref_id === null)) {
+                        // Delete from references table
+                        $query_delete_Reference = "DELETE FROM \"references\" WHERE references_id = $1";
+                        $query_run_delete_Reference = pg_query_params($conn, $query_delete_Reference, array($ref_id));
+
+                        if (!$query_run_delete_Reference) {
+                            echo "Error: " . pg_last_error($conn);
+                            die();
+                        }
+                    }
+                }
+            }
         }
 
         // Commit the transaction if everything is successful
