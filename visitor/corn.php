@@ -1,3 +1,6 @@
+<?php
+require "../functions/connections.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 
@@ -23,6 +26,12 @@
     <!-- global -->
     <link rel="stylesheet" href="../css/global-declarations.css">
     <link rel="stylesheet" href="css/crop.css">
+    <!-- script for access control -->
+    <script src="../js/access-control.js"></script>
+    <script>
+        // Assume you have the userRole variable defined somewhere in your PHP code
+        var userRole = "<?php echo isset($_SESSION['rank']) ? $_SESSION['rank'] : ''; ?>";
+    </script>
 </head>
 
 <body class="bg-light vh-100 pb-5">
@@ -75,7 +84,8 @@
                 </ul>
             </nav>
         </div>
-
+        <!-- Add pagination links -->
+        <?php // generatePaginationLinks($total_pages, $current_page, 'page'); ?>
     </div>
 
     <!-- map toggler -->
@@ -83,7 +93,6 @@
         <span class="map-toggle"><i class="fa-solid fa-map me-2"></i>Map View</span>
         <span class="list-toggle d-none"><i class="fa-solid fa-list me-2"></i>List View</span>
     </button>
-
 
     <!-- SCRIPT -->
     <!-- jquery -->

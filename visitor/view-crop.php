@@ -25,14 +25,20 @@ require "../functions/functions.php";
     <link rel="stylesheet" href="../css/global-declarations.css">
     <!-- landing.css -->
     <link rel="stylesheet" href="css/landing.css?v=1.0">
-
+    <!-- script for access control -->
+    <script src="../js/access-control.js"></script>
+    <script>
+        // Assume you have the userRole variable defined somewhere in your PHP code
+        var userRole = "<?php echo isset($_SESSION['rank']) ? $_SESSION['rank'] : ''; ?>";
+    </script>
 </head>
 
 <body class="bg-light">
     <!-- NAVBAR -->
     <?php require "../nav/nav.php" ?>
     <!-- NAVBAR -->
-    <?php require "view-tab/crop.php" ?>
+    <?php //require "view-tab/crop.php" 
+    ?>
 
     <!-- CROP -->
     <div class="container">

@@ -431,11 +431,12 @@
     const tableRowsDraft = document.querySelectorAll('.draft_data');
     // Define an array to store municipalities
     var municipalities = [];
-
     tableRowsDraft.forEach(row => {
+        // console.log('Response:');
 
         row.addEventListener('click', () => {
             const id = row.getAttribute('data-id');
+            console.log('i:', id);
 
             // Use the crop_id as needed
             // console.log("Crop ID: " + id);
@@ -457,7 +458,7 @@
 
                     $.each(response, function(key, value) {
                         // Append options to select element
-                        console.log(value['rootcrop_leaf_width']);
+                        console.log(value['crop_id']);
 
                         // Fetch the old image and pass it to the fetchOldImage function
                         //fetchOldImageSeedDraft(value.crop_seed_image);

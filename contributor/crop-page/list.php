@@ -118,7 +118,7 @@
                             <?php
                         } else  if ($row['action'] === 'Approved') {
                             ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="../../visitor/view-crop.php?crop_id=<?= $row['crop_id'] ?>">
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="#">
                             <?php
                         } else {
                             ?>
@@ -180,10 +180,10 @@
                                         $statusClass = 'text-primary'; // Blue text for Draft
                                         break;
                                     case 'Pending':
-                                        $statusClass = 'text-warning'; // Cyan text for Pending
+                                        $statusClass = 'text-info'; // Cyan text for Pending
                                         break;
                                     case 'Updating':
-                                        $statusClass = 'text-light'; //  text for Updating
+                                        $statusClass = 'text-warning'; //  text for Updating
                                         break;
                                     default:
                                         $statusClass = 'text-dark'; // Default text color

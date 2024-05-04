@@ -56,17 +56,21 @@
                                 <h6 id="affiliationView"></h6>
                             </div>
                         </div>
-                    </div>
-                </div>
 
-                <!-- footer -->
-                <div class="modal-footer d-flex justify-content-between">
-                    <div class="">
-                        <button type="submit" name="approve" class="btn btn-success">Approve</button>
-                        <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
+                        <!-- confirm -->
+                        <?php require "tabs/verify-confirm.php"; ?>
+                        <div>
+                        </div>
                     </div>
-                    <button type="button" class="btn btn-danger">Reject</i></button>
-                </div>
+
+                    <!-- footer -->
+                    <div class="modal-footer d-flex justify-content-end">
+                        <div class="">
+                            <button type="button" id="deleteButton" class="btn btn-danger">Reject</i></button>
+                            <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
+                            <button type="button" id="rejectButton" class="btn btn-success">Approve</button>
+                        </div>
+                    </div>
             </form>
         </div>
     </div>
@@ -74,6 +78,90 @@
 
 <!-- for submitting the approve or rejected -->
 <script>
+    // Function to set up event listeners for the modal
+    function setupModalEventListenersEdit() {
+        // Remove event listeners to prevent duplication
+        document.getElementById('rejectButton').removeEventListener('click', closeModalEdit);
+        document.getElementById('deleteButton').removeEventListener('click', deleteModalEdit);
+
+        // add Event listener for the button
+        document.getElementById('rejectButton').addEventListener('click', closeModalEdit);
+        document.getElementById('deleteButton').addEventListener('click', deleteModalEdit);
+    }
+    // Global variable to store the modal instance
+    var confirmModalInstanceEdit;
+
+    // Custom function to close the modal
+    function closeModalEdit() {
+        // Get the modal element
+        var confirmModal = document.getElementById('confirmModalEdit');
+
+        // Create a new Bootstrap modal instance if it doesn't exist
+        if (!confirmModalInstanceEdit) {
+            confirmModalInstanceEdit = new bootstrap.Modal(confirmModal);
+        }
+
+        // Show the confirmation modal
+        confirmModalInstanceEdit.show();
+
+        // to show which button should show on the confirm modal
+        document.getElementById('confirmApproveBtnEdit').style.display = 'block';
+        document.getElementById('confirmDeleteBtnEdit').style.display = 'none';
+        // to show which label should show on the confirm modal
+        document.getElementById('approve-label').style.display = 'block';
+        document.getElementById('delete-label').style.display = 'none';
+    }
+    // Wait for the DOM to be fully loaded
+    // document.addEventListener("DOMContentLoaded", function() {
+    //     // Get the form element
+    //     var form = document.getElementById('form-panel-Edit');
+    //     // Add an event listener for the form submission
+    //     form.addEventListener("submit", function(event) {
+    //         // Prevent the default form submission behavior
+    //         event.preventDefault();
+    //         if (validateFormEdit()) {
+    //             // If validation succeeds, submit the form
+    //             submitFormEdit();
+    //         }
+    //     });
+    // });
+
+    function deleteModalEdit(event) {
+        // Prevent the default behavior of the button (e.g., form submission)
+        event.preventDefault();
+
+        // Get the id of the button clicked
+        var buttonId = event.target.getAttribute('data-id');
+
+        // Get the modal element
+        var confirmModal = document.getElementById('confirmModalEdit');
+
+        // Create a new Bootstrap modal instance if it doesn't exist
+        if (!confirmModalInstanceEdit) {
+            confirmModalInstanceEdit = new bootstrap.Modal(confirmModal);
+        }
+
+        // Show the confirmation modal
+        confirmModalInstanceEdit.show();
+
+        // to show which button should show on the confirm modal
+        document.getElementById('confirmApproveBtnEdit').style.display = 'none';
+        document.getElementById('confirmDeleteBtnEdit').style.display = 'block';
+        // to show which label should show on the confirm modal
+        document.getElementById('approve-label').style.display = 'none';
+        document.getElementById('delete-label').style.display = 'block';
+    }
+    // Event listener for when the modal is shown
+    document.getElementById('view-item-modal-partners').addEventListener('shown.bs.modal', function() {
+        setupModalEventListenersEdit();
+    });
+
+    // Event listener for when the confirmation modal is hidden
+    document.getElementById('confirmModalEdit').addEventListener('hidden.bs.modal', function() {
+        // Reset the confirmModalInstanceEdit
+        confirmModalInstanceEdit = null;
+    });
+
     // Wait for the DOM to be fully loaded
     document.addEventListener("DOMContentLoaded", function() {
         // Get the form element

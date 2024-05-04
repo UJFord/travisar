@@ -34,7 +34,7 @@
 
         if ($check && $check[0]['count'] > 0) {
             $errors[] = "<div class='error text-center'>Email already exist.</div>";
-            echo $data['email'];
+            // echo $data['email'];
             die();
         }
 

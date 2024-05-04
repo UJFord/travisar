@@ -3553,7 +3553,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
         }
 
         // Commit the transaction if everything is successful
-        $_SESSION['message'] = "Crop Updated Successfully Wait for Approval";
+        $_SESSION['message'] = "Crop updated successfully. Please wait for approval.";
         pg_query($conn, "COMMIT");
         header("Location: ../submission.php");
         exit(0);
