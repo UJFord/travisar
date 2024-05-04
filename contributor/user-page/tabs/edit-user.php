@@ -107,6 +107,8 @@
                                 </div>
                             </div>
                         </div>
+
+                        <?php require "tabs/user-confirm.php"; ?>
                     </div>
                 </div>
 
@@ -128,11 +130,11 @@
     // Function to set up event listeners for the modal
     function setupModalEventListenersEdit() {
         // Remove event listeners to prevent duplication
-        document.getElementById('rejectButton').removeEventListener('click', closeModalEdit);
+        //document.getElementById('rejectButton').removeEventListener('click', closeModalEdit);
         document.getElementById('deleteButton').removeEventListener('click', deleteModalEdit);
 
         // add Event listener for the button
-        document.getElementById('rejectButton').addEventListener('click', closeModalEdit);
+        //document.getElementById('rejectButton').addEventListener('click', closeModalEdit);
         document.getElementById('deleteButton').addEventListener('click', deleteModalEdit);
     }
     // Global variable to store the modal instance
@@ -166,9 +168,17 @@
         form.addEventListener("submit", function(event) {
             // Prevent the default form submission behavior
             event.preventDefault();
-            if (validateFormEdit()) {
-                // If validation succeeds, submit the form
-                submitFormEdit();
+            if (event.submitter.name === 'delete') {
+                // console.log('Submit na draft');
+                event.target.setAttribute('name', 'delete');
+
+                deleteFormEdit();
+            } else {
+                // Validate the form if not submitted as a draft
+                if (validateFormEdit()) {
+                    // If validation succeeds, submit the form
+                    submitFormEdit();
+                }
             }
         });
     });
@@ -195,14 +205,14 @@
         document.getElementById('confirmModalEdit').setAttribute('data-id', buttonId);
 
         // to show which button should show on the confirm modal
-        document.getElementById('confirmCloseBtnEdit').style.display = 'none';
+        document.getElementById('confirmApproveBtnEdit').style.display = 'none';
         document.getElementById('confirmDeleteBtnEdit').style.display = 'block';
         // to show which label should show on the confirm modal
-        document.getElementById('close-label').style.display = 'none';
+        document.getElementById('approve-label').style.display = 'none';
         document.getElementById('delete-label').style.display = 'block';
     }
     // Event listener for when the modal is shown
-    document.getElementById('edit-item-modal').addEventListener('shown.bs.modal', function() {
+    document.getElementById('edit-item-modal-user').addEventListener('shown.bs.modal', function() {
         setupModalEventListenersEdit();
     });
 
@@ -278,6 +288,38 @@
         // If no errors, clear error messages
         document.getElementById("error-messages-Edit").innerHTML = "";
         return true;
+    }
+    // Function to submit the form and refresh notifications
+    function deleteFormEdit() {
+        var form = document.getElementById('form-panel-Edit');
+        if (form) {
+            // Create a new FormData object
+            var formData = new FormData(form);
+
+            // Append additional data
+            formData.append('delete_user', 'true');
+
+            // Send a POST request using AJAX
+            $.ajax({
+                url: "code/code.php",
+                method: "POST",
+                data: formData,
+                contentType: false,
+                cache: false,
+                processData: false,
+                success: function(data) {
+                    console.log(data);
+                    // Reset the form
+                    form.reset();
+                    // Reload the page or do other actions if needed
+                    location.reload();
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Form submission error:", textStatus, errorThrown);
+                    // Handle error if needed
+                }
+            });
+        }
     }
 
     // Function to submit the form and refresh notifications
