@@ -35,31 +35,11 @@ require "../functions/functions.php";
     <!-- NAVBAR -->
     <?php require "../nav/nav.php" ?>
 
-    <!-- CAROUSEL -->
-    <div id="carousel" class="carousel slide" data-bs-ride="carousel">
+    <!-- HEADER -->
+    <header id="head" class="container-fluid p-0">
 
-        <div class="carousel-inner">
-            <div class="carousel-item active">
-                <img src="https://images.unsplash.com/photo-1444858291040-58f756a3bdd6?q=80&w=1978&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100 carousel-img" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="https://plus.unsplash.com/premium_photo-1664123873245-bd178d77ca19?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100 carousel-img" alt="...">
-            </div>
-            <div class="carousel-item">
-                <img src="https://images.unsplash.com/photo-1560493676-04071c5f467b?q=80&w=1974&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="d-block w-100 carousel-img" alt="...">
-            </div>
-        </div>
-
-        <button class="carousel-control-prev" type="button" data-bs-target="#carousel" data-bs-slide="prev">
-            <span class="carousel-control-prev-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Previous</span>
-        </button>
-
-        <button class="carousel-control-next" type="button" data-bs-target="#carousel" data-bs-slide="next">
-            <span class="carousel-control-next-icon" aria-hidden="true"></span>
-            <span class="visually-hidden">Next</span>
-        </button>
-    </div>
+        <div class="parallax container-fluid"></div>
+    </header>
 
     <!-- SYSTEM LINKS -->
     <div class="container my-5">
