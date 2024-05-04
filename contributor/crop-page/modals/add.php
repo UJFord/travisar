@@ -170,9 +170,10 @@
 <script>
     var firstErrorElement = null;
     var currentTab = 'gen';
+    var seedImage = document.getElementById('imageInputSeed');
 
     // Function to validate input
-    function validateForm() {
+    function validateForm(event) {
         var categoryID = document.forms["Form"]["category_id"].value;
         var category_varietyID = document.forms["Form"]["category_variety_id"].value;
         var cropVariety = document.forms["Form"]["crop_variety"].value;
@@ -268,12 +269,63 @@
             document.getElementById('barangay-error').innerText = "";
         }
 
+        // Check if the image size exceeds the limit (3MB) for all image inputs
+        // var imageInputs = document.querySelectorAll('input[type="file"]');
+        // imageInputs.forEach(function(input) {
+        //     if (input.files.length > 0 && input.files[0].size > 3 * 1024 * 1024) {
+        //         input.classList.add('is-invalid');
+        //         input.nextElementSibling.innerText = "Image size exceeds the limit of 3MB.";
+        //         isValid = false;
+        //         if (!firstErrorElement) {
+        //             firstErrorElement = input;
+        //         }
+        //     } else {
+        //         input.classList.remove('is-invalid');
+        //         input.nextElementSibling.innerText = "";
+        //     }
+        // });
+
+        // Check if the image size exceeds the limit (3MB) for the seed image
+        if (seedImage.files.length > 0) {
+            var isValidImage = validateImages();
+            if (!isValidImage) {
+                isValid = false;
+                firstErrorElement = document.getElementById('imageInputSeed');
+            }
+        }
+
         // Focus on the first element with an error
         if (firstErrorElement) {
             firstErrorElement.focus();
             event.preventDefault(); // Prevent the form from submitting by default
             // Switch back to the tab with the error
             switchTab(currentTab);
+        }
+
+        return isValid;
+    }
+
+    // Validation function
+    function validateImages() {
+        var isValid = true;
+        var inputElement = document.getElementById('imageInputSeed');
+        var files = inputElement.files;
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (file.size > 5 * 1024 * 1024) {
+                inputElement.classList.add('is-invalid');
+                document.getElementById('imageInputSeed-error').innerText = "Image exceeds 5mb";
+                isValid = false;
+                if (!firstErrorElement) {
+                    firstErrorElement = document.getElementById('imageInputSeed');
+                }
+            }
+        }
+
+        if (isValid) {
+            inputElement.classList.remove('is-invalid');
+            document.getElementById('imageInputSeed-error').innerText = "";
         }
 
         return isValid;
@@ -309,7 +361,7 @@
             submitForm();
         } else {
             // Validate the form if not submitted as a draft
-            if (validateForm()) {
+            if (validateForm(event)) {
                 // If validation succeeds, submit the form
                 submitForm();
             }
@@ -322,28 +374,34 @@
         var form = document.getElementById('form-panel-add');
         // Trigger the form submission
         if (form) {
-            // Perform AJAX submission or other necessary actions
-            $.ajax({
-                url: "modals/crud-code/code.php",
-                method: "POST",
-                data: new FormData(form),
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function(data) {
-                    console.log(data);
-                    // Reset the form
-                    form.reset();
-                    // Reload unseen notifications
-                    load_unseen_notification();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error("Form submission error:", textStatus, errorThrown);
-                    // Handle error if needed
-                }
-            });
+            if (validateForm()) { // Validate the form
+                // Perform AJAX submission or other necessary actions
+                $.ajax({
+                    url: "modals/crud-code/code.php",
+                    method: "POST",
+                    data: new FormData(form),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        console.log(data);
+                        // Reset the form
+                        form.reset();
+                        // Reload unseen notifications
+                        load_unseen_notification();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error("Form submission error:", textStatus, errorThrown);
+                        // Handle error if needed
+                    }
+                });
+            } else {
+                // Form validation failed, do not submit
+                console.log("Form validation failed, submission aborted.");
+            }
         }
     }
+
 
     // Prevent tab switching when there are validation errors
     // var tabPane = document.getElementById('myTab');
