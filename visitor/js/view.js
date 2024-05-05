@@ -13,17 +13,6 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 }).addTo(map);
 
 // Fetch GeoJSON data from GitHub
-// fetch('https://raw.githubusercontent.com/rukku/ph-province-boundaries/master/PH-SAR/SARANGANI.geojson')
-// .then(response => response.json())
-// .then(data => {
-//     // Create a GeoJSON layer and add it to the map
-//     L.geoJSON(data).addTo(map);
-// })
-// .catch(error => {
-//     console.error('Error fetching GeoJSON:', error);
-// });
-
-// Fetch GeoJSON data from GitHub
 fetch('https://raw.githubusercontent.com/rukku/ph-province-boundaries/master/PH-SAR/SARANGANI.geojson')
 .then(response => response.json())
 .then(data => {

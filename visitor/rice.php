@@ -79,12 +79,6 @@ require "../functions/connections.php";
             </nav>
         </div>
 
-        <!-- map toggler -->
-        <button role="button" id="map-toggler" class="fixed-bottom rounded-pill bg-dark bg-gradient py-2 mb-5 text-light d-flex justify-content-center align-item-center  link-underline link-underline-opacity-0">
-            <span class="map-toggle"><i class="fa-solid fa-map me-2"></i>Map View</span>
-            <span class="list-toggle d-none"><i class="fa-solid fa-list me-2"></i>List View</span>
-        </button>
-
         <!-- Add pagination links -->
         <?php // generatePaginationLinks($total_pages, $current_page, 'page'); 
         ?>

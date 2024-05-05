@@ -46,7 +46,7 @@
 }
 
 .categ-link-img{
-    width: 1.2rem;
+    width: 1.5rem;
     object-fit: cover;
 }
 
@@ -85,8 +85,6 @@
         box-shadow: rgba(60, 64, 67, 0.3) 0px 1px 2px 0px, rgba(60, 64, 67, 0.15) 0px 1px 3px 1px;
     }
 /* MAP */
-#map-toggler{
-    width: 10rem;
-    left: 50%;
-    transform: translateX(-50%);
+#view-type-button, #map-toggler{
+    height: clamp(3rem, 5rem, 8rem);
 }

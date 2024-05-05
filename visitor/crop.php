@@ -56,7 +56,7 @@ require "../functions/functions.php";
 					<div class="row h-100 p-0">
 						<div class="col p-0">
 
-							<a href="corn.php" id="all-crop-link" class="h-100 w-100 d-flex justify-content-end align-items-end icon-link icon-link-hover link-underline link-underline-opacity-0 p-0 pb-2 border-3 border-end link-light">
+							<a href="all.php" id="all-crop-link" class="h-100 w-100 d-flex justify-content-end align-items-end icon-link icon-link-hover link-underline link-underline-opacity-0 p-0 pb-2 border-3 border-end link-light">
 								<span>All Crops</span>
 								<i class="bi bi-arrow-right fs-3 me-2"></i>
 							</a>
@@ -64,17 +64,17 @@ require "../functions/functions.php";
 						</div>
 						<div class="col d-flex flex-column align-items-stretch p-0 m-0">
 
-							<a href="list/table-list.php" id="corn-link" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-3 border-bottom link-light">
+							<a href="corn.php" id="corn-link" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-3 border-bottom link-light">
 								<span class="me-4">Corn</span>
 								<i class="bi bi-arrow-right fs-3 me-4"></i>
 							</a>
 
-							<a href="list/table-list.php" id="rice-link" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-3 border-bottom link-light">
+							<a href="rice.php" id="rice-link" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-3 border-bottom link-light">
 								<span class="me-4">Rice</span>
 								<i class="bi bi-arrow-right fs-3 me-4"></i>
 							</a>
 
-							<a href="list/table-list.php" id="root-link" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 link-light">
+							<a href="root.php" id="root-link" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 link-light">
 								<span class="me-4">Root</span>
 								<i class="bi bi-arrow-right fs-3 me-4"></i>
 							</a>
