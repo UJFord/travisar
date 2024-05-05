@@ -34,8 +34,8 @@ switch ($current_page_path) {
                 while ($row = pg_fetch_assoc($query_run)) {
                     $category_name = $row['category_name'];
 
-                    if ($category_name === "Corn") {
-                        $category_name = "Corn";
+                    if ($category_name === "Root Crop") {
+                        $category_name = "Root Crop";
             ?>
                         <!-- category filter -->
                         <a href="corn.php?category_id=<?= $row['category_id'] ?>" class="col-1 bar-filter-categ border-bottom border-<?= ($isCorn) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-4 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
@@ -47,18 +47,27 @@ switch ($current_page_path) {
                         $category_name = "Rice";
                     ?>
                         <!-- category filter -->
+                        <a href="root.php?category_id=<?= $row['category_id'] ?>" class="col-1 bar-filter-categ border-bottom border-<?= ($isRoot) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-4 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
+                            <img class="categ-link-img" src="img/carrot-svgrepo-com.svg" alt="" srcset="">
+                            <div class="fw-bold">Root</div>
+                        </a>
+                    <?php
+                    } elseif ($category_name === "Corn") {
+                        $category_name = "Corn";
+                    ?>
+                        <!-- category filter -->
                         <a href="rice.php?category_id=<?= $row['category_id'] ?>" class="col-1 bar-filter-categ border-bottom border-<?= ($isRice) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-4 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
                             <img class="categ-link-img" src="img/rice-grain-svgrepo-com.svg" alt="" srcset="">
                             <div class="fw-bold">Rice</div>
                         </a>
                     <?php
-                    } elseif ($category_name === "Root Crop") {
-                        $category_name = "Root Crop";
+                    } elseif ($category_name === "All") {
+                        $category_name = "All";
                     ?>
                         <!-- category filter -->
                         <a href="root.php?category_id=<?= $row['category_id'] ?>" class="col-1 bar-filter-categ border-bottom border-<?= ($isRoot) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-4 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
                             <img class="categ-link-img" src="img/carrot-svgrepo-com.svg" alt="" srcset="">
-                            <div class="fw-bold">Root</div>
+                            <div class="fw-bold">All</div>
                         </a>
             <?php
                     }

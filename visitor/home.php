@@ -60,7 +60,7 @@ require "../functions/functions.php";
                 </div>
 
                 <!-- sarangani image -->
-                <div class="col">
+                <div class="col-4">
                     <div class="head-img-container d-flex justify-content-center align-items-center">
                         <img id="head-img" src="img/sarMap.svg" alt="" srcset="">
                     </div>
