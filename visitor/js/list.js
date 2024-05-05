@@ -69,17 +69,17 @@ $(document).ready(function () {
     // icons
     let icons = {
         "Corn": L.icon({
-            iconUrl: 'img/corn-svgrepo-com.svg',
+            iconUrl: 'img/corn.svg',
             iconSize: [40, 40],
             iconAnchor: [20, 20],
         }),
         "Rice": L.icon({
-            iconUrl: 'img/rice-grain-svgrepo-com.svg',
+            iconUrl: 'img/rice.svg',
             iconSize: [40, 40],
             iconAnchor: [20, 20],
         }),
-        "Root": L.icon({
-            iconUrl: 'img/carrot-svgrepo-com.svg',
+        "Root Crop": L.icon({
+            iconUrl: 'img/potato.svg',
             iconSize: [40, 40],
             iconAnchor: [20, 20],
         })
