@@ -216,6 +216,7 @@
         <div class="d-flex flex-column image-upload-container col-6">
             <input type="hidden" name="current_image_seed" id="old_image_seed">
             <input class="mb-0 form-control form-control-sm" type="file" id="imageInputSeedEdit" accept="image/jpeg,image/png" name="crop_seed_image[]" multiple>
+            <div id="imageInputSeedEdit-error-edit" class="invalid-feedback"></div>
         </div>
         <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewSeedEdit"></div>
     </div>
@@ -229,6 +230,7 @@
         <div class="col-6 d-flex flex-column image-upload-container">
             <input type="hidden" name="current_image_veg" id="old_image_veg">
             <input class="col-6 mb-2 form-control form-control-sm" type="file" id="imageInputVegetativeEdit" accept="image/jpeg,image/png" name="crop_vegetative_image[]" multiple>
+            <div id="imageInputVegetativeEdit-error-edit" class="invalid-feedback"></div>
         </div>
         <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewVegEdit"></div>
     </div>
@@ -242,6 +244,7 @@
         <div class="col-6 d-flex flex-column image-upload-container">
             <input type="hidden" name="current_image_rep" id="old_image_rep">
             <input class="mb-2 form-control form-control-sm" type="file" id="imageInputReproductiveEdit" accept="image/jpeg,image/png" name="crop_reproductive_image[]" multiple>
+            <div id="imageInputReproductiveEdit-error-edit" class="invalid-feedback"></div>
         </div>
         <div class="col preview-containerEdit custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex justify-content-center align-items-center" id="previewReproductiveEdit"></div>
     </div>

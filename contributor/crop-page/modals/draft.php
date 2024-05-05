@@ -215,9 +215,12 @@
 <script>
     var firstErrorElementDraft = null;
     var currentTabDraft = 'draft-gen';
+    var seedImageDraft = document.getElementById('imageInputSeedDraft');
+    var vegImageDraft = document.getElementById('imageInputVegetativeDraft');
+    var reproImageDraft = document.getElementById('imageInputReproductiveDraft');
 
     // Function to validate input
-    function validateFormDraft() {
+    function validateFormDraft(event) {
         var categoryID = document.getElementById("CategoryDraft").value
         var category_varietyID = document.getElementById("categoryVarietyDraft").value
         var cropVariety = document.getElementById("Variety-NameDraft").value
@@ -313,12 +316,115 @@
             document.getElementById('barangay-error-draft').innerText = "";
         }
 
+        // Check if the image size exceeds the limit (5MB) for the seed image
+        if (seedImageDraft.files.length > 0) {
+            var isValidImageSeedDraft = validateImagesSeedDraft();
+            if (!isValidImageSeedDraft) {
+                isValidDraft = false;
+                firstErrorElementDraft = document.getElementById('imageInputSeedDraft');
+            }
+        }
+
+        // Check if the image size exceeds the limit (5MB) for the seed image
+        if (vegImageDraft.files.length > 0) {
+            var isValidImageVegDraft = validateImagesVegDraft();
+            if (!isValidImageVegDraft) {
+                isValidDraft = false;
+                firstErrorElementDraft = document.getElementById('imageInputVegetativeDraft');
+            }
+        }
+
+        // Check if the image size exceeds the limit (5MB) for the seed image
+        if (reproImageDraft.files.length > 0) {
+            var isValidImageReproDraft = validateImagesReproDraft();
+            if (!isValidImageReproDraft) {
+                isValidDraft = false;
+                firstErrorElementDraft = document.getElementById('imageInputReproductiveDraft');
+            }
+        }
+
         // Focus on the first element with an error
         if (firstErrorElementDraft) {
             firstErrorElementDraft.focus();
             event.preventDefault(); // Prevent the form from submitting by default
             // Switch back to the tab with the error
             switchTabDraft(currentTabDraft);
+        }
+
+        return isValidDraft;
+    }
+
+    // Validation function
+    function validateImagesSeedDraft() {
+        var isValidDraft = true;
+        var inputElementSeedDraft = document.getElementById('imageInputSeedDraft');
+        var files = inputElementSeedDraft.files;
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (file.size > 5 * 1024 * 1024) {
+                inputElementSeedDraft.classList.add('is-invalid');
+                document.getElementById('imageInputSeedDraft-error-draft').innerText = "Image must not exceed 5MB.";
+                isValidDraft = false;
+                if (!firstErrorElementDraft) {
+                    firstErrorElementDraft = document.getElementById('imageInputSeedDraft');
+                }
+            }
+        }
+
+        if (isValidDraft) {
+            inputElementSeedDraft.classList.remove('is-invalid');
+            document.getElementById('imageInputSeedDraft-error-draft').innerText = "";
+        }
+
+        return isValidDraft;
+    }
+
+    function validateImagesVegDraft() {
+        var isValidDraft = true;
+        var inputElementVegDraft = document.getElementById('imageInputVegetativeDraft');
+        var files = inputElementVegDraft.files;
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (file.size > 5 * 1024 * 1024) {
+                inputElementVegDraft.classList.add('is-invalid');
+                document.getElementById('imageInputVegetativeDraft-error-draft').innerText = "Image must not exceed 5MB.";
+                isValidDraft = false;
+                if (!firstErrorElementDraft) {
+                    firstErrorElementDraft = document.getElementById('imageInputVegetativeDraft');
+                }
+            }
+        }
+
+        if (isValidDraft) {
+            inputElementVegDraft.classList.remove('is-invalid');
+            document.getElementById('imageInputVegetativeDraft-error-draft').innerText = "";
+        }
+
+        return isValidDraft;
+    }
+
+    function validateImagesReproDraft() {
+        var isValidDraft = true;
+        var inputElementReproDraft = document.getElementById('imageInputReproductiveDraft');
+        var files = inputElementReproDraft.files;
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (file.size > 5 * 1024 * 1024) {
+                inputElementReproDraft.classList.add('is-invalid');
+                document.getElementById('imageInputReproductiveDraft-error-draft').innerText = "Image must not exceed 5MB.";
+                isValidDraft = false;
+                if (!firstErrorElementDraft) {
+                    firstErrorElementDraft = document.getElementById('imageInputReproductiveDraft');
+                }
+            }
+        }
+
+        if (isValidDraft) {
+            inputElementReproDraft.classList.remove('is-invalid');
+            document.getElementById('imageInputReproductiveDraft-error-draft').innerText = "";
         }
 
         return isValidDraft;
@@ -358,7 +464,7 @@
             submitFormDraft();
         } else {
             // Validate the form if not submitted as a draft
-            if (validateFormDraft()) {
+            if (validateFormDraft(event)) {
                 // If validation succeeds, submit the form
                 submitFormDraft();
             }
@@ -372,25 +478,27 @@
         // Trigger the form submission
         if (form) {
             // Perform AJAX submission or other necessary actions
-            $.ajax({
-                url: "modals/crud-code/draft-code.php",
-                method: "POST",
-                data: new FormData(form),
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function(data) {
-                    console.log(data);
-                    // Reset the form
-                    form.reset();
-                    // Reload unseen notifications
-                    load_unseen_notification();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error("Form submission error:", textStatus, errorThrown);
-                    // Handle error if needed
-                }
-            });
+            if (validateFormDraft()) { // Validate the form
+                $.ajax({
+                    url: "modals/crud-code/draft-code.php",
+                    method: "POST",
+                    data: new FormData(form),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        console.log(data);
+                        // Reset the form
+                        form.reset();
+                        // Reload unseen notifications
+                        load_unseen_notification();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error("Form submission error:", textStatus, errorThrown);
+                        // Handle error if needed
+                    }
+                });
+            }
         }
     }
 
@@ -427,7 +535,7 @@
 
 <!-- script for getting draft data -->
 <script>
-    // EDIT SCRIPT
+    // Draft SCRIPT
     const tableRowsDraft = document.querySelectorAll('.draft_data');
     // Define an array to store municipalities
     var municipalities = [];

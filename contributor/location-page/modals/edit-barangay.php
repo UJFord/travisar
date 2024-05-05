@@ -13,7 +13,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="code/code-brgy.php" autocomplete="off" method="POST" class=" py-3 px-5" onsubmit="validateAndSubmitForm(event)">
+            <form id="form-panel-edit" name="Form" autocomplete="off" method="POST" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
                     <div class="container">
                         <div id="locationData">
@@ -66,9 +66,10 @@
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-end">
                     <div class="">
+                        <input type="hidden" name="update">
                         <input type="hidden" name="barangay_id" id="barangay_id-Edit">
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" name="update" onclick="validateAndSubmitForm()" class="btn btn-success">Edit</button>
+                        <button type="submit" name="update" class="btn btn-success">Edit</button>
                     </div>
                 </div>
             </form>
@@ -78,23 +79,23 @@
 
 <!-- for submission -->
 <script>
-    // Function to validate input and submit the form
-    function validateAndSubmitForm(event) {
-        // Validate the form
-        if (validateForm()) {
-            // If validation succeeds, submit the form
-            submitForm();
+    document.getElementById('form-panel-edit').addEventListener('submit', function(event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
+        if (validateFormEdit()) {
+            // console.log('Submit add');
+            submitFormEdit();
         }
-    }
+    });
 
     // Function to validate input
-    function validateForm() {
-        // Get the values from the form
-        var barangay_name = document.forms["Form"]["barangay_name"].value;
+    function validateFormEdit() {
+        // Get the value of the barangay_name input
+        var barangay_name = document.getElementById('barangay-Name').value;
 
         // Check if the required fields are not empty
-        if (barangay_name === "") {
-            alert("Please fill out all required fields.");
+        if (barangay_name.trim() === "") {
+            alert("Please fill out the Barangay Name field.");
             return false; // Prevent form submission
         }
         // You can add more validation checks if needed
@@ -102,10 +103,10 @@
     }
 
     // Function to submit the form and refresh notifications
-    function submitForm() {
+    function submitFormEdit() {
         console.log('submitForm function called');
         // Get the form reference
-        var form = document.getElementById('form-panel');
+        var form = document.getElementById('form-panel-edit');
         // Trigger the form submission
         if (form) {
             // Perform AJAX submission or other necessary actions
@@ -117,10 +118,12 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
+                    console.log(data);
                     // Reset the form
                     form.reset();
+                    location.reload();
                     // Reload unseen notifications
-                    load_unseen_notification();
+                    //load_unseen_notification();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("Form submission error:", textStatus, errorThrown);
@@ -144,10 +147,13 @@
 
 <!-- script for limiting the input in coordinates just to numbers, commas, periods, and spaces -->
 <script>
-    document.getElementById('Coordinates').addEventListener('input', function(event) {
-        const regex = /^[0-9.,\s-]*$/; // Updated regex to allow "-" sign
-        if (!regex.test(event.target.value)) {
-            event.target.value = event.target.value.replace(/[^0-9.,\s-]/g, '');
-        }
+    // Select all elements with IDs starting with 'coordInput_'
+    document.querySelectorAll('[id^="CoordinatesEdit"]').forEach(function(input) {
+        input.addEventListener('input', function(event) {
+            const regex = /^[0-9.,\s-]*$/; // Updated regex to allow "-" sign
+            if (!regex.test(event.target.value)) {
+                event.target.value = event.target.value.replace(/[^0-9.,\s-]/g, '');
+            }
+        });
     });
 </script>

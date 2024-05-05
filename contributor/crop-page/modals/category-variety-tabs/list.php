@@ -5,7 +5,7 @@
         <!-- HEADING -->
         <div class="d-flex justify-content-between">
             <!-- title -->
-            <h4 class="fw-semibold" style="font-size: 1.5rem;">Category variety</h4>
+            <h4 class="fw-semibold" style="font-size: 1.5rem;">Category Variety</h4>
             <th col-4 class="col-1 text-center">
                 <!-- add button -->
                 <button id="add-crop-btn" class="btn btn-secondary encoder-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#add-item-modal">
@@ -52,8 +52,8 @@
                             All
                         </label>
                     </th>
-                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="category_name">Category Name</th>
-                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="variety_name">Category Variety Name</th>
+                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="category_name">Category</th>
+                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="variety_name">Variety Name</th>
                     <th class="col text-dark-emphasis text-end" scope="col">
                         <div class="dropdown">
                             <button class="btn tranparent dropdown-toggle row-btn row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">

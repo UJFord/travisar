@@ -170,9 +170,12 @@
 <script>
     var firstErrorElement = null;
     var currentTab = 'gen';
+    var seedImage = document.getElementById('imageInputSeed');
+    var vegImage = document.getElementById('imageInputVegetative');
+    var reproImage = document.getElementById('imageInputReproductive');
 
     // Function to validate input
-    function validateForm() {
+    function validateForm(event) {
         var categoryID = document.forms["Form"]["category_id"].value;
         var category_varietyID = document.forms["Form"]["category_variety_id"].value;
         var cropVariety = document.forms["Form"]["crop_variety"].value;
@@ -268,12 +271,115 @@
             document.getElementById('barangay-error').innerText = "";
         }
 
+        // Check if the image size exceeds the limit (5MB) for the seed image
+        if (seedImage.files.length > 0) {
+            var isValidImageSeed = validateImagesSeed();
+            if (!isValidImageSeed) {
+                isValid = false;
+                firstErrorElement = document.getElementById('imageInputSeed');
+            }
+        }
+
+        // Check if the image size exceeds the limit (5MB) for the seed image
+        if (vegImage.files.length > 0) {
+            var isValidImageVeg = validateImagesVeg();
+            if (!isValidImageVeg) {
+                isValid = false;
+                firstErrorElement = document.getElementById('imageInputVegetative');
+            }
+        }
+
+        // Check if the image size exceeds the limit (5MB) for the seed image
+        if (reproImage.files.length > 0) {
+            var isValidImageRepro = validateImagesRepro();
+            if (!isValidImageRepro) {
+                isValid = false;
+                firstErrorElement = document.getElementById('imageInputReproductive');
+            }
+        }
+
         // Focus on the first element with an error
         if (firstErrorElement) {
             firstErrorElement.focus();
             event.preventDefault(); // Prevent the form from submitting by default
             // Switch back to the tab with the error
             switchTab(currentTab);
+        }
+
+        return isValid;
+    }
+
+    // Validation function
+    function validateImagesSeed() {
+        var isValid = true;
+        var inputElementSeed = document.getElementById('imageInputSeed');
+        var files = inputElementSeed.files;
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (file.size > 5 * 1024 * 1024) {
+                inputElementSeed.classList.add('is-invalid');
+                document.getElementById('imageInputSeed-error').innerText = "Image must not exceed 5MB.";
+                isValid = false;
+                if (!firstErrorElement) {
+                    firstErrorElement = document.getElementById('imageInputSeed');
+                }
+            }
+        }
+
+        if (isValid) {
+            inputElementSeed.classList.remove('is-invalid');
+            document.getElementById('imageInputSeed-error').innerText = "";
+        }
+
+        return isValid;
+    }
+
+    function validateImagesVeg() {
+        var isValid = true;
+        var inputElementVeg = document.getElementById('imageInputVegetative');
+        var files = inputElementVeg.files;
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (file.size > 5 * 1024 * 1024) {
+                inputElementVeg.classList.add('is-invalid');
+                document.getElementById('imageInputVegetative-error').innerText = "Image must not exceed 5MB.";
+                isValid = false;
+                if (!firstErrorElement) {
+                    firstErrorElement = document.getElementById('imageInputVegetative');
+                }
+            }
+        }
+
+        if (isValid) {
+            inputElementVeg.classList.remove('is-invalid');
+            document.getElementById('imageInputVegetative-error').innerText = "";
+        }
+
+        return isValid;
+    }
+
+    function validateImagesRepro() {
+        var isValid = true;
+        var inputElementRepro = document.getElementById('imageInputReproductive');
+        var files = inputElementRepro.files;
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (file.size > 5 * 1024 * 1024) {
+                inputElementRepro.classList.add('is-invalid');
+                document.getElementById('imageInputReproductive-error').innerText = "Image must not exceed 5MB.";
+                isValid = false;
+                if (!firstErrorElement) {
+                    firstErrorElement = document.getElementById('imageInputReproductive');
+                }
+            }
+        }
+
+        if (isValid) {
+            inputElementRepro.classList.remove('is-invalid');
+            document.getElementById('imageInputReproductive-error').innerText = "";
         }
 
         return isValid;
@@ -309,7 +415,7 @@
             submitForm();
         } else {
             // Validate the form if not submitted as a draft
-            if (validateForm()) {
+            if (validateForm(event)) {
                 // If validation succeeds, submit the form
                 submitForm();
             }
@@ -322,26 +428,31 @@
         var form = document.getElementById('form-panel-add');
         // Trigger the form submission
         if (form) {
-            // Perform AJAX submission or other necessary actions
-            $.ajax({
-                url: "modals/crud-code/code.php",
-                method: "POST",
-                data: new FormData(form),
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function(data) {
-                    console.log(data);
-                    // Reset the form
-                    form.reset();
-                    // Reload unseen notifications
-                    load_unseen_notification();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error("Form submission error:", textStatus, errorThrown);
-                    // Handle error if needed
-                }
-            });
+            if (validateForm()) { // Validate the form
+                // Perform AJAX submission or other necessary actions
+                $.ajax({
+                    url: "modals/crud-code/code.php",
+                    method: "POST",
+                    data: new FormData(form),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        console.log(data);
+                        // Reset the form
+                        form.reset();
+                        // Reload unseen notifications
+                        load_unseen_notification();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error("Form submission error:", textStatus, errorThrown);
+                        // Handle error if needed
+                    }
+                });
+            } else {
+                // Form validation failed, do not submit
+                console.log("Form validation failed, submission aborted.");
+            }
         }
     }
 
@@ -376,16 +487,8 @@
     }
 </script>
 
-<!-- JavaScript for the select for category variety ang show the morph, sensory and agro tab -->
+<!-- JavaScript for the select for category variety and show the morph, sensory, and agro tab -->
 <script>
-    // JavaScript for the select for category variety
-    // Function to fetch and display initial category variety based on the initial category
-    document.addEventListener('DOMContentLoaded', function() {
-        // Fetch varieties for the initial selected category
-        var initialCategoryId = document.getElementById('Category').value;
-        fetchVarieties(initialCategoryId);
-    });
-
     // Function to fetch and display initial morphological characteristics based on the initial category
     document.addEventListener('DOMContentLoaded', function() {
         // Fetch the initial category value
@@ -428,7 +531,7 @@
             categoryVarietySelectContainer.style.display = 'none';
         } else {
             categoryVarietySelectContainer.style.display = 'block';
-            fetchVarieties(categoryId);
+            fetchVarieties(categoryId); // This line is removed
         }
 
         // Call the function to display the corresponding morphological characteristics

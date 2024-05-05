@@ -154,11 +154,12 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
-                    console.log(data);
+                    // console.log(data);
                     // Reset the form
                     form.reset();
                     // Reload the page or do other actions if needed
                     location.reload();
+                    
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("Form submission error:", textStatus, errorThrown);
@@ -238,7 +239,7 @@
             },
             success: function(response) {
                 // Handle the response from the server
-                console.log('terrain deleted:', response);
+                //console.log('terrain deleted:', response);
 
                 // Close the confirmation modal
                 //confirmModalInstanceEdit.hide();

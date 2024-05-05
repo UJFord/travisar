@@ -243,6 +243,7 @@
         </label>
         <div class="d-flex flex-column image-upload-container col-6">
             <input class="mb-0 form-control form-control-sm" name="crop_seed_image[]" type="file" id="imageInputSeed" accept="image/jpeg,image/png" onchange="previewImageSeed(this, 'previewSeed')" multiple>
+            <div id="imageInputSeed-error" class="invalid-feedback"></div>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewSeed"></div>
     </div>
@@ -255,6 +256,7 @@
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
             <input class="col-6 mb-0 form-control form-control-sm" name="crop_vegetative_image[]" type="file" id="imageInputVegetative" accept="image/jpeg,image/png" onchange="previewImageVeg(this, 'previewVeg')" multiple>
+            <div id="imageInputVegetative-error" class="invalid-feedback"></div>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewVeg"></div>
     </div>
@@ -267,6 +269,7 @@
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
             <input class="mb-0 form-control form-control-sm" type="file" name="crop_reproductive_image[]" id="imageInputReproductive" accept="image/jpeg,image/png" onchange="previewImageRepro(this, 'previewReproductive')" multiple>
+            <div id="imageInputReproductive-error" class="invalid-feedback"></div>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewReproductive"></div>
     </div>

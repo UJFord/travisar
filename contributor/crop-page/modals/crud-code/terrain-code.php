@@ -2,44 +2,8 @@
 session_start();
 require "../../../../functions/connections.php";
 
-if (isset($_POST['edit']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator')) {
-
-    // Begin the database transaction
-    pg_query($conn, "BEGIN");
-    try {
-        $terrain_name = $_POST['terrain_nameEdit'];
-        $terrain_id = $_POST['terrain_idEdit'];
-
-        $query = "UPDATE terrain set terrain_name = $1 where terrain_id = $2";
-        $query_run = pg_query_params($conn, $query, array($terrain_name, $terrain_id));
-
-        if ($query_run) {
-            $row_terrain = pg_fetch_row($query_run);
-            $terrain_id = $row_terrain[0];
-        } else {
-            echo "Error: " . pg_last_error($conn);
-            exit(0);
-        }
-
-        $_SESSION['message'] = "Terrain Updated Successfully";
-        pg_query($conn, "COMMIT");
-        header("location: ../../terrain.php");
-        exit();
-    } catch (Exception $e) {
-        // message for error
-        $_SESSION['message'] = 'Terrain not Updated';
-        // Rollback the transaction if an error occurs
-        pg_query($conn, "ROLLBACK");
-        // Log the error message
-        error_log("Error: " . $e->getMessage());
-        // Handle the error
-        echo "Error: " . $e->getMessage();
-        // Display the error message
-        echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
-        exit(0);
-    }
-}
-
+// var_dump($_POST);
+// die();
 if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator')) {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
@@ -59,7 +23,7 @@ if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
                 // terrain exists
                 $_SESSION['message'] = "terrain already exists.";
                 pg_query($conn, "COMMIT");
-                header("location: ../../terrain.php");
+                //header("location: ../../terrain.php");
                 exit();
             } else {
                 // terrain does not exist, proceed with insertion
@@ -69,7 +33,8 @@ if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
                 if ($query_run) {
                     $_SESSION['message'] = "terrain created successfully.";
                     pg_query($conn, "COMMIT");
-                    header("location: ../../terrain.php");
+                    //var_dump($_SESSION);
+                    //header("location: ../../terrain.php");
                     exit();
                 } else {
                     echo "Error: " . pg_last_error($conn);
@@ -96,6 +61,43 @@ if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
     }
 }
 
+if (isset($_POST['edit']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator')) {
+    // Begin the database transaction
+    pg_query($conn, "BEGIN");
+    try {
+        $terrain_name = $_POST['terrain_nameEdit'];
+        $terrain_id = $_POST['terrain_idEdit'];
+
+        $query = "UPDATE terrain set terrain_name = $1 where terrain_id = $2";
+        $query_run = pg_query_params($conn, $query, array($terrain_name, $terrain_id));
+
+        if ($query_run) {
+            $row_terrain = pg_fetch_row($query_run);
+            $terrain_id = $row_terrain[0];
+        } else {
+            echo "Error: " . pg_last_error($conn);
+            exit(0);
+        }
+
+        $_SESSION['message'] = "Terrain Updated Successfully";
+        pg_query($conn, "COMMIT");
+        // header("location: ../../terrain.php");
+        exit();
+    } catch (Exception $e) {
+        // message for error
+        $_SESSION['message'] = 'Terrain not Updated';
+        // Rollback the transaction if an error occurs
+        pg_query($conn, "ROLLBACK");
+        // Log the error message
+        error_log("Error: " . $e->getMessage());
+        // Handle the error
+        echo "Error: " . $e->getMessage();
+        // Display the error message
+        echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
+        exit(0);
+    }
+}
+
 if (isset($_POST['delete']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator')) {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
@@ -108,7 +110,7 @@ if (isset($_POST['delete']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'
         if ($query_run) {
             $_SESSION['message'] = "Terrain Deleted Successfully";
             pg_query($conn, "COMMIT");
-            header("location: ../../terrain.php");
+            // header("location: ../../terrain.php");
             exit();
         } else {
             echo "Error: " . pg_last_error($conn);

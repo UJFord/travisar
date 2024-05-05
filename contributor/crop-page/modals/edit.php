@@ -844,9 +844,12 @@
 <script>
     var firstErrorElementEdit = null;
     var currentTabEdit = 'edit-gen';
+    var seedImageEdit = document.getElementById('imageInputSeedEdit');
+    var vegImageEdit = document.getElementById('imageInputVegetativeEdit');
+    var reproImageEdit = document.getElementById('imageInputReproductiveEdit');
 
     // Function to validate input
-    function validateFormEdit() {
+    function validateFormEdit(event) {
         var cropVariety = document.getElementById("crop_variety").value
         var province = document.getElementById("ProvinceEdit").value
         var municipality = document.getElementById("MunicipalitySelect").value
@@ -903,12 +906,116 @@
             document.getElementById('barangay-error-edit').innerText = "";
         }
 
+        // Check if the image size exceeds the limit (5MB) for the seed image
+        if (seedImageEdit.files.length > 0) {
+            var isValidImageSeedEdit = validateImagesSeedEdit();
+            if (!isValidImageSeedEdit) {
+                isValidEdit = false;
+                firstErrorElementEdit = document.getElementById('imageInputSeedEdit');
+            }
+        }
+
+        // Check if the image size exceeds the limit (5MB) for the seed image
+        if (vegImageEdit.files.length > 0) {
+            var isValidImageVegEdit = validateImagesVegEdit();
+            if (!isValidImageVegEdit) {
+                isValidEdit = false;
+                firstErrorElementEdit = document.getElementById('imageInputVegetativeEdit');
+            }
+        }
+
+        // Check if the image size exceeds the limit (5MB) for the seed image
+        if (reproImageEdit.files.length > 0) {
+            var isValidImageReproEdit = validateImagesReproEdit();
+            if (!isValidImageReproEdit) {
+                isValidEdit = false;
+                firstErrorElementEdit = document.getElementById('imageInputReproductiveEdit');
+            }
+        }
+
         // Focus on the first element with an error
         if (firstErrorElementEdit) {
             firstErrorElementEdit.focus();
             event.preventDefault(); // Prevent the form from submitting by default
             // Switch back to the tab with the error
             switchTabEdit(currentTabEdit);
+        }
+
+        return isValidEdit;
+    }
+
+
+    // Validation function
+    function validateImagesSeedEdit() {
+        var isValidEdit = true;
+        var inputElementSeedEdit = document.getElementById('imageInputSeedEdit');
+        var files = inputElementSeedEdit.files;
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (file.size > 5 * 1024 * 1024) {
+                inputElementSeedEdit.classList.add('is-invalid');
+                document.getElementById('imageInputSeedEdit-error-edit').innerText = "Image must not exceed 5MB.";
+                isValidEdit = false;
+                if (!firstErrorElementEdit) {
+                    firstErrorElementEdit = document.getElementById('imageInputSeedEdit');
+                }
+            }
+        }
+
+        if (isValidEdit) {
+            inputElementSeedEdit.classList.remove('is-invalid');
+            document.getElementById('imageInputSeedEdit-error-edit').innerText = "";
+        }
+
+        return isValidEdit;
+    }
+
+    function validateImagesVegEdit() {
+        var isValidEdit = true;
+        var inputElementVegEdit = document.getElementById('imageInputVegetativeEdit');
+        var files = inputElementVegEdit.files;
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (file.size > 5 * 1024 * 1024) {
+                inputElementVegEdit.classList.add('is-invalid');
+                document.getElementById('imageInputVegetativeEdit-error-edit').innerText = "Image must not exceed 5MB.";
+                isValidEdit = false;
+                if (!firstErrorElementEdit) {
+                    firstErrorElementEdit = document.getElementById('imageInputVegetativeEdit');
+                }
+            }
+        }
+
+        if (isValidEdit) {
+            inputElementVegEdit.classList.remove('is-invalid');
+            document.getElementById('imageInputVegetativeEdit-error-edit').innerText = "";
+        }
+
+        return isValidEdit;
+    }
+
+    function validateImagesReproEdit() {
+        var isValidEdit = true;
+        var inputElementReproEdit = document.getElementById('imageInputReproductiveEdit');
+        var files = inputElementReproEdit.files;
+
+        for (var i = 0; i < files.length; i++) {
+            var file = files[i];
+            if (file.size > 5 * 1024 * 1024) {
+                inputElementReproEdit.classList.add('is-invalid');
+                document.getElementById('imageInputReproductiveEdit-error-edit').innerText = "Image must not exceed 5MB.";
+                isValidEdit = false;
+                if (!firstErrorElementEdit) {
+                    firstErrorElementEdit = document.getElementById('imageInputReproductiveEdit');
+                }
+            }
+        }
+
+        if (isValidEdit) {
+            inputElementReproEdit.classList.remove('is-invalid');
+            document.getElementById('imageInputReproductiveEdit-error-edit').innerText = "";
         }
 
         return isValidEdit;
@@ -936,7 +1043,7 @@
         if (selectedCategoryEdit !== '2') {
             disableInputs(rootCropMorphEdit);
         }
-        if (validateFormEdit()) {
+        if (validateFormEdit(event)) {
             // If validation succeeds, submit the form
             submitFormEdit();
         }
@@ -949,26 +1056,31 @@
         var form = document.getElementById('form-panel-edit');
         // Trigger the form submission
         if (form) {
-            // Perform AJAX submission or other necessary actions
-            $.ajax({
-                url: "modals/crud-code/code.php",
-                method: "POST",
-                data: new FormData(form),
-                contentType: false,
-                cache: false,
-                processData: false,
-                success: function(data) {
-                    console.log("Form Edit submitted successfully", data);
-                    // Reset the form
-                    form.reset();
-                    // Reload unseen notifications
-                    load_unseen_notification();
-                },
-                error: function(jqXHR, textStatus, errorThrown) {
-                    console.error("Form submission error:", textStatus, errorThrown);
-                    // Handle error if needed
-                }
-            });
+            if (validateFormEdit()) { // Validate the form
+                // Perform AJAX submission or other necessary actions
+                $.ajax({
+                    url: "modals/crud-code/code.php",
+                    method: "POST",
+                    data: new FormData(form),
+                    contentType: false,
+                    cache: false,
+                    processData: false,
+                    success: function(data) {
+                        console.log("Form Edit submitted successfully", data);
+                        // Reset the form
+                        //form.reset();
+                        // Reload unseen notifications
+                        //load_unseen_notification();
+                    },
+                    error: function(jqXHR, textStatus, errorThrown) {
+                        console.error("Form submission error:", textStatus, errorThrown);
+                        // Handle error if needed
+                    }
+                });
+            } else {
+                // Form validation failed, do not submit
+                console.log("Form validation failed, submission aborted.");
+            }
         }
     }
 

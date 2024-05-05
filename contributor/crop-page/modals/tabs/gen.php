@@ -166,7 +166,7 @@
         <div class="col" id="category-Variety">
             <label for="categoryVariety" class="form-label small-font">Variety<span class="text-danger ms-1">*</span></label>
             <select name="category_variety_id" id="categoryVariety" class="form-select color-default-child">
-            <option value="" selected disabled hidden>Select an option.</option>
+                <option value="" selected disabled hidden>Select an option.</option>
             </select>
             <div id="categoryVariety-error" class="invalid-feedback"></div>
         </div>
@@ -242,6 +242,7 @@
         </label>
         <div class="d-flex flex-column image-upload-container col-6">
             <input class="mb-0 form-control form-control-sm" name="crop_seed_image[]" type="file" id="imageInputSeed" accept="image/jpeg,image/png" onchange="previewImageSeed(this, 'previewSeed')" multiple>
+            <div id="imageInputSeed-error" class="invalid-feedback"></div>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewSeed"></div>
     </div>
@@ -254,6 +255,7 @@
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
             <input class="col-6 mb-0 form-control form-control-sm" name="crop_vegetative_image[]" type="file" id="imageInputVegetative" accept="image/jpeg,image/png" onchange="previewImageVeg(this, 'previewVeg')" multiple>
+            <div id="imageInputVegetative-error" class="invalid-feedback"></div>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewVeg"></div>
     </div>
@@ -266,6 +268,7 @@
         </label>
         <div class="col-6 d-flex flex-column image-upload-container">
             <input class="mb-0 form-control form-control-sm" type="file" name="crop_reproductive_image[]" id="imageInputReproductive" accept="image/jpeg,image/png" onchange="previewImageRepro(this, 'previewReproductive')" multiple>
+            <div id="imageInputReproductive-error" class="invalid-feedback"></div>
         </div>
         <div class="col preview-container custom-scrollbar overflow-x-auto overflow-y-hidden rounded ps-1 py-1 border d-flex d-none" id="previewReproductive"></div>
     </div>

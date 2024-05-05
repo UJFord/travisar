@@ -154,7 +154,7 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
-                    console.log(data);
+                    //console.log(data);
                     // Reset the form
                     form.reset();
                     // Reload the page or do other actions if needed
@@ -244,7 +244,7 @@
                 //confirmModalInstanceEdit.hide();
 
                 // Optionally, you can reload the page or update the UI
-                //location.reload();
+                location.reload();
             },
             error: function(xhr, status, error) {
                 // Handle errors
