@@ -29,9 +29,9 @@
 
             // If category_id is not empty, add it to the WHERE clause
             if (!empty($category_id)) {
-                $where_clause = " WHERE crop.category_id = $category_id";
+                $where_clause .= " AND crop.category_id = $category_id";
             } else { // If category_id is empty or null, select all crops
-                $where_clause = " WHERE status.action = 'Approved'";
+                $where_clause .= " AND status.action = 'Approved'";
             }
 
             // Get the search query from the session or URL parameter
@@ -43,6 +43,16 @@
             // Add the search condition to the WHERE clause
             $where_clause .= $search_condition;
 
+            // Get the categories and municipalities filter from the URL
+            $category_filter = !empty($_GET['categories']) ? "AND category.category_id IN (" . implode(',', explode(',', $_GET['categories'])) . ")" : '';
+            $municipality_filter = !empty($_GET['municipalities']) ? "AND municipality.municipality_id IN (" . implode(',', explode(',', $_GET['municipalities'])) . ")" : '';
+            $variety_filter = !empty($_GET['varieties']) ? "AND category_variety_id IN (" . implode(',', explode(',', $_GET['varieties'])) . ")" : '';
+            $terrain_filter = !empty($_GET['terrains']) ? "AND crop.terrain_id IN (" . implode(',', explode(',', $_GET['terrains'])) . ")" : '';
+            $brgy_filter = !empty($_GET['barangay']) ? "AND barangay_id IN (" . implode(',', explode(',', $_GET['barangay'])) . ")" : '';
+
+            // Add all filters to the WHERE clause
+            $where_clause .= " $category_filter $municipality_filter $variety_filter $terrain_filter $brgy_filter";
+
             // Build the SQL query
             $query = "SELECT * FROM crop 
             LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
@@ -52,7 +62,7 @@
             LEFT JOIN barangay ON barangay.barangay_id = crop_location.barangay_id
             LEFT JOIN province ON province.province_id = municipality.province_id
             LEFT JOIN terrain ON terrain.terrain_id = crop.terrain_id
-            $where_clause
+            WHERE 1=1 $where_clause
             ORDER BY crop.crop_id DESC 
             LIMIT $items_per_page OFFSET $offset";
 
@@ -68,16 +78,16 @@
 
                     // Display the data
             ?>
-                        <tr latlng="<?= $row['barangay_coordinates'] ?>" data-href="view.php?crop_id=<?= $row['crop_id'] ?>">
-                            <td class="category"><?= $row['category_name'] ?></td>
-                            <td class="fw-bolder variety"><?= $row['crop_variety'] ?></td>
-                            <td class="addr">
-                                <span class="d-block text-truncate" style="max-width: 300px;">
-                                    <?= $row['province_name'] . ", " . $row['municipality_name'] . ", " . $row['barangay_name'] ?>
-                                </span>
-                            </td>
-                            <td class="terrain"><span class="d-block text-truncate" style="max-width: 300px;"><?= $row['terrain_name'] ?></td>
-                        </tr>
+                    <tr latlng="<?= $row['barangay_coordinates'] ?>" data-href="view.php?crop_id=<?= $row['crop_id'] ?>">
+                        <td class="category"><?= $row['category_name'] === 'Root Crop' ? 'Root' : $row['category_name'] ?></td>
+                        <td class="fw-bolder variety"><?= $row['crop_variety'] ?></td>
+                        <td class="addr">
+                            <span class="d-block text-truncate" style="max-width: 300px;">
+                                <?= $row['province_name'] . ", " . $row['municipality_name'] . ", " . $row['barangay_name'] ?>
+                            </span>
+                        </td>
+                        <td class="terrain"><span class="d-block text-truncate" style="max-width: 300px;"><?= $row['terrain_name'] ?></td>
+                    </tr>
             <?php
                 }
             }
