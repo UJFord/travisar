@@ -13,9 +13,9 @@
 	position: relative;
 }
 
-#head-text, #feature-title{
-	font-family: "Freeman", sans-serif;
-	font-weight: 600;
+#head-text, #feature-title, #partners-title{
+	font-family: "Roboto", sans-serif;
+	font-weight: 500;
 }
 
 #logo-in-header{
@@ -30,13 +30,16 @@
 
 /* SYSTEM LINKS */
 .qlink-img-container img{
-	width: 20rem;
+	object-fit: cover;
+	width: 40rem;
+	height: 25rem;
+	box-shadow: rgba(0, 0, 0, 0.16) 0px 10px 36px 0px, rgba(0, 0, 0, 0.06) 0px 0px 0px 1px;
 }
 .qlink-link{
 	background: var(--mainBrand) !important;
 }
 	.qlink-link:hover{
-		/* background: #006065; */
+		background: #005357;
 	}
 
 
@@ -54,3 +57,15 @@
     max-width: 4rem;
     object-fit: cover;
 }
+
+/* FOOTER */
+footer{
+	background: var(--mainBrand);
+}
+	#footer-head{
+		font-family: "Roboto", sans-serif;
+		font-weight: 600;
+	}
+
+
+/* ABOUT PAGE */

@@ -9,6 +9,7 @@ $current_page_path = $_SERVER['REQUEST_URI'];
 // current page html boolean
 $current_page_isHome = false;
 $current_page_isCrop = false;
+$current_page_isAbout = false;
 $current_page_isCrop_page = false;
 $current_page_isSettings = false;
 $current_page_isSubmission = false;
@@ -21,6 +22,9 @@ switch ($current_page_path) {
         break;
     case "/travisar/visitor/crop.php":
         $current_page_isCrop = true;
+        break;
+    case "/travisar/visitor/about.php":
+        $current_page_isAbout = true;
         break;
     case "/travisar/visitor/corn.php":
         $current_page_isCrop = true;
@@ -86,8 +90,8 @@ switch ($current_page_path) {
 
         <!-- logo -->
         <a href="<?php echo BASE_URL . '/' . 'visitor/home.php'; ?>" class="navbar-brand h1 m-0 me-3 <?php if ($current_page_isHome) {
-                                                                                                echo "active";
-                                                                                            } ?>"><img id="nav-logo" src="<?php echo BASE_URL . '/' . 'nav/travis-light.svg'; ?>" alt="" srcset=""></a>
+                                                                                                            echo "active";
+                                                                                                        } ?>"><img id="nav-logo" src="<?php echo BASE_URL . '/' . 'nav/travis-light.svg'; ?>" alt="" srcset=""></a>
 
         <!-- hamburger button for mobile -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="navLink">
@@ -115,7 +119,9 @@ switch ($current_page_path) {
 
                 <!-- about -->
                 <li class="nav-item fw-semibold me-2">
-                    <a href="" class="nav-link">About</a>
+                    <a class="nav-link <?php if ($current_page_isAbout) {
+                                            echo "active";
+                                        } ?>" href="<?php echo BASE_URL . '/' . 'visitor/about.php'; ?>">About</a>
                 </li>
 
             </ul>

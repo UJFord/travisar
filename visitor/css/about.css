@@ -1,0 +1,29 @@
+/* ABOUT PAGE */
+.about-head{
+    font-family: "Roboto", sans-serif;
+    font-weight: 600;
+}
+
+.about-img{
+    object-fit: cover;
+    box-shadow: rgba(0, 0, 0, 0.19) 0px 10px 20px, rgba(0, 0, 0, 0.23) 0px 6px 6px;
+}
+p{
+    text-align: justify;
+}
+
+/* TRAVIS */
+.travis-sec-logo{
+    width: 15rem;
+}
+
+
+
+/* FOOTER */
+footer{
+	background: var(--mainBrand);
+}
+	#footer-head{
+		font-family: "Roboto", sans-serif;
+		font-weight: 600;
+	}
