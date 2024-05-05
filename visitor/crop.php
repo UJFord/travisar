@@ -47,12 +47,12 @@ require "../functions/functions.php";
 	<!-- CATEGORY FILTER -->
 	<div class="container h-75">
 		<div class="row h-100 d-flex justify-content-center align-items-center">
-			<div class="col-7 p-0">
+			<div class="col-8 p-0">
 
 				<div class="d-flex justify-content-center">
-					<span class="fw-bold mb-2">Choose Category</span>
+					<h3 class="fw-bold mb-2">Choose Category</h3>
 				</div>
-				<div class="col-12 border rounded-4 overflow-hidden filter-h">
+				<div id="links-container" class="col-12 border rounded-4 overflow-hidden filter-h">
 					<div class="row h-100 p-0">
 						<div class="col p-0">
 							<a href="all.php?category_id=" id="all-crop-link" class="h-100 w-100 d-flex justify-content-end align-items-end icon-link icon-link-hover link-underline link-underline-opacity-0 p-0 pb-2 border-3 border-end link-light">

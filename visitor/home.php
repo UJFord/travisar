@@ -303,6 +303,11 @@ require "../functions/functions.php";
                 </div>
 
             </div>
+
+            <div class="row text-white rounded-top-5 p-5 py-3">
+                <div class="small-font text-center">Mindanao State University - General Santos, Fatima, General Santos City</div>
+                <div class="small-font text-center">&copy; Incognito 2024 - All Rights Reserved</div>
+            </div>
         </div>
     </footer>
 
