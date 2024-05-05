@@ -35,7 +35,7 @@ switch ($current_page_path) {
     case "/travisar/visitor/root.php":
         $current_page_isCrop = true;
         break;
-    case "/travisar/visitor/view-crop.php":
+    case "/travisar/visitor/view.php":
         $current_page_isCrop = true;
         break;
     case "/travisar/contributor/crop-page/category-variety.php":
