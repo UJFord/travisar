@@ -30,31 +30,49 @@ switch ($current_page_path) {
 <div class="container-fluid border-bottom">
     <div class="container">
         <div class="row pt-2">
-
             <!-- category filter -->
             <!-- all -->
-            <a href="all.php" class="col-1 bar-filter-categ border-bottom border-<?= ($isAll) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-4 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
+            <a href="all.php?category_id=" class="col-1 bar-filter-categ border-bottom border-<?= ($isAll) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-4 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
                 <img class="categ-link-img" src="img/grass.svg" alt="" srcset="">
                 <div class="fw-bold">All</div>
             </a>
+            <?php
+            $query = "SELECT * from category order by category_name ASC";
+            $query_run = pg_query($conn, $query);
 
-            <!-- corn -->
-            <a href="corn.php" class="col-1 bar-filter-categ border-bottom border-<?= ($isCorn) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-4 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
-                <img class="categ-link-img" src="img/corn.svg" alt="" srcset="">
-                <div class="fw-bold">Corn</div>
-            </a>
+            if ($query_run) {
+                while ($row = pg_fetch_assoc($query_run)) {
+                    $category_name = $row['category_name'];
+                    $category_id = $row['category_id'];
 
-            <!-- rice -->
-            <a href="rice.php" class="col-1 bar-filter-categ border-bottom border-<?= ($isRice) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-4 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
-                <img class="categ-link-img" src="img/rice.svg" alt="" srcset="">
-                <div class="fw-bold">Rice</div>
-            </a>
-
-            <!-- root -->
-            <a href="root.php" class="col-1 bar-filter-categ border-bottom border-<?= ($isRoot) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-4 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
-                <img class="categ-link-img" src="img/potato.svg" alt="" srcset="">
-                <div class="fw-bold">Root</div>
-            </a>
+                    if ($category_name == 'Corn') {
+            ?>
+                        <!-- corn -->
+                        <a href="corn.php?category_id=<?= $category_id ?>" class="col-1 bar-filter-categ border-bottom border-<?= ($isCorn) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-4 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
+                            <img class="categ-link-img" src="img/corn.svg" alt="" srcset="">
+                            <div class="fw-bold">Corn</div>
+                        </a>
+                    <?php
+                    } elseif ($category_name == 'Rice') {
+                    ?>
+                        <!-- rice -->
+                        <a href="rice.php?category_id=<?= $category_id ?>" class="col-1 bar-filter-categ border-bottom border-<?= ($isRice) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-4 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
+                            <img class="categ-link-img" src="img/rice.svg" alt="" srcset="">
+                            <div class="fw-bold">Rice</div>
+                        </a>
+                    <?php
+                    } elseif ($category_name == 'Root Crop') {
+                    ?>
+                        <!-- root -->
+                        <a href="root.php?category_id=<?= $category_id ?>" class="col-1 bar-filter-categ border-bottom border-<?= ($isRoot) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-4 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
+                            <img class="categ-link-img" src="img/potato.svg" alt="" srcset="">
+                            <div class="fw-bold">Root</div>
+                        </a>
+            <?php
+                    }
+                }
+            }
+            ?>
 
             <!-- divider -->
             <div class="col"></div>

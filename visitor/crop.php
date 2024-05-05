@@ -55,30 +55,49 @@ require "../functions/functions.php";
 				<div class="col-12 border rounded-4 overflow-hidden filter-h">
 					<div class="row h-100 p-0">
 						<div class="col p-0">
-
-							<a href="all.php" id="all-crop-link" class="h-100 w-100 d-flex justify-content-end align-items-end icon-link icon-link-hover link-underline link-underline-opacity-0 p-0 pb-2 border-3 border-end link-light">
+							<a href="all.php?category_id=" id="all-crop-link" class="h-100 w-100 d-flex justify-content-end align-items-end icon-link icon-link-hover link-underline link-underline-opacity-0 p-0 pb-2 border-3 border-end link-light">
 								<span>All Crops</span>
 								<i class="bi bi-arrow-right fs-3 me-2"></i>
 							</a>
-
 						</div>
+
 						<div class="col d-flex flex-column align-items-stretch p-0 m-0">
+							<?php
+							$query = "SELECT * from category order by category_name ASC";
+							$query_run = pg_query($conn, $query);
 
-							<a href="corn.php" id="corn-link" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-3 border-bottom link-light">
-								<span class="me-4">Corn</span>
-								<i class="bi bi-arrow-right fs-3 me-4"></i>
-							</a>
+							if ($query_run) {
+								while ($row = pg_fetch_assoc($query_run)) {
+									$category_name = $row['category_name'];
+									$category_id = $row['category_id'];
 
-							<a href="rice.php" id="rice-link" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-3 border-bottom link-light">
-								<span class="me-4">Rice</span>
-								<i class="bi bi-arrow-right fs-3 me-4"></i>
-							</a>
-
-							<a href="root.php" id="root-link" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 link-light">
-								<span class="me-4">Root</span>
-								<i class="bi bi-arrow-right fs-3 me-4"></i>
-							</a>
+									if ($category_name == 'Corn') {
+							?>
+										<a href="corn.php?category_id=<?=$category_id?>" id="corn-link" class="d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-3 border-bottom link-light">
+											<span class="me-4">Corn</span>
+											<i class="bi bi-arrow-right fs-3 me-4"></i>
+										</a>
+									<?php
+									} elseif ($category_name == 'Rice') {
+									?>
+										<a href="rice.php?category_id=<?=$category_id?>" id="rice-link" class="d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-3 border-bottom link-light">
+											<span class="me-4">Rice</span>
+											<i class="bi bi-arrow-right fs-3 me-4"></i>
+										</a>
+									<?php
+									} elseif ($category_name == 'Root Crop') {
+									?>
+										<a href="root.php?category_id=<?=$category_id?>" id="root-link" class="d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 link-light">
+											<span class="me-4">Root</span>
+											<i class="bi bi-arrow-right fs-3 me-4"></i>
+										</a>
+							<?php
+									}
+								}
+							}
+							?>
 						</div>
+
 					</div>
 				</div>
 			</div>
