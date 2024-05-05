@@ -16,7 +16,7 @@
 
             </div>
             <!-- body -->
-            <form id="form-panel-add" name="Form" action="modals/crud-code/category-variety-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel-add" name="Form" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
                     <div class="container">
                         <div id="Add-User">
@@ -66,6 +66,7 @@
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-end">
                     <div class="">
+                        <input type="hidden" name="save">
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" name="save" class="btn btn-success">Save</button>
                     </div>
@@ -83,10 +84,12 @@
         var form = document.getElementById('form-panel-add');
         // Add an event listener for the form submission
         form.addEventListener("submit", function(event) {
+            // Prevent the default form submission behavior
+            event.preventDefault();
             // Validate the form
             if (validateForm()) {
-                // If validation succeeds, submit the form
-                submitForm();
+                // If validation succeeds, check if variety name already exists
+                checkVarietyExists();
             }
         });
     });
@@ -128,8 +131,6 @@
         if (errors.length > 0) {
             var errorString = errors[0]; // Get the first error
             document.getElementById("error-messages").innerHTML = errorString;
-            // Prevent the default form submission behavior
-            event.preventDefault();
             return false;
         }
 
@@ -137,6 +138,37 @@
         document.getElementById("error-messages").innerHTML = "";
         return true;
     }
+
+    // Function to check if variety name already exists
+    function checkVarietyExists() {
+        var category_id = document.forms["Form"]["category_id"].value;
+        var variety_name = document.forms["Form"]["category_variety_name"].value;
+
+        // Send a GET request to check if the variety name already exists
+        $.ajax({
+            url: "modals/fetch/fetch_variety-tab.php",
+            method: "GET",
+            data: {
+                'check_variety': variety_name, // Specify the key for variety_name
+                'check_variety_id': category_id // Specify the key for category_id
+            },
+            success: function(data) {
+                if (data.exists) {
+                    // Variety name already exists, show error message
+                    document.getElementById("error-messages").innerHTML = "<div class='error text-center' style='color:red;'>Variety name already exists.</div>";
+                } else {
+                    // Variety name doesn't exist, submit the form
+                    submitForm();
+                }
+            },
+            error: function(jqXHR, textStatus, errorThrown) {
+                console.error("Variety name check error:", textStatus, errorThrown);
+                // Handle error if needed
+            }
+        });
+
+    }
+
 
     // Function to submit the form and refresh notifications
     function submitForm() {

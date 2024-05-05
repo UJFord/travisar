@@ -122,13 +122,6 @@
     function submitForm() {
         var form = document.getElementById('form-panel-add');
         if (form) {
-            // Set the value of the hidden input field
-            var saveInput = document.createElement('input');
-            saveInput.type = 'hidden';
-            saveInput.name = 'action';
-            saveInput.value = 'save';
-            form.appendChild(saveInput);
-
             // Create a new FormData object
             var formData = new FormData(form);
 
@@ -141,7 +134,7 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
-                    //console.log(data);
+                    console.log(data);
                     // Reset the form
                     form.reset();
                     // Reload the page or do other actions if needed

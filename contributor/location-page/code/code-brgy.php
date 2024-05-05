@@ -127,3 +127,30 @@ if (isset($_POST['click_edit_btn'])) {
         echo "barangay ID not set";
     }
 }
+
+if (isset($_GET['check_barangay'])) {
+    $barangay_name = $_GET['check_barangay'];
+    $arrayresult = [];
+
+    // get variety name
+    $get_name = "SELECT * FROM barangay WHERE barangay_name = $1";
+    $query_run = pg_prepare($conn, "get_name_query", $get_name);
+    $query_run = pg_execute($conn, "get_name_query", array($barangay_name));
+
+    if ($query_run) {
+        if (pg_num_rows($query_run) > 0) {
+            // Variety name exists
+            $arrayresult['exists'] = true;
+        } else {
+            // Variety name does not exist
+            $arrayresult['exists'] = false;
+        }
+
+        header('Content-Type: application/json');
+        echo json_encode($arrayresult);
+    } else {
+        // Error occurred while executing the query
+        http_response_code(500);
+        echo json_encode(array('error' => 'Error executing query'));
+    }
+}

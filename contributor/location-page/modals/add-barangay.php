@@ -12,6 +12,7 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
+            <div id="error-messages"></div>
             <!-- body -->
             <form id="form-panel" name="Form" action="code/code-brgy.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
@@ -24,8 +25,8 @@
                             <div class="row mb-3 location-brgy">
                                 <!-- municipality name -->
                                 <div class="col">
-                                    <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
-                                    <select name="municipality_name_1" id="municipality-Name" class="form-select">
+                                    <label for="municipality-Name_1" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
+                                    <select name="municipality_name_1" id="municipality-Name_1" class="form-select">
                                         <?php
                                         $queryMuni = "SELECT * from municipality order by municipality_name ASC";
                                         $query_run = pg_query($conn, $queryMuni);
@@ -49,17 +50,16 @@
                                     </select>
                                 </div>
 
-
                                 <!-- barangay name -->
                                 <div class="col">
-                                    <label for="barangay-Name" class="form-label small-font">Barangay Name<span style="color: red;">*</span></label>
-                                    <input type="text" name="barangay_name_1" class="form-control">
+                                    <label for="barangay-Name_1" class="form-label small-font">Barangay Name<span style="color: red;">*</span></label>
+                                    <input id="barangay-Name_1" type="text" name="barangay_name_1" class="form-control">
                                 </div>
 
                                 <!-- Coordinates -->
                                 <div class="col">
-                                    <label for="coordInput" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
-                                    <input type="text" id="coordInput" name="barangay_coordinates_1" class="form-control">
+                                    <label for="coordInput_1" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
+                                    <input type="text" id="coordInput_1" name="barangay_coordinates_1" class="form-control">
                                 </div>
                                 <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (<span class="fw-bold">latitude , longitude - 5.7600, 125.3466</span>)</div>
 
@@ -71,8 +71,9 @@
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-end">
                     <div class="">
+                        <input type="hidden" name="save">
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" name="save" onclick="validateAndSubmitForm()" class="btn btn-success">Save</button>
+                        <button type="submit" name="save" class="btn btn-success">Save</button>
                     </div>
                 </div>
             </form>
@@ -97,8 +98,8 @@
             newRow.classList.add('row', 'mb-3', 'location-brgy');
             newRow.innerHTML = `
                 <div class="col">
-                    <label for="Municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
-                    <select name="municipality_name_${rowCounter}" class="form-select">
+                    <label for="Municipality-Name_${rowCounter}" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
+                    <select id="Municipality-Name_${rowCounter}" name="municipality_name_${rowCounter}" class="form-select">
                             <?php
                             $queryMuni = "SELECT * from municipality order by municipality_name ASC";
                             $query_run = pg_query($conn, $queryMuni);
@@ -122,13 +123,13 @@
                     </select>
                 </div>
                 <div class="col">
-                    <label for="Barangay-Name" class="form-label small-font">Barangay Name<span style="color: red;">*</span></label>
-                    <input type="text" name="barangay_name_${rowCounter}" class="form-control">
+                    <label for="Barangay-Name_${rowCounter}" class="form-label small-font">Barangay Name<span style="color: red;">*</span></label>
+                    <input id="Barangay-Name_${rowCounter}" type="text" name="barangay_name_${rowCounter}" class="form-control">
                 </div>
                 <!-- Coordinates -->
                 <div class="col">
-                    <label for="barangay-coordinates" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
-                    <input type="text" name="barangay_coordinates_${rowCounter}" class="form-control">
+                    <label for="coordInput_${rowCounter}" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
+                    <input id="coordInput_${rowCounter}" type="text" name="barangay_coordinates_${rowCounter}" class="form-control">
                 </div>
                 <div class="col-2" style="padding-top: 25px;">
                     <button type="button" class="btn btn-secondary remove-row" style="background-color: #dc3545;">Remove</button>
@@ -150,29 +151,100 @@
         });
     });
 
-    // Function to validate input and submit the form
-    function validateAndSubmitForm() {
-        // Validate the form
+    document.getElementById('form-panel').addEventListener('submit', function(event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
         if (validateForm()) {
-            // If validation succeeds, submit the form
-            submitForm();
+            // console.log('Submit add');
+            checkBarangayExists();
         }
-    }
+    });
 
     // Function to validate input
     function validateForm() {
-        // Get the values from the form
-        var cropName = document.forms["Form"]["crop_variety"].value;
+        var errors = [];
+        var municipalityNameInputs = document.querySelectorAll('input[name^="municipality_name_"]');
+        var barangayNameInputs = document.querySelectorAll('input[name^="barangay_name_"]');
+        var coordinatesInputs = document.querySelectorAll('input[name^="barangay_coordinates_"]');
 
-        // Check if the required fields are not empty
-        if (cropName === "") {
-            alert("Please fill out all required fields.");
-            return false; // Prevent form submission
+        municipalityNameInputs.forEach(function(input) {
+            var municipalityName = input.value.trim();
+            if (municipalityName === "") {
+                errors.push("<div class='error text-center' style='color:red;'>Please fill up required fields.</div>");
+                input.classList.add('is-invalid');
+            } else {
+                input.classList.remove('is-invalid');
+            }
+        });
+        // If there's already an error, don't check further
+        if (errors.length === 0) {
+            barangayNameInputs.forEach(function(input) {
+                var barangayName = input.value.trim();
+                if (barangayName === "") {
+                    errors.push("<div class='error text-center' style='color:red;'>Please fill up required fields.</div>");
+                    input.classList.add('is-invalid');
+                } else {
+                    input.classList.remove('is-invalid');
+                }
+            });
+
+            // If there's already an error, don't check further
+            if (errors.length === 0) {
+                coordinatesInputs.forEach(function(input) {
+                    var coordinateName = input.value.trim();
+                    if (coordinateName === "") {
+                        errors.push("<div class='error text-center' style='color:red;'>Please fill up required fields.</div>");
+                        input.classList.add('is-invalid');
+                    } else {
+                        input.classList.remove('is-invalid');
+                    }
+                });
+            }
         }
-        // You can add more validation checks if needed
-        return true; // Allow form submission
+
+        if (errors.length > 0) {
+            document.getElementById("error-messages").innerHTML = errors.join("<br>");
+            return false;
+        } else {
+            document.getElementById("error-messages").innerHTML = "";
+            return true;
+        }
     }
 
+    // Function to check if barangay name already exists
+    function checkBarangayExists(event) {
+        var inputs = document.querySelectorAll('[id^="barangay-Name_"]');
+        var barangayNames = Array.from(inputs).map(input => input.value.trim());
+        var hasError = false; // Flag to track if any error occurs
+
+        // Send a GET request to check if the barangay names already exist
+        barangayNames.forEach(function(barangayName, index) {
+            $.ajax({
+                url: "code/code-brgy.php",
+                method: "GET",
+                data: {
+                    'check_barangay': barangayName
+                },
+                success: function(data) {
+                    if (data.exists) {
+                        // Municipality name already exists, show error message
+                        document.getElementById("error-messages").innerHTML += "<div class='error text-center' style='color:red;'>Municipality name, " + barangayName + " already exists for Row " + (index + 1) + "</div>";
+                        hasError = true; // Set flag to true if error occurs
+                    } else {
+                        // Municipality name doesn't exist
+                        if (!hasError && index === barangayNames.length - 1) {
+                            // If no error encountered so far and it's the last iteration, submit the form
+                            submitForm();
+                        }
+                    }
+                },
+                error: function(jqXHR, textStatus, errorThrown) {
+                    console.error("Municipality name check error:", textStatus, errorThrown);
+                    hasError = true; // Set flag to true if error occurs
+                }
+            });
+        });
+    }
     // Function to submit the form and refresh notifications
     function submitForm() {
         console.log('submitForm function called');
@@ -191,8 +263,9 @@
                 success: function(data) {
                     // Reset the form
                     form.reset();
+                    location.reload();
                     // Reload unseen notifications
-                    load_unseen_notification();
+                    //load_unseen_notification();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("Form submission error:", textStatus, errorThrown);
@@ -215,10 +288,13 @@
 
 <!-- script for limiting the input in coordinates just to numbers, commas, periods, and spaces -->
 <script>
-    document.getElementById('coordInput').addEventListener('input', function(event) {
-        const regex = /^[0-9.,\s-]*$/; // Updated regex to allow "-" sign
-        if (!regex.test(event.target.value)) {
-            event.target.value = event.target.value.replace(/[^0-9.,\s-]/g, '');
-        }
+    // Select all elements with IDs starting with 'coordInput_'
+    document.querySelectorAll('[id^="coordInput_"]').forEach(function(input) {
+        input.addEventListener('input', function(event) {
+            const regex = /^[0-9.,\s-]*$/; // Updated regex to allow "-" sign
+            if (!regex.test(event.target.value)) {
+                event.target.value = event.target.value.replace(/[^0-9.,\s-]/g, '');
+            }
+        });
     });
 </script>

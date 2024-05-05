@@ -81,14 +81,14 @@
     // Function to validate input and submit the form
     function validateAndSubmitForm(event) {
         // Validate the form
-        if (validateForm()) {
+        if (validateFormEdit()) {
             // If validation succeeds, submit the form
-            submitForm();
+            submitFormEdit();
         }
     }
 
     // Function to validate input
-    function validateForm() {
+    function validateFormEdit() {
         // Get the values from the form
         var barangay_name = document.forms["Form"]["barangay_name"].value;
 
@@ -102,7 +102,7 @@
     }
 
     // Function to submit the form and refresh notifications
-    function submitForm() {
+    function submitFormEdit() {
         console.log('submitForm function called');
         // Get the form reference
         var form = document.getElementById('form-panel');
@@ -144,10 +144,13 @@
 
 <!-- script for limiting the input in coordinates just to numbers, commas, periods, and spaces -->
 <script>
-    document.getElementById('Coordinates').addEventListener('input', function(event) {
-        const regex = /^[0-9.,\s-]*$/; // Updated regex to allow "-" sign
-        if (!regex.test(event.target.value)) {
-            event.target.value = event.target.value.replace(/[^0-9.,\s-]/g, '');
-        }
+    // Select all elements with IDs starting with 'coordInput_'
+    document.querySelectorAll('[id^="CoordinatesEdit"]').forEach(function(input) {
+        input.addEventListener('input', function(event) {
+            const regex = /^[0-9.,\s-]*$/; // Updated regex to allow "-" sign
+            if (!regex.test(event.target.value)) {
+                event.target.value = event.target.value.replace(/[^0-9.,\s-]/g, '');
+            }
+        });
     });
 </script>

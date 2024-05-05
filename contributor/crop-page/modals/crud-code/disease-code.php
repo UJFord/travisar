@@ -2,6 +2,8 @@
 session_start();
 require "../../../../functions/connections.php";
 
+// var_dump($_POST);
+// die();
 if (isset($_POST['save'])) {
     $disease_names = [];
 
@@ -70,8 +72,6 @@ if (isset($_POST['save'])) {
         echo "Error updating record"; // Display an error message if the query fails
     }
 }
-
-
 
 if (isset($_POST['edit'])) {
     $disease_resistance_id = $_POST['disease_idEdit'];

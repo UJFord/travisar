@@ -82,14 +82,14 @@
     // Function to validate input and submit the form
     function validateAndSubmitForm(event) {
         // Validate the form
-        if (validateForm()) {
+        if (validateFormEdit()) {
             // If validation succeeds, submit the form
-            submitForm();
+            submitFormEdit();
         }
     }
 
     // Function to validate input
-    function validateForm() {
+    function validateFormEdit() {
         // Get the values from the form
         var province_name = document.forms["Form"]["province_name"].value;
         var municipality_name = document.forms["Form"]["municipality_name"].value;
@@ -104,7 +104,7 @@
     }
 
     // Function to submit the form and refresh notifications
-    function submitForm() {
+    function submitFormEdit() {
         console.log('submitForm function called');
         // Get the form reference
         var form = document.getElementById('form-panel');

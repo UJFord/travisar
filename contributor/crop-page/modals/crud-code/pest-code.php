@@ -2,6 +2,8 @@
 session_start();
 require "../../../../functions/connections.php";
 
+// var_dump($_POST);
+// die();
 if (isset($_POST['save'])) {
     $pest_names = [];
 
@@ -67,7 +69,6 @@ if (isset($_POST['save'])) {
         echo "Error: No pest names provided";
     }
 }
-
 
 if (isset($_POST['edit'])) {
     $pest_resistance_id = $_POST['pest_idEdit'];
