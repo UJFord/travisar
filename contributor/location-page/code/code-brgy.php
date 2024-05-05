@@ -2,6 +2,8 @@
 session_start();
 require "../../../functions/connections.php";
 
+// var_dump($_POST);
+// die();
 if (isset($_POST['save'])) {
     $municipality_names = [];
     $barangay_names = [];
@@ -45,7 +47,7 @@ if (isset($_POST['save'])) {
         }
 
         if ($error_flag) {
-            header("location: ../barangay.php");
+            //header("location: ../barangay.php");
             exit;
         }
 
@@ -68,7 +70,8 @@ if (isset($_POST['save'])) {
         $query_run = pg_query_params($conn, $query, $params);
 
         if ($query_run) {
-            header("location: ../barangay.php");
+            $_SESSION['message'] = "Barangay created successfully.";
+            //header("location: ../barangay.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
             echo "Error updating record"; // Display an error message if the query fails
@@ -79,6 +82,8 @@ if (isset($_POST['save'])) {
 }
 
 if (isset($_POST['update'])) {
+    // var_dump($_POST);
+    // die();
     $barangay_id = $_POST['barangay_id'];
     $municipality_id = $_POST['municipality_id'];
     $barangay_name = $_POST['barangay_name'];
@@ -90,43 +95,20 @@ if (isset($_POST['update'])) {
     if ($query_run !== false) {
         $affected_rows = pg_affected_rows($query_run);
         if ($affected_rows > 0) {
-            echo "Barangay updated successfully";
-            header("location: ../barangay.php");
+            $_SESSION['message'] = "Barangay updated successfully.";
+            //header("location: ../barangay.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
-            echo "Error: Barangay ID not found";
+            $_SESSION['message'] = "Failed to update Barangay.";
             exit(0);
         }
     } else {
+        $_SESSION['message'] = "Barangay not found.";
         echo "Error: " . pg_last_error($conn);
         exit(0);
     }
 }
 
-if (isset($_POST['click_edit_btn'])) {
-    if (isset($_POST["barangay_id"])) {
-        $barangay_id = $_POST["barangay_id"];
-        $arrayresult = [];
-
-        // Fetch data from the barangay table
-        $query = "SELECT * FROM barangay left join municipality on municipality.municipality_id = barangay.municipality_id WHERE barangay_id = $1";
-        $query_run = pg_query_params($conn, $query, array($barangay_id));
-
-        if (pg_num_rows($query_run) > 0) {
-            while ($row = pg_fetch_assoc($query_run)) {
-
-                $arrayresult[] = $row;
-            }
-
-            header('Content-Type: application/json');
-            echo json_encode($arrayresult);
-        } else {
-            echo '<h4>No record found</h4>';
-        }
-    } else {
-        echo "barangay ID not set";
-    }
-}
 
 if (isset($_GET['check_barangay'])) {
     $barangay_name = $_GET['check_barangay'];

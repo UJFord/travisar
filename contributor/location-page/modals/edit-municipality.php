@@ -13,7 +13,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel" name="Form" action="code/code-muni.php" autocomplete="off" method="POST" class=" py-3 px-5" onsubmit="validateAndSubmitForm(event)">
+            <form id="form-panel-edit" name="Form" autocomplete="off" method="POST" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
                     <div class="container">
                         <div id="locationData">
@@ -49,13 +49,13 @@
 
                                 <!-- municipality name -->
                                 <div class="col">
-                                    <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
-                                    <input type="text" id="municipality-Name" name="municipality_name" class="form-control">
+                                    <label for="municipality-NameEdit" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
+                                    <input type="text" id="municipality-NameEdit" name="municipality_name" class="form-control">
                                 </div>
                                 <!-- municipality name -->
                                 <div class="col">
                                     <label for="Coordinates" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
-                                    <input type="text" id="Coordinates" name="coordinates" class="form-control">
+                                    <input type="text" id="Coordinates" name="municipality_coordinates" class="form-control">
                                 </div>
                                 <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (<span class="fw-bold">latitude , longitude - 5.7600, 125.3466</span>)</div>
 
@@ -67,9 +67,10 @@
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-end">
                     <div class="">
+                        <input type="hidden" name="update">
                         <input type="hidden" name="location_id" id="location_id-Edit">
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
-                        <button type="submit" name="update" onclick="validateAndSubmitForm()" class="btn btn-success">Edit</button>
+                        <button type="button" id="editButton" name="update" class="btn btn-success">Edit</button>
                     </div>
                 </div>
             </form>
@@ -79,20 +80,19 @@
 
 <!-- for submission -->
 <script>
-    // Function to validate input and submit the form
-    function validateAndSubmitForm(event) {
-        // Validate the form
+    document.getElementById('editButton').addEventListener('click', function(event) {
+        // Prevent the default form submission behavior
+        event.preventDefault();
         if (validateFormEdit()) {
-            // If validation succeeds, submit the form
+            // console.log('Submit add');
             submitFormEdit();
         }
-    }
+    });
 
-    // Function to validate input
     function validateFormEdit() {
         // Get the values from the form
-        var province_name = document.forms["Form"]["province_name"].value;
-        var municipality_name = document.forms["Form"]["municipality_name"].value;
+        var province_name = document.getElementById("prov-Name").value;
+        var municipality_name = document.getElementById("municipality-NameEdit").value;
 
         // Check if the required fields are not empty
         if (province_name === "" || municipality_name === "") {
@@ -107,7 +107,7 @@
     function submitFormEdit() {
         console.log('submitForm function called');
         // Get the form reference
-        var form = document.getElementById('form-panel');
+        var form = document.getElementById('form-panel-edit');
         // Trigger the form submission
         if (form) {
             // Perform AJAX submission or other necessary actions
@@ -119,10 +119,12 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
+                    console.log(data);
                     // Reset the form
                     form.reset();
+                    location.reload();
                     // Reload unseen notifications
-                    load_unseen_notification();
+                    //load_unseen_notification();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("Form submission error:", textStatus, errorThrown);

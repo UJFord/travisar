@@ -16,7 +16,7 @@
 
             </div>
             <!-- body -->
-            <form id="form-panel-add" action="modals/crud-code/terrain-code.php" name="Form" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel-add" name="Form" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
                     <div class="container">
                         <div id="Add-User">

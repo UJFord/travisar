@@ -38,7 +38,7 @@ if (isset($_POST['save'])) {
         }
 
         if ($error_flag) {
-            header("location: ../../pest-resistance.php");
+            //header("location: ../../pest-resistance.php");
             exit;
         }
 
@@ -60,7 +60,7 @@ if (isset($_POST['save'])) {
 
         if ($query_run) {
             $_SESSION['message'] = "Pest created successfully";
-            header("location: ../../pest-resistance.php");
+            //header("location: ../../pest-resistance.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
             echo "Error updating record"; // Display an error message if the query fails
@@ -80,7 +80,7 @@ if (isset($_POST['edit'])) {
         $affected_rows = pg_affected_rows($query_run);
         if ($affected_rows > 0) {
             $_SESSION['message'] = "Pest Resistance updated successfully";
-            header("location: ../../pest-resistance.php");
+            //header("location: ../../pest-resistance.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
             echo "Error: Location ID not found";
@@ -98,7 +98,7 @@ if (isset($_POST['delete']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {
-        $pest_resistance_id = $_POST['pest_resistance_id'];
+        $pest_resistance_id = $_POST['pest_idEdit'];
 
         $query = "DELETE FROM pest_resistance WHERE pest_resistance_id = $1";
         $query_run = pg_query_params($conn, $query, array($pest_resistance_id));
@@ -106,7 +106,7 @@ if (isset($_POST['delete']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'
         if ($query_run) {
             $_SESSION['message'] = "Pest Deleted Successfully";
             pg_query($conn, "COMMIT");
-            header("location: ../../pest-resistance.php");
+            //header("location: ../../pest-resistance.php");
             exit();
         } else {
             echo "Error: " . pg_last_error($conn);

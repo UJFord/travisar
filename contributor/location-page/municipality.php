@@ -91,7 +91,7 @@ require "../../functions/functions.php";
                 }
 
                 #addProvince {
-                    margin-right: 7vh;
+                    margin-right: 18vh;
                 }
             </style>
             <?php require "modals/municipality-filter.php" ?>
@@ -195,10 +195,10 @@ require "../../functions/functions.php";
                                             </td>
 
                                             <!-- Action -->
-                                            <td>
-                                                <form class="d-flex justify-content-center" action="code/massDelete-code.php" method="post" id="deleteForm">
-                                                    <!-- edit -->
-                                                    <a href="#" class="btn btn-primary me-1 edit_data" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['municipality_id']; ?>">Edit</a>
+                                            <td class="d-flex justify-content-center">
+                                                <!-- edit -->
+                                                <a href="#" class="btn btn-primary me-1 edit_data" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['municipality_id']; ?>">Edit</a>
+                                                <form action="code/massDelete-code.php" method="post" id="deleteForm">
                                                     <input type="hidden" name="municipality_id" value="<?= $row['municipality_id']; ?>">
                                                     <input type="hidden" name="delete_muni" value="1">
                                                     <button type="submit" name="delete_muni" id="deleteRow" class="btn btn-danger">
@@ -284,7 +284,7 @@ require "../../functions/functions.php";
 
                 // Assuming you have jQuery available
                 $.ajax({
-                    url: "code/code-muni.php",
+                    url: "fetch/fetch_muni.php",
                     type: 'POST',
                     data: {
                         'click_edit_btn': true,
@@ -297,10 +297,7 @@ require "../../functions/functions.php";
 
                         $.each(response, function(key, value) {
                             // Append options to select element
-                            console.log(value['municipality_id']);
-
-                            // crop_id
-                            $('#crop_id').val(id);
+                            console.log(value['municipality_name']);
 
                             // data of municipality table
                             $('#prov-Name').append($('<option>', {
@@ -309,7 +306,7 @@ require "../../functions/functions.php";
                                 selected: true, // Make the option selected
                                 style: 'display: none;' // Hide the option
                             }));
-                            $('#municipality-Name').val(value['municipality_name']);
+                            $('#municipality-NameEdit').val(value['municipality_name']);
 
                             // setting the the value of the id of location and barangay depending on the tab
                             $('#municipality_id-Edit').val(value['municipality_id']);
@@ -410,42 +407,42 @@ require "../../functions/functions.php";
     </script>
 
     <!-- Add a click event listener to each table header for sorting -->
-<script>
-    $(document).ready(function() {
-        $('th[data-sort]').on('click', function() {
-            var $th = $(this);
-            var column = $th.data('sort');
-            var direction = $th.hasClass('asc') ? 'desc' : 'asc';
+    <script>
+        $(document).ready(function() {
+            $('th[data-sort]').on('click', function() {
+                var $th = $(this);
+                var column = $th.data('sort');
+                var direction = $th.hasClass('asc') ? 'desc' : 'asc';
 
-            // Remove asc/desc classes from all headers
-            $('th[data-sort]').removeClass('asc desc');
+                // Remove asc/desc classes from all headers
+                $('th[data-sort]').removeClass('asc desc');
 
-            // Add asc/desc class to clicked header
-            $th.addClass(direction);
+                // Add asc/desc class to clicked header
+                $th.addClass(direction);
 
-            // Sort the table
-            sortTable(column, direction);
-        });
-    });
-
-    function sortTable(column, direction) {
-        var $tbody = $('tbody');
-        var $rows = $tbody.find('tr').toArray();
-
-        $rows.sort(function(a, b) {
-            var valA = $(a).find('td[data-col="' + column + '"]').text().toUpperCase();
-            var valB = $(b).find('td[data-col="' + column + '"]').text().toUpperCase();
-
-            if (direction === 'asc') {
-                return valA.localeCompare(valB);
-            } else {
-                return valB.localeCompare(valA);
-            }
+                // Sort the table
+                sortTable(column, direction);
+            });
         });
 
-        $tbody.empty().append($rows);
-    }
-</script>
+        function sortTable(column, direction) {
+            var $tbody = $('tbody');
+            var $rows = $tbody.find('tr').toArray();
+
+            $rows.sort(function(a, b) {
+                var valA = $(a).find('td[data-col="' + column + '"]').text().toUpperCase();
+                var valB = $(b).find('td[data-col="' + column + '"]').text().toUpperCase();
+
+                if (direction === 'asc') {
+                    return valA.localeCompare(valB);
+                } else {
+                    return valB.localeCompare(valA);
+                }
+            });
+
+            $tbody.empty().append($rows);
+        }
+    </script>
 </body>
 <!-- 
     to check if the user is logged in and has a rank of Encoder

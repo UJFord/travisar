@@ -47,7 +47,7 @@ if (isset($_POST['save'])) {
         }
 
         if ($error_flag) {
-            header("location: ../municipality.php");
+            // header("location: ../municipality.php");
             exit;
         }
 
@@ -71,14 +71,14 @@ if (isset($_POST['save'])) {
 
         if ($query_run) {
             $_SESSION['message'] = "Municipality created successfully";
-            header("location: ../municipality.php");
+            // header("location: ../municipality.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
             echo "Error updating record"; // Display an error message if the query fails
         }
     } else {
         $_SESSION['message'] = "Number of province names, municipality names, and coordinates do not match";
-        header("location: ../municipality.php");
+        // header("location: ../municipality.php");
         exit; // Ensure that the script stops executing after the redirect header
     }
 }
@@ -96,42 +96,17 @@ if (isset($_POST['update'])) {
         $affected_rows = pg_affected_rows($query_run);
         if ($affected_rows > 0) {
             $_SESSION['message'] = "municipality updated successfully";
-            header("location: ../municipality.php");
+            // header("location: ../municipality.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
             $_SESSION['message'] = "Failed to update municipality";
-            header("location: ../municipality.php");
+            // header("location: ../municipality.php");
             exit;
         }
     } else {
         $_SESSION['message'] = "Municipality not found";
-        header("location: ../municipality.php");
+        // header("location: ../municipality.php");
         exit;
-    }
-}
-
-if (isset($_POST['click_edit_btn'])) {
-    if (isset($_POST["municipality_id"])) {
-        $municipality_id = $_POST["municipality_id"];
-        $arrayresult = [];
-
-        // Fetch data from the location table
-        $query = "SELECT * FROM municipality left join province on province.province_id = municipality.province_id WHERE municipality.municipality_id = $1";
-        $query_run = pg_query_params($conn, $query, array($municipality_id));
-
-        if (pg_num_rows($query_run) > 0) {
-            while ($row = pg_fetch_assoc($query_run)) {
-
-                $arrayresult[] = $row;
-            }
-
-            header('Content-Type: application/json');
-            echo json_encode($arrayresult);
-        } else {
-            echo '<h4>No record found</h4>';
-        }
-    } else {
-        echo "Location ID not set";
     }
 }
 

@@ -17,7 +17,7 @@ if (isset($_POST['save'])) {
     // Check if any disease name is empty
     if (empty($disease_names)) {
         $_SESSION['message'] = "No data was submitted";
-        header("location: ../../disease-resistance.php");
+        // header("location: ../../disease-resistance.php");
         exit;
     }
 
@@ -44,7 +44,7 @@ if (isset($_POST['save'])) {
 
     if ($error_flag) {
 
-        header("location: ../../disease-resistance.php");
+        // header("location: ../../disease-resistance.php");
         exit;
     }
 
@@ -66,7 +66,7 @@ if (isset($_POST['save'])) {
 
     if ($query_run) {
         $_SESSION['message'] = "Disease created successfully";
-        header("location: ../../disease-resistance.php");
+        // header("location: ../../disease-resistance.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {
         echo "Error updating record"; // Display an error message if the query fails
@@ -83,7 +83,7 @@ if (isset($_POST['edit'])) {
         $affected_rows = pg_affected_rows($query_run);
         if ($affected_rows > 0) {
             $_SESSION['message'] = "Disease Resistance updated successfully";
-            header("location: ../../disease-resistance.php");
+            // header("location: ../../disease-resistance.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
             echo "Error: Location ID not found";
@@ -109,7 +109,7 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Admin' || $_SESSION['rank']
         if ($query_run) {
             $_SESSION['message'] = "Disease Deleted Successfully";
             pg_query($conn, "COMMIT");
-            header("location: ../../disease-resistance.php");
+            //header("location: ../../disease-resistance.php");
             exit();
         } else {
             echo "Error: " . pg_last_error($conn);

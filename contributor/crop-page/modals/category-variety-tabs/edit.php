@@ -213,9 +213,9 @@
                 success: function(data) {
                     console.log(data);
                     // Reset the form
-                    form.reset();
+                    //form.reset();
                     // Reload the page or do other actions if needed
-                    location.reload();
+                    //location.reload();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("Form submission error:", textStatus, errorThrown);
@@ -301,7 +301,7 @@
                 //confirmModalInstanceEdit.hide();
 
                 // Optionally, you can reload the page or update the UI
-                location.reload();
+                //location.reload();
             },
             error: function(xhr, status, error) {
                 // Handle errors

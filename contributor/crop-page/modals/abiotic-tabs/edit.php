@@ -244,7 +244,7 @@
                 //confirmModalInstanceEdit.hide();
 
                 // Optionally, you can reload the page or update the UI
-                //location.reload();
+                location.reload();
             },
             error: function(xhr, status, error) {
                 // Handle errors

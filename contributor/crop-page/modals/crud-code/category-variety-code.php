@@ -2,8 +2,8 @@
 session_start();
 require "../../../../functions/connections.php";
 
-// var_dump($_POST);
-// die();
+var_dump($_POST);
+die();
 if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator')) {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
@@ -23,7 +23,7 @@ if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
                 // Category variety exists
                 $_SESSION['message'] = "Category Variety already exists.";
                 pg_query($conn, "COMMIT");
-                header("location: ../../category-variety.php");
+                //header("location: ../../category-variety.php");
                 exit();
             } else {
                 // Category variety does not exist, proceed with insertion
@@ -40,7 +40,7 @@ if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
 
                 $_SESSION['message'] = "Category Variety created Successfully";
                 pg_query($conn, "COMMIT");
-                header("location: ../../category-variety.php");
+                //header("location: ../../category-variety.php");
                 exit();
             }
         } else {
@@ -85,7 +85,7 @@ if (isset($_POST['edit']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
 
         $_SESSION['message'] = "Category variety Updated Successfully";
         pg_query($conn, "COMMIT");
-        header("location: ../../category-variety.php");
+        //header("location: ../../category-variety.php");
         exit();
     } catch (Exception $e) {
         // message for error
@@ -121,7 +121,7 @@ if (isset($_POST['delete']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'
 
         $_SESSION['message'] = "Category variety Deleted Successfully";
         pg_query($conn, "COMMIT");
-        header("location: ../../category-variety.php");
+        // header("location: ../../category-variety.php");
         exit();
     } catch (Exception $e) {
         // message for error

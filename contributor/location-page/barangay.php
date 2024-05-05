@@ -277,7 +277,7 @@ require "../../functions/functions.php";
     <!-- script for edit data -->
     <script>
         // EDIT SCRIPT
-        const tableRows = document.querySelectorAll('.edit_data_brgy, .edit_data');
+        const tableRows = document.querySelectorAll('.edit_data_brgy');
 
         tableRows.forEach(row => {
 
@@ -287,7 +287,7 @@ require "../../functions/functions.php";
                 let url = '';
                 let dataKey = '';
                 let modalId = '';
-                url = 'code/code-brgy.php';
+                url = 'fetch/fetch_brgy.php';
                 dataKey = 'barangay_id';
                 modalId = 'edit-item-modal-brgy';
                 // Assuming you have jQuery available

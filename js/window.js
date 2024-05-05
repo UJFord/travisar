@@ -1,3 +1,4 @@
+// design ni sya sa alert gi ani ra nako para mugawas sya hahahahaha
 window.alert = function (message, timeout=null) {
     const alert = document.createElement('div');
     const alertButton = document.createElement('button');
@@ -27,10 +28,5 @@ window.alert = function (message, timeout=null) {
     alertButton.addEventListener('click', () => {
         alert.remove();
     });
-    if(timeout != null){
-        setTimeout(() => {
-            alert.remove();
-        }, Number(timeout));
-    }
     document.body.appendChild(alert);
 }
