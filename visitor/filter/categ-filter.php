@@ -8,8 +8,9 @@ $isCorn = false;
 $isRice = false;
 $isRoot = false;
 
-// get current page
-$current_page_path = $_SERVER['REQUEST_URI'];
+// Get the path without query parameters
+$current_page_path = parse_url($_SERVER['REQUEST_URI'], PHP_URL_PATH);
+
 switch ($current_page_path) {
     case "/travisar/visitor/all.php":
         $isAll = true;
