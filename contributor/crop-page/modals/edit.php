@@ -739,7 +739,7 @@
                                     <div class="url-list-item-edit mb-2">
                                         <label class="form-label small-font">Old Reference ${referenceNumber}</label>
                                         <div class="d-flex">
-                                            <input type="text" name="old_references_${referenceNumber}" value="${filename}" class="form-control small-font readonly">
+                                            <a href="${filename}" target="_blank" small-font">${filename}</a>
                                             <button type="button" class="btn btn-link">
                                                 <i class="fa-solid fa-circle-minus fs-5 text-danger" aria-hidden="true"></i>
                                             </button>
@@ -749,6 +749,7 @@
                                 referenceNumber++; // Increment reference number for the next input field
                             });
                         }
+
 
                         //loc.php
                         $('#SitioEdit').val(value['sitio_name']);

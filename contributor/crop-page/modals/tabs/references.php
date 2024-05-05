@@ -88,11 +88,11 @@
             const errorMessage = document.getElementById(`reference-error_${referenceNumber}`);
             if (isValidURL(url)) {
                 // Valid URL
-                console.log('Valid URL:', url);
+                //console.log('Valid URL:', url);
                 errorMessage.textContent = ''; // Clear error message
             } else {
                 // Invalid URL
-                console.error('Invalid URL:', url);
+                //console.error('Invalid URL:', url);
                 errorMessage.textContent = 'Invalid URL'; // Display error message
             }
         });
