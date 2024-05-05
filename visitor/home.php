@@ -50,8 +50,8 @@ require "../functions/functions.php";
             <div class="row">
 
                 <!-- left -->
-                <div class="col-8 d-flex flex-column justify-content-end">
-                    <div id="head-text" class="fw-bolder fs-1 text-white ">Welcome to <span><img class="pb-3 " id="logo-in-header" src="img/travis-light.svg" alt="" srcset=""></span></div>
+                <div class="col-8 d-flex flex-column justify-content-end pt-5">
+                    <div id="head-text" class="fw-bolder fs-1 text-white mb-2 pt-5">Welcome to <span><img class="pb-3 " id="logo-in-header" src="img/travis-light.svg" alt="" srcset=""></span></div>
                     <div id="head-subtitle" class=" fs-5 text-light mb-4">Seeds of the Past, Harvest of the Future: The Traditional Crop Varieties Information System is a comprehensive repository housing various information on morphological characteristics, sensory traits, agronomic features, and the cultural significance and utilization of traditional crops including rice, corn, and root crops.</div>
                     <div class="head-link ps-3 row">
                         <a href="" class="col-2 btn btn-light fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">Explore<i class="bi bi-arrow-right fw-bold"></i></a>
@@ -61,7 +61,7 @@ require "../functions/functions.php";
                 <!-- sarangani image -->
                 <div class="col-4">
                     <div class="head-img-container d-flex justify-content-center align-items-center">
-                        <img id="head-img" src="img/sarMap.svg" alt="" srcset="">
+                        <!-- <img id="head-img" src="img/sarMap.svg" alt="" srcset=""> -->
                     </div>
                 </div>
             </div>
@@ -71,8 +71,8 @@ require "../functions/functions.php";
 
     <!-- FEATURES -->
     <div class="container my-5 bg-white">
-        <div class="row mb-3">
-            <h3 id="feature-title" class="text-center fw-bold">Features</h3>
+        <div class="row mb-5">
+            <h3 id="feature-title" class="text-center fw-bold">FEATURES</h3>
         </div>
         <div class="row">
 
@@ -197,7 +197,7 @@ require "../functions/functions.php";
             <div class="row py-5">
 
                 <div class="col d-flex flex-column justify-content-center">
-                    <h4 class="fw-bold">About Travis</h4>
+                    <h4 class="fw-bold">About TRAVIS</h4>
                     <p>Learn more about TRAVIS, designed to store information about traditional crop varieties in Sarangani Province, including their morphological characteristics, sensory traits, agronomic traits, and cultural utilization and importance.</p>
                     <div class="row ps-2">
                         <a href="" id="map-qlink" class="col-3 btn qlink-link btn-success fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
@@ -218,7 +218,7 @@ require "../functions/functions.php";
     <div class="container-fluid bg-white">
         <div class="container py-5">
             <div class="row">
-                <h3 id="partners-title" class="text-center fw-bold mb-3">Our Partners</h3>
+                <h3 id="partners-title" class="text-center fw-bold mb-5">OUR PARTNERS</h3>
             </div>
             <div class="row">
                 <!-- main -->
@@ -253,60 +253,60 @@ require "../functions/functions.php";
             <div class="row py-3 text-light">
 
                 <!-- logo -->
-                <div class="col-3">
-                    <img class="w-50" src="img/travis-light.svg" alt="">
+                <div class="col-3 d-flex align-items-center">
+                    <img class="w-75" src="img/travis-light.svg" alt="">
                 </div>
 
                 <!-- about us -->
                 <div class="col-3">
-                    <h6 class="footer-head fw-bold">ABOUT US</h6>
+                    <h4 class="mb-3 footer-head fw-bold">ABOUT</h5>
                     <ul class="list-unstyled">
                         <li>
                             <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Sarangani</a>
                         </li>
                         <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Farmers</a>
+                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Collaborators</a>
                         </li>
                         <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Developers</a>
+                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">TRAVIS</a>
                         </li>
                     </ul>
                 </div>
 
                 <!-- shortcuts -->
                 <div class="col-3">
-                    <h6 class="footer-head fw-bold">LINKS</h6>
+                    <h4 class="mb-3 footer-head fw-bold">LINKS</h5>
                     <ul class="list-unstyled">
                         <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Sarangani</a>
+                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Crops</a>
                         </li>
                         <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Farmers</a>
+                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Map</a>
                         </li>
                         <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Developers</a>
+                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Contribute</a>
                         </li>
                     </ul>
                 </div>
 
                 <!-- contact -->
                 <div class="col-3">
-                    <h6 class="footer-head fw-bold">CONTACT US</h6>
+                    <h4 class="mb-3 footer-head fw-bold">CONTACT US</h5>
                     <ul class="list-unstyled">
                         <li>
                             <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover"><i class="me-2 fa-solid fa-phone"></i>+63913-234-1283</a>
                         </li>
                         <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover"><i class="me-2 fa-solid fa-envelope"></i>travis@gmail.com</a>
+                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover"><i class="me-2 fa-solid fa-envelope"></i>travis@msugensan.edu.ph</a>
                         </li>
                     </ul>
                 </div>
 
             </div>
 
-            <div class="row text-white rounded-top-5 p-5 py-3">
-                <div class="small-font text-center">Mindanao State University - General Santos, Fatima, General Santos City</div>
-                <div class="small-font text-center">&copy; Incognito 2024 - All Rights Reserved</div>
+            <div class="row text-white bg-success rounded-top-5 p-5 py-3">
+                <div class=" text-center" style="font-size: 0.9rem;">Mindanao State University - General Santos, Fatima, General Santos City</div>
+                <div class=" text-center" style="font-size: 0.9rem;">&copy; Incognito 2024. All Rights Reserved.</div>
             </div>
         </div>
     </footer>

@@ -19,12 +19,12 @@
     <link rel="stylesheet" href="css/login.css">
 </head>
 
-<body class="">
+<body class="py-5">
 
     <div class="container">
         <div class="row vh-100 d-flex justify-content-center align-items-center">
             <!-- form -->
-            <div class="col-4">
+            <div class="col-6">
                 <form action="" class="border rounded-4 bg-light py-5 px-5">
 
                     <!-- logo -->
@@ -34,7 +34,7 @@
 
                     <!-- heading -->
                     <div class="row d-flex justify-content-center align-items-center py-4">
-                        <h3 class="text-center">Login</h3>
+                        <h3 class="text-center">Register</h3>
                     </div>
 
                     <!-- message -->
@@ -43,26 +43,56 @@
                     </div>
 
 
-                    <!-- email -->
+                    <!-- firstname -->
+                    <div class="row d-flex justify-content-between mb-3">
+                        <div class="col-6 form-floating">
+                            <input type="text" class="fs-6 form-control rounded-4" id="f-name" placeholder="name@example.com">
+                            <label for="f-name" class="fs-6 ms-3">Firstname</label>
+                        </div>
+                        <div class="col-6 form-floating ">
+                            <input type="text" class="fs-6 form-control rounded-4" id="lname" placeholder="name@example.com">
+                            <label for="lname" class="fs-6 ms-3">Lastname</label>
+                        </div>
+                    </div>
+
+                    <!-- gender -->
                     <div class="form-floating mb-3">
-                        <input type="email" class="fs-6 form-control rounded-4" id="login-email" placeholder="name@example.com">
-                        <label for="login-email" class="fs-6">Email</label>
+                        <input type="text" class="fs-6 form-control rounded-4" id="reg-gender" placeholder="Gender">
+                        <label for="reg-gender" class="fs-6">Gender</label>
+                    </div>
+
+                    <!-- username -->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="fs-6 form-control rounded-4" id="reg-uname" placeholder="Password">
+                        <label for="reg-uname" class="fs-6">Username</label>
                     </div>
 
                     <!-- password -->
-                    <div class="form-floating">
-                        <input type="password" class="fs-6 form-control rounded-4" id="login-password" placeholder="Password">
-                        <label for="login-password" class="fs-6">Password</label>
+                    <div class="form-floating mb-3">
+                        <input type="password" class="fs-6 form-control rounded-4" id="reg-pass" placeholder="Password">
+                        <label for="reg-pass" class="fs-6">Password</label>
+                    </div>
+
+                    <!-- Confirm -->
+                    <div class="form-floating mb-3">
+                        <input type="password" class="fs-6 form-control rounded-4" id="reg-confirm" placeholder="Password">
+                        <label for="reg-confirm" class="fs-6">Confirm Password</label>
+                    </div>
+
+                    <!-- affiliation -->
+                    <div class="form-floating mb-3">
+                        <input type="text" class="fs-6 form-control rounded-4" id="reg-affiliation" placeholder="Password">
+                        <label for="reg-affiliation" class="fs-6">Affiliation</label>
                     </div>
 
                     <!-- login btn -->
                     <div class="d-flex justify-content-center align-items-center my-3">
-                        <button class="btn btn-success rounded-4 fw-bold w-100 py-3" type="submit">Login</button>
+                        <button class="btn btn-success rounded-4 fw-bold w-100 py-3" type="submit">Sign Up!</button>
                     </div>
 
                     <!-- sign up -->
                     <div class="d-flex justify-content-center align-items-center my-3">
-                        Be a Contributor.<a href="" class="ms-1"> Sign Up!</a>
+                        Already a Contributor?<a href="" class="ms-1"> Login!</a>
                     </div>
 
                     <!-- visitor page -->
