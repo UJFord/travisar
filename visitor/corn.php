@@ -85,7 +85,8 @@ require "../functions/connections.php";
             </nav>
         </div>
         <!-- Add pagination links -->
-        <?php // generatePaginationLinks($total_pages, $current_page, 'page'); ?>
+        <?php // generatePaginationLinks($total_pages, $current_page, 'page'); 
+        ?>
     </div>
 
     <!-- SCRIPT -->
@@ -97,6 +98,92 @@ require "../functions/connections.php";
     <script src="js/nav.js"></script>
     <script src="js/sideFilter.js"></script>
     <script src="js/list.js"></script>
+    <!-- search function -->
+    <script>
+        // Modify the search function to store the search query in a session or URL parameter
+        function search() {
+            var searchInput = document.getElementById("searchInput").value;
+            // Store the search query in a session or URL parameter
+            // For example, you can use localStorage to store the search query
+            localStorage.setItem('searchQuery', searchInput);
+            // Reload the page with the search query as a parameter
+            window.location.href = window.location.pathname + "?search=" + searchInput;
+        }
+
+        const searchInput = document.getElementById('searchInput');
+        const clearButton = document.getElementById('clearButton');
+
+        // Add a keyup event listener to the search input field
+        searchInput.addEventListener('keyup', function(event) {
+            // Check if the Enter key is pressed (key code 13)
+            if (event.keyCode === 13) {
+                // Call the search function
+                search();
+            }
+        });
+
+        // Function to clear the search and hide the clear button
+        function clearSearch() {
+            let searchParams = new URLSearchParams(window.location.search);
+            let categoryId = searchParams.get('category_id');
+
+            // Clear the search input
+            document.getElementById('searchInput').value = '';
+
+            // Redirect to the page with the cleared search and retained category_id
+            if (categoryId) {
+                window.location.href = window.location.pathname + '?category_id=' + categoryId;
+            } else {
+                window.location.href = window.location.pathname;
+            }
+        }
+
+
+        function applyFilters() {
+            let searchParams = new URLSearchParams(window.location.search);
+            let searchCondition = '';
+
+            // Get the existing search query if it exists
+            let searchQuery = searchParams.get('search');
+
+            const selectedCategories = Array.from(document.querySelectorAll('.crop-filter:checked')).map(checkbox => checkbox.value);
+            const selectedMunicipalities = Array.from(document.querySelectorAll('.municipality-filter:checked')).map(checkbox => checkbox.value);
+            const selectedVarieties = Array.from(document.querySelectorAll('.variety-filter:checked')).map(checkbox => checkbox.value);
+            const selectedTerrain = Array.from(document.querySelectorAll('.terrain-filter:checked')).map(checkbox => checkbox.value);
+            const selectedBrgy = Array.from(document.querySelectorAll('.brgy-filter:checked')).map(checkbox => checkbox.value);
+
+            // Add existing category_id to searchCondition if it exists
+            let categoryId = searchParams.get('category_id');
+            if (categoryId) {
+                searchCondition += `category_id=${categoryId}&`;
+            }
+
+            // Add selected filters to searchCondition
+            if (selectedCategories.length > 0) {
+                searchCondition += `categories=${selectedCategories.join(',')}&`;
+            }
+            if (selectedMunicipalities.length > 0) {
+                searchCondition += `municipalities=${selectedMunicipalities.join(',')}&`;
+            }
+            if (selectedVarieties.length > 0) {
+                searchCondition += `varieties=${selectedVarieties.join(',')}&`;
+            }
+            if (selectedTerrain.length > 0) {
+                searchCondition += `terrains=${selectedTerrain.join(',')}&`;
+            }
+            if (selectedBrgy.length > 0) {
+                searchCondition += `barangay=${selectedBrgy.join(',')}&`;
+            }
+
+            // Add existing search query to searchCondition
+            if (searchQuery) {
+                searchCondition += `search=${searchQuery}`;
+            }
+
+            // Redirect to the page with updated filters
+            window.location.href = window.location.pathname + '?' + searchCondition;
+        }
+    </script>
 </body>
 
 </html>
