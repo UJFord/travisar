@@ -562,6 +562,7 @@
         var cornMorph = document.getElementById('cornMorph');
         var riceMorph = document.getElementById('riceMorph');
         var rootCropMorph = document.getElementById('root_cropMorph');
+        var selectMorph = document.getElementById('selectMorph');
 
         // sensory tab
         var sensoryTab = document.getElementById('sensory-tab');
@@ -571,7 +572,7 @@
         var withoutSensory_More = document.getElementById('withoutSensory-More');
 
         // Hide all sections
-        [cornMorph, riceMorph, rootCropMorph, sensoryTab, withSensory, withoutSensory, withSensory_More, withoutSensory_More]
+        [cornMorph, riceMorph, rootCropMorph, sensoryTab, withSensory, withoutSensory, withSensory_More, withoutSensory_More, selectMorph]
         .forEach(element => {
             if (element) {
                 element.style.display = 'none';
@@ -596,6 +597,13 @@
             });
         } else if (categoryId === '2') {
             [rootCropMorph, withoutSensory, withoutSensory_More]
+            .forEach(element => {
+                if (element) {
+                    element.style.display = 'block';
+                }
+            });
+        } else if (categoryId === '') {
+            [selectMorph]
             .forEach(element => {
                 if (element) {
                     element.style.display = 'block';

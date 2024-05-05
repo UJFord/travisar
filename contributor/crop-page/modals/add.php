@@ -298,6 +298,31 @@
             }
         }
 
+        // Validate reference URLs
+        var referenceInputs = document.querySelectorAll('[id^="references-id_"]');
+        for (var i = 0; i < referenceInputs.length; i++) {
+            if (!isValidURL(referenceInputs[i].value.trim())) {
+                referenceInputs[i].classList.add('is-invalid');
+                // Get the corresponding reference-error div
+                var referenceErrorDiv = document.getElementById(`reference-error_${i + 1}`);
+                if (referenceErrorDiv) {
+                    // Set error message appropriately
+                    referenceErrorDiv.innerText = "Invalid URL.";
+                }
+                isValid = false;
+                if (!firstErrorElement) {
+                    firstErrorElement = referenceInputs[i];
+                }
+            } else {
+                referenceInputs[i].classList.remove('is-invalid');
+                // Clear error message if validation succeeds
+                var referenceErrorDiv = document.getElementById(`reference-error_${i + 1}`);
+                if (referenceErrorDiv) {
+                    referenceErrorDiv.innerText = "";
+                }
+            }
+        }
+
         // Focus on the first element with an error
         if (firstErrorElement) {
             firstErrorElement.focus();
@@ -307,6 +332,13 @@
         }
 
         return isValid;
+    }
+
+    // Validation function for URL format
+    function isValidURL(url) {
+        // Regular expression for validating URL format
+        const urlPattern = /^(https?:\/\/)?([\w\d-]+\.)+[\w\d]{2,}(\/.*)*$/i;
+        return urlPattern.test(url);
     }
 
     // Validation function
@@ -479,11 +511,17 @@
     function switchTab(tabName) {
         // prevent submitting the form
         event.preventDefault();
-        // Set the currentTab to the tabName
-        currentTab = tabName;
+
+        // If the error originates from the reference inputs, set the currentTab to "references"
+        if (firstErrorElement && firstErrorElement.id.includes("references-id")) {
+            currentTab = "references";
+        } else {
+            // Set the currentTab to the tabName
+            currentTab = tabName;
+        }
 
         // Click the tab with id 'gen-tab'
-        document.getElementById(tabName + '-tab').click();
+        document.getElementById(currentTab + '-tab').click();
     }
 </script>
 
@@ -557,6 +595,7 @@
         var cornMorph = document.getElementById('cornMorph');
         var riceMorph = document.getElementById('riceMorph');
         var rootCropMorph = document.getElementById('root_cropMorph');
+        var selectMorph = document.getElementById('selectMorph');
 
         // sensory tab
         var sensoryTab = document.getElementById('sensory-tab');
@@ -566,7 +605,7 @@
         var withoutSensory_More = document.getElementById('withoutSensory-More');
 
         // Hide all sections
-        [cornMorph, riceMorph, rootCropMorph, sensoryTab, withSensory, withoutSensory, withSensory_More, withoutSensory_More]
+        [cornMorph, riceMorph, rootCropMorph, sensoryTab, withSensory, withoutSensory, withSensory_More, withoutSensory_More, selectMorph]
         .forEach(element => {
             if (element) {
                 element.style.display = 'none';
@@ -591,6 +630,13 @@
             });
         } else if (categoryId === '2') {
             [rootCropMorph, withoutSensory, withoutSensory_More]
+            .forEach(element => {
+                if (element) {
+                    element.style.display = 'block';
+                }
+            });
+        }else if(categoryId === ''){
+            [selectMorph]
             .forEach(element => {
                 if (element) {
                     element.style.display = 'block';

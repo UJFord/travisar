@@ -2,7 +2,7 @@
 session_start();
 require "../../../../functions/connections.php";
 
-// var_dump($_FILES);
+// var_dump($_POST);
 // die();
 if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
     // Begin the database transaction
@@ -1345,18 +1345,24 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             exit();
         }
 
-        //references
-        // Loop through the $_POST data to extract references
+        // Loop through the $_POST data to extract references and their descriptions
         $references = [];
+        //$references_descs = [];
         foreach ($_POST as $key => $value) {
             if (strpos($key, 'references_') !== false) {
-                echo $references[] = $value;
-            }
+                $references[] = $value;
+            } 
+            // elseif (strpos($key, 'references_desc_') !== false) {
+            //     $references_descs[] = $value;
+            // }
         }
 
-        // Save references into references Table
-        foreach ($references as $reference) {
-            $query_refer = "INSERT into \"references\" (crop_id, link) VALUES ($1, $2) RETURNING references_id";
+        // Save references and their descriptions into references Table
+        foreach ($references as $index => $reference) {
+            // Get the corresponding description
+            //description = $references_descs[$index];
+            // Prepare and execute the SQL query
+            $query_refer = "INSERT INTO \"references\" (crop_id, link, reference_desc) VALUES ($1, $2) RETURNING references_id";
             $query_run_refer = pg_query_params($conn, $query_refer, array($crop_id, $reference));
 
             if ($query_run_refer) {
@@ -1364,6 +1370,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 if (pg_affected_rows($query_run_refer) > 0) {
                     $row_refer = pg_fetch_row($query_run_refer);
                     $references_id = $row_refer[0];
+                    echo "Reference inserted with ID: " . $references_id . "<br>"; // Debug statement
                 } else {
                     echo "Error: No rows affected";
                     exit(0);
@@ -2213,19 +2220,25 @@ if (isset($_POST['draft'])) {
             exit();
         }
 
-        //references
-        // Loop through the $_POST data to extract references
+        // Loop through the $_POST data to extract references and their descriptions
         $references = [];
+        $references_descs = [];
         foreach ($_POST as $key => $value) {
             if (strpos($key, 'references_') !== false) {
-                echo $references[] = $value;
+                $references[] = $value;
+            } elseif (strpos($key, 'references_desc_') !== false) {
+                $references_descs[] = $value;
             }
         }
 
-        // Save references into references Table
-        foreach ($references as $reference) {
-            $query_refer = "INSERT into \"references\" (crop_id, link) VALUES ($1, $2) RETURNING references_id";
-            $query_run_refer = pg_query_params($conn, $query_refer, array($crop_id, $reference));
+        // Save references and their descriptions into references Table
+        foreach ($references as $index => $reference) {
+            // Get the corresponding description
+            $description = isset($references_descs[$index]) ? $references_descs[$index] : '';
+
+            // Prepare and execute the SQL query
+            $query_refer = "INSERT INTO \"references\" (crop_id, link, reference_desc) VALUES ($1, $2, $3) RETURNING references_id";
+            $query_run_refer = pg_query_params($conn, $query_refer, array($crop_id, $reference, $description));
 
             if ($query_run_refer) {
                 // Check if any rows were affected
