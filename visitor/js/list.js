@@ -78,7 +78,7 @@ $(document).ready(function () {
             iconSize: [40, 40],
             iconAnchor: [20, 20],
         }),
-        "Root Crop": L.icon({
+        "Root": L.icon({
             iconUrl: 'img/potato.svg',
             iconSize: [40, 40],
             iconAnchor: [20, 20],
