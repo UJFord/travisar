@@ -56,6 +56,7 @@
 }
 #side-filter{
     max-height: 100%;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 
 .chevron-dropdown-btn{
@@ -75,7 +76,12 @@
 }
 #crop-list-map{
     height: 75vh;
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
+#mapList{
+    box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
+}
+
 /* TABLE */
 /* GRID */
 #crop-list-grid{

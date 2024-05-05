@@ -55,7 +55,6 @@ require "../functions/functions.php";
                     <div id="head-subtitle" class=" fs-5 text-light mb-4">Seeds of the Past, Harvest of the Future: The Traditional Crop Varieties Information System is a comprehensive repository housing various information on morphological characteristics, sensory traits, agronomic features, and the cultural significance and utilization of traditional crops including rice, corn, and root crops.</div>
                     <div class="head-link ps-3 row">
                         <a href="" class="col-2 btn btn-light fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">Explore<i class="bi bi-arrow-right fw-bold"></i></a>
-                        <div class="col-2 text-light small-font">Over Hundreds of Crops Listed!</div>
                     </div>
                 </div>
 

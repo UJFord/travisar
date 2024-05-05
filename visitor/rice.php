@@ -51,7 +51,7 @@ require "../functions/connections.php";
                 <?php require "list/grid-list.php" ?>
 
                 <!-- map -->
-                <div id="crop-list-map" class="overflow-y-auto row d-none">
+                <div id="crop-list-map" class="overflow-y-auto rounded row d-none">
                     <div id="mapList" class="col rounded"></div>
                 </div>
 
