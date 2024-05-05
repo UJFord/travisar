@@ -348,7 +348,6 @@ require "../functions/functions.php";
                                     </table>
                                 </div>
 
-
                             <?php
                             }
                         } else if ($get_category_name === 'Rice') {
@@ -670,7 +669,7 @@ require "../functions/functions.php";
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Pubescence</th>
-                                                <td class="w-75 fw-semibold w-75"><?= $crops_rice['panicle_remarkable_features'] ?></td>
+                                                <td class="w-75 fw-semibold w-75"><?= $crops_rice['pubescence'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Other Remarkable Features</th>
