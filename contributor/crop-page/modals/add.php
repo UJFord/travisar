@@ -17,7 +17,7 @@
 <!-- HTML -->
 <div class="modal fade" id="add-item-modal" tabindex="-1" aria-labelledby="add-label" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
 
-    <div class="modal-dialog modal-dialog-scrollable">
+    <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- header -->
             <div class="modal-header">

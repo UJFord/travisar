@@ -70,7 +70,7 @@
 
                         // Display the data
             ?>
-                        <tr latlng="<?= $row['barangay_coordinates'] ?>" data-href="view-crop.php?crop_id=<?= $row['crop_id'] ?>">
+                        <tr latlng="<?= $row['barangay_coordinates'] ?>" data-href="view.php?crop_id=<?= $row['crop_id'] ?>">
                             <td class="category"><?= $row['category_name'] ?></td>
                             <td class="fw-bolder variety"><?= $row['crop_variety'] ?></td>
                             <td class="addr">

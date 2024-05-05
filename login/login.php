@@ -20,11 +20,9 @@
             </div>
             <!-- form -->
             <div class="col-6">
-                <div class="border rounded">
-                    <form action="">
-                        
-                    </form>
-                </div>
+                <form action="" class="border rounded">
+                    
+                </form>
             </div>
         </div>
     </div>
