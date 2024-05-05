@@ -3,12 +3,13 @@
         display: none;
     }
 </style>
-<div class="col col-3" style="min-height: 615px; max-height:615px;">
-    <div class="flex-column align-items-start rounded border overflow-hidden overflow-y-scroll" style="min-height: 600px; max-height:600px;">
+<div id="side-filter-container" class="col-3">
+
+    <div id="side-filter" class=" d-flex flex-column rounded border overflow-y-auto p-0">
 
         <!-- title -->
         <div class="border-bottom d-flex align-items-center w-100 py-1 px-3 bg-light">
-            <h6 class="fw-semibold fs-6 m-0 me-auto">FILTERS</h6>
+            <h6 class="fw-semibold m-0 me-auto small-font">FILTERS</h6>
             <!-- help -->
             <a href="#" class="">
                 <i class="bi bi-question-circle"></i>
@@ -53,8 +54,8 @@
         <!-- Varieties -->
         <div class="py-2 px-3 w-100 border-bottom" id="variety-div">
             <div id="variety-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#variety-filters" role="button" aria-expanded="true" aria-controls="variety-filters">
-                <i id="varietyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">Varieties</a>
+                <i id="varietyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
+                <a class="fw-bold text-success col text-decoration-none" href="">Variety</a>
             </div>
 
             <!-- crops filters -->
@@ -64,80 +65,83 @@
         </div>
 
         <!-- terrain -->
-        <div class="py-2 px-3 w-100 border-bottom">
+        <div class="py-2 px-3 border-bottom">
             <div id="terrain-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#terrain-filters" role="button" aria-expanded="true" aria-controls="terrain-filters">
                 <i id="terrainChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">Terrains</a>
+                <a class="fw-bold text-success col text-decoration-none" href="">All Terrains</a>
             </div>
+            <!-- terrains filters -->
+            <div id="terrain-filters" class="collapse mb-2">
+                <?php
+                $query = "SELECT * FROM terrain order by terrain_name ASC";
+                $query_run = pg_query($conn, $query);
 
-            <?php
-            $query = "SELECT * FROM terrain order by terrain_name ASC";
-            $query_run = pg_query($conn, $query);
-
-            if ($query_run) {
-                while ($row = pg_fetch_array($query_run)) {
-            ?>
-                    <!-- terrains filters -->
-                    <div id="terrain-filters" class="collapse w-100 mb-2">
-                        <input class="form-check-input terrain-filter" type="checkbox" id="terrain<?= $row['terrain_id']; ?>" value="<?= $row['terrain_id']; ?>">
-                        <label for="terrain<?= $row['terrain_id']; ?>"><?= $row['terrain_name']; ?></label>
-                    </div>
-            <?php
+                if ($query_run) {
+                    while ($row = pg_fetch_array($query_run)) {
+                ?>
+                        <!-- terrains filters -->
+                        <div id="terrain-filters" class="collapse w-100 mb-2">
+                            <input class="form-check-input terrain-filter" type="checkbox" id="terrain<?= $row['terrain_id']; ?>" value="<?= $row['terrain_id']; ?>">
+                            <label for="terrain<?= $row['terrain_id']; ?>"><?= $row['terrain_name']; ?></label>
+                        </div>
+                <?php
+                    }
+                } else {
+                    echo "No terrain found";
                 }
-            } else {
-                echo "No terrain found";
-            }
-            ?>
+                ?>
+            </div>
         </div>
 
         <!-- all municipalities -->
-        <div class="pt-2 pb-1 px-3 w-100 border-bottom">
+        <div class="pt-2 pb-1 px-3 border-bottom">
             <div id="mun-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#municipality-filters" role="button" aria-expanded="true" aria-controls="municipalty-filters">
                 <i id="munChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1 rotate-chevron"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">Municipalities</a>
+                <a class="fw-bold text-success col text-decoration-none" href="">All Municipalities</a>
             </div>
+            <div id="municipality-filters" class="collapse w-100 mb-2">
+                <?php
+                $query = "SELECT * FROM municipality order by municipality_name ASC";
+                $query_run = pg_query($conn, $query);
 
-            <?php
-            $query = "SELECT * FROM municipality order by municipality_name ASC";
-            $query_run = pg_query($conn, $query);
-
-            if ($query_run) {
-                while ($row = pg_fetch_array($query_run)) {
-            ?>
-                    <div id="municipality-filters" class="collapse w-100 mb-2">
-                        <input class="form-check-input municipality-filter" type="checkbox" id="municipality<?= $row['municipality_id']; ?>" value="<?= $row['municipality_id']; ?>">
-                        <label for="municipality<?= $row['municipality_id']; ?>"><?= $row['municipality_name']; ?></label>
-                    </div>
-            <?php
+                if ($query_run) {
+                    while ($row = pg_fetch_array($query_run)) {
+                ?>
+                        <div id="municipality-filters" class="collapse w-100 mb-2">
+                            <input class="form-check-input municipality-filter" type="checkbox" id="municipality<?= $row['municipality_id']; ?>" value="<?= $row['municipality_id']; ?>">
+                            <label for="municipality<?= $row['municipality_id']; ?>"><?= $row['municipality_name']; ?></label>
+                        </div>
+                <?php
+                    }
+                } else {
+                    echo "No category found";
                 }
-            } else {
-                echo "No category found";
-            }
-            ?>
+                ?>
+            </div>
         </div>
 
         <!-- all barangay -->
-        <div class="pt-2 pb-1 px-3 w-100 border-bottom" id="barangay-div">
+        <div class="pt-2 pb-1 px-3 border-bottom" id="barangay-div">
             <div id="brgy-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#brgy-filters" role="button" aria-expanded="true" aria-controls="brgy-filters">
-                <i id="brgyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">Barangays</a>
+                <i id="brgyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1 rotate-chevron"></i>
+                <a class="fw-bold text-success col text-decoration-none" href="">Barangay</a>
             </div>
             <div id="brgy-filters" class="collapse w-100 mb-2">
-
             </div>
         </div>
 
         <!-- button to submit filter -->
-        <div class="py-3 px-3 row">
-            <div class="input-group col">
-                <button id="searchButton" class="btn btn-primary" onclick="applyFilters()">Filter</button>
-            </div>
+        <div class="py-3 px-3 row border-bottom">
             <div class="col">
                 <!-- Add a clear button -->
                 <button id="clearButton" class="btn btn-secondary hidden" onclick="clearSearch()">Clear</button>
             </div>
+            <div class="input-group flex-row-reverse col">
+                <button id="searchButton" class="btn btn-success fw-semibold" onclick="applyFilters()"><i class="fa-solid fa-filter me-1 small-font"></i>Filter</button>
+            </div>
         </div>
     </div>
+
 </div>
 
 <!-- script for populating varieties and barangay and the chevron toggler -->
