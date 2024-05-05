@@ -49,6 +49,7 @@
 
         const urlInput = document.createElement('input');
         urlInput.type = 'text';
+        urlInput.id = 'references-id_' + referenceNumber;
         urlInput.name = 'references_' + referenceNumber;
         urlInput.classList.add('form-control', 'small-font');
         urlInput.placeholder = 'ex. https://www.google.com/';
@@ -71,7 +72,30 @@
         urlListItem.appendChild(label);
         urlListItem.appendChild(inputWrapper);
 
+        // Error message div
+        const errorMessage = document.createElement('div');
+        errorMessage.id = `reference-error_${referenceNumber}`;
+        errorMessage.classList.add('text-danger', 'small-font', 'mt-1');
+        urlListItem.appendChild(errorMessage);
+
         newUrlContainer.appendChild(urlListItem);
+
+        // Access the input after it's created
+        const url_Input = document.getElementById('references-id_' + referenceNumber);
+
+        url_Input.addEventListener('blur', function() {
+            const url = url_Input.value.trim();
+            const errorMessage = document.getElementById(`reference-error_${referenceNumber}`);
+            if (isValidURL(url)) {
+                // Valid URL
+                console.log('Valid URL:', url);
+                errorMessage.textContent = ''; // Clear error message
+            } else {
+                // Invalid URL
+                console.error('Invalid URL:', url);
+                errorMessage.textContent = 'Invalid URL'; // Display error message
+            }
+        });
     });
 
     function renumberExistingReferences() {
@@ -86,5 +110,11 @@
             itemLabel.textContent = `Reference ${currentNumber}`;
             currentNumber++;
         });
+    }
+
+    function isValidURL(url) {
+        // Regular expression for validating URL format
+        const urlPattern = /^(https?:\/\/)?([\w\d-]+\.)+[\w\d]{2,}(\/.*)*$/i;
+        return urlPattern.test(url);
     }
 </script>
