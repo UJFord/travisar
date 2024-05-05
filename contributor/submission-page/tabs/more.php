@@ -7,6 +7,11 @@
     <!-- root crop morphological traits -->
     <?php require "tabs/traits/rootCrop-traits.php" ?>
 
+    <div id="selectMorph">
+        <h6 class="fw-semibold mt-4 mb-0">Please select a category to show morphological characteristics</h6>
+
+    </div>
+
     <!-- STEP NAVIGATION without Sensory -->
     <div class="row" id="withoutSensory-More">
         <div class="col d-flex justify-content-between">
