@@ -13,10 +13,15 @@
 	position: relative;
 }
 
-#head-text{
+#head-text, #feature-title{
 	font-family: "Freeman", sans-serif;
 	font-weight: 600;
 }
+
+#logo-in-header{
+	width: 15rem;
+}
+
 #head-img{
 	aspect-ratio: 1/1;
 	object-fit: cover;
@@ -24,6 +29,17 @@
 }
 
 /* SYSTEM LINKS */
+.qlink-img-container img{
+	width: 20rem;
+}
+.qlink-link{
+	background: var(--mainBrand) !important;
+}
+	.qlink-link:hover{
+		/* background: #006065; */
+	}
+
+
 .sys-link-img{
     height: 250px;
     object-fit: cover;

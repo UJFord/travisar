@@ -85,9 +85,9 @@ switch ($current_page_path) {
     <div class="container">
 
         <!-- logo -->
-        <a href="<?php echo BASE_URL . '/' . 'visitor/home.php'; ?>" class="navbar-brand h1 <?php if ($current_page_isHome) {
+        <a href="<?php echo BASE_URL . '/' . 'visitor/home.php'; ?>" class="navbar-brand h1 m-0 me-3 <?php if ($current_page_isHome) {
                                                                                                 echo "active";
-                                                                                            } ?>"><i class="fa-solid fa-crop-simple"></i></a>
+                                                                                            } ?>"><img id="nav-logo" src="<?php echo BASE_URL . '/' . 'nav/travis-light.svg'; ?>" alt="" srcset=""></a>
 
         <!-- hamburger button for mobile -->
         <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="navLink">
@@ -119,7 +119,7 @@ switch ($current_page_path) {
                 </li>
 
             </ul>
-            <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) :?>
+            <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
                 <!-- ADMIN -->
                 <ul class="navbar-nav">
                     <!-- my crops -->

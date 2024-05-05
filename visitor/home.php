@@ -52,10 +52,10 @@ require "../functions/functions.php";
 
                 <!-- left -->
                 <div class="col-8 d-flex flex-column justify-content-end">
-                    <div id="head-text" class="fw-bolder fs-1 text-white ">Preserve Traditional Crop Farmer's Knowledge</div>
-                    <div id="head-subtitle" class=" fs-5 text-light mb-4">We Document Traditional Rice, Corn, and Root Crops of Sarangani</div>
+                    <div id="head-text" class="fw-bolder fs-1 text-white ">Welcome to <span><img id="logo-in-header" src="img/travis-light.svg" alt="" srcset=""></span></div>
+                    <div id="head-subtitle" class=" fs-5 text-light mb-4">Seeds of the Past, Harvest of the Future: The Traditional Crop Varieties Information System is a comprehensive repository housing various information on morphological characteristics, sensory traits, agronomic features, and the cultural significance and utilization of traditional crops including rice, corn, and root crops.</div>
                     <div class="head-link ps-3 row">
-                        <a href="" class="col-2 btn btn-light fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">Crops List<i class="bi bi-arrow-right fw-bold"></i></a>
+                        <a href="" class="col-2 btn btn-light fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">Explore<i class="bi bi-arrow-right fw-bold"></i></a>
                         <div class="col-2 text-light small-font">Over Hundreds of Crops Listed!</div>
                     </div>
                 </div>
@@ -72,8 +72,11 @@ require "../functions/functions.php";
     </header>
 
     <!-- FEATURES -->
-    <div class="container">
-        <div class="row my-5">
+    <div class="container my-5 bg-white">
+        <div class="row mb-3">
+            <h3 id="feature-title" class="text-center fw-bold">Features</h3>
+        </div>
+        <div class="row">
 
             <!-- Crops List -->
             <div class="col mx-3">
@@ -84,12 +87,12 @@ require "../functions/functions.php";
                     </div>
                     <!-- Description -->
                     <div class="col fw-bold p-0">
-                        Crops List
+                        Crops Database
                     </div>
                 </div>
                 <div class="row mt-2">
-                    <p class="p-0">
-                        A webpage devoted to showcasing the various crops listed within our extensive agricultural database.</p>
+                    <p class="p-0">Explore our extensive collection of information about traditional crop varieties, including their morphological characteristics, sensory traits, agronomic traits, and cultural utilization and importance.
+                    </p>
                 </div>
             </div>
 
@@ -106,7 +109,7 @@ require "../functions/functions.php";
                     </div>
                 </div>
                 <div class="row mt-2">
-                    <p class="p-0">A visual map displaying pins at the last known locations of each item in our database for easy reference and tracking.</p>
+                    <p class="p-0">Navigate our interactive map to explore the geographical distribution of traditional crop varieties. Discover where each crop is cultivated, learn about regional variations, and gain insights into their significance in different areas.</p>
                 </div>
             </div>
 
@@ -123,109 +126,154 @@ require "../functions/functions.php";
                     </div>
                 </div>
                 <div class="row mt-2">
-                    <p class="p-0">Be a contributor and join us in our goal to improve Travis.</p>
+                    <p class="p-0">Join our community by registering as a contributor. Share your knowledge and expertise about traditional crop varieties, helping to enrich our database for fellow enthusiasts and researchers in the country.</p>
                 </div>
             </div>
         </div>
     </div>
 
-    <!-- SYSTEM LINKS -->
-    <div class="container my-5">
-        <div class="row">
+    <!-- QUICK LINKS -->
+    <div id="quick-link-container" class="container-fluid bg-light">
+        <div class="container">
 
-            <!-- system links -->
-            <div class="col-8">
-                <div class="row d-flex flex-column align-items-center">
+            <!-- <div class="row mb-3">
+                <h4 id="quick-link-title" class="text-center fw-bold">Quick Links</h4>
+            </div> -->
 
-                    <!-- navigate to crops -->
-                    <div class="card col-9 p-0 mb-3">
-                        <img src="https://images.unsplash.com/photo-1592997571659-0b21ff64313b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top sys-link-img" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold">Crops</h5>
-                            <p class="card-text">Discover Traditional Crops Cultivated in Sarangani and Uncover the Rich Agricultural Heritage of the Region.</p>
-                            <a href="#" class="btn btn-light border float-end">Explore Now!</a>
-                        </div>
-                    </div>
+            <!-- crop  -->
+            <div class="row py-5  d-flex justify-content-center align-items-center">
 
-                    <!-- navigate to map -->
-                    <div class="card col-9 p-0 mb-3">
-                        <img src="img/map.png" class="card-img-top sys-link-img" alt="...">
-                        <div class="card-body">
-                            <h5 class="card-title fw-bold">Map</h5>
-                            <p class="card-text">Navigate Our Map for an Interactive Journey Through the Rich Diversity of Traditional Agriculture in the Province.</p>
-                            <a href="#" class="btn btn-light border float-end">Navigate Now!</a>
-                        </div>
-                    </div>
+                <div class="qlink-img-container col-6 d-flex justify-content-center align-items-center">
+                    <img src="img/undraw_forming_ideas_re_2afc.svg" alt="" srcset="">
+                </div>
 
-                    <div class="col-9 d-flex flex-row justify-content-between p-0">
-                        <!-- navigate to contributors -->
-                        <div class="card p-0 mb-3 me-3">
-                            <img src="https://images.unsplash.com/photo-1508780709619-79562169bc64?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top sys-link-img-half" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">Contribute</h5>
-                                <p class="card-text">Join Our Community and Share Your Valuable Knowledge to Enrich Our Comprehensive Database, Enhancing Agricultural Insights for Sustainable Development.</p>
-                            </div>
-                            <div class="card-footer">
-                                <a href="#" class="btn btn-light border float-end">Sign Up Now!</a>
-                            </div>
-                        </div>
-
-                        <!-- navigate to about -->
-                        <div class="card p-0 mb-3">
-                            <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top sys-link-img-half" alt="...">
-                            <div class="card-body">
-                                <h5 class="card-title fw-bold">About Travis</h5>
-                                <p class="card-text">Explore Our Website for Detailed Information on Our Crop Initiatives, Projects, and Collaborative Efforts in Agricultural Development.</p>
-                            </div>
-                            <div class="card-footer">
-                                <a href="#" class="btn btn-light border float-end streched-link">Check Out!</a>
-                            </div>
-                        </div>
+                <div class="col d-flex flex-column justify-content-center">
+                    <h4 class="fw-bold">Crops</h4>
+                    <p>Discover traditional crop varieties cultivated in Sarangani and uncover the rich agricultural heritage of the province.</p>
+                    <div class="row ps-3">
+                        <a href="" id="crop-qlink" class="col-3 btn qlink-link btn-success border fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
+                            Explore Now
+                            <i class="bi bi-arrow-right fw-bold"></i>
+                        </a>
                     </div>
                 </div>
             </div>
 
-            <div class="col">
+            <!-- map -->
+            <div class="row py-5">
 
-                <!-- socicals -->
-                <div class="row d-flex flex-column align-items-center mb-5">
-                    <div class="col-10">
-                        <div class="card">
-                            <div class="card-header">
-                                Socials
+                <div class="col d-flex flex-column justify-content-center">
+                    <h4 class="fw-bold">Crops</h4>
+                    <p>Discover traditional crop varieties cultivated in Sarangani and uncover the rich agricultural heritage of the province.</p>
+                    <div class="row ps-3">
+                        <a href="" id="map-qlink" class="col-3 btn qlink-link btn-success fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
+                            Navigate
+                            <i class="bi bi-arrow-right fw-bold"></i>
+                        </a>
+                    </div>
+                </div>
+
+                <div class="qlink-img-container col-6 d-flex justify-content-center align-items-center">
+                    <img src="img/undraw_location_search_re_ttoj.svg" alt="" srcset="">
+                </div>
+            </div>
+
+            <div class="row">
+
+                <!-- system links -->
+                <div class="col-12">
+                    <div class="row d-flex flex-column align-items-center">
+
+                        <!-- navigate to crops -->
+                        <div class="card col-6 p-0 mb-3">
+                            <img src="https://images.unsplash.com/photo-1592997571659-0b21ff64313b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top sys-link-img" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Crops</h5>
+                                <p class="card-text">Discover traditional crop varieties cultivated in Sarangani and uncover the rich agricultural heritage of the province.</p>
+                                <a href="#" class="btn btn-light border float-end">Explore Now!</a>
                             </div>
-                            <div class="card-body d-flex">
-                                <a href="" class="btn btn-link link-secondary fs-5"><i class="fa-brands fa-facebook"></i></a>
-                                <a href="" class="btn btn-link link-secondary fs-5"><i class="fa-brands fa-youtube"></i></i></a>
-                                <a href="" class="btn btn-link link-secondary fs-5"><i class="fa-brands fa-square-x-twitter"></i></a>
-                                <a href="" class="btn btn-link link-secondary fs-5"><i class="fa-brands fa-viber"></i></a>
-                                <a href="" class="btn btn-link link-secondary fs-5"><i class="fa-brands fa-github"></i></a>
+                        </div>
+
+                        <!-- navigate to map -->
+                        <div class="card col-6 p-0 mb-3">
+                            <img src="img/map.png" class="card-img-top sys-link-img" alt="...">
+                            <div class="card-body">
+                                <h5 class="card-title fw-bold">Map</h5>
+                                <p class="card-text">Navigate our map for an interactive journey through the distribution of traditional crop varieties across the province.</p>
+                                <a href="#" class="btn btn-light border float-end">Navigate Now!</a>
+                            </div>
+                        </div>
+
+                        <div class="col-6 d-flex flex-row justify-content-between p-0">
+                            <!-- navigate to contributors -->
+                            <div class="card p-0 mb-3 me-3">
+                                <img src="https://images.unsplash.com/photo-1508780709619-79562169bc64?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top sys-link-img-half" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold">Contribute</h5>
+                                    <p class="card-text">Join our community and share your valuable knowledge to enrich our comprehensive database, providing deeper agricultural insights for sustainable development.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="#" class="btn btn-light border float-end">Sign Up Now!</a>
+                                </div>
+                            </div>
+
+                            <!-- navigate to about -->
+                            <div class="card p-0 mb-3">
+                                <img src="https://images.unsplash.com/photo-1522071820081-009f0129c71c?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top sys-link-img-half" alt="...">
+                                <div class="card-body">
+                                    <h5 class="card-title fw-bold">About Travis</h5>
+                                    <p class="card-text">Learn more about TRAVIS, designed to store information about traditional crop varieties in Sarangani Province, including their morphological characteristics, sensory traits, agronomic traits, and cultural utilization and importance.</p>
+                                </div>
+                                <div class="card-footer">
+                                    <a href="#" class="btn btn-light border float-end streched-link">Check Out!</a>
+                                </div>
                             </div>
                         </div>
                     </div>
                 </div>
 
-                <!-- partners -->
-                <div class="row d-flex flex-column align-items-center">
-                    <div class="col-10">
-                        <div class="card">
-                            <div class="card-header">
-                                Partners
-                            </div>
-                            <div class="row card-body d-flex">
-                                <a href="https://msugensan.edu.ph/" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/msu-gensan-logo-85758e.png" class="partners-item" alt="" srcset=""></i></a>
-                                <a href="https://www.facebook.com/JITSmsugsc" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/jits.jpg" class="partners-item" alt="" srcset=""></i></a>
-                                <a href="https://www.facebook.com/opagsarangani/" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/Province_of_Sarangani_-_Official_Seal.png" class="partners-item" alt="" srcset=""></i></a>
-                                <a href="https://saad.da.gov.ph/priority_provinces/region-xii/sarangani" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/saad.png" class="partners-item" alt="" srcset=""></i></a>
-                                <a href="" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/Department_of_Agriculture_of_the_Philippines.png" class="partners-item" alt="" srcset=""></i></a>
-                                <a href="https://kiamba.gov.ph/" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/kiamba.png" class="partners-item" alt="" srcset=""></i></a>
+                <div class="col">
+
+                    <!-- socicals -->
+                    <div class="row d-flex flex-column align-items-center mb-5">
+                        <div class="col-10">
+                            <div class="card">
+                                <div class="card-header">
+                                    Socials
+                                </div>
+                                <div class="card-body d-flex">
+                                    <a href="" class="btn btn-link link-secondary fs-5"><i class="fa-brands fa-facebook"></i></a>
+                                    <a href="" class="btn btn-link link-secondary fs-5"><i class="fa-brands fa-youtube"></i></i></a>
+                                    <a href="" class="btn btn-link link-secondary fs-5"><i class="fa-brands fa-square-x-twitter"></i></a>
+                                    <a href="" class="btn btn-link link-secondary fs-5"><i class="fa-brands fa-viber"></i></a>
+                                    <a href="" class="btn btn-link link-secondary fs-5"><i class="fa-brands fa-github"></i></a>
+                                </div>
                             </div>
                         </div>
                     </div>
+
+                    <!-- partners -->
+                    <div class="row d-flex flex-column align-items-center">
+                        <div class="col-10">
+                            <div class="card">
+                                <div class="card-header">
+                                    Partners
+                                </div>
+                                <div class="row card-body d-flex">
+                                    <a href="https://msugensan.edu.ph/" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/msu-gensan-logo-85758e.png" class="partners-item" alt="" srcset=""></i></a>
+                                    <a href="https://www.facebook.com/JITSmsugsc" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/jits.jpg" class="partners-item" alt="" srcset=""></i></a>
+                                    <a href="https://www.facebook.com/opagsarangani/" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/Province_of_Sarangani_-_Official_Seal.png" class="partners-item" alt="" srcset=""></i></a>
+                                    <a href="https://saad.da.gov.ph/priority_provinces/region-xii/sarangani" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/saad.png" class="partners-item" alt="" srcset=""></i></a>
+                                    <a href="" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/Department_of_Agriculture_of_the_Philippines.png" class="partners-item" alt="" srcset=""></i></a>
+                                    <a href="https://kiamba.gov.ph/" class="col-4 btn btn-link link-secondary fs-5" target="_blank"><img src="img/kiamba.png" class="partners-item" alt="" srcset=""></i></a>
+                                </div>
+                            </div>
+                        </div>
+                    </div>
+
                 </div>
 
             </div>
-
         </div>
     </div>
 

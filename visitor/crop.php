@@ -47,34 +47,36 @@ require "../functions/functions.php";
 	<!-- CATEGORY FILTER -->
 	<div class="container h-75">
 		<div class="row h-100 d-flex justify-content-center align-items-center">
-			<div class="col-6 p-0">
+			<div class="col-7 p-0">
 
-				<div class="row">Choose Category</div>
-				<div class="col-12 border rounded overflow-hidden filter-h p-0 m-0">
-					<div class="row h-100 w-100 p-0">
+				<div class="d-flex justify-content-center">
+					<span class="fw-bold mb-2">Choose Category</span>
+				</div>
+				<div class="col-12 border rounded-4 overflow-hidden filter-h">
+					<div class="row h-100 p-0">
 						<div class="col p-0">
 
-							<a href="" class="h-100 w-100 d-flex justify-content-end align-items-end icon-link icon-link-hover link-underline link-underline-opacity-0 p-0 pb-2 border-end">
+							<a href="" id="all-crop-link" class="h-100 w-100 d-flex justify-content-end align-items-end icon-link icon-link-hover link-underline link-underline-opacity-0 p-0 pb-2 border-3 border-end link-light">
 								<span>All Crops</span>
-								<i class="bi bi-arrow-right fs-5 me-2"></i>
+								<i class="bi bi-arrow-right fs-3 me-2"></i>
 							</a>
 
 						</div>
 						<div class="col d-flex flex-column align-items-stretch p-0 m-0">
 
-							<a href="" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-bottom w-100">
-								<span>Corn</span>
-								<i class="bi bi-arrow-right fs-5"></i>
+							<a href="" id="corn-link" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-3 border-bottom link-light">
+								<span class="me-4">Corn</span>
+								<i class="bi bi-arrow-right fs-3 me-4"></i>
 							</a>
 
-							<a href="" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-bottom">
-								<span>Rice</span>
-								<i class="bi bi-arrow-right fs-5"></i>
+							<a href="" id="rice-link" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-3 border-bottom link-light">
+								<span class="me-4">Rice</span>
+								<i class="bi bi-arrow-right fs-3 me-4"></i>
 							</a>
 
-							<a href="" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2">
-								<span>Root</span>
-								<i class="bi bi-arrow-right fs-5"></i>
+							<a href="" id="root-link" class=" d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 link-light">
+								<span class="me-4">Root</span>
+								<i class="bi bi-arrow-right fs-3 me-4"></i>
 							</a>
 						</div>
 					</div>
