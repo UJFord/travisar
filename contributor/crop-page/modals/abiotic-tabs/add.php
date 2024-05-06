@@ -12,7 +12,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div id="error-messages"></div>
             <!-- body -->
             <form id="form-panel" name="Form" action="modals/crud-code/abiotic-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
@@ -39,6 +38,7 @@
                         <input type="hidden" name="save">
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" name="save" class="btn btn-success">Save</button>
+                        <div id="error-messages_1"></div>
                     </div>
                 </div>
             </form>
@@ -47,12 +47,11 @@
 </div>
 
 <!-- for submission -->
+<!-- JavaScript -->
 <script>
-    // for adding and removing rows dynamically
-    // i set the names for each input field to be unique name attribute 
-    // (province_name_1, province_name_2 and so on)
-    // for when the form is submitted hiwalay ang pag save
     document.addEventListener('DOMContentLoaded', function() {
+        // Other JavaScript code here...
+
         const addRowButton = document.getElementById('add-row');
         const locationData = document.getElementById('locationData');
         let rowCounter = 1;
@@ -65,13 +64,27 @@
                 <div class="col-5">
                     <label for="abiotic-Name_${rowCounter}" class="form-label small-font">Abiotic Name<span style="color: red;">*</span></label>
                     <input id="abiotic-Name_${rowCounter}" type="text" name="abiotic_name_${rowCounter}" class="form-control">
-
+                    <div id="error-messages_${rowCounter}" class="error-messages"></div>
                 </div>
                 <div class="col-2" style="padding-top: 25px;">
                     <button type="button" class="btn btn-secondary remove-row" style="background-color: #dc3545;">Remove</button>
                 </div>
             `;
             locationData.appendChild(newRow);
+
+            // Add event listener for blur event to the newly added input field
+            const newAbioticNameInput = newRow.querySelector(`#abiotic-Name_${rowCounter}`);
+            newAbioticNameInput.addEventListener('blur', function(event) {
+                validateAbioticName(event.target);
+            });
+        });
+
+        // Add blur event listeners to existing input fields
+        const existingAbioticNameInputs = document.querySelectorAll('input[name^="abiotic_name_"]');
+        existingAbioticNameInputs.forEach(function(input) {
+            input.addEventListener('blur', function(event) {
+                validateAbioticName(event.target);
+            });
         });
 
         locationData.addEventListener('click', function(e) {
@@ -97,26 +110,44 @@
     });
     // Function to validate input
     function validateForm() {
-        var errors = [];
+        var isValid = true;
         var abioticNameInputs = document.querySelectorAll('input[name^="abiotic_name_"]');
 
         abioticNameInputs.forEach(function(input) {
-            var abioticName = input.value.trim();
-            if (abioticName === "") {
-                errors.push("<div class='error text-center' style='color:red;'>Please fill up required fields.</div>");
-                input.classList.add('is-invalid');
-            } else {
-                input.classList.remove('is-invalid');
+            if (!validateAbioticName(input)) {
+                isValid = false;
             }
         });
 
-        if (errors.length > 0) {
-            document.getElementById("error-messages").innerHTML = errors.join("<br>");
-            return false;
+        return isValid;
+    }
+
+    // Function to validate abiotic name
+    function validateAbioticName(input) {
+        var abioticName = input.value.trim();
+        var errorMessageContainer = input.parentNode.querySelector('.error-messages');
+        var isValid = true;
+
+        if (abioticName === "") {
+            isValid = false;
+            var errorMessage = "<div class='error text-center' style='color:red;'>Please fill up required fields.</div>";
+            if (errorMessageContainer) {
+                errorMessageContainer.innerHTML = errorMessage;
+            } else {
+                var newErrorMessageContainer = document.createElement('div');
+                newErrorMessageContainer.className = 'error-messages';
+                newErrorMessageContainer.innerHTML = errorMessage;
+                input.parentNode.appendChild(newErrorMessageContainer);
+            }
+            input.classList.add('is-invalid');
         } else {
-            document.getElementById("error-messages").innerHTML = "";
-            return true;
+            input.classList.remove('is-invalid');
+            if (errorMessageContainer) {
+                errorMessageContainer.innerHTML = "";
+            }
         }
+
+        return isValid;
     }
 
     // Function to check if abiotic name already exists
@@ -136,7 +167,10 @@
                 success: function(data) {
                     if (data.exists) {
                         // Abiotic name already exists, show error message
-                        document.getElementById("error-messages").innerHTML += "<div class='error text-center' style='color:red;'>Abiotic name, " + abioticName + " already exists for Row " + (index + 1) + "</div>";
+                        var errorMessageContainer = document.getElementById(`error-messages_${index + 1}`);
+                        if (errorMessageContainer) {
+                            errorMessageContainer.innerHTML = "<div class='error text-center' style='color:red;'>Abiotic name " + abioticName + " already exists for Row " + (index + 1) + "</div>";
+                        }
                         hasError = true; // Set flag to true if error occurs
                         event.preventDefault();
                     } else {
