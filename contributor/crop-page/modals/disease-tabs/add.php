@@ -12,7 +12,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div id="error-messages"></div>
             <!-- body -->
             <form id="form-panel" name="Form" action="modals/crud-code/disease-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
@@ -21,12 +20,13 @@
                     </div>
                     <div class="container">
                         <div id="locationData">
-                            <!-- Province -->
+                            <!-- Disease -->
                             <div class="row mb-3 disease-row">
-                                <!-- province name -->
+                                <!-- Disease name -->
                                 <div class="col-5">
                                     <label for="disease-Name_1" class="form-label small-font">Disease Name<span style="color: red;">*</span></label>
                                     <input type="text" name="disease_name_1" id="disease-Name_1" class="form-control">
+                                    <div id="error-messages_1"></div>
                                 </div>
                             </div>
                         </div>
@@ -97,27 +97,41 @@
     });
     // Function to validate input
     function validateForm() {
-        var errors = [];
         var diseaseNameInputs = document.querySelectorAll('input[name^="disease_name_"]');
+        var isValid = true;
 
-        diseaseNameInputs.forEach(function(input) {
+        diseaseNameInputs.forEach(function(input, index) {
             var diseaseName = input.value.trim();
+            var errorMessageId = "error-messages_" + (index + 1); // Generate unique error message id for each row
+            var errorMessageContainer = document.getElementById(errorMessageId);
+
             if (diseaseName === "") {
-                errors.push("<div class='error text-center' style='color:red;'>Please fill up required fields.</div>");
+                // Show error message if disease name is empty
+                var errorMessage = "<div class='error text-center' style='color:red;'>Please fill up required fields.</div>";
                 input.classList.add('is-invalid');
+                isValid = false;
             } else {
                 input.classList.remove('is-invalid');
+                // No error, clear error message container
+                if (errorMessageContainer) {
+                    errorMessageContainer.innerHTML = "";
+                }
+            }
+
+            // Update or create error message container
+            if (errorMessageContainer && errorMessage) {
+                errorMessageContainer.innerHTML = errorMessage;
+            } else if (errorMessage) {
+                var newErrorMessageContainer = document.createElement('div');
+                newErrorMessageContainer.id = errorMessageId;
+                newErrorMessageContainer.innerHTML = errorMessage;
+                input.parentNode.appendChild(newErrorMessageContainer);
             }
         });
 
-        if (errors.length > 0) {
-            document.getElementById("error-messages").innerHTML = errors.join("<br>");
-            return false;
-        } else {
-            document.getElementById("error-messages").innerHTML = "";
-            return true;
-        }
+        return isValid;
     }
+
 
     // Function to check if disease name already exists
     function checkDiseaseExists() {
@@ -136,7 +150,11 @@
                 success: function(data) {
                     if (data.exists) {
                         // Disease name already exists, show error message
-                        document.getElementById("error-messages").innerHTML += "<div class='error text-center' style='color:red;'>Disease name, " + diseaseName + " already exists for Row " + (index + 1) + "</div>";
+                        var errorMessageId = "error-messages_" + (index + 1);
+                        var errorMessageContainer = document.getElementById(errorMessageId);
+                        if (errorMessageContainer) {
+                            errorMessageContainer.innerHTML = "<div class='error text-center' style='color:red;'>Disease name, " + diseaseName + " already exists for Row " + (index + 1) + "</div>";
+                        }
                         hasError = true; // Set flag to true if error occurs
                         event.preventDefault();
                     } else {
@@ -195,4 +213,67 @@
         // Click the tab with id 'gen-tab'
         document.getElementById(tabName + '-tab').click();
     }
+</script>
+
+<!-- script for blur event -->
+<script>
+    document.addEventListener('DOMContentLoaded', function() {
+        // Function to add blur event listener to disease name input field
+        function addBlurEventListener(input) {
+            input.addEventListener('blur', function() {
+                // Call a function to validate the input when it loses focus
+                validateDiseaseName(input);
+            });
+        }
+
+        // Function to validate disease name input
+        function validateDiseaseName(input) {
+            var diseaseName = input.value.trim();
+            var errorMessageId = input.id.replace('disease-Name_', 'error-messages_');
+            var errorMessageContainer = document.getElementById(errorMessageId);
+
+            if (diseaseName === "") {
+                // Show error message if disease name is empty
+                showErrorMessage(errorMessageContainer, "Please fill up required field.");
+                input.classList.add('is-invalid');
+            } else {
+                // Remove error message and invalid class if disease name is not empty
+                hideErrorMessage(errorMessageContainer);
+                input.classList.remove('is-invalid');
+            }
+        }
+
+        // Function to show error message
+        function showErrorMessage(container, message) {
+            if (container) {
+                container.innerHTML = "<div class='error text-center' style='color:red;'>" + message + "</div>";
+            }
+        }
+
+        // Function to hide error message
+        function hideErrorMessage(container) {
+            if (container) {
+                container.innerHTML = "";
+            }
+        }
+
+        // Add blur event listener to existing disease name input fields
+        var existingDiseaseNameInputs = document.querySelectorAll('input[name^="disease_name_"]');
+        existingDiseaseNameInputs.forEach(function(input) {
+            addBlurEventListener(input);
+        });
+
+        // Add click event listener to the "Add" button to handle dynamically added rows
+        var addRowButton = document.getElementById('add-row');
+        if (addRowButton) {
+            addRowButton.addEventListener('click', function() {
+                // Select the newly added disease name input field
+                var newRow = document.querySelector('.disease-row:last-child input[name^="disease_name_"]');
+                if (newRow) {
+                    // Add blur event listener to the newly added disease name input field
+                    addBlurEventListener(newRow);
+                }
+            });
+        }
+    });
 </script>

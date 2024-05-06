@@ -2,8 +2,8 @@
 session_start();
 require "../../../../functions/connections.php";
 
-var_dump($_POST);
-die();
+// var_dump($_POST);
+// die();
 if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator')) {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
