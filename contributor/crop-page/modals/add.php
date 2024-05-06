@@ -349,7 +349,7 @@
 
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            if (file.size > 5 * 1024 * 1024) {
+            if (file.size > 3 * 1024 * 1024) {
                 inputElementSeed.classList.add('is-invalid');
                 document.getElementById('imageInputSeed-error').innerText = "Image must not exceed 5MB.";
                 isValid = false;
@@ -374,7 +374,7 @@
 
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            if (file.size > 5 * 1024 * 1024) {
+            if (file.size > 3 * 1024 * 1024) {
                 inputElementVeg.classList.add('is-invalid');
                 document.getElementById('imageInputVegetative-error').innerText = "Image must not exceed 5MB.";
                 isValid = false;
@@ -399,7 +399,7 @@
 
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            if (file.size > 5 * 1024 * 1024) {
+            if (file.size > 3 * 1024 * 1024) {
                 inputElementRepro.classList.add('is-invalid');
                 document.getElementById('imageInputReproductive-error').innerText = "Image must not exceed 5MB.";
                 isValid = false;
