@@ -80,7 +80,7 @@ if (isset($_POST['edit'])) {
         $affected_rows = pg_affected_rows($query_run);
         if ($affected_rows > 0) {
             $_SESSION['message'] = "Pest Resistance updated successfully";
-            //header("location: ../../pest-resistance.php");
+            header("location: ../../pest-resistance.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
             echo "Error: Location ID not found";

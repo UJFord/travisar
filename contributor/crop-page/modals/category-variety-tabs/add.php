@@ -104,9 +104,11 @@
             // Check if the "Variety Name" input field is empty
             if (varietyName === "") {
                 // If empty, add the 'is-invalid' class to indicate an error
+                document.getElementById("error-messages").innerHTML = "<div class='error text-center' style='color:red;'>Please fill up required fields.</div>";
                 varietyNameInput.classList.add("is-invalid");
             } else {
                 // If not empty, remove the 'is-invalid' class
+                document.getElementById("error-messages").innerHTML = "";
                 varietyNameInput.classList.remove("is-invalid");
             }
         });

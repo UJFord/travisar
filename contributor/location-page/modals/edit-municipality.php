@@ -45,17 +45,20 @@
                                         }
                                         ?>
                                     </select>
+                                    <div id="error-messages-prov"></div>
                                 </div>
 
                                 <!-- municipality name -->
                                 <div class="col">
                                     <label for="municipality-NameEdit" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
                                     <input type="text" id="municipality-NameEdit" name="municipality_name" class="form-control">
+                                    <div id="error-messages-muni"></div>
                                 </div>
-                                <!-- municipality name -->
+                                <!-- coordinates -->
                                 <div class="col">
-                                    <label for="Coordinates" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
-                                    <input type="text" id="Coordinates" name="municipality_coordinates" class="form-control">
+                                    <label for="CoordinatesEdit" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
+                                    <input type="text" id="CoordinatesEdit" name="municipality_coordinates" class="form-control">
+                                    <div id="error-messages-coord"></div>
                                 </div>
                                 <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (<span class="fw-bold">latitude , longitude - 5.7600, 125.3466</span>)</div>
 
@@ -80,6 +83,64 @@
 
 <!-- for submission -->
 <script>
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the "province Name" input field
+        var provinceInputEdit = document.getElementById("prov-Name");
+        var municipalityInputEdit = document.getElementById("municipality-NameEdit");
+        var coordInputEdit = document.getElementById("CoordinatesEdit");
+
+        // Add a blur event listener to the "province Name" input field
+        provinceInputEdit.addEventListener("blur", function() {
+            // Get the value of the "province Name" input field
+            var provinceEdit = provinceInputEdit.value.trim();
+
+            // Check if the "province Name" input field is empty
+            if (provinceEdit === "") {
+                // If empty, add the 'is-invalid' class to indicate an error
+                document.getElementById("error-messages-prov").innerHTML = "<div class='error text-center' style='color:red;'>Please fill up required fields.</div>";
+                provinceInputEdit.classList.add("is-invalid");
+            } else {
+                // If not empty, remove the 'is-invalid' class
+                provinceInputEdit.classList.remove("is-invalid");
+                document.getElementById("error-messages-prov").innerHTML = "";
+            }
+        });
+
+        // Add a blur event listener to the "municipality Name" input field
+        municipalityInputEdit.addEventListener("blur", function() {
+            // Get the value of the "municipality Name" input field
+            var municipalityEdit = municipalityInputEdit.value.trim();
+
+            // Check if the "municipality Name" input field is empty
+            if (municipalityEdit === "") {
+                // If empty, add the 'is-invalid' class to indicate an error
+                document.getElementById("error-messages-muni").innerHTML = "<div class='error text-center' style='color:red;'>Please fill up required fields.</div>";
+                municipalityInputEdit.classList.add("is-invalid");
+            } else {
+                // If not empty, remove the 'is-invalid' class
+                municipalityInputEdit.classList.remove("is-invalid");
+                document.getElementById("error-messages-muni").innerHTML = "";
+            }
+        });
+
+        // Add a blur event listener to the "coordinates Name" input field
+        coordInputEdit.addEventListener("blur", function() {
+            // Get the value of the "coordinates Name" input field
+            var coordinatesEdit = coordInputEdit.value.trim();
+
+            // Check if the "coordinates Name" input field is empty
+            if (coordinatesEdit === "") {
+                // If empty, add the 'is-invalid' class to indicate an error
+                document.getElementById("error-messages-coord").innerHTML = "<div class='error text-center' style='color:red;'>Please fill up required fields.</div>";
+                coordInputEdit.classList.add("is-invalid");
+            } else {
+                // If not empty, remove the 'is-invalid' class
+                coordInputEdit.classList.remove("is-invalid");
+                document.getElementById("error-messages-coord").innerHTML = "";
+            }
+        });
+    });
+
     document.getElementById('editButton').addEventListener('click', function(event) {
         // Prevent the default form submission behavior
         event.preventDefault();
@@ -148,7 +209,7 @@
 
 <!-- script for limiting the input in coordinates just to numbers, commas, periods, and spaces -->
 <script>
-    document.getElementById('Coordinates').addEventListener('input', function(event) {
+    document.getElementById('CoordinatesEdit').addEventListener('input', function(event) {
         const regex = /^[0-9.,\s-]*$/; // Updated regex to allow "-" sign
         if (!regex.test(event.target.value)) {
             event.target.value = event.target.value.replace(/[^0-9.,\s-]/g, '');

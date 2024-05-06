@@ -12,9 +12,6 @@
                 <button type="button" id="close-modal-btn-edit" class="btn-close" aria-label="Close"></button>
             </div>
 
-            <div id="error-messages-Edit">
-
-            </div>
             <!-- body -->
             <form id="form-panel-Edit" name="Form" action="modals/crud-code/terrain-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
@@ -28,6 +25,7 @@
                                 <div class="col">
                                     <label for="terrain-NameEdit" class="form-label small-font">terrain Name:<span style="color: red;">*</span></label>
                                     <input type="text" id="terrain-NameEdit" name="terrain_nameEdit" class="form-control">
+                                    <div id="error-messages-Edit"> </div>
                                 </div>
                             </div>
                         </div>
@@ -112,6 +110,28 @@
         });
     });
 
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the "Terrain Name" input field
+        var terrainNameInputEdit = document.getElementById("terrain-NameEdit");
+
+        // Add a blur event listener to the "Terrain Name" input field
+        terrainNameInputEdit.addEventListener("blur", function() {
+            // Get the value of the "Terrain Name" input field
+            var terrainNameEdit = terrainNameInputEdit.value.trim();
+
+            // Check if the "Terrain Name" input field is empty
+            if (terrainNameEdit === "") {
+                // If empty, add the 'is-invalid' class to indicate an error
+                document.getElementById("error-messages-Edit").innerHTML = "<div class='error text-center' style='color:red;'>Please fill up required fields.</div>";
+                terrainNameInputEdit.classList.add("is-invalid");
+            } else {
+                // If not empty, remove the 'is-invalid' class
+                terrainNameInputEdit.classList.remove("is-invalid");
+                document.getElementById("error-messages-Edit").innerHTML = "";
+            }
+        });
+    });
+
     // Function to validate input 
     function validateFormEdit() {
         var terrain_name = document.getElementById('terrain-NameEdit').value;
@@ -159,7 +179,7 @@
                     form.reset();
                     // Reload the page or do other actions if needed
                     location.reload();
-                    
+
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("Form submission error:", textStatus, errorThrown);

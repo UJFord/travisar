@@ -12,9 +12,6 @@
                 <button type="button" id="close-modal-btn-edit" class="btn-close" aria-label="Close"></button>
             </div>
 
-            <div id="error-messages-Edit">
-
-            </div>
             <!-- body -->
             <form id="form-panel-Edit" name="Form" action="modals/crud-code/pest-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
@@ -28,6 +25,7 @@
                                 <div class="col">
                                     <label for="pest-NameEdit" class="form-label small-font">Pest Name:<span style="color: red;">*</span></label>
                                     <input type="text" id="pest-NameEdit" name="pest_nameEdit" class="form-control">
+                                    <div id="error-messages-Edit"></div>
                                 </div>
                             </div>
                         </div>
@@ -95,6 +93,28 @@
         });
     });
 
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the "Pest Name" input field
+        var pestNameInputEdit = document.getElementById("pest-NameEdit");
+
+        // Add a blur event listener to the "Pest Name" input field
+        pestNameInputEdit.addEventListener("blur", function() {
+            // Get the value of the "Pest Name" input field
+            var pestNameEdit = pestNameInputEdit.value.trim();
+
+            // Check if the "Pest Name" input field is empty
+            if (pestNameEdit === "") {
+                // If empty, add the 'is-invalid' class to indicate an error
+                document.getElementById("error-messages-Edit").innerHTML = "<div class='error text-center' style='color:red;'>Please fill up required fields.</div>";
+                pestNameInputEdit.classList.add("is-invalid");
+            } else {
+                // If not empty, remove the 'is-invalid' class
+                pestNameInputEdit.classList.remove("is-invalid");
+                document.getElementById("error-messages-Edit").innerHTML = "";
+            }
+        });
+    });
+
     // Function to validate input 
     function validateFormEdit() {
         var pest_name = document.getElementById('pest-NameEdit').value;
@@ -141,7 +161,7 @@
                     // Reset the form
                     form.reset();
                     // Reload the page or do other actions if needed
-                    //location.reload();
+                    location.reload();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("Form submission error:", textStatus, errorThrown);
