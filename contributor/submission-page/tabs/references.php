@@ -1,4 +1,4 @@
-<!-- refernces -->
+<!-- References -->
 <div class="fade tab-pane" id="references-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
     <!-- Links -->
     <h6 class="fw-semibold mt-4 mb-3">Links</h6>
@@ -33,22 +33,29 @@
         const urlListItem = document.createElement('div');
         urlListItem.classList.add('url-list-item-edit', 'mb-2');
 
-        const label = document.createElement('label');
-        label.classList.add('form-label', 'small-font');
-
         // Find the first unused reference number (avoiding duplicates)
         let referenceNumber = 1;
         while (referenceNumbers.includes(referenceNumber)) {
             referenceNumber++;
         }
         referenceNumbers.push(referenceNumber); // Track used number
-        label.textContent = `Reference ${referenceNumber}`;
 
         const inputWrapper = document.createElement('div');
         inputWrapper.classList.add('d-flex');
 
+        // Description input
+        // const descriptionInput = document.createElement('input');
+        // descriptionInput.type = 'text';
+        // descriptionInput.id = 'references-desc_' + referenceNumber;
+        // descriptionInput.name = 'references_desc_' + referenceNumber;
+        // descriptionInput.style = 'width: 30%;';
+        // descriptionInput.classList.add('form-control', 'small-font', 'me-1', 'col-3', 'mb-2');
+        // descriptionInput.placeholder = 'Title...';
+
+        // Reference URL input
         const urlInput = document.createElement('input');
         urlInput.type = 'text';
+        urlInput.id = 'references-id_' + referenceNumber;
         urlInput.name = 'references_' + referenceNumber;
         urlInput.classList.add('form-control', 'small-font');
         urlInput.placeholder = 'ex. https://www.google.com/';
@@ -60,18 +67,37 @@
 
         removeButton.addEventListener('click', function() {
             urlListItem.remove();
-            const removedNumber = parseInt(label.textContent.split(' ')[1]); // Extract reference number
-            referenceNumbers = referenceNumbers.filter(num => num !== removedNumber); // Remove used number
             renumberExistingReferences(); // Renumber remaining items after deletion
         });
 
         inputWrapper.appendChild(urlInput);
         inputWrapper.appendChild(removeButton);
 
-        urlListItem.appendChild(label);
+        //urlListItem.appendChild(descriptionInput);
         urlListItem.appendChild(inputWrapper);
 
+        // Error message div
+        const errorMessage = document.createElement('div');
+        errorMessage.id = `reference-error_${referenceNumber}`;
+        errorMessage.classList.add('text-danger', 'small-font', 'mt-1');
+        urlListItem.appendChild(errorMessage);
+
         newUrlContainer.appendChild(urlListItem);
+
+        // Access the input after it's created
+        const url_Input = document.getElementById('references-id_' + referenceNumber);
+
+        url_Input.addEventListener('blur', function() {
+            const url = url_Input.value.trim();
+            const errorMessage = document.getElementById(`reference-error_${referenceNumber}`);
+            if (isValidURL(url)) {
+                // Valid URL
+                errorMessage.textContent = ''; // Clear error message
+            } else {
+                // Invalid URL
+                errorMessage.textContent = 'Invalid URL'; // Display error message
+            }
+        });
     });
 
     function renumberExistingReferences() {
@@ -86,5 +112,11 @@
             itemLabel.textContent = `Reference ${currentNumber}`;
             currentNumber++;
         });
+    }
+
+    function isValidURL(url) {
+        // Regular expression for validating URL format
+        const urlPattern = /^(https?:\/\/)?([\w\d-]+\.)+[\w\d]{2,}(\/.*)*$/i;
+        return urlPattern.test(url);
     }
 </script>

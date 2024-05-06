@@ -1,5 +1,7 @@
 <?php
+session_start();
 require "../functions/connections.php";
+require "../functions/functions.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +28,10 @@ require "../functions/connections.php";
     <!-- global -->
     <link rel="stylesheet" href="../css/global-declarations.css">
     <link rel="stylesheet" href="css/crop.css"> <!-- script for access control -->
+    <script>
+        // Assume you have the userRole variable defined somewhere in your PHP code
+        var userRole = "<?php echo isset($_SESSION['rank']) ? $_SESSION['rank'] : ''; ?>";
+    </script>
 </head>
 
 <body class="bg-light">
@@ -89,6 +95,7 @@ require "../functions/connections.php";
     <!-- bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- custom -->
+    <script src="../js/access.js"></script>
     <script src="js/nav.js"></script>
     <script src="js/sideFilter.js"></script>
     <script src="js/list.js"></script>

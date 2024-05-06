@@ -247,10 +247,9 @@ switch ($current_page_path) {
 
                 </ul>
             <?php endif; ?>
-
             <?php if (!isset($_SESSION['LOGGED_IN']) || !$_SESSION['LOGGED_IN']) : ?>
                 <!-- VISITOR -->
-                <a id="contributor-link" href="<?php echo BASE_URL . '/' . 'login/login-form.php'; ?>" class="link-light link-offset-3 link-underline link-underline-opacity-0 rounded-pill px-3 py-2">Be a Contributor!</a>
+                <a id="contributor-link" href="<?php echo BASE_URL . '/' . 'login/login.php'; ?>" class="link-light link-offset-3 link-underline link-underline-opacity-0 rounded-pill px-3 py-2">Be a Contributor!</a>
             <?php endif; ?>
         </div>
     </div>
