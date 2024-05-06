@@ -7,33 +7,33 @@
 
         // validate
         if (!preg_match('/^[a-zA-Z ]+$/', $data['first_name'])) {
-            $errors[] = "<div class='error text-center'>Please enter a valid first_name.</div>";
+            $errors[] = "<div class='alert alert-danger rounded-4' role='alert'>Please enter a valid first_name.</div>";
         }
 
         if (!preg_match('/^[a-zA-Z ]+$/', $data['last_name'])) {
-            $errors[] = "<div class='error text-center'>Please enter a valid last_name.</div>";
+            $errors[] = "<div class='alert alert-danger rounded-4' role='alert'>Please enter a valid last_name.</div>";
         }
 
         if (!preg_match('/^[a-zA-Z0-9]+$/', $data['username'])) {
-            $errors[] = "<div class='error text-center'>Please enter a valid username.</div>";
+            $errors[] = "<div class='alert alert-danger rounded-4' role='alert'>Please enter a valid username.</div>";
         }
 
         if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $errors[] = "<div class='error text-center'>Please enter a valid email.</div>";
+            $errors[] = "<div class='alert alert-danger rounded-4' role='alert'>Please enter a valid email.</div>";
         }
 
         if (strlen(trim($data['password'])) < 8) {
-            $errors[] = "<div class='error text-center'>Password must be at least 8 characters.</div>";
+            $errors[] = "<div class='alert alert-danger rounded-4' role='alert'>Password must be at least 8 characters.</div>";
         }
 
         if ($data['password'] != $data['password2']) {
-            $errors[] = "<div class='error text-center'>Password must match.</div>";
+            $errors[] = "<div class='alert alert-danger rounded-4' role='alert'>Password must match.</div>";
         }
 
         $check = database_run("SELECT COUNT(*) FROM users WHERE email = :email", ['email' => $data['email']]);
 
         if ($check && $check[0]['count'] > 0) {
-            $errors[] = "<div class='error text-center'>Email already exist.</div>";
+            $errors[] = "<div class='alert alert-danger rounded-4' role='alert'>Email already exist.</div>";
             // echo $data['email'];
             die();
         }

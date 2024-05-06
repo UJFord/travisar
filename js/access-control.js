@@ -11,7 +11,7 @@ function checkAccess(userRole) {
     } else {
         // Handle other cases or show an error message
         // Redirect the user to the desired location
-        window.location.href = 'http://localhost/travisar/login/login-form.php';
+        window.location.href = 'http://localhost/travisar/login/login.php';
         // Set a JavaScript variable for the error message
         var errorMessage = "You do not have enough access.";
 

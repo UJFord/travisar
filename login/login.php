@@ -1,3 +1,19 @@
+<?php
+session_start();
+require('../functions/functions.php');
+require('../functions/connections.php');
+
+$errors = array();
+
+if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
+    $errors = login($_POST);
+    if (count($errors) == 0) {
+        header("location: ../visitor/home.php");
+        die();
+    }
+}
+?>
 <!doctype html>
 <html lang="en">
 
@@ -17,15 +33,20 @@
     <!-- CUSTOM CSS -->
     <link rel="stylesheet" href="../css/global-declarations.css">
     <link rel="stylesheet" href="css/login.css">
+    <!-- script for the window alert -->
+    <script src="../../js/window.js"></script>
 </head>
 
 <body class="">
 
     <div class="container">
         <div class="row vh-100 d-flex justify-content-center align-items-center">
+            <?php
+            include "../functions/message.php";
+            ?>
             <!-- form -->
             <div class="col-4">
-                <form action="" class="border rounded-4 bg-light py-5 px-5">
+                <form action="" method="POST" class="border rounded-4 bg-light py-5 px-5">
 
                     <!-- logo -->
                     <div class="row d-flex justify-content-center align-items-center">
@@ -37,37 +58,47 @@
                         <h3 class="text-center">Login</h3>
                     </div>
 
-                    <!-- message -->
-                    <div class="alert alert-danger rounded-4" role="alert">
-                        Email non existent!
+                    <div>
+                        <?php if (count($errors) > 0) : ?>
+                            <?php foreach ($errors as $error) : ?>
+                                <?= $error ?> <br>
+                            <?php endforeach; ?>
+                        <?php endif; ?>
                     </div>
 
+                    <!-- message -->
+                    <?php if (count($errors) > 0) : ?>
+                        <div class="alert alert-danger rounded-4" role="alert">
+                            <?php foreach ($errors as $error) : ?>
+                                <?= $error ?> <br>
+                            <?php endforeach; ?>
+                        </div>
+                    <?php endif; ?>
 
                     <!-- email -->
                     <div class="form-floating mb-3">
-                        <input type="email" class="fs-6 form-control rounded-4" id="login-email" placeholder="name@example.com">
-                        <label for="login-email" class="fs-6">Email</label>
+                        <input type="email" name="email" class="fs-6 form-control rounded-4" id="email" placeholder="name@example.com">
+                        <label for="email" class="fs-6">Email</label>
                     </div>
 
                     <!-- password -->
                     <div class="form-floating">
-                        <input type="password" class="fs-6 form-control rounded-4" id="login-password" placeholder="Password">
-                        <label for="login-password" class="fs-6">Password</label>
+                        <input type="password" name="password" class="fs-6 form-control rounded-4" id="password" placeholder="Password">
+                        <label for="password" class="fs-6">Password</label>
                     </div>
 
                     <!-- login btn -->
                     <div class="d-flex justify-content-center align-items-center my-3">
-                        <button class="btn btn-success rounded-4 fw-bold w-100 py-3" type="submit">Login</button>
+                        <button class="btn btn-success rounded-4 fw-bold w-100 py-3" type="submit" name="submit" value="login">Login</button>
                     </div>
-
                     <!-- sign up -->
                     <div class="d-flex justify-content-center align-items-center my-3">
-                        Be a Contributor.<a href="" class="ms-1"> Sign Up!</a>
+                        Be a Contributor.<a href="register.php" class="ms-1"> Sign Up!</a>
                     </div>
 
                     <!-- visitor page -->
                     <div class="d-flex justify-content-center align-items-center">
-                        Back to<a href="" class="ms-1"> Visitor's Page</a>
+                        Back to<a href="../visitor/home.php" class="ms-1"> Visitor's Page</a>
                     </div>
                 </form>
             </div>
