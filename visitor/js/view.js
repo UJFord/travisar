@@ -18,9 +18,6 @@ fetch('https://raw.githubusercontent.com/rukku/ph-province-boundaries/master/PH-
 .then(data => {
     // Create a GeoJSON layer and add it to the map
     L.geoJSON(data).addTo(map);
-    
-    // Fit the map bounds to the GeoJSON layer
-    map.fitBounds(L.geoJSON(data).getBounds());
 })
 .catch(error => {
     console.error('Error fetching GeoJSON:', error);

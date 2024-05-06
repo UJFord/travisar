@@ -47,7 +47,7 @@ require "../functions/functions.php";
         <div class="row">
 
             <!-- FILTER -->
-            <?php require "filter/side-filter.php" ?>
+            <?php require "filter/corn-side-filter.php" ?>
 
             <!-- LIST -->
             <div id="crop-list-container" class="col">
