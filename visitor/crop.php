@@ -52,10 +52,6 @@ require "../functions/functions.php";
 	<div class="container h-75">
 		<div class="row h-100 d-flex justify-content-center align-items-center">
 			<div class="col-8 p-0">
-
-				<div class="d-flex justify-content-center">
-					<h3 class="fw-bold mb-2">Choose Category</h3>
-				</div>
 				<div id="links-container" class="col-12 border rounded-4 overflow-hidden filter-h">
 					<div class="row h-100 p-0">
 						<div class="col p-0">

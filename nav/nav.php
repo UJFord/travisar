@@ -101,30 +101,54 @@ switch ($current_page_path) {
         <div class="collapse navbar-collapse" id="navLink">
 
             <!-- VISITOR -->
-            <ul class="navbar-nav me-auto">
+            <div class="navbar-nav me-auto">
                 <!-- home page link -->
-                <li class="nav-item">
+                <div class="nav-item">
                     <!-- add active class when at home.php -->
                     <a class="nav-link fw-bold me-2 <?php if ($current_page_isHome) {
                                                         echo "active";
                                                     } ?>" aria-current="page" href="<?php echo BASE_URL . '/' . 'visitor/home.php'; ?>">Home</a>
-                </li>
+                </div>
                 <!-- crop page link -->
-                <li class="nav-item fw-bold me-2">
+                <div class="nav-item fw-bold me-2">
                     <!-- add active class when at crop.php -->
                     <a class="nav-link <?php if ($current_page_isCrop) {
                                             echo "active";
                                         } ?>" href="<?php echo BASE_URL . '/' . 'visitor/crop.php'; ?>">Crops</a>
-                </li>
+                </div>
 
                 <!-- about -->
-                <li class="nav-item fw-semibold me-2">
-                    <a class="nav-link <?php if ($current_page_isAbout) {
+                <div class="nav-item fw-semibold me-2 dropdown">
+                    <a id="abt-nav" class="nav-link dropdown-toggle <?php if ($current_page_isAbout) {
                                             echo "active";
-                                        } ?>" href="<?php echo BASE_URL . '/' . 'visitor/about.php'; ?>">About</a>
-                </li>
+                                        } ?>" href="<?php //echo BASE_URL . '/' . 'visitor/about.php'; 
+                                                    ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">About
+                    </a>
 
-            </ul>
+                    <ul class="dropdown-menu" aria-labelledby="abt-nav">
+                        <!-- sarangani -->
+                        <li>
+                            <a href="" class="dropdown-item">
+                                Sarangani
+                            </a>
+                        </li>
+                        <!-- collaborators -->
+                        <li>
+                            <a href="" class="dropdown-item">
+                                Collaborators
+                            </a>
+                        </li>
+                        <!-- tavis -->
+                        <li>
+                            <a href="" class="dropdown-item">
+                                TRAVIS
+                            </a>
+                        </li>
+
+                    </ul>
+                </div>
+
+            </div>
             <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
                 <!-- ADMIN -->
                 <ul class="navbar-nav">

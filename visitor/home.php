@@ -135,10 +135,9 @@ require "../functions/functions.php";
         <div class="container">
 
             <!-- crop  -->
-            <div class="row py-5  d-flex justify-content-center align-items-center">
+            <div class="row p-5  d-flex justify-content-center align-items-center">
 
                 <div class="qlink-img-container col-6 d-flex align-items-center">
-                    <!-- <img src="img/undraw_forming_ideas_re_2afc.svg" alt="" srcset=""> -->
                     <img class="rounded-3" src="https://images.unsplash.com/photo-1592997571659-0b21ff64313b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top sys-link-img" alt="" srcset="">
                 </div>
 
@@ -146,7 +145,7 @@ require "../functions/functions.php";
                     <h4 class="fw-bold">Crops</h4>
                     <p>Discover traditional crop varieties cultivated in Sarangani and uncover the rich agricultural heritage of the province.</p>
                     <div class="row ps-2">
-                        <a href="" id="crop-qlink" class="col-3 btn qlink-link btn-success border fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
+                        <a href="crop.php" id="crop-qlink" class="col-3 btn qlink-link btn-success border fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
                             Explore Now!
                             <i class="bi bi-arrow-right fw-bold"></i>
                         </a>
@@ -161,7 +160,7 @@ require "../functions/functions.php";
                     <h4 class="fw-bold">Map</h4>
                     <p>Navigate our map for an interactive journey through the distribution of traditional crop varieties across the province..</p>
                     <div class="row ps-2">
-                        <a href="" id="map-qlink" class="col-3 btn qlink-link btn-success fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
+                        <a href="crop.php" id="map-qlink" class="col-3 btn qlink-link btn-success fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
                             Navigate!
                             <i class="bi bi-arrow-right fw-bold"></i>
                         </a>
@@ -185,7 +184,7 @@ require "../functions/functions.php";
                     <h4 class="fw-bold">Contribute</h4>
                     <p>Join our community and share your valuable knowledge to enrich our comprehensive database, providing deeper agricultural insights for sustainable development.</p>
                     <div class="row ps-2">
-                        <a href="" id="crop-qlink" class="col-3 btn qlink-link btn-success border fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
+                        <a href="../login/login.php" id="crop-qlink" class="col-3 btn qlink-link btn-success border fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
                             Sign Up Now!
                             <i class="bi bi-arrow-right fw-bold"></i>
                         </a>
@@ -200,7 +199,7 @@ require "../functions/functions.php";
                     <h4 class="fw-bold">About TRAVIS</h4>
                     <p>Learn more about TRAVIS, designed to store information about traditional crop varieties in Sarangani Province, including their morphological characteristics, sensory traits, agronomic traits, and cultural utilization and importance.</p>
                     <div class="row ps-2">
-                        <a href="" id="map-qlink" class="col-3 btn qlink-link btn-success fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
+                        <a href="about.php" id="map-qlink" class="col-3 btn qlink-link btn-success fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
                             Learn More!
                             <i class="bi bi-arrow-right fw-bold"></i>
                         </a>
