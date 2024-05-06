@@ -23,24 +23,24 @@
             </div>
         </div>
 
-        <!-- all crops -->
-        <div class="py-2 px-3 w-100 border-bottom">
-            <div id="crop-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#crop-filters" role="button" aria-expanded="true" aria-controls="crop-filters">
-                <i id="cropChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">Crops</a>
+        <!-- Varieties -->
+        <div class="py-2 px-3 w-100 border-bottom" id="variety-div">
+            <div id="variety-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#variety-filters" role="button" aria-expanded="true" aria-controls="variety-filters">
+                <i id="varietyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
+                <a class="fw-bold text-success col text-decoration-none" href="">Varieties</a>
             </div>
 
             <?php
-            $query = "SELECT * FROM category order by category_name ASC";
+            $query = "SELECT * FROM category_variety where category_id = 1 order by category_variety_name ASC";
             $query_run = pg_query($conn, $query);
 
             if ($query_run) {
                 while ($row = pg_fetch_array($query_run)) {
             ?>
-                    <!-- crops filters -->
-                    <div id="crop-filters" class="collapse w-100 mb-2">
-                        <input class="form-check-input crop-filter" type="checkbox" id="category<?= $row['category_id']; ?>" value="<?= $row['category_id']; ?>">
-                        <label for="category<?= $row['category_id']; ?>"><?= $row['category_name']; ?></label>
+                    <!-- category filters -->
+                    <div id="variety-filters" class="collapse w-100 mb-2">
+                        <input class="form-check-input variety-filter" type="checkbox" id="category_variety<?= $row['category_variety_id']; ?>" value="<?= $row['category_variety_id']; ?>">
+                        <label for="category_variety<?= $row['category_variety_id']; ?>"><?= $row['category_variety_name']; ?></label>
                     </div>
             <?php
                 }
@@ -48,19 +48,6 @@
                 echo "No category found";
             }
             ?>
-        </div>
-
-        <!-- Varieties -->
-        <div class="py-2 px-3 w-100 border-bottom" id="variety-div">
-            <div id="variety-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#variety-filters" role="button" aria-expanded="true" aria-controls="variety-filters">
-                <i id="varietyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">Varieties</a>
-            </div>
-
-            <!-- crops filters -->
-            <div id="variety-filters" class="collapse w-100 mb-2">
-
-            </div>
         </div>
 
         <!-- terrain -->
@@ -204,73 +191,14 @@
 
     let selectedCategories = [];
 
-    // Function to fetch and populate the variety filter based on the selected categories
-    function populateVarietyFilter() {
-        let varietyFilter = document.getElementById('variety-filters');
-        let varietyChev = document.getElementById('varietyChev');
-
-        // Clear existing options
-        varietyFilter.innerHTML = '';
-
-        // Fetch and populate variety options for each selected category
-        selectedCategories.forEach(categoryId => {
-            fetch('fetch/fetch_filter.php?category_id=' + categoryId)
-                .then(response => response.json())
-                .then(data => {
-                    // Populate options
-                    data.forEach(variety => {
-                        varietyFilter.innerHTML += `
-                        <div class="collapse show w-100 mb-2">
-                            <input class="form-check-input variety-filter" type="checkbox" id="category_variety${variety.category_variety_id}" value="${variety.category_variety_id}">
-                            <label for="category_variety${variety.category_variety_id}">${variety.category_variety_name}</label>
-                        </div>
-                    `;
-                    });
-                    // Show the variety filter
-                    varietyFilter.classList.add('show');
-                    // varietyChev.classList.add('rotate-chevron');
-                })
-                .catch(error => console.error('Error:', error));
-        });
-    }
-    // Function to show or hide the variety filter based on the selected categories
-    function toggleVarietyFilterVisibility() {
-        let varietyFilter = document.getElementById('variety-div');
-        let selectedCategoryCheckboxes = document.querySelectorAll('.crop-filter:checked');
-
-        if (selectedCategoryCheckboxes.length > 0) {
-            // Show the variety filter
-            varietyFilter.classList.remove('hidden');
-        } else {
-            // Hide the variety filter
-            varietyFilter.classList.add('hidden');
-        }
-    }
-
-    // Add event listeners to category checkboxes
-    document.querySelectorAll('.crop-filter').forEach(checkbox => {
-        checkbox.addEventListener('change', function() {
-            if (!this.checked) {
-                // Remove unchecked category from the array
-                selectedCategories = selectedCategories.filter(id => id !== this.value);
-            } else {
-                // Add checked category to the array
-                selectedCategories.push(this.value);
-            }
-            populateVarietyFilter();
-            toggleVarietyFilterVisibility();
-        });
-    });
-
     // Function to show or hide the clear button based on selected filters and search input
     function toggleClearButtonVisibility() {
         let clearButton = document.getElementById('clearButton');
-        let selectedCategoryCheckboxes = document.querySelectorAll('.crop-filter:checked');
         let selectedMunicipalityCheckboxes = document.querySelectorAll('.municipality-filter:checked');
         let selectedTerrainCheckboxes = document.querySelectorAll('.terrain-filter:checked');
         let searchInput = document.getElementById('searchInput').value.trim();
 
-        if (selectedCategoryCheckboxes.length > 0 || selectedMunicipalityCheckboxes.length > 0 || selectedTerrainCheckboxes.length > 0 || searchInput !== '') {
+        if (selectedMunicipalityCheckboxes.length > 0 || selectedTerrainCheckboxes.length > 0 || searchInput !== '') {
             // Show the clear button
             clearButton.classList.remove('hidden');
         } else {
@@ -280,7 +208,7 @@
     }
 
     // Add event listeners to category, municipality, and terrain checkboxes
-    document.querySelectorAll('.crop-filter, .municipality-filter, .terrain-filter').forEach(checkbox => {
+    document.querySelectorAll('.municipality-filter, .terrain-filter').forEach(checkbox => {
         checkbox.addEventListener('change', toggleClearButtonVisibility);
     });
 
@@ -291,13 +219,11 @@
     toggleClearButtonVisibility();
 
     // chevron toggler
-    let cropToggler = document.querySelector('#crop-filter-dropdown-toggler');
     let varietyToggler = document.querySelector('#variety-filter-dropdown-toggler');
     let terrainToggler = document.querySelector('#terrain-filter-dropdown-toggler');
     let munToggler = document.querySelector('#mun-filter-dropdown-toggler');
     let brgyToggler = document.querySelector('#brgy-filter-dropdown-toggler');
 
-    let cropChev = document.querySelector('#cropChev');
     let varietyChev = document.querySelector('#varietyChev');
     let terrainChev = document.querySelector('#terrainChev');
     let munChev = document.querySelector('#munChev');
@@ -307,31 +233,18 @@
         element.classList.toggle('rotate-chevron');
     }
 
-    cropToggler.onclick = () => toggleChevron(cropChev);
     varietyToggler.onclick = () => toggleChevron(varietyChev);
     terrainToggler.onclick = () => toggleChevron(terrainChev);
     munToggler.onclick = () => toggleChevron(munChev);
     brgyToggler.onclick = () => toggleChevron(brgyChev);
 
     // Hide the variety and barangay filters initially  
-    document.getElementById('variety-div').classList.add('hidden');
     document.getElementById('barangay-div').classList.add('hidden');
-
-    // Check if all category checkboxes are unchecked
-    function checkAllCategoryCheckboxesUnchecked() {
-        let selectedCategoryCheckboxes = document.querySelectorAll('.crop-filter:checked');
-        return selectedCategoryCheckboxes.length === 0;
-    }
 
     // Check if all municipality checkboxes are unchecked
     function checkAllMunicipalityCheckboxesUnchecked() {
         let selectedMunicipalityCheckboxes = document.querySelectorAll('.municipality-filter:checked');
         return selectedMunicipalityCheckboxes.length === 0;
-    }
-
-    // Check if all category checkboxes are unchecked and hide variety filter
-    if (checkAllCategoryCheckboxesUnchecked()) {
-        document.getElementById('variety-div').classList.add('hidden');
     }
 
     // Check if all municipality checkboxes are unchecked and hide barangay filter

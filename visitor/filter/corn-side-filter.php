@@ -26,31 +26,28 @@
         <!-- Varieties -->
         <div class="py-2 px-3 w-100 border-bottom" id="variety-div">
             <div id="variety-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#variety-filters" role="button" aria-expanded="true" aria-controls="variety-filters">
-                <i id="varietyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1"></i>
+                <i id="varietyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">Varieties</a>
             </div>
 
-            <!-- crops filters -->
-            <div id="variety-filters" class="collapse w-100 mb-2">
-                <?php
-                $query = "SELECT * FROM category order by category_name ASC";
-                $query_run = pg_query($conn, $query);
+            <?php
+            $query = "SELECT * FROM category_variety where category_id = 4 order by category_variety_name ASC";
+            $query_run = pg_query($conn, $query);
 
-                if ($query_run) {
-                    while ($row = pg_fetch_array($query_run)) {
-                ?>
-                        <!-- crops filters -->
-                        <div id="crop-filters" class="collapse w-100 mb-2">
-                            <input class="form-check-input crop-filter" type="checkbox" id="category<?= $row['category_id']; ?>" value="<?= $row['category_id']; ?>">
-                            <label for="category<?= $row['category_id']; ?>"><?= $row['category_name']; ?></label>
-                        </div>
-                <?php
-                    }
-                } else {
-                    echo "No category found";
+            if ($query_run) {
+                while ($row = pg_fetch_array($query_run)) {
+            ?>
+                    <!-- category filters -->
+                    <div id="variety-filters" class="collapse w-100 mb-2">
+                        <input class="form-check-input variety-filter" type="checkbox" id="category_variety<?= $row['category_variety_id']; ?>" value="<?= $row['category_variety_id']; ?>">
+                        <label for="category_variety<?= $row['category_variety_id']; ?>"><?= $row['category_variety_name']; ?></label>
+                    </div>
+            <?php
                 }
-                ?>
-            </div>
+            } else {
+                echo "No category found";
+            }
+            ?>
         </div>
 
         <!-- terrain -->
