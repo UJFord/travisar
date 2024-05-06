@@ -91,7 +91,7 @@ require "../../functions/functions.php";
                 }
 
                 #addProvince {
-                    margin-right: 18vh;
+                    margin-right: 9vh;
                 }
             </style>
             <?php require "modals/municipality-filter.php" ?>

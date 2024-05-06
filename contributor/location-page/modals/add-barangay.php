@@ -12,7 +12,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div id="error-messages"></div>
             <!-- body -->
             <form id="form-panel" name="Form" action="code/code-brgy.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
@@ -27,6 +26,7 @@
                                 <div class="col">
                                     <label for="municipality-Name_1" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
                                     <select name="municipality_name_1" id="municipality-Name_1" class="form-select">
+                                        <option value="" selected disabled hidden>Select an option</option>
                                         <?php
                                         $queryMuni = "SELECT * from municipality order by municipality_name ASC";
                                         $query_run = pg_query($conn, $queryMuni);
@@ -48,18 +48,21 @@
                                         }
                                         ?>
                                     </select>
+                                    <div id="error-messages-muni_1" class="error-message" style="color:red;"></div>
                                 </div>
 
                                 <!-- barangay name -->
                                 <div class="col">
                                     <label for="barangay-Name_1" class="form-label small-font">Barangay Name<span style="color: red;">*</span></label>
                                     <input id="barangay-Name_1" type="text" name="barangay_name_1" class="form-control">
+                                    <div id="error-messages-brgy_1" class="error-message" style="color:red;"></div>
                                 </div>
 
                                 <!-- Coordinates -->
                                 <div class="col">
                                     <label for="coordInput_1" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
                                     <input type="text" id="coordInput_1" name="barangay_coordinates_1" class="form-control">
+                                    <div id="error-messages-coord_1" class="error-message" style="color:red;"></div>
                                 </div>
                                 <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (<span class="fw-bold">latitude , longitude - 5.7600, 125.3466</span>)</div>
 
@@ -97,45 +100,56 @@
             const newRow = document.createElement('div');
             newRow.classList.add('row', 'mb-3', 'location-brgy');
             newRow.innerHTML = `
-                <div class="col">
-                    <label for="Municipality-Name_${rowCounter}" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
-                    <select id="Municipality-Name_${rowCounter}" name="municipality_name_${rowCounter}" class="form-select">
-                            <?php
-                            $queryMuni = "SELECT * from municipality order by municipality_name ASC";
-                            $query_run = pg_query($conn, $queryMuni);
+            <div class="col">
+                <label for="Municipality-Name_${rowCounter}" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
+                <select id="Municipality-Name_${rowCounter}" name="municipality_name_${rowCounter}" class="form-select">
+                <option value="" selected disabled hidden>Select an option</option>
+                    <?php
+                    $queryMuni = "SELECT * from municipality order by municipality_name ASC";
+                    $query_run = pg_query($conn, $queryMuni);
 
-                            $count = pg_num_rows($query_run);
+                    $count = pg_num_rows($query_run);
 
-                            // if count is greater than 0 there is data
-                            if ($count > 0) {
-                                // loop for displaying all categories
-                                while ($row = pg_fetch_assoc($query_run)) {
-                                    $municipality_name = $row['municipality_name'];
-                                    $municipality_id = $row['municipality_id'];
-                            ?>
-                                    <option value="<?= $municipality_id; ?>"><?= $municipality_name; ?></option>
-                                <?php
-                                }
-                                ?>
-                            <?php
-                            }
-                            ?>
-                    </select>
+                    // if count is greater than 0 there is data
+                    if ($count > 0) {
+                        // loop for displaying all categories
+                        while ($row = pg_fetch_assoc($query_run)) {
+                            $municipality_id = $row['municipality_id'];
+                            $municipality_name = $row['municipality_name'];
+                    ?>
+                            <option value="<?= $municipality_id; ?>"><?= $municipality_name; ?></option>
+                        <?php
+                        }
+                        ?>
+                    <?php
+                    }
+                    ?>
+                </select>
+                <div id="error-messages-muni_${rowCounter}" class="error-message" style="color:red;"></div> <!-- Error message div for municipality -->
                 </div>
                 <div class="col">
                     <label for="Barangay-Name_${rowCounter}" class="form-label small-font">Barangay Name<span style="color: red;">*</span></label>
                     <input id="Barangay-Name_${rowCounter}" type="text" name="barangay_name_${rowCounter}" class="form-control">
+                    <div id="error-messages-brgy_${rowCounter}" class="error-message" style="color:red;"></div> <!-- Error message div for barangay -->
                 </div>
-                <!-- Coordinates -->
                 <div class="col">
                     <label for="coordInput_${rowCounter}" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
                     <input id="coordInput_${rowCounter}" type="text" name="barangay_coordinates_${rowCounter}" class="form-control">
+                    <div id="error-messages-coord_${rowCounter}" class="error-message" style="color:red;"></div> <!-- Error message div for coordinates -->
                 </div>
-                <div class="col-2" style="padding-top: 25px;">
-                    <button type="button" class="btn btn-secondary remove-row" style="background-color: #dc3545;">Remove</button>
-                </div>
-            `;
+            <div class="col-2" style="padding-top: 25px;">
+                <button type="button" class="btn btn-secondary remove-row" style="background-color: #dc3545;">Remove</button>
+            </div>
+        `;
             locationDataBrgy.appendChild(newRow);
+
+            // Attach blur event listeners to the new row
+            attachBlurEventListeners(newRow);
+        });
+
+        // Attach blur event listeners to existing rows
+        document.querySelectorAll('.location-brgy').forEach(row => {
+            attachBlurEventListeners(row);
         });
 
         locationDataBrgy.addEventListener('click', function(e) {
@@ -160,56 +174,80 @@
         }
     });
 
-    // Function to validate input
+    // Function to attach blur event listeners to input fields in a row
+    function attachBlurEventListeners(row) {
+        row.querySelectorAll('input, select').forEach(input => {
+            input.addEventListener('blur', function(event) {
+                validateInput(event.target);
+            });
+        });
+    }
+
+    // Validation function for input fields
+    function validateInput(input) {
+        const value = input.value.trim(); // Trim any leading or trailing whitespace
+
+        // Get the error message element associated with the input
+        const errorMessage = input.parentElement.querySelector('.error-message');
+
+        // Example validation rules:
+        if (value === '') {
+            // If the input is empty, show an error message
+            errorMessage.textContent = 'This field is required.';
+            input.classList.add('is-invalid'); // Add a CSS class to indicate the input is invalid
+        } else {
+            // If the input is not empty, clear any existing error message and validation styles
+            errorMessage.textContent = '';
+            input.classList.remove('is-invalid');
+        }
+    }
+
     function validateForm() {
         var errors = [];
-        var municipalityNameInputs = document.querySelectorAll('input[name^="municipality_name_"]');
+        var municipalityNameInputs = document.querySelectorAll('select[name^="municipality_name_"]');
         var barangayNameInputs = document.querySelectorAll('input[name^="barangay_name_"]');
         var coordinatesInputs = document.querySelectorAll('input[name^="barangay_coordinates_"]');
 
         municipalityNameInputs.forEach(function(input) {
             var municipalityName = input.value.trim();
+            var errorMessage = input.parentElement.querySelector('.error-message');
             if (municipalityName === "") {
-                errors.push("<div class='error text-center' style='color:red;'>Please fill up required fields.</div>");
+                errorMessage.innerHTML = "Please fill up municipality name.";
                 input.classList.add('is-invalid');
             } else {
+                errorMessage.innerHTML = "";
                 input.classList.remove('is-invalid');
             }
         });
-        // If there's already an error, don't check further
-        if (errors.length === 0) {
-            barangayNameInputs.forEach(function(input) {
-                var barangayName = input.value.trim();
-                if (barangayName === "") {
-                    errors.push("<div class='error text-center' style='color:red;'>Please fill up required fields.</div>");
-                    input.classList.add('is-invalid');
-                } else {
-                    input.classList.remove('is-invalid');
-                }
-            });
 
-            // If there's already an error, don't check further
-            if (errors.length === 0) {
-                coordinatesInputs.forEach(function(input) {
-                    var coordinateName = input.value.trim();
-                    if (coordinateName === "") {
-                        errors.push("<div class='error text-center' style='color:red;'>Please fill up required fields.</div>");
-                        input.classList.add('is-invalid');
-                    } else {
-                        input.classList.remove('is-invalid');
-                    }
-                });
+        barangayNameInputs.forEach(function(input) {
+            var barangayName = input.value.trim();
+            var errorMessage = input.parentElement.querySelector('.error-message');
+            if (barangayName === "") {
+                errorMessage.innerHTML = "Please fill up barangay name.";
+                input.classList.add('is-invalid');
+            } else {
+                errorMessage.innerHTML = "";
+                input.classList.remove('is-invalid');
             }
-        }
+        });
 
-        if (errors.length > 0) {
-            document.getElementById("error-messages").innerHTML = errors.join("<br>");
-            return false;
-        } else {
-            document.getElementById("error-messages").innerHTML = "";
-            return true;
-        }
+        coordinatesInputs.forEach(function(input) {
+            var coordinateName = input.value.trim();
+            var errorMessage = input.parentElement.querySelector('.error-message');
+            if (coordinateName === "") {
+                errorMessage.innerHTML = "Please fill up coordinates.";
+                input.classList.add('is-invalid');
+            } else {
+                errorMessage.innerHTML = "";
+                input.classList.remove('is-invalid');
+            }
+        });
+
+        // Return false if any field is empty
+        return !document.querySelectorAll('.is-invalid').length;
     }
+
 
     // Function to check if barangay name already exists
     function checkBarangayExists(event) {
