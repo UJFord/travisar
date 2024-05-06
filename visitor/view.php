@@ -125,8 +125,25 @@ require "../functions/functions.php";
                                         <td class="w-75 fw-semibold"><?= $crops['crop_description'] ?></td>
                                     </tr>
                                     <tr>
-                                        <th scope="row" class="latlng-container text-secondary w-25 fw-normal" latlng="<?= $crops['barangay_coordinates'] ?>">Location</th>
-                                        <td id="addr" class="w-75 fw-semibold"><?= $crops['barangay_coordinates'] ?></td>
+                                        <th scope="row" class="latlng-container text-secondary w-25 fw-normal" latlng="<?php
+                                                                                                                        // Check if crop coordinates exist
+                                                                                                                        if (!empty($crops['coordinates'])) {
+                                                                                                                            // Use crop coordinates
+                                                                                                                            echo $crops['coordinates'];
+                                                                                                                        } else {
+                                                                                                                            // Use barangay coordinates as fallback
+                                                                                                                            echo $crops['barangay_coordinates'];
+                                                                                                                        }
+                                                                                                                        ?>
+                                                                                                                        ">Location</th>
+                                        <td id="addr" class="w-75 fw-semibold"><?php
+                                                                                if (!empty($crops['sitio_name'])) {
+                                                                                    echo $crops['province_name'] . ', ' . $crops['municipality_name'] . ', ' . $crops['barangay_name'] . ', ' . $crops['sitio_name'];
+                                                                                } else {
+                                                                                    echo $crops['province_name'] . ', ' . $crops['municipality_name'] . ', ' . $crops['barangay_name'];
+                                                                                }
+                                                                                ?>
+                                        </td>
                                     </tr>
                                 </tbody>
                             </table>
@@ -440,39 +457,39 @@ require "../functions/functions.php";
                                         <tbody>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Plant Height</th>
-                                                <td class="w-75 fw-semibold"><? $crops_rice['rice_plant_height'] ?></td>
+                                                <td class="w-75 fw-semibold"><?= $crops_rice['rice_plant_height'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Leaf Width</th>
-                                                <td class="w-75 fw-semibold"><? $crops_rice['rice_leaf_width'] ?></td>
+                                                <td class="w-75 fw-semibold"><?= $crops_rice['rice_leaf_width'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Leaf Length</th>
-                                                <td class="w-75 fw-semibold"><? $crops_rice['rice_leaf_length'] ?></td>
+                                                <td class="w-75 fw-semibold"><?= $crops_rice['rice_leaf_length'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Meaning of Name</th>
-                                                <td class="w-75 fw-semibold"><? $crops_rice['meaning_of_name'] ?></td>
+                                                <td class="w-75 fw-semibold"><?= $crops_rice['meaning_of_name'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Yield Capacity</th>
-                                                <td class="w-75 fw-semibold"><? $crops_rice['rice_yield_capacity'] ?></td>
+                                                <td class="w-75 fw-semibold"><?= $crops_rice['rice_yield_capacity'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Seed Width</th>
-                                                <td class="w-75 fw-semibold"><? $crops_rice['seed_width'] ?></td>
+                                                <td class="w-75 fw-semibold"><?= $crops_rice['seed_width'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Seed Length</th>
-                                                <td class="w-75 fw-semibold"><? $crops_rice['seed_length'] ?></td>
+                                                <td class="w-75 fw-semibold"><?= $crops_rice['seed_length'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Seed Shape</th>
-                                                <td class="w-75 fw-semibold"><? $crops_rice['seed_shape'] ?></td>
+                                                <td class="w-75 fw-semibold"><?= $crops_rice['seed_shape'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Seed Color</th>
-                                                <td class="w-75 fw-semibold"><? $crops_rice['seed_color'] ?></td>
+                                                <td class="w-75 fw-semibold"><?= $crops_rice['seed_color'] ?></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -648,7 +665,7 @@ require "../functions/functions.php";
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Purplish Stripes</th>
                                                 <td class="w-75 fw-semibold">
                                                     <?php
-                                                    if (empty($crops_rice['purplish_stripes'])) {
+                                                    if (!empty($crops_rice['purplish_stripes'])) {
                                                         echo "Purple stripes present";
                                                     } else {
                                                         echo "Not present";
@@ -764,35 +781,19 @@ require "../functions/functions.php";
                                         <tbody>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Plant Height</th>
-                                                <td class="w-75 fw-semibold"><? $crops_root['rootcrop_plant_height'] ?></td>
+                                                <td class="w-75 fw-semibold"><?= $crops_root['rootcrop_plant_height'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Leaf Width</th>
-                                                <td class="w-75 fw-semibold"><? $crops_root['rootcrop_leaf_width'] ?></td>
+                                                <td class="w-75 fw-semibold"><?= $crops_root['rootcrop_leaf_width'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Leaf Length</th>
-                                                <td class="w-75 fw-semibold"><? $crops_root['rootcrop_leaf_length'] ?></td>
+                                                <td class="w-75 fw-semibold"><?= $crops_root['rootcrop_leaf_length'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Meaning of Name</th>
-                                                <td class="w-75 fw-semibold"><? $crops_root['meaning_of_name'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" class="text-secondary w-25 fw-normal">Seed Width</th>
-                                                <td class="w-75 fw-semibold"><? $crops_root['seed_width'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" class="text-secondary w-25 fw-normal">Seed Length</th>
-                                                <td class="w-75 fw-semibold"><? $crops_root['seed_length'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" class="text-secondary w-25 fw-normal">Seed Shape</th>
-                                                <td class="w-75 fw-semibold"><? $crops_root['seed_shape'] ?></td>
-                                            </tr>
-                                            <tr>
-                                                <th scope="row" class="text-secondary w-25 fw-normal">Seed Color</th>
-                                                <td class="w-75 fw-semibold"><? $crops_root['seed_color'] ?></td>
+                                                <td class="w-75 fw-semibold"><?= $crops_root['meaning_of_name'] ?></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -872,19 +873,19 @@ require "../functions/functions.php";
                                         <tbody>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Eating Quality</th>
-                                                <td class="w-75 fw-semibold"><? $crops_root['eating_quality'] ?></td>
+                                                <td class="w-75 fw-semibold"><?= $crops_root['eating_quality'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Color</th>
-                                                <td class="w-75 fw-semibold"><? $crops_root['rootcrop_color'] ?></td>
+                                                <td class="w-75 fw-semibold"><?= $crops_root['rootcrop_color'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Sweetness</th>
-                                                <td class="w-75 fw-semibold"><? $crops_root['sweetness'] ?></td>
+                                                <td class="w-75 fw-semibold"><?= $crops_root['sweetness'] ?></td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Remarkable Features</th>
-                                                <td class="w-75 fw-semibold"><? $crops_root['rootcrop_remarkable_features'] ?></td>
+                                                <td class="w-75 fw-semibold"><?= $crops_root['rootcrop_remarkable_features'] ?></td>
                                             </tr>
                                         </tbody>
                                     </table>
@@ -938,6 +939,11 @@ require "../functions/functions.php";
                                                     $links = explode(',', $crops['link']);
                                                     // Display each image
                                                     foreach ($links as $link) {
+                                                        // Check if the link starts with "http://" or "https://"
+                                                        if (!preg_match('/^https?:\/\//i', $link)) {
+                                                            // If not, prepend "http://"
+                                                            $link = "http://" . $link;
+                                                        }
                                                 ?>
                                                         <li>
                                                             <a href="<?= $link; ?>"><?= $link; ?></a>
@@ -945,7 +951,7 @@ require "../functions/functions.php";
                                                 <?php
                                                     }
                                                 } else {
-                                                    // display message
+                                                    // Display message or handle the case when $crops['link'] is empty
                                                     echo "";
                                                 }
                                                 ?>
