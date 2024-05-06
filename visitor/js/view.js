@@ -1,7 +1,7 @@
 // map center coordinates
 let latOnLoad = 5.901882;
 let lngOnLoad = 125.070641;
-let zoomOnLoad = 10;
+let zoomOnLoad = 9;
 // set map center on load
 let map = L.map('map').setView([latOnLoad, lngOnLoad], zoomOnLoad);
 
@@ -11,17 +11,6 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
     minZoom: 9,
     attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
 }).addTo(map);
-
-// Fetch GeoJSON data from GitHub
-fetch('https://raw.githubusercontent.com/rukku/ph-province-boundaries/master/PH-SAR/SARANGANI.geojson')
-.then(response => response.json())
-.then(data => {
-    // Create a GeoJSON layer and add it to the map
-    L.geoJSON(data).addTo(map);
-})
-.catch(error => {
-    console.error('Error fetching GeoJSON:', error);
-});
 
 // icons
 let icons = {
