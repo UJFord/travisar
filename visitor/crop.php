@@ -30,6 +30,10 @@ require "../functions/functions.php";
 	<link rel="stylesheet" href="../css/global-declarations.css">
 	<!-- landing.css -->
 	<link rel="stylesheet" href="css/crop.css?v=1.0">
+	<script>
+		// Assume you have the userRole variable defined somewhere in your PHP code
+		var userRole = "<?php echo isset($_SESSION['rank']) ? $_SESSION['rank'] : ''; ?>";
+	</script>
 </head>
 
 <body class="bg-light">
@@ -73,21 +77,21 @@ require "../functions/functions.php";
 
 									if ($category_name == 'Corn') {
 							?>
-										<a href="corn.php?category_id=<?=$category_id?>" id="corn-link" class="d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-3 border-bottom link-light">
+										<a href="corn.php?category_id=<?= $category_id ?>" id="corn-link" class="d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-3 border-bottom link-light">
 											<span class="me-4">Corn</span>
 											<i class="bi bi-arrow-right fs-3 me-4"></i>
 										</a>
 									<?php
 									} elseif ($category_name == 'Rice') {
 									?>
-										<a href="rice.php?category_id=<?=$category_id?>" id="rice-link" class="d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-3 border-bottom link-light">
+										<a href="rice.php?category_id=<?= $category_id ?>" id="rice-link" class="d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 border-3 border-bottom link-light">
 											<span class="me-4">Rice</span>
 											<i class="bi bi-arrow-right fs-3 me-4"></i>
 										</a>
 									<?php
 									} elseif ($category_name == 'Root Crop') {
 									?>
-										<a href="root.php?category_id=<?=$category_id?>" id="root-link" class="d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 link-light">
+										<a href="root.php?category_id=<?= $category_id ?>" id="root-link" class="d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 link-light">
 											<span class="me-4">Root</span>
 											<i class="bi bi-arrow-right fs-3 me-4"></i>
 										</a>
@@ -112,6 +116,7 @@ require "../functions/functions.php";
 	<!-- custom -->
 	<script src="js/nav.js"></script>
 	<script src="js/crop.js"></script>
+	<script src="../js/access.js"></script>
 
 </body>
 

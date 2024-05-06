@@ -294,6 +294,31 @@
             }
         }
 
+        // Validate reference URLs
+        var referenceInputs = document.querySelectorAll('[id^="references-id_"]');
+        for (var i = 0; i < referenceInputs.length; i++) {
+            if (!isValidURL(referenceInputs[i].value.trim())) {
+                referenceInputs[i].classList.add('is-invalid');
+                // Get the corresponding reference-error div
+                var referenceErrorDiv = document.getElementById(`reference-error_${i + 1}`);
+                if (referenceErrorDiv) {
+                    // Set error message appropriately
+                    referenceErrorDiv.innerText = "Invalid URL.";
+                }
+                isValid = false;
+                if (!firstErrorElement) {
+                    firstErrorElement = referenceInputs[i];
+                }
+            } else {
+                referenceInputs[i].classList.remove('is-invalid');
+                // Clear error message if validation succeeds
+                var referenceErrorDiv = document.getElementById(`reference-error_${i + 1}`);
+                if (referenceErrorDiv) {
+                    referenceErrorDiv.innerText = "";
+                }
+            }
+        }
+
         // Focus on the first element with an error
         if (firstErrorElement) {
             firstErrorElement.focus();
@@ -305,6 +330,13 @@
         return isValid;
     }
 
+    // Validation function for URL format
+    function isValidURL(url) {
+        // Regular expression for validating URL format
+        const urlPattern = /^(https?:\/\/)?([\w\d-]+\.)+[\w\d]{2,}(\/.*)*$/i;
+        return urlPattern.test(url);
+    }
+
     // Validation function
     function validateImagesSeed() {
         var isValid = true;
@@ -313,9 +345,9 @@
 
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            if (file.size > 3 * 1024 * 1024) {
+            if (file.size > 5 * 1024 * 1024) {
                 inputElementSeed.classList.add('is-invalid');
-                document.getElementById('imageInputSeed-error').innerText = "Image must now exceed 5MB.";
+                document.getElementById('imageInputSeed-error').innerText = "Image must not exceed 5MB.";
                 isValid = false;
                 if (!firstErrorElement) {
                     firstErrorElement = document.getElementById('imageInputSeed');
@@ -338,9 +370,9 @@
 
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            if (file.size > 3 * 1024 * 1024) {
+            if (file.size > 5 * 1024 * 1024) {
                 inputElementVeg.classList.add('is-invalid');
-                document.getElementById('imageInputVegetative-error').innerText = "Image must now exceed 5MB.";
+                document.getElementById('imageInputVegetative-error').innerText = "Image must not exceed 5MB.";
                 isValid = false;
                 if (!firstErrorElement) {
                     firstErrorElement = document.getElementById('imageInputVegetative');
@@ -363,9 +395,9 @@
 
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            if (file.size > 3 * 1024 * 1024) {
+            if (file.size > 5 * 1024 * 1024) {
                 inputElementRepro.classList.add('is-invalid');
-                document.getElementById('imageInputReproductive-error').innerText = "Image must now exceed 5MB.";
+                document.getElementById('imageInputReproductive-error').innerText = "Image must not exceed 5MB.";
                 isValid = false;
                 if (!firstErrorElement) {
                     firstErrorElement = document.getElementById('imageInputReproductive');
@@ -452,7 +484,6 @@
         }
     }
 
-
     // Prevent tab switching when there are validation errors
     // var tabPane = document.getElementById('myTab');
     // tabPane.addEventListener('show.bs.tab', function(event) {
@@ -476,11 +507,17 @@
     function switchTab(tabName) {
         // prevent submitting the form
         event.preventDefault();
-        // Set the currentTab to the tabName
-        currentTab = tabName;
+
+        // If the error originates from the reference inputs, set the currentTab to "references"
+        if (firstErrorElement && firstErrorElement.id.includes("references-id")) {
+            currentTab = "references";
+        } else {
+            // Set the currentTab to the tabName
+            currentTab = tabName;
+        }
 
         // Click the tab with id 'gen-tab'
-        document.getElementById(tabName + '-tab').click();
+        document.getElementById(currentTab + '-tab').click();
     }
 </script>
 
