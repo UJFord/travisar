@@ -1,3 +1,8 @@
+<?php
+session_start();
+require "../functions/connections.php";
+require "../functions/functions.php";
+?>
 <!DOCTYPE html>
 <html lang="en">
 

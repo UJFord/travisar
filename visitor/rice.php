@@ -1,5 +1,7 @@
 <?php
+session_start();
 require "../functions/connections.php";
+require "../functions/functions.php";
 ?>
 <!DOCTYPE html>
 <html lang="en">
@@ -26,6 +28,10 @@ require "../functions/connections.php";
     <!-- global -->
     <link rel="stylesheet" href="../css/global-declarations.css">
     <link rel="stylesheet" href="css/crop.css"> <!-- script for access control -->
+    <script>
+        // Assume you have the userRole variable defined somewhere in your PHP code
+        var userRole = "<?php echo isset($_SESSION['rank']) ? $_SESSION['rank'] : ''; ?>";
+    </script>
 </head>
 
 <body class="bg-light">
