@@ -128,7 +128,7 @@
         <!-- statusID -->
         <input id="statusID" type="hidden" name="statusID" class="form-control">
         <!-- referencesID -->
-        <input id="referencesID" type="hidden" name="referencesID" class="form-control">
+        <input id="referencesID" type="hidden" name="referencesID[]" class="form-control">
 
         <!-- corn id's -->
         <!-- corn_traitsID -->

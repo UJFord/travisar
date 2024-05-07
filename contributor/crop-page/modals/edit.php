@@ -127,6 +127,8 @@
         var editModalInstance = bootstrap.Modal.getInstance(editModal);
         editModalInstance.hide();
 
+        $('#new-url-container-Edit').empty();
+
         // Remove the modal backdrop
         $('.modal-backdrop').remove();
     });
@@ -723,9 +725,9 @@
                         $('#remarkable-features-Edit').val(value['remarkable_features']);
 
                         // References
+                        // Clear existing content of the reference tab
                         let referenceNumber = 1; // Initialize reference number
                         if (value['link'] != null && value['link'] != '') {
-
                             // Split the reference link by comma
                             var referLinks = value['link'].split(',');
                             // Iterate over each filename and append a link element to the preview container
@@ -737,19 +739,14 @@
                                 }
                                 $('#new-url-container-Edit').append(`
                                     <div class="url-list-item-edit mb-2">
-                                        <label class="form-label small-font">Old Reference ${referenceNumber}</label>
                                         <div class="d-flex">
-                                            <a href="${filename}" target="_blank" small-font">${filename}</a>
-                                            <button type="button" class="btn btn-link">
-                                                <i class="fa-solid fa-circle-minus fs-5 text-danger" aria-hidden="true"></i>
-                                            </button>
+                                            <a href="${filename}" target="_blank" class="small-font">${filename}</a>
                                         </div>
                                     </div>
                                 `);
                                 referenceNumber++; // Increment reference number for the next input field
                             });
                         }
-
 
                         //loc.php
                         $('#SitioEdit').val(value['sitio_name']);
