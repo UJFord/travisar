@@ -9,7 +9,7 @@ require "../functions/functions.php";
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Travis | Corn</title>
+    <title>Travis | All Crops</title>
 
     <!-- BOOTSTRAP -->
     <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/css/bootstrap.min.css" rel="stylesheet" integrity="sha384-QWTKZyjpPEjISv5WaRU9OFeRpok6YctnYmDr5pNlyT2bRjXh0JMhjY6hW+ALEwIH" crossorigin="anonymous">
@@ -90,12 +90,6 @@ require "../functions/functions.php";
         <?php // generatePaginationLinks($total_pages, $current_page, 'page'); 
         ?>
     </div>
-
-    <!-- map toggler -->
-    <!-- <button role="button" id="map-toggler" class="fixed-bottom rounded-pill bg-dark bg-gradient py-2 mb-5 text-light d-flex justify-content-center align-item-center  link-underline link-underline-opacity-0">
-        <span class="map-toggle"><i class="fa-solid fa-map me-2"></i>Map View</span>
-        <span class="list-toggle d-none"><i class="fa-solid fa-list me-2"></i>List View</span>
-    </button> -->
 
     <!-- SCRIPT -->
     <!-- jquery -->

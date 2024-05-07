@@ -2,15 +2,7 @@
 $(document).ready(function () {
 
     let mapState = false;
-    let viewType = document.querySelector('#view-type-button');
     let mapToggler = document.querySelector('#map-toggler');
-
-    // list type button
-    $(viewType).on("click", function(){
-        $('#crop-list-table').toggleClass('d-none');
-        $('#crop-list-grid').toggleClass('d-none');
-        $('.view-type-icon').toggleClass('d-none');
-    });
 
     // map or list toggler
     $(mapToggler).on("click", function()
@@ -69,18 +61,18 @@ $(document).ready(function () {
     // icons
     let icons = {
         "Corn": L.icon({
-            iconUrl: 'img/corn.svg',
-            iconSize: [40, 40],
+            iconUrl: 'img/corn-circle.png',
+            iconSize: [30, 30],
             iconAnchor: [20, 20],
         }),
         "Rice": L.icon({
-            iconUrl: 'img/rice.svg',
-            iconSize: [40, 40],
+            iconUrl: 'img/rice-circle.png',
+            iconSize: [30, 30],
             iconAnchor: [20, 20],
         }),
         "Root": L.icon({
-            iconUrl: 'img/potato.svg',
-            iconSize: [40, 40],
+            iconUrl: 'img/carrot-circle.png',
+            iconSize: [30, 30],
             iconAnchor: [20, 20],
         })
     };
