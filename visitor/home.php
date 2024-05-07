@@ -137,7 +137,7 @@ require "../functions/functions.php";
             <!-- crop  -->
             <div class="row p-5  d-flex justify-content-center align-items-center">
 
-                <div class="qlink-img-container col-6 d-flex align-items-center">
+                <div class="qlink-img-container col-6 d-flex justify-content-start align-items-center">
                     <img class="rounded-3" src="https://images.unsplash.com/photo-1592997571659-0b21ff64313b?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top sys-link-img" alt="" srcset="">
                 </div>
 
@@ -145,7 +145,7 @@ require "../functions/functions.php";
                     <h4 class="fw-bold">Crops</h4>
                     <p>Discover traditional crop varieties cultivated in Sarangani and uncover the rich agricultural heritage of the province.</p>
                     <div class="row ps-2">
-                        <a href="crop.php" id="crop-qlink" class="col-3 btn qlink-link btn-success border fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
+                        <a href="crop.php" id="crop-qlink" class="col-9 col-md-7 col-lg-5 col-xl-4 btn qlink-link btn-success border fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
                             Explore Now!
                             <i class="bi bi-arrow-right fw-bold"></i>
                         </a>
@@ -154,13 +154,13 @@ require "../functions/functions.php";
             </div>
 
             <!-- map -->
-            <div class="row py-5">
+            <div class="row p-5">
 
                 <div class="col d-flex flex-column justify-content-center">
                     <h4 class="fw-bold">Map</h4>
                     <p>Navigate our map for an interactive journey through the distribution of traditional crop varieties across the province..</p>
                     <div class="row ps-2">
-                        <a href="crop.php" id="map-qlink" class="col-3 btn qlink-link btn-success fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
+                        <a href="crop.php" id="map-qlink" class="col-9 col-md-7 col-lg-5 col-xl-4 btn qlink-link btn-success fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
                             Navigate!
                             <i class="bi bi-arrow-right fw-bold"></i>
                         </a>
@@ -173,10 +173,9 @@ require "../functions/functions.php";
             </div>
 
             <!-- contirbute  -->
-            <div class="row py-5  d-flex justify-content-center align-items-center">
+            <div class="row p-5  d-flex justify-content-center align-items-center">
 
-                <div class="qlink-img-container col-6 d-flex align-items-center">
-                    <!-- <img src="img/undraw_forming_ideas_re_2afc.svg" alt="" srcset=""> -->
+                <div class="qlink-img-container col-6 d-flex justify-content-start align-items-center">
                     <img class="rounded-3" src="https://images.unsplash.com/photo-1508780709619-79562169bc64?q=80&w=2070&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="card-img-top sys-link-img" alt="" srcset="">
                 </div>
 
@@ -184,7 +183,7 @@ require "../functions/functions.php";
                     <h4 class="fw-bold">Contribute</h4>
                     <p>Join our community and share your valuable knowledge to enrich our comprehensive database, providing deeper agricultural insights for sustainable development.</p>
                     <div class="row ps-2">
-                        <a href="../login/login.php" id="crop-qlink" class="col-3 btn qlink-link btn-success border fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
+                        <a href="../login/login.php" id="crop-qlink" class="col-9 col-md-7 col-lg-5 col-xl-4 btn qlink-link btn-success border fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
                             Sign Up Now!
                             <i class="bi bi-arrow-right fw-bold"></i>
                         </a>
@@ -193,13 +192,13 @@ require "../functions/functions.php";
             </div>
 
             <!-- About Travis -->
-            <div class="row py-5">
+            <div class="row p-5">
 
                 <div class="col d-flex flex-column justify-content-center">
                     <h4 class="fw-bold">About TRAVIS</h4>
                     <p>Learn more about TRAVIS, designed to store information about traditional crop varieties in Sarangani Province, including their morphological characteristics, sensory traits, agronomic traits, and cultural utilization and importance.</p>
                     <div class="row ps-2">
-                        <a href="about.php" id="map-qlink" class="col-3 btn qlink-link btn-success fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
+                        <a href="about.php" id="map-qlink" class="col-9 col-md-7 col-lg-5 col-xl-4 btn qlink-link btn-success fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
                             Learn More!
                             <i class="bi bi-arrow-right fw-bold"></i>
                         </a>
@@ -259,46 +258,46 @@ require "../functions/functions.php";
                 <!-- about us -->
                 <div class="col-3">
                     <h4 class="mb-3 footer-head fw-bold">ABOUT</h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Sarangani</a>
-                        </li>
-                        <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Collaborators</a>
-                        </li>
-                        <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">TRAVIS</a>
-                        </li>
-                    </ul>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Sarangani</a>
+                            </li>
+                            <li>
+                                <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Collaborators</a>
+                            </li>
+                            <li>
+                                <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">TRAVIS</a>
+                            </li>
+                        </ul>
                 </div>
 
                 <!-- shortcuts -->
                 <div class="col-3">
                     <h4 class="mb-3 footer-head fw-bold">LINKS</h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Crops</a>
-                        </li>
-                        <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Map</a>
-                        </li>
-                        <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Contribute</a>
-                        </li>
-                    </ul>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Crops</a>
+                            </li>
+                            <li>
+                                <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Map</a>
+                            </li>
+                            <li>
+                                <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Contribute</a>
+                            </li>
+                        </ul>
                 </div>
 
                 <!-- contact -->
                 <div class="col-3">
                     <h4 class="mb-3 footer-head fw-bold">CONTACT US</h5>
-                    <ul class="list-unstyled">
-                        <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover"><i class="me-2 fa-solid fa-phone"></i>+63913-234-1283</a>
-                        </li>
-                        <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover"><i class="me-2 fa-solid fa-envelope"></i>travis@msugensan.edu.ph</a>
-                        </li>
-                    </ul>
+                        <ul class="list-unstyled">
+                            <li>
+                                <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover"><i class="me-2 fa-solid fa-phone"></i>+63913-234-1283</a>
+                            </li>
+                            <li>
+                                <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover"><i class="me-2 fa-solid fa-envelope"></i>travis@msugensan.edu.ph</a>
+                            </li>
+                        </ul>
                 </div>
 
             </div>
