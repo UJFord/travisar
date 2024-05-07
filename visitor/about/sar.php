@@ -55,7 +55,7 @@
                 <div class="col">
                     <figure class="float-start w-25 m-4 mt-0 mb-2 ms-0">
                         <img src="https://upload.wikimedia.org/wikipedia/commons/thumb/7/7e/Provincial_Capitol%2C_Sarangani_Province%2C_Philippines.JPG/1280px-Provincial_Capitol%2C_Sarangani_Province%2C_Philippines.JPG" alt="Sarangani Capitol Image" class="rounded about-img img-fluid">
-                        <figcaption class="figure-caption mt-2 small-font">Sarangani Capitol &copy; Wikipedia</figcaption>
+                        <figcaption class="figure-caption text-end mt-2 small-font">Sarangani Capitol &copy; Wikipedia</figcaption>
                     </figure>
                     <h4 class="about-head">Sarangani</h4>
                     <p>Nestled along the southwestern shores of the Philippines lies Sarangani Province, a captivating destination renowned for its harmonious blend of natural wonders, cultural heritage, and warm hospitality. Stretching along the Celebes Sea, the province's coastline is adorned with pristine beaches, inviting travelers to bask in the sun-drenched sands and dive into the crystal-clear waters teeming with marine life. From vibrant coral reefs to hidden coves, Sarangani Bay offers a playground for water sports enthusiasts seeking to explore the wonders of the underwater world.
@@ -95,7 +95,7 @@
                 <div class="col">
                     <figure class="float-start w-25 m-4 mt-0 mb-2 ms-0">
                         <img src="https://images.unsplash.com/photo-1577110058859-74547db40bc0?q=80&w=1935&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" class="rounded about-img img-fluid">
-                        <figcaption class="figure-caption text-start mt-2 small-font">&copy; Faris Mohammed, Unsplash</figcaption>
+                        <figcaption class="figure-caption text-end mt-2 small-font">&copy; Faris Mohammed, Unsplash</figcaption>
                     </figure>
                     <h4 class="about-head">Traditional Varieties</h4>
                     <p>Sarangani Province in the Philippines is blessed with a rich agricultural heritage, characterized by a diverse array of traditional crop varieties cultivated by local farmers. These crops, carefully selected and cultivated over generations, not only provide sustenance but also embody the cultural and ecological resilience of the region. Among the traditional crop varieties are rice, corn, and root crops such as cassava, sweet potato, and taro, which form the staple diet of many communities. Rice, in particular, holds a central place in Filipino cuisine and culture, with various heirloom varieties adapted to different agro-ecological conditions. Corn, another staple crop, is cultivated for both human consumption and livestock feed, with indigenous varieties prized for their resilience and nutritional value.</p>

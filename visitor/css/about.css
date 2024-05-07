@@ -18,6 +18,11 @@ p{
     width: 15rem;
 }
 
+.dev-img{
+    aspect-ratio: 1/1;
+    object-fit: cover;
+}
+
 
 
 /* FOOTER */
