@@ -141,7 +141,8 @@
                                         </div>
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-link link-dark" data-bs-dismiss="modal">Go Back</button>
-                                            <button id="modal-confirm-btn" type="submit" class="btn btn-success">Confirm</button>
+                                            <button id="modal-discard-btn" type="submit" class="btn btn-secondary">Discard <i class="fa-solid fa-eraser"></i></button>
+                                            <button id="modal-confirm-btn" type="submit" class="btn btn-success">Apply Changes <i class="fa-solid fa-check"></i></button>
                                         </div>
                                     </div>
                                 </div>

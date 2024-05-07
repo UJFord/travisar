@@ -22,7 +22,11 @@ $(document).ready(function() {
 
     // ACTIONS BTNS
     // Function to run when any input value changes
-    $("input, select").change(function() {
+    $("select").change(function() {
+        // show actions buttons
+        $("#action-container").removeClass("d-none");
+    });
+    $("input").keydown(function() {
         // show actions buttons
         $("#action-container").removeClass("d-none");
     });
@@ -30,9 +34,12 @@ $(document).ready(function() {
     // change modal values on change
     $("#discard-btn").click(function(){
         $('#confirm .modal-body').text("Confirm discarding changes? Any changes you've made wil be discarded.");
-        
+        $('#modal-discard-btn').removeClass("d-none");
+        $('#modal-confirm-btn').addClass("d-none");
     });
     $("#apply-btn").click(function(){
-        $('#confirm .modal-body').text("Confirm applying changes from your profile?")
+        $('#confirm .modal-body').text("Confirm applying changes from your profile?");
+        $('#modal-discard-btn').addClass("d-none");
+        $('#modal-confirm-btn').removeClass("d-none");
     });
 });
