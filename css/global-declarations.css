@@ -57,3 +57,9 @@ body{
 	#logout-link:active{
 		background: rgba(255, 0, 0, 0.336);
 	}
+
+/* PROFILE */
+#profile-sidenav nav .nav-link.active{
+	background-color: var(--mainBrand); /* Change to your desired background color */
+      color: #fff; /* Change to your desired text color */
+}

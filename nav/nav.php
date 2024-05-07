@@ -260,7 +260,7 @@ switch ($current_page_path) {
 
                             <!-- settings -->
                             <li>
-                                <a href="" class="dropdown-item"><i class="fa-solid fa-gears me-2"></i>Settings</a>
+                                <a href="<?php echo BASE_URL . '/' . 'login/profile.php'; ?>" class="dropdown-item" class="dropdown-item"><i class="fa-solid fa-gears me-2"></i>Settings</a>
                             </li>
 
                             <li class="dropdown-divider m-0"></li>

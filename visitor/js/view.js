@@ -16,27 +16,18 @@ L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
 let icons = {
         "Corn": L.icon({
             iconUrl: 'img/corn-circle.png',
-            shadowUrl: 'img/marker-shadow.png',
             iconSize: [30, 30],
             iconAnchor: [20, 20],
-            shadowSize: [30, 30],
-            shadowAnchor:[30, 30],
         }),
         "Rice": L.icon({
             iconUrl: 'img/rice-circle.png',
-            shadowUrl: 'img/marker-shadow.png',
             iconSize: [30, 30],
             iconAnchor: [20, 20],
-            shadowSize: [30, 30],
-            shadowAnchor:[30, 30],
         }),
         "Root": L.icon({
             iconUrl: 'img/carrot-circle.png',
-            shadowUrl: 'img/marker-shadow.png',
             iconSize: [30, 30],
             iconAnchor: [20, 20],
-            shadowSize: [30, 30],
-            shadowAnchor:[30, 30],
         })
     };
 
