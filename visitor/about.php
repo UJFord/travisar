@@ -76,7 +76,7 @@ require "../functions/functions.php";
         </div>
     </div>
 
-    <!-- about msu gensan -->
+    <!-- about tribal communities -->
     <div class="container mb-5">
         <div class="row mx-5">
             <!-- paragraph -->
@@ -185,15 +185,16 @@ require "../functions/functions.php";
                 <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis ea atque, asperiores quisquam, magni nisi dolores nobis saepe accusantium quas, possimus ratione! Omnis qui molestiae quaerat, maiores incidunt minus adipisci ad perspiciatis magni natus tempora earum alias dolor illo quibusdam voluptates enim ut blanditiis suscipit hic laborum at officia quas. Fugit dolores voluptate et reprehenderit corrupti maiores eligendi soluta saepe id sint nulla, numquam sit expedita, cupiditate eius, dicta quis laboriosam inventore. Nisi, accusantium! Quasi pariatur perspiciatis vitae ab commodi nesciunt debitis molestiae fuga eligendi consequuntur doloremque, ducimus officia deserunt harum qui alias dolor mollitia autem vero expedita labore! Necessitatibus dolore vero beatae amet nostrum ducimus neque, eius nihil delectus repellat id, molestiae dolorem veritatis ipsum corrupti saepe magnam reprehenderit aliquam libero enim!</p>
             </div>
         </div>
+    </div>
 
 
-        <!-- SCRIPT -->
-        <!-- jquery -->
-        <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-        <!-- bootstrap -->
-        <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
-        <!-- CUSTOM -->
-        <script src="js/nav.js"></script>
+    <!-- SCRIPT -->
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+    <!-- bootstrap -->
+    <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- CUSTOM -->
+    <script src="js/nav.js"></script>
 </body>
 
 </html>

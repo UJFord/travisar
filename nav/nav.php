@@ -120,27 +120,26 @@ switch ($current_page_path) {
                 <!-- about -->
                 <div class="nav-item fw-semibold me-2 dropdown">
                     <a id="abt-nav" class="nav-link dropdown-toggle <?php if ($current_page_isAbout) {
-                                            echo "active";
-                                        } ?>" href="<?php //echo BASE_URL . '/' . 'visitor/about.php'; 
-                                                    ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">About
+                                                                        echo "active";
+                                                                    } ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">About
                     </a>
 
                     <ul class="dropdown-menu" aria-labelledby="abt-nav">
                         <!-- sarangani -->
                         <li>
-                            <a href="" class="dropdown-item">
+                            <a href="<?= BASE_URL . '/' . 'visitor/about/sar.php' ?>" class="dropdown-item">
                                 Sarangani
                             </a>
                         </li>
                         <!-- collaborators -->
                         <li>
-                            <a href="" class="dropdown-item">
+                            <a href="<?= BASE_URL . '/' . 'visitor/about/collab.php' ?>" class="dropdown-item">
                                 Collaborators
                             </a>
                         </li>
-                        <!-- tavis -->
+                        <!-- travis -->
                         <li>
-                            <a href="" class="dropdown-item">
+                            <a href="<?= BASE_URL . '/' . 'visitor/about/travis.php' ?>" class="dropdown-item">
                                 TRAVIS
                             </a>
                         </li>
