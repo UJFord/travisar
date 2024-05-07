@@ -58,7 +58,7 @@
                                 <div class="col">
                                     <label for="CoordinatesEdit" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
                                     <input type="text" id="CoordinatesEdit" name="municipality_coordinates" class="form-control">
-                                    <div id="error-messages-coord"></div>
+                                    <div id="error-messages-coordinates"></div>
                                 </div>
                                 <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (<span class="fw-bold">latitude , longitude - 5.7600, 125.3466</span>)</div>
 
@@ -131,12 +131,12 @@
             // Check if the "coordinates Name" input field is empty
             if (coordinatesEdit === "") {
                 // If empty, add the 'is-invalid' class to indicate an error
-                document.getElementById("error-messages-coord").innerHTML = "<div class='error text-center' style='color:red;'>Please fill up required fields.</div>";
+                document.getElementById("error-messages-coordinates").innerHTML = "<div class='error text-center' style='color:red;'>Please fill up required fields.</div>";
                 coordInputEdit.classList.add("is-invalid");
             } else {
                 // If not empty, remove the 'is-invalid' class
                 coordInputEdit.classList.remove("is-invalid");
-                document.getElementById("error-messages-coord").innerHTML = "";
+                document.getElementById("error-messages-coordinates").innerHTML = "";
             }
         });
     });
@@ -154,15 +154,46 @@
         // Get the values from the form
         var province_name = document.getElementById("prov-Name").value;
         var municipality_name = document.getElementById("municipality-NameEdit").value;
+        var coordInputEdit = document.getElementById("CoordinatesEdit").value;
 
         // Check if the required fields are not empty
-        if (province_name === "" || municipality_name === "") {
-            alert("Please fill out all required fields.");
+        if (province_name === "") {
+            // If empty, add the 'is-invalid' class to indicate an error
+            document.getElementById("error-messages-prov").innerHTML = "<div class='error text-center' style='color:red;'>Please fill up required fields.</div>";
+            document.getElementById("prov-Name").classList.add("is-invalid");
             return false; // Prevent form submission
+        } else {
+            // If not empty, remove the 'is-invalid' class
+            document.getElementById("prov-Name").classList.remove("is-invalid");
+            document.getElementById("error-messages-prov").innerHTML = "";
         }
+
+        if (municipality_name === "") {
+            // If empty, add the 'is-invalid' class to indicate an error
+            document.getElementById("error-messages-muni").innerHTML = "<div class='error text-center' style='color:red;'>Please fill up required fields.</div>";
+            document.getElementById("municipality-NameEdit").classList.add("is-invalid");
+            return false; // Prevent form submission
+        } else {
+            // If not empty, remove the 'is-invalid' class
+            document.getElementById("municipality-NameEdit").classList.remove("is-invalid");
+            document.getElementById("error-messages-muni").innerHTML = "";
+        }
+
+        if (coordInputEdit === "") {
+            // If empty, add the 'is-invalid' class to indicate an error
+            document.getElementById("error-messages-coordinates").innerHTML = "<div class='error text-center' style='color:red;'>Please fill up required fields.</div>";
+            document.getElementById("CoordinatesEdit").classList.add("is-invalid");
+            return false; // Prevent form submission
+        } else {
+            // If not empty, remove the 'is-invalid' class
+            document.getElementById("CoordinatesEdit").classList.remove("is-invalid");
+            document.getElementById("error-messages-coordinates").innerHTML = "";
+        }
+
         // You can add more validation checks if needed
         return true; // Allow form submission
     }
+
 
     // Function to submit the form and refresh notifications
     function submitFormEdit() {
