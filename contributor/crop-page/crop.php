@@ -75,7 +75,8 @@ require "../../functions/functions.php";
             <?php require "modals/draft.php"; ?>
             <!-- edit -->
             <?php require "modals/edit.php"; ?>
-
+            <!-- manage -->
+            <?php //require "modals/manage.php"; ?>
         </div>
     </div>
 

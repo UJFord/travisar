@@ -119,7 +119,11 @@
                             <?php
                         } else  if ($row['action'] === 'Approved') {
                             ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="#">
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="../../visitor/view.php?crop_id=<?= $row['crop_id'] ?>">
+                            <?php
+                        } else if ($row['action'] === 'Rejected') {
+                            ?>
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink view_data" href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">
                             <?php
                         } else {
                             ?>
