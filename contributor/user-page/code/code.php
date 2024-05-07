@@ -72,7 +72,6 @@ if (isset($_POST['approve'])) {
     }
 }
 
-
 // for verify delete
 if (isset($_POST['delete'])) {
     $user_id = $_POST['user_id'];

@@ -1,3 +1,9 @@
+<?php
+session_start();
+require "../functions/connections.php";
+require "../functions/functions.php";
+?>
+
 <!DOCTYPE html>
 <html lang="en">
 
@@ -16,8 +22,16 @@
     <!-- CUSTOM -->
     <!-- global -->
     <link rel="stylesheet" href="../css/global-declarations.css">
+    <!-- script for access control -->
+    <script src="../js/access-control.js"></script>
+    <!-- script for the window alert -->
+    <script src="../../js/window.js"></script>
 
-
+    <script>
+        // Assume you have the userRole variable defined somewhere in your PHP code
+        var userRole = "<?php echo isset($_SESSION['rank']) ? $_SESSION['rank'] : ''; ?>";
+        checkAccess(userRole);
+    </script>
 </head>
 
 <body class="">
@@ -26,6 +40,9 @@
 
         <!-- NAVBAR -->
         <?php require "../nav/nav.php" ?>
+        <?php
+        include "../functions/message.php";
+        ?>
 
         <div class="container d-flex" style="flex-grow: 1;">
             <div class="row w-100 ">
@@ -42,92 +59,106 @@
                 <!-- main -->
                 <div class="col">
                     <div class="m-5">
-                        <form action="" data-bs-spy="scroll" data-bs-target="#profile-sidenav" data-bs-smooth-scroll="true" class="" tabindex="0">
-                            <div id="profile" class="row d-flex mb-5">
-                                <h6 class="text-secondary w-auto mt-4">Currently logged in as</h6>
-                                <div class="w-auto">
-                                    <h1 class="fw-bold">John Doe</h1>
-                                    <h4 class="fw-bold fst-italic text-secondary">@Boy Bawang_Cornick</h4>
-                                    <h6 class="fw-bold text-secondary">Bethesda Studios</h6>
-                                </div>
-                            </div>
-
-                            <!-- name -->
-                            <div class="row">
-                                <div class="col-12 col-md-6 col-lg-6 col-xl-5 col-xxl-4 mb-3">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="fname" placeholder="" value="John">
-                                        <label for="fname">Name</label>
+                        <form action="process_form.php" method="POST" data-bs-spy="scroll" data-bs-target="#profile-sidenav" data-bs-smooth-scroll="true" class="" tabindex="0">
+                            <?php
+                            if (isset($_SESSION['USER']['user_id'])) {
+                                $user_id = $_SESSION['USER']['user_id'];
+                                $query = "SELECT * FROM users WHERE user_id = $user_id";
+                                $query_run = pg_query($conn, $query);
+                                if (pg_num_rows($query_run) > 0) {
+                                    $row = pg_fetch_assoc($query_run);
+                            ?>
+                                    <div id="profile" class="row d-flex mb-5">
+                                        <h6 class="text-secondary w-auto mt-4">Currently logged in as</h6>
+                                        <div class="w-auto">
+                                            <h1 class="fw-bold"><?= $_SESSION['USER']['first_name']; ?> </h1>
+                                            <h4 class="fw-bold fst-italic text-secondary"><?= $_SESSION['USER']['email']; ?></h4>
+                                            <h6 class="fw-bold text-secondary"><?= $row['affiliation'] ?></h6>
+                                        </div>
                                     </div>
-                                </div>
-                                <div class="col-12 col-md-6 col-lg-6 col-xl-5 col-xxl-4 mb-3">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="lname" placeholder="" value="Doe">
-                                        <label for="lname">Lastname</label>
+                                    <!-- hidden user id for verification -->
+                                    <input type="hidden" name="user_id" value="<?= $row['user_id'] ?>">
+
+                                    <!-- name -->
+                                    <div class="row">
+                                        <div class="col-12 col-md-6 col-lg-6 col-xl-5 col-xxl-4 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="fname" placeholder="" name="first_name" value="<?= $row['first_name'] ?>">
+                                                <label for="fname">Name</label>
+                                            </div>
+                                        </div>
+                                        <div class="col-12 col-md-6 col-lg-6 col-xl-5 col-xxl-4 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="lname" placeholder="" name="last_name" value="<?= $row['last_name'] ?>">
+                                                <label for="lname">Lastname</label>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            <!-- gender -->
-                            <div class="row">
-                                <div class="col-12 col-xl-10 col-xxl-8 mb-3">
-                                    <select class="form-select">
-                                        <option selected hidden>Gender</option>
-                                        <option value="Male">Male</option>
-                                        <option value="Female">Female</option>
-                                        <option value="Neither">Rather not say</option>
-                                    </select>
-                                </div>
-                            </div>
-
-                            <!-- affilitation -->
-                            <div class="row">
-                                <div class="col-12 col-xl-10 col-xxl-8 mb-3">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="aff" placeholder="" value="Bethesda Studios">
-                                        <label for="aff">Affiliation</label>
+                                    <!-- gender -->
+                                    <div class="row">
+                                        <div class="col-12 col-xl-10 col-xxl-8 mb-3">
+                                            <select name="gender" class="form-select">
+                                                <option value="<?= $row['gender'] ?>" hidden><?= $row['gender'] ?></option>
+                                                <option value="Male">Male</option>
+                                                <option value="Female">Female</option>
+                                                <option value="Neither">Rather not say</option>
+                                            </select>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            <!-- username -->
-                            <div class="row">
-                                <div class="col-12 col-xl-10 col-xxl-8 mb-3">
-                                    <div class="form-floating">
-                                        <input type="text" class="form-control" id="uname" placeholder="" value="Boy Bawang_Cornick">
-                                        <label for="uname">Username</label>
+                                    <!-- affilitation -->
+                                    <div class="row">
+                                        <div class="col-12 col-xl-10 col-xxl-8 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="aff" placeholder="" name="affiliation" value="<?= $row['affiliation'] ?>">
+                                                <label for="aff">Affiliation</label>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            <!-- mail -->
-                            <div class="row">
-                                <div class="col-12 col-xl-10 col-xxl-8 mb-3">
-                                    <div class="form-floating">
-                                        <input type="email" class="form-control" id="mail" placeholder="" value="cornick@bawang.com" disabled>
-                                        <label for="mail">Email</label>
+                                    <!-- username -->
+                                    <div class="row">
+                                        <div class="col-12 col-xl-10 col-xxl-8 mb-3">
+                                            <div class="form-floating">
+                                                <input type="text" class="form-control" id="uname" placeholder="" name="username" value="<?= $row['username'] ?>">
+                                                <label for="uname">Username</label>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            <!-- password -->
-                            <div class="row">
-                                <div class="col-12 col-xl-10 col-xxl-8 mb-3">
-                                    <div class="form-floating">
-                                        <input type="password" class="form-control" id="pass" placeholder="" value="Boy Bawang_Cornick" disabled>
-                                        <label for="pass">Password</label>
+                                    <!-- mail -->
+                                    <div class="row">
+                                        <div class="col-12 col-xl-10 col-xxl-8 mb-3">
+                                            <div class="form-floating">
+                                                <input type="email" class="form-control" id="mail" placeholder="" name="email" value="<?= $row['email'] ?>" disabled>
+                                                <label for="mail">Email</label>
+                                            </div>
+                                        </div>
                                     </div>
-                                </div>
-                            </div>
 
-                            <!-- action -->
-                            <div class="row d-none" id="action-container">
-                                <div class="col-12 col-xl-10 col-xxl-8 mb-3 d-flex justify-content-end">
-                                    <button id="discard-btn" type="button" class="btn btn-link link-dark me-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#confirm">Discard <i class="fa-solid fa-eraser"></i></button>
-                                    <button id="apply-btn" type="button" class="btn btn-success fw-semibold" data-bs-toggle="modal" data-bs-target="#confirm">Apply Changes <i class="fa-solid fa-check"></i></button>
-                                </div>
-                            </div>
+                                    <!-- password -->
+                                    <div class="row">
+                                        <div class="col-12 col-xl-10 col-xxl-8 mb-3">
+                                            <div class="form-floating">
+                                                <input type="password" class="form-control" id="pass" placeholder="" name="password" value="<?= $row['password'] ?>" disabled>
+                                                <label for="pass">Password</label>
+                                            </div>
+                                        </div>
+                                    </div>
 
+                                    <!-- action -->
+                                    <div class="row d-none" id="action-container">
+                                        <div class="col-12 col-xl-10 col-xxl-8 mb-3 d-flex justify-content-end">
+                                            <button id="discard-btn" type="button" class="btn btn-link link-dark me-3 fw-semibold" data-bs-toggle="modal" data-bs-target="#confirm">Discard <i class="fa-solid fa-eraser"></i></button>
+                                            <button id="apply-btn" type="button" class="btn btn-success fw-semibold" data-bs-toggle="modal" data-bs-target="#confirm">Apply Changes <i class="fa-solid fa-check"></i></button>
+                                        </div>
+                                    </div>
+                            <?php
+                                }
+                            }
+
+                            ?>
                             <!-- confirmation modal -->
                             <!-- Modal -->
                             <div class="modal fade" id="confirm" data-bs-backdrop="static" data-bs-keyboard="false" tabindex="-1" aria-labelledby="confirm" aria-hidden="true">
@@ -142,7 +173,7 @@
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-link link-dark" data-bs-dismiss="modal">Go Back</button>
                                             <button id="modal-discard-btn" type="submit" class="btn btn-secondary">Discard <i class="fa-solid fa-eraser"></i></button>
-                                            <button id="modal-confirm-btn" type="submit" class="btn btn-success">Apply Changes <i class="fa-solid fa-check"></i></button>
+                                            <button id="modal-confirm-btn" type="submit" name="edit" class="btn btn-success">Apply Changes <i class="fa-solid fa-check"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -155,8 +186,6 @@
 
     </div>
 
-
-
     <!-- JS -->
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
@@ -165,7 +194,8 @@
     <!-- CUSTOM -->
     <!-- nav -->
     <script src="../js/profile.js"></script>
-
+    <!-- CUSTOM -->
+    <script src="../visitor/js/nav.js"></script>
 </body>
 
 </html>
