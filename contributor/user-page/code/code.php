@@ -1,4 +1,5 @@
 <?php
+session_start();
 require "../../../functions/connections.php";
 // var_dump($_POST);
 // die();
@@ -27,7 +28,7 @@ if (isset($_POST['save'])) {
             // Commit the transaction if successful
             pg_query($conn, "COMMIT");
             $_SESSION['message'] = "User created successfully";
-            header("location: ../partners.php");
+            //header("location: ../partners.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
             // Rollback the transaction if an error occurs
@@ -108,16 +109,16 @@ if (isset($_POST['delete_user'])) {
         $affected_rows = pg_affected_rows($query_run);
         if ($affected_rows > 0) {
             $_SESSION['message'] = "User deleted";
-            header("location: ../verify-user.php");
+            //header("location: ../verify-user.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
             $_SESSION['error'] = "User not found";
-            header("location: ../verify-user.php");
+            //header("location: ../verify-user.php");
             exit;
         }
     } else {
         $_SESSION['error'] = "Error deleting user: " . pg_last_error($conn);
-        header("location: ../verify-user.php");
+        //header("location: ../verify-user.php");
         exit;
     }
 }

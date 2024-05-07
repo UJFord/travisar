@@ -56,21 +56,6 @@
                                 </div>
                             </div>
 
-                            <!-- Password -->
-                            <div class="row mb-3">
-                                <!-- Password -->
-                                <div class="col">
-                                    <label for="PasswordEdit" class="form-label small-font">Password<span style="color: red;">*</span></label>
-                                    <input type="text" id="PasswordEdit" name="passwordEdit" class="form-control">
-                                </div>
-
-                                <!-- Confirm Password -->
-                                <div class="col">
-                                    <label for="Confirm-PasswordEdit" class="form-label small-font">Confirm Password<span style="color: red;">*</span></label>
-                                    <input type="text" id="Confirm-PasswordEdit" name="confirm_passwordEdit" class="form-control">
-                                </div>
-                            </div>
-
                             <!-- Affiliation -->
                             <div class="row mb-3">
                                 <!-- Affiliation -->
@@ -227,14 +212,12 @@
         var firstName = document.getElementById('first-NameEdit').value;
         var lastName = document.getElementById('last-NameEdit').value;
         var email = document.getElementById('EmailEdit').value;
-        var password = document.getElementById('PasswordEdit').value;
-        var confirmPassword = document.getElementById('Confirm-PasswordEdit').value;
         var accountType = document.getElementById('Account_TypeEdit').value;
 
         var errors = [];
 
         // Check if the required fields are not empty
-        if (firstName === "" || lastName === "" || email === "" || password === "" || confirmPassword === "" || accountType === "") {
+        if (firstName === "" || lastName === "" || email === "" || accountType === "") {
             errors.push("<div class='error text-center' style='color:red;'>Please fill up required fields.</div>");
         }
 
@@ -260,22 +243,6 @@
             document.getElementById('EmailEdit').classList.add('is-invalid'); // Corrected element ID
         } else {
             document.getElementById('EmailEdit').classList.remove('is-invalid'); // Remove 'is-invalid' class if valid
-        }
-
-        // Validate password length
-        if (password.length < 8) {
-            errors.push("<div class='error text-center' style='color:red;'>Password must be at least 8 characters.</div>");
-            document.getElementById('PasswordEdit').classList.add('is-invalid'); // Corrected element ID
-        } else {
-            document.getElementById('PasswordEdit').classList.remove('is-invalid'); // Remove 'is-invalid' class if valid
-        }
-
-        // Validate password match
-        if (password !== confirmPassword) {
-            errors.push("<div class='error text-center' style='color:red;'>Passwords must match.</div>");
-            document.getElementById('Confirm-PasswordEdit').classList.add('is-invalid'); // Corrected element ID
-        } else {
-            document.getElementById('Confirm-PasswordEdit').classList.remove('is-invalid'); // Remove 'is-invalid' class if valid
         }
 
         // Display first error only
