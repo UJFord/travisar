@@ -1,8 +1,7 @@
-// design ni sya sa alert gi ani ra nako para mugawas sya hahahahaha
-window.alert = function (message, timeout=null) {
+window.alert = function (message, timeout = null) {
     const alert = document.createElement('div');
     const alertButton = document.createElement('button');
-    alertButton.innerHTML = 'ok';
+    alertButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
     alert.appendChild(alertButton);
     alert.classList.add('alert');
     alert.setAttribute('style',`
@@ -18,7 +17,6 @@ window.alert = function (message, timeout=null) {
         z-index: 10000;
     `);
     alertButton.setAttribute('style',`
-        border: 1px solid #333;
         background: white;
         border-radius: 5px;
         padding: 5px;
@@ -28,5 +26,13 @@ window.alert = function (message, timeout=null) {
     alertButton.addEventListener('click', () => {
         alert.remove();
     });
+
     document.body.appendChild(alert);
+
+    // If a timeout is provided, remove the alert after that duration
+    if (timeout !== null) {
+        setTimeout(() => {
+            alert.remove();
+        }, timeout);
+    }
 }
