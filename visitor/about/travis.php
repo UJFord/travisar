@@ -50,34 +50,39 @@
 
     <!-- about travis -->
     <div class="container mb-5">
-        <div class="row mx-5">
-            <!-- title -->
-            <div class="col-4 px-4 pb-4 d-flex justify-content-center align-items-center">
-                <img class=" w-100 rounded-1" src="../img/travis.svg" alt="" srcset="">
+        <div class="container">
+            <div class="row mx-5">
+                <div class="col">
+                    <figure class="float-start w-25 m-5 mt-5 mb-5">
+                        <img src="../img/travis.svg" class="img-fluid">
+                    </figure>
+                    <h4 class="about-head">TRAVIS</h4>
+                    <p>Once upon a time in the vast digital landscape of the internet, there emerged a website named Travis. Born from the visionary dreams of its founder, Travis began its journey as a humble platform, aiming to revolutionize the way people plan and experience their travels. With a mission to provide comprehensive travel solutions and inspire wanderlust, Travis embarked on a remarkable quest to carve its niche in the competitive realm of online travel services.</p>
+                    <p>From its inception, Travis was driven by a relentless commitment to excellence and innovation. Its creators poured their passion and expertise into crafting a user-centric experience, meticulously designing features and functionalities that catered to the diverse needs of modern travelers. With intuitive navigation, personalized recommendations, and seamless booking capabilities, Travis quickly captured the hearts and minds of wanderers worldwide, earning a reputation as the go-to destination for all things travel-related.</p>
+                    <p>As Travis flourished, so did its ambitions. Fuelled by a fervent desire to redefine the travel industry, Travis expanded its offerings beyond mere itinerary planning, venturing into the realms of community engagement and experiential storytelling. Through captivating blog posts, immersive travel guides, and vibrant social media channels, Travis fostered a vibrant community of globetrotters, united by their shared passion for exploration and discovery. Whether seeking insider tips from seasoned travelers or sharing their own adventures with like-minded enthusiasts, users found solace and inspiration in the virtual realm of Travis.</p>
+                    <p>But Travis's journey was not without its challenges. In a landscape marked by rapid technological advancements and shifting consumer preferences, Travis faced the daunting task of staying ahead of the curve. Undeterred, its team of dedicated innovators embraced change as an opportunity for growth, constantly iterating and evolving to meet the evolving needs of its audience. Through strategic partnerships, cutting-edge developments in artificial intelligence, and a relentless focus on user feedback, Travis remained at the forefront of the digital travel revolution, adapting and thriving in an ever-changing landscape.</p>
+                    <p>As the years passed, Travis's influence continued to expand, leaving an indelible mark on the world of travel. From solo adventurers embarking on epic backpacking journeys to families seeking unforgettable vacation experiences, travelers of all stripes found refuge and inspiration in the welcoming embrace of Travis. With each click, each booking, and each shared moment of wanderlust, Travis reaffirmed its commitment to making the world a more connected, accessible, and awe-inspiring place. And as the sun set on another day in the digital realm, Travis stood tall, a beacon of innovation and imagination in a world brimming with possibility.</p>
+                </div>
             </div>
-            <!-- paragraph -->
-            <div class="col p-container">
-                <h4 class="about-head">TRAVIS</h4>
-                <p>Once upon a time in the vast digital landscape of the internet, there emerged a website named Travis. Born from the visionary dreams of its founder, Travis began its journey as a humble platform, aiming to revolutionize the way people plan and experience their travels. With a mission to provide comprehensive travel solutions and inspire wanderlust, Travis embarked on a remarkable quest to carve its niche in the competitive realm of online travel services.</p>
-
-            </div>
-        </div>
-        <div class="row mx-5">
-            <!-- paragraph -->
-            <p>From its inception, Travis was driven by a relentless commitment to excellence and innovation. Its creators poured their passion and expertise into crafting a user-centric experience, meticulously designing features and functionalities that catered to the diverse needs of modern travelers. With intuitive navigation, personalized recommendations, and seamless booking capabilities, Travis quickly captured the hearts and minds of wanderers worldwide, earning a reputation as the go-to destination for all things travel-related.</p>
-            <p>As Travis flourished, so did its ambitions. Fuelled by a fervent desire to redefine the travel industry, Travis expanded its offerings beyond mere itinerary planning, venturing into the realms of community engagement and experiential storytelling. Through captivating blog posts, immersive travel guides, and vibrant social media channels, Travis fostered a vibrant community of globetrotters, united by their shared passion for exploration and discovery. Whether seeking insider tips from seasoned travelers or sharing their own adventures with like-minded enthusiasts, users found solace and inspiration in the virtual realm of Travis.</p>
-            <p>But Travis's journey was not without its challenges. In a landscape marked by rapid technological advancements and shifting consumer preferences, Travis faced the daunting task of staying ahead of the curve. Undeterred, its team of dedicated innovators embraced change as an opportunity for growth, constantly iterating and evolving to meet the evolving needs of its audience. Through strategic partnerships, cutting-edge developments in artificial intelligence, and a relentless focus on user feedback, Travis remained at the forefront of the digital travel revolution, adapting and thriving in an ever-changing landscape.</p>
-            <p>As the years passed, Travis's influence continued to expand, leaving an indelible mark on the world of travel. From solo adventurers embarking on epic backpacking journeys to families seeking unforgettable vacation experiences, travelers of all stripes found refuge and inspiration in the welcoming embrace of Travis. With each click, each booking, and each shared moment of wanderlust, Travis reaffirmed its commitment to making the world a more connected, accessible, and awe-inspiring place. And as the sun set on another day in the digital realm, Travis stood tall, a beacon of innovation and imagination in a world brimming with possibility.</p>
         </div>
     </div>
-    
+
     <!-- about developers -->
-    <div class="container mb-4">
-        <div class="row mx-5">
-            <!-- paragraph -->
-            <div class="col p-container">
-                <h4 class="about-head">Developers</h4>
-                <p>Lorem ipsum dolor sit amet consectetur adipisicing elit. Quis ea atque, asperiores quisquam, magni nisi dolores nobis saepe accusantium quas, possimus ratione! Omnis qui molestiae quaerat, maiores incidunt minus adipisci ad perspiciatis magni natus tempora earum alias dolor illo quibusdam voluptates enim ut blanditiis suscipit hic laborum at officia quas. Fugit dolores voluptate et reprehenderit corrupti maiores eligendi soluta saepe id sint nulla, numquam sit expedita, cupiditate eius, dicta quis laboriosam inventore. Nisi, accusantium! Quasi pariatur perspiciatis vitae ab commodi nesciunt debitis molestiae fuga eligendi consequuntur doloremque, ducimus officia deserunt harum qui alias dolor mollitia autem vero expedita labore! Necessitatibus dolore vero beatae amet nostrum ducimus neque, eius nihil delectus repellat id, molestiae dolorem veritatis ipsum corrupti saepe magnam reprehenderit aliquam libero enim!</p>
+    <div class="container mb-5">
+        <div class="container">
+            <div class="row mx-5">
+                <div class="col">
+                    <h4 class="about-head">Developers</h4>
+                    <figure class="float-end w-25 m-4 mt-0 mb-2 me-0">
+                        <img src="https://images.unsplash.com/photo-1517486808906-6ca8b3f04846?q=80&w=1949&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="Sarangani Capitol Image" class="rounded about-img img-fluid">
+                        <!-- <figcaption class="figure-caption mt-2 small-font">Sarangani Capitol &copy; Wikipedia</figcaption> -->
+                    </figure>
+                    <p>Once upon a time in the vast digital landscape of the internet, there emerged a website named Travis. Born from the visionary dreams of its founder, Travis began its journey as a humble platform, aiming to revolutionize the way people plan and experience their travels. With a mission to provide comprehensive travel solutions and inspire wanderlust, Travis embarked on a remarkable quest to carve its niche in the competitive realm of online travel services.</p>
+                    <p>From its inception, Travis was driven by a relentless commitment to excellence and innovation. Its creators poured their passion and expertise into crafting a user-centric experience, meticulously designing features and functionalities that catered to the diverse needs of modern travelers. With intuitive navigation, personalized recommendations, and seamless booking capabilities, Travis quickly captured the hearts and minds of wanderers worldwide, earning a reputation as the go-to destination for all things travel-related.</p>
+                    <p>As Travis flourished, so did its ambitions. Fuelled by a fervent desire to redefine the travel industry, Travis expanded its offerings beyond mere itinerary planning, venturing into the realms of community engagement and experiential storytelling. Through captivating blog posts, immersive travel guides, and vibrant social media channels, Travis fostered a vibrant community of globetrotters, united by their shared passion for exploration and discovery. Whether seeking insider tips from seasoned travelers or sharing their own adventures with like-minded enthusiasts, users found solace and inspiration in the virtual realm of Travis.</p>
+                    <p>But Travis's journey was not without its challenges. In a landscape marked by rapid technological advancements and shifting consumer preferences, Travis faced the daunting task of staying ahead of the curve. Undeterred, its team of dedicated innovators embraced change as an opportunity for growth, constantly iterating and evolving to meet the evolving needs of its audience. Through strategic partnerships, cutting-edge developments in artificial intelligence, and a relentless focus on user feedback, Travis remained at the forefront of the digital travel revolution, adapting and thriving in an ever-changing landscape.</p>
+                    <p>As the years passed, Travis's influence continued to expand, leaving an indelible mark on the world of travel. From solo adventurers embarking on epic backpacking journeys to families seeking unforgettable vacation experiences, travelers of all stripes found refuge and inspiration in the welcoming embrace of Travis. With each click, each booking, and each shared moment of wanderlust, Travis reaffirmed its commitment to making the world a more connected, accessible, and awe-inspiring place. And as the sun set on another day in the digital realm, Travis stood tall, a beacon of innovation and imagination in a world brimming with possibility.</p>
+                </div>
             </div>
         </div>
     </div>

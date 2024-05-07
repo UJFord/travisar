@@ -23,7 +23,11 @@ switch ($current_page_path) {
     case "/travisar/visitor/crop.php":
         $current_page_isCrop = true;
         break;
-    case "/travisar/visitor/about.php":
+    case "/travisar/visitor/about/sar.php":
+        $current_page_isAbout = true;
+    case "/travisar/visitor/about/collab.php":
+        $current_page_isAbout = true;
+    case "/travisar/visitor/about/travis.php":
         $current_page_isAbout = true;
         break;
     case "/travisar/visitor/corn.php":
