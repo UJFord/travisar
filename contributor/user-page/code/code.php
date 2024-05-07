@@ -1,6 +1,7 @@
 <?php
 require "../../../functions/connections.php";
-
+// var_dump($_POST);
+// die();
 if (isset($_POST['save'])) {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
@@ -70,8 +71,7 @@ if (isset($_POST['approve'])) {
     }
 }
 
-// var_dump($_POST);
-// die();
+
 // for verify delete
 if (isset($_POST['delete'])) {
     $user_id = $_POST['user_id'];

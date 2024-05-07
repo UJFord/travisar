@@ -31,6 +31,7 @@ require "../../functions/functions.php";
 
     <!-- script for access control -->
     <script src="../../js/access-control.js"></script>
+    <script src="../../js/window.js"></script>
 
     <script>
         // Assume you have the userRole variable defined somewhere in your PHP code
