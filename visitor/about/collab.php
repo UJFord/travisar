@@ -34,13 +34,13 @@
     </script>
 </head>
 
-<body class="" style="background-color: #f5f5f5;">
+<body class="" style="">
     <!-- NAVBAR -->
     <?php require "../../nav/nav.php" ?>
 
     <!-- SARANGANI -->
     <!-- title -->
-    <div class="container-fluid bg-white">
+    <div class="container-fluid bg-light">
         <div class="container">
             <div class="row py-5 mb-4">
                 <h1 class="about-head text-center">COLLABORATORS</h1>
@@ -50,23 +50,186 @@
 
     <!-- collaborators -->
     <div class="container mb-5">
-        <div class="row mx-5">
-            <!-- paragraph -->
-            <div class="col p-container">
-                <h4 class="about-head">Tribal Communities</h4>
-                <p>
-                    Sarangani Province in the Philippines boasts a tapestry of tribal communities, each contributing a unique thread to the region's rich cultural fabric. Among these indigenous groups, the Blaan, Tboli, and Tagakaolo tribes stand out, embodying centuries-old traditions and a deep reverence for their ancestral lands. The Blaan people, renowned for their masterful beadwork and intricate weaving techniques, infuse their crafts with stories of their heritage, while their traditional music resonates with the rhythms of their ancestors. Meanwhile, the Tboli tribe is celebrated for its iconic T'nalak cloth, meticulously handwoven from abaca fibers and adorned with intricate designs that hold spiritual significance. Their craftsmanship extends to brass ornaments and jewelry, each piece reflecting their connection to nature and their cosmology.</p>
+        <div class="row mx-5 d-flex justify-content-center align-items-center">
+
+            <!-- sarangani seal-->
+            <div class="col-8 col-lg-6 mb-5">
+                <div class="row">
+                    <a href="https://www.facebook.com/opagsarangani/" target="_blank" class="col-4 d-flex justify-content-center align-items-center">
+                        <img class="collab-img img-fluid" src="../img/Province_of_Sarangani_-_Official_Seal.png"></img>
+                    </a>
+                    <div class="col d-flex flex-column justify-content-center align-items-bottom">
+                        <h4>Office of Provincial Agriculturist - Sarangani Province</h4>
+                        <h6 class="text-secondary">Partnered Agency</h6>
+                    </div>
+                </div>
             </div>
-            <!-- title -->
-            <div class="col-4 px-4 pb-4">
-                <img class="about-img w-100 rounded-1 d-flex justify-content-center align-items-center" src="https://images.unsplash.com/photo-1563280583-7c6d205d1188?q=80&w=2073&auto=format&fit=crop&ixlib=rb-4.0.3&ixid=M3wxMjA3fDB8MHxwaG90by1wYWdlfHx8fGVufDB8fHx8fA%3D%3D" alt="" srcset="">
+
+            <!-- msu seal-->
+            <div class="col-8 col-lg-6 mb-5">
+                <div class="row">
+                    <a href="https://msugensan.edu.ph/" target="_blank" class="col-4 d-flex justify-content-center align-items-center">
+                        <img class="collab-img img-fluid" src="../img/msu-gensan-logo-85758e.png"></img>
+                    </a>
+                    <div class="col d-flex flex-column justify-content-center align-items-bottom">
+                        <h4>Mindanao State University - General Santos</h4>
+                        <h6 class="text-secondary">Implementing Agency</h6>
+                    </div>
+                </div>
             </div>
         </div>
-        <div class="row mx-5">
-            <!-- paragraph -->
-            <p>Despite the encroachment of modernity, these tribal communities fiercely protect their cultural identity, passing down age-old practices from generation to generation. The Tagakaolo tribe, deeply rooted in agriculture and fishing, maintains a harmonious relationship with the land and sea, drawing sustenance from their surroundings while safeguarding them for future descendants. However, their way of life faces challenges such as land disputes and cultural assimilation, prompting efforts from both government and non-governmental organizations to support their rights and preserve their heritage. In recent years, initiatives aimed at empowering indigenous communities have gained momentum in Sarangani Province. Collaborative efforts between local authorities, NGOs, and tribal leaders seek to promote sustainable development that respects the traditions and aspirations of these marginalized groups. By providing access to education, healthcare, and economic opportunities while safeguarding their ancestral domains, these initiatives aim to foster self-reliance and cultural resilience among the indigenous peoples. Through partnerships that prioritize inclusivity and cultural sensitivity, strides are being made to bridge the gap between modernity and tradition, ensuring that Sarangani's tribal communities continue to thrive in a rapidly changing world.</p>
+    </div>
 
-            <p>As guardians of invaluable cultural heritage and stewards of the environment, the indigenous tribes of Sarangani Province play a vital role in shaping the region's identity and future. Their resilience in the face of adversity serves as a testament to the enduring strength of indigenous cultures worldwide. As Sarangani embraces progress, it does so with a commitment to honoring and preserving the legacy of its tribal communities, recognizing that their wisdom and traditions are indispensable treasures to be cherished and protected for generations to come.</p>
+    <div class="contianer mb-5">
+
+        <div class="row my-2  mx-5 d-flex justify-content-center align-items-center">
+
+            <!-- jits -->
+            <div class="col-4">
+                <div class="row">
+                    <a href="https://msugensan.edu.ph/" target="_blank" class="col-3 d-flex justify-content-center align-items-center">
+                        <img class="collab-img-mini img-fluid" src="../img/jits.jpg"></img>
+                    </a>
+                    <div class="col d-flex flex-column justify-content-center align-items-bottom">
+                        <h5>Junior Information Technology Society</h5>
+                        <!-- <h6 class="small-font text-secondary">y</h6> -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- it physics -->
+            <div class="col-4">
+                <div class="row">
+                    <a href="https://msugensan.edu.ph/" target="_blank" class="col-3 d-flex justify-content-center align-items-center">
+                        <img class="collab-img-mini img-fluid" src="../img/itphysics.jpg"></img>
+                    </a>
+                    <div class="col d-flex flex-column justify-content-center align-items-bottom">
+                        <h5>Information Technology and Physics Department</h5>
+                        <!-- <h6 class="small-font text-secondary">y</h6> -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row my-2 mx-5 d-flex justify-content-center align-items-center">
+
+            <!-- jits -->
+            <div class="col-4">
+                <div class="row">
+                    <a href="https://msugensan.edu.ph/" target="_blank" class="col-3 d-flex justify-content-center align-items-center">
+                        <img class="collab-img-mini img-fluid" src="../img/saad.png"></img>
+                    </a>
+                    <div class="col d-flex flex-column justify-content-center align-items-bottom">
+                        <h5>Special Area for Agricultural Development</h5>
+                        <!-- <h6 class="small-font text-secondary"></h6> -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- alabel -->
+            <div class="col-4">
+                <div class="row">
+                    <a href="https://msugensan.edu.ph/" target="_blank" class="col-3 d-flex justify-content-center align-items-center">
+                        <img class="collab-img-mini img-fluid" src="../img/cropped-alabel-500px-1.png"></img>
+                    </a>
+                    <div class="col d-flex flex-column justify-content-center align-items-bottom">
+                        <h5>Municipality of Alabel</h5>
+                        <!-- <h6 class="small-font text-secondary"></h6> -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row my-2 mx-5 d-flex justify-content-center align-items-center">
+
+            <!-- glan -->
+            <div class="col-4">
+                <div class="row">
+                    <a href="https://msugensan.edu.ph/" target="_blank" class="col-3 d-flex justify-content-center align-items-center">
+                        <img class="collab-img-mini img-fluid" src="../img/glan.png"></img>
+                    </a>
+                    <div class="col d-flex flex-column justify-content-center align-items-bottom">
+                        <h5>Municipality of Glan</h5>
+                        <!-- <h6 class="small-font text-secondary"></h6> -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- kiamba -->
+            <div class="col-4">
+                <div class="row">
+                    <a href="https://msugensan.edu.ph/" target="_blank" class="col-3 d-flex justify-content-center align-items-center">
+                        <img class="collab-img-mini img-fluid" src="../img/kiamba.png"></img>
+                    </a>
+                    <div class="col d-flex flex-column justify-content-center align-items-bottom">
+                        <h5>Municipality of Kiamba</h5>
+                        <!-- <h6 class="small-font text-secondary"></h6> -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row my-2 mx-5 d-flex justify-content-center align-items-center">
+
+            <!-- maasim -->
+            <div class="col-4">
+                <div class="row">
+                    <a href="https://msugensan.edu.ph/" target="_blank" class="col-3 d-flex justify-content-center align-items-center">
+                        <img class="collab-img-mini img-fluid" src="../img/maasim.png"></img>
+                    </a>
+                    <div class="col d-flex flex-column justify-content-center align-items-bottom">
+                        <h5>Municipality of Maasim</h5>
+                        <!-- <h6 class="small-font text-secondary"></h6> -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Maitum -->
+            <div class="col-4">
+                <div class="row">
+                    <a href="https://msugensan.edu.ph/" target="_blank" class="col-3 d-flex justify-content-center align-items-center">
+                        <img class="collab-img-mini img-fluid" src="../img/maitum.png"></img>
+                    </a>
+                    <div class="col d-flex flex-column justify-content-center align-items-bottom">
+                        <h5>Municipality of Maitum</h5>
+                        <!-- <h6 class="small-font text-secondary"></h6> -->
+                    </div>
+                </div>
+            </div>
+
+        </div>
+
+        <div class="row my-2 mx-5 d-flex justify-content-center align-items-center">
+
+            <!-- Malungon -->
+            <div class="col-4">
+                <div class="row">
+                    <a href="https://msugensan.edu.ph/" target="_blank" class="col-3 d-flex justify-content-center align-items-center">
+                        <img class="collab-img-mini img-fluid" src="../img/malungon.png"></img>
+                    </a>
+                    <div class="col d-flex flex-column justify-content-center align-items-bottom">
+                        <h5>Municipality of Malungon</h5>
+                        <!-- <h6 class="small-font text-secondary"></h6> -->
+                    </div>
+                </div>
+            </div>
+
+            <!-- Malapatan -->
+            <div class="col-4">
+                <div class="row">
+                    <a href="https://msugensan.edu.ph/" target="_blank" class="col-3 d-flex justify-content-center align-items-center">
+                        <img class="collab-img-mini img-fluid" src="../img/malapatan.png"></img>
+                    </a>
+                    <div class="col d-flex flex-column justify-content-center align-items-bottom">
+                        <h5>Municipality of Malapatan</h5>
+                        <!-- <h6 class="small-font text-secondary"></h6> -->
+                    </div>
+                </div>
+            </div>
+
         </div>
     </div>
 
