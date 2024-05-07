@@ -159,6 +159,7 @@ require "../../functions/functions.php";
         function applyFilters() {
             let searchCondition = ''; // Initialize searchCondition here
 
+            const selectedStatus= Array.from(document.querySelectorAll('.status-filter:checked')).map(checkbox => checkbox.value);
             const selectedCategories = Array.from(document.querySelectorAll('.crop-filter:checked')).map(checkbox => checkbox.value);
             const selectedMunicipalities = Array.from(document.querySelectorAll('.municipality-filter:checked')).map(checkbox => checkbox.value);
             const selectedVarieties = Array.from(document.querySelectorAll('.variety-filter:checked')).map(checkbox => checkbox.value);
@@ -166,6 +167,11 @@ require "../../functions/functions.php";
             const selectedBrgy = Array.from(document.querySelectorAll('.brgy-filter:checked')).map(checkbox => checkbox.value);
 
             // Build the search condition based on selected categories, municipalities, and the search value
+            if (selectedStatus.length > 0) {
+                searchCondition += `&status=${selectedStatus.join(',')}`;
+                console.log(searchCondition);
+                console.log('Filter applied');
+            }
             if (selectedCategories.length > 0) {
                 searchCondition += `&categories=${selectedCategories.join(',')}`;
                 console.log(searchCondition);

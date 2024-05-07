@@ -23,6 +23,33 @@
             </div>
         </div>
 
+        <!-- all status -->
+        <div class="py-2 px-3 w-100 border-bottom">
+            <div id="status-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#status-filters" role="button" aria-expanded="true" aria-controls="status-filters">
+                <i id="statusChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
+                <a class="fw-bold text-success col text-decoration-none" href="">Status</a>
+            </div>
+
+            <?php
+            $query = "SELECT DISTINCT action FROM status order by action ASC";
+            $query_run = pg_query($conn, $query);
+
+            if ($query_run) {
+                while ($row = pg_fetch_array($query_run)) {
+            ?>
+                    <!-- status filters -->
+                    <div id="status-filters" class="collapse w-100 mb-2">
+                        <input class="form-check-input status-filter" type="checkbox" id="status<?= $row['action']; ?>" value="<?= $row['action']; ?>">
+                        <label for="status<?= $row['action']; ?>"><?= $row['action']; ?></label>
+                    </div>
+            <?php
+                }
+            } else {
+                echo "No status found";
+            }
+            ?>
+        </div>
+
         <!-- all crops -->
         <div class="py-2 px-3 w-100 border-bottom">
             <div id="crop-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#crop-filters" role="button" aria-expanded="true" aria-controls="crop-filters">
@@ -265,12 +292,13 @@
     // Function to show or hide the clear button based on selected filters and search input
     function toggleClearButtonVisibility() {
         let clearButton = document.getElementById('clearButton');
+        let statusCheckboxes = document.querySelectorAll('.status-filter:checked');
         let selectedCategoryCheckboxes = document.querySelectorAll('.crop-filter:checked');
         let selectedMunicipalityCheckboxes = document.querySelectorAll('.municipality-filter:checked');
         let selectedTerrainCheckboxes = document.querySelectorAll('.terrain-filter:checked');
         let searchInput = document.getElementById('searchInput').value.trim();
 
-        if (selectedCategoryCheckboxes.length > 0 || selectedMunicipalityCheckboxes.length > 0 || selectedTerrainCheckboxes.length > 0 || searchInput !== '') {
+        if (statusCheckboxes.length > 0 || selectedCategoryCheckboxes.length > 0 || selectedMunicipalityCheckboxes.length > 0 || selectedTerrainCheckboxes.length > 0 || searchInput !== '') {
             // Show the clear button
             clearButton.classList.remove('hidden');
         } else {
@@ -291,12 +319,14 @@
     toggleClearButtonVisibility();
 
     // chevron toggler
+    let statusToggler = document.querySelector('#status-filter-dropdown-toggler');
     let cropToggler = document.querySelector('#crop-filter-dropdown-toggler');
     let varietyToggler = document.querySelector('#variety-filter-dropdown-toggler');
     let terrainToggler = document.querySelector('#terrain-filter-dropdown-toggler');
     let munToggler = document.querySelector('#mun-filter-dropdown-toggler');
     let brgyToggler = document.querySelector('#brgy-filter-dropdown-toggler');
 
+    let statusChev = document.querySelector('#statusChev');
     let cropChev = document.querySelector('#cropChev');
     let varietyChev = document.querySelector('#varietyChev');
     let terrainChev = document.querySelector('#terrainChev');
@@ -307,6 +337,7 @@
         element.classList.toggle('rotate-chevron');
     }
 
+    statusToggler.onclick = () => toggleChevron(statusChev);
     cropToggler.onclick = () => toggleChevron(cropChev);
     varietyToggler.onclick = () => toggleChevron(varietyChev);
     terrainToggler.onclick = () => toggleChevron(terrainChev);

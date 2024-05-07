@@ -43,6 +43,7 @@
         $search_condition = $search ? "AND crop_variety ILIKE '%$search%'" : '';
 
         // Get the categories and municipalities filter from the URL
+        $status_filter = !empty($_GET['status']) ? "AND action IN ('" . implode("','", explode(',', $_GET['status'])) . "')" : '';
         $category_filter = !empty($_GET['categories']) ? "AND category_id IN (" . implode(',', explode(',', $_GET['categories'])) . ")" : '';
         $municipality_filter = !empty($_GET['municipalities']) ? "AND municipality.municipality_id IN (" . implode(',', explode(',', $_GET['municipalities'])) . ")" : '';
         $variety_filter = !empty($_GET['varieties']) ? "AND category_variety_id IN (" . implode(',', explode(',', $_GET['varieties'])) . ")" : '';
@@ -91,7 +92,7 @@
                 LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
                 LEFT JOIN status ON status.status_id = crop.status_id
                 LEFT JOIN municipality on municipality.municipality_id = crop_location.municipality_id
-                WHERE 1=1 $search_condition $category_filter $municipality_filter $variety_filter $terrain_filter $brgy_filter
+                WHERE 1=1 $search_condition $status_filter $category_filter $municipality_filter $variety_filter $terrain_filter $brgy_filter
                 ORDER BY crop.crop_id DESC 
                 LIMIT $items_per_page OFFSET $offset";
                 $query_run = pg_query($conn, $query);
