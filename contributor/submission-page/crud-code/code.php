@@ -3014,7 +3014,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
         $valueCrops = array(
             $crop_variety, $crop_description, $newUniqueCode,
             $meaning_of_name, $category_id, $user_id, $category_variety_id, $terrain_id, $utilization_cultural_id, $finalimgSeed,
-            $status_id, $finalimgVeg, $finalimgRepro);
+            $status_id, $finalimgVeg, $finalimgRepro
+        );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
         if ($query_run_Crop) {
@@ -3055,6 +3056,63 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
             $_SESSION['message'] = "No category selected";
             header("location: ../submission.php");
             exit();
+        }
+
+        // Extract old reference IDs from $_POST['referencesID']
+        $old_reference_ids = handleEmpty($_POST['referencesID']);
+
+        if (!$old_reference_id === '') {
+            // Iterate through each old reference ID
+            foreach ($old_reference_ids as $old_reference_id) {
+                // Trim any whitespace from the reference ID
+                $old_reference_id = trim($old_reference_id);
+
+                // Check if the old reference ID exists in the HTML form
+                if (!isset($_POST["old_reference_id_$old_reference_id"])) {
+                    // If it doesn't exist, delete it from the database
+                    $query_delete = "DELETE FROM \"references\" WHERE references_id = $old_reference_id";
+                    $query_run_delete = pg_query($conn, $query_delete);
+
+                    if ($query_run_delete) {
+                        // Check if any rows were affected
+                        if (pg_affected_rows($query_run_delete) <= 0) {
+                            echo "Warning: No rows deleted for old reference ID $old_reference_id";
+                        }
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+                }
+            }
+        }
+
+        //references
+        // Loop through the $_POST data to extract references
+        $references = [];
+        foreach ($_POST as $key => $value) {
+            if (strpos($key, 'references_') !== false) {
+                echo $references[] = $value;
+            }
+        }
+
+        // Save references into references Table
+        foreach ($references as $reference) {
+            $query_refer = "INSERT into \"references\" (crop_id, link) VALUES ($1, $2) RETURNING references_id";
+            $query_run_refer = pg_query_params($conn, $query_refer, array($crop_id, $reference));
+
+            if ($query_run_refer) {
+                // Check if any rows were affected
+                if (pg_affected_rows($query_run_refer) > 0) {
+                    $row_refer = pg_fetch_row($query_run_refer);
+                    $references_id = $row_refer[0];
+                } else {
+                    echo "Error: No rows affected";
+                    exit(0);
+                }
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
         }
 
         // Check the category name and perform actions accordingly
@@ -3967,6 +4025,63 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
             $_SESSION['message'] = "No category selected";
             header("location: ../submission.php");
             exit();
+        }
+
+        // Extract old reference IDs from $_POST['referencesID']
+        $old_reference_ids = handleEmpty($_POST['referencesID']);
+
+        if (!$old_reference_id === '') {
+            // Iterate through each old reference ID
+            foreach ($old_reference_ids as $old_reference_id) {
+                // Trim any whitespace from the reference ID
+                $old_reference_id = trim($old_reference_id);
+
+                // Check if the old reference ID exists in the HTML form
+                if (!isset($_POST["old_reference_id_$old_reference_id"])) {
+                    // If it doesn't exist, delete it from the database
+                    $query_delete = "DELETE FROM \"references\" WHERE references_id = $old_reference_id";
+                    $query_run_delete = pg_query($conn, $query_delete);
+
+                    if ($query_run_delete) {
+                        // Check if any rows were affected
+                        if (pg_affected_rows($query_run_delete) <= 0) {
+                            echo "Warning: No rows deleted for old reference ID $old_reference_id";
+                        }
+                    } else {
+                        echo "Error: " . pg_last_error($conn);
+                        exit(0);
+                    }
+                }
+            }
+        }
+
+        //references
+        // Loop through the $_POST data to extract references
+        $references = [];
+        foreach ($_POST as $key => $value) {
+            if (strpos($key, 'references_') !== false) {
+                echo $references[] = $value;
+            }
+        }
+
+        // Save references into references Table
+        foreach ($references as $reference) {
+            $query_refer = "INSERT into \"references\" (crop_id, link) VALUES ($1, $2) RETURNING references_id";
+            $query_run_refer = pg_query_params($conn, $query_refer, array($crop_id, $reference));
+
+            if ($query_run_refer) {
+                // Check if any rows were affected
+                if (pg_affected_rows($query_run_refer) > 0) {
+                    $row_refer = pg_fetch_row($query_run_refer);
+                    $references_id = $row_refer[0];
+                } else {
+                    echo "Error: No rows affected";
+                    exit(0);
+                }
+            } else {
+                echo "Error: " . pg_last_error($conn);
+                exit(0);
+            }
         }
 
         // Check the category name and perform actions accordingly

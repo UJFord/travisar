@@ -1,7 +1,7 @@
 <?php
 session_start();
 require "../../../../functions/connections.php";
-// var_dump($_POST);
+//var_dump($_POST);
 // die();
 if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator')) {
     $abiotic_names = [];
@@ -69,18 +69,41 @@ if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
     }
 }
 
+if (isset($_POST['edit']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator')) {
+    $abiotic_resistance_id = $_POST['abiotic_idEdit'];
+    $abiotic_name = $_POST['abiotic_nameEdit'];
+    $query = "UPDATE abiotic_resistance set abiotic_name = $1 where abiotic_resistance_id = $2";
+    $query_run = pg_query_params($conn, $query, array($abiotic_name, $abiotic_resistance_id));
 
-if (isset($_POST['delete']) && $_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator') {
+    if ($query_run !== false) {
+        $affected_rows = pg_affected_rows($query_run);
+        if ($affected_rows > 0) {
+            $_SESSION['message'] = "Abiotic Resistance updated successfully";
+            pg_query($conn, "COMMIT");
+            //header("location: ../../abiotic-resistance.php");
+            exit; // Ensure that the script stops executing after the redirect header
+        } else {
+            echo "Error: Location ID not found";
+            exit(0);
+        }
+    } else {
+        echo "Error: " . pg_last_error($conn);
+        exit(0);
+    }
+}
+
+if (isset($_POST['delete']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator')) {
+    echo 'fe';
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {
-        $abiotic_resistance_id = $_POST['abiotic_resistance_id'];
+        echo $abiotic_resistance_id = $_POST['abiotic_resistance_id'];
 
         $query = "DELETE FROM abiotic_resistance WHERE abiotic_resistance_id = $1";
         $query_run = pg_query_params($conn, $query, array($abiotic_resistance_id));
 
         if ($query_run) {
-            $_SESSION['message'] = "Abiotic Deleted Successfully";
+            echo $_SESSION['message'] = "Abiotic Deleted Successfully";
             pg_query($conn, "COMMIT");
             //header("location: ../../abiotic-resistance.php");
             exit();
@@ -99,28 +122,6 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Admin' || $_SESSION['rank']
         echo "Error: " . $e->getMessage();
         // Display the error message
         echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
-        exit(0);
-    }
-}
-
-if (isset($_POST['edit']) && $_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator') {
-    $abiotic_resistance_id = $_POST['abiotic_idEdit'];
-    $abiotic_name = $_POST['abiotic_nameEdit'];
-    $query = "UPDATE abiotic_resistance set abiotic_name = $1 where abiotic_resistance_id = $2";
-    $query_run = pg_query_params($conn, $query, array($abiotic_name, $abiotic_resistance_id));
-
-    if ($query_run !== false) {
-        $affected_rows = pg_affected_rows($query_run);
-        if ($affected_rows > 0) {
-            $_SESSION['message'] = "Abiotic Resistance updated successfully";
-            //header("location: ../../abiotic-resistance.php");
-            exit; // Ensure that the script stops executing after the redirect header
-        } else {
-            echo "Error: Location ID not found";
-            exit(0);
-        }
-    } else {
-        echo "Error: " . pg_last_error($conn);
         exit(0);
     }
 }

@@ -127,7 +127,6 @@
         aspect-ratio: 1/1;
     }
 </style>
-<!-- leaflet -->
 <!-- GENERAL TAB -->
 <div class="fade show active tab-pane" id="gen-tab-pane" role="tabpanel" aria-labelledby="gen-tab" tabindex="0">
     <!-- Category and Crop Field -->
@@ -167,7 +166,7 @@
         <div class="col" id="category-Variety">
             <label for="categoryVariety" class="form-label small-font">Variety<span class="text-danger ms-1">*</span></label>
             <select name="category_variety_id" id="categoryVariety" class="form-select color-default-child">
-            <option value="" selected disabled hidden>Select an option.</option>
+                <option value="" selected disabled hidden>Select an option.</option>
             </select>
             <div id="categoryVariety-error" class="invalid-feedback"></div>
         </div>
@@ -193,7 +192,7 @@
     <div class="row mb-2">
         <!-- terrain -->
         <div class="col-6">
-            <label for="terrain" class="form-label small-font">Terrain<span style="color: red;">*</span></label>
+            <label for="terrain" class="form-label small-font">Terrain<span class="text-danger ms-1">*</span></label>
             <select name="terrain_id" id="terrain" class="form-select">
                 <option value="" disabled selected hidden>Select One</option>
                 <?php
@@ -280,7 +279,7 @@
         <!-- form -->
         <div class="col-4 location-Data">
             <!-- Province dropdown -->
-            <label for="Province" class="form-label small-font">Province <span style="color: red;">*</span></label>
+            <label for="Province" class="form-label small-font">Province <span class="text-danger ms-1">*</span></label>
             <select id="Province" name="province" class="form-select mb-2" readonly>
                 <?php
                 // Fetch distinct province names from the location table
@@ -304,14 +303,14 @@
             <div id="province-error" class="invalid-feedback"></div>
 
             <!-- Municipality dropdown -->
-            <label for="Municipality" class="form-label small-font">Municipality <span style="color: red;">*</span></label>
+            <label for="Municipality" class="form-label small-font">Municipality <span class="text-danger ms-1">*</span></label>
             <select id="Municipality" name="municipality" class="form-select mb-2">
                 <!-- option is automatically shown through js depending on the province -->
             </select>
             <div id="municipality-error" class="invalid-feedback"></div>
 
             <!-- barangay -->
-            <label for="Barangay" class="form-label small-font mb-0">Barangay <span style="color: red;">*</span></label>
+            <label for="Barangay" class="form-label small-font mb-0">Barangay <span class="text-danger ms-1">*</span></label>
             <select id="Barangay" name="barangay" class="form-select mb-2">
                 <option value="" disabled selected hidden>Select One</option>
                 <!-- option is automatically shown through js depending on the municipality selected -->
@@ -593,6 +592,33 @@
         if (!regex.test(event.target.value)) {
             event.target.value = event.target.value.replace(/[^0-9.,\s-]/g, '');
         }
+    });
+</script>
+
+<script>
+    // Function to add blur event listeners to input fields with asterisks
+    function addBlurEventListeners() {
+        // Get all input fields with asterisks
+        var inputsWithAsterisks = document.querySelectorAll('.form-label .text-danger.ms-1');
+
+        // Add blur event listener to each input field
+        inputsWithAsterisks.forEach(function(input) {
+            var label = input.closest('.form-label');
+            var inputField = label.nextElementSibling;
+
+            inputField.addEventListener('blur', function() {
+                if (inputField.value.trim() === "") {
+                    inputField.classList.add('is-invalid');
+                } else {
+                    inputField.classList.remove('is-invalid');
+                }
+            });
+        });
+    }
+
+    // Call the function to add blur event listeners when the document is loaded
+    document.addEventListener('DOMContentLoaded', function() {
+        addBlurEventListeners();
     });
 </script>
 

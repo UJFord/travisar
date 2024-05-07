@@ -64,13 +64,17 @@
                             <!-- more optional info -->
                             <?php require "tabs/more.php" ?>
                             <!-- agronomic traits -->
-                            <?php require "tabs/agro.php" ?>
+                            <?php require "tabs/agro.php"
+                            ?>
                             <!-- sensory traits -->
-                            <?php require "tabs/sensory.php" ?>
+                            <?php require "tabs/sensory.php"
+                            ?>
                             <!-- cultural -->
-                            <?php require "tabs/cultural.php" ?>
+                            <?php require "tabs/cultural.php"
+                            ?>
                             <!-- references -->
-                            <?php require "tabs/references.php" ?>
+                            <?php require "tabs/references.php"
+                            ?>
                             <!-- confirm -->
                             <?php require "tabs/confirm.php" ?>
                         </div>
@@ -345,7 +349,7 @@
 
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            if (file.size > 5 * 1024 * 1024) {
+            if (file.size > 3 * 1024 * 1024) {
                 inputElementSeed.classList.add('is-invalid');
                 document.getElementById('imageInputSeed-error').innerText = "Image must not exceed 5MB.";
                 isValid = false;
@@ -370,7 +374,7 @@
 
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            if (file.size > 5 * 1024 * 1024) {
+            if (file.size > 3 * 1024 * 1024) {
                 inputElementVeg.classList.add('is-invalid');
                 document.getElementById('imageInputVegetative-error').innerText = "Image must not exceed 5MB.";
                 isValid = false;
@@ -395,7 +399,7 @@
 
         for (var i = 0; i < files.length; i++) {
             var file = files[i];
-            if (file.size > 5 * 1024 * 1024) {
+            if (file.size > 3 * 1024 * 1024) {
                 inputElementRepro.classList.add('is-invalid');
                 document.getElementById('imageInputReproductive-error').innerText = "Image must not exceed 5MB.";
                 isValid = false;
@@ -521,16 +525,8 @@
     }
 </script>
 
-<!-- JavaScript for the select for category variety ang show the morph, sensory and agro tab -->
+<!-- JavaScript for the select for category variety and show the morph, sensory, and agro tab -->
 <script>
-    // JavaScript for the select for category variety
-    // Function to fetch and display initial category variety based on the initial category
-    // document.addEventListener('DOMContentLoaded', function() {
-    //     // Fetch varieties for the initial selected category
-    //     var initialCategoryId = document.getElementById('Category').value;
-    //     fetchVarieties(initialCategoryId);
-    // });
-
     // Function to fetch and display initial morphological characteristics based on the initial category
     document.addEventListener('DOMContentLoaded', function() {
         // Fetch the initial category value
@@ -573,7 +569,7 @@
             categoryVarietySelectContainer.style.display = 'none';
         } else {
             categoryVarietySelectContainer.style.display = 'block';
-            fetchVarieties(categoryId);
+            fetchVarieties(categoryId); // This line is removed
         }
 
         // Call the function to display the corresponding morphological characteristics

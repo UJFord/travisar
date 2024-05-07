@@ -91,7 +91,7 @@ require "../../functions/functions.php";
                 }
 
                 #addProvince {
-                    margin-right: 18vh;
+                    margin-right: 9vh;
                 }
             </style>
             <?php require "modals/municipality-filter.php" ?>
@@ -310,7 +310,7 @@ require "../../functions/functions.php";
 
                             // setting the the value of the id of location and barangay depending on the tab
                             $('#municipality_id-Edit').val(value['municipality_id']);
-                            $('#Coordinates').val(value['municipality_coordinates']);
+                            $('#CoordinatesEdit').val(value['municipality_coordinates']);
 
                         });
                     },

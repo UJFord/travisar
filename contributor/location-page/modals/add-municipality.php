@@ -12,7 +12,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div id="error-messages"></div>
             <!-- body -->
             <form id="form-panel" name="Form" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
@@ -54,11 +53,13 @@
                                 <div class="col">
                                     <label for="municipality-Name" class="form-label small-font">Municipality Name<span style="color: red;">*</span></label>
                                     <input type="text" name="municipality_name_1" id="municipality-Name" class="form-control">
+                                    <div id="error-messages-name" class="error-message" style="color: red;"></div>
                                 </div>
                                 <!-- Coordinates -->
                                 <div class="col">
                                     <label for="coordInput" class="form-label small-font">Coordinates<span style="color: red;">*</span></label>
                                     <input type="text" id="coordInput" name="coordinates_1" class="form-control">
+                                    <div id="error-messages-coord" class="error-message" style="color: red;"></div>
                                 </div>
                                 <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Separate latitude and longitude with a comma (<span class="fw-bold">latitude , longitude - 5.7600, 125.3466</span>)</div>
 
@@ -165,57 +166,89 @@
             checkMunicipalityExists(event);
         }
     });
+    document.addEventListener('DOMContentLoaded', function() {
+        // Select all municipality name inputs
+        var municipalityNameInputs = document.querySelectorAll('input[name^="municipality_name_"]');
 
-    // Function to validate input
-    function validateForm() {
-        var errors = [];
-        // Get the input elements and their values
-        var provinceInput = document.getElementById('province-Name');
-        var municipalityInput = document.getElementById('municipality-Name');
-        var coordinateInput = document.getElementById('coordInput');
-        var provinceName = provinceInput.value.trim(); // Retrieve the value of province input and trim whitespace
-        var municipalityName = municipalityInput.value.trim(); // Retrieve the value of municipality input and trim whitespace
-        var coordinateName = coordinateInput.value.trim(); // Retrieve the value of coordinate input and trim whitespace
+        // Add blur event listener to each municipality name input
+        municipalityNameInputs.forEach(function(input) {
+            input.addEventListener('blur', function(event) {
+                validateMunicipalityName(event.target);
+            });
+        });
 
-        // Check if the required fields are not empty
-        if (provinceName === "") {
-            errors.push("<div class='error text-center' style='color:red;'>Please fill up Province Name.</div>");
-            provinceInput.classList.add('is-invalid'); // Add is-invalid class
+        // Select all coordinates inputs
+        var coordinatesInputs = document.querySelectorAll('input[name^="coordinates_"]');
+
+        // Add blur event listener to each coordinates input
+        coordinatesInputs.forEach(function(input) {
+            input.addEventListener('blur', function(event) {
+                validateCoordinates(event.target);
+            });
+        });
+    });
+
+    // Function to validate municipality name input
+    function validateMunicipalityName(input) {
+        var municipalityName = input.value.trim();
+        var errorMessage = input.parentElement.querySelector('.error-message');
+        if (municipalityName === "") {
+            errorMessage.textContent = "Please fill up municipality name.";
+            input.classList.add('is-invalid');
         } else {
-            provinceInput.classList.remove('is-invalid'); // Remove is-invalid class
-        }
-
-        // If there's already an error, don't check further
-        if (errors.length === 0) {
-            // Check if the required fields are not empty
-            if (municipalityName === "") {
-                errors.push("<div class='error text-center' style='color:red;'>Please fill up Municipality Name.</div>");
-                municipalityInput.classList.add('is-invalid'); // Add is-invalid class
-            } else {
-                municipalityInput.classList.remove('is-invalid'); // Remove is-invalid class
-            }
-
-            // If there's already an error, don't check further
-            if (errors.length === 0) {
-                // Check if the required fields are not empty
-                if (coordinateName === "") {
-                    errors.push("<div class='error text-center' style='color:red;'>Please fill up Coordinates.</div>");
-                    coordinateInput.classList.add('is-invalid'); // Add is-invalid class
-                } else {
-                    coordinateInput.classList.remove('is-invalid'); // Remove is-invalid class
-                }
-            }
-        }
-
-        // Display the first error encountered
-        if (errors.length > 0) {
-            document.getElementById("error-messages").innerHTML = errors[0]; // Display only the first error message
-            return false;
-        } else {
-            document.getElementById("error-messages").innerHTML = ""; // Clear any previous error messages
-            return true;
+            errorMessage.textContent = "";
+            input.classList.remove('is-invalid');
         }
     }
+
+    // Function to validate coordinates input
+    function validateCoordinates(input) {
+        var coordinateName = input.value.trim();
+        var errorMessage = input.parentElement.querySelector('.error-message');
+        if (coordinateName === "") {
+            errorMessage.textContent = "Please fill up coordinates.";
+            input.classList.add('is-invalid');
+        } else {
+            errorMessage.textContent = "";
+            input.classList.remove('is-invalid');
+        }
+    }
+
+    function validateForm() {
+        var errors = [];
+        var municipalityNameInputs = document.querySelectorAll('input[name^="municipality_name_"]');
+        var coordinatesInputs = document.querySelectorAll('input[name^="coordinates_"]');
+
+        municipalityNameInputs.forEach(function(input) {
+            var municipalityName = input.value.trim();
+            var errorMessage = input.parentElement.querySelector('.error-message');
+            if (municipalityName === "") {
+                errorMessage.textContent = "Please fill up municipality name.";
+                input.classList.add('is-invalid');
+                errors.push('municipality');
+            } else {
+                errorMessage.textContent = "";
+                input.classList.remove('is-invalid');
+            }
+        });
+
+        coordinatesInputs.forEach(function(input) {
+            var coordinateName = input.value.trim();
+            var errorMessage = input.parentElement.querySelector('.error-message');
+            if (coordinateName === "") {
+                errorMessage.textContent = "Please fill up coordinates.";
+                input.classList.add('is-invalid');
+                errors.push('coordinates');
+            } else {
+                errorMessage.textContent = "";
+                input.classList.remove('is-invalid');
+            }
+        });
+
+        // Return false if any field is empty
+        return errors.length === 0;
+    }
+
 
     // Function to check if municipality name already exists
     function checkMunicipalityExists(event) {
@@ -234,7 +267,7 @@
                 success: function(data) {
                     if (data.exists) {
                         // Municipality name already exists, show error message
-                        document.getElementById("error-messages").innerHTML += "<div class='error text-center' style='color:red;'>Municipality name, " + municipalityName + " already exists for Row " + (index + 1) + "</div>";
+                        document.getElementById("error-messages-name").innerHTML += "<div class='error text-center' style='color:red;'>Municipality name, " + municipalityName + " already exists for Row " + (index + 1) + "</div>";
                         hasError = true; // Set flag to true if error occurs
                         event.preventDefault();
                     } else {

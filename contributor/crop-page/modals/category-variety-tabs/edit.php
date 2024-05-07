@@ -12,9 +12,6 @@
                 <button type="button" id="close-modal-btn-edit" class="btn-close" aria-label="Close"></button>
             </div>
 
-            <div id="error-messages-Edit">
-
-            </div>
             <!-- body -->
             <form id="form-panel-Edit" name="Form" action="modals/crud-code/category-variety-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
@@ -54,6 +51,7 @@
                                 <div class="col">
                                     <label for="variety-NameEdit" class="form-label small-font">Variety Name:<span style="color: red;">*</span></label>
                                     <input type="text" id="variety-NameEdit" name="variety_nameEdit" class="form-control">
+                                    <div id="error-messages-Edit"> </div>
                                 </div>
                             </div>
                         </div>
@@ -211,11 +209,11 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
-                    console.log(data);
+                    //console.log(data);
                     // Reset the form
-                    //form.reset();
+                    form.reset();
                     // Reload the page or do other actions if needed
-                    //location.reload();
+                    location.reload();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("Form submission error:", textStatus, errorThrown);
@@ -224,6 +222,28 @@
             });
         }
     }
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the "Variety Name" input field
+        var varietyNameInput = document.getElementById("variety-NameEdit");
+
+        // Add a blur event listener to the "Variety Name" input field
+        varietyNameInput.addEventListener("blur", function() {
+            // Get the value of the "Variety Name" input field
+            var varietyName = varietyNameInput.value.trim();
+
+            // Check if the "Variety Name" input field is empty
+            if (varietyName === "") {
+                document.getElementById("error-messages-Edit").innerHTML = "<div class='error text-center' style='color:red;'>Please input variety name.</div>";
+                // If empty, add the 'is-invalid' class to indicate an error
+                varietyNameInput.classList.add("is-invalid");
+            } else {
+                // If not empty, remove the 'is-invalid' class
+                varietyNameInput.classList.remove("is-invalid");
+                document.getElementById("error-messages-Edit").innerHTML = "";
+            }
+        });
+    });
 </script>
 
 <!-- SCRIPT for closing the modal -->

@@ -12,9 +12,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div id="error-messages">
-
-            </div>
             <!-- body -->
             <form id="form-panel-add" name="Form" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
@@ -28,6 +25,7 @@
                                         <Caption></Caption>Terrain Name<span style="color: red;">*</span>
                                     </label>
                                     <input type="text" id="terrain-Name" name="terrain_name" class="form-control">
+                                    <div id="error-messages"> </div>
                                 </div>
                             </div>
                         </div>
@@ -62,6 +60,28 @@
             }
             // Prevent the default form submission behavior
             event.preventDefault();
+        });
+    });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the "Terrain Name" input field
+        var terrainNameInput = document.getElementById("terrain-Name");
+
+        // Add a blur event listener to the "Terrain Name" input field
+        terrainNameInput.addEventListener("blur", function() {
+            // Get the value of the "Terrain Name" input field
+            var terrainName = terrainNameInput.value.trim();
+
+            // Check if the "Terrain Name" input field is empty
+            if (terrainName === "") {
+                // If empty, add the 'is-invalid' class to indicate an error
+                document.getElementById("error-messages").innerHTML = "<div class='error text-center' style='color:red;'>Please fill up required fields.</div>";
+                terrainNameInput.classList.add("is-invalid");
+            } else {
+                // If not empty, remove the 'is-invalid' class
+                terrainNameInput.classList.remove("is-invalid");
+                document.getElementById("error-messages").innerHTML = "";
+            }
         });
     });
 
@@ -105,6 +125,7 @@
             success: function(data) {
                 if (data.exists) {
                     // Terrain name already exists, show error message
+                    document.getElementById('terrain-Name').classList.add('is-invalid'); // Add 'is-invalid' class to terrain name field
                     document.getElementById("error-messages").innerHTML = "<div class='error text-center' style='color:red;'>Terrain name already exists.</div>";
                 } else {
                     // Terrain name doesn't exist, submit the form

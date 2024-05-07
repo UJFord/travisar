@@ -12,9 +12,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div id="error-messages">
-
-            </div>
             <!-- body -->
             <form id="form-panel-add" name="Form" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
@@ -53,10 +50,11 @@
                                 </div>
                                 <!-- category variety name -->
                                 <div class="col">
-                                    <label for="category-Name" class="form-label small-font">
+                                    <label for="category_variety_name" class="form-label small-font">
                                         <Caption></Caption>Variety Name<span style="color: red;">*</span>
                                     </label>
                                     <input type="text" id="category_variety_name" name="category_variety_name" class="form-control">
+                                    <div id="error-messages"></div>
                                 </div>
                             </div>
                         </div>
@@ -93,6 +91,29 @@
             }
         });
     });
+
+    document.addEventListener("DOMContentLoaded", function() {
+        // Get the "Variety Name" input field
+        var varietyNameInput = document.getElementById("category_variety_name");
+
+        // Add a blur event listener to the "Variety Name" input field
+        varietyNameInput.addEventListener("blur", function() {
+            // Get the value of the "Variety Name" input field
+            var varietyName = varietyNameInput.value.trim();
+
+            // Check if the "Variety Name" input field is empty
+            if (varietyName === "") {
+                // If empty, add the 'is-invalid' class to indicate an error
+                document.getElementById("error-messages").innerHTML = "<div class='error text-center' style='color:red;'>Please fill up required fields.</div>";
+                varietyNameInput.classList.add("is-invalid");
+            } else {
+                // If not empty, remove the 'is-invalid' class
+                document.getElementById("error-messages").innerHTML = "";
+                varietyNameInput.classList.remove("is-invalid");
+            }
+        });
+    });
+
 
     // Function to validate input
     function validateForm() {
@@ -155,6 +176,7 @@
             success: function(data) {
                 if (data.exists) {
                     // Variety name already exists, show error message
+                    document.getElementById('category_variety_name').classList.add('is-invalid'); // Add 'is-invalid' class to select field
                     document.getElementById("error-messages").innerHTML = "<div class='error text-center' style='color:red;'>Variety name already exists.</div>";
                 } else {
                     // Variety name doesn't exist, submit the form

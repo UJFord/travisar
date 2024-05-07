@@ -12,7 +12,6 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 
-            <div id="error-messages"></div>
             <!-- body -->
             <form id="form-panel" name="Form" action="modals/crud-code/pest-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body" id="modal-body">
@@ -27,6 +26,7 @@
                                 <div class="col-5">
                                     <label for="pest-Name_1" class="form-label small-font">Pest Name<span style="color: red;">*</span></label>
                                     <input type="text" name="pest_name_1" id="pest-Name_1" class="form-control">
+                                    <div id="error-messages_1"></div>
                                 </div>
                             </div>
                         </div>
@@ -46,13 +46,17 @@
     </div>
 </div>
 
-<!-- for submission -->
+<!-- script for adding new row, submitting the form, validating data, check for existing, and blur event -->
 <script>
-    // for adding and removing rows dynamically
-    // i set the names for each input field to be unique name attribute 
-    // (province_name_1, province_name_2 and so on)
-    // for when the form is submitted hiwalay ang pag save
     document.addEventListener('DOMContentLoaded', function() {
+        // Add blur event listener to each pest name input field
+        var pestNameInputs = document.querySelectorAll('input[name^="pest_name_"]');
+        pestNameInputs.forEach(function(input) {
+            input.addEventListener('blur', function(event) {
+                validatePestName(event.target);
+            });
+        });
+
         const addRowButton = document.getElementById('add-row');
         const locationData = document.getElementById('locationData');
         let rowCounter = 1;
@@ -65,13 +69,19 @@
                 <div class="col-5">
                     <label for="pest-Name_${rowCounter}" class="form-label small-font">Pest Name<span style="color: red;">*</span></label>
                     <input id="pest-Name_${rowCounter}" type="text" name="pest_name_${rowCounter}" class="form-control">
-
+                    <div id="error-messages_${rowCounter}"></div>
                 </div>
                 <div class="col-2" style="padding-top: 25px;">
                     <button type="button" class="btn btn-secondary remove-row" style="background-color: #dc3545;">Remove</button>
                 </div>
             `;
             locationData.appendChild(newRow);
+
+            // Add blur event listener to the newly added pest name input field
+            const newPestNameInput = newRow.querySelector(`#pest-Name_${rowCounter}`);
+            newPestNameInput.addEventListener('blur', function(event) {
+                validatePestName(event.target);
+            });
         });
 
         locationData.addEventListener('click', function(e) {
@@ -98,26 +108,43 @@
 
     // Function to validate input
     function validateForm() {
-        var errors = [];
+        var isValid = true;
         var pestNameInputs = document.querySelectorAll('input[name^="pest_name_"]');
 
         pestNameInputs.forEach(function(input) {
-            var pestName = input.value.trim();
-            if (pestName === "") {
-                errors.push("<div class='error text-center' style='color:red;'>Please fill up required fields.</div>");
-                input.classList.add('is-invalid');
-            } else {
-                input.classList.remove('is-invalid');
-            }
+            isValid = validatePestName(input) && isValid;
         });
 
-        if (errors.length > 0) {
-            document.getElementById("error-messages").innerHTML = errors.join("<br>");
-            return false;
+        return isValid;
+    }
+
+    // Function to validate pest name
+    function validatePestName(input) {
+        var pestName = input.value.trim();
+        var errorMessageId = "error-messages_" + input.id.split('_')[1];
+        var errorMessageContainer = document.getElementById(errorMessageId);
+        var isValid = true;
+
+        if (pestName === "") {
+            isValid = false;
+            var errorMessage = "<div class='error text-center' style='color:red;'>Please fill up required fields.</div>";
+            if (errorMessageContainer) {
+                errorMessageContainer.innerHTML = errorMessage;
+            } else {
+                var newErrorMessageContainer = document.createElement('div');
+                newErrorMessageContainer.id = errorMessageId;
+                newErrorMessageContainer.innerHTML = errorMessage;
+                input.parentNode.appendChild(newErrorMessageContainer);
+            }
+            input.classList.add('is-invalid');
         } else {
-            document.getElementById("error-messages").innerHTML = "";
-            return true;
+            input.classList.remove('is-invalid');
+            if (errorMessageContainer) {
+                errorMessageContainer.innerHTML = "";
+            }
         }
+
+        return isValid;
     }
 
     // Function to check if pest name already exists
@@ -136,12 +163,16 @@
                 },
                 success: function(data) {
                     if (data.exists) {
-                        // Disease name already exists, show error message
-                        document.getElementById("error-messages").innerHTML += "<div class='error text-center' style='color:red;'>Pest name " + pestName + " already exists for Row " + (index + 1) + "</div>";
+                        // Pest name already exists, show error message
+                        var errorMessageId = "error-messages_" + (index + 1);
+                        var errorMessageContainer = document.getElementById(errorMessageId);
+                        if (errorMessageContainer) {
+                            errorMessageContainer.innerHTML = "<div class='error text-center' style='color:red;'>Pest name " + pestName + " already exists for Row " + (index + 1) + "</div>";
+                        }
                         hasError = true; // Set flag to true if error occurs
                         event.preventDefault();
                     } else {
-                        // Disease name doesn't exist
+                        // Pest name doesn't exist
                         if (!hasError && index === pestNames.length - 1) {
                             // If no error encountered so far and it's the last iteration, submit the form
                             submitForm();
@@ -155,6 +186,7 @@
             });
         });
     }
+
     // Function to submit the form and refresh notifications
     function submitForm() {
         console.log('submitForm function called');
@@ -196,4 +228,24 @@
         // Click the tab with id 'gen-tab'
         document.getElementById(tabName + '-tab').click();
     }
+
+    // Add event listener for modal hidden event
+    var addItemModal = document.getElementById('add-item-modal');
+    addItemModal.addEventListener('hidden.bs.modal', function() {
+        // Reset the form
+        var form = document.getElementById('form-panel');
+        if (form) {
+            form.reset();
+            // Reset error messages
+            var errorMessages = document.querySelectorAll('[id^="error-messages_"]');
+            errorMessages.forEach(function(errorMessage) {
+                errorMessage.innerHTML = "";
+            });
+            // Reset input validation classes
+            var inputs = document.querySelectorAll('input[name^="pest_name_"]');
+            inputs.forEach(function(input) {
+                input.classList.remove('is-invalid');
+            });
+        }
+    });
 </script>

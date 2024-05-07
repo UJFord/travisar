@@ -16,7 +16,7 @@ endif;
     function alertWithCallback(message, timeout) {
         const alert = document.createElement('div');
         const alertButton = document.createElement('button');
-        alertButton.innerHTML = 'OK';
+        alertButton.innerHTML = '<i class="fa-solid fa-xmark"></i>';
         alert.appendChild(alertButton);
         alert.classList.add('alert');
         alert.setAttribute('style', `
@@ -32,7 +32,6 @@ endif;
             z-index: 10000;
         `);
         alertButton.setAttribute('style', `
-            border: 1px solid #333;
             background: white;
             border-radius: 5px;
             padding: 5px;
