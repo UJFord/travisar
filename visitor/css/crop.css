@@ -97,3 +97,11 @@
 #view-type-button, #map-toggler{
     height: clamp(3rem, 5rem, 8rem);
 }
+
+/* PAGINATION */
+.page-link.active{
+    background: var(--mainBrand) !important;
+    font-weight: bold !important;
+    color: white !important;
+    border-color: var(--mainBrand) !important;
+}

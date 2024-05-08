@@ -64,8 +64,8 @@ require "../functions/functions.php";
         </div>
 
         <!-- pagination -->
-        <div class="row mt-2">
-            <nav class=" d-flex justify-content-end">
+        <!-- <div class="row mt-2">
+            <nav id="list-pagination" class=" d-flex justify-content-end">
                 <ul class="pagination ">
                     <li class="page-item">
                         <a class="page-link bg-light small-font link-dark fw-semibold" href="#" aria-label="Previous">
@@ -82,10 +82,13 @@ require "../functions/functions.php";
                     </li>
                 </ul>
             </nav>
-        </div>
+        </div> -->
+        
         <!-- Pagination -->
         <div class="row mt-2">
-            <?php generatePaginationLinksHome($total_pages, $current_page, 'page'); ?>
+            <nav class="d-flex justify-content-end">
+                <?php generatePaginationLinksHome($total_pages, $current_page, 'page'); ?>
+            </nav>
         </div>
     </div>
 
