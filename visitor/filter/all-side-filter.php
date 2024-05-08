@@ -131,7 +131,7 @@
         </div>
 
         <!-- button to submit filter -->
-        <div class="py-2 row border-bottom m-0">
+        <div class="py-2 row border-bottom m-0 mt-3">
             <!-- Add a clear button -->
             <div class="d-flex justify-content-end col">
                 <button id="clearButton" class="btn btn-link link-dark hidden me-3" onclick="clearSearch()">Clear<i class="fa-solid fa-eraser ms-1"></i></button>
@@ -162,7 +162,7 @@
                     // Populate options
                     data.forEach(barangay => {
                         barangayFilter.innerHTML += `
-                        <div class="collapse show  mb-2">
+                        <div class="collapse show  my-2">
                             <input class="form-check-input brgy-filter" type="checkbox" id="barangay${barangay.barangay_id}" value="${barangay.barangay_id}">
                             <label for="barangay${barangay.barangay_id}">${barangay.barangay_name}</label>
                         </div>

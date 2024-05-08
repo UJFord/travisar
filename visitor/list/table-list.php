@@ -1,5 +1,5 @@
 <div id="crop-list-table" class="rounded border overflow-y-auto">
-    <table class="table table-sm table-hover table-borderless bg-transparent m-0">
+    <table class="table table-hover table-borderless bg-transparent m-0">
         <thead>
             <tr class="border-bottom">
                 <th scope="col" class="col-1 small-font text-secondary">Category</th>

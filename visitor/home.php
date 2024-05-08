@@ -198,7 +198,7 @@ require "../functions/functions.php";
                     <h4 class="fw-bold">About TRAVIS</h4>
                     <p>Learn more about TRAVIS, designed to store information about traditional crop varieties in Sarangani Province, including their morphological characteristics, sensory traits, agronomic traits, and cultural utilization and importance.</p>
                     <div class="row ps-2">
-                        <a href="about.php" id="map-qlink" class="col-9 col-md-7 col-lg-5 col-xl-4 btn qlink-link btn-success fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
+                        <a href="about/travis.php" id="map-qlink" class="col-9 col-md-7 col-lg-5 col-xl-4 btn qlink-link btn-success fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
                             Learn More!
                             <i class="bi bi-arrow-right fw-bold"></i>
                         </a>

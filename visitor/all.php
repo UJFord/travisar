@@ -83,6 +83,8 @@ require "../functions/functions.php";
                 </ul>
             </nav>
         </div>
+
+        
         <!-- Add pagination links -->
         <?php // generatePaginationLinks($total_pages, $current_page, 'page'); 
         ?>

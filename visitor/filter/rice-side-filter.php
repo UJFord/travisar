@@ -32,7 +32,7 @@
             </div>
 
             <!-- crops filters -->
-            <div id="variety-filters" class="collapse  mb-2">
+            <div id="variety-filters" class="collapse  my-2">
                 <?php
                 $query = "SELECT * FROM category_variety where category_id = 1 order by category_variety_name ASC";
                 $query_run = pg_query($conn, $query);
@@ -70,7 +70,7 @@
                     while ($row = pg_fetch_array($query_run)) {
                 ?>
                         <!-- terrains filters -->
-                        <div id="terrain-filters" class="collapse ps-4 mb-2">
+                        <div id="terrain-filters" class="collapse ps-4 my-2">
                             <input class="form-check-input terrain-filter" type="checkbox" id="terrain<?= $row['terrain_id']; ?>" value="<?= $row['terrain_id']; ?>">
                             <label for="terrain<?= $row['terrain_id']; ?>"><?= $row['terrain_name']; ?></label>
                         </div>
@@ -97,7 +97,7 @@
                 if ($query_run) {
                     while ($row = pg_fetch_array($query_run)) {
                 ?>
-                        <div id="municipality-filters" class="collapse ps-4 mb-2">
+                        <div id="municipality-filters" class="collapse ps-4 my-2">
                             <input class="form-check-input municipality-filter" type="checkbox" id="municipality<?= $row['municipality_id']; ?>" value="<?= $row['municipality_id']; ?>">
                             <label for="municipality<?= $row['municipality_id']; ?>"><?= $row['municipality_name']; ?></label>
                         </div>
@@ -121,7 +121,7 @@
         </div>
 
         <!-- button to submit filter -->
-        <div class="py-2 row border-bottom m-0">
+        <div class="py-2 row border-bottom m-0 mt-3">
             <!-- Add a clear button -->
             <div class="d-flex justify-content-end col">
                 <button id="clearButton" class="btn btn-link link-dark hidden me-3" onclick="clearSearch()">Clear<i class="fa-solid fa-eraser ms-1"></i></button>
@@ -152,7 +152,7 @@
                     // Populate options
                     data.forEach(barangay => {
                         barangayFilter.innerHTML += `
-                        <div class="collapse show  mb-2">
+                        <div class="collapse show  my-2">
                             <input class="form-check-input brgy-filter" type="checkbox" id="barangay${barangay.barangay_id}" value="${barangay.barangay_id}">
                             <label for="barangay${barangay.barangay_id}">${barangay.barangay_name}</label>
                         </div>
