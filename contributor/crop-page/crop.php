@@ -76,7 +76,7 @@ require "../../functions/functions.php";
             <!-- edit -->
             <?php require "modals/edit.php"; ?>
             <!-- manage -->
-            <?php //require "modals/manage.php"; ?>
+            <?php require "modals/manage.php"; ?>
         </div>
     </div>
 
@@ -1247,7 +1247,7 @@ require "../../functions/functions.php";
     <!-- allowing scrollspy in the modal -->
     <script>
         $(document).ready(function() {
-            $('#view-item-modal').on('shown.bs.modal', function() {
+            $('#edit-item-modal').on('shown.bs.modal', function() {
                 $('[data-spy="scroll"]').scrollspy('refresh');
                 console.log($('[data-spy="scroll"]').scrollspy());
             });

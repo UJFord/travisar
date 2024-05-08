@@ -1164,6 +1164,11 @@
     });
 
     function fetchVarietiesDraft(categoryIdDraft) {
+        if (!categoryIdDraft) {
+            //console.error('Category ID is missing.');
+            return;
+        }
+
         var xhrDraft = new XMLHttpRequest();
         xhrDraft.onreadystatechange = function() {
             if (this.readyState === 4) {
