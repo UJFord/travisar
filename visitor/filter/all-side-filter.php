@@ -222,7 +222,7 @@
                     // Populate options
                     data.forEach(variety => {
                         varietyFilter.innerHTML += `
-                        <div class="collapse show  mb-2">
+                        <div class="collapse show ps-4 mb-2">
                             <input class="form-check-input variety-filter" type="checkbox" id="category_variety${variety.category_variety_id}" value="${variety.category_variety_id}">
                             <label for="category_variety${variety.category_variety_id}">${variety.category_variety_name}</label>
                         </div>
