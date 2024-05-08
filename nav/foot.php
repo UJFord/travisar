@@ -4,7 +4,7 @@
 
             <!-- logo -->
             <div class="col-3 d-flex align-items-center">
-                <img class="w-75" src="img/travis-light.svg" alt="">
+                <img class="w-75" src="<?= BASE_URL . '/' . 'img/travis-light.svg'; ?>" alt="">
             </div>
 
             <!-- about us -->
@@ -12,13 +12,13 @@
                 <h4 class="mb-3 footer-head fw-bold">ABOUT</h5>
                     <ul class="list-unstyled">
                         <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Sarangani</a>
+                            <a href="<?= BASE_URL . '/' . 'visitor/home.php'; ?>" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Sarangani</a>
                         </li>
                         <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Collaborators</a>
+                            <a href="<?= BASE_URL . '/' . 'visitor/about/collab.php'; ?>" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Collaborators</a>
                         </li>
                         <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">TRAVIS</a>
+                            <a href="<?= BASE_URL . '/' . 'visitor/about/travis.php'; ?>" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">TRAVIS</a>
                         </li>
                     </ul>
             </div>
@@ -28,13 +28,13 @@
                 <h4 class="mb-3 footer-head fw-bold">LINKS</h5>
                     <ul class="list-unstyled">
                         <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Crops</a>
+                            <a href="<?= BASE_URL . '/' . 'visitor/about/crop.php'; ?>" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Crops</a>
                         </li>
                         <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Map</a>
+                            <a href="<?= BASE_URL . '/' . 'visitor/about/crop.php'; ?>" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Map</a>
                         </li>
                         <li>
-                            <a href="#" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Contribute</a>
+                            <a href="<?= BASE_URL . '/' . 'login/login.php'; ?>" class="link-light link-underline link-underline-opacity-0 link-opacity-50-hover">Contribute</a>
                         </li>
                     </ul>
             </div>
