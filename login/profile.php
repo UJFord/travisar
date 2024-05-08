@@ -146,8 +146,8 @@ require "../functions/functions.php";
                                             </div>
                                         </div>
                                     </div>
-                                    <a href="change-email.php?user_id=<?= $row['user_id'] ?>">Change Email?</a>
-                                    <a href="#">Change Password?</a>
+                                    <!-- <a href="change-email.php?user_id=<?= $row['user_id'] ?>">Change Email?</a>
+                                    <a href="#">Change Password?</a> -->
                                     <!-- action -->
                                     <div class="row d-none" id="action-container">
                                         <div class="col-12 col-xl-10 col-xxl-8 mb-3 d-flex justify-content-end">
