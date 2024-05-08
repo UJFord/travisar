@@ -34,7 +34,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="../css/global-declarations.css">
     <link rel="stylesheet" href="css/login.css">
     <!-- script for the window alert -->
-    <script src="../../js/window.js"></script>
+    <script src="../js/window.js"></script>
 </head>
 
 <body class="">

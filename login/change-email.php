@@ -69,85 +69,41 @@ require "../functions/functions.php";
                                     $row = pg_fetch_assoc($query_run);
                             ?>
                                     <div id="profile" class="row d-flex mb-5">
-                                        <h6 class="text-secondary w-auto mt-4">Currently logged in as</h6>
+                                        <h6 class="text-secondary w-auto mt-4">Changing email of</h6>
                                         <div class="w-auto">
                                             <h1 class="fw-bold"><?= $row['first_name'] . ' ' .  $row['last_name'] ?> </h1>
-                                            <h4 class="fw-bold fst-italic text-secondary"><?= $_SESSION['USER']['email']; ?></h4>
-                                            <h6 class="fw-bold text-secondary"><?= $row['affiliation'] ?></h6>
                                         </div>
                                     </div>
                                     <!-- hidden user id for verification -->
                                     <input type="hidden" name="user_id" value="<?= $row['user_id'] ?>">
-
-                                    <!-- name -->
-                                    <div class="row">
-                                        <div class="col-12 col-md-6 col-lg-6 col-xl-5 col-xxl-4 mb-3">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" id="fname" placeholder="" name="first_name" value="<?= $row['first_name'] ?>">
-                                                <label for="fname">Name</label>
-                                            </div>
-                                        </div>
-                                        <div class="col-12 col-md-6 col-lg-6 col-xl-5 col-xxl-4 mb-3">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" id="lname" placeholder="" name="last_name" value="<?= $row['last_name'] ?>">
-                                                <label for="lname">Lastname</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- gender -->
-                                    <div class="row">
-                                        <div class="col-12 col-xl-10 col-xxl-8 mb-3">
-                                            <select name="gender" class="form-select">
-                                                <option value="<?= $row['gender'] ?>" hidden><?= $row['gender'] ?></option>
-                                                <option value="Male">Male</option>
-                                                <option value="Female">Female</option>
-                                                <option value="Neither">Rather not say</option>
-                                            </select>
-                                        </div>
-                                    </div>
-
-                                    <!-- affilitation -->
-                                    <div class="row">
-                                        <div class="col-12 col-xl-10 col-xxl-8 mb-3">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" id="aff" placeholder="" name="affiliation" value="<?= $row['affiliation'] ?>">
-                                                <label for="aff">Affiliation</label>
-                                            </div>
-                                        </div>
-                                    </div>
-
-                                    <!-- username -->
-                                    <div class="row">
-                                        <div class="col-12 col-xl-10 col-xxl-8 mb-3">
-                                            <div class="form-floating">
-                                                <input type="text" class="form-control" id="uname" placeholder="" name="username" value="<?= $row['username'] ?>">
-                                                <label for="uname">Username</label>
-                                            </div>
-                                        </div>
-                                    </div>
+                                    <input type="hidden" name="first_name" value="<?= $row['first_name'] ?>">
+                                    <input type="hidden" name="last_name" value="<?= $row['last_name'] ?>">
+                                    <input type="hidden" name="gender" value="<?= $row['gender'] ?>">
+                                    <input type="hidden" name="affiliation" value="<?= $row['affiliation'] ?>">
+                                    <input type="hidden" name="username" value="<?= $row['username'] ?>">
+                                    <input type="hidden" name="username" value="<?= $row['username'] ?>">
 
                                     <!-- mail -->
                                     <div class="row">
                                         <div class="col-12 col-xl-10 col-xxl-8 mb-3">
                                             <div class="form-floating">
-                                                <input type="email" class="form-control" id="mail" placeholder="" name="email" value="<?= $row['email'] ?>" disabled>
-                                                <label for="mail">Email</label>
+                                                <input type="email" class="form-control" id="mail" placeholder="" name="old_email" value="<?= $row['email'] ?>" disabled>
+                                                <label for="mail">Old Email</label>
                                             </div>
                                         </div>
                                     </div>
 
-                                    <!-- password -->
+                                    <!-- new mail -->
                                     <div class="row">
                                         <div class="col-12 col-xl-10 col-xxl-8 mb-3">
                                             <div class="form-floating">
-                                                <input type="password" class="form-control" id="pass" placeholder="" name="password" value="<?= $row['password'] ?>" disabled>
-                                                <label for="pass">Password</label>
+                                                <input type="email" class="form-control" id="mail" placeholder="" name="new_email">
+                                                <label for="mail">New Email</label>
                                             </div>
                                         </div>
                                     </div>
-                                    <!-- <a href="change-email.php?user_id=<?= $row['user_id'] ?>">Change Email?</a>
-                                    <a href="#">Change Password?</a> -->
+                                    <a href="profile.php">Go back</a>
+
                                     <!-- action -->
                                     <div class="row d-none" id="action-container">
                                         <div class="col-12 col-xl-10 col-xxl-8 mb-3 d-flex justify-content-end">
@@ -174,7 +130,7 @@ require "../functions/functions.php";
                                         <div class="modal-footer">
                                             <button type="button" class="btn btn-link link-dark" data-bs-dismiss="modal">Go Back</button>
                                             <button id="modal-discard-btn" type="button" class="btn btn-secondary" data-bs-dismiss="modal">Discard <i class="fa-solid fa-eraser"></i></button>
-                                            <button id="modal-confirm-btn" type="submit" name="edit" class="btn btn-success">Apply Changes <i class="fa-solid fa-check"></i></button>
+                                            <button id="modal-confirm-btn" type="submit" name="edit_mail" class="btn btn-success">Apply Changes <i class="fa-solid fa-check"></i></button>
                                         </div>
                                     </div>
                                 </div>
@@ -192,7 +148,7 @@ require "../functions/functions.php";
         // Add event listener to the "Discard" button inside the modal
         document.getElementById("modal-discard-btn").addEventListener("click", function() {
             // Reload the page
-            window.location.reload();
+            window.location.href = "profile.php";
         });
     </script>
     <!-- jquery -->
