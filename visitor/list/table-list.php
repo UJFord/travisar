@@ -1,10 +1,12 @@
 <div id="crop-list-table" class="rounded border overflow-y-auto">
-    <table class="table table-hover table-borderless bg-transparent m-0">
+    <table class="table table-sm table-hover table-borderless bg-transparent m-0">
         <thead>
             <tr class="border-bottom">
                 <th scope="col" class="col-1 small-font text-secondary">Category</th>
                 <th scope="col" class="col-4 small-font text-secondary">Name</th>
-                <th scope="col" class="col small-font text-secondary">Location</th>
+                <th scope="col" class="col-2 small-font text-secondary">Sitio</th>
+                <th scope="col" class="col-2 small-font text-secondary">Barangay</th>
+                <th scope="col" class="col-2 small-font text-secondary">Municipality</th>
                 <th scope="col" class="col-1 small-font text-secondary">Terrain</th>
             </tr>
         </thead>
@@ -79,14 +81,12 @@
                     // Display the data
             ?>
                     <tr latlng="<?= $row['barangay_coordinates'] ?>" data-href="view.php?crop_id=<?= $row['crop_id'] ?>">
-                        <td class="category"><?= $row['category_name'] === 'Root Crop' ? 'Root' : $row['category_name'] ?></td>
-                        <td class="fw-bolder variety"><?= $row['crop_variety'] ?></td>
-                        <td class="addr">
-                            <span class="d-block text-truncate" style="max-width: 300px;">
-                                <?= $row['province_name'] . ", " . $row['municipality_name'] . ", " . $row['barangay_name'] ?>
-                            </span>
-                        </td>
-                        <td class="terrain"><span class="d-block text-truncate" style="max-width: 300px;"><?= $row['terrain_name'] ?></td>
+                        <td class="category text-truncate" style="max-width:5rem;"><?= $row['category_name'] === 'Root Crop' ? 'Root' : $row['category_name'] ?></td>
+                        <td class="fw-bolder variety text-truncate" style="max-width 10rem;"><?= $row['crop_variety'] ?></td>
+                        <td class="text-truncate" style="max-width: 10rem;"></td>
+                        <td class="text-truncate" style="max-width: 5rem;"><?= $row['barangay_name'] ?></td>
+                        <td class="addr text-truncate" style="max-width: 5rem;"><?= $row['municipality_name'] ?></td>
+                        <td class="terrain text-truncate" style="max-width: 5rem;"><span class="text-truncate" style="max-width: 300px;"><?= $row['terrain_name'] ?></td>
                     </tr>
             <?php
                 }
