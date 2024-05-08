@@ -2,7 +2,7 @@ document.addEventListener("DOMContentLoaded", function () {
     // Elements to show/hide based on user role
     var curatorElements = document.querySelectorAll(".curator-only");
     var adminElements = document.querySelectorAll(".admin-only");
-    var encoderElements = document.querySelectorAll(".encoder-only");
+    var encoderElements = document.querySelectorAll(".contributor-only");
 
     // Function to set visibility based on user role
     function setVisibility(elements, isVisible) {
@@ -21,7 +21,7 @@ document.addEventListener("DOMContentLoaded", function () {
             setVisibility(curatorElements, false);
             setVisibility(adminElements, true);
             setVisibility(encoderElements, true);
-        } else if (userRole === "Encoder") {
+        } else if (userRole === "Contributor") {
             setVisibility(curatorElements, false);
             setVisibility(adminElements, false);
             setVisibility(encoderElements, true);

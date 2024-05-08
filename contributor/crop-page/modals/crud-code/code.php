@@ -4,7 +4,7 @@ require "../../../../functions/connections.php";
 
 // var_dump($_POST);
 // die();
-if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
+if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {
@@ -4046,7 +4046,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank']
         echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
         exit(0);
     }
-} else if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
+} else if (isset($_POST['edit']) && $_SESSION['rank'] == 'Contributor') {
     $_SESSION['message'] = "Not Enough Authority";
     header('Location: ../../crop.php');
     exit();

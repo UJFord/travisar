@@ -1095,7 +1095,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
         exit(0);
     }
-} else if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Encoder') {
+} else if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Contributor') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {

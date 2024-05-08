@@ -13,7 +13,7 @@
             <!-- add button -->
             <div class="z-1 dropdown">
                 <!-- dropdown -->
-                <button id="add-crop-btn" class="btn btn-secondary encoder-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#add-item-modal">
+                <button id="add-crop-btn" class="btn btn-secondary contributor-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#add-item-modal">
                     Add New
                     <i class="fa-solid fa-plus"></i>
                 </button>
