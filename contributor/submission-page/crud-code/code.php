@@ -157,17 +157,17 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
                     // Check whether the image is uploaded or not
                     if (!$upload) {
-                        echo "wala na upload ang image";
-                        echo "Error: " . pg_last_error($conn);
+                        //$_SESSION['message'] = "Failed to upload image.";
+                        //header("Location: ../submission.php");
                         die();
                     }
 
                     $finalimg_seed = $image;
                     $crop_seed_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
-                    // Display error message for invalid file format
-                    echo "invalid ang file format image";
-                    echo "Error: " . pg_last_error($conn);
+
+                    //header("Location: ../submission.php");
+                    // exit();
                 }
             }
         }
@@ -224,17 +224,19 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
                     // Check whether the image is uploaded or not
                     if (!$upload) {
-                        echo "wala na upload ang image";
-                        echo "Error: " . pg_last_error($conn);
+                        //$_SESSION['message'] = "failed to upload image.";
+                        //header("Location: ../submission.php");
+
                         die();
                     }
 
                     $finalimg_seed = $image;
                     $crop_vegetative_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
-                    // Display error message for invalid file format
-                    echo "invalid ang file format image";
-                    echo "Error: " . pg_last_error($conn);
+
+                    //header("Location: ../submission.php");
+
+                    // exit();
                 }
             }
         }
@@ -291,17 +293,19 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
                     // Check whether the image is uploaded or not
                     if (!$upload) {
-                        echo "wala na upload ang image";
-                        echo "Error: " . pg_last_error($conn);
+                        //$_SESSION['message'] = "Failed to Upload Image.";
+                        //header("Location: ../submission.php");
+
                         die();
                     }
 
                     $finalimg_seed = $image;
                     $crop_reproductive_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
-                    // Display error message for invalid file format
-                    echo "invalid ang file format image";
-                    echo "Error: " . pg_last_error($conn);
+
+                    //header("Location: ../submission.php");
+
+                    // exit();
                 }
             }
         }
@@ -364,7 +368,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $row_utilCultural = pg_fetch_row($query_run_utilCultural);
             $utilization_cultural_id = $row_utilCultural[0];
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to create Crop.";
+            header("Location: ../submission.php");
+
             exit(0);
         }
 
@@ -379,7 +385,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $row_Status = pg_fetch_row($query_run_Status);
             $status_id = $row_Status[0];
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to create Crop.";
+            header("Location: ../submission.php");
+
             exit(0);
         }
 
@@ -398,7 +406,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $row_crop = pg_fetch_row($query_run_Crop);
             $crop_id = $row_crop[0];
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to create Crop.";
+            header("Location: ../submission.php");
+
             exit(0);
         }
 
@@ -416,7 +426,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 exit(0);
             }
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to create Crop.";
+            header("Location: ../submission.php");
+
             exit(0);
         }
 
@@ -454,11 +466,15 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $row_refer = pg_fetch_row($query_run_refer);
                     $references_id = $row_refer[0];
                 } else {
-                    echo "Error: No rows affected";
+                    $_SESSION['message'] = "Failed to create Crop.";
+                    header("Location: ../submission.php");
+
                     exit(0);
                 }
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create Crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
         }
@@ -473,7 +489,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_seedTraits = pg_fetch_row($query_run_seedTraits);
                 $seed_traits_id = $row_seedTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create Crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -484,7 +502,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_reproductiveState = pg_fetch_row($query_run_reproductiveState);
                 $reproductive_state_corn_id = $row_reproductiveState[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create Crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -495,7 +515,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
                 $vegetative_state_corn_id = $row_vegetativeState[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create Crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -508,7 +530,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $rowPest_other = pg_fetch_row($query_run_Pest_other);
                     $corn_pest_other_id = $rowPest_other[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create Crop.";
+                    header("Location: ../submission.php");
+
                     exit(0);
                 }
             }
@@ -521,7 +545,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $row_abioticOther = pg_fetch_row($query_run_abioticOther);
                     $corn_abiotic_other_id = $row_abioticOther[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create Crop.";
+                    header("Location: ../submission.php");
+
                     exit(0);
                 }
             }
@@ -537,7 +563,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_cornTraits = pg_fetch_row($query_run_cornTraits);
                 $corn_traits_id = $row_cornTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create Crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -555,7 +583,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                         $row_abiotic = pg_fetch_row($query_run_abiotic);
                         $abiotic_resistance_id = $row_abiotic[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create Crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -575,7 +605,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                         $row_disease = pg_fetch_row($query_run_disease);
                         $disease_resistance_id = $row_disease[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create Crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -596,7 +628,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                         $row_pest = pg_fetch_row($query_run_pest);
                         $pest_resistance_id = $row_pest[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create Crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -610,7 +644,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_seedTraits = pg_fetch_row($query_run_seedTraits);
                 $seed_traits_id = $row_seedTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create Crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -621,7 +657,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_panicleTraits = pg_fetch_row($query_run_panicleTraits);
                 $panicle_traits_rice_id = $row_panicleTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create Crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -632,7 +670,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_flagLeaf = pg_fetch_row($query_run_flagLeaf);
                 $flag_leaf_traits_rice_id = $row_flagLeaf[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create Crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -643,7 +683,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_reproductiveState = pg_fetch_row($query_run_reproductiveState);
                 $reproductive_state_rice_id = $row_reproductiveState[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create Crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -654,7 +696,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
                 $vegetative_state_rice_id = $row_vegetativeState[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create Crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -665,7 +709,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_sensoryTraits = pg_fetch_row($query_run_sensoryTraits);
                 $sensory_traits_rice_id = $row_sensoryTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create Crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -678,7 +724,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $rowPest_other = pg_fetch_row($query_run_Pest_other);
                     $rice_pest_other_id = $rowPest_other[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create Crop.";
+                    header("Location: ../submission.php");
+
                     exit(0);
                 }
             }
@@ -691,7 +739,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $row_abioticOther = pg_fetch_row($query_run_abioticOther);
                     $rice_abiotic_other_id = $row_abioticOther[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create Crop.";
+                    header("Location: ../submission.php");
+
                     exit(0);
                 }
             }
@@ -707,7 +757,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_riceTraits = pg_fetch_row($query_run_riceTraits);
                 $rice_traits_id = $row_riceTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create Crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -723,7 +775,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $query_run_abiotic = pg_query_params($conn, $query_abiotic, array($rice_traits_id, $pest_id, $rice_is_checked_abiotic));
                     if ($query_run_abiotic) {
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create Crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -741,7 +795,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $query_run_disease = pg_query_params($conn, $query_disease, array($rice_traits_id, $disease_id, $rice_is_checked_disease));
                     if ($query_run_disease) {
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create Crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -762,7 +818,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                         $row_pest = pg_fetch_row($query_run_pest);
                         $pest_resistance_id = $row_pest[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create Crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -776,7 +834,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_rootcropTraits = pg_fetch_row($query_run_rootcropTraits);
                 $rootcrop_traits_id = $row_rootcropTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create Crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -787,7 +847,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
                 $vegetative_state_rootcrop_id = $row_vegetativeState[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create Crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -800,7 +862,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $rowPest_other = pg_fetch_row($query_run_Pest_other);
                     $rootcrop_pest_other_id = $rowPest_other[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create Crop.";
+                    header("Location: ../submission.php");
+
                     exit(0);
                 }
             }
@@ -813,7 +877,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $row_abioticOther = pg_fetch_row($query_run_abioticOther);
                     $rootcrop_abiotic_other_id = $row_abioticOther[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create Crop.";
+                    header("Location: ../submission.php");
+
                     exit(0);
                 }
             }
@@ -828,7 +894,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_root_CropTraits = pg_fetch_row($query_run_root_CropTraits);
                 $root_crop_traits_id = $row_root_CropTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create Crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -846,7 +914,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                         $row_abiotic = pg_fetch_row($query_run_abiotic);
                         $abiotic_resistance_id = $row_abiotic[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create Crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -866,7 +936,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                         $row_disease = pg_fetch_row($query_run_disease);
                         $disease_resistance_id = $row_disease[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create Crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -887,7 +959,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                         $row_pest = pg_fetch_row($query_run_pest);
                         $pest_resistance_id = $row_pest[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create Crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -1068,17 +1142,19 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
                     // Check whether the image is uploaded or not
                     if (!$upload) {
-                        echo "wala na upload ang image";
-                        echo "Error: " . pg_last_error($conn);
+                        //$_SESSION['message'] = "Failed to upload image.";
+                        //header("Location: ../submission.php");
+
                         die();
                     }
 
                     $finalimg_seed = $image;
                     $crop_seed_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
-                    // Display error message for invalid file format
-                    echo "invalid ang file format image";
-                    echo "Error: " . pg_last_error($conn);
+
+                    //header("Location: ../submission.php");
+
+                    //exit();
                 }
             }
         }
@@ -1135,17 +1211,17 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
                     // Check whether the image is uploaded or not
                     if (!$upload) {
-                        echo "wala na upload ang image";
-                        echo "Error: " . pg_last_error($conn);
+                        //$_SESSION['message'] = "Failed to upload image.";
+                        //header("Location: ../submission.php");
                         die();
                     }
 
                     $finalimg_seed = $image;
                     $crop_vegetative_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
-                    // Display error message for invalid file format
-                    echo "invalid ang file format image";
-                    echo "Error: " . pg_last_error($conn);
+
+                    //header("Location: ../submission.php");
+                    //exit();
                 }
             }
         }
@@ -1202,8 +1278,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
 
                     // Check whether the image is uploaded or not
                     if (!$upload) {
-                        echo "wala na upload ang image";
-                        echo "Error: " . pg_last_error($conn);
+                        //$_SESSION['message'] = "Failed to upload image.";
+                        //header("Location: ../submission.php");
+
                         die();
                     }
 
@@ -1211,8 +1288,10 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $crop_reproductive_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
                     // Display error message for invalid file format
-                    echo "invalid ang file format image";
-                    echo "Error: " . pg_last_error($conn);
+
+                    //header("Location: ../submission.php");
+
+                    //exit();
                 }
             }
         }
@@ -1275,7 +1354,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $row_utilCultural = pg_fetch_row($query_run_utilCultural);
             $utilization_cultural_id = $row_utilCultural[0];
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to create crop.";
+            header("Location: ../submission.php");
             exit(0);
         }
 
@@ -1290,7 +1370,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $row_Status = pg_fetch_row($query_run_Status);
             $status_id = $row_Status[0];
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to create crop.";
+            header("Location: ../submission.php");
             exit(0);
         }
 
@@ -1309,7 +1390,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             $row_crop = pg_fetch_row($query_run_Crop);
             $crop_id = $row_crop[0];
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to create crop.";
+            header("Location: ../submission.php");
             exit(0);
         }
 
@@ -1327,7 +1409,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 exit(0);
             }
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to create crop.";
+            header("Location: ../submission.php");
             exit(0);
         }
 
@@ -1345,18 +1428,24 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
             exit();
         }
 
-        //references
-        // Loop through the $_POST data to extract references
+        // Loop through the $_POST data to extract references and their descriptions
         $references = [];
+        //$references_descs = [];
         foreach ($_POST as $key => $value) {
             if (strpos($key, 'references_') !== false) {
-                echo $references[] = $value;
+                $references[] = $value;
             }
+            // elseif (strpos($key, 'references_desc_') !== false) {
+            //     $references_descs[] = $value;
+            // }
         }
 
-        // Save references into references Table
-        foreach ($references as $reference) {
-            $query_refer = "INSERT into \"references\" (crop_id, link) VALUES ($1, $2) RETURNING references_id";
+        // Save references and their descriptions into references Table
+        foreach ($references as $index => $reference) {
+            // Get the corresponding description
+            //description = $references_descs[$index];
+            // Prepare and execute the SQL query
+            $query_refer = "INSERT INTO \"references\" (crop_id, link) VALUES ($1, $2) RETURNING references_id";
             $query_run_refer = pg_query_params($conn, $query_refer, array($crop_id, $reference));
 
             if ($query_run_refer) {
@@ -1364,12 +1453,15 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 if (pg_affected_rows($query_run_refer) > 0) {
                     $row_refer = pg_fetch_row($query_run_refer);
                     $references_id = $row_refer[0];
+                    echo "Reference inserted with ID: " . $references_id . "<br>"; // Debug statement
                 } else {
-                    echo "Error: No rows affected";
+                    $_SESSION['message'] = "Failed to create crop.";
+                    header("Location: ../submission.php");
                     exit(0);
                 }
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
                 exit(0);
             }
         }
@@ -1384,7 +1476,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_seedTraits = pg_fetch_row($query_run_seedTraits);
                 $seed_traits_id = $row_seedTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
                 exit(0);
             }
 
@@ -1395,7 +1488,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_reproductiveState = pg_fetch_row($query_run_reproductiveState);
                 $reproductive_state_corn_id = $row_reproductiveState[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
                 exit(0);
             }
 
@@ -1406,7 +1500,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
                 $vegetative_state_corn_id = $row_vegetativeState[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
                 exit(0);
             }
 
@@ -1419,7 +1514,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $rowPest_other = pg_fetch_row($query_run_Pest_other);
                     $corn_pest_other_id = $rowPest_other[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create crop.";
+                    header("Location: ../submission.php");
                     exit(0);
                 }
             }
@@ -1432,7 +1528,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $row_abioticOther = pg_fetch_row($query_run_abioticOther);
                     $corn_abiotic_other_id = $row_abioticOther[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create crop.";
+                    header("Location: ../submission.php");
                     exit(0);
                 }
             }
@@ -1448,7 +1545,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_cornTraits = pg_fetch_row($query_run_cornTraits);
                 $corn_traits_id = $row_cornTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
                 exit(0);
             }
 
@@ -1466,7 +1564,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                         $row_abiotic = pg_fetch_row($query_run_abiotic);
                         $abiotic_resistance_id = $row_abiotic[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -1486,7 +1585,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                         $row_disease = pg_fetch_row($query_run_disease);
                         $disease_resistance_id = $row_disease[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -1507,7 +1607,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                         $row_pest = pg_fetch_row($query_run_pest);
                         $pest_resistance_id = $row_pest[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -1521,7 +1622,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_seedTraits = pg_fetch_row($query_run_seedTraits);
                 $seed_traits_id = $row_seedTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
                 exit(0);
             }
 
@@ -1532,7 +1634,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_panicleTraits = pg_fetch_row($query_run_panicleTraits);
                 $panicle_traits_rice_id = $row_panicleTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
                 exit(0);
             }
 
@@ -1543,7 +1646,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_flagLeaf = pg_fetch_row($query_run_flagLeaf);
                 $flag_leaf_traits_rice_id = $row_flagLeaf[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
                 exit(0);
             }
 
@@ -1554,7 +1658,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_reproductiveState = pg_fetch_row($query_run_reproductiveState);
                 $reproductive_state_rice_id = $row_reproductiveState[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
                 exit(0);
             }
 
@@ -1565,7 +1670,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
                 $vegetative_state_rice_id = $row_vegetativeState[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
                 exit(0);
             }
 
@@ -1576,7 +1682,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_sensoryTraits = pg_fetch_row($query_run_sensoryTraits);
                 $sensory_traits_rice_id = $row_sensoryTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
                 exit(0);
             }
 
@@ -1589,7 +1696,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $rowPest_other = pg_fetch_row($query_run_Pest_other);
                     $rice_pest_other_id = $rowPest_other[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create crop.";
+                    header("Location: ../submission.php");
                     exit(0);
                 }
             }
@@ -1602,7 +1710,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $row_abioticOther = pg_fetch_row($query_run_abioticOther);
                     $rice_abiotic_other_id = $row_abioticOther[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create crop.";
+                    header("Location: ../submission.php");
                     exit(0);
                 }
             }
@@ -1618,7 +1727,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_riceTraits = pg_fetch_row($query_run_riceTraits);
                 $rice_traits_id = $row_riceTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
                 exit(0);
             }
 
@@ -1634,7 +1744,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $query_run_abiotic = pg_query_params($conn, $query_abiotic, array($rice_traits_id, $pest_id, $rice_is_checked_abiotic));
                     if ($query_run_abiotic) {
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -1652,7 +1763,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $query_run_disease = pg_query_params($conn, $query_disease, array($rice_traits_id, $disease_id, $rice_is_checked_disease));
                     if ($query_run_disease) {
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -1673,7 +1785,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                         $row_pest = pg_fetch_row($query_run_pest);
                         $pest_resistance_id = $row_pest[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -1687,7 +1800,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_rootcropTraits = pg_fetch_row($query_run_rootcropTraits);
                 $rootcrop_traits_id = $row_rootcropTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
                 exit(0);
             }
 
@@ -1698,7 +1812,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
                 $vegetative_state_rootcrop_id = $row_vegetativeState[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
                 exit(0);
             }
 
@@ -1711,7 +1826,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $rowPest_other = pg_fetch_row($query_run_Pest_other);
                     $rootcrop_pest_other_id = $rowPest_other[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create crop.";
+                    header("Location: ../submission.php");
                     exit(0);
                 }
             }
@@ -1724,7 +1840,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                     $row_abioticOther = pg_fetch_row($query_run_abioticOther);
                     $rootcrop_abiotic_other_id = $row_abioticOther[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create crop.";
+                    header("Location: ../submission.php");
                     exit(0);
                 }
             }
@@ -1739,7 +1856,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                 $row_root_CropTraits = pg_fetch_row($query_run_root_CropTraits);
                 $root_crop_traits_id = $row_root_CropTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
                 exit(0);
             }
 
@@ -1757,7 +1875,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                         $row_abiotic = pg_fetch_row($query_run_abiotic);
                         $abiotic_resistance_id = $row_abiotic[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -1777,7 +1896,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                         $row_disease = pg_fetch_row($query_run_disease);
                         $disease_resistance_id = $row_disease[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -1798,7 +1918,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
                         $row_pest = pg_fetch_row($query_run_pest);
                         $pest_resistance_id = $row_pest[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -1976,8 +2097,9 @@ if (isset($_POST['draft'])) {
 
                     // Check whether the image is uploaded or not
                     if (!$upload) {
-                        echo "wala na upload ang image";
-                        echo "Error: " . pg_last_error($conn);
+                        //$_SESSION['message'] = "Failed to upload image.";
+                        //header("Location: ../submission.php");
+
                         die();
                     }
 
@@ -1985,8 +2107,10 @@ if (isset($_POST['draft'])) {
                     $crop_seed_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
                     // Display error message for invalid file format
-                    echo "invalid ang file format image";
-                    echo "Error: " . pg_last_error($conn);
+
+                    //header("Location: ../submission.php");
+
+                    //rexit();
                 }
             }
         }
@@ -2043,8 +2167,9 @@ if (isset($_POST['draft'])) {
 
                     // Check whether the image is uploaded or not
                     if (!$upload) {
-                        echo "wala na upload ang image";
-                        echo "Error: " . pg_last_error($conn);
+                        //$_SESSION['message'] = "Failed to upload Image.";
+                        //header("Location: ../submission.php");
+
                         die();
                     }
 
@@ -2052,8 +2177,10 @@ if (isset($_POST['draft'])) {
                     $crop_vegetative_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
                     // Display error message for invalid file format
-                    echo "invalid ang file format image";
-                    echo "Error: " . pg_last_error($conn);
+
+                    //header("Location: ../submission.php");
+
+                    //rexit();
                 }
             }
         }
@@ -2110,8 +2237,9 @@ if (isset($_POST['draft'])) {
 
                     // Check whether the image is uploaded or not
                     if (!$upload) {
-                        echo "wala na upload ang image";
-                        echo "Error: " . pg_last_error($conn);
+                        //$_SESSION['message'] = "Failed to upload image.";
+                        //header("Location: ../submission.php");
+
                         die();
                     }
 
@@ -2119,8 +2247,10 @@ if (isset($_POST['draft'])) {
                     $crop_reproductive_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
                     // Display error message for invalid file format
-                    echo "invalid ang file format image";
-                    echo "Error: " . pg_last_error($conn);
+
+                    //header("Location: ../submission.php");
+
+                    //rexit();
                 }
             }
         }
@@ -2143,7 +2273,9 @@ if (isset($_POST['draft'])) {
             $row_utilCultural = pg_fetch_row($query_run_utilCultural);
             $utilization_cultural_id = $row_utilCultural[0];
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to create crop.";
+            header("Location: ../submission.php");
+
             exit(0);
         }
 
@@ -2158,7 +2290,9 @@ if (isset($_POST['draft'])) {
             $row_Status = pg_fetch_row($query_run_Status);
             $status_id = $row_Status[0];
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to create crop.";
+            header("Location: ../submission.php");
+
             exit(0);
         }
 
@@ -2177,7 +2311,9 @@ if (isset($_POST['draft'])) {
             $row_crop = pg_fetch_row($query_run_Crop);
             $crop_id = $row_crop[0];
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to create crop.";
+            header("Location: ../submission.php");
+
             exit(0);
         }
 
@@ -2191,11 +2327,15 @@ if (isset($_POST['draft'])) {
                 $row_CropLoc = pg_fetch_row($query_run_CropLoc);
                 $crop_location_id = $row_CropLoc[0];
             } else {
-                echo "Error: No rows affected";
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to create crop.";
+            header("Location: ../submission.php");
+
             exit(0);
         }
 
@@ -2213,19 +2353,25 @@ if (isset($_POST['draft'])) {
             exit();
         }
 
-        //references
-        // Loop through the $_POST data to extract references
+        // Loop through the $_POST data to extract references and their descriptions
         $references = [];
+        $references_descs = [];
         foreach ($_POST as $key => $value) {
             if (strpos($key, 'references_') !== false) {
-                echo $references[] = $value;
+                $references[] = $value;
+            } elseif (strpos($key, 'references_desc_') !== false) {
+                $references_descs[] = $value;
             }
         }
 
-        // Save references into references Table
-        foreach ($references as $reference) {
-            $query_refer = "INSERT into \"references\" (crop_id, link) VALUES ($1, $2) RETURNING references_id";
-            $query_run_refer = pg_query_params($conn, $query_refer, array($crop_id, $reference));
+        // Save references and their descriptions into references Table
+        foreach ($references as $index => $reference) {
+            // Get the corresponding description
+            $description = isset($references_descs[$index]) ? $references_descs[$index] : '';
+
+            // Prepare and execute the SQL query
+            $query_refer = "INSERT INTO \"references\" (crop_id, link, reference_desc) VALUES ($1, $2, $3) RETURNING references_id";
+            $query_run_refer = pg_query_params($conn, $query_refer, array($crop_id, $reference, $description));
 
             if ($query_run_refer) {
                 // Check if any rows were affected
@@ -2233,11 +2379,15 @@ if (isset($_POST['draft'])) {
                     $row_refer = pg_fetch_row($query_run_refer);
                     $references_id = $row_refer[0];
                 } else {
-                    echo "Error: No rows affected";
+                    $_SESSION['message'] = "Failed to create crop.";
+                    header("Location: ../submission.php");
+
                     exit(0);
                 }
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
         }
@@ -2252,7 +2402,9 @@ if (isset($_POST['draft'])) {
                 $row_seedTraits = pg_fetch_row($query_run_seedTraits);
                 $seed_traits_id = $row_seedTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -2263,7 +2415,9 @@ if (isset($_POST['draft'])) {
                 $row_reproductiveState = pg_fetch_row($query_run_reproductiveState);
                 $reproductive_state_corn_id = $row_reproductiveState[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -2274,7 +2428,9 @@ if (isset($_POST['draft'])) {
                 $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
                 $vegetative_state_corn_id = $row_vegetativeState[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -2287,7 +2443,9 @@ if (isset($_POST['draft'])) {
                     $rowPest_other = pg_fetch_row($query_run_Pest_other);
                     $corn_pest_other_id = $rowPest_other[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create crop.";
+                    header("Location: ../submission.php");
+
                     exit(0);
                 }
             }
@@ -2300,7 +2458,9 @@ if (isset($_POST['draft'])) {
                     $row_abioticOther = pg_fetch_row($query_run_abioticOther);
                     $corn_abiotic_other_id = $row_abioticOther[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create crop.";
+                    header("Location: ../submission.php");
+
                     exit(0);
                 }
             }
@@ -2316,7 +2476,9 @@ if (isset($_POST['draft'])) {
                 $row_cornTraits = pg_fetch_row($query_run_cornTraits);
                 $corn_traits_id = $row_cornTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -2334,7 +2496,9 @@ if (isset($_POST['draft'])) {
                         $row_abiotic = pg_fetch_row($query_run_abiotic);
                         $abiotic_resistance_id = $row_abiotic[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -2354,7 +2518,9 @@ if (isset($_POST['draft'])) {
                         $row_disease = pg_fetch_row($query_run_disease);
                         $disease_resistance_id = $row_disease[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -2375,7 +2541,9 @@ if (isset($_POST['draft'])) {
                         $row_pest = pg_fetch_row($query_run_pest);
                         $pest_resistance_id = $row_pest[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -2389,7 +2557,9 @@ if (isset($_POST['draft'])) {
                 $row_seedTraits = pg_fetch_row($query_run_seedTraits);
                 $seed_traits_id = $row_seedTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -2400,7 +2570,9 @@ if (isset($_POST['draft'])) {
                 $row_panicleTraits = pg_fetch_row($query_run_panicleTraits);
                 $panicle_traits_rice_id = $row_panicleTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -2411,7 +2583,9 @@ if (isset($_POST['draft'])) {
                 $row_flagLeaf = pg_fetch_row($query_run_flagLeaf);
                 $flag_leaf_traits_rice_id = $row_flagLeaf[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -2422,7 +2596,9 @@ if (isset($_POST['draft'])) {
                 $row_reproductiveState = pg_fetch_row($query_run_reproductiveState);
                 $reproductive_state_rice_id = $row_reproductiveState[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -2433,7 +2609,9 @@ if (isset($_POST['draft'])) {
                 $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
                 $vegetative_state_rice_id = $row_vegetativeState[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -2444,7 +2622,9 @@ if (isset($_POST['draft'])) {
                 $row_sensoryTraits = pg_fetch_row($query_run_sensoryTraits);
                 $sensory_traits_rice_id = $row_sensoryTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -2457,7 +2637,9 @@ if (isset($_POST['draft'])) {
                     $rowPest_other = pg_fetch_row($query_run_Pest_other);
                     $rice_pest_other_id = $rowPest_other[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create crop.";
+                    header("Location: ../submission.php");
+
                     exit(0);
                 }
             }
@@ -2470,7 +2652,9 @@ if (isset($_POST['draft'])) {
                     $row_abioticOther = pg_fetch_row($query_run_abioticOther);
                     $rice_abiotic_other_id = $row_abioticOther[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create crop.";
+                    header("Location: ../submission.php");
+
                     exit(0);
                 }
             }
@@ -2486,7 +2670,9 @@ if (isset($_POST['draft'])) {
                 $row_riceTraits = pg_fetch_row($query_run_riceTraits);
                 $rice_traits_id = $row_riceTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -2502,7 +2688,9 @@ if (isset($_POST['draft'])) {
                     $query_run_abiotic = pg_query_params($conn, $query_abiotic, array($rice_traits_id, $pest_id, $rice_is_checked_abiotic));
                     if ($query_run_abiotic) {
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -2520,7 +2708,9 @@ if (isset($_POST['draft'])) {
                     $query_run_disease = pg_query_params($conn, $query_disease, array($rice_traits_id, $disease_id, $rice_is_checked_disease));
                     if ($query_run_disease) {
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -2541,7 +2731,9 @@ if (isset($_POST['draft'])) {
                         $row_pest = pg_fetch_row($query_run_pest);
                         $pest_resistance_id = $row_pest[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -2555,7 +2747,9 @@ if (isset($_POST['draft'])) {
                 $row_rootcropTraits = pg_fetch_row($query_run_rootcropTraits);
                 $rootcrop_traits_id = $row_rootcropTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -2566,7 +2760,9 @@ if (isset($_POST['draft'])) {
                 $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
                 $vegetative_state_rootcrop_id = $row_vegetativeState[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -2579,7 +2775,9 @@ if (isset($_POST['draft'])) {
                     $rowPest_other = pg_fetch_row($query_run_Pest_other);
                     $rootcrop_pest_other_id = $rowPest_other[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create crop.";
+                    header("Location: ../submission.php");
+
                     exit(0);
                 }
             }
@@ -2592,7 +2790,9 @@ if (isset($_POST['draft'])) {
                     $row_abioticOther = pg_fetch_row($query_run_abioticOther);
                     $rootcrop_abiotic_other_id = $row_abioticOther[0];
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create crop.";
+                    header("Location: ../submission.php");
+
                     exit(0);
                 }
             }
@@ -2607,7 +2807,9 @@ if (isset($_POST['draft'])) {
                 $row_root_CropTraits = pg_fetch_row($query_run_root_CropTraits);
                 $root_crop_traits_id = $row_root_CropTraits[0];
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../submission.php");
+
                 exit(0);
             }
 
@@ -2625,7 +2827,9 @@ if (isset($_POST['draft'])) {
                         $row_abiotic = pg_fetch_row($query_run_abiotic);
                         $abiotic_resistance_id = $row_abiotic[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -2645,7 +2849,9 @@ if (isset($_POST['draft'])) {
                         $row_disease = pg_fetch_row($query_run_disease);
                         $disease_resistance_id = $row_disease[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -2666,7 +2872,9 @@ if (isset($_POST['draft'])) {
                         $row_pest = pg_fetch_row($query_run_pest);
                         $pest_resistance_id = $row_pest[0];
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to create crop.";
+                        header("Location: ../submission.php");
+
                         exit(0);
                     }
                 }
@@ -2696,8 +2904,6 @@ if (isset($_POST['draft'])) {
     }
 }
 
-// var_dump($_POST);
-// die();
 if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
@@ -3628,7 +3834,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
         echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
         exit(0);
     }
-} else if (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
+} elseif (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {
@@ -3792,7 +3998,9 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
 
                     // Check whether the image is uploaded or not
                     if (!$upload) {
-                        echo "Image upload failed";
+                        //$_SESSION['message'] = "Failed to upload image.";
+                        header("Location: ../submission.php");
+
                         die();
                     }
                 } else {
@@ -3865,7 +4073,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
 
                     // Check whether the image is uploaded or not
                     if (!$upload) {
-                        echo "Image upload failed";
+                        //$_SESSION['message'] = "Failed to upload image.";
+                        header("Location: ../submission.php");
                         die();
                     }
                 } else {
@@ -3938,7 +4147,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
 
                     // Check whether the image is uploaded or not
                     if (!$upload) {
-                        echo "Image upload failed";
+                        //$_SESSION['message'] = "Failed to upload image.";
+                        header("Location: ../submission.php");
                         die();
                     }
                 } else {
@@ -3984,13 +4194,14 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
 
         if ($query_run_utilCultural) {
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to update crop.";
+            header("location: ../submission.php");
             exit(0);
         }
 
         // update crop table
         $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, meaning_of_name = $3,
-        crop_seed_image = $4, crop_vegetative_image =$5, crop_reproductive_image = $6  where crop_id = $7";
+        crop_seed_image = $4, crop_vegetative_image =$5, crop_reproductive_image = $6 where crop_id = $7";
 
         $valueCrops = array(
             $crop_variety, $crop_description, $meaning_of_name, $finalimgSeed, $finalimgVeg, $finalimgRepro, $crop_id
@@ -3999,7 +4210,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
 
         if ($query_run_Crop) {
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to update crop.";
+            header("location: ../submission.php");
             exit(0);
         }
 
@@ -4009,7 +4221,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
 
         if ($query_run_CropLoc) {
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to update crop.";
+            header("location: ../submission.php");
             exit(0);
         }
 
@@ -4023,9 +4236,12 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
             $get_category_name = $row_categoryName['category_name'];
         } else {
             $_SESSION['message'] = "No category selected";
-            header("location: ../submission.php");
+            //header("location: ../submission.php");
             exit();
         }
+
+        //var_dump($_POST);
+        //die();
 
         // Extract old reference IDs from $_POST['referencesID']
         $old_reference_ids = handleEmpty($_POST['referencesID']);
@@ -4048,7 +4264,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                             echo "Warning: No rows deleted for old reference ID $old_reference_id";
                         }
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to update crop.";
+                        header("location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -4075,11 +4292,13 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                     $row_refer = pg_fetch_row($query_run_refer);
                     $references_id = $row_refer[0];
                 } else {
-                    echo "Error: No rows affected";
+                    $_SESSION['message'] = "Failed to update crop.";
+                    header("location: ../submission.php");;
                     exit(0);
                 }
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to update crop.";
+                header("location: ../submission.php");
                 exit(0);
             }
         }
@@ -4097,7 +4316,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
             if ($query_run_seedTraits) {
                 echo "success";
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to update crop.";
+                header("location: ../submission.php");
                 exit(0);
             }
 
@@ -4107,7 +4327,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
             if ($query_run_reproductiveState) {
                 echo "success";
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to update crop.";
+                header("location: ../submission.php");
                 exit(0);
             }
 
@@ -4117,7 +4338,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
             if ($query_run_vegetativeState) {
                 echo "success";
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to update crop.";
+                header("location: ../submission.php");
                 exit(0);
             }
 
@@ -4149,11 +4371,13 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                             if ($query_run_cropInsert) {
                                 echo "success";
                             } else {
-                                echo "Error: " . pg_last_error($conn);
+                                $_SESSION['message'] = "Failed to update crop.";
+                                header("location: ../submission.php");
                                 exit(0);
                             }
                         } else {
-                            echo "Error: " . pg_last_error($conn);
+                            $_SESSION['message'] = "Failed to update crop.";
+                            header("location: ../submission.php");
                             exit(0);
                         }
                     }
@@ -4165,7 +4389,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                     if ($query_run_pestOther) {
                         echo "success";
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to update crop.";
+                        header("location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -4197,11 +4422,13 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                                 if ($query_run_cropInsert) {
                                     echo "success";
                                 } else {
-                                    echo "Error: " . pg_last_error($conn);
+                                    $_SESSION['message'] = "Failed to update crop.";
+                                    header("location: ../submission.php");
                                     exit(0);
                                 }
                             } else {
-                                echo "Error: " . pg_last_error($conn);
+                                $_SESSION['message'] = "Failed to update crop.";
+                                header("location: ../submission.php");
                                 exit(0);
                             }
                         }
@@ -4213,7 +4440,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                         if ($query_run_abioticOther) {
                             echo "success";
                         } else {
-                            echo "Error: " . pg_last_error($conn);
+                            $_SESSION['message'] = "Failed to update crop.";
+                            header("location: ../submission.php");
                             exit(0);
                         }
                     }
@@ -4235,7 +4463,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                     $query_pest = "INSERT INTO corn_pest_resistance (corn_traits_id, pest_resistance_id, corn_is_checked_pest) VALUES ($1, $2, $3)";
                     $query_run_pest = pg_query_params($conn, $query_pest, array($corn_traits_id, $pest_id, $corn_is_checked_pest));
                     if (!$query_run_pest) {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to update crop.";
+                        header("location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -4256,7 +4485,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                     $query_disease = "INSERT INTO corn_disease_resistance (corn_traits_id, disease_resistance_id, corn_is_checked_disease) VALUES ($1, $2, $3)";
                     $query_run_disease = pg_query_params($conn, $query_disease, array($corn_traits_id, $disease_id, $corn_is_checked_disease));
                     if (!$query_run_disease) {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to update crop.";
+                        header("location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -4277,7 +4507,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                     $query_abiotic = "INSERT INTO corn_abiotic_resistance (corn_traits_id, abiotic_resistance_id, corn_is_checked_abiotic) VALUES ($1, $2, $3)";
                     $query_run_abiotic = pg_query_params($conn, $query_abiotic, array($corn_traits_id, $abiotic_id, $corn_is_checked_abiotic));
                     if (!$query_run_abiotic) {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to update crop.";
+                        header("location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -4298,7 +4529,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
             $query_run_seedTraits = pg_query_params($conn, $query_seedTraits, array($seed_length, $seed_width, $seed_shape, $seed_color, $seed_traits_id));
             if ($query_run_seedTraits) {
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to update crop.";
+                header("location: ../submission.php");
                 exit(0);
             }
 
@@ -4307,7 +4539,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
             $query_run_panicleTraits = pg_query_params($conn, $query_panicleTraits, array($panicle_length, $panicle_width, $panicle_enclosed_by, $panicle_remarkable_features, $panicle_traits_rice_id));
             if ($query_run_panicleTraits) {
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to update crop.";
+                header("location: ../submission.php");
                 exit(0);
             }
 
@@ -4316,7 +4549,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
             $query_run_flagLeaf = pg_query_params($conn, $query_flagLeaf, array($flag_length, $flag_width, $purplish_stripes, $pubescence, $flag_remarkable_features, $flag_leaf_traits_rice_id));
             if ($query_run_flagLeaf) {
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to update crop.";
+                header("location: ../submission.php");
                 exit(0);
             }
 
@@ -4325,7 +4559,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
             $query_run_reproductiveState = pg_query_params($conn, $query_reproductiveState, array($rice_yield_capacity, $seed_traits_id, $panicle_traits_rice_id, $flag_leaf_traits_rice_id, $reproductive_state_rice_id));
             if ($query_run_reproductiveState) {
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to update crop.";
+                header("location: ../submission.php");
                 exit(0);
             }
 
@@ -4334,7 +4569,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
             $query_run_vegetativeState = pg_query_params($conn, $query_vegetativeState, array($rice_plant_height, $rice_leaf_width, $rice_leaf_length, $rice_tillering_ability, $rice_maturity_time, $vegetative_state_rice_id));
             if ($query_run_vegetativeState) {
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to update crop.";
+                header("location: ../submission.php");
                 exit(0);
             }
 
@@ -4343,7 +4579,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
             $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $hardness, $sensory_traits_rice_id));
             if ($query_run_sensoryTraits) {
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to update crop.";
+                header("location: ../submission.php");
                 exit(0);
             }
 
@@ -4374,11 +4611,13 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                             if ($query_run_cropInsert) {
                                 echo "success";
                             } else {
-                                echo "Error: " . pg_last_error($conn);
+                                $_SESSION['message'] = "Failed to update crop.";
+                                header("location: ../submission.php");
                                 exit(0);
                             }
                         } else {
-                            echo "Error: " . pg_last_error($conn);
+                            $_SESSION['message'] = "Failed to update crop.";
+                            header("location: ../submission.php");
                             exit(0);
                         }
                     }
@@ -4390,7 +4629,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                     if ($query_run_pestOther) {
                         echo "success";
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to update crop.";
+                        header("location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -4422,11 +4662,13 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                                 if ($query_run_cropInsert) {
                                     echo "success";
                                 } else {
-                                    echo "Error: " . pg_last_error($conn);
+                                    $_SESSION['message'] = "Failed to update crop.";
+                                    header("location: ../submission.php");
                                     exit(0);
                                 }
                             } else {
-                                echo "Error: " . pg_last_error($conn);
+                                $_SESSION['message'] = "Failed to update crop.";
+                                header("location: ../submission.php");
                                 exit(0);
                             }
                         }
@@ -4438,7 +4680,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                         if ($query_run_abioticOther) {
                             echo "success";
                         } else {
-                            echo "Error: " . pg_last_error($conn);
+                            $_SESSION['message'] = "Failed to update crop.";
+                            header("location: ../submission.php");
                             exit(0);
                         }
                     }
@@ -4460,7 +4703,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                     $query_pest = "INSERT INTO rice_pest_resistance (rice_traits_id, pest_resistance_id, rice_is_checked_pest) VALUES ($1, $2, $3)";
                     $query_run_pest = pg_query_params($conn, $query_pest, array($rice_traits_id, $pest_id, $rice_is_checked_pest));
                     if (!$query_run_pest) {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to update crop.";
+                        header("location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -4481,7 +4725,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                     $query_disease = "INSERT INTO rice_disease_resistance (rice_traits_id, disease_resistance_id, rice_is_checked_disease) VALUES ($1, $2, $3)";
                     $query_run_disease = pg_query_params($conn, $query_disease, array($rice_traits_id, $disease_id, $rice_is_checked_disease));
                     if (!$query_run_disease) {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to update crop.";
+                        header("location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -4502,7 +4747,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                     $query_abiotic = "INSERT INTO rice_abiotic_resistance (rice_traits_id, abiotic_resistance_id, rice_is_checked_abiotic) VALUES ($1, $2, $3)";
                     $query_run_abiotic = pg_query_params($conn, $query_abiotic, array($rice_traits_id, $abiotic_id, $rice_is_checked_abiotic));
                     if (!$query_run_abiotic) {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to update crop.";
+                        header("location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -4519,7 +4765,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
             $query_run_rootcropTraits = pg_query_params($conn, $query_rootcropTraits, array($eating_quality, $rootcrop_color, $sweetness, $rootcrop_remarkable_features, $rootcrop_traits_id));
             if ($query_run_rootcropTraits) {
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to update crop.";
+                header("location: ../submission.php");
                 exit(0);
             }
 
@@ -4532,7 +4779,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
             ));
             if ($query_run_vegetativeState) {
             } else {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to update crop.";
+                header("location: ../submission.php");
                 exit(0);
             }
 
@@ -4563,11 +4811,13 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                             if ($query_run_cropInsert) {
                                 echo "success";
                             } else {
-                                echo "Error: " . pg_last_error($conn);
+                                $_SESSION['message'] = "Failed to update crop.";
+                                header("location: ../submission.php");
                                 exit(0);
                             }
                         } else {
-                            echo "Error: " . pg_last_error($conn);
+                            $_SESSION['message'] = "Failed to update crop.";
+                            header("location: ../submission.php");
                             exit(0);
                         }
                     }
@@ -4579,7 +4829,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                     if ($query_run_pestOther) {
                         echo "success";
                     } else {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to update crop.";
+                        header("location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -4611,11 +4862,13 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                                 if ($query_run_cropInsert) {
                                     echo "success";
                                 } else {
-                                    echo "Error: " . pg_last_error($conn);
+                                    $_SESSION['message'] = "Failed to update crop.";
+                                    header("location: ../submission.php");
                                     exit(0);
                                 }
                             } else {
-                                echo "Error: " . pg_last_error($conn);
+                                $_SESSION['message'] = "Failed to update crop.";
+                                header("location: ../submission.php");
                                 exit(0);
                             }
                         }
@@ -4627,7 +4880,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                         if ($query_run_abioticOther) {
                             echo "success";
                         } else {
-                            echo "Error: " . pg_last_error($conn);
+                            $_SESSION['message'] = "Failed to update crop.";
+                            header("location: ../submission.php");
                             exit(0);
                         }
                     }
@@ -4649,7 +4903,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                     $query_pest = "INSERT INTO rootcrop_pest_resistance (root_crop_traits_id, pest_resistance_id, rootcrop_is_checked_pest) VALUES ($1, $2, $3)";
                     $query_run_pest = pg_query_params($conn, $query_pest, array($root_crop_traits_id, $pest_id, $rootcrop_is_checked_pest));
                     if (!$query_run_pest) {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to update crop.";
+                        header("location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -4670,7 +4925,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                     $query_disease = "INSERT INTO rootcrop_disease_resistance (root_crop_traits_id, disease_resistance_id, rootcrop_is_checked_disease) VALUES ($1, $2, $3)";
                     $query_run_disease = pg_query_params($conn, $query_disease, array($root_crop_traits_id, $disease_id, $rootcrop_is_checked_disease));
                     if (!$query_run_disease) {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to update crop.";
+                        header("location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -4691,7 +4947,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
                     $query_abiotic = "INSERT INTO rootcrop_abiotic_resistance (root_crop_traits_id, abiotic_resistance_id, rootcrop_is_checked_abiotic) VALUES ($1, $2, $3)";
                     $query_run_abiotic = pg_query_params($conn, $query_abiotic, array($root_crop_traits_id, $abiotic_id, $rootcrop_is_checked_abiotic));
                     if (!$query_run_abiotic) {
-                        echo "Error: " . pg_last_error($conn);
+                        $_SESSION['message'] = "Failed to update crop.";
+                        header("location: ../submission.php");
                         exit(0);
                     }
                 }
@@ -4757,7 +5014,7 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $get_category_name = $row_categoryName['category_name'];
         } else {
             $_SESSION['message'] = "No category available, incomplete data";
-            header("location: ../crop.php");
+            header("location: ../submission.php");
             exit();
         }
 
@@ -4772,7 +5029,7 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_crop = pg_query_params($conn, $query_delete_crop, [$crop_id]);
 
             if (!$query_run_delete_crop) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
                 die();
             }
 
@@ -4792,7 +5049,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_crop_loc = pg_query_params($conn, $query_delete_crop_loc, [$crop_location_id]);
 
             if (!$query_run_delete_crop_loc) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -4801,7 +5059,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_util_cultural = pg_query_params($conn, $query_delete_util_cultural, [$utilization_cultural_id]);
 
             if (!$query_run_delete_util_cultural) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -4810,7 +5069,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_Status = pg_query_params($conn, $query_delete_Status, [$status_id]);
 
             if (!$query_run_delete_Status) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -4822,7 +5082,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
                         $query_run_delete_Reference = pg_query_params($conn, $query_delete_Reference, array($ref_id));
 
                         if (!$query_run_delete_Reference) {
-                            echo "Error: " . pg_last_error($conn);
+                            $_SESSION['message'] = "Failed to delete crop.";
+                            header("location: ../submission.php");
                             die();
                         }
                     }
@@ -4834,7 +5095,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_corn_Traits = pg_query_params($conn, $query_delete_corn_Traits, [$corn_traits_id]);
 
             if (!$query_run_delete_corn_Traits) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -4843,7 +5105,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$corn_traits_id]);
 
             if (!$query_run_delete_disease_res) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -4852,7 +5115,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$corn_traits_id]);
 
             if (!$query_run_delete_abiotic_res) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -4861,7 +5125,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$corn_traits_id]);
 
             if (!$query_run_delete_pest_res) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -4870,7 +5135,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_veg_state = pg_query_params($conn, $query_delete_veg_state, [$vegetative_state_corn_id]);
 
             if (!$query_run_delete_veg_state) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -4879,7 +5145,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_repro_state = pg_query_params($conn, $query_delete_repro_state, [$reproductive_state_corn_id]);
 
             if (!$query_run_delete_repro_state) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -4888,7 +5155,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_seed_traits = pg_query_params($conn, $query_delete_seed_traits, [$seed_traits_id]);
 
             if (!$query_run_delete_seed_traits) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -4897,7 +5165,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_pestOther = pg_query_params($conn, $query_delete_pestOther, [$corn_pest_other_id]);
 
             if (!$query_run_delete_pestOther) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -4906,7 +5175,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_abioticOther = pg_query_params($conn, $query_delete_abioticOther, [$corn_abiotic_other_id]);
 
             if (!$query_run_delete_abioticOther) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
         } else if ($get_category_name === 'Rice') {
@@ -4924,7 +5194,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_crop = pg_query_params($conn, $query_delete_crop, [$crop_id]);
 
             if (!$query_run_delete_crop) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -4933,7 +5204,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_crop_loc = pg_query_params($conn, $query_delete_crop_loc, [$crop_location_id]);
 
             if (!$query_run_delete_crop_loc) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -4942,7 +5214,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_util_cultural = pg_query_params($conn, $query_delete_util_cultural, [$utilization_cultural_id]);
 
             if (!$query_run_delete_util_cultural) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -4951,7 +5224,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_Status = pg_query_params($conn, $query_delete_Status, [$status_id]);
 
             if (!$query_run_delete_Status) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -4964,7 +5238,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
                         $query_run_delete_Reference = pg_query_params($conn, $query_delete_Reference, array($ref_id));
 
                         if (!$query_run_delete_Reference) {
-                            echo "Error: " . pg_last_error($conn);
+                            $_SESSION['message'] = "Failed to delete crop.";
+                            header("location: ../submission.php");
                             die();
                         }
                     }
@@ -4976,7 +5251,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_rice_Traits = pg_query_params($conn, $query_delete_rice_Traits, [$rice_traits_id]);
 
             if (!$query_run_delete_rice_Traits) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -4985,7 +5261,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_veg_state = pg_query_params($conn, $query_delete_veg_state, [$vegetative_state_rice_id]);
 
             if (!$query_run_delete_veg_state) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -4994,7 +5271,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_repro_state = pg_query_params($conn, $query_delete_repro_state, [$reproductive_state_rice_id]);
 
             if (!$query_run_delete_repro_state) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5003,7 +5281,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_panicleTraits = pg_query_params($conn, $query_delete_panicleTraits, [$panicle_traits_rice_id]);
 
             if (!$query_run_delete_panicleTraits) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5012,7 +5291,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_flagLeaf = pg_query_params($conn, $query_delete_flagLeaf, [$flag_leaf_traits_rice_id]);
 
             if (!$query_run_delete_flagLeaf) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5021,7 +5301,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_sensoryTraits = pg_query_params($conn, $query_delete_sensoryTraits, [$sensory_traits_rice_id]);
 
             if (!$query_run_delete_sensoryTraits) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5030,7 +5311,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_seed_traits = pg_query_params($conn, $query_delete_seed_traits, [$seed_traits_id]);
 
             if (!$query_run_delete_seed_traits) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5039,7 +5321,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$rice_traits_id]);
 
             if (!$query_run_delete_disease_res) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5048,7 +5331,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$rice_traits_id]);
 
             if (!$query_run_delete_abiotic_res) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5057,7 +5341,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$rice_traits_id]);
 
             if (!$query_run_delete_pest_res) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5066,7 +5351,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_pestOther = pg_query_params($conn, $query_delete_pestOther, [$rice_pest_other_id]);
 
             if (!$query_run_delete_pestOther) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5075,7 +5361,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_abioticOther = pg_query_params($conn, $query_delete_abioticOther, [$rice_abiotic_other_id]);
 
             if (!$query_run_delete_abioticOther) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
         } else if ($get_category_name === 'Root Crop') {
@@ -5091,7 +5378,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_crop = pg_query_params($conn, $query_delete_crop, [$crop_id]);
 
             if (!$query_run_delete_crop) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5100,7 +5388,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_crop_loc = pg_query_params($conn, $query_delete_crop_loc, [$crop_location_id]);
 
             if (!$query_run_delete_crop_loc) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5109,7 +5398,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_util_cultural = pg_query_params($conn, $query_delete_util_cultural, [$utilization_cultural_id]);
 
             if (!$query_run_delete_util_cultural) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5118,7 +5408,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_Status = pg_query_params($conn, $query_delete_Status, [$status_id]);
 
             if (!$query_run_delete_Status) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5131,7 +5422,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
                         $query_run_delete_Reference = pg_query_params($conn, $query_delete_Reference, array($ref_id));
 
                         if (!$query_run_delete_Reference) {
-                            echo "Error: " . pg_last_error($conn);
+                            $_SESSION['message'] = "Failed to delete crop.";
+                            header("location: ../submission.php");
                             die();
                         }
                     }
@@ -5143,7 +5435,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_root_crop_Traits = pg_query_params($conn, $query_delete_root_crop_Traits, [$root_crop_traits_id]);
 
             if (!$query_run_delete_root_crop_Traits) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5152,7 +5445,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_rootcrop_Traits = pg_query_params($conn, $query_delete_rootcrop_Traits, [$rootcrop_traits_id]);
 
             if (!$query_run_delete_rootcrop_Traits) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5161,7 +5455,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_veg_state = pg_query_params($conn, $query_delete_veg_state, [$vegetative_state_rootcrop_id]);
 
             if (!$query_run_delete_veg_state) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5170,7 +5465,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$root_crop_traits_id]);
 
             if (!$query_run_delete_disease_res) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5179,7 +5475,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$root_crop_traits_id]);
 
             if (!$query_run_delete_abiotic_res) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5188,7 +5485,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$root_crop_traits_id]);
 
             if (!$query_run_delete_pest_res) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5197,7 +5495,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_pestOther = pg_query_params($conn, $query_delete_pestOther, [$rootcrop_pest_other_id]);
 
             if (!$query_run_delete_pestOther) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
 
@@ -5206,7 +5505,8 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank
             $query_run_delete_abioticOther = pg_query_params($conn, $query_delete_abioticOther, [$rootcrop_abiotic_other_id]);
 
             if (!$query_run_delete_abioticOther) {
-                echo "Error: " . pg_last_error($conn);
+                $_SESSION['message'] = "Failed to delete crop.";
+                header("location: ../submission.php");
                 die();
             }
         }

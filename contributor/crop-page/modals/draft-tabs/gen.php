@@ -238,6 +238,7 @@
         <div class="col" id="category-VarietyDraft">
             <label for="categoryVarietyDraft" class="form-label small-font">Variety<span class="text-danger ms-1">*</span></label>
             <select name="category_variety_id" id="categoryVarietyDraft" class="form-select color-default-child">
+                <option value="" selected disabled hidden>Select a category first</option>
             </select>
             <div id="categoryVariety-error-draft" class="invalid-feedback"></div>
         </div>
