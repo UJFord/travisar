@@ -54,9 +54,6 @@ require "../functions/functions.php";
                 <!-- table -->
                 <?php require "list/table-list.php" ?>
 
-                <!-- grid -->
-                <?php require "list/grid-list.php" ?>
-
                 <!-- map -->
                 <div id="crop-list-map" class="overflow-y-auto row d-none">
                     <div id="mapList" class="col rounded"></div>
