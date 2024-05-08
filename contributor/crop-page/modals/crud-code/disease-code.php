@@ -43,7 +43,6 @@ if (isset($_POST['save'])) {
     }
 
     if ($error_flag) {
-
         // header("location: ../../disease-resistance.php");
         exit;
     }
@@ -69,7 +68,8 @@ if (isset($_POST['save'])) {
         // header("location: ../../disease-resistance.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {
-        echo "Error updating record"; // Display an error message if the query fails
+        $_SESSION['message'] = "Failed to create disease resistance.";
+        exit();
     }
 }
 
@@ -86,11 +86,11 @@ if (isset($_POST['edit'])) {
             // header("location: ../../disease-resistance.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
-            echo "Error: Location ID not found";
+            $_SESSION['message'] = "Disease does not exist.";
             exit(0);
         }
     } else {
-        echo "Error: " . pg_last_error($conn);
+        $_SESSION['message'] = "Failed to update disease.";
         exit(0);
     }
 }
@@ -112,7 +112,7 @@ if (isset($_POST['delete']) && $_SESSION['rank'] == 'Admin' || $_SESSION['rank']
             //header("location: ../../disease-resistance.php");
             exit();
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to delete disease resistance.";
             exit(0);
         }
     } catch (Exception $e) {

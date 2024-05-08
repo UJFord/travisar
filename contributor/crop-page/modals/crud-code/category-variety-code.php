@@ -21,7 +21,7 @@ if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
             // Check if a category variety was fetched
             if ($existing_category_variety) {
                 // Category variety exists
-                $_SESSION['message'] = "Category Variety already exists.";
+                $_SESSION['message'] = "Crop Variety already exists.";
                 pg_query($conn, "COMMIT");
                 //header("location: ../../category-variety.php");
                 exit();
@@ -34,11 +34,12 @@ if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
                     $row_category = pg_fetch_row($query_run);
                     $category_variety_id = $row_category[0];
                 } else {
+                    $_SESSION['message'] = "Failed to create crop variety.";
                     echo "Error: " . pg_last_error($conn);
                     exit(0);
                 }
 
-                $_SESSION['message'] = "Category Variety created Successfully";
+                $_SESSION['message'] = "Crop Variety created Successfully";
                 pg_query($conn, "COMMIT");
                 //header("location: ../../category-variety.php");
                 exit();
@@ -50,7 +51,7 @@ if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
         }
     } catch (Exception $e) {
         // message for error
-        $_SESSION['message'] = 'Category Variety not Created';
+        $_SESSION['message'] = 'Crop Variety not Created';
         // Rollback the transaction if an error occurs
         pg_query($conn, "ROLLBACK");
         // Log the error message
@@ -79,7 +80,7 @@ if (isset($_POST['edit']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
             $row_category = pg_fetch_row($query_run);
             $category_id = $row_category[0];
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to update crop variety.";
             exit(0);
         }
 
@@ -115,7 +116,7 @@ if (isset($_POST['delete']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'
             $row_category = pg_fetch_row($query_run);
             $category_variety_id = $row_category[0];
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to delete crop variety.";
             exit(0);
         }
 

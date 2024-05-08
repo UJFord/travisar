@@ -208,6 +208,7 @@
         <div class="col-6">
             <label for="CategoryDraft" class="form-label small-font">Crop Category<span class="text-danger ms-1">*</span></label>
             <select name="category_id" id="CategoryDraft" class="form-select">
+                <option value="" selected disabled hidden>Select an option</option>
                 <?php
                 // get the data of category from DB
                 $queryCategory = "SELECT * FROM category ORDER BY category_name ASC";
