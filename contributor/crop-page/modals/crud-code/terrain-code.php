@@ -37,13 +37,13 @@ if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
                     //header("location: ../../terrain.php");
                     exit();
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to terrain.";
                     exit(0);
                 }
             }
         } else {
             // Error executing the query
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to find terrain.";
             exit(0);
         }
     } catch (Exception $e) {
@@ -75,7 +75,7 @@ if (isset($_POST['edit']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
             $row_terrain = pg_fetch_row($query_run);
             $terrain_id = $row_terrain[0];
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to update terrain.";
             exit(0);
         }
 
@@ -113,7 +113,7 @@ if (isset($_POST['delete']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'
             // header("location: ../../terrain.php");
             exit();
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to delete terrain.";
             exit(0);
         }
     } catch (Exception $e) {

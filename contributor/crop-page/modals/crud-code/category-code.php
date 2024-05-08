@@ -17,7 +17,7 @@ if (isset($_POST['edit']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
             $row_category = pg_fetch_row($query_run);
             $category_id = $row_category[0];
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to update category.";
             exit(0);
         }
 
@@ -72,13 +72,12 @@ if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
                     header("location: ../../crop-category.php");
                     exit();
                 } else {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to create Category.";
                     exit(0);
                 }
             }
         } else {
-            // Error executing the query
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to create Category.";
             exit(0);
         }
     } catch (Exception $e) {
@@ -111,6 +110,7 @@ if (isset($_POST['delete']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'
             header("location: ../../crop-category.php");
             exit();
         } else {
+            $_SESSION['message'] = "Failed to delete category.";
             echo "Error: " . pg_last_error($conn);
             exit(0);
         }

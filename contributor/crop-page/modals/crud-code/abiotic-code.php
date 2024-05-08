@@ -62,10 +62,14 @@ if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
             //header("location: ../../abiotic-resistance.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
-            echo "Error updating record"; // Display an error message if the query fails
+            $_SESSION['message'] = "Failed to create abiotic";
+            //header("location: ../../abiotic-resistance.php");
+            exit;
         }
     } else {
-        echo "Error: No abiotic names provided";
+        $_SESSION['message'] = "No abiotic names provided";
+        //header("location: ../../abiotic-resistance.php");
+        exit;
     }
 }
 
@@ -83,11 +87,11 @@ if (isset($_POST['edit']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
             //header("location: ../../abiotic-resistance.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
-            echo "Error: Location ID not found";
+            $_SESSION['message'] = "Location ID not found";
             exit(0);
         }
     } else {
-        echo "Error: " . pg_last_error($conn);
+        $_SESSION['message'] = "No abiotic resistance found";
         exit(0);
     }
 }
@@ -103,12 +107,12 @@ if (isset($_POST['delete']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'
         $query_run = pg_query_params($conn, $query, array($abiotic_resistance_id));
 
         if ($query_run) {
-            echo $_SESSION['message'] = "Abiotic Deleted Successfully";
+            $_SESSION['message'] = "Abiotic Deleted Successfully.";
             pg_query($conn, "COMMIT");
             //header("location: ../../abiotic-resistance.php");
             exit();
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to delete abiotic.";
             exit(0);
         }
     } catch (Exception $e) {

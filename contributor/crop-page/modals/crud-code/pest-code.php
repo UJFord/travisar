@@ -63,10 +63,12 @@ if (isset($_POST['save'])) {
             //header("location: ../../pest-resistance.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
-            echo "Error updating record"; // Display an error message if the query fails
+            $_SESSION['message'] = "Failed to create pest resistance.";
+            exit();
         }
     } else {
-        echo "Error: No pest names provided";
+        $_SESSION['message'] = "No pest names provided.";
+        exit();
     }
 }
 
@@ -83,11 +85,11 @@ if (isset($_POST['edit'])) {
             header("location: ../../pest-resistance.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
-            echo "Error: Location ID not found";
+            $_SESSION['message'] = "Pest resistance does not exist.";
             exit(0);
         }
     } else {
-        echo "Error: " . pg_last_error($conn);
+        $_SESSION['message'] = "Failed to create pest resistance.";
         exit(0);
     }
 }
@@ -109,7 +111,7 @@ if (isset($_POST['delete']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'
             //header("location: ../../pest-resistance.php");
             exit();
         } else {
-            echo "Error: " . pg_last_error($conn);
+            $_SESSION['message'] = "Failed to delete pest resistance.";
             exit(0);
         }
     } catch (Exception $e) {

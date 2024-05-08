@@ -75,7 +75,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_crop = pg_query_params($conn, $query_delete_crop, [$crop_id]);
 
                 if (!$query_run_delete_crop) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -117,7 +117,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_crop_loc = pg_query_params($conn, $query_delete_crop_loc, [$crop_location_id]);
 
                 if (!$query_run_delete_crop_loc) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -126,7 +126,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_util_cultural = pg_query_params($conn, $query_delete_util_cultural, [$utilization_cultural_id]);
 
                 if (!$query_run_delete_util_cultural) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -135,7 +135,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_Status = pg_query_params($conn, $query_delete_Status, [$status_id]);
 
                 if (!$query_run_delete_Status) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -147,7 +147,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                             $query_run_delete_Reference = pg_query_params($conn, $query_delete_Reference, array($ref_id));
 
                             if (!$query_run_delete_Reference) {
-                                echo "Error: " . pg_last_error($conn);
+                                $_SESSION['message'] = "Failed to delete crop.";
                                 die();
                             }
                         }
@@ -159,7 +159,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_corn_Traits = pg_query_params($conn, $query_delete_corn_Traits, [$corn_traits_id]);
 
                 if (!$query_run_delete_corn_Traits) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -168,7 +168,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$corn_traits_id]);
 
                 if (!$query_run_delete_disease_res) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -177,7 +177,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$corn_traits_id]);
 
                 if (!$query_run_delete_abiotic_res) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -186,7 +186,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$corn_traits_id]);
 
                 if (!$query_run_delete_pest_res) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -195,7 +195,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_veg_state = pg_query_params($conn, $query_delete_veg_state, [$vegetative_state_corn_id]);
 
                 if (!$query_run_delete_veg_state) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -204,7 +204,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_repro_state = pg_query_params($conn, $query_delete_repro_state, [$reproductive_state_corn_id]);
 
                 if (!$query_run_delete_repro_state) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -213,7 +213,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_seed_traits = pg_query_params($conn, $query_delete_seed_traits, [$seed_traits_id]);
 
                 if (!$query_run_delete_seed_traits) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -222,7 +222,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_pestOther = pg_query_params($conn, $query_delete_pestOther, [$corn_pest_other_id]);
 
                 if (!$query_run_delete_pestOther) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -231,7 +231,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_abioticOther = pg_query_params($conn, $query_delete_abioticOther, [$corn_abiotic_other_id]);
 
                 if (!$query_run_delete_abioticOther) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
             }
@@ -285,7 +285,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_crop = pg_query_params($conn, $query_delete_crop, [$crop_id]);
 
                 if (!$query_run_delete_crop) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -327,7 +327,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_crop_loc = pg_query_params($conn, $query_delete_crop_loc, [$crop_location_id]);
 
                 if (!$query_run_delete_crop_loc) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -336,7 +336,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_util_cultural = pg_query_params($conn, $query_delete_util_cultural, [$utilization_cultural_id]);
 
                 if (!$query_run_delete_util_cultural) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -345,7 +345,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_Status = pg_query_params($conn, $query_delete_Status, [$status_id]);
 
                 if (!$query_run_delete_Status) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -358,7 +358,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                             $query_run_delete_Reference = pg_query_params($conn, $query_delete_Reference, array($ref_id));
 
                             if (!$query_run_delete_Reference) {
-                                echo "Error: " . pg_last_error($conn);
+                                $_SESSION['message'] = "Failed to delete crop.";
                                 die();
                             }
                         }
@@ -370,7 +370,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_rice_Traits = pg_query_params($conn, $query_delete_rice_Traits, [$rice_traits_id]);
 
                 if (!$query_run_delete_rice_Traits) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -379,7 +379,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_veg_state = pg_query_params($conn, $query_delete_veg_state, [$vegetative_state_rice_id]);
 
                 if (!$query_run_delete_veg_state) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -388,7 +388,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_repro_state = pg_query_params($conn, $query_delete_repro_state, [$reproductive_state_rice_id]);
 
                 if (!$query_run_delete_repro_state) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -397,7 +397,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_panicleTraits = pg_query_params($conn, $query_delete_panicleTraits, [$panicle_traits_rice_id]);
 
                 if (!$query_run_delete_panicleTraits) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -406,7 +406,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_flagLeaf = pg_query_params($conn, $query_delete_flagLeaf, [$flag_leaf_traits_rice_id]);
 
                 if (!$query_run_delete_flagLeaf) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -415,7 +415,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_sensoryTraits = pg_query_params($conn, $query_delete_sensoryTraits, [$sensory_traits_rice_id]);
 
                 if (!$query_run_delete_sensoryTraits) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -424,7 +424,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_seed_traits = pg_query_params($conn, $query_delete_seed_traits, [$seed_traits_id]);
 
                 if (!$query_run_delete_seed_traits) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -433,7 +433,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$rice_traits_id]);
 
                 if (!$query_run_delete_disease_res) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -442,7 +442,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$rice_traits_id]);
 
                 if (!$query_run_delete_abiotic_res) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -451,7 +451,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$rice_traits_id]);
 
                 if (!$query_run_delete_pest_res) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -460,7 +460,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_pestOther = pg_query_params($conn, $query_delete_pestOther, [$rice_pest_other_id]);
 
                 if (!$query_run_delete_pestOther) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -469,7 +469,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_abioticOther = pg_query_params($conn, $query_delete_abioticOther, [$rice_abiotic_other_id]);
 
                 if (!$query_run_delete_abioticOther) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
             }
@@ -524,7 +524,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_crop = pg_query_params($conn, $query_delete_crop, [$crop_id]);
 
                 if (!$query_run_delete_crop) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -566,7 +566,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_crop_loc = pg_query_params($conn, $query_delete_crop_loc, [$crop_location_id]);
 
                 if (!$query_run_delete_crop_loc) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -575,7 +575,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_util_cultural = pg_query_params($conn, $query_delete_util_cultural, [$utilization_cultural_id]);
 
                 if (!$query_run_delete_util_cultural) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -584,7 +584,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_Status = pg_query_params($conn, $query_delete_Status, [$status_id]);
 
                 if (!$query_run_delete_Status) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -597,7 +597,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                             $query_run_delete_Reference = pg_query_params($conn, $query_delete_Reference, array($ref_id));
 
                             if (!$query_run_delete_Reference) {
-                                echo "Error: " . pg_last_error($conn);
+                                $_SESSION['message'] = "Failed to delete crop.";
                                 die();
                             }
                         }
@@ -609,7 +609,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_root_crop_Traits = pg_query_params($conn, $query_delete_root_crop_Traits, [$root_crop_traits_id]);
 
                 if (!$query_run_delete_root_crop_Traits) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -618,7 +618,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_rootcrop_Traits = pg_query_params($conn, $query_delete_rootcrop_Traits, [$rootcrop_traits_id]);
 
                 if (!$query_run_delete_rootcrop_Traits) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -627,7 +627,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_veg_state = pg_query_params($conn, $query_delete_veg_state, [$vegetative_state_rootcrop_id]);
 
                 if (!$query_run_delete_veg_state) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -636,7 +636,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_disease_res = pg_query_params($conn, $query_delete_disease_res, [$root_crop_traits_id]);
 
                 if (!$query_run_delete_disease_res) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -645,7 +645,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_abiotic_res = pg_query_params($conn, $query_delete_abiotic_res, [$root_crop_traits_id]);
 
                 if (!$query_run_delete_abiotic_res) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -654,7 +654,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_pest_res = pg_query_params($conn, $query_delete_pest_res, [$root_crop_traits_id]);
 
                 if (!$query_run_delete_pest_res) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -663,7 +663,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_pestOther = pg_query_params($conn, $query_delete_pestOther, [$rootcrop_pest_other_id]);
 
                 if (!$query_run_delete_pestOther) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
 
@@ -672,7 +672,7 @@ if (isset($_POST['delete_row']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
                 $query_run_delete_abioticOther = pg_query_params($conn, $query_delete_abioticOther, [$rootcrop_abiotic_other_id]);
 
                 if (!$query_run_delete_abioticOther) {
-                    echo "Error: " . pg_last_error($conn);
+                    $_SESSION['message'] = "Failed to delete crop.";
                     die();
                 }
             }
