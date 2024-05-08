@@ -408,11 +408,11 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
 
         // update crop table
         $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, meaning_of_name = $3, crop_seed_image = $4, category_variety_id = $5,
-        terrain_id = $6, crop_vegetative_image = $7, crop_reproductive_image = $8
-        where crop_id = $9";
+        terrain_id = $6, crop_vegetative_image = $7, crop_reproductive_image = $8, category_id = $9
+        where crop_id = $10";
 
         $valueCrops = array(
-            $crop_variety, $crop_description, $meaning_of_name, $finalimgSeed, $category_variety_id, $terrain_id, $finalimgVeg, $finalimgRepro, $crop_id
+            $crop_variety, $crop_description, $meaning_of_name, $finalimgSeed, $category_variety_id, $terrain_id, $finalimgVeg, $finalimgRepro, $category_id, $crop_id
         );
         $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
