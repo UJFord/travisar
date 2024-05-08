@@ -63,3 +63,7 @@ body{
 	background-color: var(--mainBrand); /* Change to your desired background color */
       color: #fff; /* Change to your desired text color */
 }
+
+#subfoot{
+	background: #004b4f;
+}
