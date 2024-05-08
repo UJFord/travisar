@@ -1,7 +1,7 @@
 function checkAccess(userRole) {
-    if (userRole === 'Encoder') {
+    if (userRole === 'Contributor') {
         // Customize based on the viewer's access
-        console.log('Encoder has access');
+        console.log('Contributor has access');
     } else if (userRole === 'Admin') {
         // Customize based on the admin's access
         console.log('Admin has access');

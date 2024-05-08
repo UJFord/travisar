@@ -4,7 +4,7 @@ require "../../../functions/connections.php";
 
 // var_dump($_POST);
 // die();
-if (isset($_POST['save']) && $_SESSION['rank'] == 'Encoder') {
+if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {
@@ -2698,7 +2698,7 @@ if (isset($_POST['draft'])) {
 
 // var_dump($_POST);
 // die();
-if (isset($_POST['edit']) && $_SESSION['rank'] == 'Encoder') {
+if (isset($_POST['edit']) && $_SESSION['rank'] == 'Contributor') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {
