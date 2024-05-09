@@ -4,13 +4,10 @@ $(document).ready(function () {
     let mapState = false;
     let mapToggler = document.querySelector('#map-toggler');
 
-    // map or list toggler
-    $(mapToggler).on("click", function()
-    {
+    // map toggle function
+    let mapToggle = () => {
         mapState = !mapState;
         $('#crop-list-map').toggleClass('d-none');
-
-        $('#crop-list-grid').addClass('d-none');
 
         // when map is toggled
         if(mapState){
@@ -28,22 +25,25 @@ $(document).ready(function () {
         $('#map-toggler .map-toggle').toggleClass('d-none');
 
         $('#view-type-button').toggleClass('d-none');
-    });
+    };
+
+    // get url parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    // get value of map in url
+    const toggleMap = urlParams.get('map') == 'open';
+    // open map if url's map value is open
+    if(toggleMap){
+        mapToggle()
+    }
+
+    // map or list toggler
+    $(mapToggler).on("click", mapToggle);
 
 
     // LIST TABLE
     // make rows clickable
     // Add click event to table rows
     $('#crop-list-tbody tr[data-href]').on("click", function () {
-        // Get the URL from the data-href attribute
-        var url = $(this).attr('data-href');
-        // Navigate to the URL
-        window.location = url;
-    });
-
-    // make grids clickable
-    // Add click event to grids
-    $('#crop-list-grid .card-container .card[data-href]').on("click", function () {
         // Get the URL from the data-href attribute
         var url = $(this).attr('data-href');
         // Navigate to the URL
