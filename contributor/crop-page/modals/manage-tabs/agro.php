@@ -1,5 +1,5 @@
 <!-- MORE TAB -->
-<div class="fade tab-pane" id="edit-agro-tab-pane" role="tabpanel" aria-labelledby="edit-agro-tab" tabindex="0">
+<div class="fade tab-pane" id="view-agro-tab-pane" role="tabpanel" aria-labelledby="view-agro-tab" tabindex="0">
     <div>
         <!-- pest resistance -->
         <h6 class="fw-semibold mt-4 mb-3">Pest Resistance</h6>
@@ -30,8 +30,8 @@
 
                         // Display the checkbox and label
                         echo '<div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="pest_resistance[]" id="pest_resistance_Edit' . $pest_resistance_id . '" value="' . $pest_resistance_id . '" disabled>
-                                <label class="form-check-label small-font" for="pest_resistance_Edit' . $pest_resistance_id . '">' . $pest_name . '</label>
+                                <input class="form-check-input" type="checkbox" name="pest_resistance[]" id="pest_resistance_View' . $pest_resistance_id . '" value="' . $pest_resistance_id . '" disabled>
+                                <label class="form-check-label small-font" for="pest_resistance_View' . $pest_resistance_id . '">' . $pest_name . '</label>
                             </div>';
 
                         // Increment the checkbox count
@@ -44,15 +44,15 @@
 
         <!-- Other checkbox -->
         <div class="form-check">
-            <input class="form-check-input" type="checkbox" name="pest_other" id="pest_other_checkEdit" value="1" disabled>
-            <label class="form-check-label small-font" for="pest_other_checkEdit">Other</label>
+            <input class="form-check-input" type="checkbox" name="pest_other" id="pest_other_checkView" value="1" disabled>
+            <label class="form-check-label small-font" for="pest_other_checkView">Other</label>
         </div>
 
         <!-- Other -->
-        <div id="pest-otherEdit" class="row mt-3 mb-5">
+        <div id="pest-otherView" class="row mt-3 mb-5">
             <div class="col-12 mb-0">
                 <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
-                <textarea name="pest_other_desc" id="pestEdit" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock" disabled></textarea>
+                <textarea name="pest_other_desc" id="pestView" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock" disabled></textarea>
                 <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
             </div>
         </div>
@@ -86,8 +86,8 @@
 
                         // Display the checkbox and label
                         echo '<div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="disease_resistance[]" id="disease_resistance_Edit' . $disease_resistance_id . '" value="' . $disease_resistance_id . '" disabled>
-                                <label class="form-check-label small-font" for="disease_resistance_Edit' . $disease_resistance_id . '">' . $disease_name . '</label>
+                                <input class="form-check-input" type="checkbox" name="disease_resistance[]" id="disease_resistance_View' . $disease_resistance_id . '" value="' . $disease_resistance_id . '" disabled>
+                                <label class="form-check-label small-font" for="disease_resistance_View' . $disease_resistance_id . '">' . $disease_name . '</label>
                             </div>';
 
                         // Increment the checkbox count
@@ -127,8 +127,8 @@
 
                         // Display the checkbox and label
                         echo '<div class="form-check">
-                                <input class="form-check-input" type="checkbox" name="abiotic_resistance[]" id="abiotic_resistance_Edit' . $abiotic_resistance_id . '" value="' . $abiotic_resistance_id . '" disabled>
-                                <label class="form-check-label small-font" for="abiotic_resistance_Edit' . $abiotic_resistance_id . '">' . $abiotic_name . '</label>
+                                <input class="form-check-input" type="checkbox" name="abiotic_resistance[]" id="abiotic_resistance_View' . $abiotic_resistance_id . '" value="' . $abiotic_resistance_id . '" disabled>
+                                <label class="form-check-label small-font" for="abiotic_resistance_View' . $abiotic_resistance_id . '">' . $abiotic_name . '</label>
                             </div>';
 
                         // Increment the checkbox count
@@ -143,51 +143,51 @@
         <div class="mb-4">
             <!-- other checkbox -->
             <div class="form-check">
-                <input class="form-check-input" type="checkbox" name="abiotic_other" id="abiotic_other_checkEdit" value="1" disabled>
-                <label class="form-check-label small-font" for="abiotic_other_checkEdit">Other</label>
+                <input class="form-check-input" type="checkbox" name="abiotic_other" id="abiotic_other_checkView" value="1" disabled>
+                <label class="form-check-label small-font" for="abiotic_other_checkView">Other</label>
             </div>
 
             <!-- Other -->
-            <div id="abiotic_otherEdit" class="row mt-3 mb-3">
+            <div id="abiotic_otherView" class="row mt-3 mb-3">
                 <div class="col-12 mb-2">
                     <!-- <label for="corn-other" class="form-label small-font">If others, please specify</label> -->
                     <div class="form-text small-font" id="cornPestOtherHelpBlock">If others, please specify and separate them by a comma ( <span class="fw-semibold">,</span> )</div>
-                    <textarea name="abiotic_other_desc" id="abiotic_other-descEdit" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock" disabled></textarea>
+                    <textarea name="abiotic_other_desc" id="abiotic_other-descView" cols="30" rows="1" class="form-control" aria-describedby="cornPestOtherHelpBlock" disabled></textarea>
                 </div>
             </div>
         </div>
     </div>
 
     <!-- STEP NAVIGATION with out Sensory -->
-    <div class="row" id="withoutSensory-Edit">
+    <div class="row" id="withoutSensory-View">
         <div class="col d-flex justify-content-between">
-            <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('edit-more')"><i class="fa-solid fa-angles-left me-2"></i>Previous</button>
-            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('edit-cultural', this)">Next <i class="fa-solid fa-angles-right me-2"></i></button>
+            <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('view-more')"><i class="fa-solid fa-angles-left me-2"></i>Previous</button>
+            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('view-cultural', this)">Next <i class="fa-solid fa-angles-right me-2"></i></button>
         </div>
     </div>
     <!-- STEP NAVIGATION with Sensory -->
-    <div class="row" id="withSensory-Edit">
+    <div class="row" id="withSensory-View">
         <div class="col d-flex justify-content-between">
-            <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('edit-sensory')"><i class="fa-solid fa-angles-left me-2"></i>Previous</button>
-            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('edit-cultural', this)">Next <i class="fa-solid fa-angles-right me-2"></i></button>
+            <button class="btn btn-light border small-font fw-bold text-dark-emphasis" data-bs-toggle="tooltip" data-bs-placement="left" title="Click to open Location tab" onclick="switchTab('view-sensory')"><i class="fa-solid fa-angles-left me-2"></i>Previous</button>
+            <button class="btn btn-light border small-font fw-bold text-info-emphasis" data-bs-toggle="tooltip" data-bs-placement="right" title="Click to open Location tab" onclick="switchTab('view-cultural', this)">Next <i class="fa-solid fa-angles-right me-2"></i></button>
         </div>
     </div>
 </div>
 <!--  script for the other checkboxes -->
 <script>
     document.addEventListener("DOMContentLoaded", function() {
-        const pest_other_checkEdit = document.getElementById('pest_other_checkEdit');
-        const pest_otherEdit = document.getElementById('pest-otherEdit');
+        const pest_other_checkView = document.getElementById('pest_other_checkView');
+        const pest_otherView = document.getElementById('pest-otherView');
 
-        const abiotic_other_checkEdit = document.getElementById('abiotic_other_checkEdit');
-        const abiotic_otherEdit = document.getElementById('abiotic_otherEdit');
+        const abiotic_other_checkView = document.getElementById('abiotic_other_checkView');
+        const abiotic_otherView = document.getElementById('abiotic_otherView');
 
-        pest_other_checkEdit.addEventListener('change', function() {
-            pest_otherEdit.classList.toggle('d-none', !this.checked);
+        pest_other_checkView.addEventListener('change', function() {
+            pest_otherView.classList.toggle('d-none', !this.checked);
         });
 
-        abiotic_other_checkEdit.addEventListener('change', function() {
-            abiotic_otherEdit.classList.toggle('d-none', !this.checked);
+        abiotic_other_checkView.addEventListener('change', function() {
+            abiotic_otherView.classList.toggle('d-none', !this.checked);
         });
     });
 </script>

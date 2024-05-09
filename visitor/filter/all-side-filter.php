@@ -68,7 +68,7 @@
         <div class="py-2 px-3">
             <div id="terrain-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#terrain-filters" role="button" aria-expanded="true" aria-controls="terrain-filters">
                 <i id="terrainChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">All Terrains</a>
+                <a class="fw-bold text-success col text-decoration-none" href="">Terrains</a>
             </div>
             <!-- terrains filters -->
             <div id="terrain-filters" class="collapse mb-2">
@@ -97,7 +97,7 @@
         <div class="pt-2 pb-1 px-3">
             <div id="mun-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#municipality-filters" role="button" aria-expanded="true" aria-controls="municipalty-filters">
                 <i id="munChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1 rotate-chevron"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">All Municipalities</a>
+                <a class="fw-bold text-success col text-decoration-none" href="">Municipalities</a>
             </div>
             <div id="municipality-filters" class="collapse mb-2">
                 <?php

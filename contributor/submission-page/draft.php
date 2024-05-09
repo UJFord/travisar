@@ -8,10 +8,10 @@
         position: relative;
     }
 
-    #close-modal-btn-draft {
+    /* #close-modal-btn-draft {
         position: fixed;
         right: 21%;
-    }
+    } */
 </style>
 
 <!-- HTML -->
@@ -1164,6 +1164,11 @@
     });
 
     function fetchVarietiesDraft(categoryIdDraft) {
+        if (!categoryIdDraft) {
+            //console.error('Category ID is missing.');
+            return;
+        }
+
         var xhrDraft = new XMLHttpRequest();
         xhrDraft.onreadystatechange = function() {
             if (this.readyState === 4) {

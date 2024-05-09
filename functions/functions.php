@@ -39,7 +39,7 @@
         }
 
         // Retrieve account type
-        $accountTypeQuery = "SELECT * FROM account_type WHERE type_name = 'Encoder'";
+        $accountTypeQuery = "SELECT * FROM account_type WHERE type_name = 'Contributor'";
         $accountTypeResult = database_run($accountTypeQuery);
 
         if ($accountTypeResult) {

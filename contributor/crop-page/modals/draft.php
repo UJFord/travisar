@@ -8,10 +8,10 @@
         position: relative;
     }
 
-    #close-modal-btn-draft {
+    /* #close-modal-btn-draft {
         position: fixed;
         right: 21%;
-    }
+    } */
 </style>
 
 <!-- HTML -->
@@ -1164,7 +1164,13 @@
         showMorphologicalCharacteristicsDraft(selectedCategoryDraft);
     });
 
+
     function fetchVarietiesDraft(categoryIdDraft) {
+        if (!categoryIdDraft) {
+            //console.error('Category ID is missing.');
+            return;
+        }
+
         var xhrDraft = new XMLHttpRequest();
         xhrDraft.onreadystatechange = function() {
             if (this.readyState === 4) {
@@ -1182,6 +1188,7 @@
         xhrDraft.open('GET', 'modals/fetch/fetch_varieties.php?category_id=' + categoryIdDraft, true);
         xhrDraft.send();
     }
+
 
     document.getElementById('CategoryDraft').addEventListener('change', function() {
         var categoryIdDraft = this.value;

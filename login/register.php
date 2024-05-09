@@ -91,7 +91,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <!-- gender -->
                     <div class="form-floating mb-3">
-                        <input type="text" class="fs-6 form-control rounded-4" id="reg-gender" name="gender" placeholder="Gender" required>
+                        <select name="gender" id="reg-gender" class="fs-6 form-select rounded-4" required>
+                            <option value="" selected disabled hidden></option>
+                            <option value="Male">Male</option>
+                            <option value="Female">Female</option>
+                            <option value="Rather not say">Rather not say</option>
+                        </select> 
                         <label for="reg-gender" class="fs-6">Gender</label>
                     </div>
 

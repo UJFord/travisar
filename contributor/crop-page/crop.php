@@ -12,6 +12,7 @@ require "../../functions/functions.php";
 
     <!-- title -->
     <title>Travisar</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../../visitor/img/travis-light.svg">
 
     <!-- STYLESHEETS -->
 
@@ -1247,7 +1248,7 @@ require "../../functions/functions.php";
     <!-- allowing scrollspy in the modal -->
     <script>
         $(document).ready(function() {
-            $('#view-item-modal').on('shown.bs.modal', function() {
+            $('#edit-item-modal').on('shown.bs.modal', function() {
                 $('[data-spy="scroll"]').scrollspy('refresh');
                 console.log($('[data-spy="scroll"]').scrollspy());
             });

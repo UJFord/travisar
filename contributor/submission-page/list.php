@@ -121,11 +121,11 @@
                         <?php
                         if ($row['action'] === 'Draft') {
                         ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink draft_data" href="#" data-bs-toggle="modal" data-bs-target="#draft-item-modal">
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink draft_data" href="../../visitor/view.php?crop_id=<?= $row['crop_id']; ?>" data-bs-toggle="modal" data-bs-target="#draft-item-modal">
                             <?php
-                        } else  if ($row['action'] === 'approved') {
+                        } else  if ($row['action'] === 'Approved') {
                             ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="../../visitor/view-crop.php?crop_id=<?= $row['crop_id'] ?>">
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="../../visitor/view.php?crop_id=<?= $row['crop_id'] ?>">
                             <?php
                         } else {
                             ?>
@@ -214,7 +214,7 @@
                                         <i class="row-btn fa-solid fa-ellipsis-vertical px-3 py-2 m-0 rounded"></i>
                                     </button>
                                     <ul class="dropdown-menu">
-                                        <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye text-center" style="width: 20px;"></i> View</a></li>
+                                        <!-- <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye text-center" style="width: 20px;"></i> View</a></li> -->
                                         <li>
                                             <a class="dropdown-item edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1" style="width: 20px;"></i>Edit</a>
                                         </li>

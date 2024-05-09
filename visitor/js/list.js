@@ -70,7 +70,7 @@ $(document).ready(function () {
             iconSize: [30, 30],
             iconAnchor: [20, 20],
         }),
-        "Root": L.icon({
+        "Root Crop": L.icon({
             iconUrl: 'img/carrot-circle.png',
             iconSize: [30, 30],
             iconAnchor: [20, 20],

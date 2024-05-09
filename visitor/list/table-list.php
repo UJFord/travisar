@@ -3,7 +3,7 @@
         <thead>
             <tr class="border-bottom">
                 <th scope="col" class="col-1 small-font text-secondary">Category</th>
-                <th scope="col" class="col-4 small-font text-secondary">Name</th>
+                <th scope="col" class="col-2 small-font text-secondary">Name</th>
                 <th scope="col" class="col-2 small-font text-secondary">Sitio</th>
                 <th scope="col" class="col-2 small-font text-secondary">Barangay</th>
                 <th scope="col" class="col-2 small-font text-secondary">Municipality</th>
@@ -89,7 +89,7 @@
                     // Display the data
             ?>
                     <tr latlng="<?= $row['barangay_coordinates'] ?>" data-href="view.php?crop_id=<?= $row['crop_id'] ?>">
-                        <td class="category text-truncate" style="max-width:5rem;"><?= $row['category_name'] === 'Root Crop' ? 'Root' : $row['category_name'] ?></td>
+                        <td class="category text-truncate" style="max-width:5rem;"><?= $row['category_name'] ?></td>
                         <td class="fw-bolder variety text-truncate" style="max-width 10rem;"><?= $row['crop_variety'] ?></td>
                         <td class="text-truncate" style="max-width: 10rem;"><?= $row['sitio_name'] ?></td>
                         <td class="text-truncate" style="max-width: 5rem;"><?= $row['barangay_name'] ?></td>
