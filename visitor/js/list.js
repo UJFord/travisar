@@ -118,22 +118,6 @@ $(document).ready(function () {
         let address = row.querySelector('.addr').textContent.trim();
         let terrain = row.querySelector('.terrain').textContent.trim();
         let viewLink = row.getAttribute('data-href');
-
-        // GRID
-        //  transfer values from list to grid
-        let cardElement = `
-            <div class="card-container col-3 px-2 pb-2">
-                <div class="card" data-href="${viewLink}">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold text-truncate">${variety}</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">${terrain}</h6>
-                        <p class="card-text small-font text-truncate">${address}</p>
-                    </div>
-                </div>
-            </div>
-        `;
-        // add cardElement
-        $('#crop-list-grid').append(cardElement);
         
 
         // MAP SCRIPTS
