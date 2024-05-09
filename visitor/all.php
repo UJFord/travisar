@@ -84,7 +84,7 @@ require "../functions/functions.php";
                 </ul>
             </nav>
         </div> -->
-        
+
         <!-- Pagination -->
         <div class="row mt-2">
             <nav class="d-flex justify-content-end">
@@ -108,12 +108,30 @@ require "../functions/functions.php";
         // Modify the search function to store the search query in a session or URL parameter
         function search() {
             var searchInput = document.getElementById("searchInput").value;
-            // Store the search query in a session or URL parameter
-            // For example, you can use localStorage to store the search query
-            localStorage.setItem('searchQuery', searchInput);
-            // Reload the page with the search query as a parameter
-            window.location.href = window.location.pathname + "?search=" + searchInput;
+
+            // Get existing filter parameters
+            let searchParams = new URLSearchParams(window.location.search);
+            let searchCondition = '';
+
+            const existingFilters = {};
+            for (let param of searchParams.entries()) {
+                if (param[0] !== 'search') {
+                    existingFilters[param[0]] = param[1];
+                }
+            }
+
+            // Construct search condition with existing filters
+            for (let key in existingFilters) {
+                searchCondition += `${key}=${existingFilters[key]}&`;
+            }
+
+            // Add the search query to the search condition
+            searchCondition += `search=${searchInput}`;
+
+            // Redirect to the page with updated filters and search query
+            window.location.href = window.location.pathname + '?' + searchCondition;
         }
+
 
         const searchInput = document.getElementById('searchInput');
         const clearButton = document.getElementById('clearButton');
@@ -143,7 +161,6 @@ require "../functions/functions.php";
             }
         }
 
-
         function applyFilters() {
             let searchParams = new URLSearchParams(window.location.search);
             let searchCondition = '';
@@ -151,17 +168,25 @@ require "../functions/functions.php";
             // Get the existing search query if it exists
             let searchQuery = searchParams.get('search');
 
+            // Get existing filter parameters
+            const existingFilters = {};
+            for (let param of searchParams.entries()) {
+                if (param[0] !== 'search') {
+                    existingFilters[param[0]] = param[1];
+                }
+            }
+
+            // Construct search condition with existing filters
+            for (let key in existingFilters) {
+                searchCondition += `${key}=${existingFilters[key]}&`;
+            }
+
+            // Get the selected filters
             const selectedCategories = Array.from(document.querySelectorAll('.crop-filter:checked')).map(checkbox => checkbox.value);
             const selectedMunicipalities = Array.from(document.querySelectorAll('.municipality-filter:checked')).map(checkbox => checkbox.value);
             const selectedVarieties = Array.from(document.querySelectorAll('.variety-filter:checked')).map(checkbox => checkbox.value);
             const selectedTerrain = Array.from(document.querySelectorAll('.terrain-filter:checked')).map(checkbox => checkbox.value);
             const selectedBrgy = Array.from(document.querySelectorAll('.brgy-filter:checked')).map(checkbox => checkbox.value);
-
-            // Add existing category_id to searchCondition if it exists
-            let categoryId = searchParams.get('category_id');
-            if (categoryId) {
-                searchCondition += `category_id=${categoryId}&`;
-            }
 
             // Add selected filters to searchCondition
             if (selectedCategories.length > 0) {
