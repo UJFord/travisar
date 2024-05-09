@@ -87,7 +87,7 @@
         <div class="pt-2 pb-1 px-3">
             <div id="mun-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#municipality-filters" role="button" aria-expanded="true" aria-controls="municipalty-filters">
                 <i id="munChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1 rotate-chevron"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">All Municipalities</a>
+                <a class="fw-bold text-success col text-decoration-none" href="">Municipalities</a>
             </div>
             <div id="municipality-filters" class="collapse mb-2">
                 <?php
