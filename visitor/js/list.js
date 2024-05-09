@@ -50,7 +50,6 @@ $(document).ready(function () {
         mapToggle()
     }
 
-
     // map or list toggler
     $(mapToggler).on("click", mapToggle);
 
