@@ -1,3 +1,8 @@
+<?php
+session_start();
+require "../../functions/connections.php";
+require "../../functions/functions.php";
+?>
 <!doctype html>
 <html lang="en">
 
@@ -27,7 +32,7 @@
     <!-- landing.css -->
     <link rel="stylesheet" href="../css/about.css?v=1.0">
     <!-- script for access control -->
-    <script src="../js/access-control.js"></script>
+    <script src="../../js/access-control.js"></script>
     <script>
         // Assume you have the userRole variable defined somewhere in your PHP code
         var userRole = "<?php echo isset($_SESSION['rank']) ? $_SESSION['rank'] : ''; ?>";
@@ -238,7 +243,8 @@
     <!-- bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
     <!-- CUSTOM -->
-    <script src="js/nav.js"></script>
+    <script src="../js/nav.js"></script>
+    <script src="../../js/access.js"></script>
 </body>
 
 </html>
