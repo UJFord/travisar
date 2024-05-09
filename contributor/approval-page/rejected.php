@@ -12,6 +12,7 @@ require "../../functions/functions.php";
 
     <!-- title -->
     <title>Travisar</title>
+    <link rel="icon" type="image/png" sizes="32x32" href="../../visitor/img/travis-light.svg">
 
     <!-- STYLESHEETS -->
 

@@ -9,6 +9,7 @@ require "../../functions/functions.php";
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
+    <link rel="icon" type="image/png" sizes="32x32" href="../../visitor/img/travis-light.svg">
 
     <!-- title -->
     <title>Travisar</title>
