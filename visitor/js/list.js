@@ -43,12 +43,22 @@ $(document).ready(function () {
         $('#map-toggler .map-toggle').toggleClass('d-none');
 
         $('#view-type-button').toggleClass('d-none');
+
+        // set category filters link "map" parameter to the map state
+        let newMapValue = mapState? 'open': 'close';
+        $('.bar-filter-categ').each(function(){
+            let hrefValue = $(this).attr('href');
+            hrefValue = hrefValue.replace(/(\?|&)map=[^&]*/, `$1map=${newMapValue}`);
+            console.log(hrefValue)
+            $(this).attr('href', hrefValue);
+        })
     };
 
     // open map if url's map value is open
     if(toggleMap){
         mapToggle()
-    }
+    };
+
 
     // map or list toggler
     $(mapToggler).on("click", mapToggle);
