@@ -126,7 +126,7 @@ $(document).ready(function () {
         let popup = `
             <div class="container">
                 <h6 class="row d-flex justify-content-center fw-semibold">${variety}</h6>
-                <div class="row d-flex justify-content-end"><a class="small-font w-auto" href="${viewLink}">See More...</a></div>
+                <div class="row d-flex justify-content-center"><a class="small-font w-auto" href="${viewLink}">View Crop</a></div>
             </div>
         `;
 
