@@ -85,7 +85,7 @@ require "../../functions/functions.php";
             </style>
             <?php require "modals/brgy-filter.php" ?>
             <!-- LIST -->
-            <div class="container col">
+            <div class="container col" style="min-height: 615px; max-height:615px;">
 
                 <!-- HEADING -->
                 <div class="tab_box d-flex justify-content-between">
@@ -175,7 +175,7 @@ require "../../functions/functions.php";
                                             </td>
                                             <td data-col="barangay">
                                                 <!-- Barangay name -->
-                                                <a href=""><?= $row['barangay_name']; ?></a>
+                                                <h6><?= $row['barangay_name']; ?></h6>
                                             </td>
                                             <!-- date added -->
                                             <td data-col="date" class="small-font text-center text-secondary fw-normal">

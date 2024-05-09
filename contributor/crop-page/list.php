@@ -158,7 +158,11 @@
                             <!-- Variety name -->
                             <td data-col="variety">
                                 <!-- Variety name -->
-                                <a class="small-font" href="#" target=”_blank”><?= $row['crop_variety']; ?></a>
+                                <?php if ($row['action'] === 'Approved') : ?>
+                                    <a class="small-font" href="#" target="_blank"><?= $row['crop_variety']; ?></a>
+                                <?php else : ?>
+                                    <h6 class="small-font m-0"><?= $row['crop_variety']; ?></h6>
+                                <?php endif; ?>
                             </td>
 
                             <!-- Location -->
@@ -213,9 +217,11 @@
                                     </button>
                                     <ul class="dropdown-menu">
                                         <!-- <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye text-center" style="width: 20px;"></i> View</a></li> -->
-                                        <li>
-                                            <a class="dropdown-item edit_data admin-only" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1 admin-only" style="width: 20px;"></i>Edit</a>
-                                        </li>
+                                        <?php if ($row['action'] === 'Approved') : ?>
+                                            <li>
+                                                <a class="dropdown-item edit_data admin-only" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1 admin-only" style="width: 20px;"></i>Edit</a>
+                                            </li>
+                                        <?php endif; ?>
                                         <li>
                                             <form action="modals/crud-code/massDelete-code.php" method="post" id="deleteForm">
                                                 <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">

@@ -1,5 +1,5 @@
 <!-- LIST -->
-<div class="col">
+<div class="col" style="min-height: 615px; max-height:615px;">
     <div class="container">
 
         <!-- HEADING -->

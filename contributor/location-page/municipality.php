@@ -187,7 +187,7 @@ require "../../functions/functions.php";
 
                                             <td data-col="municipality">
                                                 <!-- Municipality name -->
-                                                <a href=""><?= $row['municipality_name']; ?></a>
+                                                <h6><?= $row['municipality_name']; ?></h6>
                                             </td>
 
                                             <!-- date added -->
