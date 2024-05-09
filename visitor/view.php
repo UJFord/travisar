@@ -6,7 +6,6 @@ require "../functions/functions.php";
 
 <!doctype html>
 <html lang="en">
-
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -53,6 +52,8 @@ require "../functions/functions.php";
     <div class="container-fluid bg-white">
         <div class="title row py-4 mb-4">
             <h2 class="info-title text-center">
+                <!-- <button onclick="goBack()" class=""><i class="fa-solid fa-backward"></i></button> -->
+
                 <?php
                 if (isset($_GET['crop_id'])) {
                     $crop_id = $_GET['crop_id'];
@@ -1047,6 +1048,11 @@ require "../functions/functions.php";
     </div>
 
     <!-- SCRIPT -->
+    <script>
+        function goBack() {
+            window.history.back();
+        }
+    </script>
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <!-- bootstrap -->
