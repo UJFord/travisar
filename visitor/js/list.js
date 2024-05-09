@@ -4,9 +4,27 @@ $(document).ready(function () {
     let mapState = false;
     let mapToggler = document.querySelector('#map-toggler');
 
+    // get url parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    // get value of map in url
+    let toggleMap = urlParams.get('map') == 'open';
+
     // map toggle function
     let mapToggle = () => {
+        
         mapState = !mapState;
+
+        // toggle the map parameter
+        if(mapState){
+            urlParams.set('map', 'open');
+        }else{
+            urlParams.set('map', 'close');
+        }
+
+        // Replace the current URL with the modified parameters
+        window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
+
+
         $('#crop-list-map').toggleClass('d-none');
 
         // when map is toggled
@@ -27,14 +45,11 @@ $(document).ready(function () {
         $('#view-type-button').toggleClass('d-none');
     };
 
-    // get url parameters
-    const urlParams = new URLSearchParams(window.location.search);
-    // get value of map in url
-    const toggleMap = urlParams.get('map') == 'open';
     // open map if url's map value is open
     if(toggleMap){
         mapToggle()
     }
+
 
     // map or list toggler
     $(mapToggler).on("click", mapToggle);
