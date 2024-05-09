@@ -59,7 +59,7 @@
                 </div>
 
                 <!-- confirm -->
-                <?php require "modals/category-tabs/confirm.php"; ?>
+                <?php require "modals/category-variety-tabs/confirm.php"; ?>
 
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-end">

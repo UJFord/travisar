@@ -8,7 +8,7 @@
         <div class="modal-content">
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="edit-item-modal-label">Add Location</h5>
+                <h5 class="modal-title" id="edit-item-modal-label">Add Municipality</h5>
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
 

@@ -50,7 +50,7 @@
                             <!-- sensory info -->
                             <?php require "manage-tabs/sensory.php" ?>
                             <!-- confirm info -->
-                            <?php //require "manage-tabs/confirm.php" ?>
+                            <?php require "manage-tabs/confirm.php" ?>
                         </div>
                     </div>
                 </div>

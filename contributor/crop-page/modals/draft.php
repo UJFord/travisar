@@ -8,10 +8,10 @@
         position: relative;
     }
 
-    #close-modal-btn-draft {
+    /* #close-modal-btn-draft {
         position: fixed;
         right: 21%;
-    }
+    } */
 </style>
 
 <!-- HTML -->
