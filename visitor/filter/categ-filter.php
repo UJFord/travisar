@@ -63,9 +63,9 @@ switch ($current_page_path) {
                     } elseif ($category_name == 'Root Crop') {
                     ?>
                         <!-- root -->
-                        <a href="root.php?category_id=<?= $category_id ?>" class="col-1 bar-filter-categ border-bottom border-<?= ($isRoot) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-4 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
+                        <a href="root.php?category_id=<?= $category_id ?>" class="col-1 bar-filter-categ border-bottom border-<?= ($isRoot) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-3 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
                             <img class="categ-link-img" src="img/potato.svg" alt="" srcset="">
-                            <div class="fw-bold">Root</div>
+                            <div class="fw-bold">Root Crop</div>
                         </a>
             <?php
                     }
