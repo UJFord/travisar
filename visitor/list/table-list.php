@@ -58,7 +58,7 @@
             $municipality_filter = !empty($_GET['municipalities']) ? "AND municipality.municipality_id IN (" . implode(',', explode(',', $_GET['municipalities'])) . ")" : '';
             $variety_filter = !empty($_GET['varieties']) ? "AND category_variety_id IN (" . implode(',', explode(',', $_GET['varieties'])) . ")" : '';
             $terrain_filter = !empty($_GET['terrains']) ? "AND crop.terrain_id IN (" . implode(',', explode(',', $_GET['terrains'])) . ")" : '';
-            $brgy_filter = !empty($_GET['barangay']) ? "AND barangay_id IN (" . implode(',', explode(',', $_GET['barangay'])) . ")" : '';
+            $brgy_filter = !empty($_GET['barangay']) ? "AND barangay.barangay_id IN (" . implode(',', explode(',', $_GET['barangay'])) . ")" : '';
 
             // Add all filters to the WHERE clause
             $where_clause .= " $category_filter $municipality_filter $variety_filter $terrain_filter $brgy_filter";

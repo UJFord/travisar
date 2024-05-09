@@ -165,20 +165,12 @@ require "../functions/functions.php";
             let searchParams = new URLSearchParams(window.location.search);
             let searchCondition = '';
 
-            // Get the existing search query if it exists
-            let searchQuery = searchParams.get('search');
-
             // Get existing filter parameters
             const existingFilters = {};
             for (let param of searchParams.entries()) {
                 if (param[0] !== 'search') {
                     existingFilters[param[0]] = param[1];
                 }
-            }
-
-            // Construct search condition with existing filters
-            for (let key in existingFilters) {
-                searchCondition += `${key}=${existingFilters[key]}&`;
             }
 
             // Get the selected filters
@@ -205,14 +197,145 @@ require "../functions/functions.php";
                 searchCondition += `barangay=${selectedBrgy.join(',')}&`;
             }
 
-            // Add existing search query to searchCondition
+            console.log('Existing Filters:', existingFilters);
+            console.log('Search Condition:', searchCondition);
+
+            // Construct the search condition with updated filters
+            for (let key in existingFilters) {
+                searchCondition += `${key}=${existingFilters[key]}&`;
+            }
+
+            // Add the existing search query to the search condition
+            let searchQuery = searchParams.get('search');
             if (searchQuery) {
                 searchCondition += `search=${searchQuery}`;
             }
-
             // Redirect to the page with updated filters
             window.location.href = window.location.pathname + '?' + searchCondition;
         }
+
+        // Function to retrieve and apply selected filters from URL parameters
+        function applySelectedFilters() {
+            let searchParams = new URLSearchParams(window.location.search);
+            let selectedCategories = searchParams.getAll('categories');
+            let selectedMunicipalities = searchParams.getAll('municipalities');
+            let selectedVarieties = searchParams.getAll('varieties');
+            let selectedTerrain = searchParams.getAll('terrains');
+            let selectedBrgy = searchParams.getAll('barangay');
+
+            let varietyChev = document.getElementById('varietyChev');
+
+            // Check checkboxes based on selected filters and show all crop filters
+            selectedCategories.forEach(categoryIds => {
+                categoryIds.split(',').forEach(categoryId => {
+                    let categoryCheckbox = document.getElementById(`category${categoryId}`);
+                    if (categoryCheckbox) {
+                        categoryCheckbox.checked = true;
+                    }
+                });
+            });
+
+            // Show all crop filters
+            let cropFilters = document.querySelectorAll('.crop-filter');
+            if (selectedCategories != null && selectedCategories.length > 0) {
+                cropFilters.forEach(filter => {
+                    filter.closest('.collapse').classList.add('show');
+                });
+            }
+
+            // Remove rotation class
+            let cropChev = document.getElementById('cropChev');
+            if (selectedCategories != null && selectedCategories.length > 0) {
+                if (cropChev) {
+                    cropChev.classList.remove('rotate-chevron');
+                }
+            }
+
+            // Fetch and populate variety options for each selected category
+            selectedCategories.forEach(categoryIds => {
+                fetch(`fetch/fetch_filter.php?category_id=${categoryIds}`)
+                    .then(response => response.json())
+                    .then(data => {
+                        // Check if the data is not empty
+                        if (data.length > 0) {
+                            data.forEach(variety => {
+                                let varietyFilter = document.getElementById('variety-div');
+                                varietyFilter.classList.remove('hidden');
+                                varietyFilter.innerHTML += `
+                                    <div class="collapse show ps-4 mb-2">
+                                        <input class="form-check-input variety-filter" type="checkbox" id="category_variety${variety.category_variety_id}" value="${variety.category_variety_id}">
+                                        <label for="category_variety${variety.category_variety_id}">${variety.category_variety_name}</label>
+                                    </div>
+                                `;
+                            });
+                        }
+                    })
+                    .catch(error => console.error('Error fetching variety data:', error));
+            });
+
+            selectedVarieties.forEach(varietyIds => {
+                varietyIds.split(',').forEach(varietyId => {
+                    let varietyFilter = document.getElementById('variety-div');
+                    varietyFilter.classList.remove('hidden');
+                    document.getElementById(`category_variety${varietyId}`).checked = true;
+                });
+            });
+
+            selectedMunicipalities.forEach(municipalityIds => {
+                municipalityIds.split(',').forEach(municipalityId => {
+                    document.getElementById(`municipality${municipalityId}`).checked = true;
+                });
+            });
+
+            // Show all municipality filters
+            let municipalityFilters = document.querySelectorAll('.municipality-filter');
+            if (selectedMunicipalities != null && selectedMunicipalities.length > 0) {
+                municipalityFilters.forEach(filter => {
+                    filter.closest('.collapse').classList.add('show');
+                });
+            }
+
+            // Remove rotation class
+            let municipalityChev = document.getElementById('munChev');
+            if (selectedMunicipalities != null && selectedMunicipalities.length > 0) {
+                if (municipalityChev) {
+                    municipalityChev.classList.remove('rotate-chevron');
+                }
+            }
+
+            selectedTerrain.forEach(terrainIds => {
+                terrainIds.split(',').forEach(terrainId => {
+                    document.getElementById(`terrain${terrainId}`).checked = true;
+                });
+            });
+
+            // Show all terrain filters
+            let terrainFilters = document.querySelectorAll('.terrain-filter');
+            if (selectedTerrain != null && selectedTerrain.length > 0) {
+                terrainFilters.forEach(filter => {
+                    filter.closest('.collapse').classList.add('show');
+                });
+            }
+
+            // Remove rotation class
+            let terrainChev = document.getElementById('terrainChev');
+            if (selectedTerrain != null && selectedTerrain.length > 0) {
+                if (terrainChev) {
+                    terrainChev.classList.remove('rotate-chevron');
+                }
+            }
+
+
+            selectedBrgy.forEach(brgyIds => {
+                brgyIds.split(',').forEach(brgyId => {
+                    let barangayFilter = document.getElementById('barangay-div');
+                    barangayFilter.classList.remove('hidden');
+                    document.getElementById(`barangay${brgyId}`).checked = true;
+                });
+            });
+        }
+        // Call applySelectedFilters() when the page is fully loaded
+        window.addEventListener('load', applySelectedFilters);
     </script>
 </body>
 

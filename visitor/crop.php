@@ -88,7 +88,7 @@ require "../functions/functions.php";
 									} elseif ($category_name == 'Root Crop') {
 									?>
 										<a href="root.php?category_id=<?= $category_id ?>" id="root-link" class="d-flex justify-content-end align-items-end icon-link icon-link-hover filter-item link-underline link-underline-opacity-0 p-0 m-0 pb-2 link-light">
-											<span class="me-4">Root</span>
+											<span class="me-4">Root Crop</span>
 											<i class="bi bi-arrow-right fs-3 me-4"></i>
 										</a>
 							<?php
