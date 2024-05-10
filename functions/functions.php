@@ -5,39 +5,6 @@
     {
         $errors = array();
 
-        // validate
-        if (!preg_match('/^[a-zA-Z ]+$/', $data['first_name'])) {
-            $errors[] = "<div class='alert alert-danger rounded-4' role='alert'>Please enter a valid first_name.</div>";
-        }
-
-        if (!preg_match('/^[a-zA-Z ]+$/', $data['last_name'])) {
-            $errors[] = "<div class='alert alert-danger rounded-4' role='alert'>Please enter a valid last_name.</div>";
-        }
-
-        if (!preg_match('/^[a-zA-Z0-9]+$/', $data['username'])) {
-            $errors[] = "<div class='alert alert-danger rounded-4' role='alert'>Please enter a valid username.</div>";
-        }
-
-        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $errors[] = "<div class='alert alert-danger rounded-4' role='alert'>Please enter a valid email.</div>";
-        }
-
-        if (strlen(trim($data['password'])) < 8) {
-            $errors[] = "<div class='alert alert-danger rounded-4' role='alert'>Password must be at least 8 characters.</div>";
-        }
-
-        if ($data['password'] != $data['password2']) {
-            $errors[] = "<div class='alert alert-danger rounded-4' role='alert'>Password must match.</div>";
-        }
-
-        $check = database_run("SELECT COUNT(*) FROM users WHERE email = :email", ['email' => $data['email']]);
-
-        if ($check && $check[0]['count'] > 0) {
-            $errors[] = "<div class='alert alert-danger rounded-4' role='alert'>Email already exist.</div>";
-            // echo $data['email'];
-            die();
-        }
-
         // Retrieve account type
         $accountTypeQuery = "SELECT * FROM account_type WHERE type_name = 'Contributor'";
         $accountTypeResult = database_run($accountTypeQuery);
@@ -148,25 +115,8 @@
         // Get the search query from the session or URL parameter
         $search = isset($_GET['search']) ? $_GET['search'] : '';
 
-        echo '<ul class="pagination justify-content-center">';
-        for ($page = 1; $page <= $total_pages; $page++) {
-            $activeClass = ($current_page == $page) ? 'active' : '';
-            // Include the search query in the pagination links
-            $url = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $page, 'search' => $search]));
-            echo '<li class="page-item ' . $activeClass . '">';
-            echo '<a class="page-link" href="' . $url . '">' . $page . '</a>';
-            echo '</li>';
-        }
-        echo '</ul>';
-    }
-
-    function generatePaginationLinksHome($total_pages, $current_page, $pageQueryParam)
-    {
-        // Get the search query from the session or URL parameter
-        $search = isset($_GET['search']) ? $_GET['search'] : '';
-    
         echo '<ul class="pagination">';
-    
+
         // Previous page link
         $prevPage = ($current_page > 1) ? $current_page - 1 : 1;
         $urlPrev = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $prevPage, 'search' => $search]));
@@ -183,7 +133,44 @@
             $url = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $page, 'search' => $search]));
             echo '<li class="page-item"><a class="' . $activeClass . ' page-link bg-light small-font link-dark fw-semibold" href="' . $url . '">' . $page . '</a></li>';
         }
-    
+
+        // Next page link
+        $nextPage = ($current_page < $total_pages) ? $current_page + 1 : $total_pages;
+        $urlNext = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $nextPage, 'search' => $search]));
+        // echo '<li class="page-item"><a class="page-link small-font text-dark fw-semibold btn-light" href="' . $urlNext . '" aria-label="Next"><span aria-hidden="false"><i class="fa-solid fa-arrow-right-long"></i></span></a></li>';
+        echo    '<li class="page-item">
+                    <a class="page-link bg-light small-font link-dark fw-semibold" href="' . $urlNext . '" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>';
+
+        echo '</ul>';
+    }
+
+    function generatePaginationLinksHome($total_pages, $current_page, $pageQueryParam)
+    {
+        // Get the search query from the session or URL parameter
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+        echo '<ul class="pagination">';
+
+        // Previous page link
+        $prevPage = ($current_page > 1) ? $current_page - 1 : 1;
+        $urlPrev = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $prevPage, 'search' => $search]));
+        // echo '<li class="page-item"><a class="page-link small-font text-dark fw-semibold btn-light" href="' . $urlPrev . '" aria-label="Previous"><span aria-hidden="false"><i class="fa-solid fa-arrow-left-long"></i></span></a></li>';
+        echo    '<li class="page-item">
+                    <a class="page-link bg-light small-font link-dark fw-semibold" href="' . $urlPrev . '" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>';
+
+        // Page links
+        for ($page = 1; $page <= $total_pages; $page++) {
+            $activeClass = ($current_page == $page) ? 'active' : '';
+            $url = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $page, 'search' => $search]));
+            echo '<li class="page-item"><a class="' . $activeClass . ' page-link bg-light small-font link-dark fw-semibold" href="' . $url . '">' . $page . '</a></li>';
+        }
+
         // Next page link
         $nextPage = ($current_page < $total_pages) ? $current_page + 1 : $total_pages;
         $urlNext = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $nextPage, 'search' => $search]));
