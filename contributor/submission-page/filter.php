@@ -302,7 +302,7 @@
     }
 
     // Add event listeners to category, municipality, and terrain checkboxes
-    document.querySelectorAll('.crop-filter, .municipality-filter, .terrain-filter').forEach(checkbox => {
+    document.querySelectorAll('.status-filter, .crop-filter, .municipality-filter, .terrain-filter').forEach(checkbox => {
         checkbox.addEventListener('change', toggleClearButtonVisibility);
     });
 

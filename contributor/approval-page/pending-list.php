@@ -14,23 +14,6 @@
         </div>
 
         <?php
-        // Set the number of items to display per page
-        $items_per_page = 10;
-
-        // Get the current page number
-        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-
-        // Calculate the offset based on the current page and items per page
-        $offset = ($current_page - 1) * $items_per_page;
-
-        // Count the total number of rows for pagination
-        $total_rows_query = "SELECT COUNT(*) FROM crop left join status on status.status_id = crop.status_id WHERE status.action IN ('Pending', 'Updating')";
-        $total_rows_result = pg_query($conn, $total_rows_query);
-        $total_rows = pg_fetch_row($total_rows_result)[0];
-
-        // Calculate the total number of pages
-        $total_pages = ceil($total_rows / $items_per_page);
-
         // Get the search query from the session or URL parameter
         $search = isset($_GET['search']) ? $_GET['search'] : '';
         $search_condition = $search ? "AND crop_variety ILIKE '%$search%'" : '';
@@ -41,6 +24,27 @@
         $variety_filter = !empty($_GET['varieties']) ? "AND category_variety_id IN (" . implode(',', explode(',', $_GET['varieties'])) . ")" : '';
         $terrain_filter = !empty($_GET['terrains']) ? "AND terrain_id IN (" . implode(',', explode(',', $_GET['terrains'])) . ")" : '';
         $brgy_filter = !empty($_GET['barangay']) ? "AND barangay_id IN (" . implode(',', explode(',', $_GET['barangay'])) . ")" : '';
+
+        // Set the number of items to display per page
+        $items_per_page = 10;
+
+        // Get the current page number
+        $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+        // Calculate the offset based on the current page and items per page
+        $offset = ($current_page - 1) * $items_per_page;
+
+        // Count the total number of rows for pagination
+        $total_rows_query = "SELECT COUNT(*) FROM crop 
+        LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
+        LEFT JOIN status ON status.status_id = crop.status_id 
+        LEFT JOIN municipality on municipality.municipality_id = crop_location.municipality_id
+        WHERE 1=1 $search_condition $category_filter $municipality_filter $variety_filter $terrain_filter $brgy_filter AND status.action IN ('Pending', 'Updating')";
+        $total_rows_result = pg_query($conn, $total_rows_query);
+        $total_rows = pg_fetch_row($total_rows_result)[0];
+
+        // Calculate the total number of pages
+        $total_pages = ceil($total_rows / $items_per_page);
         ?>
 
         <!-- TABLE -->
