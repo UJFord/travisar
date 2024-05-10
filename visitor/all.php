@@ -335,6 +335,42 @@ require "../functions/functions.php";
                 }
             }
 
+            // Fetch and populate barangay options for each selected category
+            if (selectedMunicipalities != null && selectedMunicipalities.length > 0) {
+                selectedMunicipalities.forEach(municipalityIds => {
+                    fetch(`fetch/fetch_filter-brgy.php?municipality_id=${municipalityIds}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Check if the data is not empty
+                            if (data.length > 0) {
+                                // Accessing the barangay-filters div outside the loop to prevent duplication
+                                let barangayFilter = document.getElementById('barangay-div');
+                                barangayFilter.classList.remove('hidden');
+
+                                data.forEach(barangay => {
+                                    barangayFilter.innerHTML += `
+                                        <div class="collapse show ps-4 my-2">
+                                            <input class="form-check-input barangay-filter" type="checkbox" id="barangay${barangay.barangay_id}" value="${barangay.barangay_id}">
+                                            <label for="barangay${barangay.barangay_id}">${barangay.barangay_name}</label>
+                                        </div>
+                                    `;
+                                });
+
+                                // Check selected barangay checkboxes after populating
+                                selectedBrgy.forEach(barangayIds => {
+                                    barangayIds.split(',').forEach(barangayId => {
+                                        let barangayCheckbox = document.getElementById(`barangay${barangayId}`);
+                                        if (barangayCheckbox) {
+                                            barangayCheckbox.checked = true;
+                                        }
+                                    });
+                                });
+                            }
+                        })
+                        .catch(error => console.error('Error fetching barangay data:', error));
+                });
+            }
+
             selectedBrgy.forEach(brgyIds => {
                 brgyIds.split(',').forEach(brgyId => {
                     let barangayFilter = document.getElementById('barangay-div');
