@@ -246,7 +246,7 @@ require "../functions/functions.php";
     </div>
 
     <!-- FOOTER -->
-    <?php require "../nav/foot.php"?>
+    <?php require "../nav/foot.php" ?>
 
     <!-- SCRIPT -->
     <!-- jquery -->

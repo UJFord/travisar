@@ -142,9 +142,9 @@ require "../functions/functions.php";
                                                                                                                         ">Location</th>
                                         <td id="addr" class="w-75 fw-semibold"><?php
                                                                                 if (!empty($crops['sitio_name'])) {
-                                                                                    echo $crops['province_name'] . ', ' . $crops['municipality_name'] . ', ' . $crops['barangay_name'] . ', ' . $crops['sitio_name'];
+                                                                                    echo $crops['sitio_name'] . ', ' . $crops['barangay_name'] . ', ' . $crops['municipality_name'] . ', ' . $crops['province_name'];
                                                                                 } else {
-                                                                                    echo $crops['province_name'] . ', ' . $crops['municipality_name'] . ', ' . $crops['barangay_name'];
+                                                                                    echo $crops['barangay_name'] . ', ' . $crops['municipality_name'] . ', ' . $crops['province_name'];
                                                                                 }
                                                                                 ?>
                                         </td>
