@@ -10,10 +10,6 @@
         <!-- title -->
         <div class="border-bottom d-flex align-items-center  py-1 px-3 bg-light">
             <h6 class="fw-bold m-0 me-auto">FILTERS</h6>
-            <!-- help -->
-            <a href="#" class="">
-                <i class="bi bi-question-circle"></i>
-            </a>
         </div>
         <!-- filter actions -->
         <div class="d-flex py-3 px-3">
@@ -70,27 +66,24 @@
                 <i id="terrainChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">Terrains</a>
             </div>
-            <!-- terrains filters -->
-            <div id="terrain-filters" class="collapse mb-2">
-                <?php
-                $query = "SELECT * FROM terrain order by terrain_name ASC";
-                $query_run = pg_query($conn, $query);
+            <?php
+            $query = "SELECT * FROM terrain order by terrain_name ASC";
+            $query_run = pg_query($conn, $query);
 
-                if ($query_run) {
-                    while ($row = pg_fetch_array($query_run)) {
-                ?>
-                        <!-- terrains filters -->
-                        <div id="terrain-filters" class="collapse ps-4 my-2">
-                            <input class="form-check-input terrain-filter" type="checkbox" id="terrain<?= $row['terrain_id']; ?>" value="<?= $row['terrain_id']; ?>">
-                            <label for="terrain<?= $row['terrain_id']; ?>"><?= $row['terrain_name']; ?></label>
-                        </div>
-                <?php
-                    }
-                } else {
-                    echo "No terrain found";
+            if ($query_run) {
+                while ($row = pg_fetch_array($query_run)) {
+            ?>
+                    <!-- terrains filters -->
+                    <div id="terrain-filters" class="collapse ps-4 my-2">
+                        <input class="form-check-input terrain-filter" type="checkbox" id="terrain<?= $row['terrain_id']; ?>" value="<?= $row['terrain_id']; ?>">
+                        <label for="terrain<?= $row['terrain_id']; ?>"><?= $row['terrain_name']; ?></label>
+                    </div>
+            <?php
                 }
-                ?>
-            </div>
+            } else {
+                echo "No terrain found";
+            }
+            ?>
         </div>
 
         <!-- all municipalities -->
@@ -99,25 +92,23 @@
                 <i id="munChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1 rotate-chevron"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">Municipalities</a>
             </div>
-            <div id="municipality-filters" class="collapse mb-2">
-                <?php
-                $query = "SELECT * FROM municipality order by municipality_name ASC";
-                $query_run = pg_query($conn, $query);
+            <?php
+            $query = "SELECT * FROM municipality order by municipality_name ASC";
+            $query_run = pg_query($conn, $query);
 
-                if ($query_run) {
-                    while ($row = pg_fetch_array($query_run)) {
-                ?>
-                        <div id="municipality-filters" class="collapse ps-4 my-2">
-                            <input class="form-check-input municipality-filter" type="checkbox" id="municipality<?= $row['municipality_id']; ?>" value="<?= $row['municipality_id']; ?>">
-                            <label for="municipality<?= $row['municipality_id']; ?>"><?= $row['municipality_name']; ?></label>
-                        </div>
-                <?php
-                    }
-                } else {
-                    echo "No category found";
+            if ($query_run) {
+                while ($row = pg_fetch_array($query_run)) {
+            ?>
+                    <div id="municipality-filters" class="collapse ps-4 my-2">
+                        <input class="form-check-input municipality-filter" type="checkbox" id="municipality<?= $row['municipality_id']; ?>" value="<?= $row['municipality_id']; ?>">
+                        <label for="municipality<?= $row['municipality_id']; ?>"><?= $row['municipality_name']; ?></label>
+                    </div>
+            <?php
                 }
-                ?>
-            </div>
+            } else {
+                echo "No category found";
+            }
+            ?>
         </div>
 
         <!-- all barangay -->
@@ -222,11 +213,11 @@
                     // Populate options
                     data.forEach(variety => {
                         varietyFilter.innerHTML += `
-                        <div class="collapse show ps-4 mb-2">
-                            <input class="form-check-input variety-filter" type="checkbox" id="category_variety${variety.category_variety_id}" value="${variety.category_variety_id}">
-                            <label for="category_variety${variety.category_variety_id}">${variety.category_variety_name}</label>
-                        </div>
-                    `;
+                            <div class="collapse show ps-4 mb-2">
+                                <input class="form-check-input variety-filter" type="checkbox" id="category_variety${variety.category_variety_id}" value="${variety.category_variety_id}">
+                                <label for="category_variety${variety.category_variety_id}">${variety.category_variety_name}</label>
+                            </div>
+                        `;
                     });
                     // Show the variety filter
                     varietyFilter.classList.add('show');
