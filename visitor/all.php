@@ -165,20 +165,19 @@ require "../functions/functions.php";
             let searchParams = new URLSearchParams(window.location.search);
             let searchCondition = '';
 
-            // Get existing filter parameters
-            const existingFilters = {};
-            for (let param of searchParams.entries()) {
-                if (param[0] !== 'search') {
-                    existingFilters[param[0]] = param[1];
-                }
-            }
-
             // Get the selected filters
             const selectedCategories = Array.from(document.querySelectorAll('.crop-filter:checked')).map(checkbox => checkbox.value);
             const selectedMunicipalities = Array.from(document.querySelectorAll('.municipality-filter:checked')).map(checkbox => checkbox.value);
             const selectedVarieties = Array.from(document.querySelectorAll('.variety-filter:checked')).map(checkbox => checkbox.value);
             const selectedTerrain = Array.from(document.querySelectorAll('.terrain-filter:checked')).map(checkbox => checkbox.value);
             const selectedBrgy = Array.from(document.querySelectorAll('.brgy-filter:checked')).map(checkbox => checkbox.value);
+
+            // Retain existing filters
+            searchParams.forEach((value, key) => {
+                if (key !== 'categories' && key !== 'municipalities' && key !== 'varieties' && key !== 'terrains' && key !== 'barangay') {
+                    searchCondition += `${key}=${value}&`;
+                }
+            });
 
             // Add selected filters to searchCondition
             if (selectedCategories.length > 0) {
@@ -197,19 +196,18 @@ require "../functions/functions.php";
                 searchCondition += `barangay=${selectedBrgy.join(',')}&`;
             }
 
-            console.log('Existing Filters:', existingFilters);
-            console.log('Search Condition:', searchCondition);
+            // Remove the existing search query
+            searchParams.delete('search');
 
-            // Construct the search condition with updated filters
-            for (let key in existingFilters) {
-                searchCondition += `${key}=${existingFilters[key]}&`;
+            // Add the new search query to the search condition
+            let newSearchQuery = ''; // Set your new search query here
+            if (newSearchQuery) {
+                searchCondition += `search=${newSearchQuery}&`;
             }
 
-            // Add the existing search query to the search condition
-            let searchQuery = searchParams.get('search');
-            if (searchQuery) {
-                searchCondition += `search=${searchQuery}`;
-            }
+            // Remove trailing '&' if exists
+            searchCondition = searchCondition.replace(/&$/, '');
+
             // Redirect to the page with updated filters
             window.location.href = window.location.pathname + '?' + searchCondition;
         }
@@ -222,9 +220,6 @@ require "../functions/functions.php";
             let selectedVarieties = searchParams.getAll('varieties');
             let selectedTerrain = searchParams.getAll('terrains');
             let selectedBrgy = searchParams.getAll('barangay');
-
-            let varietyChev = document.getElementById('varietyChev');
-            let varietyFilters = document.getElementById('variety-filters');
 
             // Check checkboxes based on selected filters and show all crop filters
             selectedCategories.forEach(categoryIds => {
@@ -350,7 +345,7 @@ require "../functions/functions.php";
                                 data.forEach(barangay => {
                                     barangayFilter.innerHTML += `
                                         <div class="collapse show ps-4 my-2">
-                                            <input class="form-check-input barangay-filter" type="checkbox" id="barangay${barangay.barangay_id}" value="${barangay.barangay_id}">
+                                            <input class="form-check-input brgy-filter" type="checkbox" id="barangay${barangay.barangay_id}" value="${barangay.barangay_id}">
                                             <label for="barangay${barangay.barangay_id}">${barangay.barangay_name}</label>
                                         </div>
                                     `;
@@ -370,14 +365,6 @@ require "../functions/functions.php";
                         .catch(error => console.error('Error fetching barangay data:', error));
                 });
             }
-
-            selectedBrgy.forEach(brgyIds => {
-                brgyIds.split(',').forEach(brgyId => {
-                    let barangayFilter = document.getElementById('barangay-div');
-                    barangayFilter.classList.remove('hidden');
-                    document.getElementById(`barangay${brgyId}`).checked = true;
-                });
-            });
         }
 
         // Call applySelectedFilters() when the page is fully loaded
