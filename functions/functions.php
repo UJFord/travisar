@@ -115,25 +115,8 @@
         // Get the search query from the session or URL parameter
         $search = isset($_GET['search']) ? $_GET['search'] : '';
 
-        echo '<ul class="pagination justify-content-center">';
-        for ($page = 1; $page <= $total_pages; $page++) {
-            $activeClass = ($current_page == $page) ? 'active' : '';
-            // Include the search query in the pagination links
-            $url = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $page, 'search' => $search]));
-            echo '<li class="page-item ' . $activeClass . '">';
-            echo '<a class="page-link" href="' . $url . '">' . $page . '</a>';
-            echo '</li>';
-        }
-        echo '</ul>';
-    }
-
-    function generatePaginationLinksHome($total_pages, $current_page, $pageQueryParam)
-    {
-        // Get the search query from the session or URL parameter
-        $search = isset($_GET['search']) ? $_GET['search'] : '';
-    
         echo '<ul class="pagination">';
-    
+
         // Previous page link
         $prevPage = ($current_page > 1) ? $current_page - 1 : 1;
         $urlPrev = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $prevPage, 'search' => $search]));
@@ -150,7 +133,44 @@
             $url = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $page, 'search' => $search]));
             echo '<li class="page-item"><a class="' . $activeClass . ' page-link bg-light small-font link-dark fw-semibold" href="' . $url . '">' . $page . '</a></li>';
         }
-    
+
+        // Next page link
+        $nextPage = ($current_page < $total_pages) ? $current_page + 1 : $total_pages;
+        $urlNext = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $nextPage, 'search' => $search]));
+        // echo '<li class="page-item"><a class="page-link small-font text-dark fw-semibold btn-light" href="' . $urlNext . '" aria-label="Next"><span aria-hidden="false"><i class="fa-solid fa-arrow-right-long"></i></span></a></li>';
+        echo    '<li class="page-item">
+                    <a class="page-link bg-light small-font link-dark fw-semibold" href="' . $urlNext . '" aria-label="Next">
+                        <span aria-hidden="true">&raquo;</span>
+                    </a>
+                </li>';
+
+        echo '</ul>';
+    }
+
+    function generatePaginationLinksHome($total_pages, $current_page, $pageQueryParam)
+    {
+        // Get the search query from the session or URL parameter
+        $search = isset($_GET['search']) ? $_GET['search'] : '';
+
+        echo '<ul class="pagination">';
+
+        // Previous page link
+        $prevPage = ($current_page > 1) ? $current_page - 1 : 1;
+        $urlPrev = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $prevPage, 'search' => $search]));
+        // echo '<li class="page-item"><a class="page-link small-font text-dark fw-semibold btn-light" href="' . $urlPrev . '" aria-label="Previous"><span aria-hidden="false"><i class="fa-solid fa-arrow-left-long"></i></span></a></li>';
+        echo    '<li class="page-item">
+                    <a class="page-link bg-light small-font link-dark fw-semibold" href="' . $urlPrev . '" aria-label="Previous">
+                        <span aria-hidden="true">&laquo;</span>
+                    </a>
+                </li>';
+
+        // Page links
+        for ($page = 1; $page <= $total_pages; $page++) {
+            $activeClass = ($current_page == $page) ? 'active' : '';
+            $url = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $page, 'search' => $search]));
+            echo '<li class="page-item"><a class="' . $activeClass . ' page-link bg-light small-font link-dark fw-semibold" href="' . $url . '">' . $page . '</a></li>';
+        }
+
         // Next page link
         $nextPage = ($current_page < $total_pages) ? $current_page + 1 : $total_pages;
         $urlNext = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $nextPage, 'search' => $search]));
