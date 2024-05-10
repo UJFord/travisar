@@ -70,27 +70,24 @@
                 <i id="terrainChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">Terrains</a>
             </div>
-            <!-- terrains filters -->
-            <div id="terrain-filters" class="collapse mb-2">
-                <?php
-                $query = "SELECT * FROM terrain order by terrain_name ASC";
-                $query_run = pg_query($conn, $query);
+            <?php
+            $query = "SELECT * FROM terrain order by terrain_name ASC";
+            $query_run = pg_query($conn, $query);
 
-                if ($query_run) {
-                    while ($row = pg_fetch_array($query_run)) {
-                ?>
-                        <!-- terrains filters -->
-                        <div id="terrain-filters" class="collapse ps-4 my-2">
-                            <input class="form-check-input terrain-filter" type="checkbox" id="terrain<?= $row['terrain_id']; ?>" value="<?= $row['terrain_id']; ?>">
-                            <label for="terrain<?= $row['terrain_id']; ?>"><?= $row['terrain_name']; ?></label>
-                        </div>
-                <?php
-                    }
-                } else {
-                    echo "No terrain found";
+            if ($query_run) {
+                while ($row = pg_fetch_array($query_run)) {
+            ?>
+                    <!-- terrains filters -->
+                    <div id="terrain-filters" class="collapse ps-4 my-2">
+                        <input class="form-check-input terrain-filter" type="checkbox" id="terrain<?= $row['terrain_id']; ?>" value="<?= $row['terrain_id']; ?>">
+                        <label for="terrain<?= $row['terrain_id']; ?>"><?= $row['terrain_name']; ?></label>
+                    </div>
+            <?php
                 }
-                ?>
-            </div>
+            } else {
+                echo "No terrain found";
+            }
+            ?>
         </div>
 
         <!-- all municipalities -->

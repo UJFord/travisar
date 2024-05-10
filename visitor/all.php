@@ -224,6 +224,7 @@ require "../functions/functions.php";
             let selectedBrgy = searchParams.getAll('barangay');
 
             let varietyChev = document.getElementById('varietyChev');
+            let varietyFilters = document.getElementById('variety-filters');
 
             // Check checkboxes based on selected filters and show all crop filters
             selectedCategories.forEach(categoryIds => {
@@ -252,34 +253,40 @@ require "../functions/functions.php";
             }
 
             // Fetch and populate variety options for each selected category
-            selectedCategories.forEach(categoryIds => {
-                fetch(`fetch/fetch_filter.php?category_id=${categoryIds}`)
-                    .then(response => response.json())
-                    .then(data => {
-                        // Check if the data is not empty
-                        if (data.length > 0) {
-                            data.forEach(variety => {
+            if (selectedCategories != null && selectedCategories.length > 0) {
+                selectedCategories.forEach(categoryIds => {
+                    fetch(`fetch/fetch_filter.php?category_id=${categoryIds}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Check if the data is not empty
+                            if (data.length > 0) {
+                                // Accessing the variety-filters div outside the loop to prevent duplication
                                 let varietyFilter = document.getElementById('variety-div');
                                 varietyFilter.classList.remove('hidden');
-                                varietyFilter.innerHTML += `
-                                    <div class="collapse show ps-4 mb-2">
-                                        <input class="form-check-input variety-filter" type="checkbox" id="category_variety${variety.category_variety_id}" value="${variety.category_variety_id}">
-                                        <label for="category_variety${variety.category_variety_id}">${variety.category_variety_name}</label>
-                                    </div>
-                                `;
-                            });
-                        }
-                    })
-                    .catch(error => console.error('Error fetching variety data:', error));
-            });
 
-            selectedVarieties.forEach(varietyIds => {
-                varietyIds.split(',').forEach(varietyId => {
-                    let varietyFilter = document.getElementById('variety-div');
-                    varietyFilter.classList.remove('hidden');
-                    document.getElementById(`category_variety${varietyId}`).checked = true;
+                                data.forEach(variety => {
+                                    varietyFilter.innerHTML += `
+                                        <div class="collapse show ps-4 my-2">
+                                            <input class="form-check-input variety-filter" type="checkbox" id="category_variety${variety.category_variety_id}" value="${variety.category_variety_id}">
+                                            <label for="category_variety${variety.category_variety_id}">${variety.category_variety_name}</label>
+                                        </div>
+                                    `;
+                                });
+
+                                // Check selected variety checkboxes after populating
+                                selectedVarieties.forEach(varietyIds => {
+                                    varietyIds.split(',').forEach(varietyId => {
+                                        let varietyCheckbox = document.getElementById(`category_variety${varietyId}`);
+                                        if (varietyCheckbox) {
+                                            varietyCheckbox.checked = true;
+                                        }
+                                    });
+                                });
+                            }
+                        })
+                        .catch(error => console.error('Error fetching variety data:', error));
                 });
-            });
+            }
 
             selectedMunicipalities.forEach(municipalityIds => {
                 municipalityIds.split(',').forEach(municipalityId => {
@@ -305,7 +312,10 @@ require "../functions/functions.php";
 
             selectedTerrain.forEach(terrainIds => {
                 terrainIds.split(',').forEach(terrainId => {
-                    document.getElementById(`terrain${terrainId}`).checked = true;
+                    let terrainCheckbox = document.getElementById(`terrain${terrainId}`);
+                    if (terrainCheckbox) {
+                        terrainCheckbox.checked = true;
+                    }
                 });
             });
 
@@ -325,7 +335,6 @@ require "../functions/functions.php";
                 }
             }
 
-
             selectedBrgy.forEach(brgyIds => {
                 brgyIds.split(',').forEach(brgyId => {
                     let barangayFilter = document.getElementById('barangay-div');
@@ -334,6 +343,7 @@ require "../functions/functions.php";
                 });
             });
         }
+
         // Call applySelectedFilters() when the page is fully loaded
         window.addEventListener('load', applySelectedFilters);
     </script>
