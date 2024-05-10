@@ -9,7 +9,7 @@
 
         <!-- title -->
         <div class="border-bottom d-flex align-items-center  py-1 px-3 bg-light">
-            <h6 class="fw-semibold m-0 me-auto small-font">FILTERS</h6>
+            <h6 class="fw-bold m-0 me-auto ">FILTERS</h6>
         </div>
         <!-- filter actions -->
         <div class="d-flex py-3 px-3">

@@ -88,7 +88,7 @@
 
                     // Display the data
             ?>
-                    <tr latlng="<?= $row['barangay_coordinates'] ?>" data-href="view.php?crop_id=<?= $row['crop_id'] ?>">
+                    <tr class="crop-li" latlng="<?= $row['barangay_coordinates'] ?>" data-href="view.php?crop_id=<?= $row['crop_id'] ?>">
                         <td class="category text-truncate" style="max-width:5rem;"><?= $row['category_name'] ?></td>
                         <td class="fw-bolder variety text-truncate" style="max-width 10rem;"><?= $row['crop_variety'] ?></td>
                         <td class="text-truncate" style="max-width: 10rem;"><?= $row['sitio_name'] ?></td>

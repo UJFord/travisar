@@ -6,6 +6,7 @@ require "../functions/functions.php";
 
 <!doctype html>
 <html lang="en">
+
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
@@ -49,10 +50,12 @@ require "../functions/functions.php";
     <?php require "../nav/nav.php" ?>
 
     <!-- CROP TITLE -->
-    <div class="container-fluid bg-white">
-        <div class="title row py-4 mb-4">
+    <div class="title container-fluid bg-white">
+        <div class="container py-4 mb-4">
+            
             <h2 class="info-title text-center">
-                <!-- <button onclick="goBack()" class=""><i class="fa-solid fa-backward"></i></button> -->
+                <!-- back to previous page -->
+                <a id="return-btn" onclick="goBack()" class="btn btn-link text-dark float-start"><i class="fa-solid fa-circle-arrow-left fs-1"></i></a>
 
                 <?php
                 if (isset($_GET['crop_id'])) {

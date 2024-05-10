@@ -54,7 +54,7 @@ require "../functions/functions.php";
                     <div id="head-text" class="fw-bolder fs-1 text-white mb-2 pt-5">Welcome to <span><img class="pb-3 " id="logo-in-header" src="img/travis-light.svg" alt="" srcset=""></span></div>
                     <div id="head-subtitle" class=" fs-5 text-light mb-4">Seeds of the Past, Harvest of the Future: The Traditional Crop Varieties Information System is a comprehensive repository housing various information on morphological characteristics, sensory traits, agronomic features, and the cultural significance and utilization of traditional crops including rice, corn, and root crops.</div>
                     <div class="head-link ps-3 row">
-                        <a href="" class="col-2 btn btn-light fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">Explore<i class="bi bi-arrow-right fw-bold"></i></a>
+                        <a href="all.php" class="col-2 btn btn-light fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">Explore<i class="bi bi-arrow-right fw-bold"></i></a>
                     </div>
                 </div>
 
@@ -72,7 +72,7 @@ require "../functions/functions.php";
     <!-- FEATURES -->
     <div class="container my-5 bg-white">
         <div class="row mb-5">
-            <h3 id="feature-title" class="text-center fw-bold">FEATURES</h3>
+            <h2 id="feature-title" class="text-center fw-bold">FEATURES</h3>
         </div>
         <div class="row">
 
@@ -160,7 +160,7 @@ require "../functions/functions.php";
                     <h4 class="fw-bold">Map</h4>
                     <p>Navigate our map for an interactive journey through the distribution of traditional crop varieties across the province..</p>
                     <div class="row ps-2">
-                        <a href="crop.php" id="map-qlink" class="col-9 col-md-7 col-lg-5 col-xl-4 btn qlink-link btn-success fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
+                        <a href="all.php?map=open" id="map-qlink" class="col-9 col-md-7 col-lg-5 col-xl-4 btn qlink-link btn-success fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
                             Navigate!
                             <i class="bi bi-arrow-right fw-bold"></i>
                         </a>
@@ -216,7 +216,7 @@ require "../functions/functions.php";
     <div class="container-fluid bg-white">
         <div class="container py-5">
             <div class="row">
-                <h3 id="partners-title" class="text-center fw-bold mb-5">OUR PARTNERS</h3>
+                <h2 id="partners-title" class="text-center fw-bold mb-5">OUR PARTNERS</h2>
             </div>
             <div class="row">
                 <!-- main -->

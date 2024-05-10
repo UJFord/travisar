@@ -82,7 +82,6 @@
 }
 #crop-list-table{
     max-height: 100%;
-    
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
 #crop-list-map{
@@ -92,10 +91,17 @@
 #mapList{
     box-shadow: rgba(0, 0, 0, 0.15) 1.95px 1.95px 2.6px;
 }
+/* make cursor pointer */
+.crop-li{
+    cursor: pointer;
+}
 
 /* MAP */
 #view-type-button, #map-toggler{
     height: clamp(3rem, 5rem, 8rem);
+}
+a.leaflet-popup-close-button{
+    margin: 0.3rem;
 }
 
 /* PAGINATION */

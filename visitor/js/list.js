@@ -4,13 +4,28 @@ $(document).ready(function () {
     let mapState = false;
     let mapToggler = document.querySelector('#map-toggler');
 
-    // map or list toggler
-    $(mapToggler).on("click", function()
-    {
-        mapState = !mapState;
-        $('#crop-list-map').toggleClass('d-none');
+    // get url parameters
+    const urlParams = new URLSearchParams(window.location.search);
+    // get value of map in url
+    let toggleMap = urlParams.get('map') == 'open';
 
-        $('#crop-list-grid').addClass('d-none');
+    // map toggle function
+    let mapToggle = () => {
+        
+        mapState = !mapState;
+
+        // toggle the map parameter
+        if(mapState){
+            urlParams.set('map', 'open');
+        }else{
+            urlParams.set('map', 'close');
+        }
+
+        // Replace the current URL with the modified parameters
+        window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
+
+
+        $('#crop-list-map').toggleClass('d-none');
 
         // when map is toggled
         if(mapState){
@@ -28,22 +43,31 @@ $(document).ready(function () {
         $('#map-toggler .map-toggle').toggleClass('d-none');
 
         $('#view-type-button').toggleClass('d-none');
-    });
+
+        // set category filters link "map" parameter to the map state
+        let newMapValue = mapState? 'open': 'close';
+        $('.bar-filter-categ').each(function(){
+            let hrefValue = $(this).attr('href');
+            hrefValue = hrefValue.replace(/(\?|&)map=[^&]*/, `$1map=${newMapValue}`);
+            console.log(hrefValue)
+            $(this).attr('href', hrefValue);
+        })
+    };
+
+    // open map if url's map value is open
+    if(toggleMap){
+        mapToggle()
+    };
+
+
+    // map or list toggler
+    $(mapToggler).on("click", mapToggle);
 
 
     // LIST TABLE
     // make rows clickable
     // Add click event to table rows
     $('#crop-list-tbody tr[data-href]').on("click", function () {
-        // Get the URL from the data-href attribute
-        var url = $(this).attr('data-href');
-        // Navigate to the URL
-        window.location = url;
-    });
-
-    // make grids clickable
-    // Add click event to grids
-    $('#crop-list-grid .card-container .card[data-href]').on("click", function () {
         // Get the URL from the data-href attribute
         var url = $(this).attr('data-href');
         // Navigate to the URL
@@ -94,22 +118,6 @@ $(document).ready(function () {
         let address = row.querySelector('.addr').textContent.trim();
         let terrain = row.querySelector('.terrain').textContent.trim();
         let viewLink = row.getAttribute('data-href');
-
-        // GRID
-        //  transfer values from list to grid
-        let cardElement = `
-            <div class="card-container col-3 px-2 pb-2">
-                <div class="card" data-href="${viewLink}">
-                    <div class="card-body">
-                        <h5 class="card-title fw-bold text-truncate">${variety}</h5>
-                        <h6 class="card-subtitle mb-2 text-body-secondary">${terrain}</h6>
-                        <p class="card-text small-font text-truncate">${address}</p>
-                    </div>
-                </div>
-            </div>
-        `;
-        // add cardElement
-        $('#crop-list-grid').append(cardElement);
         
 
         // MAP SCRIPTS
@@ -118,7 +126,7 @@ $(document).ready(function () {
         let popup = `
             <div class="container">
                 <h6 class="row d-flex justify-content-center fw-semibold">${variety}</h6>
-                <div class="row d-flex justify-content-end"><a class="small-font w-auto" href="${viewLink}">See More...</a></div>
+                <div class="row d-flex justify-content-center"><a class="small-font w-auto" href="${viewLink}">View Crop</a></div>
             </div>
         `;
 
