@@ -32,6 +32,7 @@
                                     <input type="text" id="last-Name" name="last_name" class="form-control">
                                     <div id="error-messages-last"></div>
                                 </div>
+
                                 <!-- Gender -->
                                 <div class="col">
                                     <label for="Gender" class="form-label small-font">Gender</label>
@@ -51,6 +52,7 @@
                                     <input type="text" id="Email" name="email" class="form-control">
                                     <div id="error-messages-email"></div>
                                 </div>
+
                                 <!-- user name -->
                                 <div class="col">
                                     <label for="user-Name" class="form-label small-font">Username</label>
