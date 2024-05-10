@@ -17,23 +17,7 @@
             $category_id = isset($_GET['category_id']) ? $_GET['category_id'] : null;
 
             // Check if the category_id is valid
-            // Set the number of items to display per page
-            $items_per_page = 10;
 
-            // Get the current page number
-            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-
-            // Calculate the offset based on the current page and items per page
-            $offset = ($current_page - 1) * $items_per_page;
-
-            // Count the total number of rows for pagination
-            $total_rows_query = "SELECT COUNT(*) FROM crop LEFT JOIN status ON status.status_id = crop.status_id WHERE status.action = 'Approved'";
-            $total_rows_result = pg_query($conn, $total_rows_query);
-            $total_rows = pg_fetch_row($total_rows_result)[0];
-
-            // Calculate the total number of pages
-            $total_pages = ceil($total_rows / $items_per_page);
-    
             // Build the WHERE clause for the SQL query
             $where_clause = '';
 
@@ -62,6 +46,32 @@
 
             // Add all filters to the WHERE clause
             $where_clause .= " $category_filter $municipality_filter $variety_filter $terrain_filter $brgy_filter";
+
+            // Set the number of items to display per page
+            $items_per_page = 10;
+
+            // Get the current page number
+            $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
+
+            // Calculate the offset based on the current page and items per page
+            $offset = ($current_page - 1) * $items_per_page;
+
+            // Count the total number of rows for pagination
+            $total_rows_query = "SELECT COUNT(*) FROM crop 
+            LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
+            LEFT JOIN status ON status.status_id = crop.status_id 
+            LEFT JOIN category ON category.category_id = crop.category_id
+            LEFT JOIN municipality ON municipality.municipality_id = crop_location.municipality_id
+            LEFT JOIN barangay ON barangay.barangay_id = crop_location.barangay_id
+            LEFT JOIN province ON province.province_id = municipality.province_id
+            LEFT JOIN terrain ON terrain.terrain_id = crop.terrain_id
+            WHERE 1=1 $where_clause";
+
+            $total_rows_result = pg_query($conn, $total_rows_query);
+            $total_rows = pg_fetch_row($total_rows_result)[0];
+
+            // Calculate the total number of pages based on filtered data
+            $total_pages = ceil($total_rows / $items_per_page);
 
             // Build the SQL query
             $query = "SELECT * FROM crop 
