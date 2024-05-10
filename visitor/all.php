@@ -132,7 +132,6 @@ require "../functions/functions.php";
             window.location.href = window.location.pathname + '?' + searchCondition;
         }
 
-
         const searchInput = document.getElementById('searchInput');
         const clearButton = document.getElementById('clearButton');
 

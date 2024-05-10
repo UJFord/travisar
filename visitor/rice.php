@@ -105,11 +105,28 @@ require "../functions/functions.php";
         // Modify the search function to store the search query in a session or URL parameter
         function search() {
             var searchInput = document.getElementById("searchInput").value;
-            // Store the search query in a session or URL parameter
-            // For example, you can use localStorage to store the search query
-            localStorage.setItem('searchQuery', searchInput);
-            // Reload the page with the search query as a parameter
-            window.location.href = window.location.pathname + "?search=" + searchInput;
+
+            // Get existing filter parameters
+            let searchParams = new URLSearchParams(window.location.search);
+            let searchCondition = '';
+
+            const existingFilters = {};
+            for (let param of searchParams.entries()) {
+                if (param[0] !== 'search') {
+                    existingFilters[param[0]] = param[1];
+                }
+            }
+
+            // Construct search condition with existing filters
+            for (let key in existingFilters) {
+                searchCondition += `${key}=${existingFilters[key]}&`;
+            }
+
+            // Add the search query to the search condition
+            searchCondition += `search=${searchInput}`;
+
+            // Redirect to the page with updated filters and search query
+            window.location.href = window.location.pathname + '?' + searchCondition;
         }
 
         const searchInput = document.getElementById('searchInput');
@@ -140,25 +157,23 @@ require "../functions/functions.php";
             }
         }
 
-
         function applyFilters() {
             let searchParams = new URLSearchParams(window.location.search);
             let searchCondition = '';
 
-            // Get the existing search query if it exists
-            let searchQuery = searchParams.get('search');
-
+            // Get the selected filters
             const selectedCategories = Array.from(document.querySelectorAll('.crop-filter:checked')).map(checkbox => checkbox.value);
             const selectedMunicipalities = Array.from(document.querySelectorAll('.municipality-filter:checked')).map(checkbox => checkbox.value);
             const selectedVarieties = Array.from(document.querySelectorAll('.variety-filter:checked')).map(checkbox => checkbox.value);
             const selectedTerrain = Array.from(document.querySelectorAll('.terrain-filter:checked')).map(checkbox => checkbox.value);
             const selectedBrgy = Array.from(document.querySelectorAll('.brgy-filter:checked')).map(checkbox => checkbox.value);
 
-            // Add existing category_id to searchCondition if it exists
-            let categoryId = searchParams.get('category_id');
-            if (categoryId) {
-                searchCondition += `category_id=${categoryId}&`;
-            }
+            // Retain existing filters
+            searchParams.forEach((value, key) => {
+                if (key !== 'categories' && key !== 'municipalities' && key !== 'varieties' && key !== 'terrains' && key !== 'barangay') {
+                    searchCondition += `${key}=${value}&`;
+                }
+            });
 
             // Add selected filters to searchCondition
             if (selectedCategories.length > 0) {
@@ -177,14 +192,143 @@ require "../functions/functions.php";
                 searchCondition += `barangay=${selectedBrgy.join(',')}&`;
             }
 
-            // Add existing search query to searchCondition
-            if (searchQuery) {
-                searchCondition += `search=${searchQuery}`;
+            // Remove the existing search query
+            searchParams.delete('search');
+
+            // Add the new search query to the search condition
+            let newSearchQuery = ''; // Set your new search query here
+            if (newSearchQuery) {
+                searchCondition += `search=${newSearchQuery}&`;
             }
+
+            // Remove trailing '&' if exists
+            searchCondition = searchCondition.replace(/&$/, '');
 
             // Redirect to the page with updated filters
             window.location.href = window.location.pathname + '?' + searchCondition;
         }
+
+        // Function to retrieve and apply selected filters from URL parameters
+        function applySelectedFilters() {
+            let searchParams = new URLSearchParams(window.location.search);
+            let selectedCategories = searchParams.getAll('categories');
+            let selectedMunicipalities = searchParams.getAll('municipalities');
+            let selectedVarieties = searchParams.getAll('varieties');
+            let selectedTerrain = searchParams.getAll('terrains');
+            let selectedBrgy = searchParams.getAll('barangay');
+
+            // Check checkboxes based on selected filters and show all crop filters
+            selectedVarieties.forEach(varietyIds => {
+                varietyIds.split(',').forEach(varietyId => {
+                    let varietyCheckbox = document.getElementById(`category_variety${varietyId}`);
+                    if (varietyCheckbox) {
+                        varietyCheckbox.checked = true;
+                    }
+                });
+            });
+
+            // Show all variety filters
+            let varietyFilters = document.querySelectorAll('.variety-filter');
+            if (selectedVarieties != null && selectedVarieties.length > 0) {
+                varietyFilters.forEach(filter => {
+                    filter.closest('.collapse').classList.add('show');
+                });
+            }
+
+            // Remove rotation class
+            let varietyChev = document.getElementById('varietyChev');
+            if (selectedVarieties != null && selectedVarieties.length > 0) {
+                if (varietyChev) {
+                    varietyChev.classList.remove('rotate-chevron');
+                }
+            }
+
+            selectedMunicipalities.forEach(municipalityIds => {
+                municipalityIds.split(',').forEach(municipalityId => {
+                    document.getElementById(`municipality${municipalityId}`).checked = true;
+                });
+            });
+
+            // Show all municipality filters
+            let municipalityFilters = document.querySelectorAll('.municipality-filter');
+            if (selectedMunicipalities != null && selectedMunicipalities.length > 0) {
+                municipalityFilters.forEach(filter => {
+                    filter.closest('.collapse').classList.add('show');
+                });
+            }
+
+            // Remove rotation class
+            let municipalityChev = document.getElementById('munChev');
+            if (selectedMunicipalities != null && selectedMunicipalities.length > 0) {
+                if (municipalityChev) {
+                    municipalityChev.classList.remove('rotate-chevron');
+                }
+            }
+
+            selectedTerrain.forEach(terrainIds => {
+                terrainIds.split(',').forEach(terrainId => {
+                    let terrainCheckbox = document.getElementById(`terrain${terrainId}`);
+                    if (terrainCheckbox) {
+                        terrainCheckbox.checked = true;
+                    }
+                });
+            });
+
+            // Show all terrain filters
+            let terrainFilters = document.querySelectorAll('.terrain-filter');
+            if (selectedTerrain != null && selectedTerrain.length > 0) {
+                terrainFilters.forEach(filter => {
+                    filter.closest('.collapse').classList.add('show');
+                });
+            }
+
+            // Remove rotation class
+            let terrainChev = document.getElementById('terrainChev');
+            if (selectedTerrain != null && selectedTerrain.length > 0) {
+                if (terrainChev) {
+                    terrainChev.classList.remove('rotate-chevron');
+                }
+            }
+
+            // Fetch and populate barangay options for each selected category
+            if (selectedMunicipalities != null && selectedMunicipalities.length > 0) {
+                selectedMunicipalities.forEach(municipalityIds => {
+                    fetch(`fetch/fetch_filter-brgy.php?municipality_id=${municipalityIds}`)
+                        .then(response => response.json())
+                        .then(data => {
+                            // Check if the data is not empty
+                            if (data.length > 0) {
+                                // Accessing the barangay-filters div outside the loop to prevent duplication
+                                let barangayFilter = document.getElementById('barangay-div');
+                                barangayFilter.classList.remove('hidden');
+
+                                data.forEach(barangay => {
+                                    barangayFilter.innerHTML += `
+                                        <div class="collapse show ps-4 my-2">
+                                            <input class="form-check-input brgy-filter" type="checkbox" id="barangay${barangay.barangay_id}" value="${barangay.barangay_id}">
+                                            <label for="barangay${barangay.barangay_id}">${barangay.barangay_name}</label>
+                                        </div>
+                                    `;
+                                });
+
+                                // Check selected barangay checkboxes after populating
+                                selectedBrgy.forEach(barangayIds => {
+                                    barangayIds.split(',').forEach(barangayId => {
+                                        let barangayCheckbox = document.getElementById(`barangay${barangayId}`);
+                                        if (barangayCheckbox) {
+                                            barangayCheckbox.checked = true;
+                                        }
+                                    });
+                                });
+                            }
+                        })
+                        .catch(error => console.error('Error fetching barangay data:', error));
+                });
+            }
+        }
+
+        // Call applySelectedFilters() when the page is fully loaded
+        window.addEventListener('load', applySelectedFilters);
     </script>
 </body>
 
