@@ -10,10 +10,6 @@
         <!-- title -->
         <div class="border-bottom d-flex align-items-center  py-1 px-3 bg-light">
             <h6 class="fw-semibold m-0 me-auto small-font">FILTERS</h6>
-            <!-- help -->
-            <a href="#" class="">
-                <i class="bi bi-question-circle"></i>
-            </a>
         </div>
         <!-- filter actions -->
         <div class="d-flex py-3 px-3">
