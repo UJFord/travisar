@@ -204,7 +204,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 const formData = new FormData();
                 formData.append('email', email);
 
-                const response = await fetch('check_email.php', {
+                const response = await fetch('fetch/check_email.php', {
                     method: 'POST',
                     body: formData
                 });

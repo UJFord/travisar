@@ -46,7 +46,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             ?>
             <!-- form -->
             <div class="col-4">
-                <form action="" method="POST" class="border rounded-4 bg-light py-5 px-5">
+                <form method="POST" class="border rounded-4 bg-light py-5 px-5 needs-validation" novalidate>
 
                     <!-- logo -->
                     <div class="row d-flex justify-content-center align-items-center">
@@ -58,33 +58,26 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <h3 class="text-center">Login</h3>
                     </div>
 
-                    <div>
-                        <?php if (count($errors) > 0) : ?>
-                            <?php foreach ($errors as $error) : ?>
-                                <?= $error ?> <br>
-                            <?php endforeach; ?>
-                        <?php endif; ?>
+                    <div id="email-exists-feedback" class="alert alert-danger rounded-4 invalid-feedback" role="alert">
+                        Email or password does not exist.
                     </div>
-
-                    <!-- message -->
-                    <?php if (count($errors) > 0) : ?>
-                        <div class="alert alert-danger rounded-4" role="alert">
-                            <?php foreach ($errors as $error) : ?>
-                                <?= $error ?> <br>
-                            <?php endforeach; ?>
-                        </div>
-                    <?php endif; ?>
 
                     <!-- email -->
                     <div class="form-floating mb-3">
-                        <input type="email" name="email" class="fs-6 form-control rounded-4" id="email" placeholder="name@example.com">
-                        <label for="email" class="fs-6">Email</label>
+                        <input type="email" name="email" class="fs-6 form-control rounded-4" id="login-email" placeholder="name@example.com" required>
+                        <label for="login-email" class="fs-6">Email</label>
+                        <div id="email-error" class="invalid-feedback">
+                            Please enter email.
+                        </div>
                     </div>
 
                     <!-- password -->
                     <div class="form-floating">
-                        <input type="password" name="password" class="fs-6 form-control rounded-4" id="password" placeholder="Password">
-                        <label for="password" class="fs-6">Password</label>
+                        <input type="password" name="password" class="fs-6 form-control rounded-4" id="login-password" placeholder="Password" required>
+                        <label for="login-password" class="fs-6">Password</label>
+                        <div id="pass-error" class="invalid-feedback">
+                            Please enter password.
+                        </div>
                     </div>
 
                     <!-- login btn -->
@@ -104,9 +97,61 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </div>
-
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
 </body>
+<script>
+    (() => {
+        'use strict'
+
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
+
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', async event => { // Make the function async
+                if (!form.checkValidity()) {
+                    event.preventDefault()
+                    event.stopPropagation()
+                }
+                // Check if email already exists in the database
+                const email = form.querySelector('#login-email').value;
+                const password = form.querySelector('#login-password').value;
+                const formData = new FormData();
+                formData.append('email', email); // Append email
+                formData.append('password', password); // Append password
+
+                // console.log('FormData:', formData); // Log the FormData object
+
+                const response = await fetch('fetch/check_login.php', {
+                    method: 'POST',
+                    body: formData
+                });
+                //const responseText = await response.text();
+                //console.log('Response:', response);
+                const data = await response.json();
+
+                if (!data.exists) {
+                    event.preventDefault();
+                    event.stopPropagation();
+                    form.querySelector('#login-email').classList.add('is-invalid');
+                    form.querySelector('#login-password').classList.add('is-invalid');
+                    document.getElementById('email-exists-feedback').style.display = 'block'; // Display the error message
+                    document.getElementById('email-error').style.display = 'none'; // Hide the error message if email doesn't exist
+                    document.getElementById('pass-error').style.display = 'none'; // Hide the error message if email doesn't exist
+                } else {
+                    form.querySelector('#login-email').classList.remove('is-invalid');
+                    form.querySelector('#login-password').classList.remove('is-invalid');
+                    document.getElementById('email-exists-feedback').style.display = 'none'; // Hide the error message if email exists
+                    document.getElementById('email-error').style.display = 'block'; // Display the error message
+                    document.getElementById('pass-error').style.display = 'none'; // Hide the error message if email exists
+                }
+
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
+
 
 </html>

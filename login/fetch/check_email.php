@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "../functions/connections.php";
+require "../../functions/connections.php";
 
 // Check if email key is set in the POST data
 if (isset($_POST['email'])) {
@@ -32,9 +32,4 @@ if (isset($_POST['email'])) {
         http_response_code(500);
         echo json_encode(array('error' => 'Error executing query'));
     }
-} else {
-    // Email key is not set in POST data
-    http_response_code(400);
-    echo json_encode(array('error' => 'Email is required'));
 }
-?>

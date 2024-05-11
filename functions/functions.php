@@ -40,15 +40,6 @@
     {
         $errors = array();
 
-        // validate
-        if (!filter_var($data['email'], FILTER_VALIDATE_EMAIL)) {
-            $errors[] = "Please enter a valid email";
-        }
-
-        if (strlen(trim($data['password'])) < 3) {
-            $errors[] = "Password must be at least 3 characters";
-        }
-
         // check
         if (count($errors) == 0) {
             $email = $data['email'];
