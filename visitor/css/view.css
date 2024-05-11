@@ -2,8 +2,11 @@
 .title{
     box-shadow: rgba(99, 99, 99, 0.2) 0px 2px 8px 0px;
 }
+#return-btn{
+    color: #414141 ;
+}
 #return-btn:hover i{
-    color: #5c5c5c;
+    color: #807e7e;
 }
 
 /* tables */

@@ -4,7 +4,8 @@ define('BASE_URL', 'http://localhost/travisar');
 
 //get current page to choose the active link
 // current page path
-$current_page_path = $_SERVER['REQUEST_URI'];
+$current_page_path = strtok($_SERVER['REQUEST_URI'], '?');
+
 
 // current page html boolean
 $current_page_isHome = false;
@@ -14,15 +15,14 @@ $current_page_isCrop_page = false;
 $current_page_isSettings = false;
 $current_page_isSubmission = false;
 $current_page_isManagement = false;
+$current_page_isProfile = false;
 
 
 switch ($current_page_path) {
     case "/travisar/visitor/home.php":
         $current_page_isHome = true;
         break;
-    case "/travisar/visitor/crop.php":
-        $current_page_isCrop = true;
-        break;
+
     case "/travisar/visitor/about/sar.php":
         $current_page_isAbout = true;
     case "/travisar/visitor/about/collab.php":
@@ -30,7 +30,14 @@ switch ($current_page_path) {
     case "/travisar/visitor/about/travis.php":
         $current_page_isAbout = true;
         break;
+
+    case "/travisar/visitor/crop.php":
+        $current_page_isCrop = true;
+        break;
     case "/travisar/visitor/corn.php":
+        $current_page_isCrop = true;
+        break;
+    case "/travisar/visitor/all.php":
         $current_page_isCrop = true;
         break;
     case "/travisar/visitor/rice.php":
@@ -42,6 +49,7 @@ switch ($current_page_path) {
     case "/travisar/visitor/view.php":
         $current_page_isCrop = true;
         break;
+
     case "/travisar/contributor/crop-page/category-variety.php":
         $current_page_isSettings = true;
         break;
@@ -69,6 +77,7 @@ switch ($current_page_path) {
     case "/travisar/contributor/user-page/verify-user.php":
         $current_page_isSettings = true;
         break;
+
     case "/travisar/contributor/submission-page/submission.php":
         $current_page_isSubmission = true;
         break;
@@ -85,6 +94,11 @@ switch ($current_page_path) {
     case "/travisar/contributor/approval-page/rejected.php":
         $current_page_isManagement = true;
         break;
+
+    case "/travisar/login/profile.php":
+        $current_page_isProfile = true;
+        break;
+
 }
 ?>
 
@@ -241,7 +255,9 @@ switch ($current_page_path) {
 
                     <!-- user profile -->
                     <div class="nav-item fw-semibold me-2 dropdown">
-                        <a href="" id="profile-btn" class="nav-link dropdown-toggle d-" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+                        <a href="" id="profile-btn" class="nav-link dropdown-toggle  <?php if ($current_page_isProfile) {
+                                                                                            echo "active";
+                                                                                        } ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             <i class="fa-solid fa-user"></i>
                         </a>
 
@@ -249,7 +265,7 @@ switch ($current_page_path) {
 
                             <!-- login info -->
                             <li>
-                                <a href="" class="dropdown-item d-flex align-items-center pb-2">
+                                <a href="<?php echo BASE_URL . '/' . 'login/profile.php'; ?>" class="dropdown-item d-flex align-items-center pb-2">
                                     <i class="fa-solid fa-address-card me-2" style="width:20px"></i>
                                     <div>
                                         <div class="small-font">Logged In as</div>

@@ -72,7 +72,7 @@ require "../functions/functions.php";
                                         <h6 class="text-secondary w-auto mt-4">Currently logged in as</h6>
                                         <div class="w-auto">
                                             <h1 class="fw-bold"><?= $row['first_name'] . ' ' .  $row['last_name'] ?> </h1>
-                                            <h4 class="fw-bold fst-italic text-secondary"><?= $_SESSION['USER']['email']; ?></h4>
+                                            <h4 class="fw-bold fst-italic text-secondary">@<?= $row['username'] ?></h4>
                                             <h6 class="fw-bold text-secondary"><?= $row['affiliation'] ?></h6>
                                         </div>
                                     </div>

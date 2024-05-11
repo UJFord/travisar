@@ -55,7 +55,7 @@ require "../functions/functions.php";
             
             <h2 class="info-title text-center">
                 <!-- back to previous page -->
-                <a id="return-btn" onclick="goBack()" class="btn btn-link text-dark float-start"><i class="fa-solid fa-circle-arrow-left fs-1"></i></a>
+                <a id="return-btn" onclick="goBack()" class="btn btn-link float-start"><i class="fa-solid fa-circle-arrow-left fs-1"></i></a>
 
                 <?php
                 if (isset($_GET['crop_id'])) {
@@ -142,9 +142,9 @@ require "../functions/functions.php";
                                                                                                                         ">Location</th>
                                         <td id="addr" class="w-75 fw-semibold"><?php
                                                                                 if (!empty($crops['sitio_name'])) {
-                                                                                    echo $crops['province_name'] . ', ' . $crops['municipality_name'] . ', ' . $crops['barangay_name'] . ', ' . $crops['sitio_name'];
+                                                                                    echo $crops['sitio_name'] . ', ' . $crops['barangay_name'] . ', ' . $crops['municipality_name'] . ', ' . $crops['province_name'];
                                                                                 } else {
-                                                                                    echo $crops['province_name'] . ', ' . $crops['municipality_name'] . ', ' . $crops['barangay_name'];
+                                                                                    echo $crops['barangay_name'] . ', ' . $crops['municipality_name'] . ', ' . $crops['province_name'];
                                                                                 }
                                                                                 ?>
                                         </td>

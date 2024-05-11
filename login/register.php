@@ -10,6 +10,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (count($errors) == 0) {
         $_SESSION['message'] = "<div class='success'>Signup successful wait for the verification in your email.</div>";
+        sleep(5);
         header("location: login.php");
         exit();
     }
