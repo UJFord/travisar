@@ -1705,5 +1705,13 @@ require "../../functions/functions.php";
 
     </script>
 </body>
-
+<?php
+if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
+    // Output JavaScript code to redirect back to the original page
+    echo '<script>window.history.go(-1);</script>';
+    $_SESSION['message'] = 'Access Not Granted Not Enough Authority.';
+    // stop the code
+    exit();
+}
+?>
 </html>

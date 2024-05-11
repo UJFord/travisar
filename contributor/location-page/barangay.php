@@ -464,7 +464,7 @@ require "../../functions/functions.php";
 
 <!-- to check if the user is logged in and has a rank of Encoder if Encoder and rank i redirect sya pabalik kung asa sya gaina before niya ni gi try access -->
 <?php
-if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
+if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder' || trim($_SESSION['rank']) == 'Curator') {
     // Output JavaScript code to redirect back to the original page
     echo '<script>window.history.go(-1);</script>';
     $_SESSION['message'] = 'Access Not Granted Not Enough Authority.';

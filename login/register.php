@@ -10,8 +10,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
     if (count($errors) == 0) {
         $_SESSION['message'] = "<div class='success'>Signup successful wait for the verification in your email.</div>";
-        sleep(5);
-        header("location: login.php");
+        //sleep(5);
+        header("location: register-confirm.php");
         exit();
     }
 }
@@ -130,7 +130,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <input type="password" class="fs-6 form-control rounded-4" id="reg-confirm" name="password2" placeholder="Confirm Password" required>
                         <label for="reg-confirm" class="fs-6">Confirm Password</label>
                         <div class="invalid-feedback">
-                            Please confirm password.
+                            The password must match.
                         </div>
                     </div>
 
@@ -226,31 +226,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 form.classList.add('was-validated')
             }, false)
-
-            // Add event listener for password confirmation validation on keyup
-            form.querySelector('#reg-confirm').addEventListener('keyup', () => {
-                const passwordInput = form.querySelector('#reg-pass').value
-                const confirmPasswordInput = form.querySelector('#reg-confirm').value
-                const confirmPasswordField = form.querySelector('#reg-confirm')
-
-                if (passwordInput === confirmPasswordInput) {
-                    confirmPasswordField.classList.remove('is-invalid')
-                } else {
-                    confirmPasswordField.classList.add('is-invalid')
-                }
-            })
-
-            // Add event listener for password length validation on keyup
-            form.querySelector('#reg-pass').addEventListener('keyup', () => {
-                const passwordLength = form.querySelector('#reg-pass').value.length
-                const passwordField = form.querySelector('#reg-pass')
-
-                if (passwordLength >= 8) {
-                    passwordField.classList.remove('is-invalid')
-                } else {
-                    passwordField.classList.add('is-invalid')
-                }
-            })
         })
     })()
 </script>

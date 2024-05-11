@@ -92,7 +92,7 @@
                                     <select name="account_type_id" id="AccountType" class="form-select">
                                         <option value="" disabled selected hidden>Select Account Type</option>
                                         <?php
-                                        $query = "SELECT * from account_type where type_name != 'Curator'";
+                                        $query = "SELECT * from account_type";
                                         $query_run = pg_query($conn, $query);
 
                                         $count = pg_num_rows($query_run);

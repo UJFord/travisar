@@ -68,7 +68,7 @@
                                     <label for="Account_TypeEdit" class="form-label small-font">Account Type<span style="color: red;">*</span></label>
                                     <select name="account_type_idEdit" id="Account_TypeEdit" class="form-select">
                                         <?php
-                                        $query = "SELECT * from account_type where type_name != 'Curator'";
+                                        $query = "SELECT * from account_type";
                                         $query_run = pg_query($conn, $query);
 
                                         $count = pg_num_rows($query_run);
@@ -100,7 +100,7 @@
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-end">
                     <div class="">
-                        <button type="button" id="deleteButton" class="btn btn-danger">Delete</button>
+                        <!-- <button type="button" id="deleteButton" class="btn btn-danger">Delete</button> -->
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" id="rejectButton" name="save" class="btn btn-success">Save</button>
                     </div>

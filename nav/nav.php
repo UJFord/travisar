@@ -170,14 +170,14 @@ switch ($current_page_path) {
                 <!-- ADMIN -->
                 <ul class="navbar-nav">
                     <!-- my crops -->
-                    <div class="nav-item fw-semibold me-2 encoder-only">
+                    <div class="nav-item fw-semibold me-2 contributor-only">
                         <a class="nav-link fw-bold me-2 <?php if ($current_page_isSubmission) {
                                                             echo "active";
                                                         } ?>" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/submission-page/submission.php'; ?>">My Listings</a>
                     </div>
 
                     <!-- crop management -->
-                    <div class="nav-item fw-semibold me-2 dropdown admin-only">
+                    <div class="nav-item fw-semibold me-2 dropdown curator-only">
 
                         <a href="" id="mng-nav" class="nav-link dropdown-toggle <?php if ($current_page_isManagement) {
                                                                                     echo "active";

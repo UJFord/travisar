@@ -16,6 +16,6 @@ function checkAccess(userRole) {
         var errorMessage = "You do not have enough access.";
 
         // Display the error message (you need to have an element with the id 'error-message' in your HTML)
-        document.getElementById('error-message').innerHTML = '<div class="error">' + errorMessage + '</div>';
+        //document.getElementById('error-message').innerHTML = '<div class="error">' + errorMessage + '</div>';
     }
 }
