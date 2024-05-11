@@ -77,7 +77,7 @@ require "../../functions/functions.php";
             <!-- edit -->
             <?php require "modals/edit.php"; ?>
             <!-- manage -->
-            <?php //require "modals/manage.php"; 
+            <?php require "modals/manage.php";
             ?>
         </div>
     </div>
@@ -1332,6 +1332,247 @@ require "../../functions/functions.php";
         });
     </script>
 
+    <!-- Script for the map for view tab -->
+    <script>
+        // Define the bounds of your map
+        const southWestView = L.latLng(5, 123.0); // Lower left corner of the bounds
+        const northEastView = L.latLng(7, 127.0); // Upper right corner of the bounds
+        const boundsView = L.latLngBounds(southWestView, northEastView);
+
+        // Initialize the map with the bounds
+        const mapView = L.map('mapView', {
+            maxBounds: boundsView, // Restrict map panning to these bounds
+            maxBoundsViscosity: 0.75, // Elastic bounce-back when panning outside bounds
+            // Set the initial view within the bounds
+            center: [6.403013, 124.725062],
+            zoom: 9
+        });
+
+        // send resize event to browser to load map tiles
+        $(document).ready(function() {
+            setInterval(function() {
+                window.dispatchEvent(new Event("resize"));
+            }, 2000);
+        });
+
+        // Declare marker globally
+        let markerView = null;
+
+        L.tileLayer(`https://{s}.tile.openstreetmap.org/{z}/{x}/{y}.png`, { //style URL
+            // tilesize
+            tileSize: 512,
+            // maxzoom
+            maxZoom: 18,
+            // i dont what this does but some says before different tile providers handle zoom differently
+            zoomOffset: -1,
+            // minzoom
+            minZoom: 9,
+            edgeBufferTiles: 5,
+            // copyright claim, because openstreetmaps require them
+            attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+            // i dont know what this does
+            crossOrigin: true
+        }).addTo(mapView);
+
+        // input dom
+        let coordInputView = document.querySelector('#coordView');
+
+        // managing map click
+        // function onMapClickView(e) {
+        //     // Extract latitude and longitude from the LatLng object
+        //     const latitude = e.latlng.lat;
+        //     const longitude = e.latlng.lng;
+
+        //     // Join the coordinates as a comma-separated string
+        //     const formattedCoords = latitude.toFixed(6) + ", " + longitude.toFixed(6);
+
+        //     // Set the input value to the formatted coordinates
+        //     coordInputView.value = formattedCoords;
+
+        //     // Update the map and pin marker with the clicked coordinates
+        //     updateMapAndPinView(latitude, longitude);
+
+        //     // fetch data
+        //     console.log(latitude);
+        //     console.log(longitude);
+        //     let details = fetchDataView(latitude, longitude)
+        //         .then(details => {
+        //             // set neighbourhood
+        //             // neighbourhoodValueView.value = details.neighbourhood
+        //             // set municipality
+        //             // municipalitySelect.value = details.town;
+        //             // set barangay
+        //             // barangaySelect.value = details.village;
+
+        //             console.log('Country:', details.country);
+        //             console.log('State:', details.state);
+        //             console.log('County:', details.county);
+        //             console.log('City:', details.city);
+        //             console.log('Town:', details.town);
+        //             console.log('Borough:', details.borough);
+        //             console.log('Village:', details.village);
+        //             console.log('Suburb:', details.suburb);
+        //             // console.log('Neighbourhood:', details.neighbourhood);
+        //             // console.log('Neighbourhood:', details.neighbourhood);
+        //             console.log('Settlement:', details.settlement);
+        //             console.log('Major Streets:', details.majorStreets);
+        //             console.log('Major and Minor Streets:', details.majorAndMinorStreets);
+        //             console.log('Building:', details.building);
+        //         });
+        // }
+
+        // mapView.on('click', onMapClickView);
+
+        function updateMapAndPinView(latitude, longitude) {
+            // Remove potential existing marker
+            if (markerView) {
+                mapView.removeLayer(markerView);
+            }
+
+            // Convert input coordinates to Leaflet LatLng object
+            const latLng = L.latLng(latitude, longitude);
+
+            // Create a new marker if coordinates are valid
+            if (isValidLatLng(latLng)) {
+                markerView = L.marker(latLng, {
+                    icon: iconView // Use your preferred marker icon (e.g., redIcon)
+                });
+
+                // Add marker to the map
+                markerView.addTo(mapView);
+
+                // Center the map on the new marker
+                // map.setView(latLng, map.getZoom()+1); // Adjust zoom level as needed
+            } else {
+                console.error("Invalid coordinates entered. Please enter valid latitude and longitude values.");
+            }
+        }
+
+        // Input handling function
+        function handleInputChangeView() {
+            const inputValue = coordInputView.value.trim(); // Trim leading/trailing whitespace
+
+            // Ensure comma separation, handle different input formats
+            const parts = inputValue.split(/\s*,\s*/);
+            if (parts.length !== 2) {
+                console.error("Invalid input format. Please enter coordinates in the format 'latitude, longitude'.");
+                return;
+            }
+
+            const latitude = parseFloat(parts[0]);
+            const longitude = parseFloat(parts[1]);
+
+            updateMapAndPinView(latitude, longitude);
+        }
+
+        // Utility function to validate LatLng object
+        function isValidLatLng(latLng) {
+            return !isNaN(latLng.lat) && !isNaN(latLng.lng) && -90 <= latLng.lat <= 90 && -180 <= latLng.lng <= 180;
+        }
+
+        // Marker initialization (adjust icon as needed)
+        const iconView = L.icon({
+            iconUrl: '../img/location-pin-svgrepo-com.svg',
+            shadowUrl: 'https://cdnjs.cloudflare.com/ajax/libs/leaflet/1.0.3/images/marker-shadow.png',
+            iconSize: [25, 41],
+            iconAnchor: [12, 41],
+            popupAnchor: [1, -34],
+            shadowSize: [41, 41]
+        });
+
+        // Event listener for input changes
+        coordInputView.addEventListener('input', handleInputChangeView);
+
+        // fetch data from openstreetmap nominatim
+        function fetchDataView(lat, lng) {
+            return fetch(`https://nominatim.openstreetmap.org/reverse?lat=${lat}&lon=${lng}`)
+                .then(response => {
+                    if (!response.ok) {
+                        throw new Error('Network response was not ok');
+                    }
+                    return response.text(); // Fetch response as text
+                })
+                .then(data => {
+                    // Parse the XML string into a DOM structure
+                    const parser = new DOMParser();
+                    const xmlDoc = parser.parseFromString(data, "text/xml");
+
+                    // Access information in the XML document
+                    const resultElement = xmlDoc.querySelector('result');
+                    const addressPartsElement = xmlDoc.querySelector('addressparts');
+
+                    // Extract details only if the tag exists
+                    const details = {};
+                    if (addressPartsElement) {
+                        details.country = addressPartsElement.querySelector('country')?.textContent || '';
+                        details.state = addressPartsElement.querySelector('state')?.textContent || '';
+                        details.county = addressPartsElement.querySelector('county')?.textContent || '';
+                        details.city = addressPartsElement.querySelector('city')?.textContent || '';
+                        details.town = addressPartsElement.querySelector('town')?.textContent || '';
+                        details.borough = addressPartsElement.querySelector('borough')?.textContent || '';
+                        details.village = addressPartsElement.querySelector('village')?.textContent || '';
+                        details.suburb = addressPartsElement.querySelector('suburb')?.textContent || '';
+                        details.neighbourhood = addressPartsElement.querySelector('neighbourhood')?.textContent || '';
+                        details.settlement = addressPartsElement.querySelector('settlement')?.textContent || '';
+                        details.majorStreets = addressPartsElement.querySelector('major_streets')?.textContent || '';
+                        details.majorAndMinorStreets = addressPartsElement.querySelector('major_and_minor_streets')?.textContent || '';
+                        details.building = addressPartsElement.querySelector('building')?.textContent || '';
+                    }
+
+                    return details;
+                })
+                .catch(error => {
+                    console.error('There was a problem with the fetch operation:', error);
+                    // Return null or handle error as needed
+                    return null;
+                });
+        }
+
+        // function to pin location from input by roger bairoy
+        document.addEventListener("DOMContentLoaded", function() {
+            var typingTimer; // Timer identifier
+            var doneTypingInterval = 1000; // Time in milliseconds (5 seconds)
+
+            // Function to update the map marker based on input location
+            function updateMapView(locationView) {
+                // Parse the location string to extract latitude and longitude
+                var coordinates = locationView.split(',').map(function(coord) {
+                    return parseFloat(coord.trim());
+                });
+
+                // Check if coordinates are valid
+                if (coordinates.length === 2 && !isNaN(coordinates[0]) && !isNaN(coordinates[1])) {
+                    var lat = coordinates[0];
+                    var lng = coordinates[1];
+
+                    // Remove existing marker if any
+                    if (typeof marker !== 'undefined') {
+                        mapView.removeLayer(markerView);
+                    }
+
+                    // Create a new marker at the specified coordinates and add it to the mapView
+                    markerView = L.marker([lat, lng]).addTo(mapView);
+
+                    // Set the mapView view to the marker's location
+                    mapView.setView([lat, lng], 20); // Zoom level 12
+                } else {
+                    // Invalid coordinates
+                    console.error('Invalid location format');
+                }
+            }
+
+            // Event listener for location input field
+            document.getElementById('coordView').addEventListener('input', function() {
+                clearTimeout(typingTimer);
+                var locationView = this.value;
+                typingTimer = setTimeout(function() {
+                    // Update the map marker based on the input location after 5 seconds of inactivity
+                    updateMapView(locationView);
+                }, doneTypingInterval);
+            });
+        });
+    </script>
+
     <!-- SCRIPT for the select datas for edit location tab -->
     <script>
         // FORMS SIDE
@@ -1464,5 +1705,13 @@ require "../../functions/functions.php";
 
     </script>
 </body>
-
+<?php
+if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
+    // Output JavaScript code to redirect back to the original page
+    echo '<script>window.history.go(-1);</script>';
+    $_SESSION['message'] = 'Access Not Granted Not Enough Authority.';
+    // stop the code
+    exit();
+}
+?>
 </html>

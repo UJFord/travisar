@@ -989,7 +989,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
         echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
         exit(0);
     }
-} else if (isset($_POST['save']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
+} else if (isset($_POST['save']) && $_SESSION['rank'] == 'Admin') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {
@@ -3834,7 +3834,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Contributor') {
         echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
         exit(0);
     }
-} elseif (isset($_POST['edit']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
+} elseif (isset($_POST['edit']) && $_SESSION['rank'] == 'Admin') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {
@@ -4978,7 +4978,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Contributor') {
     }
 }
 
-if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
+if (isset($_POST['delete']) && $_SESSION['rank'] == 'Admin') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {

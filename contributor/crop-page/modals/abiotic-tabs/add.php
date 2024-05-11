@@ -26,6 +26,7 @@
                                 <div class="col-5">
                                     <label for="abiotic-Name_1" class="form-label small-font">Abiotic Name<span style="color: red;">*</span></label>
                                     <input type="text" name="abiotic_name_1" id="abiotic-Name_1" class="form-control">
+                                    <div id="error-messages_1"></div>
                                 </div>
                             </div>
                         </div>
@@ -38,7 +39,6 @@
                         <input type="hidden" name="save">
                         <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
                         <button type="submit" name="save" class="btn btn-success">Save</button>
-                        <div id="error-messages_1"></div>
                     </div>
                 </div>
             </form>

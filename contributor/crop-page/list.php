@@ -79,7 +79,7 @@
                             <button class="btn tranparent dropdown-toggle row-btn row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="row-btn fa-solid fa-ellipsis-vertical px-3 py-2 m-0 rounded"></i>
                             </button>
-                            <ul class="dropdown-menu">
+                            <ul class="dropdown-menu admin-only">
                                 <!-- Add a hidden input field to store the selected row IDs -->
                                 <input type="hidden" id="selectedRows" name="selectedRows">
                                 <button id="deleteSelected" class="btn btn-danger dropdown-item"><i class="fa-solid fa-trash text-danger text-center me-1" style="width: 20px;"></i>Delete Selected</button>
@@ -127,13 +127,9 @@
                             ?>
                             <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="../../visitor/view.php?crop_id=<?= $row['crop_id'] ?>">
                             <?php
-                        } else if ($row['action'] === 'Rejected') {
+                        } else if ($row['action'] === 'Rejected' || $row['action'] === 'Pending' || $row['action'] === 'Updating') {
                             ?>
                             <tr data-id="<?= $row['crop_id']; ?>" class="rowlink view_data" href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">
-                            <?php
-                        } else {
-                            ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="#">
                             <?php
                         }
                             ?>
@@ -221,7 +217,7 @@
                                     <button class="btn tranparent dropdown-toggle row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="row-btn fa-solid fa-ellipsis-vertical px-3 py-2 m-0 rounded"></i>
                                     </button>
-                                    <ul class="dropdown-menu">
+                                    <ul class="dropdown-menu admin-only">
                                         <!-- <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye text-center" style="width: 20px;"></i> View</a></li> -->
                                         <?php if ($row['action'] === 'Approved') : ?>
                                             <li>

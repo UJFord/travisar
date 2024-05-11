@@ -12,12 +12,12 @@
 
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="view-item-modal-label">View</h5>
-                <button type="button" id="close-modal-btn" class="btn-close" aria-label="Close"></button>
+                <h5 class="modal-title" id="view-item-modal-label">Manage</h5>
+                <button type="button" id="close-modal-btn-View" class="btn-close" aria-label="Close"></button>
             </div>
 
             <!-- body -->
-            <form id="form-panel-view" name="Form" action="pending-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel-view" name="Form" action="modals/crud-code/pending-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body view-modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -57,9 +57,9 @@
 
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-end">
-                    <button type="button" id="rejectButton" class="btn btn-danger">Reject</i></button>
+                    <button type="button" id="rejectButton-View" class="btn btn-danger">Reject</i></button>
                     <div class="approveButtonView">
-                        <button type="button" id="cancel-modal-btn" class="btn border bg-light">Cancel</button>
+                        <button type="button" id="cancel-modal-btn-View" class="btn border bg-light">Cancel</button>
                         <button type="submit" name="approve" class="btn btn-success me-2">Approve</i></button>
                     </div>
                     <div class="updateButtonView">
@@ -105,7 +105,7 @@
         if (form) {
             // Perform AJAX submission or other necessary actions
             $.ajax({
-                url: "../../approval-page/pending-code.php",
+                url: "modals/crud-code/pending-code.php",
                 method: "POST",
                 data: new FormData(form),
                 contentType: false,
@@ -141,7 +141,7 @@
 
             // Assuming you have jQuery available
             $.ajax({
-                url: '../../approval-page/fetch/fetch_crop-edit.php',
+                url: 'modals/fetch/fetch_crop-edit.php',
                 type: 'POST',
                 data: {
                     'click_edit_btn': true,
@@ -593,23 +593,6 @@
         // Click the tab with id 'gen-tab'
         document.getElementById(tabName + '-tab').click();
     }
-
-    $(document).ready(function() {
-        // Initialize the modal
-        const dataModalView = new bootstrap.Modal(document.getElementById('view-item-modal'), {
-            keyboard: false
-        });
-
-        // Show the modal when a table row is clicked
-        tableRows.forEach(row => {
-            row.addEventListener('click', () => {
-                // Your existing code to populate the modal here
-
-                // Show the modal
-                dataModalView.show();
-            });
-        });
-    });
 </script>
 
 <!-- SCRIPT for closing the modal -->

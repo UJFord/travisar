@@ -15,10 +15,10 @@ document.addEventListener("DOMContentLoaded", function () {
     if (typeof userRole !== 'undefined') {
         if (userRole === "Curator") {
             setVisibility(curatorElements, true);
-            setVisibility(adminElements, true);
-            setVisibility(encoderElements, true);
+            setVisibility(adminElements, false);
+            setVisibility(encoderElements, false);
         } else if (userRole === "Admin") {
-            setVisibility(curatorElements, false);
+            setVisibility(curatorElements, true);
             setVisibility(adminElements, true);
             setVisibility(encoderElements, true);
         } else if (userRole === "Contributor") {
@@ -34,7 +34,7 @@ document.addEventListener("DOMContentLoaded", function () {
             // Or show a message
             document.body.innerHTML = "<h1>Access Denied</h1>";
         } else {
-            console.error("Unexpected user role:", userRole);
+            //console.error("Unexpected user role:", userRole);
         }
     } else {
         // userRole is not defined

@@ -71,6 +71,31 @@ require "../../functions/functions.php";
     <!-- jquery -->
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <script src="../../visitor/js/nav.js"></script>
+    <!-- to Capitalized all first letter in all inputs and textarea -->
+    <script>
+        $(document).ready(function() {
+            // Capitalize the initial values of input fields
+            $("input[type='text'], textarea").each(function() {
+                var currentValue = $(this).val();
+                if (currentValue.length > 0) {
+                    var modifiedValue = currentValue.charAt(0).toUpperCase() + currentValue.slice(1);
+                    $(this).val(modifiedValue);
+                }
+            });
+
+            // Update the value as the user types
+            $("input[type='text'], textarea").on('input', function() {
+                var start = this.selectionStart,
+                    end = this.selectionEnd;
+                var newValue = $(this).val();
+                if (newValue.length > 0) {
+                    newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+                }
+                $(this).val(newValue);
+                this.setSelectionRange(start, end);
+            });
+        });
+    </script>
     <!-- search function -->
     <script>
         function filterTable() {
@@ -172,5 +197,14 @@ require "../../functions/functions.php";
         });
     </script>
 </body>
+<?php
+if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder' || trim($_SESSION['rank']) == 'Curator') {
+    // Output JavaScript code to redirect back to the original page
+    echo '<script>window.history.go(-1);</script>';
+    $_SESSION['message'] = 'Access Not Granted Not Enough Authority.';
+    // stop the code
+    exit();
+}
+?>
 
 </html>
