@@ -127,7 +127,7 @@
                             ?>
                             <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="../../visitor/view.php?crop_id=<?= $row['crop_id'] ?>">
                             <?php
-                        } else if ($row['action'] === 'Rejected') {
+                        } else if ($row['action'] === 'Rejected' || $row['action'] === 'Pending' || $row['action'] === 'Updating') {
                             ?>
                             <tr data-id="<?= $row['crop_id']; ?>" class="rowlink view_data" href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">
                             <?php
