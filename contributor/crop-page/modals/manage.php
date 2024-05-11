@@ -12,7 +12,7 @@
 
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="view-item-modal-label">View</h5>
+                <h5 class="modal-title" id="view-item-modal-label">Manage</h5>
                 <button type="button" id="close-modal-btn-View" class="btn-close" aria-label="Close"></button>
             </div>
 
@@ -593,23 +593,6 @@
         // Click the tab with id 'gen-tab'
         document.getElementById(tabName + '-tab').click();
     }
-
-    $(document).ready(function() {
-        // Initialize the modal
-        const dataModalView = new bootstrap.Modal(document.getElementById('view-item-modal'), {
-            keyboard: false
-        });
-
-        // Show the modal when a table row is clicked
-        tableRows.forEach(row => {
-            row.addEventListener('click', () => {
-                // Your existing code to populate the modal here
-
-                // Show the modal
-                dataModalView.show();
-            });
-        });
-    });
 </script>
 
 <!-- SCRIPT for closing the modal -->

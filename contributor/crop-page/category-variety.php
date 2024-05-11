@@ -84,40 +84,23 @@ require "../../functions/functions.php";
     <script>
         $(document).ready(function() {
             // Capitalize the initial values of input fields
-            $("input[type='text']").each(function() {
-                $(this).val($(this).val().replace(/\b\w/g, function(char) {
-                    return char.toUpperCase();
-                }));
+            $("input[type='text'], textarea").each(function() {
+                var currentValue = $(this).val();
+                if (currentValue.length > 0) {
+                    var modifiedValue = currentValue.charAt(0).toUpperCase() + currentValue.slice(1);
+                    $(this).val(modifiedValue);
+                }
             });
 
             // Update the value as the user types
-            $("input[type='text']").on('input', function() {
+            $("input[type='text'], textarea").on('input', function() {
                 var start = this.selectionStart,
                     end = this.selectionEnd;
-                $(this).val(function(_, val) {
-                    return val.replace(/\b\w/g, function(char) {
-                        return char.toUpperCase();
-                    });
-                });
-                this.setSelectionRange(start, end);
-            });
-
-            // Capitalize the initial values textarea fields
-            $("textarea").each(function() {
-                $(this).val($(this).val().replace(/\b\w/g, function(char) {
-                    return char.toUpperCase();
-                }));
-            });
-
-            // Update the value as the user types
-            $("textarea").on('input', function() {
-                var start = this.selectionStart,
-                    end = this.selectionEnd;
-                $(this).val(function(_, val) {
-                    return val.replace(/\b\w/g, function(char) {
-                        return char.toUpperCase();
-                    });
-                });
+                var newValue = $(this).val();
+                if (newValue.length > 0) {
+                    newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+                }
+                $(this).val(newValue);
                 this.setSelectionRange(start, end);
             });
         });

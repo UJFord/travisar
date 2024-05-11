@@ -131,10 +131,6 @@
                             ?>
                             <tr data-id="<?= $row['crop_id']; ?>" class="rowlink view_data" href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">
                             <?php
-                        } else {
-                            ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="#">
-                            <?php
                         }
                             ?>
 
