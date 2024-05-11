@@ -332,9 +332,6 @@
         row.addEventListener('click', () => {
             const id = row.getAttribute('data-id');
 
-            // Use the crop_id as needed
-            // console.log("Crop ID: " + id);
-
             // Assuming you have jQuery available
             $.ajax({
                 url: 'modals/fetch.php',
@@ -365,7 +362,8 @@
                         $('#Account_TypeEdit').val(value['crop_id']);
                         $('#Account_TypeEdit').append($('<option>', {
                             value: value['type_id'],
-                            text: value['type_name']
+                            text: value['type_name'],
+                            hidden: true
                         }));
                     });
                 },
