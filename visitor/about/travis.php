@@ -82,7 +82,7 @@ require "../../functions/functions.php";
                 <!-- Bangoy -->
                 <div class="col-3 mx-3">
                     <figure class="d-flex justify-content-center align-items-center">
-                        <img class="dev-img img-fluid rounded-circle" src="https://scontent.xx.fbcdn.net/v/t1.15752-9/386449090_1008619143698809_2700737984541098624_n.jpg?stp=dst-jpg_p403x403&_nc_cat=106&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeG_K7aBV7F9M1noIeOjJJVeDh9Xmz1QnK8OH1ebPVCcr-nhVDk0W2K5gstgo0vnH1YD9rjMbv88rpHxzndoW8Bz&_nc_ohc=ueLg9Hiaw3oQ7kNvgG6rjv-&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_Q7cD1QGFJMfV2ZOdw3RligdX-H06xaV8XEJ1gUkOvA4X0syVpQ&oe=66616166" alt="" srcset="">
+                        <img class="dev-img img-fluid rounded-circle" src="" alt="" srcset="">
                     </figure>
                     <h6 class="fw-bold text-center">Bangoy, Richard Joshua C.,</h6>
                     <h6 class="fst-italic text-center text-secondary small-font">Business Analyst / Project Manager</h6>
@@ -91,7 +91,7 @@ require "../../functions/functions.php";
                 <!-- Salazat -->
                 <div class="col-3 mx-3">
                     <figure class="d-flex justify-content-center align-items-center">
-                        <img class="dev-img img-fluid rounded-circle" src="https://scontent.xx.fbcdn.net/v/t1.15752-9/440765106_453522637344094_7823705390113477331_n.png?stp=dst-png_p180x540&_nc_cat=101&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeFOBGxSB66qhh3awA6Kxp6scwVUpjWAqjtzBVSmNYCqO9M48pXX8XOgyrzsKTSoPEII4Z8PHs1L7j3-iI3nLl63&_nc_ohc=LRgPJblywycQ7kNvgGbrHiL&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_Q7cD1QGib-10UYPzqxHjYBXQe7qZaqv7nLZwRMEP8GU8vjTohQ&oe=66616A40" alt="" srcset="">
+                        <img class="dev-img img-fluid rounded-circle" src="../img/salazar.jpg" alt="" srcset="">
                     </figure>
                     <h6 class="fw-bold text-center">Salazar, Emmanuelle R.</h6>
                     <h6 class="fst-italic text-center text-secondary small-font">Full Stack Developer</h6>
@@ -100,7 +100,7 @@ require "../../functions/functions.php";
                 <!-- ulbata -->
                 <div class="col-3 mx-3">
                     <figure class="d-flex justify-content-center align-items-center">
-                        <img class="dev-img img-fluid rounded-circle" src="https://scontent.xx.fbcdn.net/v/t1.15752-9/438332817_1462275011092817_7890967766843709455_n.jpg?stp=dst-jpg_s403x403&_nc_cat=100&ccb=1-7&_nc_sid=5f2048&_nc_eui2=AeHHgYXN4UHFf53ytoDQZf4mnKowynss0vycqjDKeyzS_EYALTAyhwq-1zrsF7ammQJPiGg9E71kTWrlZgA89kWi&_nc_ohc=FisN8MNduh0Q7kNvgEtxsTo&_nc_ad=z-m&_nc_cid=0&_nc_ht=scontent.xx&oh=03_Q7cD1QG5VCuHbLey1LtfM9rjVCWGkoFpKGimtNjaBVVwy4G9kA&oe=6661437C" alt="" srcset="">
+                        <img class="dev-img img-fluid rounded-circle" src="../img/ulbata.jpg" alt="" srcset="">
                     </figure>
                     <h6 class="fw-bold text-center">Ulbata, John Ford R.</h6>
                     <h6 class="fst-italic text-center text-secondary small-font">Full Stack Developer</h6>
@@ -133,4 +133,5 @@ require "../../functions/functions.php";
     <script src="../js/nav.js"></script>
     <script src="../../js/access.js"></script>
 </body>
+
 </html>
