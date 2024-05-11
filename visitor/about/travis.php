@@ -84,7 +84,7 @@ require "../../functions/functions.php";
                     <figure class="d-flex justify-content-center align-items-center">
                         <img class="dev-img img-fluid rounded-circle" src="../img/bangoy.jpg" alt="" srcset="">
                     </figure>
-                    <h6 class="fw-bold text-center">Bangoy, Richard Joshua C.,</h6>
+                    <h6 class="fw-bold text-center">Bangoy, Richard Joshua C.</h6>
                     <h6 class="fst-italic text-center text-secondary small-font">Business Analyst / Project Manager</h6>
                 </div>
 
