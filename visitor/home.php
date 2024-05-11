@@ -160,7 +160,7 @@ require "../functions/functions.php";
 
                 <div class="col d-flex flex-column justify-content-center">
                     <h4 class="fw-bold">Map</h4>
-                    <p>Navigate our map for an interactive journey through the distribution of traditional crop varieties across the province..</p>
+                    <p>Navigate our map for an interactive journey through the distribution of traditional crop varieties across the province.</p>
                     <div class="row ps-2">
                         <a href="all.php?map=open" id="map-qlink" class="col-9 col-md-7 col-lg-5 col-xl-4 btn qlink-link btn-success fw-5 fw-bold icon-link icon-link-hover p-2 px-3 me-3 d-flex justify-content-center">
                             Navigate!

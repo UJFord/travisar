@@ -106,7 +106,7 @@
         // Get the search query from the session or URL parameter
         $search = isset($_GET['search']) ? $_GET['search'] : '';
 
-        echo '<ul class="pagination">';
+        echo '<div class="d-flex justify-content-end"><ul class="pagination ">';
 
         // Previous page link
         $prevPage = ($current_page > 1) ? $current_page - 1 : 1;
@@ -135,7 +135,7 @@
                     </a>
                 </li>';
 
-        echo '</ul>';
+        echo '</ul></div>';
     }
 
     function generatePaginationLinksHome($total_pages, $current_page, $pageQueryParam)
