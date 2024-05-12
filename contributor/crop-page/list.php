@@ -151,7 +151,7 @@
                             ?>
                             <tr data-id="<?= $row['crop_id']; ?>" class="rowlink unread" target=”_blank” data-href="../../visitor/view.php?crop_id=<?= $row['crop_id'] ?>">
                             <?php
-                        } else if ($row['action'] === 'Rejected' || $row['action'] === 'Pending' || $row['action'] === 'Updating') {
+                        } else if ($row['action'] === 'Pending' || $row['action'] === 'Updating') {
                             ?>
                             <tr data-id="<?= $row['crop_id']; ?>" class="rowlink view_data unread" href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">
                             <?php
@@ -243,7 +243,7 @@
                                     </button>
                                     <ul class="dropdown-menu admin-only">
                                         <!-- <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye text-center" style="width: 20px;"></i> View</a></li> -->
-                                        <?php if ($row['action'] === 'Approved') : ?>
+                                        <?php if ($row['action'] === 'Approved' || $row['action'] === 'Rejected') : ?>
                                             <li>
                                                 <a class="dropdown-item edit_data admin-only" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1 admin-only" style="width: 20px;"></i>Edit</a>
                                             </li>
