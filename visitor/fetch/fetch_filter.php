@@ -4,14 +4,22 @@ require "../../functions/connections.php";
 if ($_SERVER["REQUEST_METHOD"] == "GET") {
     $categoryId = $_GET['category_id'];
 
-    $query = "SELECT * FROM category_variety WHERE category_id = $categoryId";
+    $query = "SELECT * FROM category_variety WHERE category_id IN ($categoryId)";
+
     $result = pg_query($conn, $query);
 
-    $varieties = [];
-    while ($row = pg_fetch_assoc($result)) {
-        $varieties[] = $row;
+    // Check for errors in query execution
+    if (!$result) {
+        echo "Query failed.";
+        exit;
     }
 
-    echo json_encode($varieties);
+    // Fetch data from the result set
+    $category_varieties = array();
+    while ($row = pg_fetch_assoc($result)) {
+        $category_varieties[] = $row;
+    }
+
+    // Return JSON response
+    echo json_encode($category_varieties);
 }
-?>
