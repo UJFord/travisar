@@ -58,6 +58,14 @@ body{
 		background: rgba(255, 0, 0, 0.336);
 	}
 
+	/* pagination */
+	.pagination li a.active{
+		background-color:  var(--mainBrand) !important;
+		border: 1px var(--mainBrand) solid !important;
+		color: white !important;
+		font-weight: bold;
+	}
+
 /* PROFILE */
 #profile-sidenav nav .nav-link.active{
 	background-color: var(--mainBrand); /* Change to your desired background color */

@@ -23,22 +23,24 @@
             <!-- title -->
             <h4 class="fw-semibold" style="font-size: 1.5rem;">All Crops</h4>
             <!-- add button -->
-            <div class="z-1 dropdown">
-                <!-- dropdown -->
+            <!-- dropdown -->
+            <div class="actions-container">
+
+                <a href="modals/crud-code/download.php" class="me-4">Export<i class="ms-2 fa-solid fa-file-export"></i></a>
                 <button id="add-crop-btn" class="btn btn-secondary contributor-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#add-item-modal">
                     Add New
-                    <i class="fa-solid fa-plus"></i>
+                    <i class="small-font fa-solid fa-plus"></i>
                 </button>
+                
+                <!-- download button -->
+                <!-- <div class="z-1 dropdown">
+                    <button id="add-crop-btn" class="btn btn-secondary contributor-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#confirmModalDownload">
+                        Download
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div> -->
+                <!-- export btn -->
             </div>
-
-            <!-- download button -->
-            <!-- <div class="z-1 dropdown">
-                <button id="add-crop-btn" class="btn btn-secondary contributor-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#confirmModalDownload">
-                    Download
-                    <i class="fa-solid fa-plus"></i>
-                </button>
-            </div> -->
-            <a href="modals/crud-code/download.php">Downloadad</a>
         </div>
 
         <?php
@@ -94,7 +96,7 @@
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="location">Location</th>
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="date">Date Created</th>
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="status">Status</th>
-                    <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="remarks">Remarks</th>
+                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="remarks">Remarks</th>
                     <!-- <th class="col text-dark-emphasis small-font text-center" scope="col">
                         <a href="modals/crud-code/download.php">Downloadad</a>
                     </th> -->
@@ -192,7 +194,7 @@
                             </td>
 
                             <!-- Location -->
-                            <td class="text-center" data-col="location">
+                            <td class="" data-col="location">
                                 <h6 class="small-font m-0"><?= $row['municipality_name']; ?></h6>
                             </td>
 
@@ -225,13 +227,13 @@
                                         break;
                                 }
                                 ?>
-                                <span class="w-auto py-1 px-2 rounded small-font <?= $statusClass; ?>">
+                                <span class=" small-font <?= $statusClass; ?>">
                                     <?= $row['action']; ?>
                                 </span>
                             </td>
 
                             <!-- remarks -->
-                            <td class="text-center" data-col="remarks">
+                            <td class="" data-col="remarks">
                                 <h6 class="small-font m-0"><?= $row['remarks']; ?></h6>
                             </td>
 
