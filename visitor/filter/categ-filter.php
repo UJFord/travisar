@@ -28,12 +28,12 @@ switch ($current_page_path) {
 
 <div class="container-fluid border-bottom">
     <div class="container">
-        <div class="row pt-2">
+        <div class="row">
             <!-- category filter -->
             <!-- all -->
             <a href="all.php?map=close&category_id=" class="col-1 bar-filter-categ border-bottom border-<?= ($isAll) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-4 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
                 <img class="categ-link-img" src="img/grass.svg" alt="" srcset="">
-                <div class="fw-bold">All</div>
+                <div class="fw-bold text-center">All</div>
             </a>
             <?php
             $query = "SELECT * from category order by category_name ASC";
@@ -49,7 +49,7 @@ switch ($current_page_path) {
                         <!-- corn -->
                         <a href="corn.php?map=close&category_id=<?= $category_id ?>" class="col-1 bar-filter-categ border-bottom border-<?= ($isCorn) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-4 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
                             <img class="categ-link-img" src="img/corn.svg" alt="" srcset="">
-                            <div class="fw-bold">Corn</div>
+                            <div class="fw-bold text-center">Corn</div>
                         </a>
                     <?php
                     } elseif ($category_name == 'Rice') {
@@ -57,7 +57,7 @@ switch ($current_page_path) {
                         <!-- rice -->
                         <a href="rice.php?map=close&category_id=<?= $category_id ?>" class="col-1 bar-filter-categ border-bottom border-<?= ($isRice) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-4 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
                             <img class="categ-link-img" src="img/rice.svg" alt="" srcset="">
-                            <div class="fw-bold">Rice</div>
+                            <div class="fw-bold text-center">Rice</div>
                         </a>
                     <?php
                     } elseif ($category_name == 'Root Crop') {
@@ -65,7 +65,7 @@ switch ($current_page_path) {
                         <!-- root -->
                         <a href="root.php?map=close&category_id=<?= $category_id ?>" class="col-1 bar-filter-categ border-bottom border-<?= ($isRoot) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-3 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
                             <img class="categ-link-img" src="img/potato.svg" alt="" srcset="">
-                            <div class="fw-bold">Root Crop</div>
+                            <div class="fw-bold text-center">Root <span class="d-none d-lg-inline">Crop</span></div>
                         </a>
             <?php
                     }

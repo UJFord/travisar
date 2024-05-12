@@ -2,6 +2,18 @@
     .tab_box {
         border-bottom: 2px solid rgba(229, 229, 229);
     }
+
+    /* CSS for unread emails */
+    tr.unread {
+        background-color: #ffcccc;
+        /* Light red background */
+    }
+
+    /* CSS for read emails */
+    tr:not(.unread) {
+        background-color: #f0f0f0;
+        /* Light gray background */
+    }
 </style>
 <!-- LIST -->
 <div class="col" style="min-height: 615px; max-height:615px;">
@@ -11,12 +23,23 @@
             <!-- title -->
             <h4 class="fw-semibold" style="font-size: 1.5rem;">All Crops</h4>
             <!-- add button -->
-            <div class="z-1 dropdown">
-                <!-- dropdown -->
+            <!-- dropdown -->
+            <div class="actions-container">
+
+                <a href="modals/crud-code/download.php" class="me-4">Export<i class="ms-2 fa-solid fa-file-export"></i></a>
                 <button id="add-crop-btn" class="btn btn-secondary contributor-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#add-item-modal">
                     Add New
-                    <i class="fa-solid fa-plus"></i>
+                    <i class="small-font fa-solid fa-plus"></i>
                 </button>
+                
+                <!-- download button -->
+                <!-- <div class="z-1 dropdown">
+                    <button id="add-crop-btn" class="btn btn-secondary contributor-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#confirmModalDownload">
+                        Download
+                        <i class="fa-solid fa-plus"></i>
+                    </button>
+                </div> -->
+                <!-- export btn -->
             </div>
         </div>
 
@@ -73,7 +96,10 @@
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="location">Location</th>
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="date">Date Created</th>
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="status">Status</th>
-                    <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="remarks">Remarks</th>
+                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="remarks">Remarks</th>
+                    <!-- <th class="col text-dark-emphasis small-font text-center" scope="col">
+                        <a href="modals/crud-code/download.php">Downloadad</a>
+                    </th> -->
                     <th class="col text-dark-emphasis text-end" scope="col">
                         <div class="dropdown">
                             <button class="btn tranparent dropdown-toggle row-btn row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -121,15 +147,15 @@
                         <?php
                         if ($row['action'] === 'Draft' && $_SESSION['USER']['user_id'] == $row['user_id']) {
                         ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink draft_data" href="#" data-bs-toggle="modal" data-bs-target="#draft-item-modal">
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink draft_data unread" href="#" data-bs-toggle="modal" data-bs-target="#draft-item-modal">
                             <?php
                         } else  if ($row['action'] === 'Approved') {
                             ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="../../visitor/view.php?crop_id=<?= $row['crop_id'] ?>">
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink unread" target=”_blank” data-href="../../visitor/view.php?crop_id=<?= $row['crop_id'] ?>">
                             <?php
-                        } else if ($row['action'] === 'Rejected' || $row['action'] === 'Pending' || $row['action'] === 'Updating') {
+                        } else if ($row['action'] === 'Pending' || $row['action'] === 'Updating') {
                             ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink view_data" href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink view_data unread" href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">
                             <?php
                         }
                             ?>
@@ -168,7 +194,7 @@
                             </td>
 
                             <!-- Location -->
-                            <td class="text-center" data-col="location">
+                            <td class="" data-col="location">
                                 <h6 class="small-font m-0"><?= $row['municipality_name']; ?></h6>
                             </td>
 
@@ -201,13 +227,13 @@
                                         break;
                                 }
                                 ?>
-                                <span class="w-auto py-1 px-2 rounded small-font <?= $statusClass; ?>">
+                                <span class=" small-font <?= $statusClass; ?>">
                                     <?= $row['action']; ?>
                                 </span>
                             </td>
 
                             <!-- remarks -->
-                            <td class="text-center" data-col="remarks">
+                            <td class="" data-col="remarks">
                                 <h6 class="small-font m-0"><?= $row['remarks']; ?></h6>
                             </td>
 
@@ -219,7 +245,7 @@
                                     </button>
                                     <ul class="dropdown-menu admin-only">
                                         <!-- <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye text-center" style="width: 20px;"></i> View</a></li> -->
-                                        <?php if ($row['action'] === 'Approved') : ?>
+                                        <?php if ($row['action'] === 'Approved' || $row['action'] === 'Rejected') : ?>
                                             <li>
                                                 <a class="dropdown-item edit_data admin-only" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1 admin-only" style="width: 20px;"></i>Edit</a>
                                             </li>
@@ -258,6 +284,8 @@
     $(document).ready(function() {
         // Add click event to table rows
         $('tbody tr[data-href]').on("click", function(event) {
+            // Remove unread class
+            $(this).removeClass('unread');
             // Check if the click target or any of its ancestors is a button or checkbox
             if (
                 !$(event.target).is('.row-btn, :checkbox') &&

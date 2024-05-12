@@ -250,7 +250,7 @@ require "../../functions/functions.php";
             // Fetch and populate variety options for each selected category
             if (selectedCategories != null && selectedCategories.length > 0) {
                 selectedCategories.forEach(categoryIds => {
-                    fetch(`modals/fetch/fetch_filter.php?category_id=${categoryIds}`)
+                    fetch(`fetch/fetch_filter.php?category_id=${categoryIds}`)
                         .then(response => response.json())
                         .then(data => {
                             // Check if the data is not empty
@@ -333,7 +333,7 @@ require "../../functions/functions.php";
             // Fetch and populate barangay options for each selected category
             if (selectedMunicipalities != null && selectedMunicipalities.length > 0) {
                 selectedMunicipalities.forEach(municipalityIds => {
-                    fetch(`modals/fetch/fetch_filter-brgy.php?municipality_id=${municipalityIds}`)
+                    fetch(`fetch/fetch_filter-brgy.php?municipality_id=${municipalityIds}`)
                         .then(response => response.json())
                         .then(data => {
                             // Check if the data is not empty
