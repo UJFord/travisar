@@ -98,10 +98,43 @@ switch ($current_page_path) {
     case "/travisar/login/profile.php":
         $current_page_isProfile = true;
         break;
-
 }
 ?>
+<!-- Jquery -->
+<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+<!-- function for notification for approval of crops and users -->
+<script>
+    // Define the load_unseen_notification function globally
+    function load_unseen_notification(view = '') {
+        $.ajax({
+            url: "<?php echo BASE_URL . '/nav/fetch-notif.php'; ?>",
+            method: "POST",
+            data: {
+                view: view
+            },
+            dataType: "json",
+            success: function(data) {
+                // Access data1 and update HTML accordingly
+                $('.count').html(data.data1.notification);
+                if (data.data1.unseen_notification > 0) {
+                    $('.count').html(data.data1.unseen_notification);
+                }
 
+                // Access data2 and update HTML accordingly
+                // Adjust the selectors and HTML update based on your needs
+                $('.count2').html(data.data2.notification);
+                if (data.data2.unseen_notification > 0) {
+                    $('.count2').html(data.data2.unseen_notification);
+                }
+            }
+        });
+    }
+
+    // Call the function when the document is ready
+    $(document).ready(function() {
+        load_unseen_notification();
+    });
+</script>
 <!-- NAVBAR -->
 <div class="navbar navbar-dark navbar-expand-md" id="main-nav">
     <div class="container">
@@ -183,15 +216,16 @@ switch ($current_page_path) {
                                                                                     echo "active";
                                                                                 } ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Crop Management
+                            <span class="count" style="color:red;"></span>
                         </a>
 
                         <ul class="dropdown-menu" aria-labelledby="mng-nav">
                             <li>
-                                <a class="dropdown-item" href="<?php echo BASE_URL . '/' . 'contributor/crop-page/crop.php'; ?>">All Crops</a>
+                                <a class="dropdown-item" href="<?php echo BASE_URL . '/' . 'contributor/crop-page/crop.php'; ?>">All Crops <span class="count" style="color:red;"></span></a>
                             </li>
                             </li>
                             <li>
-                                <a class="dropdown-item" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/pending.php'; ?>">Pending</a>
+                                <a class="dropdown-item" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/pending.php'; ?>">Pending <span class="count" style="color:red;"></span></a>
                             </li>
                             <li>
                                 <a class="dropdown-item" href="<?php echo BASE_URL . '/' . 'contributor/approval-page/approved.php'; ?>">Approved</a>
@@ -209,6 +243,7 @@ switch ($current_page_path) {
                                                                                         echo "active";
                                                                                     } ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Settings
+                            <span class="count2" style="color:red;"></span>
                         </a>
 
                         <ul id="set-nav-menu" class="dropdown-menu  dropdown-menu-md-end">
@@ -244,10 +279,11 @@ switch ($current_page_path) {
                             <li class="dropend">
                                 <button id="set-nav-usr" role="button" class="dropdown-item dropdown-toggle set-nav-toggler" data-bs-toggle="dropdown" aria-expanded="false">
                                     User Account
+                                    <span class="count2" style="color:red;"></span>
                                 </button>
                                 <ul class="dropdown-menu" aria-labelledby="set-nav-usr">
                                     <li><a href="<?php echo BASE_URL . '/' . 'contributor/user-page/partners.php'; ?>" class="dropdown-item">Users</a></li>
-                                    <li><a href="<?php echo BASE_URL . '/' . 'contributor/user-page/verify-user.php'; ?>" class="dropdown-item">Verification</a></li>
+                                    <li><a href="<?php echo BASE_URL . '/' . 'contributor/user-page/verify-user.php'; ?>" class="dropdown-item">Verification <span class="count2" style="color:red;"></span></a></li>
                                 </ul>
                             </li>
                         </ul>
@@ -300,9 +336,6 @@ switch ($current_page_path) {
         </div>
     </div>
 </div>
-
-<!-- Jquery -->
-<script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 <!-- script for access control -->
 <script src="<?php echo BASE_URL . '/js/access-control.js'; ?>" defer></script>
 <!-- script for access js -->
