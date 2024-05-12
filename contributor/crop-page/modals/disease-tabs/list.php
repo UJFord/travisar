@@ -43,14 +43,14 @@
             <!-- table head -->
             <thead>
                 <tr>
-                    <th class="col thead-item" scope="col">
+                    <th class="col-1 thead-item" scope="col">
                         <input class="row-checkbox form-check-input small-font" type="checkbox" id="checkAll">
                         <label class="form-check-label text-dark-emphasis small-font">
                             All
                         </label>
                     </th>
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="disease">Disease Name</th>
-                    <th class="col text-dark-emphasis text-end" scope="col">
+                    <th class="col-1 text-dark-emphasis text-end" scope="col">
                         <div class="dropdown">
                             <button class="btn tranparent dropdown-toggle row-btn row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="row-btn fa-solid fa-ellipsis-vertical px-3 py-2 m-0 rounded"></i>

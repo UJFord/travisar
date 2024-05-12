@@ -88,12 +88,12 @@ require "../../functions/functions.php";
             <div class="container col" style="min-height: 615px; max-height:615px;">
 
                 <!-- HEADING -->
-                <div class="tab_box d-flex justify-content-between">
+                <div class="tab_box d-flex justify-content-between pb-2">
                     <!-- title -->
                     <h4 class="fw-semibold" style="font-size: 1.5rem;">Barangay List</h4>
-                    <th col-4 class="col-1 text-center">
+                    <th class="col text-center">
                         <!-- add button -->
-                        <button type=" button" id="addBarangay" class="btn btn-secondary add-loc-btn p-2 btn small-font" name="addBarangay" data-bs-toggle="modal" data-bs-target="#add-item-modal-brgy">
+                        <button type=" button" id="addBarangay" class="btn btn-secondary add-loc-btn p-2 btn  m-0" name="addBarangay" data-bs-toggle="modal" data-bs-target="#add-item-modal-brgy">
                             Add New
                             <i class="fa-solid fa-plus"></i>
                         </button>
@@ -167,15 +167,15 @@ require "../../functions/functions.php";
                                 ?>
                                         <tr id="row1">
                                             <!-- checkbox -->
-                                            <th scope="row"><input class="row-checkbox form-check-input" type="checkbox"></th>
+                                            <th scope="row"><input class="row-checkbox form-check-input small-font" type="checkbox"></th>
                                             <input type="hidden" name="barangay_id" value="<?= $row['barangay_id']; ?>">
                                             <td data-col="municipality">
                                                 <!-- Municipality name -->
-                                                <h6><?= $row['municipality_name']; ?></h6>
+                                                <h6 class="small-font"><?= $row['municipality_name']; ?></h6>
                                             </td>
                                             <td data-col="barangay">
                                                 <!-- Barangay name -->
-                                                <h6><?= $row['barangay_name']; ?></h6>
+                                                <h6 class="small-font fw-bold"><?= $row['barangay_name']; ?></h6>
                                             </td>
                                             <!-- date added -->
                                             <td data-col="date" class="small-font text-center text-secondary fw-normal">
@@ -183,13 +183,13 @@ require "../../functions/functions.php";
                                             </td>
                                             <!-- Action -->
                                             <td>
-                                                <form class="d-flex justify-content-center admin-only" action="code/massDelete-code.php" method="post" id="deleteForm">
+                                                <form class="d-flex justify-content-end admin-only" action="code/massDelete-code.php" method="post" id="deleteForm">
                                                     <!-- edit -->
-                                                    <a href="#" class="btn btn-primary me-1 edit_data_brgy admin-only" data-toggle="modal" data-target="#dataModalEdit" data-id="<?= $row['barangay_id']; ?>">Edit</a>
+                                                    <a href="#" class="btn btn-primary me-1 edit_data_brgy admin-only py-2 px-3 small-font fw-bold" data-toggle="modal" data-target="#dataModalEdit" data-id="<?= $row['barangay_id']; ?>">Edit<i class="fa-solid fa-pen-to-square ms-1"></i></a>
                                                     <input type="hidden" name="barangay_id" value="<?= $row['barangay_id']; ?>">
                                                     <input type="hidden" name="delete_brgy" value="1">
-                                                    <button type="submit" name="delete_brgy" id="deleteRow" class="btn btn-danger admin-only">
-                                                        Delete
+                                                    <button type="submit" name="delete_brgy" id="deleteRow" class="btn btn-link link-danger admin-only small-font fw-bold pe-0">
+                                                        Delete<i class="fa-solid fa-trash ms-1"></i>
                                                     </button>
                                                 </form>
                                             </td>

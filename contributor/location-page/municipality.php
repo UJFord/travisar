@@ -100,12 +100,12 @@ require "../../functions/functions.php";
             <div class="container col">
 
                 <!-- HEADING -->
-                <div class="tab_box d-flex justify-content-between">
+                <div class="tab_box d-flex justify-content-between pb-2">
                     <!-- title -->
                     <h4 class="fw-semibold" style="font-size: 1.5rem;">Municipality List</h4>
-                    <th class="col-1 text-center">
+                    <th class=" text-center">
                         <!-- add button -->
-                        <button type="button" id="addProvince" class="btn btn-secondary add-loc-btn p-2 btn small-font" name="addProvince" data-bs-toggle="modal" data-bs-target="#add-item-modal">
+                        <button type="button" id="addProvince" class="btn btn-secondary add-loc-btn p-2 btn m-0" name="addProvince" data-bs-toggle="modal" data-bs-target="#add-item-modal">
                             Add New
                             <i class="fa-solid fa-plus"></i>
                         </button>
@@ -176,18 +176,18 @@ require "../../functions/functions.php";
                                 ?>
                                         <tr id="row1">
                                             <!-- checkbox -->
-                                            <th scope="row"><input class="row-checkbox form-check-input" type="checkbox"></th>
+                                            <th scope="row"><input class="row-checkbox form-check-input small-font" type="checkbox"></th>
 
                                             <input type="hidden" name="municipality_id" value="<?= $row['municipality_id']; ?>">
 
                                             <td data-col="province">
                                                 <!-- Province name -->
-                                                <h6><?= $row['province_name']; ?></h6>
+                                                <h6 class="small-font"><?= $row['province_name']; ?></h6>
                                             </td>
 
                                             <td data-col="municipality">
                                                 <!-- Municipality name -->
-                                                <h6><?= $row['municipality_name']; ?></h6>
+                                                <h6 class="small-font fw-bold"><?= $row['municipality_name']; ?></h6>
                                             </td>
 
                                             <!-- date added -->
@@ -196,14 +196,14 @@ require "../../functions/functions.php";
                                             </td>
 
                                             <!-- Action -->
-                                            <td class="d-flex justify-content-center">
+                                            <td class="d-flex justify-content-end pe-0">
                                                 <!-- edit -->
-                                                <a href="#" class="btn btn-primary me-1 edit_data" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['municipality_id']; ?>">Edit</a>
+                                                <a href="#" class="btn btn-primary me-0 small-font py-2 px-3 fw-bold edit_data" data-toggle="modal" data-target="#dataModal" data-id="<?= $row['municipality_id']; ?>">Edit<i class="fa-solid fa-pen-to-square ms-1"></i></a>
                                                 <form action="code/massDelete-code.php" method="post" id="deleteForm">
                                                     <input type="hidden" name="municipality_id" value="<?= $row['municipality_id']; ?>">
                                                     <input type="hidden" name="delete_muni" value="1">
-                                                    <button type="submit" name="delete_muni" id="deleteRow" class="btn btn-danger">
-                                                        Delete
+                                                    <button type="submit" name="delete_muni" id="deleteRow" class="btn btn-link link-danger small-font fw-bold">
+                                                        Delete<i class="fa-solid fa-trash ms-1"></i>
                                                     </button>
                                                 </form>
                                             </td>
