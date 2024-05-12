@@ -2,6 +2,18 @@
     .tab_box {
         border-bottom: 2px solid rgba(229, 229, 229);
     }
+
+    /* CSS for unread emails */
+    tr.unread {
+        background-color: #ffcccc;
+        /* Light red background */
+    }
+
+    /* CSS for read emails */
+    tr:not(.unread) {
+        background-color: #f0f0f0;
+        /* Light gray background */
+    }
 </style>
 <!-- LIST -->
 <div class="col" style="min-height: 615px; max-height:615px;">
@@ -74,6 +86,9 @@
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="date">Date Created</th>
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="status">Status</th>
                     <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="remarks">Remarks</th>
+                    <th class="col text-dark-emphasis small-font text-center" scope="col">
+                        <a href="modals/crud-code/download.php">Downloadad</a>
+                    </th>
                     <th class="col text-dark-emphasis text-end" scope="col">
                         <div class="dropdown">
                             <button class="btn tranparent dropdown-toggle row-btn row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
@@ -121,15 +136,15 @@
                         <?php
                         if ($row['action'] === 'Draft' && $_SESSION['USER']['user_id'] == $row['user_id']) {
                         ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink draft_data" href="#" data-bs-toggle="modal" data-bs-target="#draft-item-modal">
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink draft_data unread" href="#" data-bs-toggle="modal" data-bs-target="#draft-item-modal">
                             <?php
                         } else  if ($row['action'] === 'Approved') {
                             ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink" target=”_blank” data-href="../../visitor/view.php?crop_id=<?= $row['crop_id'] ?>">
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink unread" target=”_blank” data-href="../../visitor/view.php?crop_id=<?= $row['crop_id'] ?>">
                             <?php
                         } else if ($row['action'] === 'Rejected' || $row['action'] === 'Pending' || $row['action'] === 'Updating') {
                             ?>
-                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink view_data" href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">
+                            <tr data-id="<?= $row['crop_id']; ?>" class="rowlink view_data unread" href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">
                             <?php
                         }
                             ?>
@@ -258,6 +273,8 @@
     $(document).ready(function() {
         // Add click event to table rows
         $('tbody tr[data-href]').on("click", function(event) {
+            // Remove unread class
+            $(this).removeClass('unread');
             // Check if the click target or any of its ancestors is a button or checkbox
             if (
                 !$(event.target).is('.row-btn, :checkbox') &&
