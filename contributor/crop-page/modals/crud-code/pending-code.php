@@ -3,7 +3,7 @@ require "../../../../functions/connections.php";
 
 // var_dump($_POST);
 // die();
-if (isset($_POST['approve'])) {
+if (isset($_POST['action']) && $_POST['action'] == 'approve') {
     $crop_id = $_POST['crop_id'];
     $select = "UPDATE status
         SET action = 'Approved', remarks = 'Approved'
@@ -11,7 +11,7 @@ if (isset($_POST['approve'])) {
 
     $result = pg_query($conn, $select);
     if ($result) {
-        $_SESSION['message'] = "Submission Approved";
+        echo $_SESSION['message'] = "Submission Approved";
         //header("location: ../../crop.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {
@@ -22,7 +22,7 @@ if (isset($_POST['approve'])) {
 
 // var_dump($_POST);
 // die();
-if (isset($_POST['update'])) {
+if (isset($_POST['action']) && $_POST['action'] == 'update') {
     $crop_idUpdate = $_POST['crop_id'];
 
     // get category name
@@ -34,7 +34,7 @@ if (isset($_POST['update'])) {
         $get_category_name = $row_categoryName['category_name'];
     } else {
         $_SESSION['message'] = "No category available, incomplete data";
-        header("location: ../../crop.php");
+        //header("location: ../../crop.php");
         exit();
     }
 
@@ -1611,7 +1611,7 @@ if (isset($_POST['update'])) {
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Update Approved";
         pg_query($conn, "COMMIT");
-        header("location: ../../crop.php");
+        //header("location: ../../crop.php");
         exit(0);
     } catch (Exception $e) {
         // message for error
@@ -1629,7 +1629,7 @@ if (isset($_POST['update'])) {
     }
 }
 
-if (isset($_POST['rejected'])) {
+if (isset($_POST['action']) && $_POST['action'] == 'reject') {
     $crop_id = $_POST['crop_id'];
     $remarks = $_POST['remarks'];
     $select = "UPDATE status
@@ -1639,7 +1639,7 @@ if (isset($_POST['rejected'])) {
     $result = pg_query($conn, $select);
     if ($result) {
         $_SESSION['message'] = "The submission is rejected.";
-        header("location: ../../crop.php");
+        //header("location: ../../crop.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {
         // Log the error or display a more user-friendly message

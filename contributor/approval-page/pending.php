@@ -53,6 +53,12 @@ require "../../functions/functions.php";
     include "../../functions/message.php";
     ?>
 
+    <!-- Display the session message if it exists -->
+    <?php if (isset($_SESSION['message'])) : ?>
+        <div><?php echo $_SESSION['message']; ?></div>
+        <?php unset($_SESSION['message']); ?> <!-- Clear the session message -->
+    <?php endif; ?>
+
     <!-- MAIN -->
     <div class="container">
         <div class="row mt-3">

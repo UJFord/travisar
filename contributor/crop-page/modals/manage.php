@@ -17,7 +17,7 @@
             </div>
 
             <!-- body -->
-            <form id="form-panel-view" name="Form" action="modals/crud-code/pending-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel-view" name="Form" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body view-modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -57,14 +57,17 @@
 
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-end">
+                    <!-- Hidden input field to hold the action value -->
+                    <input type="hidden" id="actionInput" name="action" value="">
+
                     <button type="button" id="rejectButton-View" class="btn btn-danger">Reject</i></button>
                     <div class="approveButtonView">
                         <button type="button" id="cancel-modal-btn-View" class="btn border bg-light">Cancel</button>
-                        <button type="submit" name="approve" class="btn btn-success me-2">Approve</i></button>
+                        <button type="button" name="approve" id="approveButton" class="btn btn-success me-2">Approve</i></button>
                     </div>
                     <div class="updateButtonView">
                         <button type="button" id="cancel-modal-btn-update" class="btn border bg-light">Cancel</button>
-                        <button type="submit" name="update" class="btn btn-success me-2">Update</i></button>
+                        <button type="button" name="update" id="updateButton" class="btn btn-success me-2">Update</i></button>
                     </div>
                 </div>
             </form>
@@ -73,27 +76,25 @@
 </div>
 <!-- script for getting the data on the view -->
 <script>
-    document.getElementById('form-panel-view').addEventListener('submit', function(event) {
-        // Get the selected category
-        var selectedCategoryView = document.getElementById('categoryIDView').value;
-        var cornMorphView = document.getElementById('cornMorph-View');
-        var riceMorphView = document.getElementById('riceMorph-View');
-        var rootCropMorphView = document.getElementById('root_cropMorph-View');
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add event listeners to the buttons after the DOM is fully loaded
+        document.getElementById('approveButton').addEventListener('click', function(event) {
+            document.getElementById('actionInput').value = 'approve';
+            event.preventDefault();
+            submitFormView();
+        });
 
-        // Disable inputs based on the selected category
-        if (selectedCategoryView !== '4') {
-            disableInputs(cornMorphView);
-        }
+        document.getElementById('updateButton').addEventListener('click', function(event) {
+            document.getElementById('actionInput').value = 'update';
+            event.preventDefault();
+            submitFormView();
+        });
 
-        if (selectedCategoryView !== '1') {
-            disableInputs(riceMorphView);
-        }
-
-        if (selectedCategoryView !== '2') {
-            disableInputs(rootCropMorphView);
-        }
-        // Form is valid, submit the form
-        submitFormView();
+        document.getElementById('confirmRejectBtnView').addEventListener('click', function(event) {
+            document.getElementById('actionInput').value = 'reject';
+            event.preventDefault();
+            submitFormView();
+        });
     });
 
     // Function to submit the form and refresh notifications
@@ -115,8 +116,9 @@
                     console.log("Form submitted successfully", data);
                     // Reset the form
                     form.reset();
+                    location.reload();
                     // Reload unseen notifications
-                    load_unseen_notification();
+                    //load_unseen_notification();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("Form submission error:", textStatus, errorThrown);
@@ -644,10 +646,8 @@
         confirmModalInstanceView.show();
 
         // to show which button should show on the confirm modal
-        document.getElementById('confirmCloseBtnView').style.display = 'none';
         document.getElementById('confirmRejectBtnView').style.display = 'block';
         // to show which label should show on the confirm modal
-        document.getElementById('close-labelView').style.display = 'none';
         document.getElementById('reject-labelView').style.display = 'block';
     }
 
