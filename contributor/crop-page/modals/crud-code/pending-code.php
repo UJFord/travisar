@@ -11,7 +11,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'approve') {
 
     $result = pg_query($conn, $select);
     if ($result) {
-        echo $_SESSION['message'] = "Submission Approved";
+        $_SESSION['message'] = "Submission Approved";
         //header("location: ../../crop.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {

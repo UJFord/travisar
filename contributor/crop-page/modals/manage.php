@@ -118,7 +118,7 @@
                     form.reset();
                     location.reload();
                     // Reload unseen notifications
-                    //load_unseen_notification();
+                    load_unseen_notification();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("Form submission error:", textStatus, errorThrown);

@@ -143,8 +143,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     form.querySelector('#login-email').classList.remove('is-invalid');
                     form.querySelector('#login-password').classList.remove('is-invalid');
                     document.getElementById('email-exists-feedback').style.display = 'none'; // Hide the error message if email exists
-                    document.getElementById('email-error').style.display = 'block'; // Display the error message
-                    document.getElementById('pass-error').style.display = 'none'; // Hide the error message if email exists
                 }
 
                 form.classList.add('was-validated')
