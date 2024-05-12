@@ -65,7 +65,8 @@ require "../../functions/functions.php";
         <div class="row mt-3">
             <!-- confirm-delete -->
             <?php require "confirm-delete.php"; ?>
-
+            <!-- download -->
+            <?php require "download.php"; ?>
             <!-- FILTERS -->
             <?php require "filter.php"; ?>
 

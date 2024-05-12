@@ -30,6 +30,15 @@
                     <i class="fa-solid fa-plus"></i>
                 </button>
             </div>
+
+            <!-- download button -->
+            <!-- <div class="z-1 dropdown">
+                <button id="add-crop-btn" class="btn btn-secondary contributor-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#confirmModalDownload">
+                    Download
+                    <i class="fa-solid fa-plus"></i>
+                </button>
+            </div> -->
+            <a href="modals/crud-code/download.php">Downloadad</a>
         </div>
 
         <?php
@@ -86,9 +95,9 @@
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="date">Date Created</th>
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="status">Status</th>
                     <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="remarks">Remarks</th>
-                    <th class="col text-dark-emphasis small-font text-center" scope="col">
+                    <!-- <th class="col text-dark-emphasis small-font text-center" scope="col">
                         <a href="modals/crud-code/download.php">Downloadad</a>
-                    </th>
+                    </th> -->
                     <th class="col text-dark-emphasis text-end" scope="col">
                         <div class="dropdown">
                             <button class="btn tranparent dropdown-toggle row-btn row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
