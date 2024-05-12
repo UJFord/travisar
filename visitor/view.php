@@ -53,9 +53,9 @@ require "../functions/functions.php";
     <div class="title container-fluid bg-white">
         <div class="container py-4 mb-4">
             
-            <h2 class="info-title text-center">
-                <!-- back to previous page -->
-                <a id="return-btn" onclick="goBack()" class="btn btn-link float-start"><i class="fa-solid fa-circle-arrow-left fs-1"></i></a>
+            <!-- back to previous page -->
+            <a id="return-btn" onclick="goBack()" class="btn btn-link float-start p-0 my-1"><i class="fa-solid fa-circle-arrow-left fs-2"></i></a>
+            <h2 class="info-title text-center p-0 m-0">
 
                 <?php
                 if (isset($_GET['crop_id'])) {
