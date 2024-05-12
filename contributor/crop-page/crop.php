@@ -57,6 +57,9 @@ require "../../functions/functions.php";
     include "../../functions/message.php";
     ?>
 
+    <!-- Display the session message if it exists -->
+
+
     <!-- MAIN -->
     <div class="container">
         <div class="row mt-3">
@@ -1714,4 +1717,5 @@ if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder') {
     exit();
 }
 ?>
+
 </html>

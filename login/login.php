@@ -131,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 //console.log('Response:', response);
                 const data = await response.json();
 
-                if (!data.exists) {
+                if (data.exists && data.exists === true) {
                     event.preventDefault();
                     event.stopPropagation();
                     form.querySelector('#login-email').classList.add('is-invalid');

@@ -12,12 +12,12 @@
 
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="view-item-modal-label">View</h5>
+                <h5 class="modal-title" id="view-item-modal-label">Manage</h5>
                 <button type="button" id="close-modal-btn" class="btn-close" aria-label="Close"></button>
             </div>
 
             <!-- body -->
-            <form id="form-panel-view" name="Form" action="pending-code.php" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
+            <form id="form-panel-view" name="Form" autocomplete="off" method="POST" enctype="multipart/form-data" class=" py-3 px-5">
                 <div class="modal-body edit-modal-body">
                     <!-- TAB LIST NAVIGATION -->
                     <ul class="nav nav-tabs" id="myTab" role="tablist">
@@ -57,14 +57,17 @@
 
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-end">
+                    <!-- Hidden input field to hold the action value -->
+                    <input type="hidden" id="actionInput" name="action" value="">
+
                     <button type="button" id="rejectButton" class="btn btn-danger">Reject</i></button>
                     <div class="approveButton">
                         <button type="button" id="cancel-modal-btn" class="btn border bg-light">Cancel</button>
-                        <button type="submit" name="approve" class="btn btn-success me-2">Approve</i></button>
+                        <button type="submit" name="approve" id="approveButton" class="btn btn-success me-2">Approve</i></button>
                     </div>
                     <div class="updateButton">
                         <button type="button" id="cancel-modal-btn-update" class="btn border bg-light">Cancel</button>
-                        <button type="submit" name="update" class="btn btn-success me-2">Update</i></button>
+                        <button type="submit" name="update" id="updateButton" class="btn btn-success me-2">Update</i></button>
                     </div>
                 </div>
             </form>
@@ -73,33 +76,37 @@
 </div>
 <!-- script for getting the data on the view -->
 <script>
-    document.getElementById('form-panel-view').addEventListener('submit', function(event) {
+    document.addEventListener('DOMContentLoaded', function() {
+        // Add event listeners to the buttons after the DOM is fully loaded
+        document.getElementById('approveButton').addEventListener('click', function() {
+            document.getElementById('actionInput').value = 'approve';
+            event.preventDefault();
+            submitForm();
+        });
 
-        // Get the selected category
-        var selectedCategory = document.getElementById('categoryID').value;
-        var cornMorph = document.getElementById('cornMorph-Edit');
-        var riceMorph = document.getElementById('riceMorph-Edit');
-        var rootCropMorph = document.getElementById('root_cropMorph-Edit');
+        document.getElementById('updateButton').addEventListener('click', function() {
+            document.getElementById('actionInput').value = 'update';
+            event.preventDefault();
+            submitForm();
+        });
 
-        // Disable inputs based on the selected category
-        if (selectedCategory !== '4') {
-            disableInputs(cornMorph);
-        }
-
-        if (selectedCategory !== '1') {
-            disableInputs(riceMorph);
-        }
-
-        if (selectedCategory !== '2') {
-            disableInputs(rootCropMorph);
-        }
-        // Form is valid, submit the form
-        submitForm();
+        document.getElementById('confirmRejectBtn').addEventListener('click', function() {
+            document.getElementById('actionInput').value = 'reject';
+            event.preventDefault();
+            submitForm();
+        });
     });
+
+    // document.getElementById('form-panel-view').addEventListener('submit', function(event) {
+    //     // Prevent the default form submission behavior
+    //     event.preventDefault();
+    //     // Form is valid, submit the form
+    //     submitForm();
+    // });
 
     // Function to submit the form and refresh notifications
     function submitForm() {
-        console.log('submitForm function called');
+        //console.log('submitForm function called');
         // Get the form reference
         var form = document.getElementById('form-panel-view');
         // Trigger the form submission
@@ -116,8 +123,9 @@
                     console.log("Form submitted successfully", data);
                     // Reset the form
                     form.reset();
+                    location.reload();
                     // Reload unseen notifications
-                    load_unseen_notification();
+                    //load_unseen_notification();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("Form submission error:", textStatus, errorThrown);
@@ -663,10 +671,8 @@
         confirmModalInstance.show();
 
         // to show which button should show on the confirm modal
-        document.getElementById('confirmCloseBtn').style.display = 'none';
         document.getElementById('confirmRejectBtn').style.display = 'block';
         // to show which label should show on the confirm modal
-        document.getElementById('close-label').style.display = 'none';
         document.getElementById('reject-label').style.display = 'block';
     }
 
