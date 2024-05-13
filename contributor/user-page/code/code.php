@@ -129,14 +129,13 @@ if (isset($_POST['click_edit_btn'])) {
     $gender = $_POST['genderEdit'];
     $email = $_POST['emailEdit'];
     $username = $_POST['usernameEdit'];
-    $password = password_hash($_POST['passwordEdit'], PASSWORD_DEFAULT);
     $affiliation = $_POST['affiliationEdit'];
     $account_type_id = $_POST['account_type_idEdit'];
 
-    $select = "UPDATE users SET first_name = $1, last_name = $2, gender = $3, email = $4, username = $5, password = $6, affiliation = $7,
-    account_type_id = $8  WHERE user_id = $9 ";
+    $select = "UPDATE users SET first_name = $1, last_name = $2, gender = $3, email = $4, username = $5, affiliation = $6,
+    account_type_id = $7 WHERE user_id = $8 ";
     $result = pg_query_params($conn, $select, array(
-        $first_name, $last_name, $gender, $email, $username, $password, $affiliation,
+        $first_name, $last_name, $gender, $email, $username, $affiliation,
         $account_type_id, $user_id
     ));
     if ($result) {

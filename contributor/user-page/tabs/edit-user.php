@@ -359,11 +359,11 @@
                         $('#EmailEdit').val(value['email']);
                         $('#user-NameEdit').val(value['username']);
                         $('#AffiliationEdit').val(value['affiliation']);
-                        $('#Account_TypeEdit').val(value['crop_id']);
                         $('#Account_TypeEdit').append($('<option>', {
                             value: value['type_id'],
                             text: value['type_name'],
-                            hidden: true
+                            hidden: true,
+                            selected: true
                         }));
                     });
                 },

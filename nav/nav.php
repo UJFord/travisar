@@ -216,7 +216,7 @@ switch ($current_page_path) {
                                                                                     echo "active";
                                                                                 } ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Crop Management
-                            <span class="count" style="color:red;"></span>
+                            <!-- <span class="count rounded-circle" style="color:red;"></span> -->
                         </a>
 
                         <ul class="dropdown-menu" aria-labelledby="mng-nav">
@@ -243,7 +243,7 @@ switch ($current_page_path) {
                                                                                         echo "active";
                                                                                     } ?>" role="button" data-bs-toggle="dropdown" aria-expanded="false">
                             Settings
-                            <span class="count2" style="color:red;"></span>
+                            <!-- <span class="count2" style="color:red;"></span> -->
                         </a>
 
                         <ul id="set-nav-menu" class="dropdown-menu  dropdown-menu-md-end">
