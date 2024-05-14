@@ -303,8 +303,20 @@
                             $('#cooked-rice-View').val(value['quality_cooked_rice']);
                             $('#leftover-rice-View').val(value['quality_leftover_rice']);
                             // volume expansion and Glutinous
-                            $('#volExpansionView').prop('checked', value['volume_expansion']);
-                            $('#glutinousityView').prop('checked', value['glutinous']);
+                            // Set the checked property for volume_expansion
+                            $('#volExpansionView').prop('checked',
+                                value['volume_expansion'] === '1' ||
+                                value['volume_expansion'] === true ||
+                                value['volume_expansion'] === 't'
+                            );
+
+                            // Set the checked property for glutinous
+                            $('#glutinousityView').prop('checked',
+                                value['glutinous'] === '1' ||
+                                value['glutinous'] === true ||
+                                value['glutinous'] === 't'
+                            );
+
                             // hardness
                             if (value['hardness'] === 'Soft') {
                                 $('#hardness-Soft-View').prop('checked', true);
