@@ -9,7 +9,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'approve') {
     // die();
     $crop_id = $_POST['crop_id'];
     $select = "UPDATE status
-        SET action = 'Approved', remarks = 'Approved'
+        SET action = 'Approved', status_date = CURRENT_TIMESTAMP
         WHERE status_id IN (SELECT status_id FROM crop WHERE crop_id = '$crop_id')";
 
     $result = pg_query($conn, $select);
@@ -170,7 +170,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     $corn_pest_other_id = $cropsUpdate['corn_pest_other_id'];
                     $status_id = $cropsUpdate['status_id'];
                     $action = "Approved";
-                    $remarks = "Updating of crop data is approved.";
 
                     // update utilization cultural table
                     $query_utilCultural = "UPDATE utilization_cultural_importance SET significance = $1, \"use\" = $2, indigenous_utilization = $3,
@@ -202,10 +201,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     }
 
                     // update Status table
-                    $queryStatus = "UPDATE status set remarks= $1, action =$2 where status_id = $3";
+                    $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP where status_id = $2";
 
                     $valueStatus = array(
-                        $remarks, $action, $status_id
+                        $action, $status_id
                     );
                     $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 
@@ -649,7 +648,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                 $quality_leftover_rice = $crops['quality_leftover_rice'];
                 $volume_expansion = $crops['volume_expansion'];
                 $glutinous = $crops['glutinous'];
-                $hardness = $crops['hardness'];
+                $texture = $crops['texture'];
 
                 //id's to be deleted when finished updating
                 $update_crop_id = $crops['crop_id'];
@@ -701,7 +700,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
 
                     $status_id = $cropsUpdate['status_id'];
                     $action = "Approved";
-                    $remarks = "Updating of crop data is approved.";
 
                     // update utilization cultural table
                     $query_utilCultural = "UPDATE utilization_cultural_importance SET significance = $1, \"use\" = $2, indigenous_utilization = $3,
@@ -733,10 +731,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     }
 
                     // update Status table
-                    $queryStatus = "UPDATE status set remarks= $1, action =$2 where status_id = $3";
+                    $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP where status_id = $2";
 
                     $valueStatus = array(
-                        $remarks, $action, $status_id
+                        $action, $status_id
                     );
                     $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 
@@ -798,8 +796,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     }
 
                     // sensory_traits rice
-                    $query_sensoryTraits = "UPDATE sensory_traits_rice set aroma = $1, quality_cooked_rice = $2, quality_leftover_rice = $3, volume_expansion = $4, glutinous = $5, hardness = $6 where sensory_traits_rice_id = $7";
-                    $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $hardness, $sensory_traits_rice_id));
+                    $query_sensoryTraits = "UPDATE sensory_traits_rice set aroma = $1, quality_cooked_rice = $2, quality_leftover_rice = $3, volume_expansion = $4, glutinous = $5, texture = $6 where sensory_traits_rice_id = $7";
+                    $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $texture, $sensory_traits_rice_id));
                     if ($query_run_sensoryTraits) {
                         echo "success";
                     } else {
@@ -917,8 +915,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     // Update the pest resistance
                     if (isset($pest_resistances)) {
                         // Delete existing pest resistances for the variety
-                        $query_delete_pest = "DELETE FROM corn_pest_resistance WHERE corn_traits_id = $1";
-                        $query_run_delete_pest = pg_query_params($conn, $query_delete_pest, array($corn_traits_id));
+                        $query_delete_pest = "DELETE FROM rice_pest_resistance WHERE rice_traits_id = $1";
+                        $query_run_delete_pest = pg_query_params($conn, $query_delete_pest, array($rice_traits_id));
 
                         // Split the string into an array of integers
                         $pest_resistances_arr = explode(',', substr($pest_resistances, 1, -1));
@@ -926,11 +924,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                         // Loop through the submitted pest resistance IDs
                         foreach ($pest_resistances_arr as $pest_id) {
                             if (!empty($pest_id) && ctype_digit($pest_id)) {
-                                $corn_is_checked_pest = true; // Set to true since it's a boolean value
+                                $rice_is_checked_pest = true; // Set to true since it's a boolean value
 
                                 // Insert the record into the database
-                                $query_pest = "INSERT INTO corn_pest_resistance (corn_traits_id, pest_resistance_id, corn_is_checked_pest) VALUES ($1, $2, $3)";
-                                $query_run_pest = pg_query_params($conn, $query_pest, array($corn_traits_id, $pest_id, $corn_is_checked_pest));
+                                $query_pest = "INSERT INTO rice_pest_resistance (rice_traits_id, pest_resistance_id, rice_is_checked_pest) VALUES ($1, $2, $3)";
+                                $query_run_pest = pg_query_params($conn, $query_pest, array($rice_traits_id, $pest_id, $rice_is_checked_pest));
                                 if (!$query_run_pest) {
                                     echo "Error: " . pg_last_error($conn);
                                     exit(0);
@@ -942,8 +940,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     // Update the disease resistance
                     if (isset($disease_resistances)) {
                         // Delete existing disease resistances for the variety
-                        $query_delete_disease = "DELETE FROM corn_disease_resistance WHERE corn_traits_id = $1";
-                        $query_run_delete_disease = pg_query_params($conn, $query_delete_disease, array($corn_traits_id));
+                        $query_delete_disease = "DELETE FROM rice_disease_resistance WHERE rice_traits_id = $1";
+                        $query_run_delete_disease = pg_query_params($conn, $query_delete_disease, array($rice_traits_id));
 
                         // Split the string into an array of integers
                         $disease_resistances_arr = explode(',', substr($disease_resistances, 1, -1));
@@ -951,11 +949,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                         // Loop through the submitted disease resistance IDs
                         foreach ($disease_resistances_arr as $disease_id) {
                             if (!empty($disease_id) && ctype_digit($disease_id)) {
-                                $corn_is_checked_disease = true; // Set to true since it's a boolean value
+                                $rice_is_checked_disease = true; // Set to true since it's a boolean value
 
                                 // Insert the record into the database
-                                $query_disease = "INSERT INTO corn_disease_resistance (corn_traits_id, disease_resistance_id, corn_is_checked_disease) VALUES ($1, $2, $3)";
-                                $query_run_disease = pg_query_params($conn, $query_disease, array($corn_traits_id, $disease_id, $corn_is_checked_disease));
+                                $query_disease = "INSERT INTO rice_disease_resistance (rice_traits_id, disease_resistance_id, rice_is_checked_disease) VALUES ($1, $2, $3)";
+                                $query_run_disease = pg_query_params($conn, $query_disease, array($rice_traits_id, $disease_id, $rice_is_checked_disease));
                                 if (!$query_run_disease) {
                                     echo "Error: " . pg_last_error($conn);
                                     exit(0);
@@ -967,8 +965,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     // Update the abiotic resistance
                     if (isset($abiotic_resistances)) {
                         // Delete existing abiotic resistances for the variety
-                        $query_delete_abiotic = "DELETE FROM corn_abiotic_resistance WHERE corn_traits_id = $1";
-                        $query_run_delete_abiotic = pg_query_params($conn, $query_delete_abiotic, array($corn_traits_id));
+                        $query_delete_abiotic = "DELETE FROM rice_abiotic_resistance WHERE rice_traits_id = $1";
+                        $query_run_delete_abiotic = pg_query_params($conn, $query_delete_abiotic, array($rice_traits_id));
 
                         // Split the string into an array of integers
                         $abiotic_resistances_arr = explode(',', substr($abiotic_resistances, 1, -1));
@@ -976,11 +974,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                         // Loop through the submitted abiotic resistance IDs
                         foreach ($abiotic_resistances_arr as $abiotic_id) {
                             if (!empty($abiotic_id) && ctype_digit($abiotic_id)) {
-                                $corn_is_checked_abiotic = true; // Set to true since it's a boolean value
+                                $rice_is_checked_abiotic = true; // Set to true since it's a boolean value
 
                                 // Insert the record into the database
-                                $query_abiotic = "INSERT INTO corn_abiotic_resistance (corn_traits_id, abiotic_resistance_id, corn_is_checked_abiotic) VALUES ($1, $2, $3)";
-                                $query_run_abiotic = pg_query_params($conn, $query_abiotic, array($corn_traits_id, $abiotic_id, $corn_is_checked_abiotic));
+                                $query_abiotic = "INSERT INTO rice_abiotic_resistance (rice_traits_id, abiotic_resistance_id, rice_is_checked_abiotic) VALUES ($1, $2, $3)";
+                                $query_run_abiotic = pg_query_params($conn, $query_abiotic, array($rice_traits_id, $abiotic_id, $rice_is_checked_abiotic));
                                 if (!$query_run_abiotic) {
                                     echo "Error: " . pg_last_error($conn);
                                     exit(0);
@@ -1168,6 +1166,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                 $crop_vegetative_image = $crops['crop_vegetative_image'];
                 $crop_reproductive_image = $crops['crop_reproductive_image'];
 
+                echo 'fuck';
+                //die();
+
                 // location
                 $province_id = $crops['province_id'];
                 $municipality_id = $crops['municipality_id'];
@@ -1245,12 +1246,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     $rootcrop_traits_id = $cropsUpdate['rootcrop_traits_id'];
                     $utilization_cultural_id = $cropsUpdate['utilization_cultural_id'];
                     $vegetative_state_rootcrop_id = $cropsUpdate['vegetative_state_rootcrop_id'];
-                    $reproductive_state_rootcrop_id = $cropsUpdate['reproductive_state_rootcrop_id'];
                     $status_id = $cropsUpdate['status_id'];
                     $rootcrop_abiotic_other_id = $cropsUpdate['rootcrop_abiotic_other_id'];
                     $rootcrop_pest_other_id = $cropsUpdate['rootcrop_pest_other_id'];
                     $action = "Approved";
-                    $remarks = "Updating of crop data is approved.";
 
                     // update utilization cultural table
                     $query_utilCultural = "UPDATE utilization_cultural_importance SET significance = $1, \"use\" = $2, indigenous_utilization = $3,
@@ -1282,10 +1281,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     }
 
                     // update Status table
-                    $queryStatus = "UPDATE status set remarks= $1, action =$2 where status_id = $3";
+                    $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP where status_id = $2";
 
                     $valueStatus = array(
-                        $remarks, $action, $status_id
+                        $action, $status_id
                     );
                     $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 
@@ -1428,8 +1427,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     // Update the pest resistance
                     if (isset($pest_resistances)) {
                         // Delete existing pest resistances for the variety
-                        $query_delete_pest = "DELETE FROM corn_pest_resistance WHERE corn_traits_id = $1";
-                        $query_run_delete_pest = pg_query_params($conn, $query_delete_pest, array($corn_traits_id));
+                        $query_delete_pest = "DELETE FROM rootcrop_pest_resistance WHERE root_crop_traits_id = $1";
+                        $query_run_delete_pest = pg_query_params($conn, $query_delete_pest, array($root_crop_traits_id));
 
                         // Split the string into an array of integers
                         $pest_resistances_arr = explode(',', substr($pest_resistances, 1, -1));
@@ -1437,11 +1436,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                         // Loop through the submitted pest resistance IDs
                         foreach ($pest_resistances_arr as $pest_id) {
                             if (!empty($pest_id) && ctype_digit($pest_id)) {
-                                $corn_is_checked_pest = true; // Set to true since it's a boolean value
+                                $rootcrop_is_checked_pest = true; // Set to true since it's a boolean value
 
                                 // Insert the record into the database
-                                $query_pest = "INSERT INTO corn_pest_resistance (corn_traits_id, pest_resistance_id, corn_is_checked_pest) VALUES ($1, $2, $3)";
-                                $query_run_pest = pg_query_params($conn, $query_pest, array($corn_traits_id, $pest_id, $corn_is_checked_pest));
+                                $query_pest = "INSERT INTO rootcrop_pest_resistance (root_crop_traits_id, pest_resistance_id, rootcrop_is_checked_pest) VALUES ($1, $2, $3)";
+                                $query_run_pest = pg_query_params($conn, $query_pest, array($root_crop_traits_id, $pest_id, $rootcrop_is_checked_pest));
                                 if (!$query_run_pest) {
                                     echo "Error: " . pg_last_error($conn);
                                     exit(0);
@@ -1453,8 +1452,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     // Update the disease resistance
                     if (isset($disease_resistances)) {
                         // Delete existing disease resistances for the variety
-                        $query_delete_disease = "DELETE FROM corn_disease_resistance WHERE corn_traits_id = $1";
-                        $query_run_delete_disease = pg_query_params($conn, $query_delete_disease, array($corn_traits_id));
+                        $query_delete_disease = "DELETE FROM rootcrop_disease_resistance WHERE root_crop_traits_id = $1";
+                        $query_run_delete_disease = pg_query_params($conn, $query_delete_disease, array($root_crop_traits_id));
 
                         // Split the string into an array of integers
                         $disease_resistances_arr = explode(',', substr($disease_resistances, 1, -1));
@@ -1462,11 +1461,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                         // Loop through the submitted disease resistance IDs
                         foreach ($disease_resistances_arr as $disease_id) {
                             if (!empty($disease_id) && ctype_digit($disease_id)) {
-                                $corn_is_checked_disease = true; // Set to true since it's a boolean value
+                                $rootcrop_is_checked_disease = true; // Set to true since it's a boolean value
 
                                 // Insert the record into the database
-                                $query_disease = "INSERT INTO corn_disease_resistance (corn_traits_id, disease_resistance_id, corn_is_checked_disease) VALUES ($1, $2, $3)";
-                                $query_run_disease = pg_query_params($conn, $query_disease, array($corn_traits_id, $disease_id, $corn_is_checked_disease));
+                                $query_disease = "INSERT INTO rootcrop_disease_resistance (root_crop_traits_id, disease_resistance_id, rootcrop_is_checked_disease) VALUES ($1, $2, $3)";
+                                $query_run_disease = pg_query_params($conn, $query_disease, array($root_crop_traits_id, $disease_id, $rootcrop_is_checked_disease));
                                 if (!$query_run_disease) {
                                     echo "Error: " . pg_last_error($conn);
                                     exit(0);
@@ -1478,8 +1477,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     // Update the abiotic resistance
                     if (isset($abiotic_resistances)) {
                         // Delete existing abiotic resistances for the variety
-                        $query_delete_abiotic = "DELETE FROM corn_abiotic_resistance WHERE corn_traits_id = $1";
-                        $query_run_delete_abiotic = pg_query_params($conn, $query_delete_abiotic, array($corn_traits_id));
+                        $query_delete_abiotic = "DELETE FROM rootcrop_abiotic_resistance WHERE root_crop_traits_id = $1";
+                        $query_run_delete_abiotic = pg_query_params($conn, $query_delete_abiotic, array($root_crop_traits_id));
 
                         // Split the string into an array of integers
                         $abiotic_resistances_arr = explode(',', substr($abiotic_resistances, 1, -1));
@@ -1487,11 +1486,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                         // Loop through the submitted abiotic resistance IDs
                         foreach ($abiotic_resistances_arr as $abiotic_id) {
                             if (!empty($abiotic_id) && ctype_digit($abiotic_id)) {
-                                $corn_is_checked_abiotic = true; // Set to true since it's a boolean value
+                                $rootcrop_is_checked_abiotic = true; // Set to true since it's a boolean value
 
                                 // Insert the record into the database
-                                $query_abiotic = "INSERT INTO corn_abiotic_resistance (corn_traits_id, abiotic_resistance_id, corn_is_checked_abiotic) VALUES ($1, $2, $3)";
-                                $query_run_abiotic = pg_query_params($conn, $query_abiotic, array($corn_traits_id, $abiotic_id, $corn_is_checked_abiotic));
+                                $query_abiotic = "INSERT INTO rootcrop_abiotic_resistance (root_crop_traits_id, abiotic_resistance_id, rootcrop_is_checked_abiotic) VALUES ($1, $2, $3)";
+                                $query_run_abiotic = pg_query_params($conn, $query_abiotic, array($root_crop_traits_id, $abiotic_id, $rootcrop_is_checked_abiotic));
                                 if (!$query_run_abiotic) {
                                     echo "Error: " . pg_last_error($conn);
                                     exit(0);
@@ -1636,7 +1635,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'reject') {
     $crop_id = $_POST['crop_id'];
     $remarks = $_POST['remarks'];
     $select = "UPDATE status
-    SET action = 'Rejected', remarks = '$remarks'
+    SET action = 'Rejected', remarks = '$remarks', status_date = CURRENT_TIMESTAMP
     WHERE status_id IN (SELECT status_id FROM crop WHERE crop_id = '$crop_id')";
 
     $result = pg_query($conn, $select);

@@ -31,7 +31,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
 
         $user_id = $_POST['user_id'];
         $action = 'Pending';
-        $remarks = 'Pending';
 
         // pest resistance other
         $pest_other = isset($_POST['pest_other']) ? true : null;
@@ -89,9 +88,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
         $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : null;
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
-        $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
-        $volume_expansion = isset($_POST['volume_expansion']) ? true : false;
-        $glutinous = isset($_POST['glutinous']) ? true : false;
+        $texture = isset($_POST['texture']) ? handleEmpty($_POST['texture']) : null;
+        $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
+        $glutinous = isset($_POST['glutinous']) ? '1' : '0';
 
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
@@ -165,7 +164,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
                     $finalimg_seed = $image;
                     $crop_seed_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
-                    
+
                     //header("Location: ../../crop.php");
                     // exit();
                 }
@@ -233,7 +232,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
                     $finalimg_seed = $image;
                     $crop_vegetative_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
-                    
+
                     //header("Location: ../../crop.php");
 
                     // exit();
@@ -302,7 +301,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
                     $finalimg_seed = $image;
                     $crop_reproductive_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
-                    
+
                     //header("Location: ../../crop.php");
 
                     // exit();
@@ -375,10 +374,10 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
         }
 
         //insert into status table
-        $query_Status = "INSERT INTO status (action, remarks)
-                VALUES ($1, $2) RETURNING status_id";
+        $query_Status = "INSERT INTO status (action)
+                VALUES ($1) RETURNING status_id";
 
-        $value_Status = array($action, $remarks);
+        $value_Status = array($action);
         $query_run_Status = pg_query_params($conn, $query_Status, $value_Status);
 
         if ($query_run_Status) {
@@ -703,8 +702,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
             }
 
             // sensory traits rice
-            $query_sensoryTraits = "INSERT into sensory_traits_rice (aroma, quality_cooked_rice, quality_leftover_rice, volume_expansion, glutinous, hardness) values ($1, $2, $3, $4, $5, $6) returning sensory_traits_rice_id";
-            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $hardness));
+            $query_sensoryTraits = "INSERT into sensory_traits_rice (aroma, quality_cooked_rice, quality_leftover_rice, volume_expansion, glutinous, texture) values ($1, $2, $3, $4, $5, $6) returning sensory_traits_rice_id";
+            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $texture));
             if ($query_run_sensoryTraits) {
                 $row_sensoryTraits = pg_fetch_row($query_run_sensoryTraits);
                 $sensory_traits_rice_id = $row_sensoryTraits[0];
@@ -1016,7 +1015,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
 
         $user_id = $_POST['user_id'];
         $action = 'Approved';
-        $remarks = 'Approved';
 
         // pest resistance other
         $pest_other = isset($_POST['pest_other']) ? true : null;
@@ -1074,9 +1072,9 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
         $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : null;
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
-        $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
-        $volume_expansion = isset($_POST['volume_expansion']) ? true : false;
-        $glutinous = isset($_POST['glutinous']) ? true : false;
+        $texture = isset($_POST['texture']) ? handleEmpty($_POST['texture']) : null;
+        $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
+        $glutinous = isset($_POST['glutinous']) ? '1' : '0';
 
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
@@ -1151,7 +1149,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
                     $finalimg_seed = $image;
                     $crop_seed_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
-                    
+
                     //header("Location: ../../crop.php");
 
                     //exit();
@@ -1219,7 +1217,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
                     $finalimg_seed = $image;
                     $crop_vegetative_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
-                    
+
                     //header("Location: ../../crop.php");
                     //exit();
                 }
@@ -1288,7 +1286,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
                     $crop_reproductive_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
                     // Display error message for invalid file format
-                    
+
                     //header("Location: ../../crop.php");
 
                     //exit();
@@ -1360,10 +1358,10 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
         }
 
         //insert into status table
-        $query_Status = "INSERT INTO status (action, remarks)
-                VALUES ($1, $2) RETURNING status_id";
+        $query_Status = "INSERT INTO status (action)
+                VALUES ($1) RETURNING status_id";
 
-        $value_Status = array($action, $remarks);
+        $value_Status = array($action);
         $query_run_Status = pg_query_params($conn, $query_Status, $value_Status);
 
         if ($query_run_Status) {
@@ -1676,8 +1674,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
             }
 
             // sensory traits rice
-            $query_sensoryTraits = "INSERT into sensory_traits_rice (aroma, quality_cooked_rice, quality_leftover_rice, volume_expansion, glutinous, hardness) values ($1, $2, $3, $4, $5, $6) returning sensory_traits_rice_id";
-            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $hardness));
+            $query_sensoryTraits = "INSERT into sensory_traits_rice (aroma, quality_cooked_rice, quality_leftover_rice, volume_expansion, glutinous, texture) values ($1, $2, $3, $4, $5, $6) returning sensory_traits_rice_id";
+            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $texture));
             if ($query_run_sensoryTraits) {
                 $row_sensoryTraits = pg_fetch_row($query_run_sensoryTraits);
                 $sensory_traits_rice_id = $row_sensoryTraits[0];
@@ -1976,7 +1974,6 @@ if (isset($_POST['draft'])) {
 
         $user_id = $_POST['user_id'];
         $action = 'Draft';
-        $remarks = 'Draft';
 
         // pest resistance other
         $pest_other = isset($_POST['pest_other']) ? true : null;
@@ -2034,10 +2031,11 @@ if (isset($_POST['draft'])) {
         $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : null;
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
-        $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
-        $volume_expansion = isset($_POST['volume_expansion']) ? true : false;
-        $glutinous = isset($_POST['glutinous']) ? true : false;
+        $texture = isset($_POST['texture']) ? handleEmpty($_POST['texture']) : null;
+        $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
+        $glutinous = isset($_POST['glutinous']) ? '1' : '0';
 
+        //die();
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
         $rootcrop_plant_height = isset($_POST['rootcrop_plant_height']) ? handleEmpty($_POST['rootcrop_plant_height']) : null;
@@ -2107,7 +2105,7 @@ if (isset($_POST['draft'])) {
                     $crop_seed_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
                     // Display error message for invalid file format
-                    
+
                     //header("Location: ../../crop.php");
 
                     //rexit();
@@ -2177,7 +2175,7 @@ if (isset($_POST['draft'])) {
                     $crop_vegetative_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
                     // Display error message for invalid file format
-                    
+
                     //header("Location: ../../crop.php");
 
                     //rexit();
@@ -2247,7 +2245,7 @@ if (isset($_POST['draft'])) {
                     $crop_reproductive_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
                     // Display error message for invalid file format
-                    
+
                     //header("Location: ../../crop.php");
 
                     //rexit();
@@ -2280,10 +2278,10 @@ if (isset($_POST['draft'])) {
         }
 
         //insert into status table
-        $query_Status = "INSERT INTO status (action, remarks)
-                VALUES ($1, $2) RETURNING status_id";
+        $query_Status = "INSERT INTO status (action)
+                VALUES ($1) RETURNING status_id";
 
-        $value_Status = array($action, $remarks);
+        $value_Status = array($action);
         $query_run_Status = pg_query_params($conn, $query_Status, $value_Status);
 
         if ($query_run_Status) {
@@ -2558,8 +2556,8 @@ if (isset($_POST['draft'])) {
                 $seed_traits_id = $row_seedTraits[0];
             } else {
                 $_SESSION['message'] = "Failed to create crop.";
-                header("Location: ../../crop.php");
-
+                //header("Location: ../../crop.php");
+                pg_last_error($conn);
                 exit(0);
             }
 
@@ -2571,7 +2569,8 @@ if (isset($_POST['draft'])) {
                 $panicle_traits_rice_id = $row_panicleTraits[0];
             } else {
                 $_SESSION['message'] = "Failed to create crop.";
-                header("Location: ../../crop.php");
+                //header("Location: ../../crop.php");
+                pg_last_error($conn);
 
                 exit(0);
             }
@@ -2584,7 +2583,8 @@ if (isset($_POST['draft'])) {
                 $flag_leaf_traits_rice_id = $row_flagLeaf[0];
             } else {
                 $_SESSION['message'] = "Failed to create crop.";
-                header("Location: ../../crop.php");
+                //header("Location: ../../crop.php");
+                pg_last_error($conn);
 
                 exit(0);
             }
@@ -2597,7 +2597,8 @@ if (isset($_POST['draft'])) {
                 $reproductive_state_rice_id = $row_reproductiveState[0];
             } else {
                 $_SESSION['message'] = "Failed to create crop.";
-                header("Location: ../../crop.php");
+                //header("Location: ../../crop.php");
+                pg_last_error($conn);
 
                 exit(0);
             }
@@ -2610,20 +2611,22 @@ if (isset($_POST['draft'])) {
                 $vegetative_state_rice_id = $row_vegetativeState[0];
             } else {
                 $_SESSION['message'] = "Failed to create crop.";
-                header("Location: ../../crop.php");
+                //header("Location: ../../crop.php");
+                pg_last_error($conn);
 
                 exit(0);
             }
 
             // sensory traits rice
-            $query_sensoryTraits = "INSERT into sensory_traits_rice (aroma, quality_cooked_rice, quality_leftover_rice, volume_expansion, glutinous, hardness) values ($1, $2, $3, $4, $5, $6) returning sensory_traits_rice_id";
-            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $hardness));
+            $query_sensoryTraits = "INSERT into sensory_traits_rice (aroma, quality_cooked_rice, quality_leftover_rice, volume_expansion, glutinous, texture) values ($1, $2, $3, $4, $5, $6) returning sensory_traits_rice_id";
+            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $texture));
             if ($query_run_sensoryTraits) {
                 $row_sensoryTraits = pg_fetch_row($query_run_sensoryTraits);
                 $sensory_traits_rice_id = $row_sensoryTraits[0];
             } else {
                 $_SESSION['message'] = "Failed to create crop.";
-                header("Location: ../../crop.php");
+                //header("Location: ../../crop.php");
+                pg_last_error($conn);
 
                 exit(0);
             }
@@ -2638,7 +2641,8 @@ if (isset($_POST['draft'])) {
                     $rice_pest_other_id = $rowPest_other[0];
                 } else {
                     $_SESSION['message'] = "Failed to create crop.";
-                    header("Location: ../../crop.php");
+                    //header("Location: ../../crop.php");
+                    pg_last_error($conn);
 
                     exit(0);
                 }
@@ -2653,7 +2657,8 @@ if (isset($_POST['draft'])) {
                     $rice_abiotic_other_id = $row_abioticOther[0];
                 } else {
                     $_SESSION['message'] = "Failed to create crop.";
-                    header("Location: ../../crop.php");
+                    //header("Location: ../../crop.php");
+                    pg_last_error($conn);
 
                     exit(0);
                 }
@@ -2671,7 +2676,8 @@ if (isset($_POST['draft'])) {
                 $rice_traits_id = $row_riceTraits[0];
             } else {
                 $_SESSION['message'] = "Failed to create crop.";
-                header("Location: ../../crop.php");
+                //header("Location: ../../crop.php");
+                pg_last_error($conn);
 
                 exit(0);
             }
@@ -2689,7 +2695,8 @@ if (isset($_POST['draft'])) {
                     if ($query_run_abiotic) {
                     } else {
                         $_SESSION['message'] = "Failed to create crop.";
-                        header("Location: ../../crop.php");
+                        //header("Location: ../../crop.php");
+                        pg_last_error($conn);
 
                         exit(0);
                     }
@@ -2709,7 +2716,8 @@ if (isset($_POST['draft'])) {
                     if ($query_run_disease) {
                     } else {
                         $_SESSION['message'] = "Failed to create crop.";
-                        header("Location: ../../crop.php");
+                        //header("Location: ../../crop.php");
+                        pg_last_error($conn);
 
                         exit(0);
                     }
@@ -2732,7 +2740,8 @@ if (isset($_POST['draft'])) {
                         $pest_resistance_id = $row_pest[0];
                     } else {
                         $_SESSION['message'] = "Failed to create crop.";
-                        header("Location: ../../crop.php");
+                        //header("Location: ../../crop.php");
+                        pg_last_error($conn);
 
                         exit(0);
                     }
@@ -2946,6 +2955,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Admin') {
         $rice_traits_id = handleEmpty($_POST['rice_traitsID']);
         $root_crop_traits_id = handleEmpty($_POST['root_crop_traitsID']);
         $category_id = handleEmpty($_POST['categoryID']);
+        $status_id = handleEmpty($_POST['statusID']);
 
         // pest resistance other
         $pest_other = isset($_POST['pest_other']) ? true : null;
@@ -3003,9 +3013,9 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Admin') {
         $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : null;
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
-        $volume_expansion = isset($_POST['volume_expansion']) ? handleEmpty($_POST['volume_expansion']) : null;
-        $glutinous = isset($_POST['glutinous']) ? handleEmpty($_POST['glutinous']) : null;
-        $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
+        $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
+        $glutinous = isset($_POST['glutinous']) ? '1' : '0';
+        $texture = isset($_POST['texture']) ? handleEmpty($_POST['texture']) : null;
 
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
@@ -3314,33 +3324,33 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Admin') {
         //die();
 
         // Extract old reference IDs from $_POST['referencesID']
-        $old_reference_ids = handleEmpty($_POST['referencesID']);
+        // $old_reference_ids = handleEmpty($_POST['referencesID']);
 
-        if (!$old_reference_id === '') {
-            // Iterate through each old reference ID
-            foreach ($old_reference_ids as $old_reference_id) {
-                // Trim any whitespace from the reference ID
-                $old_reference_id = trim($old_reference_id);
+        // if (!$old_reference_id === '') {
+        //     // Iterate through each old reference ID
+        //     foreach ($old_reference_ids as $old_reference_id) {
+        //         // Trim any whitespace from the reference ID
+        //         $old_reference_id = trim($old_reference_id);
 
-                // Check if the old reference ID exists in the HTML form
-                if (!isset($_POST["old_reference_id_$old_reference_id"])) {
-                    // If it doesn't exist, delete it from the database
-                    $query_delete = "DELETE FROM \"references\" WHERE references_id = $old_reference_id";
-                    $query_run_delete = pg_query($conn, $query_delete);
+        //         // Check if the old reference ID exists in the HTML form
+        //         if (!isset($_POST["old_reference_id_$old_reference_id"])) {
+        //             // If it doesn't exist, delete it from the database
+        //             $query_delete = "DELETE FROM \"references\" WHERE references_id = $old_reference_id";
+        //             $query_run_delete = pg_query($conn, $query_delete);
 
-                    if ($query_run_delete) {
-                        // Check if any rows were affected
-                        if (pg_affected_rows($query_run_delete) <= 0) {
-                            echo "Warning: No rows deleted for old reference ID $old_reference_id";
-                        }
-                    } else {
-                        $_SESSION['message'] = "Failed to update crop.";
-                        header("location: ../../crop.php");
-                        exit(0);
-                    }
-                }
-            }
-        }
+        //             if ($query_run_delete) {
+        //                 // Check if any rows were affected
+        //                 if (pg_affected_rows($query_run_delete) <= 0) {
+        //                     echo "Warning: No rows deleted for old reference ID $old_reference_id";
+        //                 }
+        //             } else {
+        //                 $_SESSION['message'] = "Failed to update crop.";
+        //                 header("location: ../../crop.php");
+        //                 exit(0);
+        //             }
+        //         }
+        //     }
+        // }
 
         //references
         // Loop through the $_POST data to extract references
@@ -3371,6 +3381,20 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Admin') {
                 header("location: ../../crop.php");
                 exit(0);
             }
+        }
+
+        // update Status table
+        $queryStatus = "UPDATE status set status_date = CURRENT_TIMESTAMP where status_id = $1";
+
+        $valueStatus = array(
+            $status_id
+        );
+        $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
+
+        if ($query_run_Status) {
+        } else {
+            echo "Error: " . pg_last_error($conn);
+            exit(0);
         }
 
         // Check the category name and perform actions accordingly
@@ -3645,8 +3669,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Admin') {
             }
 
             // sensory traits rice
-            $query_sensoryTraits = "UPDATE sensory_traits_rice set aroma = $1, quality_cooked_rice = $2, quality_leftover_rice = $3, volume_expansion = $4, glutinous = $5, hardness = $6 where sensory_traits_rice_id =$7";
-            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $hardness, $sensory_traits_rice_id));
+            $query_sensoryTraits = "UPDATE sensory_traits_rice set aroma = $1, quality_cooked_rice = $2, quality_leftover_rice = $3, volume_expansion = $4, glutinous = $5, texture = $6 where sensory_traits_rice_id =$7";
+            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $texture, $sensory_traits_rice_id));
             if ($query_run_sensoryTraits) {
             } else {
                 $_SESSION['message'] = "Failed to update crop.";

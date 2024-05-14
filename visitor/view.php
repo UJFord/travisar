@@ -52,7 +52,7 @@ require "../functions/functions.php";
     <!-- CROP TITLE -->
     <div class="title container-fluid bg-white">
         <div class="container py-4 mb-4">
-            
+
             <!-- back to previous page -->
             <a id="return-btn" onclick="goBack()" class="btn btn-link float-start p-0 my-1"><i class="fa-solid fa-circle-arrow-left fs-2"></i></a>
             <h2 class="info-title text-center p-0 m-0">
@@ -522,28 +522,35 @@ require "../functions/functions.php";
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Volume Expansion</th>
                                                 <td class="w-75 fw-semibold">
                                                     <?php
-                                                    if (empty($crops_rice['volume_expansion'])) {
-                                                        echo "It does not rise";
+                                                    if (isset($crops_rice['volume_expansion']) && ($crops_rice['volume_expansion'] === false || $crops_rice['volume_expansion'] === 'f' || $crops_rice['volume_expansion'] === '0')) {
+                                                        echo "It rises: No";
+                                                    } elseif (isset($crops_rice['volume_expansion']) && ($crops_rice['volume_expansion'] === true || $crops_rice['volume_expansion'] === 't' || $crops_rice['volume_expansion'] === '1')) {
+                                                        echo "It rises: Yes";
                                                     } else {
-                                                        echo "It rises";
+                                                        echo "It rises: Unknown";
                                                     }
                                                     ?>
+
+
                                                 </td>
                                             </tr>
                                             <tr>
                                                 <th scope="row" class="text-secondary w-25 fw-normal">Glutinousity</th>
                                                 <td class="w-75 fw-semibold">
                                                     <?php
-                                                    if (empty($crops_rice['glutinous'])) {
-                                                        echo "It is glutinous";
+                                                    if (isset($crops_rice['glutinous']) && ($crops_rice['glutinous'] === false || $crops_rice['glutinous'] === 'f' || $crops_rice['glutinous'] === '0')) {
+                                                        echo "It is glutinous: No";
+                                                    } elseif (isset($crops_rice['glutinous']) && ($crops_rice['glutinous'] === true || $crops_rice['glutinous'] === 't' || $crops_rice['glutinous'] === '1')) {
+                                                        echo "It is glutinous: Yes";
                                                     } else {
-                                                        echo "It is glutinous";
+                                                        echo "It is glutinous: Unknown";
                                                     }
                                                     ?>
+
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th scope="row" class="text-secondary w-25 fw-normal">Hardness</th>
+                                                <th scope="row" class="text-secondary w-25 fw-normal">Texture</th>
                                                 <td class="w-75 fw-semibold">
                                                     <?php
                                                     if (empty($crops_rice['hardness'])) {

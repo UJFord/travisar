@@ -486,12 +486,24 @@
                             $('#cooked-rice-Edit').val(value['quality_cooked_rice']);
                             $('#leftover-rice-Edit').val(value['quality_leftover_rice']);
                             // volume expansion and Glutinous
-                            $('#volExpansionEdit').prop('checked', value['volume_expansion']);
-                            $('#glutinousityEdit').prop('checked', value['glutinous']);
-                            // hardness
-                            if (value['hardness'] === 'Soft') {
+                            // Set the checked property for volume_expansion
+                            $('#volExpansionEdit').prop('checked',
+                                value['volume_expansion'] === '1' ||
+                                value['volume_expansion'] === true ||
+                                value['volume_expansion'] === 't'
+                            );
+
+                            // Set the checked property for glutinous
+                            $('#glutinousityEdit').prop('checked',
+                                value['glutinous'] === '1' ||
+                                value['glutinous'] === true ||
+                                value['glutinous'] === 't'
+                            );
+
+                            // texture
+                            if (value['texture'] === 'Soft') {
                                 $('#hardness-Soft-Edit').prop('checked', true);
-                            } else if (value['hardness'] === 'Hard') {
+                            } else if (value['texture'] === 'Hard') {
                                 $('#hardness-Hard-Edit').prop('checked', true);
                             }
 

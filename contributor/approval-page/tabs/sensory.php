@@ -41,16 +41,16 @@
             </div>
         </div>
 
-        <!-- Hardness -->
+        <!-- Texture -->
         <div class="col-6">
-            <div class="small-font mb-2">Hardness</div>
+            <div class="small-font mb-2">Texture</div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label small-font" for="hardness-Soft-Edit">Soft</label>
-                <input class="form-check-input" type="radio" name="hardness" id="hardness-Soft-Edit" value="Soft" disabled>
+                <input class="form-check-input" type="radio" name="texture" id="hardness-Soft-Edit" value="Soft" disabled>
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label small-font" for="hardness-Hard-Edit">Hard</label>
-                <input class="form-check-input" type="radio" name="hardness" id="hardness-Hard-Edit" value="Hard" disabled>
+                <input class="form-check-input" type="radio" name="texture" id="hardness-Hard-Edit" value="Hard" disabled>
             </div>
         </div>
     </div>

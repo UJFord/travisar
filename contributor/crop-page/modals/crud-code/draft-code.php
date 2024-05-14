@@ -1,8 +1,9 @@
 <?php
 session_start();
 require "../../../../functions/connections.php";
-
-if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
+// var_dump($_POST);
+// die();
+if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Admin') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {
@@ -26,7 +27,6 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
 
         // status
         $action = "Approved";
-        $remarks = "Approved.";
         $status_id = $_POST['statusIDdraft'];
 
         // loc.php
@@ -107,9 +107,9 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : null;
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
-        $volume_expansion = isset($_POST['volume_expansion']) ? handleEmpty($_POST['volume_expansion']) : null;
-        $glutinous = isset($_POST['glutinous']) ? handleEmpty($_POST['glutinous']) : null;
-        $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
+        $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
+        $glutinous = isset($_POST['glutinous']) ? '1' : '0';
+        $texture = isset($_POST['texture']) ? handleEmpty($_POST['texture']) : null;
 
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
@@ -423,10 +423,10 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         }
 
         // update status table
-        $queryStatus = "UPDATE status set action= $1, remarks =$2 where status_id = $3";
+        $queryStatus = "UPDATE status set action= $1, status_date = CURRENT_TIMESTAMP where status_id = $2";
 
         $valueStatus = array(
-            $action, $remarks, $status_id
+            $action, $status_id
         );
         $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 
@@ -715,8 +715,8 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
             }
 
             // sensory traits rice
-            $query_sensoryTraits = "UPDATE sensory_traits_rice set aroma = $1, quality_cooked_rice = $2, quality_leftover_rice = $3, volume_expansion = $4, glutinous = $5, hardness = $6 where sensory_traits_rice_id =$7";
-            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $hardness, $sensory_traits_rice_id));
+            $query_sensoryTraits = "UPDATE sensory_traits_rice set aroma = $1, quality_cooked_rice = $2, quality_leftover_rice = $3, volume_expansion = $4, glutinous = $5, texture = $6 where sensory_traits_rice_id =$7";
+            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $texture, $sensory_traits_rice_id));
             if ($query_run_sensoryTraits) {
             } else {
                 echo "Error: " . pg_last_error($conn);
@@ -1119,7 +1119,6 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
 
         // status
         $action = "Pending";
-        $remarks = "Pending.";
         $status_id = $_POST['statusIDdraft'];
 
         // loc.php
@@ -1200,9 +1199,9 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : null;
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
-        $volume_expansion = isset($_POST['volume_expansion']) ? handleEmpty($_POST['volume_expansion']) : null;
-        $glutinous = isset($_POST['glutinous']) ? handleEmpty($_POST['glutinous']) : null;
-        $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
+        $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
+        $glutinous = isset($_POST['glutinous']) ? '1' : '0';
+        $texture = isset($_POST['texture']) ? handleEmpty($_POST['texture']) : null;
 
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
@@ -1516,10 +1515,10 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         }
 
         // update status table
-        $queryStatus = "UPDATE status set action= $1, remarks =$2 where status_id = $3";
+        $queryStatus = "UPDATE status set action= $1, status_date = CURRENT_TIMESTAMP where status_id = $2";
 
         $valueStatus = array(
-            $action, $remarks, $status_id
+            $action, $status_id
         );
         $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 
@@ -1808,8 +1807,8 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
             }
 
             // sensory traits rice
-            $query_sensoryTraits = "UPDATE sensory_traits_rice set aroma = $1, quality_cooked_rice = $2, quality_leftover_rice = $3, volume_expansion = $4, glutinous = $5, hardness = $6 where sensory_traits_rice_id =$7";
-            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $hardness, $sensory_traits_rice_id));
+            $query_sensoryTraits = "UPDATE sensory_traits_rice set aroma = $1, quality_cooked_rice = $2, quality_leftover_rice = $3, volume_expansion = $4, glutinous = $5, texture = $6 where sensory_traits_rice_id =$7";
+            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $texture, $sensory_traits_rice_id));
             if ($query_run_sensoryTraits) {
             } else {
                 echo "Error: " . pg_last_error($conn);
@@ -2192,7 +2191,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
 
 // var_dump($_POST);
 // die();
-if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
+if (isset($_POST['delete']) && $_SESSION['rank'] == 'Admin') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {
