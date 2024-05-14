@@ -109,7 +109,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Admin') {
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
         $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
         $glutinous = isset($_POST['glutinous']) ? '1' : '0';
-        $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
+        $texture = isset($_POST['texture']) ? handleEmpty($_POST['texture']) : null;
 
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
@@ -423,7 +423,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Admin') {
         }
 
         // update status table
-        $queryStatus = "UPDATE status set action= $1 where status_id = $2";
+        $queryStatus = "UPDATE status set action= $1, status_date = CURRENT_TIMESTAMP where status_id = $2";
 
         $valueStatus = array(
             $action, $status_id
@@ -715,8 +715,8 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Admin') {
             }
 
             // sensory traits rice
-            $query_sensoryTraits = "UPDATE sensory_traits_rice set aroma = $1, quality_cooked_rice = $2, quality_leftover_rice = $3, volume_expansion = $4, glutinous = $5, hardness = $6 where sensory_traits_rice_id =$7";
-            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $hardness, $sensory_traits_rice_id));
+            $query_sensoryTraits = "UPDATE sensory_traits_rice set aroma = $1, quality_cooked_rice = $2, quality_leftover_rice = $3, volume_expansion = $4, glutinous = $5, texture = $6 where sensory_traits_rice_id =$7";
+            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $texture, $sensory_traits_rice_id));
             if ($query_run_sensoryTraits) {
             } else {
                 echo "Error: " . pg_last_error($conn);
@@ -1201,7 +1201,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Admin') {
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
         $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
         $glutinous = isset($_POST['glutinous']) ? '1' : '0';
-        $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
+        $texture = isset($_POST['texture']) ? handleEmpty($_POST['texture']) : null;
 
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
@@ -1515,7 +1515,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Admin') {
         }
 
         // update status table
-        $queryStatus = "UPDATE status set action= $1 where status_id = $2";
+        $queryStatus = "UPDATE status set action= $1, status_date = CURRENT_TIMESTAMP where status_id = $2";
 
         $valueStatus = array(
             $action, $status_id
@@ -1807,8 +1807,8 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Admin') {
             }
 
             // sensory traits rice
-            $query_sensoryTraits = "UPDATE sensory_traits_rice set aroma = $1, quality_cooked_rice = $2, quality_leftover_rice = $3, volume_expansion = $4, glutinous = $5, hardness = $6 where sensory_traits_rice_id =$7";
-            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $hardness, $sensory_traits_rice_id));
+            $query_sensoryTraits = "UPDATE sensory_traits_rice set aroma = $1, quality_cooked_rice = $2, quality_leftover_rice = $3, volume_expansion = $4, glutinous = $5, texture = $6 where sensory_traits_rice_id =$7";
+            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $texture, $sensory_traits_rice_id));
             if ($query_run_sensoryTraits) {
             } else {
                 echo "Error: " . pg_last_error($conn);

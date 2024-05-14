@@ -312,10 +312,10 @@
                             // volume expansion and Glutinous
                             $('#volExpansionEdit').prop('checked', value['volume_expansion']);
                             $('#glutinousityEdit').prop('checked', value['glutinous']);
-                            // hardness
-                            if (value['hardness'] === 'Soft') {
+                            // texture
+                            if (value['texture'] === 'Soft') {
                                 $('#hardness-Soft-Edit').prop('checked', true);
-                            } else if (value['hardness'] === 'Hard') {
+                            } else if (value['texture'] === 'Hard') {
                                 $('#hardness-Hard-Edit').prop('checked', true);
                             }
 

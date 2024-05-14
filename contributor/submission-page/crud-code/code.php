@@ -88,7 +88,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
         $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : null;
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
-        $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
+        $texture = isset($_POST['texture']) ? handleEmpty($_POST['texture']) : null;
         $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
         $glutinous = isset($_POST['glutinous']) ? '1' : '0';
 
@@ -702,8 +702,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
             }
 
             // sensory traits rice
-            $query_sensoryTraits = "INSERT into sensory_traits_rice (aroma, quality_cooked_rice, quality_leftover_rice, volume_expansion, glutinous, hardness) values ($1, $2, $3, $4, $5, $6) returning sensory_traits_rice_id";
-            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $hardness));
+            $query_sensoryTraits = "INSERT into sensory_traits_rice (aroma, quality_cooked_rice, quality_leftover_rice, volume_expansion, glutinous, texture) values ($1, $2, $3, $4, $5, $6) returning sensory_traits_rice_id";
+            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $texture));
             if ($query_run_sensoryTraits) {
                 $row_sensoryTraits = pg_fetch_row($query_run_sensoryTraits);
                 $sensory_traits_rice_id = $row_sensoryTraits[0];
@@ -1072,7 +1072,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
         $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : null;
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
-        $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
+        $texture = isset($_POST['texture']) ? handleEmpty($_POST['texture']) : null;
         $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
         $glutinous = isset($_POST['glutinous']) ? '1' : '0';
 
@@ -1674,8 +1674,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
             }
 
             // sensory traits rice
-            $query_sensoryTraits = "INSERT into sensory_traits_rice (aroma, quality_cooked_rice, quality_leftover_rice, volume_expansion, glutinous, hardness) values ($1, $2, $3, $4, $5, $6) returning sensory_traits_rice_id";
-            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $hardness));
+            $query_sensoryTraits = "INSERT into sensory_traits_rice (aroma, quality_cooked_rice, quality_leftover_rice, volume_expansion, glutinous, texture) values ($1, $2, $3, $4, $5, $6) returning sensory_traits_rice_id";
+            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $texture));
             if ($query_run_sensoryTraits) {
                 $row_sensoryTraits = pg_fetch_row($query_run_sensoryTraits);
                 $sensory_traits_rice_id = $row_sensoryTraits[0];
@@ -2031,7 +2031,7 @@ if (isset($_POST['draft'])) {
         $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : null;
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
-        $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
+        $texture = isset($_POST['texture']) ? handleEmpty($_POST['texture']) : null;
         $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
         $glutinous = isset($_POST['glutinous']) ? '1' : '0';
 
@@ -2613,8 +2613,8 @@ if (isset($_POST['draft'])) {
             }
 
             // sensory traits rice
-            $query_sensoryTraits = "INSERT into sensory_traits_rice (aroma, quality_cooked_rice, quality_leftover_rice, volume_expansion, glutinous, hardness) values ($1, $2, $3, $4, $5, $6) returning sensory_traits_rice_id";
-            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $hardness));
+            $query_sensoryTraits = "INSERT into sensory_traits_rice (aroma, quality_cooked_rice, quality_leftover_rice, volume_expansion, glutinous, texture) values ($1, $2, $3, $4, $5, $6) returning sensory_traits_rice_id";
+            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $texture));
             if ($query_run_sensoryTraits) {
                 $row_sensoryTraits = pg_fetch_row($query_run_sensoryTraits);
                 $sensory_traits_rice_id = $row_sensoryTraits[0];
@@ -3500,7 +3500,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Contributor') {
             $aroma = $_POST['aroma'];
             $quality_cooked_rice = $_POST['quality_cooked_rice'];
             $quality_leftover_rice = $_POST['quality_leftover_rice'];
-            $hardness = $_POST['hardness'];
+            $texture = isset($_POST['texture']) ? handleEmpty($_POST['texture']) : null;
             $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
             $glutinous = isset($_POST['glutinous']) ? '1' : '0';
 
@@ -3561,8 +3561,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Contributor') {
             }
 
             // sensory traits rice
-            $query_sensoryTraits = "INSERT into sensory_traits_rice (aroma, quality_cooked_rice, quality_leftover_rice, volume_expansion, glutinous, hardness) values ($1, $2, $3, $4, $5, $6) returning sensory_traits_rice_id";
-            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $hardness));
+            $query_sensoryTraits = "INSERT into sensory_traits_rice (aroma, quality_cooked_rice, quality_leftover_rice, volume_expansion, glutinous, texture) values ($1, $2, $3, $4, $5, $6) returning sensory_traits_rice_id";
+            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $texture));
             if ($query_run_sensoryTraits) {
                 $row_sensoryTraits = pg_fetch_row($query_run_sensoryTraits);
                 $sensory_traits_rice_id = $row_sensoryTraits[0];
@@ -4571,8 +4571,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Contributor') {
             }
 
             // sensory traits rice
-            $query_sensoryTraits = "UPDATE sensory_traits_rice set aroma = $1, quality_cooked_rice = $2, quality_leftover_rice = $3, volume_expansion = $4, glutinous = $5, hardness = $6 where sensory_traits_rice_id =$7";
-            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $hardness, $sensory_traits_rice_id));
+            $query_sensoryTraits = "UPDATE sensory_traits_rice set aroma = $1, quality_cooked_rice = $2, quality_leftover_rice = $3, volume_expansion = $4, glutinous = $5, texture = $6 where sensory_traits_rice_id =$7";
+            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array($aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $texture, $sensory_traits_rice_id));
             if ($query_run_sensoryTraits) {
             } else {
                 $_SESSION['message'] = "Failed to update crop.";

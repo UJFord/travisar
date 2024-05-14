@@ -830,10 +830,10 @@
                                 value['glutinous'] === 't'
                             );
 
-                            // hardness
-                            if (value['hardness'] === 'Soft') {
+                            // texture
+                            if (value['texture'] === 'Soft') {
                                 $('#hardness-SoftDraft').prop('checked', true);
-                            } else if (value['hardness'] === 'Hard') {
+                            } else if (value['texture'] === 'Hard') {
                                 $('#hardness-HardDraft').prop('checked', true);
                             }
 

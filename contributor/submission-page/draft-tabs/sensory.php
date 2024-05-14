@@ -48,11 +48,11 @@
             <div class="small-font mb-2">Texture</div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label small-font" for="hardness-SoftDraft">Soft</label>
-                <input class="form-check-input" type="radio" name="hardness" id="hardness-SoftDraft" value="Soft">
+                <input class="form-check-input" type="radio" name="texture" id="hardness-SoftDraft" value="Soft">
             </div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label small-font" for="hardness-HardDraft">Hard</label>
-                <input class="form-check-input" type="radio" name="hardness" id="hardness-HardDraft" value="Hard">
+                <input class="form-check-input" type="radio" name="texture" id="hardness-HardDraft" value="Hard">
             </div>
         </div>
     </div>
