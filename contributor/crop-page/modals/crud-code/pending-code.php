@@ -5,18 +5,44 @@ require "../../../../functions/connections.php";
 // die();
 if (isset($_POST['action']) && $_POST['action'] == 'approve') {
     $crop_id = $_POST['crop_id'];
-    $select = "UPDATE status
-        SET action = 'Approved', status_date = CURRENT_TIMESTAMP
-        WHERE status_id IN (SELECT status_id FROM crop WHERE crop_id = '$crop_id')";
+    $crop_variety = $_POST['crop_variety'];
 
-    $result = pg_query($conn, $select);
+    // Update the status
+    $update_query = "
+        UPDATE status
+        SET action = 'Approved', status_date = CURRENT_TIMESTAMP
+        WHERE status_id IN (SELECT status_id FROM crop WHERE crop_id = $1)
+    ";
+    $result = pg_query_params(
+        $conn,
+        $update_query,
+        array($crop_id)
+    );
+
     if ($result) {
-        $_SESSION['message'] = "Submission Approved";
-        //header("location: ../../crop.php");
-        exit; // Ensure that the script stops executing after the redirect header
+        // Prepare notification details
+        $notification_name = 'Submission approved.';
+        $message = 'Your submission ' . $crop_variety . ' is approved.';
+        $active = '1';
+
+        // Insert notification
+        $insert_query = "
+            INSERT INTO notification (notification_name, message, active, crop_id)
+            VALUES ($1, $2, $3, $4)
+        ";
+        $insert_run = pg_query_params($conn, $insert_query, array($notification_name, $message, $active, $crop_id));
+
+        if ($insert_run) {
+            $_SESSION['message'] = "Submission Approved";
+            //header("Location: pending.php");
+            exit; // Ensure that the script stops executing after the redirect header
+        } else {
+            // Log the error or display a more user-friendly message
+            echo "Error inserting notification: " . pg_last_error($conn);
+        }
     } else {
         // Log the error or display a more user-friendly message
-        echo "Error updating record: " . pg_last_error($conn);
+        echo "Error updating status: " . pg_last_error($conn);
     }
 }
 
