@@ -1,8 +1,9 @@
 <?php
 session_start();
 require "../../../../functions/connections.php";
-
-if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
+// var_dump($_POST);
+// die();
+if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Admin') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {
@@ -26,7 +27,6 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
 
         // status
         $action = "Approved";
-        $remarks = "Approved.";
         $status_id = $_POST['statusIDdraft'];
 
         // loc.php
@@ -107,8 +107,8 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : null;
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
-        $volume_expansion = isset($_POST['volume_expansion']) ? handleEmpty($_POST['volume_expansion']) : null;
-        $glutinous = isset($_POST['glutinous']) ? handleEmpty($_POST['glutinous']) : null;
+        $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
+        $glutinous = isset($_POST['glutinous']) ? '1' : '0';
         $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
 
         //* morphological Traits rootcrop
@@ -423,10 +423,10 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         }
 
         // update status table
-        $queryStatus = "UPDATE status set action= $1, remarks =$2 where status_id = $3";
+        $queryStatus = "UPDATE status set action= $1 where status_id = $2";
 
         $valueStatus = array(
-            $action, $remarks, $status_id
+            $action, $status_id
         );
         $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 
@@ -1119,7 +1119,6 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
 
         // status
         $action = "Pending";
-        $remarks = "Pending.";
         $status_id = $_POST['statusIDdraft'];
 
         // loc.php
@@ -1200,8 +1199,8 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : null;
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
-        $volume_expansion = isset($_POST['volume_expansion']) ? handleEmpty($_POST['volume_expansion']) : null;
-        $glutinous = isset($_POST['glutinous']) ? handleEmpty($_POST['glutinous']) : null;
+        $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
+        $glutinous = isset($_POST['glutinous']) ? '1' : '0';
         $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
 
         //* morphological Traits rootcrop
@@ -1516,10 +1515,10 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         }
 
         // update status table
-        $queryStatus = "UPDATE status set action= $1, remarks =$2 where status_id = $3";
+        $queryStatus = "UPDATE status set action= $1 where status_id = $2";
 
         $valueStatus = array(
-            $action, $remarks, $status_id
+            $action, $status_id
         );
         $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 
@@ -2192,7 +2191,7 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
 
 // var_dump($_POST);
 // die();
-if (isset($_POST['delete']) && $_SESSION['rank'] == 'Curator' || $_SESSION['rank'] == 'Admin') {
+if (isset($_POST['delete']) && $_SESSION['rank'] == 'Admin') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {

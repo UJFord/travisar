@@ -26,7 +26,6 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
 
         // status
         $action = "Approved";
-        $remarks = "Approved.";
         $status_id = $_POST['statusIDdraft'];
 
         // loc.php
@@ -423,10 +422,10 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         }
 
         // update status table
-        $queryStatus = "UPDATE status set action= $1, remarks =$2 where status_id = $3";
+        $queryStatus = "UPDATE status set remarks =$1 where status_id = $2";
 
         $valueStatus = array(
-            $action, $remarks, $status_id
+            $action, $status_id
         );
         $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 
@@ -1119,7 +1118,6 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
 
         // status
         $action = "Pending";
-        $remarks = "Pending.";
         $status_id = $_POST['statusIDdraft'];
 
         // loc.php
@@ -1516,10 +1514,10 @@ if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Curator' || $_SESSION['
         }
 
         // update status table
-        $queryStatus = "UPDATE status set action= $1, remarks =$2 where status_id = $3";
+        $queryStatus = "UPDATE status set remarks =$1 where status_id = $2";
 
         $valueStatus = array(
-            $action, $remarks, $status_id
+            $action, $status_id
         );
         $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 

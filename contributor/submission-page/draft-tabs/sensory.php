@@ -45,7 +45,7 @@
 
         <!-- Hardness -->
         <div class="col-6">
-            <div class="small-font mb-2">Hardness</div>
+            <div class="small-font mb-2">Texture</div>
             <div class="form-check form-check-inline">
                 <label class="form-check-label small-font" for="hardness-SoftDraft">Soft</label>
                 <input class="form-check-input" type="radio" name="hardness" id="hardness-SoftDraft" value="Soft">

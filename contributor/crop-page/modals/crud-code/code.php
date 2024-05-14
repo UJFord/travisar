@@ -31,7 +31,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
 
         $user_id = $_POST['user_id'];
         $action = 'Pending';
-        $remarks = 'Pending';
 
         // pest resistance other
         $pest_other = isset($_POST['pest_other']) ? true : null;
@@ -90,8 +89,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
         $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
-        $volume_expansion = isset($_POST['volume_expansion']) ? true : false;
-        $glutinous = isset($_POST['glutinous']) ? true : false;
+        $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
+        $glutinous = isset($_POST['glutinous']) ? '1' : '0';
 
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
@@ -165,7 +164,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
                     $finalimg_seed = $image;
                     $crop_seed_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
-                    
+
                     //header("Location: ../../crop.php");
                     // exit();
                 }
@@ -233,7 +232,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
                     $finalimg_seed = $image;
                     $crop_vegetative_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
-                    
+
                     //header("Location: ../../crop.php");
 
                     // exit();
@@ -302,7 +301,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
                     $finalimg_seed = $image;
                     $crop_reproductive_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
-                    
+
                     //header("Location: ../../crop.php");
 
                     // exit();
@@ -375,10 +374,10 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
         }
 
         //insert into status table
-        $query_Status = "INSERT INTO status (action, remarks)
-                VALUES ($1, $2) RETURNING status_id";
+        $query_Status = "INSERT INTO status (action)
+                VALUES ($1) RETURNING status_id";
 
-        $value_Status = array($action, $remarks);
+        $value_Status = array($action);
         $query_run_Status = pg_query_params($conn, $query_Status, $value_Status);
 
         if ($query_run_Status) {
@@ -1016,7 +1015,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
 
         $user_id = $_POST['user_id'];
         $action = 'Approved';
-        $remarks = 'Approved';
 
         // pest resistance other
         $pest_other = isset($_POST['pest_other']) ? true : null;
@@ -1075,8 +1073,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
         $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
-        $volume_expansion = isset($_POST['volume_expansion']) ? true : false;
-        $glutinous = isset($_POST['glutinous']) ? true : false;
+        $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
+        $glutinous = isset($_POST['glutinous']) ? '1' : '0';
 
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
@@ -1151,7 +1149,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
                     $finalimg_seed = $image;
                     $crop_seed_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
-                    
+
                     //header("Location: ../../crop.php");
 
                     //exit();
@@ -1219,7 +1217,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
                     $finalimg_seed = $image;
                     $crop_vegetative_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
-                    
+
                     //header("Location: ../../crop.php");
                     //exit();
                 }
@@ -1288,7 +1286,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
                     $crop_reproductive_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
                     // Display error message for invalid file format
-                    
+
                     //header("Location: ../../crop.php");
 
                     //exit();
@@ -1360,10 +1358,10 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
         }
 
         //insert into status table
-        $query_Status = "INSERT INTO status (action, remarks)
-                VALUES ($1, $2) RETURNING status_id";
+        $query_Status = "INSERT INTO status (action)
+                VALUES ($1) RETURNING status_id";
 
-        $value_Status = array($action, $remarks);
+        $value_Status = array($action);
         $query_run_Status = pg_query_params($conn, $query_Status, $value_Status);
 
         if ($query_run_Status) {
@@ -1976,7 +1974,6 @@ if (isset($_POST['draft'])) {
 
         $user_id = $_POST['user_id'];
         $action = 'Draft';
-        $remarks = 'Draft';
 
         // pest resistance other
         $pest_other = isset($_POST['pest_other']) ? true : null;
@@ -2035,9 +2032,10 @@ if (isset($_POST['draft'])) {
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
         $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
-        $volume_expansion = isset($_POST['volume_expansion']) ? true : false;
-        $glutinous = isset($_POST['glutinous']) ? true : false;
+        $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
+        $glutinous = isset($_POST['glutinous']) ? '1' : '0';
 
+        //die();
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
         $rootcrop_plant_height = isset($_POST['rootcrop_plant_height']) ? handleEmpty($_POST['rootcrop_plant_height']) : null;
@@ -2107,7 +2105,7 @@ if (isset($_POST['draft'])) {
                     $crop_seed_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
                     // Display error message for invalid file format
-                    
+
                     //header("Location: ../../crop.php");
 
                     //rexit();
@@ -2177,7 +2175,7 @@ if (isset($_POST['draft'])) {
                     $crop_vegetative_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
                     // Display error message for invalid file format
-                    
+
                     //header("Location: ../../crop.php");
 
                     //rexit();
@@ -2247,7 +2245,7 @@ if (isset($_POST['draft'])) {
                     $crop_reproductive_imageArray[] = $finalimg_seed; // Add image name to the array
                 } else {
                     // Display error message for invalid file format
-                    
+
                     //header("Location: ../../crop.php");
 
                     //rexit();
@@ -2280,10 +2278,10 @@ if (isset($_POST['draft'])) {
         }
 
         //insert into status table
-        $query_Status = "INSERT INTO status (action, remarks)
-                VALUES ($1, $2) RETURNING status_id";
+        $query_Status = "INSERT INTO status (action)
+                VALUES ($1) RETURNING status_id";
 
-        $value_Status = array($action, $remarks);
+        $value_Status = array($action);
         $query_run_Status = pg_query_params($conn, $query_Status, $value_Status);
 
         if ($query_run_Status) {
@@ -2558,8 +2556,8 @@ if (isset($_POST['draft'])) {
                 $seed_traits_id = $row_seedTraits[0];
             } else {
                 $_SESSION['message'] = "Failed to create crop.";
-                header("Location: ../../crop.php");
-
+                //header("Location: ../../crop.php");
+                pg_last_error($conn);
                 exit(0);
             }
 
@@ -2571,7 +2569,8 @@ if (isset($_POST['draft'])) {
                 $panicle_traits_rice_id = $row_panicleTraits[0];
             } else {
                 $_SESSION['message'] = "Failed to create crop.";
-                header("Location: ../../crop.php");
+                //header("Location: ../../crop.php");
+                pg_last_error($conn);
 
                 exit(0);
             }
@@ -2584,7 +2583,8 @@ if (isset($_POST['draft'])) {
                 $flag_leaf_traits_rice_id = $row_flagLeaf[0];
             } else {
                 $_SESSION['message'] = "Failed to create crop.";
-                header("Location: ../../crop.php");
+                //header("Location: ../../crop.php");
+                pg_last_error($conn);
 
                 exit(0);
             }
@@ -2597,7 +2597,8 @@ if (isset($_POST['draft'])) {
                 $reproductive_state_rice_id = $row_reproductiveState[0];
             } else {
                 $_SESSION['message'] = "Failed to create crop.";
-                header("Location: ../../crop.php");
+                //header("Location: ../../crop.php");
+                pg_last_error($conn);
 
                 exit(0);
             }
@@ -2610,7 +2611,8 @@ if (isset($_POST['draft'])) {
                 $vegetative_state_rice_id = $row_vegetativeState[0];
             } else {
                 $_SESSION['message'] = "Failed to create crop.";
-                header("Location: ../../crop.php");
+                //header("Location: ../../crop.php");
+                pg_last_error($conn);
 
                 exit(0);
             }
@@ -2623,7 +2625,8 @@ if (isset($_POST['draft'])) {
                 $sensory_traits_rice_id = $row_sensoryTraits[0];
             } else {
                 $_SESSION['message'] = "Failed to create crop.";
-                header("Location: ../../crop.php");
+                //header("Location: ../../crop.php");
+                pg_last_error($conn);
 
                 exit(0);
             }
@@ -2638,7 +2641,8 @@ if (isset($_POST['draft'])) {
                     $rice_pest_other_id = $rowPest_other[0];
                 } else {
                     $_SESSION['message'] = "Failed to create crop.";
-                    header("Location: ../../crop.php");
+                    //header("Location: ../../crop.php");
+                    pg_last_error($conn);
 
                     exit(0);
                 }
@@ -2653,7 +2657,8 @@ if (isset($_POST['draft'])) {
                     $rice_abiotic_other_id = $row_abioticOther[0];
                 } else {
                     $_SESSION['message'] = "Failed to create crop.";
-                    header("Location: ../../crop.php");
+                    //header("Location: ../../crop.php");
+                    pg_last_error($conn);
 
                     exit(0);
                 }
@@ -2671,7 +2676,8 @@ if (isset($_POST['draft'])) {
                 $rice_traits_id = $row_riceTraits[0];
             } else {
                 $_SESSION['message'] = "Failed to create crop.";
-                header("Location: ../../crop.php");
+                //header("Location: ../../crop.php");
+                pg_last_error($conn);
 
                 exit(0);
             }
@@ -2689,7 +2695,8 @@ if (isset($_POST['draft'])) {
                     if ($query_run_abiotic) {
                     } else {
                         $_SESSION['message'] = "Failed to create crop.";
-                        header("Location: ../../crop.php");
+                        //header("Location: ../../crop.php");
+                        pg_last_error($conn);
 
                         exit(0);
                     }
@@ -2709,7 +2716,8 @@ if (isset($_POST['draft'])) {
                     if ($query_run_disease) {
                     } else {
                         $_SESSION['message'] = "Failed to create crop.";
-                        header("Location: ../../crop.php");
+                        //header("Location: ../../crop.php");
+                        pg_last_error($conn);
 
                         exit(0);
                     }
@@ -2732,7 +2740,8 @@ if (isset($_POST['draft'])) {
                         $pest_resistance_id = $row_pest[0];
                     } else {
                         $_SESSION['message'] = "Failed to create crop.";
-                        header("Location: ../../crop.php");
+                        //header("Location: ../../crop.php");
+                        pg_last_error($conn);
 
                         exit(0);
                     }
@@ -3003,8 +3012,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Admin') {
         $aroma = isset($_POST['aroma']) ? handleEmpty($_POST['aroma']) : null;
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
-        $volume_expansion = isset($_POST['volume_expansion']) ? handleEmpty($_POST['volume_expansion']) : null;
-        $glutinous = isset($_POST['glutinous']) ? handleEmpty($_POST['glutinous']) : null;
+        $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
+        $glutinous = isset($_POST['glutinous']) ? '1' : '0';
         $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
 
         //* morphological Traits rootcrop

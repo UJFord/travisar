@@ -170,7 +170,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     $corn_pest_other_id = $cropsUpdate['corn_pest_other_id'];
                     $status_id = $cropsUpdate['status_id'];
                     $action = "Approved";
-                    $remarks = "Updating of crop data is approved.";
 
                     // update utilization cultural table
                     $query_utilCultural = "UPDATE utilization_cultural_importance SET significance = $1, \"use\" = $2, indigenous_utilization = $3,
@@ -202,10 +201,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     }
 
                     // update Status table
-                    $queryStatus = "UPDATE status set remarks= $1, action =$2 where status_id = $3";
+                    $queryStatus = "UPDATE status set action =$1 where status_id = $2";
 
                     $valueStatus = array(
-                        $remarks, $action, $status_id
+                        $action, $status_id
                     );
                     $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 
@@ -701,7 +700,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
 
                     $status_id = $cropsUpdate['status_id'];
                     $action = "Approved";
-                    $remarks = "Updating of crop data is approved.";
 
                     // update utilization cultural table
                     $query_utilCultural = "UPDATE utilization_cultural_importance SET significance = $1, \"use\" = $2, indigenous_utilization = $3,
@@ -733,10 +731,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     }
 
                     // update Status table
-                    $queryStatus = "UPDATE status set remarks= $1, action =$2 where status_id = $3";
+                    $queryStatus = "UPDATE status set action =$1 where status_id = $2";
 
                     $valueStatus = array(
-                        $remarks, $action, $status_id
+                        $action, $status_id
                     );
                     $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 
@@ -1250,7 +1248,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     $rootcrop_abiotic_other_id = $cropsUpdate['rootcrop_abiotic_other_id'];
                     $rootcrop_pest_other_id = $cropsUpdate['rootcrop_pest_other_id'];
                     $action = "Approved";
-                    $remarks = "Updating of crop data is approved.";
 
                     // update utilization cultural table
                     $query_utilCultural = "UPDATE utilization_cultural_importance SET significance = $1, \"use\" = $2, indigenous_utilization = $3,
@@ -1282,10 +1279,10 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     }
 
                     // update Status table
-                    $queryStatus = "UPDATE status set remarks= $1, action =$2 where status_id = $3";
+                    $queryStatus = "UPDATE status set action =$1 where status_id = $2";
 
                     $valueStatus = array(
-                        $remarks, $action, $status_id
+                        $action, $status_id
                     );
                     $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 

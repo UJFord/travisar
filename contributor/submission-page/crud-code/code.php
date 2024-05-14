@@ -31,7 +31,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
 
         $user_id = $_POST['user_id'];
         $action = 'Pending';
-        $remarks = 'Pending';
 
         // pest resistance other
         $pest_other = isset($_POST['pest_other']) ? true : null;
@@ -90,8 +89,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
         $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
-        $volume_expansion = isset($_POST['volume_expansion']) ? true : false;
-        $glutinous = isset($_POST['glutinous']) ? true : false;
+        $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
+        $glutinous = isset($_POST['glutinous']) ? '1' : '0';
 
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
@@ -375,10 +374,10 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
         }
 
         //insert into status table
-        $query_Status = "INSERT INTO status (action, remarks)
-                VALUES ($1, $2) RETURNING status_id";
+        $query_Status = "INSERT INTO status (action)
+                VALUES ($1) RETURNING status_id";
 
-        $value_Status = array($action, $remarks);
+        $value_Status = array($action);
         $query_run_Status = pg_query_params($conn, $query_Status, $value_Status);
 
         if ($query_run_Status) {
@@ -1016,7 +1015,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
 
         $user_id = $_POST['user_id'];
         $action = 'Approved';
-        $remarks = 'Approved';
 
         // pest resistance other
         $pest_other = isset($_POST['pest_other']) ? true : null;
@@ -1075,8 +1073,8 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
         $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
-        $volume_expansion = isset($_POST['volume_expansion']) ? true : false;
-        $glutinous = isset($_POST['glutinous']) ? true : false;
+        $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
+        $glutinous = isset($_POST['glutinous']) ? '1' : '0';
 
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
@@ -1360,10 +1358,10 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
         }
 
         //insert into status table
-        $query_Status = "INSERT INTO status (action, remarks)
-                VALUES ($1, $2) RETURNING status_id";
+        $query_Status = "INSERT INTO status (action)
+                VALUES ($1) RETURNING status_id";
 
-        $value_Status = array($action, $remarks);
+        $value_Status = array($action);
         $query_run_Status = pg_query_params($conn, $query_Status, $value_Status);
 
         if ($query_run_Status) {
@@ -1976,7 +1974,6 @@ if (isset($_POST['draft'])) {
 
         $user_id = $_POST['user_id'];
         $action = 'Draft';
-        $remarks = 'Draft';
 
         // pest resistance other
         $pest_other = isset($_POST['pest_other']) ? true : null;
@@ -2035,8 +2032,8 @@ if (isset($_POST['draft'])) {
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
         $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
-        $volume_expansion = isset($_POST['volume_expansion']) ? true : false;
-        $glutinous = isset($_POST['glutinous']) ? true : false;
+        $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
+        $glutinous = isset($_POST['glutinous']) ? '1' : '0';
 
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
@@ -2280,10 +2277,10 @@ if (isset($_POST['draft'])) {
         }
 
         //insert into status table
-        $query_Status = "INSERT INTO status (action, remarks)
-                VALUES ($1, $2) RETURNING status_id";
+        $query_Status = "INSERT INTO status (action)
+                VALUES ($1) RETURNING status_id";
 
-        $value_Status = array($action, $remarks);
+        $value_Status = array($action);
         $query_run_Status = pg_query_params($conn, $query_Status, $value_Status);
 
         if ($query_run_Status) {
@@ -2935,7 +2932,6 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Contributor') {
         // set status and get user id
         $user_id = $_POST['user_id'];
         $action = 'Updating';
-        $remarks = 'Updating, waiting for approval.';
 
         // pest resistance other
         $pest_other = isset($_POST['pest_other']) ? true : null;
@@ -3197,10 +3193,10 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Contributor') {
         }
 
         //insert into status table
-        $query_status = "INSERT INTO status (action, remarks)
-                VALUES ($1, $2) RETURNING status_id";
+        $query_status = "INSERT INTO status (action)
+                VALUES ($1) RETURNING status_id";
 
-        $value_status = array($action, $remarks);
+        $value_status = array($action);
         $query_run_status = pg_query_params($conn, $query_status, $value_status);
 
         if ($query_run_status) {
@@ -3505,8 +3501,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Contributor') {
             $quality_cooked_rice = $_POST['quality_cooked_rice'];
             $quality_leftover_rice = $_POST['quality_leftover_rice'];
             $hardness = $_POST['hardness'];
-            $glutinous = isset($_POST['glutinous']) ? true : false;
-            $volume_expansion = isset($_POST['volume_expansion']) ? true : false;
+            $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
+            $glutinous = isset($_POST['glutinous']) ? '1' : '0';
 
             // Handle rice category
             // seed traits
@@ -3934,8 +3930,8 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Contributor') {
         $quality_cooked_rice = isset($_POST['quality_cooked_rice']) ? handleEmpty($_POST['quality_cooked_rice']) : null;
         $quality_leftover_rice = isset($_POST['quality_leftover_rice']) ? handleEmpty($_POST['quality_leftover_rice']) : null;
         $volume_expansion = isset($_POST['volume_expansion']) ? handleEmpty($_POST['volume_expansion']) : null;
-        $glutinous = isset($_POST['glutinous']) ? handleEmpty($_POST['glutinous']) : null;
-        $hardness = isset($_POST['hardness']) ? handleEmpty($_POST['hardness']) : null;
+        $volume_expansion = isset($_POST['volume_expansion']) ? '1' : '0';
+        $glutinous = isset($_POST['glutinous']) ? '1' : '0';
 
         //* morphological Traits rootcrop
         // Vegetative state rootcrop
