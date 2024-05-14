@@ -94,7 +94,7 @@
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="category">Category</th>
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="variety">Variety Name</th>
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="location">Location</th>
-                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="date">Date Created</th>
+                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="date">Date of action</th>
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="status">Status</th>
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="remarks">Remarks</th>
                     <!-- <th class="col text-dark-emphasis small-font text-center" scope="col">
@@ -125,7 +125,7 @@
                 LEFT JOIN status ON status.status_id = crop.status_id
                 LEFT JOIN municipality on municipality.municipality_id = crop_location.municipality_id
                 WHERE 1=1 $search_condition $status_filter $category_filter $municipality_filter $variety_filter $terrain_filter $brgy_filter
-                ORDER BY crop.crop_id DESC 
+                ORDER BY status.status_date DESC 
                 LIMIT $items_per_page OFFSET $offset";
                 $query_run = pg_query($conn, $query);
 
