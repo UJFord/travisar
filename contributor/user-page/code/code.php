@@ -11,17 +11,21 @@ if (isset($_POST['save'])) {
         $last_name = $_POST['last_name'];
         $gender = $_POST['gender'];
         $email = $_POST['email'];
+        $contact_num = $_POST['contact_num'];
         $username = $_POST['username'];
         $password = password_hash($_POST['password'], PASSWORD_DEFAULT);
         $affiliation = $_POST['affiliation'];
         $account_type_id = $_POST['account_type_id'];
+        $affiliated_email = $_POST['affiliated_email'];
+        $affiliated_contact_num = $_POST['affiliated_contact_num'];
+
         $email_verify = $_POST['email'];
 
         // Perform the insertion query
-        $query = "INSERT into users (first_name, last_name, gender, email, username, password, affiliation, account_type_id, email_verified) 
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9)";
+        $query = "INSERT into users (first_name, last_name, gender, email, username, password, affiliation, account_type_id, email_verified, contact_num, affiliated_email, affiliated_contact_num) 
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)";
         $query_run = pg_query_params($conn, $query, array(
-            $first_name, $last_name, $gender, $email, $username, $password, $affiliation, $account_type_id, $email_verify
+            $first_name, $last_name, $gender, $email, $username, $password, $affiliation, $account_type_id, $email_verify, $contact_num, $affiliated_email, $affiliated_contact_num
         ));
 
         if ($query_run) {
@@ -123,25 +127,32 @@ if (isset($_POST['delete_user'])) {
 }
 
 if (isset($_POST['click_edit_btn'])) {
+    echo 'here';
     $user_id = $_POST['user_id'];
     $first_name = $_POST['first_nameEdit'];
     $last_name = $_POST['last_nameEdit'];
     $gender = $_POST['genderEdit'];
+    $contact_num = $_POST['contact_numEdit'];
     $email = $_POST['emailEdit'];
     $username = $_POST['usernameEdit'];
     $affiliation = $_POST['affiliationEdit'];
+    $affiliated_email = $_POST['affiliated_emailEdit'];
+    $affiliated_contact_num = $_POST['affiliated_contact_numEdit'];
     $account_type_id = $_POST['account_type_idEdit'];
 
     $select = "UPDATE users SET first_name = $1, last_name = $2, gender = $3, email = $4, username = $5, affiliation = $6,
-    account_type_id = $7 WHERE user_id = $8 ";
+    account_type_id = $7, contact_num = $8, affiliated_email = $9, affiliated_contact_num = $10 WHERE user_id = $11 ";
     $result = pg_query_params($conn, $select, array(
         $first_name, $last_name, $gender, $email, $username, $affiliation,
-        $account_type_id, $user_id
+        $account_type_id, $contact_num, $affiliated_email, $affiliated_contact_num, $user_id
     ));
     if ($result) {
+        echo $_SESSION['message'] = "User edited.";
+        echo 'saved';
         header("location: ../partners.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {
+
         echo "Error updating record"; // Display an error message if the query fails
     }
 }

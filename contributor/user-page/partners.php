@@ -168,7 +168,7 @@ require "../../functions/functions.php";
 
                         $.each(response, function(key, value) {
                             // Append options to select element
-                            //console.log(value['user_id']);
+                            console.log(value['affiliated_contact_num']);
 
                             // input elements with the new data on gen.php and loc.php
                             $('#first_nameView').text(value['first_name']);
@@ -176,9 +176,9 @@ require "../../functions/functions.php";
                             $('#genderView').text(value['gender']);
                             $('#affiliationView').text(value['affiliation']);
                             $('#emailView').text(value['email']);
-                            $('#description').text(value['crop_description']);
-                            $('#neighborhoodEdit').val(value['neighborhood']);
-                            $('#coordInput').val(value['coordinates']);
+                            $('#contact_numView').text(value['contact_num']);
+                            $('#affiliation_emailView').text(value['affiliated_email']);
+                            $('#affiliation_contact_numView').text(value['affiliated_contact_num']);
                         });
                     },
                     error: function(xhr, status, error) {

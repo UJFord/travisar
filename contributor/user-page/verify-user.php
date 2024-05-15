@@ -147,6 +147,9 @@ require "../../functions/functions.php";
                             $('#genderView').text(value['gender']);
                             $('#affiliationView').text(value['affiliation']);
                             $('#emailView').text(value['email']);
+                            $('#contact_numView').text(value['contact_num']);
+                            $('#affiliation_emailView').text(value['affiliated_email']);
+                            $('#affiliation_contact_numView').text(value['affiliated_contact_num']);
                             $('#user_idVerify').val(id);
                             $('#emailVerify').val(value['email']);
 
@@ -195,4 +198,5 @@ if (!isset($_SESSION['LOGGED_IN']) || trim($_SESSION['rank']) == 'Encoder' || tr
     exit();
 }
 ?>
+
 </html>

@@ -53,6 +53,14 @@
                                     <div id="error-messages-email"></div>
                                 </div>
 
+                                <!-- Contact # -->
+                                <div class="col">
+                                    <label for="Contact_Number" class="form-label small-font">Contact Number<span class="text-danger ms-1">*</span></label>
+                                    <input type="tel" id="Contact_Number" name="contact_num" class="form-control" placeholder="0922 523 3324" pattern="[0-9]{4} [0-9]{3} [0-9]{4}">
+                                    <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Format: 0922 523 3324</div>
+                                    <div id="error-messages-contact-number" class="text-danger"></div>
+                                </div>
+
                                 <!-- user name -->
                                 <div class="col">
                                     <label for="user-Name" class="form-label small-font">Username</label>
@@ -83,8 +91,26 @@
                             <div class="row mb-3">
                                 <!-- Affiliation -->
                                 <div class="col">
-                                    <label for="Affiliation" class="form-label small-font">Affiliation</label>
+                                    <label for="Affiliation" class="form-label small-font">Affiliation<span class="text-danger ms-1">*</span></label>
                                     <input type="text" id="Affiliation" name="affiliation" class="form-control">
+                                    <div id="error-messages-affiliation"></div>
+                                </div>
+
+                                <!-- affiliated org Email -->
+                                <div class="col">
+                                    <label for="affiliated_company_Email" class="form-label small-font">Email of Affiliated Organization<span class="text-danger ms-1">*</span></label>
+                                    <input type="text" id="affiliated_company_Email" name="affiliated_email" class="form-control">
+                                    <div id="error-messages-affiliatedEmail"></div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <!-- Org Contact # -->
+                                <div class="col">
+                                    <label for="affiliated_Contact_Number" class="form-label small-font">Contact Number of Affiliated Organization</label>
+                                    <input type="tel" id="affiliated_Contact_Number" name="affiliated_contact_num" class="form-control" placeholder="0922 523 3324" pattern="[0-9]{4} [0-9]{3} [0-9]{4}">
+                                    <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Format: 0922 523 3324</div>
+                                    <div id="error-messages-contact-number" class="text-danger"></div>
                                 </div>
                                 <!-- Account Type -->
                                 <div class="col">
@@ -134,7 +160,7 @@
     </div>
 </div>
 
-<!-- Script for limiting the input for the crop variety name -->
+<!-- Script for limiting the input for the crop variety name and contact number -->
 <script>
     // Get the input element
     var firstElement = document.getElementById('first-Name');
@@ -173,6 +199,26 @@
             e.preventDefault();
         }
     });
+
+    document.getElementById('Contact_Number').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, ''); // Remove non-digit characters
+        if (value.length > 11) {
+            value = value.slice(0, 11); // Limit to 11 digits
+        }
+        // Add spaces after the 4th and 7th digits
+        value = value.replace(/(\d{4})(\d{3})(\d{0,4})/, '$1 $2 $3').trim();
+        e.target.value = value;
+    });
+
+    document.getElementById('affiliated_Contact_Number').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, ''); // Remove non-digit characters
+        if (value.length > 11) {
+            value = value.slice(0, 11); // Limit to 11 digits
+        }
+        // Add spaces after the 4th and 7th digits
+        value = value.replace(/(\d{4})(\d{3})(\d{0,4})/, '$1 $2 $3').trim();
+        e.target.value = value;
+    });
 </script>
 
 <!-- for submission -->
@@ -198,9 +244,12 @@
         var firstName = document.forms["Form"]["first_name"].value;
         var lastName = document.forms["Form"]["last_name"].value;
         var email = document.forms["Form"]["email"].value;
+        var contact_num = document.forms["Form"]["contact_num"].value;
         var password = document.forms["Form"]["password"].value;
         var confirmPassword = document.forms["Form"]["confirm_password"].value;
         var accountType = document.forms["Form"]["AccountType"].value;
+        var affiliation = document.forms["Form"]["affiliation"].value;
+        var affiliated_Email = document.forms["Form"]["affiliated_email"].value;
 
         var isValid = true;
 
@@ -230,6 +279,15 @@
         } else {
             document.getElementById("error-messages-email").innerHTML = "";
             document.getElementById('Email').classList.remove('is-invalid'); // Remove 'is-invalid' class if valid
+        }
+
+        if (contact_num === "") {
+            document.getElementById("error-messages-contact-number").innerHTML = "<div class='error text-center small-font' style='color:red;'>Please enter your contact number.</div>";
+            document.getElementById('Contact_Number').classList.add('is-invalid'); // Add 'is-invalid' class to input
+            isValid = false;
+        } else {
+            document.getElementById("error-messages-contact-number").innerHTML = "";
+            document.getElementById('Contact_Number').classList.remove('is-invalid'); // Remove 'is-invalid' class if valid
         }
 
         if (password === "") {
@@ -263,6 +321,24 @@
             document.getElementById('AccountType').classList.remove('is-invalid'); // Remove 'is-invalid' class if valid
         }
 
+        if (affiliation === "") {
+            document.getElementById("error-messages-affiliation").innerHTML = "<div class='error text-center small-font' style='color:red;'>Please enter your affiliation.</div>";
+            document.getElementById('Affiliation').classList.add('is-invalid'); // Add 'is-invalid' class to select
+            isValid = false;
+        } else {
+            document.getElementById("error-messages-affiliation").innerHTML = "";
+            document.getElementById('Affiliation').classList.remove('is-invalid'); // Remove 'is-invalid' class if valid
+        }
+
+        if (affiliated_Email === "") {
+            document.getElementById("error-messages-affiliatedEmail").innerHTML = "<div class='error text-center small-font' style='color:red;'>Please enter your affiliated organization email.</div>";
+            document.getElementById('affiliated_company_Email').classList.add('is-invalid'); // Add 'is-invalid' class to select
+            isValid = false;
+        } else {
+            document.getElementById("error-messages-affiliatedEmail").innerHTML = "";
+            document.getElementById('affiliated_company_Email').classList.remove('is-invalid'); // Remove 'is-invalid' class if valid
+        }
+
         // Validate first name
         if (!/^[a-zA-Z ]+$/.test(firstName)) {
             document.getElementById("error-messages-first").innerHTML = "<div class='error text-center small-font' style='color:red;'>Please enter a valid first name.</div>";
@@ -291,6 +367,16 @@
         } else {
             document.getElementById("error-messages-email").innerHTML = "";
             document.getElementById('Email').classList.remove('is-invalid'); // Remove 'is-invalid' class if valid
+        }
+
+        // Validate affiliated org email
+        if (!/^[^\s@]+@[^\s@]+\.[^\s@]+$/.test(affiliated_Email)) {
+            document.getElementById("error-messages-affiliatedEmail").innerHTML = "<div class='error text-center small-font' style='color:red;'>Please enter a valid email.</div>";
+            document.getElementById('affiliated_company_Email').classList.add('is-invalid'); // Add 'is-invalid' class to input
+            isValid = false;
+        } else {
+            document.getElementById("error-messages-affiliatedEmail").innerHTML = "";
+            document.getElementById('affiliated_company_Email').classList.remove('is-invalid'); // Remove 'is-invalid' class if valid
         }
 
         // Validate password length

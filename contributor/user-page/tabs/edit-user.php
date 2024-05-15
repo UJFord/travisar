@@ -49,6 +49,13 @@
                                     <label for="EmailEdit" class="form-label small-font">Email<span style="color: red;">*</span></label>
                                     <input type="text" id="EmailEdit" name="emailEdit" class="form-control">
                                 </div>
+
+                                <!-- Contact # -->
+                                <div class="col">
+                                    <label for="Contact_NumberEdit" class="form-label small-font">Contact Number<span class="text-danger ms-1">*</span></label>
+                                    <input type="tel" id="Contact_NumberEdit" name="contact_numEdit" class="form-control" placeholder="0922 523 3324" pattern="[0-9]{4} [0-9]{3} [0-9]{4}">
+                                    <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Format: 0922 523 3324</div>
+                                </div>
                                 <!-- user name -->
                                 <div class="col">
                                     <label for="user-NameEdit" class="form-label small-font">Username</label>
@@ -63,6 +70,24 @@
                                     <label for="AffiliationEdit" class="form-label small-font">Affiliation</label>
                                     <input type="text" id="AffiliationEdit" name="affiliationEdit" class="form-control">
                                 </div>
+
+                                <!-- affiliated org Email -->
+                                <div class="col">
+                                    <label for="affiliated_company_EmailEdit" class="form-label small-font">Email of Affiliated Organization<span class="text-danger ms-1">*</span></label>
+                                    <input type="text" id="affiliated_company_EmailEdit" name="affiliated_emailEdit" class="form-control">
+                                    <div id="error-messages-affiliatedEmail"></div>
+                                </div>
+                            </div>
+
+                            <div class="row mb-3">
+                                <!-- Org Contact # -->
+                                <div class="col">
+                                    <label for="affiliated_Contact_NumberEdit" class="form-label small-font">Contact Number of Affiliated Organization</label>
+                                    <input type="tel" id="affiliated_Contact_NumberEdit" name="affiliated_contact_numEdit" class="form-control" placeholder="0922 523 3324" pattern="[0-9]{4} [0-9]{3} [0-9]{4}">
+                                    <div id="coords-help" class="form-text mb-2" style="font-size: 0.6rem;">Format: 0922 523 3324</div>
+                                    <div id="error-messages-contact-number" class="text-danger"></div>
+                                </div>
+
                                 <!-- Account Type -->
                                 <div class="col">
                                     <label for="Account_TypeEdit" class="form-label small-font">Account Type<span style="color: red;">*</span></label>
@@ -109,18 +134,39 @@
         </div>
     </div>
 </div>
+<!-- SCRIPT FOR CONTACT NUMBER -->
+<script>
+    document.getElementById('Contact_NumberEdit').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, ''); // Remove non-digit characters
+        if (value.length > 11) {
+            value = value.slice(0, 11); // Limit to 11 digits
+        }
+        // Add spaces after the 4th and 7th digits
+        value = value.replace(/(\d{4})(\d{3})(\d{0,4})/, '$1 $2 $3').trim();
+        e.target.value = value;
+    });
 
+    document.getElementById('affiliated_Contact_NumberEdit').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, ''); // Remove non-digit characters
+        if (value.length > 11) {
+            value = value.slice(0, 11); // Limit to 11 digits
+        }
+        // Add spaces after the 4th and 7th digits
+        value = value.replace(/(\d{4})(\d{3})(\d{0,4})/, '$1 $2 $3').trim();
+        e.target.value = value;
+    });
+</script>
 <!-- for submission -->
 <script>
     // Function to set up event listeners for the modal
     function setupModalEventListenersEdit() {
         // Remove event listeners to prevent duplication
         //document.getElementById('rejectButton').removeEventListener('click', closeModalEdit);
-        document.getElementById('deleteButton').removeEventListener('click', deleteModalEdit);
+        //document.getElementById('deleteButton').removeEventListener('click', deleteModalEdit);
 
         // add Event listener for the button
         //document.getElementById('rejectButton').addEventListener('click', closeModalEdit);
-        document.getElementById('deleteButton').addEventListener('click', deleteModalEdit);
+        //document.getElementById('deleteButton').addEventListener('click', deleteModalEdit);
     }
     // Global variable to store the modal instance
     var confirmModalInstanceEdit;
@@ -197,9 +243,9 @@
         document.getElementById('delete-label').style.display = 'block';
     }
     // Event listener for when the modal is shown
-    document.getElementById('edit-item-modal-user').addEventListener('shown.bs.modal', function() {
-        setupModalEventListenersEdit();
-    });
+    // document.getElementById('edit-item-modal-user').addEventListener('shown.bs.modal', function() {
+    //     setupModalEventListenersEdit();
+    // });
 
     // Event listener for when the confirmation modal is hidden
     document.getElementById('confirmModalEdit').addEventListener('hidden.bs.modal', function() {
@@ -357,10 +403,13 @@
                         $('#last-NameEdit').val(value['last_name']);
                         $('#GenderEdit').val(value['gender']);
                         $('#EmailEdit').val(value['email']);
+                        $('#Contact_NumberEdit').val(value['contact_num']);
                         $('#user-NameEdit').val(value['username']);
                         $('#AffiliationEdit').val(value['affiliation']);
+                        $('#affiliated_company_EmailEdit').val(value['affiliated_email']);
+                        $('#affiliated_Contact_NumberEdit').val(value['affiliated_contact_num']);
                         $('#Account_TypeEdit').append($('<option>', {
-                            value: value['type_id'],
+                            value: value['account_type_id'],
                             text: value['type_name'],
                             hidden: true,
                             selected: true

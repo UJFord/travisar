@@ -65,11 +65,17 @@ switch ($current_page_path) {
 
 if(isset($_SESSION['USER']['user_id'])){
     $user_id = $_SESSION['USER']['user_id'];
-}
-$find_notifications = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id WHERE active = true AND crop.user_id = $user_id";
-$result = pg_query($conn, $find_notifications);
-if (!$result) {
-    die("Error in query: " . pg_last_error());
+    $find_notifications = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id WHERE active = true AND crop.user_id = $user_id";
+    $result = pg_query($conn, $find_notifications);
+    if (!$result) {
+        die("Error in query: " . pg_last_error());
+    }
+}else{
+    $find_notifications = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id WHERE active = true";
+    $result = pg_query($conn, $find_notifications);
+    if (!$result) {
+        die("Error in query: " . pg_last_error());
+    }
 }
 
 $count_active = '';

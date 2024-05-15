@@ -1,4 +1,3 @@
-
 <!-- STYLE -->
 <style>
 </style>
@@ -23,13 +22,13 @@
                             <div class="row mb-3 location-brgy">
                                 <!-- first name -->
                                 <div class="col-5">
-                                    <label for="first_nameView" class="form-label small-font"><strong>First Name:</strong></label>
+                                    <label for="first_nameView" class="form-label"><strong>First Name:</strong></label>
                                     <h6 id="first_nameView"></h6>
                                 </div>
 
                                 <!-- last name -->
                                 <div class="col-5">
-                                    <label for="last_nameView" class="form-label small-font"><strong>Last Name:</strong></label>
+                                    <label for="last_nameView" class="form-label"><strong>Last Name:</strong></label>
                                     <h6 id="last_nameView"></h6>
                                 </div>
                             </div>
@@ -37,21 +36,41 @@
                             <!-- Gender, Email, and Affiliation name -->
                             <div class="row mb-3 location-brgy">
                                 <!-- Gender -->
-                                <div class="col-5">
-                                    <label for="genderView" class="form-label small-font"><strong>Gender:</strong></label>
+                                <div class="col">
+                                    <label for="genderView" class="form-label"><strong>Gender:</strong></label>
                                     <h6 id="genderView"></h6>
                                 </div>
 
                                 <!-- Email -->
-                                <div class="col-5">
-                                    <label for="emailView" class="form-label small-font"><strong>Email:</strong></label>
+                                <div class="col">
+                                    <label for="emailView" class="form-label"><strong>Email:</strong></label>
                                     <h6 id="emailView"></h6>
                                 </div>
+
+                                <!-- contact info -->
+                                <div class="col">
+                                    <label for="contact_numView" class="form-label"><strong>Contact Number:</strong></label>
+                                    <h6 id="contact_numView"></h6>
+                                </div>
                             </div>
-                            <!-- Affiliation -->
-                            <div class="col-5">
-                                <label for="affiliationView" class="form-label small-font"><strong>Affiliation:</strong></label>
-                                <h6 id="affiliationView"></h6>
+                            <div class="row mb-3">
+                                <!-- Affiliation -->
+                                <div class="col">
+                                    <label for="affiliationView" class="form-label"><strong>Affiliation:</strong></label>
+                                    <h6 id="affiliationView"></h6>
+                                </div>
+
+                                <!-- Affiliation email -->
+                                <div class="col">
+                                    <label for="affiliation_emailView" class="form-label"><strong>Affiliated Org Email:</strong></label>
+                                    <h6 id="affiliation_emailView"></h6>
+                                </div>
+
+                                <!-- Affiliation contact number -->
+                                <div class="col">
+                                    <label for="affiliation_contact_numView" class="form-label"><strong>Affiliated Org Contact:</strong></label>
+                                    <h6 id="affiliation_contact_numView"></h6>
+                                </div>
                             </div>
                         </div>
                     </div>
