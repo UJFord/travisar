@@ -1,12 +1,12 @@
 <?php
 session_start();
 require "../../functions/connections.php";
-
+//var_dump($_POST);
 // Ensure POST request contains the expected action
 if (isset($_POST['action']) && $_POST['action'] == 'approve') {
     $crop_id = $_POST['crop_id'];
-    $crop_variety = $_POST['crop_variety'];
-
+    $crop_variety = $_POST['current_crop_variety'];
+    //die();
     // Update the status
     $update_query = "
         UPDATE status

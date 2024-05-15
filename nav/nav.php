@@ -59,11 +59,50 @@ switch ($current_page_path) {
         $current_page_isProfile = true;
         break;
 }
+
+// Fetch active notifications
+// para sa mga na approved ni na submission
+
+if(isset($_SESSION['USER']['user_id'])){
+    $user_id = $_SESSION['USER']['user_id'];
+}
+$find_notifications = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id WHERE active = true AND crop.user_id = $user_id";
+$result = pg_query($conn, $find_notifications);
+if (!$result) {
+    die("Error in query: " . pg_last_error());
+}
+
+$count_active = '';
+$notifications_data = array();
+$deactive_notifications_dump = array();
+$count_active = pg_num_rows($result);
+while ($rows = pg_fetch_assoc($result)) {
+    $notifications_data[] = array(
+        "notification_id" => $rows['notification_id'],
+        "notification_name" => $rows['notification_name'],
+        "message" => $rows['message']
+    );
+}
+
+// Fetch only five specific posts with active = 0
+$deactive_notifications = "SELECT * FROM notification WHERE active = false ORDER BY notification_id DESC LIMIT 5";
+$result = pg_query($conn, $deactive_notifications);
+if (!$result) {
+    die("Error in query: " . pg_last_error());
+}
+
+while ($rows = pg_fetch_assoc($result)) {
+    $deactive_notifications_dump[] = array(
+        "notification_id" => $rows['notification_id'],
+        "notification_name" => $rows['notification_name'],
+        "message" => $rows['message']
+    );
+}
 ?>
 <!-- Jquery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
 
-<!-- function for notification for approval of crops and users -->
+<!-- function for notification for pending approval of crops and users -->
 <script>
     // Define the load_unseen_notification function globally
     function load_unseen_notification(view = '') {
@@ -94,58 +133,6 @@ switch ($current_page_path) {
     // Call the function when the document is ready
     $(document).ready(function() {
         load_unseen_notification();
-    });
-</script>
-
-<!-- script for notification bell -->
-<script>
-    $(document).ready(function() {
-        function load_unseen_notification(view = '') {
-            $.ajax({
-                url: "<?php echo BASE_URL . '/nav/fetch-notif/fetch-notif.php'; ?>",
-                method: "POST",
-                data: {
-                    view: view
-                },
-                dataType: "json",
-                success: function(data) {
-                    $('.count').html(data.count_active);
-
-                    let notificationsHTML = '';
-                    $.each(data.notifications, function(index, notification) {
-                        notificationsHTML += `<li class="message" data-id="${notification.notification_id}">
-                        <span>${notification.notification_name}</span>
-                        <div class="msg">${notification.message}</div>
-                    </li>`;
-                    });
-                    $('#notif').next('.dropdown-menu').html(notificationsHTML);
-                }
-            });
-        }
-
-        load_unseen_notification();
-
-        $('#notif').on('click', function() {
-            if ($('.round').data('value') !== '') {
-                $(".round").hide();
-                $(this).next('.dropdown-menu').toggle();
-            }
-        });
-
-        $(document).on('click', '.message', function() {
-            let notification_id = $(this).data('id');
-            $.ajax({
-                url: '<?php echo BASE_URL . '/nav/fetch-notif/deactivate.php'; ?>',
-                type: 'POST',
-                data: {
-                    id: notification_id
-                },
-                success: function(data) {
-                    console.log(data);
-                    load_unseen_notification(); // Reload notifications after deactivation
-                }
-            });
-        });
     });
 </script>
 
@@ -357,29 +344,36 @@ switch ($current_page_path) {
                         </ul>
                     </div>
 
-                    <!-- notification -->
-                    <div class="nav-item me-3">
-                        <a class="nav-link" role="button" id="notif" data-bs-toggle="dropdown" aria-expanded="false">
-                            <i class="fa-solid fa-bell"></i>
-                            <?php if ($count_active != 0) { ?>
-                                <div class="round" data-value="<?= $count_active ?>"><?= $count_active ?></div>
-                            <?php } ?>
-                        </a>
-                        <ul class="dropdown-menu" aria-labelledby="notif" id="list">
-                            <?php foreach ($notifications_data as $notification) { ?>
-                                <li class="message" data-id="<?php echo $notification['notification_id']; ?>">
-                                    <span><?= $notification['notification_name'] ?></span>
-                                    <div class="msg"><?= $notification['message'] ?></div>
-                                </li>
-                            <?php } ?>
-                            <?php foreach ($deactive_notifications_dump as $notification) { ?>
-                                <li class="message" data-id="<?php echo $notification['notification_id']; ?>">
-                                    <span><?= $notification['notification_name'] ?></span>
-                                    <div class="msg"><?= $notification['message'] ?></div>
-                                </li>
-                            <?php } ?>
-                        </ul>
-                    </div>
+                    <?php if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Contributor') : ?>
+                        <!-- notification -->
+                        <div class="nav-item me-3">
+                            <a class="nav-link" role="button" id="notif" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-bell"></i>
+                                <?php if ($count_active != 0) { ?>
+                                    <div class="round" data-value="<?= $count_active ?>"><?= $count_active ?></div>
+                                <?php } ?>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="notif" id="list">
+                                <?php if (count($notifications_data) > 0) { ?>
+                                    <?php foreach ($notifications_data as $notification) { ?>
+                                        <li class="message" data-id="<?= $notification['notification_id']; ?>">
+                                            <span><?= $notification['notification_name'] ?></span>
+                                            <div class="msg"><?= $notification['message'] ?></div>
+                                        </li>
+                                    <?php } ?>
+                                <?php } else { ?>
+                                    <?php foreach ($deactive_notifications_dump as $notification) { ?>
+                                        <li class="message" data-id="<?= $notification['notification_id']; ?>">
+                                            <span><?= $notification['notification_name'] ?></span>
+                                            <div class="msg"><?= $notification['message'] ?></div>
+                                        </li>
+                                    <?php } ?>
+                                <?php } ?>
+                            </ul>
+                        </div>
+
+                    <?php endif; ?>
+
                     <!-- user profile -->
                     <div class="nav-item fw-semibold me-2 dropdown">
                         <a href="" id="profile-btn" class="nav-link dropdown-toggle  <?php if ($current_page_isProfile) {
@@ -431,3 +425,36 @@ switch ($current_page_path) {
 <script src="<?php echo BASE_URL . '/js/access-control.js'; ?>" defer></script>
 <!-- script for access js -->
 <script src="<?php echo BASE_URL . '/js/access.js'; ?>" defer></script>
+
+<!-- script for notification bell -->
+<script>
+    $(document).ready(function() {
+        $('#notif').on('click', function() {
+            $('#list').toggle();
+        });
+
+        $('.message').on('click', function(e) {
+            e.preventDefault();
+            let notificationId = $(this).data('id');
+
+            $.ajax({
+                url: '<?php echo BASE_URL . '/nav/deactivate.php'; ?>',
+                type: 'POST',
+                data: {
+                    id: notificationId
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response === 'success') {
+                        location.reload();
+                    } else {
+                        alert('Failed to update notification');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>
