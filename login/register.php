@@ -112,6 +112,15 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
 
+                    <!-- contact_num -->
+                    <div class="form-floating mb-3">
+                        <input type="tel" class="fs-6 form-control rounded-4" id="reg-contact_num" name="contact_num" placeholder="Contact Number" required>
+                        <label for="reg-contact_num" class="fs-6">Contact Number</label>
+                        <div id="contact_num-error" class="invalid-feedback">
+                            Please enter your contact number.
+                        </div>
+                    </div>
+
                     <!-- password -->
                     <div class="form-floating mb-3">
                         <input type="password" class="fs-6 form-control rounded-4" id="reg-pass" name="password" placeholder="Password" required>
@@ -140,6 +149,24 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <label for="reg-affiliation" class="fs-6">Affiliation</label>
                         <div class="invalid-feedback">
                             Please provide affiliation.
+                        </div>
+                    </div>
+
+                    <!-- affiliation email -->
+                    <div class="form-floating mb-3">
+                        <input type="email" class="fs-6 form-control rounded-4" id="reg-affiliation_email" name="affiliated_email" placeholder="Affiliated Organizational Email" required>
+                        <label for="reg-affiliation_email" class="fs-6">Affiliated Organizational Email</label>
+                        <div class="invalid-feedback">
+                            Please provide email of affiliated organization.
+                        </div>
+                    </div>
+
+                    <!-- affiliation contact number -->
+                    <div class="form-floating mb-3">
+                        <input type="tel" class="fs-6 form-control rounded-4" id="reg-affiliation_contactNum" name="affiliated_contact_num" placeholder="Affiliated Contact Number" required>
+                        <label for="reg-affiliation_contactNum" class="fs-6">Affiliated Contact Number</label>
+                        <div class="invalid-feedback">
+                            Please provide contact number of affiliated organization.
                         </div>
                     </div>
 
@@ -228,6 +255,29 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             }, false)
         })
     })()
+</script>
+
+<!-- for making user that the contact number is only number and limited to 11 -->
+<script>
+    document.getElementById('reg-contact_num').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, ''); // Remove non-digit characters
+        if (value.length > 11) {
+            value = value.slice(0, 11); // Limit to 11 digits
+        }
+        // Add spaces after the 4th and 7th digits
+        value = value.replace(/(\d{4})(\d{3})(\d{0,4})/, '$1 $2 $3').trim();
+        e.target.value = value;
+    });
+
+    document.getElementById('reg-affiliation_contactNum').addEventListener('input', function(e) {
+        let value = e.target.value.replace(/\D/g, ''); // Remove non-digit characters
+        if (value.length > 11) {
+            value = value.slice(0, 11); // Limit to 11 digits
+        }
+        // Add spaces after the 4th and 7th digits
+        value = value.replace(/(\d{4})(\d{3})(\d{0,4})/, '$1 $2 $3').trim();
+        e.target.value = value;
+    });
 </script>
 
 </html>
