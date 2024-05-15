@@ -22,87 +22,87 @@ switch ($current_page_path) {
     case "/travisar/visitor/home.php":
         $current_page_isHome = true;
         break;
-
     case "/travisar/visitor/about/sar.php":
-        $current_page_isAbout = true;
     case "/travisar/visitor/about/collab.php":
-        $current_page_isAbout = true;
     case "/travisar/visitor/about/travis.php":
         $current_page_isAbout = true;
         break;
-
     case "/travisar/visitor/crop.php":
-        $current_page_isCrop = true;
-        break;
     case "/travisar/visitor/corn.php":
-        $current_page_isCrop = true;
-        break;
     case "/travisar/visitor/all.php":
-        $current_page_isCrop = true;
-        break;
     case "/travisar/visitor/rice.php":
-        $current_page_isCrop = true;
-        break;
     case "/travisar/visitor/root.php":
-        $current_page_isCrop = true;
-        break;
     case "/travisar/visitor/view.php":
         $current_page_isCrop = true;
         break;
-
     case "/travisar/contributor/crop-page/category-variety.php":
-        $current_page_isSettings = true;
-        break;
     case "/travisar/contributor/crop-page/crop-category.php":
-        $current_page_isSettings = true;
-        break;
     case "/travisar/contributor/crop-page/abiotic-resistance.php":
-        $current_page_isSettings = true;
-        break;
     case "/travisar/contributor/crop-page/disease-resistance.php":
-        $current_page_isSettings = true;
-        break;
     case "/travisar/contributor/crop-page/pest-resistance.php":
-        $current_page_isSettings = true;
-        break;
     case "/travisar/contributor/location-page/municipality.php":
-        $current_page_isSettings = true;
-        break;
     case "/travisar/contributor/location-page/barangay.php":
-        $current_page_isSettings = true;
-        break;
     case "/travisar/contributor/user-page/partners.php":
-        $current_page_isSettings = true;
-        break;
     case "/travisar/contributor/user-page/verify-user.php":
         $current_page_isSettings = true;
         break;
-
     case "/travisar/contributor/submission-page/submission.php":
         $current_page_isSubmission = true;
         break;
-
     case "/travisar/contributor/crop-page/crop.php":
-        $current_page_isManagement = true;
-        break;
     case "/travisar/contributor/approval-page/pending.php":
-        $current_page_isManagement = true;
-        break;
     case "/travisar/contributor/approval-page/approved.php":
-        $current_page_isManagement = true;
-        break;
     case "/travisar/contributor/approval-page/rejected.php":
         $current_page_isManagement = true;
         break;
-
     case "/travisar/login/profile.php":
         $current_page_isProfile = true;
         break;
 }
+
+// Fetch active notifications
+// para sa mga na approved ni na submission
+
+if(isset($_SESSION['USER']['user_id'])){
+    $user_id = $_SESSION['USER']['user_id'];
+}
+$find_notifications = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id WHERE active = true AND crop.user_id = $user_id";
+$result = pg_query($conn, $find_notifications);
+if (!$result) {
+    die("Error in query: " . pg_last_error());
+}
+
+$count_active = '';
+$notifications_data = array();
+$deactive_notifications_dump = array();
+$count_active = pg_num_rows($result);
+while ($rows = pg_fetch_assoc($result)) {
+    $notifications_data[] = array(
+        "notification_id" => $rows['notification_id'],
+        "notification_name" => $rows['notification_name'],
+        "message" => $rows['message']
+    );
+}
+
+// Fetch only five specific posts with active = 0
+$deactive_notifications = "SELECT * FROM notification WHERE active = false ORDER BY notification_id DESC LIMIT 5";
+$result = pg_query($conn, $deactive_notifications);
+if (!$result) {
+    die("Error in query: " . pg_last_error());
+}
+
+while ($rows = pg_fetch_assoc($result)) {
+    $deactive_notifications_dump[] = array(
+        "notification_id" => $rows['notification_id'],
+        "notification_name" => $rows['notification_name'],
+        "message" => $rows['message']
+    );
+}
 ?>
 <!-- Jquery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-<!-- function for notification for approval of crops and users -->
+
+<!-- function for notification for pending approval of crops and users -->
 <script>
     // Define the load_unseen_notification function globally
     function load_unseen_notification(view = '') {
@@ -135,6 +135,62 @@ switch ($current_page_path) {
         load_unseen_notification();
     });
 </script>
+
+<style>
+    .round {
+        width: 20px;
+        height: 20px;
+        border-radius: 50%;
+        position: relative;
+        background: red;
+        display: inline-block;
+        padding: 0.3rem 0.2rem !important;
+        margin: 0.3rem 0.2rem !important;
+        left: -18px;
+        top: 10px;
+        z-index: 99 !important;
+    }
+
+    .round>span {
+        color: white;
+        display: block;
+        text-align: center;
+        font-size: 1rem !important;
+        padding: 0 !important;
+    }
+
+    .message>span {
+        width: 100%;
+        display: block;
+        color: red;
+        text-align: justify;
+        margin: 0.2rem 0.3rem !important;
+        padding: 0.3rem !important;
+        line-height: 1rem !important;
+        font-weight: bold;
+        border-bottom: 1px solid white;
+        font-size: 1.8rem !important;
+    }
+
+    .message {
+        /* background:#ff7f50;
+        margin:0.3rem 0.2rem !important;
+        padding:0.2rem 0 !important;
+        width:100%;
+        display:block; */
+    }
+
+    .message>.msg {
+        width: 90%;
+        margin: 0.2rem 0.3rem !important;
+        padding: 0.2rem 0.2rem !important;
+        text-align: justify;
+        font-weight: bold;
+        display: block;
+        word-wrap: break-word;
+
+    }
+</style>
 <!-- NAVBAR -->
 <div class="navbar navbar-dark navbar-expand-md" id="main-nav">
     <div class="container">
@@ -208,7 +264,6 @@ switch ($current_page_path) {
                                                             echo "active";
                                                         } ?>" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/submission-page/submission.php'; ?>">My Listings</a>
                     </div>
-
                     <!-- crop management -->
                     <div class="nav-item fw-semibold me-2 dropdown curator-only">
 
@@ -289,6 +344,36 @@ switch ($current_page_path) {
                         </ul>
                     </div>
 
+                    <?php if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Contributor') : ?>
+                        <!-- notification -->
+                        <div class="nav-item me-3">
+                            <a class="nav-link" role="button" id="notif" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-bell"></i>
+                                <?php if ($count_active != 0) { ?>
+                                    <div class="round" data-value="<?= $count_active ?>"><?= $count_active ?></div>
+                                <?php } ?>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="notif" id="list">
+                                <?php if (count($notifications_data) > 0) { ?>
+                                    <?php foreach ($notifications_data as $notification) { ?>
+                                        <li class="message" data-id="<?= $notification['notification_id']; ?>">
+                                            <span><?= $notification['notification_name'] ?></span>
+                                            <div class="msg"><?= $notification['message'] ?></div>
+                                        </li>
+                                    <?php } ?>
+                                <?php } else { ?>
+                                    <?php foreach ($deactive_notifications_dump as $notification) { ?>
+                                        <li class="message" data-id="<?= $notification['notification_id']; ?>">
+                                            <span><?= $notification['notification_name'] ?></span>
+                                            <div class="msg"><?= $notification['message'] ?></div>
+                                        </li>
+                                    <?php } ?>
+                                <?php } ?>
+                            </ul>
+                        </div>
+
+                    <?php endif; ?>
+
                     <!-- user profile -->
                     <div class="nav-item fw-semibold me-2 dropdown">
                         <a href="" id="profile-btn" class="nav-link dropdown-toggle  <?php if ($current_page_isProfile) {
@@ -340,3 +425,36 @@ switch ($current_page_path) {
 <script src="<?php echo BASE_URL . '/js/access-control.js'; ?>" defer></script>
 <!-- script for access js -->
 <script src="<?php echo BASE_URL . '/js/access.js'; ?>" defer></script>
+
+<!-- script for notification bell -->
+<script>
+    $(document).ready(function() {
+        $('#notif').on('click', function() {
+            $('#list').toggle();
+        });
+
+        $('.message').on('click', function(e) {
+            e.preventDefault();
+            let notificationId = $(this).data('id');
+
+            $.ajax({
+                url: '<?php echo BASE_URL . '/nav/deactivate.php'; ?>',
+                type: 'POST',
+                data: {
+                    id: notificationId
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response === 'success') {
+                        location.reload();
+                    } else {
+                        alert('Failed to update notification');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+    });
+</script>
