@@ -1,6 +1,4 @@
 <?php
-require "../functions/connections.php";
-
 // Define the base URL of your local server
 define('BASE_URL', 'http://localhost/travisar');
 
@@ -24,123 +22,46 @@ switch ($current_page_path) {
     case "/travisar/visitor/home.php":
         $current_page_isHome = true;
         break;
-
     case "/travisar/visitor/about/sar.php":
-        $current_page_isAbout = true;
     case "/travisar/visitor/about/collab.php":
-        $current_page_isAbout = true;
     case "/travisar/visitor/about/travis.php":
         $current_page_isAbout = true;
         break;
-
     case "/travisar/visitor/crop.php":
-        $current_page_isCrop = true;
-        break;
     case "/travisar/visitor/corn.php":
-        $current_page_isCrop = true;
-        break;
     case "/travisar/visitor/all.php":
-        $current_page_isCrop = true;
-        break;
     case "/travisar/visitor/rice.php":
-        $current_page_isCrop = true;
-        break;
     case "/travisar/visitor/root.php":
-        $current_page_isCrop = true;
-        break;
     case "/travisar/visitor/view.php":
         $current_page_isCrop = true;
         break;
-
     case "/travisar/contributor/crop-page/category-variety.php":
-        $current_page_isSettings = true;
-        break;
     case "/travisar/contributor/crop-page/crop-category.php":
-        $current_page_isSettings = true;
-        break;
     case "/travisar/contributor/crop-page/abiotic-resistance.php":
-        $current_page_isSettings = true;
-        break;
     case "/travisar/contributor/crop-page/disease-resistance.php":
-        $current_page_isSettings = true;
-        break;
     case "/travisar/contributor/crop-page/pest-resistance.php":
-        $current_page_isSettings = true;
-        break;
     case "/travisar/contributor/location-page/municipality.php":
-        $current_page_isSettings = true;
-        break;
     case "/travisar/contributor/location-page/barangay.php":
-        $current_page_isSettings = true;
-        break;
     case "/travisar/contributor/user-page/partners.php":
-        $current_page_isSettings = true;
-        break;
     case "/travisar/contributor/user-page/verify-user.php":
         $current_page_isSettings = true;
         break;
-
     case "/travisar/contributor/submission-page/submission.php":
         $current_page_isSubmission = true;
         break;
-
     case "/travisar/contributor/crop-page/crop.php":
-        $current_page_isManagement = true;
-        break;
     case "/travisar/contributor/approval-page/pending.php":
-        $current_page_isManagement = true;
-        break;
     case "/travisar/contributor/approval-page/approved.php":
-        $current_page_isManagement = true;
-        break;
     case "/travisar/contributor/approval-page/rejected.php":
         $current_page_isManagement = true;
         break;
-
     case "/travisar/login/profile.php":
         $current_page_isProfile = true;
         break;
 }
-
-// Fetch active notifications
-$find_notifications = "SELECT * FROM notification WHERE active = true";
-$result = pg_query($conn, $find_notifications);
-if (!$result) {
-    die("Error in query: " . pg_last_error());
-}
-
-$count_active = '';
-$notifications_data = array();
-$deactive_notifications_dump = array();
-$count_active = pg_num_rows($result);
-while ($rows = pg_fetch_assoc($result)) {
-    $notifications_data[] = array(
-        "notification_id" => $rows['notification_id'],
-        "notification_name" => $rows['notification_name'],
-        "message" => $rows['message']
-    );
-}
-
-// Fetch only five specific posts with active = 0
-$deactive_notifications = "SELECT * FROM notification WHERE active = false ORDER BY notification_id DESC LIMIT 5";
-$result = pg_query($conn, $deactive_notifications);
-if (!$result) {
-    die("Error in query: " . pg_last_error());
-}
-
-while ($rows = pg_fetch_assoc($result)) {
-    $deactive_notifications_dump[] = array(
-        "notification_id" => $rows['notification_id'],
-        "notification_name" => $rows['notification_name'],
-        "message" => $rows['message']
-    );
-}
 ?>
 <!-- Jquery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/4.7.0/css/font-awesome.min.css">
-<script src="<?php echo BASE_URL . '/nav/assets/js/jquery.min.js'; ?>" defer></script>
-<script src="<?php echo BASE_URL . '/nav/assets/js/bootstrap.min.js'; ?>" defer></script>
 
 <!-- function for notification for approval of crops and users -->
 <script>
@@ -173,6 +94,58 @@ while ($rows = pg_fetch_assoc($result)) {
     // Call the function when the document is ready
     $(document).ready(function() {
         load_unseen_notification();
+    });
+</script>
+
+<!-- script for notification bell -->
+<script>
+    $(document).ready(function() {
+        function load_unseen_notification(view = '') {
+            $.ajax({
+                url: "<?php echo BASE_URL . '/nav/fetch-notif/fetch-notif.php'; ?>",
+                method: "POST",
+                data: {
+                    view: view
+                },
+                dataType: "json",
+                success: function(data) {
+                    $('.count').html(data.count_active);
+
+                    let notificationsHTML = '';
+                    $.each(data.notifications, function(index, notification) {
+                        notificationsHTML += `<li class="message" data-id="${notification.notification_id}">
+                        <span>${notification.notification_name}</span>
+                        <div class="msg">${notification.message}</div>
+                    </li>`;
+                    });
+                    $('#notif').next('.dropdown-menu').html(notificationsHTML);
+                }
+            });
+        }
+
+        load_unseen_notification();
+
+        $('#notif').on('click', function() {
+            if ($('.round').data('value') !== '') {
+                $(".round").hide();
+                $(this).next('.dropdown-menu').toggle();
+            }
+        });
+
+        $(document).on('click', '.message', function() {
+            let notification_id = $(this).data('id');
+            $.ajax({
+                url: '<?php echo BASE_URL . '/nav/fetch-notif/deactivate.php'; ?>',
+                type: 'POST',
+                data: {
+                    id: notification_id
+                },
+                success: function(data) {
+                    console.log(data);
+                    load_unseen_notification(); // Reload notifications after deactivation
+                }
+            });
+        });
     });
 </script>
 
@@ -304,53 +277,6 @@ while ($rows = pg_fetch_assoc($result)) {
                                                             echo "active";
                                                         } ?>" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/submission-page/submission.php'; ?>">My Listings</a>
                     </div>
-                    <ul class="nav navbar-nav navbar-right">
-                        <li><i class="fa fa-bell" id="over" data-value="<?php echo $count_active; ?>" style="z-index:-99 !important;font-size:32px;color:white;margin:0.5rem 0.4rem !important;"></i></li>
-                        <?php if (!empty($count_active)) { ?>
-                            <div class="round" id="bell-count" data-value="<?php echo $count_active; ?>"><span><?php echo $count_active; ?></span></div>
-                        <?php } ?>
-
-                        <?php if (!empty($count_active)) { ?>
-                            <div id="list">
-                                <?php
-                                foreach ($notifications_data as $list_rows) { ?>
-                                    <li id="message_items">
-                                        <div class="message alert alert-warning" data-id=<?php echo $list_rows['notification_id']; ?>>
-                                            <span><?php echo $list_rows['notification_name']; ?></span>
-                                            <div class="msg">
-                                                <p><?php
-                                                    echo $list_rows['message'];
-                                                    ?></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                <?php }
-                                ?>
-                            </div>
-                        <?php } else { ?>
-                            <!--old Messages-->
-                            <div id="list">
-                                <?php
-                                foreach ($deactive_notifications_dump as $list_rows) { ?>
-                                    <li id="message_items">
-                                        <div class="message alert alert-danger" data-id=<?php echo $list_rows['notification_id']; ?>>
-                                            <span><?php echo $list_rows['notification_name']; ?></span>
-                                            <div class="msg">
-                                                <p><?php
-                                                    echo $list_rows['message'];
-                                                    ?></p>
-                                            </div>
-                                        </div>
-                                    </li>
-                                <?php }
-                                ?>
-                                <!--old Messages-->
-
-                            <?php } ?>
-
-                            </div>
-                    </ul>
-
                     <!-- crop management -->
                     <div class="nav-item fw-semibold me-2 dropdown curator-only">
 
@@ -431,6 +357,29 @@ while ($rows = pg_fetch_assoc($result)) {
                         </ul>
                     </div>
 
+                    <!-- notification -->
+                    <div class="nav-item me-3">
+                        <a class="nav-link" role="button" id="notif" data-bs-toggle="dropdown" aria-expanded="false">
+                            <i class="fa-solid fa-bell"></i>
+                            <?php if ($count_active != 0) { ?>
+                                <div class="round" data-value="<?= $count_active ?>"><?= $count_active ?></div>
+                            <?php } ?>
+                        </a>
+                        <ul class="dropdown-menu" aria-labelledby="notif" id="list">
+                            <?php foreach ($notifications_data as $notification) { ?>
+                                <li class="message" data-id="<?php echo $notification['notification_id']; ?>">
+                                    <span><?= $notification['notification_name'] ?></span>
+                                    <div class="msg"><?= $notification['message'] ?></div>
+                                </li>
+                            <?php } ?>
+                            <?php foreach ($deactive_notifications_dump as $notification) { ?>
+                                <li class="message" data-id="<?php echo $notification['notification_id']; ?>">
+                                    <span><?= $notification['notification_name'] ?></span>
+                                    <div class="msg"><?= $notification['message'] ?></div>
+                                </li>
+                            <?php } ?>
+                        </ul>
+                    </div>
                     <!-- user profile -->
                     <div class="nav-item fw-semibold me-2 dropdown">
                         <a href="" id="profile-btn" class="nav-link dropdown-toggle  <?php if ($current_page_isProfile) {
@@ -482,60 +431,3 @@ while ($rows = pg_fetch_assoc($result)) {
 <script src="<?php echo BASE_URL . '/js/access-control.js'; ?>" defer></script>
 <!-- script for access js -->
 <script src="<?php echo BASE_URL . '/js/access.js'; ?>" defer></script>
-
-<!-- script for notification bell -->
-<script>
-    $(document).ready(function() {
-        var ids = new Array();
-        $('#over').on('click', function() {
-            $('#list').toggle();
-        });
-
-        //Message with Ellipsis
-        $('div.msg').each(function() {
-            var len = $(this).text().trim(" ").split(" ");
-            if (len.length > 12) {
-                var add_elip = $(this).text().trim().substring(0, 65) + "…";
-                $(this).text(add_elip);
-            }
-
-        });
-
-
-        $("#bell-count").on('click', function(e) {
-            e.preventDefault();
-
-            let belvalue = $('#bell-count').attr('data-value');
-
-            if (belvalue == '') {
-
-                console.log("inactive");
-            } else {
-                $(".round").css('display', 'none');
-                $("#list").css('display', 'block');
-
-                // $('.message').each(function(){
-                // var i = $(this).attr("data-id");
-                // ids.push(i);
-
-                // });
-                //Ajax
-                $('.message').click(function(e) {
-                    e.preventDefault();
-                    $.ajax({
-                        url: './connection/deactive.php',
-                        type: 'POST',
-                        data: {
-                            "id": $(this).attr('data-id')
-                        },
-                        success: function(data) {
-
-                            console.log(data);
-                            location.reload();
-                        }
-                    });
-                });
-            }
-        });
-    });
-</script>
