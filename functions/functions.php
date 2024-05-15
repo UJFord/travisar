@@ -20,12 +20,15 @@
                 $arr['gender'] = $data['gender'];
                 $arr['username'] = $data['username'];
                 $arr['email'] = $data['email'];
+                $arr['contact_num'] = $data['contact_num'];
                 $arr['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
                 $arr['affiliation'] = $data['affiliation'];
+                $arr['affiliated_email'] = $data['affiliated_email'];
+                $arr['affiliated_contact_num'] = $data['affiliated_contact_num'];
                 $arr['account_type_id'] = $account_type_id;
 
-                $query = "INSERT INTO users (first_name, last_name, gender, username, email, password, affiliation, account_type_id) 
-                    VALUES (:first_name, :last_name, :gender, :username, :email, :password, :affiliation, :account_type_id)";
+                $query = "INSERT INTO users (first_name, last_name, gender, username, email, password, affiliation, account_type_id, contact_num, affiliated_email, affiliated_contact_num) 
+                    VALUES (:first_name, :last_name, :gender, :username, :email, :password, :affiliation, :account_type_id, :contact_num, :affiliated_email, :affiliated_contact_num)";
                 database_run($query, $arr);
             }
         } else {
