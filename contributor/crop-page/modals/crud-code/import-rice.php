@@ -1,0 +1,322 @@
+<?php
+require "../../../../functions/connections.php";
+
+if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
+    // Get the file path
+    $file_tmp = $_FILES['file']['tmp_name'];
+
+    // Read the file and import the data into PostgreSQL
+    $handle = fopen($file_tmp, 'r');
+    if ($handle !== FALSE) {
+        // Skip the header row
+        fgetcsv($handle, 1000, ",");
+
+        while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
+            // Assuming the CSV has columns: category, crop variety, etc.
+            // Set default values for missing columns
+            $user_id = $_POST['user_id'];
+            $action = "Approved";
+            $category_name = isset($data[0]) ? pg_escape_string($data[0]) : '';
+            $category_variety_name = isset($data[1]) ? pg_escape_string($data[1]) : '';
+            $variety_name = isset($data[2]) ? pg_escape_string($data[2]) : '';
+            $meaning_of_name = isset($data[3]) ? pg_escape_string($data[3]) : '';
+            $terrain = isset($data[4]) ? pg_escape_string($data[4]) : '';
+            $description = isset($data[5]) ? pg_escape_string($data[5]) : '';
+            $municipality = isset($data[6]) ? pg_escape_string($data[6]) : '';
+            $barangay = isset($data[7]) ? pg_escape_string($data[7]) : '';
+            $sitio = isset($data[8]) ? pg_escape_string($data[8]) : '';
+            $coordinates = isset($data[9]) ? pg_escape_string($data[9]) : '';
+            $rice_plant_height = isset($data[10]) ? pg_escape_string($data[10]) : '';
+            $rice_leaf_width = isset($data[11]) ? pg_escape_string($data[11]) : '';
+            $rice_leaf_length = isset($data[12]) ? pg_escape_string($data[12]) : '';
+            $rice_tillering_ability = isset($data[13]) ? pg_escape_string($data[13]) : '';
+            $rice_maturity_time = isset($data[14]) ? pg_escape_string($data[14]) : '';
+            $panicle_length = isset($data[15]) ? pg_escape_string($data[15]) : '';
+            $panicle_width = isset($data[16]) ? pg_escape_string($data[16]) : '';
+            $panicle_enclosed_by = isset($data[17]) ? pg_escape_string($data[17]) : '';
+            $panicle_remarkable_features = isset($data[18]) ? pg_escape_string($data[18]) : '';
+            $flag_length = isset($data[19]) ? pg_escape_string($data[19]) : '';
+            $flag_width = isset($data[20]) ? pg_escape_string($data[20]) : '';
+            $pubescence = isset($data[21]) ? pg_escape_string($data[21]) : '';
+            $purplish_stripes = isset($data[22]) ? (strtolower($data[22]) === 'yes' ? 1 : 0) : '';
+            $flag_remarkable_features = isset($data[23]) ? pg_escape_string($data[23]) : '';
+            $rice_yield_capacity = isset($data[24]) ? pg_escape_string($data[24]) : '';
+            $seed_length = isset($data[25]) ? pg_escape_string($data[25]) : '';
+            $seed_width = isset($data[26]) ? pg_escape_string($data[26]) : '';
+            $seed_shape = isset($data[27]) ? pg_escape_string($data[27]) : '';
+            $seed_color = isset($data[28]) ? pg_escape_string($data[28]) : '';
+            $significance = isset($data[29]) ? pg_escape_string($data[29]) : '';
+            $use = isset($data[30]) ? pg_escape_string($data[30]) : '';
+            $indigenous_utilization = isset($data[31]) ? pg_escape_string($data[31]) : '';
+            $remarkable_features = isset($data[32]) ? pg_escape_string($data[32]) : '';
+            $aroma = isset($data[33]) ? pg_escape_string($data[33]) : '';
+            $quality_cooked_rice = isset($data[34]) ? pg_escape_string($data[34]) : '';
+            $quality_leftover_rice = isset($data[35]) ? pg_escape_string($data[35]) : '';
+            $volume_expansion = isset($data[36]) ? (strtolower($data[36]) === 'yes' ? 1 : 0) : '';
+            $glutinous = isset($data[37]) ? (strtolower($data[37]) === 'yes' ? 1 : 0) : '';
+            $texture = isset($data[38]) ? pg_escape_string($data[38]) : '';
+
+            // Find the category_id for the given category name
+            $category_query = "SELECT category_id FROM category WHERE category_name ILIKE '$category_name'";
+            $category_result = pg_query($conn, $category_query);
+
+            if ($category_result && pg_num_rows($category_result) > 0) {
+                $category_row = pg_fetch_assoc($category_result);
+                $category_id = $category_row['category_id'];
+            } else {
+                // Handle the case where the category is not found
+                echo "Category '$category_name' not found in the database.<br>";
+                continue; // Skip this row and move to the next
+            }
+
+            // Find the category_variety_id for the given category_variety name
+            $category_variety_query = "SELECT category_variety_id FROM category_variety WHERE category_variety_name ILIKE '$category_variety_name'";
+            $category_variety_result = pg_query($conn, $category_variety_query);
+
+            if ($category_variety_result && pg_num_rows($category_variety_result) > 0) {
+                $category_variety_row = pg_fetch_assoc($category_variety_result);
+                $category_variety_id = $category_variety_row['category_variety_id'];
+            } else {
+                // Handle the case where the category variety is not found
+                echo "Category variety '$category_variety_name' not found in the database.<br>";
+                continue; // Skip this row and move to the next
+            }
+
+            // Find the terrain_id for the given terrain name
+            $terrain_query = "SELECT terrain_id FROM terrain WHERE terrain_name ILIKE '$terrain'";
+            $terrain_result = pg_query($conn, $terrain_query);
+
+            if ($terrain_result && pg_num_rows($terrain_result) > 0) {
+                $terrain_row = pg_fetch_assoc($terrain_result);
+                $terrain_id = $terrain_row['terrain_id'];
+            } else {
+                // Handle the case where the terrain is not found
+                echo "Terrain '$terrain' not found in the database.<br>";
+                continue; // Skip this row and move to the next
+            }
+
+            // Find the municipality_id for the given municipality name
+            $municipality_query = "SELECT municipality_id FROM municipality WHERE municipality_name ILIKE '$municipality'";
+            $municipality_result = pg_query($conn, $municipality_query);
+
+            if ($municipality_result && pg_num_rows($municipality_result) > 0) {
+                $municipality_row = pg_fetch_assoc($municipality_result);
+                $municipality_id = $municipality_row['municipality_id'];
+            } else {
+                // Handle the case where the municipality is not found
+                echo "Municipality '$municipality' not found in the database.<br>";
+                continue; // Skip this row and move to the next
+            }
+
+            // Find the barangay_id for the given barangay name
+            $barangay_query = "SELECT barangay_id FROM barangay WHERE barangay_name ILIKE '$barangay'";
+            $barangay_result = pg_query($conn, $barangay_query);
+
+            if ($barangay_result && pg_num_rows($barangay_result) > 0) {
+                $barangay_row = pg_fetch_assoc($barangay_result);
+                $barangay_id = $barangay_row['barangay_id'];
+            } else {
+                // Handle the case where the barangay is not found
+                echo "Barangay '$barangay' not found in the database.<br>";
+                continue; // Skip this row and move to the next
+            }
+
+            // for creating a unique code for each crops
+            // Get the latest unique_code from the crop table
+            $queryLatestCode = "SELECT category_name FROM category WHERE category_id = $1";
+            $resultLatestCode = pg_query_params($conn, $queryLatestCode, array($category_id));
+
+            if ($resultLatestCode) {
+                $latestCodeRow = pg_fetch_assoc($resultLatestCode);
+                $latestCode = $latestCodeRow['category_name'];
+
+                // Extract the first letter of each word in the category name
+                $prefix = '';
+                $words = explode(' ', $latestCode);
+                foreach ($words as $word) {
+                    $prefix .= strtoupper(substr($word, 0, 1));
+                }
+
+                // Fetch all existing unique codes from the crop table
+                $queryUniqueCodes = "SELECT unique_code FROM crop WHERE unique_code LIKE '$prefix%'";
+                $resultUniqueCodes = pg_query($conn, $queryUniqueCodes);
+
+                // Extract the highest number from the existing codes
+                $existingNumbers = [];
+                while ($row = pg_fetch_assoc($resultUniqueCodes)) {
+                    preg_match('/(\d+)$/', $row['unique_code'], $matches);
+                    if (isset($matches[1])) {
+                        $existingNumbers[] = intval($matches[1]);
+                    }
+                }
+
+                if (empty($existingNumbers)) {
+                    // If no existing codes, set the current number to 0
+                    $currentNumber = 0;
+                } else {
+                    $currentNumber = max($existingNumbers);
+                }
+
+                // Generate the new unique code
+                $newUniqueCode = $prefix . 'V' . '-' . str_pad(
+                    $currentNumber + 1,
+                    4,
+                    '0',
+                    STR_PAD_LEFT
+                );
+            }
+
+            //insert into utilization cultural table
+            $query_utilCultural = "INSERT INTO utilization_cultural_importance (significance, \"use\", indigenous_utilization, remarkable_features)
+            VALUES ($1, $2, $3, $4) RETURNING utilization_cultural_id";
+
+            $value_utilCultural = array($significance, $use, $indigenous_utilization, $remarkable_features);
+            $query_run_utilCultural = pg_query_params($conn, $query_utilCultural, $value_utilCultural);
+
+            if ($query_run_utilCultural) {
+                $row_utilCultural = pg_fetch_row($query_run_utilCultural);
+                $utilization_cultural_id = $row_utilCultural[0];
+            } else {
+                continue;
+            }
+
+            //insert into status table
+            $query_Status = "INSERT INTO status (action)
+                VALUES ($1) RETURNING status_id";
+            $value_Status = array($action);
+            $query_run_Status = pg_query_params($conn, $query_Status, $value_Status);
+
+            if ($query_run_Status) {
+                $row_Status = pg_fetch_row($query_run_Status);
+                $status_id = $row_Status[0];
+            } else {
+                echo "Status not saved in the database.<br>";
+                continue;
+            }
+
+            // Insert data into the crop table
+            $crop_query = "INSERT INTO crop (category_id, category_variety_id, crop_variety, meaning_of_name, terrain_id, crop_description, unique_code, status_id, user_id, utilization_cultural_id) 
+            VALUES ($category_id, $category_variety_id, '$variety_name', '$meaning_of_name', $terrain_id, '$description', '$newUniqueCode', $status_id, $user_id, $utilization_cultural_id) RETURNING crop_id";
+            $crop_result = pg_query($conn, $crop_query);
+
+            if ($crop_result) {
+                $row_crop = pg_fetch_row($crop_result);
+                $crop_id = $row_crop[0];
+                echo 'crop saved';
+            } else {
+                echo "Error in query: " . pg_last_error($conn) . "<br>";
+                continue;
+            }
+
+            // Ensure coordinates are properly quoted or set to NULL if empty
+            $coordinates_value = empty($coordinates) ? "NULL" : "'$coordinates'";
+
+            // Insert data into the crop_location table
+            $cropLoc_query = "INSERT INTO crop_location (crop_id, municipality_id, barangay_id, coordinates, sitio_name) 
+            VALUES ($crop_id, $municipality_id, $barangay_id, $coordinates_value, '$sitio')";
+            $cropLoc_result = pg_query($conn, $cropLoc_query);
+
+            if ($cropLoc_result) {
+                echo 'location saved';
+            } else {
+                echo "Error in query: " . pg_last_error($conn) . "<br>";
+                continue;
+            }
+
+            // Handle rice category traits
+            // seed traits
+            $query_seedTraits = "INSERT into seed_traits (seed_length, seed_width, seed_shape, seed_color) values ($1, $2, $3, $4) returning seed_traits_id";
+            $query_run_seedTraits = pg_query_params($conn, $query_seedTraits, array($seed_length, $seed_width, $seed_shape, $seed_color));
+            if ($query_run_seedTraits) {
+                $row_seedTraits = pg_fetch_row($query_run_seedTraits);
+                $seed_traits_id = $row_seedTraits[0];
+            } else {
+                echo "seed traits not saved in the database.<br>";
+                continue;
+            }
+
+            // panicle traits
+            $query_panicleTraits = "INSERT into panicle_traits_rice (panicle_length, panicle_width, panicle_enclosed_by, panicle_remarkable_features) values ($1, $2, $3, $4) returning panicle_traits_rice_id";
+            $query_run_panicleTraits = pg_query_params($conn, $query_panicleTraits, array($panicle_length, $panicle_width, $panicle_enclosed_by, $panicle_remarkable_features));
+            if ($query_run_panicleTraits) {
+                $row_panicleTraits = pg_fetch_row($query_run_panicleTraits);
+                $panicle_traits_rice_id = $row_panicleTraits[0];
+            } else {
+                echo "panicle traits not saved in the database.<br>";
+                continue;
+            }
+
+            // flag traits
+            $query_flagLeaf = "INSERT into flag_leaf_traits_rice (flag_length, flag_width, purplish_stripes, pubescence, flag_remarkable_features) values ($1, $2, $3, $4, $5) returning flag_leaf_traits_rice_id";
+            $query_run_flagLeaf = pg_query_params($conn, $query_flagLeaf, array($flag_length, $flag_width, $purplish_stripes, $pubescence, $flag_remarkable_features));
+            if ($query_run_flagLeaf) {
+                $row_flagLeaf = pg_fetch_row($query_run_flagLeaf);
+                $flag_leaf_traits_rice_id = $row_flagLeaf[0];
+            } else {
+                echo "flag leaf traits not saved in the database.<br>";
+                continue;
+            }
+
+            // reproductive state rice
+            $query_reproductiveState = "INSERT into reproductive_state_rice (rice_yield_capacity, seed_traits_id, panicle_traits_rice_id, flag_leaf_traits_rice_id) values ($1, $2, $3, $4) returning reproductive_state_rice_id";
+            $query_run_reproductiveState = pg_query_params($conn, $query_reproductiveState, array($rice_yield_capacity, $seed_traits_id, $panicle_traits_rice_id, $flag_leaf_traits_rice_id));
+            if ($query_run_reproductiveState) {
+                $row_reproductiveState = pg_fetch_row($query_run_reproductiveState);
+                $reproductive_state_rice_id = $row_reproductiveState[0];
+            } else {
+                echo "seed reproductive state saved in the database.<br>";
+                continue;
+            }
+
+            // vegetative state rice
+            $query_vegetativeState = "INSERT into vegetative_state_rice (rice_plant_height, rice_leaf_width, rice_leaf_length, rice_tillering_ability, rice_maturity_time) values ($1, $2, $3, $4, $5) returning vegetative_state_rice_id";
+            $query_run_vegetativeState = pg_query_params($conn, $query_vegetativeState, array($rice_plant_height, $rice_leaf_width, $rice_leaf_length, $rice_tillering_ability, $rice_maturity_time));
+            if ($query_run_vegetativeState) {
+                $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
+                $vegetative_state_rice_id = $row_vegetativeState[0];
+            } else {
+                echo "vegetative state not saved in the database.<br>";
+                continue;
+            }
+
+            // sensory traits rice
+            $query_sensoryTraits = "INSERT into sensory_traits_rice (aroma, quality_cooked_rice, quality_leftover_rice, volume_expansion, glutinous, texture) values ($1, $2, $3, $4, $5, $6) returning sensory_traits_rice_id";
+            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array(
+                $aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $texture
+            ));
+            if ($query_run_sensoryTraits) {
+                $row_sensoryTraits = pg_fetch_row($query_run_sensoryTraits);
+                $sensory_traits_rice_id = $row_sensoryTraits[0];
+            } else {
+                echo "sensory traits not saved in the database.<br>";
+                continue;
+            }
+
+            // rice traits
+            $query_riceTraits = "INSERT into rice_traits (crop_id, vegetative_state_rice_id, reproductive_state_rice_id, sensory_traits_rice_id, rice_pest_other_id, 
+            rice_abiotic_other_id) values ($1, $2, $3, $4, $5, $6) returning rice_traits_id";
+            $query_run_riceTraits = pg_query_params($conn, $query_riceTraits, array(
+                $crop_id, $vegetative_state_rice_id, $reproductive_state_rice_id, $sensory_traits_rice_id,
+                $rice_pest_other_id, $rice_abiotic_other_id
+            ));
+            if ($query_run_riceTraits) {
+                $row_riceTraits = pg_fetch_row($query_run_riceTraits);
+                $rice_traits_id = $row_riceTraits[0];
+            } else {
+                echo "rice traits not saved in the database.<br>";
+                continue;
+            }
+        }
+
+        fclose($handle);
+        echo "Data imported successfully.";
+    } else {
+        echo "Error opening the file.";
+        die();
+    }
+} else {
+    echo "Error uploading file.";
+}
+
+// Close the database connection
+pg_close($conn);
