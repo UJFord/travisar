@@ -26,14 +26,14 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
             $barangay = isset($data[7]) ? pg_escape_string($data[7]) : '';
             $sitio = isset($data[8]) ? pg_escape_string($data[8]) : '';
             $coordinates = isset($data[9]) ? pg_escape_string($data[9]) : '';
-            $corn_plant_height = isset($data[10]) ? pg_escape_string($data[10]) : '';
-            $corn_leaf_width = isset($data[11]) ? pg_escape_string($data[11]) : '';
-            $corn_leaf_length = isset($data[12]) ? pg_escape_string($data[12]) : '';
-            $corn_yield_capacity = isset($data[13]) ? pg_escape_string($data[13]) : '';
-            $seed_length = isset($data[14]) ? pg_escape_string($data[14]) : '';
-            $seed_width = isset($data[15]) ? pg_escape_string($data[15]) : '';
-            $seed_shape = isset($data[16]) ? pg_escape_string($data[16]) : '';
-            $seed_color = isset($data[17]) ? pg_escape_string($data[17]) : '';
+            $rootcrop_plant_height = isset($data[10]) ? pg_escape_string($data[10]) : '';
+            $rootcrop_leaf_width = isset($data[11]) ? pg_escape_string($data[11]) : '';
+            $rootcrop_leaf_length = isset($data[12]) ? pg_escape_string($data[12]) : '';
+            $rootcrop_stem_leaf_desc = isset($data[13]) ? pg_escape_string($data[13]) : '';
+            $eating_quality = isset($data[14]) ? pg_escape_string($data[14]) : '';
+            $rootcrop_color = isset($data[15]) ? pg_escape_string($data[15]) : '';
+            $sweetness = isset($data[16]) ? pg_escape_string($data[16]) : '';
+            $rootcrop_remarkable_features = isset($data[17]) ? pg_escape_string($data[17]) : '';
             $significance = isset($data[18]) ? pg_escape_string($data[18]) : '';
             $use = isset($data[19]) ? pg_escape_string($data[19]) : '';
             $indigenous_utilization = isset($data[20]) ? pg_escape_string($data[20]) : '';
@@ -206,51 +206,43 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                 continue;
             }
 
-            // Handle corn category traits
-            // seed traits
-            $query_seedTraits = "INSERT into seed_traits (seed_length, seed_width, seed_shape, seed_color) values ($1, $2, $3, $4) returning seed_traits_id";
-            $query_run_seedTraits = pg_query_params($conn, $query_seedTraits, array($seed_length, $seed_width, $seed_shape, $seed_color));
-            if ($query_run_seedTraits) {
-                $row_seedTraits = pg_fetch_row($query_run_seedTraits);
-                $seed_traits_id = $row_seedTraits[0];
+            // rootcrop traits
+            $query_rootcropTraits = "INSERT into rootcrop_traits (eating_quality, rootcrop_color, sweetness, rootcrop_remarkable_features) values ($1, $2, $3, $4) returning rootcrop_traits_id";
+            $query_run_rootcropTraits = pg_query_params($conn, $query_rootcropTraits, array($eating_quality, $rootcrop_color, $sweetness, $rootcrop_remarkable_features));
+            if ($query_run_rootcropTraits) {
+                $row_rootcropTraits = pg_fetch_row($query_run_rootcropTraits);
+                $rootcrop_traits_id = $row_rootcropTraits[0];
             } else {
-                echo "seed traits not saved in the database.<br>";
-                continue;
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../../crop.php");
+                exit(0);
             }
 
-            // reproductive state corn
-            $query_reproductiveState = "INSERT into reproductive_state_corn (corn_yield_capacity, seed_traits_id) values ($1, $2) returning reproductive_state_corn_id";
-            $query_run_reproductiveState = pg_query_params($conn, $query_reproductiveState, array($corn_yield_capacity, $seed_traits_id));
-            if ($query_run_reproductiveState) {
-                $row_reproductiveState = pg_fetch_row($query_run_reproductiveState);
-                $reproductive_state_corn_id = $row_reproductiveState[0];
-            } else {
-                echo "Reproductive state corn not saved in the database.<br>";
-                continue;
-            }
-
-            // vegetative state corn
-            $query_vegetativeState = "INSERT into vegetative_state_corn (corn_plant_height, corn_leaf_width, corn_leaf_length) values ($1, $2, $3) returning vegetative_state_corn_id";
-            $query_run_vegetativeState = pg_query_params($conn, $query_vegetativeState, array($corn_plant_height, $corn_leaf_width, $corn_leaf_length));
+            // vegetative state rootcrop
+            $query_vegetativeState = "INSERT into vegetative_state_rootcrop (rootcrop_plant_height, rootcrop_leaf_width, rootcrop_leaf_length, rootcrop_stem_leaf_desc, rootcrop_maturity_time) values ($1, $2, $3, $4, $5) returning vegetative_state_rootcrop_id";
+            $query_run_vegetativeState = pg_query_params($conn, $query_vegetativeState, array($rootcrop_plant_height, $rootcrop_leaf_width, $rootcrop_leaf_length, $rootcrop_stem_leaf_desc, $rootcrop_maturity_time));
             if ($query_run_vegetativeState) {
                 $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
-                $vegetative_state_corn_id = $row_vegetativeState[0];
+                $vegetative_state_rootcrop_id = $row_vegetativeState[0];
             } else {
-                echo "Vegetative state corn not saved in the database.<br>";
-                continue;
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../../crop.php");
+                exit(0);
             }
 
-            // corn traits
-            $query_cornTraits = "INSERT into corn_traits (crop_id, vegetative_state_corn_id, reproductive_state_corn_id) values ($1, $2, $3) returning corn_traits_id";
-            $query_run_cornTraits = pg_query_params($conn, $query_cornTraits, array(
-                $crop_id, $vegetative_state_corn_id, $reproductive_state_corn_id
+            // root crop traits
+            $query_root_CropTraits = "INSERT into root_crop_traits (crop_id, vegetative_state_rootcrop_id, rootcrop_traits_id, rootcrop_pest_other_id, 
+            rootcrop_abiotic_other_id) values ($1, $2, $3, $4, $5) returning root_crop_traits_id";
+            $query_run_root_CropTraits = pg_query_params($conn, $query_root_CropTraits, array(
+                $crop_id, $vegetative_state_rootcrop_id, $rootcrop_traits_id, $rootcrop_pest_other_id, $rootcrop_abiotic_other_id
             ));
-            if ($query_run_cornTraits) {
-                $row_cornTraits = pg_fetch_row($query_run_cornTraits);
-                $corn_traits_id = $row_cornTraits[0];
+            if ($query_run_root_CropTraits) {
+                $row_root_CropTraits = pg_fetch_row($query_run_root_CropTraits);
+                $root_crop_traits_id = $row_root_CropTraits[0];
             } else {
-                echo "Corn traits not saved in the database.<br>";
-                continue;
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../../crop.php");
+                exit(0);
             }
         }
 
