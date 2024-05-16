@@ -30,6 +30,12 @@
                 <a href="#" class="me-4">Import<i class="ms-2 fa-solid fa-file-import"></i></a>
                 <form action="modals/crud-code/import.php" method="post" enctype="multipart/form-data">
                     <label class="upload-button">
+                        <?php
+                        if (isset($_SESSION['USER']['user_id'])) {
+                            $user_id = $_SESSION['USER']['user_id'];
+                        }
+                        ?>
+                        <input type="hidden" name="user_id" value="<?=$user_id?>">
                         Choose CSV file
                         <input type="file" name="file" accept=".csv">
                     </label>

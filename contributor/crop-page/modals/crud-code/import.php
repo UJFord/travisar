@@ -14,6 +14,7 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
         while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
             // Assuming the CSV has columns: category, crop variety, etc.
             // Set default values for missing columns
+            $user_id = $_POST['user_id'];
             $action = "Approved";
             $category_name = isset($data[0]) ? pg_escape_string($data[0]) : '';
             $category_variety_name = isset($data[1]) ? pg_escape_string($data[1]) : '';
@@ -21,10 +22,22 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
             $meaning_of_name = isset($data[3]) ? pg_escape_string($data[3]) : '';
             $terrain = isset($data[4]) ? pg_escape_string($data[4]) : '';
             $description = isset($data[5]) ? pg_escape_string($data[5]) : '';
-            $municipality = isset($data[7]) ? pg_escape_string($data[6]) : '';
-            $barangay = isset($data[8]) ? pg_escape_string($data[7]) : '';
-            $sitio = isset($data[9]) ? pg_escape_string($data[8]) : '';
-            $coordinates = isset($data[10]) ? pg_escape_string($data[9]) : '';
+            $municipality = isset($data[6]) ? pg_escape_string($data[6]) : '';
+            $barangay = isset($data[7]) ? pg_escape_string($data[7]) : '';
+            $sitio = isset($data[8]) ? pg_escape_string($data[8]) : '';
+            $coordinates = isset($data[9]) ? pg_escape_string($data[9]) : '';
+            $corn_plant_height = isset($data[10]) ? pg_escape_string($data[10]) : '';
+            $corn_leaf_width = isset($data[11]) ? pg_escape_string($data[11]) : '';
+            $corn_leaf_length = isset($data[12]) ? pg_escape_string($data[12]) : '';
+            $corn_yield_capacity = isset($data[13]) ? pg_escape_string($data[13]) : '';
+            $seed_length = isset($data[14]) ? pg_escape_string($data[14]) : '';
+            $seed_width = isset($data[15]) ? pg_escape_string($data[15]) : '';
+            $seed_shape = isset($data[16]) ? pg_escape_string($data[16]) : '';
+            $seed_color = isset($data[17]) ? pg_escape_string($data[17]) : '';
+            $significance = isset($data[18]) ? pg_escape_string($data[18]) : '';
+            $use = isset($data[19]) ? pg_escape_string($data[19]) : '';
+            $indigenous_utilization = isset($data[20]) ? pg_escape_string($data[20]) : '';
+            $remarkable_features = isset($data[21]) ? pg_escape_string($data[21]) : '';
 
             // Find the category_id for the given category name
             $category_query = "SELECT category_id FROM category WHERE category_name ILIKE '$category_name'";
@@ -136,6 +149,20 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                 );
             }
 
+            //insert into utilization cultural table
+            $query_utilCultural = "INSERT INTO utilization_cultural_importance (significance, \"use\", indigenous_utilization, remarkable_features)
+            VALUES ($1, $2, $3, $4) RETURNING utilization_cultural_id";
+
+            $value_utilCultural = array($significance, $use, $indigenous_utilization, $remarkable_features);
+            $query_run_utilCultural = pg_query_params($conn, $query_utilCultural, $value_utilCultural);
+
+            if ($query_run_utilCultural) {
+                $row_utilCultural = pg_fetch_row($query_run_utilCultural);
+                $utilization_cultural_id = $row_utilCultural[0];
+            } else {
+                continue;
+            }
+
             //insert into status table
             $query_Status = "INSERT INTO status (action)
                 VALUES ($1) RETURNING status_id";
@@ -146,14 +173,13 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                 $row_Status = pg_fetch_row($query_run_Status);
                 $status_id = $row_Status[0];
             } else {
-                $_SESSION['message'] = "Failed to create crop.";
-                header("Location: ../../crop.php");
-                exit(0);
+                echo "Status not saved in the database.<br>";
+                continue;
             }
 
             // Insert data into the crop table
-            $crop_query = "INSERT INTO crop (category_id, category_variety_id, crop_variety, meaning_of_name, terrain_id, crop_description, unique_code, status_id) 
-            VALUES ($category_id, $category_variety_id, '$variety_name', '$meaning_of_name', $terrain_id, '$description', '$newUniqueCode', $status_id) RETURNING crop_id";
+            $crop_query = "INSERT INTO crop (category_id, category_variety_id, crop_variety, meaning_of_name, terrain_id, crop_description, unique_code, status_id, user_id, utilization_cultural_id) 
+            VALUES ($category_id, $category_variety_id, '$variety_name', '$meaning_of_name', $terrain_id, '$description', '$newUniqueCode', $status_id, $user_id, $utilization_cultural_id) RETURNING crop_id";
             $crop_result = pg_query($conn, $crop_query);
 
             if ($crop_result) {
@@ -162,7 +188,7 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                 echo 'crop saved';
             } else {
                 echo "Error in query: " . pg_last_error($conn) . "<br>";
-                die();
+                continue;
             }
 
             // Ensure coordinates are properly quoted or set to NULL if empty
@@ -177,7 +203,54 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                 echo 'location saved';
             } else {
                 echo "Error in query: " . pg_last_error($conn) . "<br>";
-                die();
+                continue;
+            }
+
+            // Handle corn category traits
+            // seed traits
+            $query_seedTraits = "INSERT into seed_traits (seed_length, seed_width, seed_shape, seed_color) values ($1, $2, $3, $4) returning seed_traits_id";
+            $query_run_seedTraits = pg_query_params($conn, $query_seedTraits, array($seed_length, $seed_width, $seed_shape, $seed_color));
+            if ($query_run_seedTraits) {
+                $row_seedTraits = pg_fetch_row($query_run_seedTraits);
+                $seed_traits_id = $row_seedTraits[0];
+            } else {
+                echo "seed traits not saved in the database.<br>";
+                continue;
+            }
+
+            // reproductive state corn
+            $query_reproductiveState = "INSERT into reproductive_state_corn (corn_yield_capacity, seed_traits_id) values ($1, $2) returning reproductive_state_corn_id";
+            $query_run_reproductiveState = pg_query_params($conn, $query_reproductiveState, array($corn_yield_capacity, $seed_traits_id));
+            if ($query_run_reproductiveState) {
+                $row_reproductiveState = pg_fetch_row($query_run_reproductiveState);
+                $reproductive_state_corn_id = $row_reproductiveState[0];
+            } else {
+                echo "Reproductive state corn not saved in the database.<br>";
+                continue;
+            }
+
+            // vegetative state corn
+            $query_vegetativeState = "INSERT into vegetative_state_corn (corn_plant_height, corn_leaf_width, corn_leaf_length) values ($1, $2, $3) returning vegetative_state_corn_id";
+            $query_run_vegetativeState = pg_query_params($conn, $query_vegetativeState, array($corn_plant_height, $corn_leaf_width, $corn_leaf_length));
+            if ($query_run_vegetativeState) {
+                $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
+                $vegetative_state_corn_id = $row_vegetativeState[0];
+            } else {
+                echo "Vegetative state corn not saved in the database.<br>";
+                continue;
+            }
+
+            // corn traits
+            $query_cornTraits = "INSERT into corn_traits (crop_id, vegetative_state_corn_id, reproductive_state_corn_id) values ($1, $2, $3) returning corn_traits_id";
+            $query_run_cornTraits = pg_query_params($conn, $query_cornTraits, array(
+                $crop_id, $vegetative_state_corn_id, $reproductive_state_corn_id
+            ));
+            if ($query_run_cornTraits) {
+                $row_cornTraits = pg_fetch_row($query_run_cornTraits);
+                $corn_traits_id = $row_cornTraits[0];
+            } else {
+                echo "Corn traits not saved in the database.<br>";
+                continue;
             }
         }
 
