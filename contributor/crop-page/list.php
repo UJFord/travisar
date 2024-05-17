@@ -27,11 +27,14 @@
             <div class="actions-container">
 
                 <a href="modals/crud-code/download.php" class="me-4">Export<i class="ms-2 fa-solid fa-file-export"></i></a>
+                <button id="import-crop-btn" class="btn btn-secondary contributor-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#import-item-modal">
+                    Add New
+                    <i class="ms-2 fa-solid fa-file-import"></i> </button>
                 <button id="add-crop-btn" class="btn btn-secondary contributor-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#add-item-modal">
                     Add New
                     <i class="small-font fa-solid fa-plus"></i>
                 </button>
-                
+
                 <!-- download button -->
                 <!-- <div class="z-1 dropdown">
                     <button id="add-crop-btn" class="btn btn-secondary contributor-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#confirmModalDownload">
