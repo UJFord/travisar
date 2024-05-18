@@ -1,5 +1,6 @@
 <?php
-require "../../../../functions/connections.php";
+session_start();
+require "../../../functions/connections.php";
 require "../../../functions/functions.php";
 
 if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
@@ -16,7 +17,11 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
             // Assuming the CSV has columns: category, crop variety, etc.
             // Set default values for missing columns
             $user_id = $_POST['user_id'];
-            $action = "Approved";
+            if (isset($_SESSION['rank']) && $_SESSION['rank'] == 'Contributor') {
+                $action = "Pending";
+            } else {
+                $action = "Approved";
+            }
             $category_name = isset($data[0]) ? pg_escape_string($data[0]) : '';
             $category_variety_name = isset($data[1]) ? pg_escape_string($data[1]) : '';
             $variety_name = isset($data[2]) ? pg_escape_string($data[2]) : '';
@@ -387,18 +392,17 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                 }
             }
         }
-
         fclose($handle);
         $_SESSION['message'] = "Data imported successfully.";
-        header("location: ../../crop.php");
+        header("location: ../submission.php");
         die();
     } else {
         $_SESSION['message'] = "Error opening the file.";
-        header("location: ../../crop.php");
+        header("location: ../submission.php");
         die();
     }
 } else {
     $_SESSION['message'] = "Error uploading file.";
-    header("location: ../../crop.php");
+    header("location: ../submission.php");
     die();
 }

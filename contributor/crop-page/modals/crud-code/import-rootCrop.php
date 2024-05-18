@@ -1,5 +1,6 @@
 <?php
 require "../../../../functions/connections.php";
+require "../../../functions/functions.php";
 
 if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
     // Get the file path
@@ -38,6 +39,9 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
             $use = isset($data[19]) ? pg_escape_string($data[19]) : '';
             $indigenous_utilization = isset($data[20]) ? pg_escape_string($data[20]) : '';
             $remarkable_features = isset($data[21]) ? pg_escape_string($data[21]) : '';
+            $pest_resistance = isset($data[22]) ? pg_escape_string($data[22]) : '';
+            $disease_resistance = isset($data[23]) ? pg_escape_string($data[23]) : '';
+            $abiotic_resistance = isset($data[24]) ? pg_escape_string($data[24]) : '';
 
             // Find the category_id for the given category name
             $category_query = "SELECT category_id FROM category WHERE category_name ILIKE '$category_name'";
@@ -231,10 +235,9 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
             }
 
             // root crop traits
-            $query_root_CropTraits = "INSERT into root_crop_traits (crop_id, vegetative_state_rootcrop_id, rootcrop_traits_id, rootcrop_pest_other_id, 
-            rootcrop_abiotic_other_id) values ($1, $2, $3, $4, $5) returning root_crop_traits_id";
+            $query_root_CropTraits = "INSERT into root_crop_traits (crop_id, vegetative_state_rootcrop_id, rootcrop_traits_id) values ($1, $2, $3) returning root_crop_traits_id";
             $query_run_root_CropTraits = pg_query_params($conn, $query_root_CropTraits, array(
-                $crop_id, $vegetative_state_rootcrop_id, $rootcrop_traits_id, $rootcrop_pest_other_id, $rootcrop_abiotic_other_id
+                $crop_id, $vegetative_state_rootcrop_id, $rootcrop_traits_id
             ));
             if ($query_run_root_CropTraits) {
                 $row_root_CropTraits = pg_fetch_row($query_run_root_CropTraits);
@@ -244,17 +247,95 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                 header("Location: ../../crop.php");
                 exit(0);
             }
+
+            // Insert data into the pest_resistance table
+            if (!empty($pest_resistance)) {
+                $pest_resistances = explode(",", $pest_resistance);
+                foreach ($pest_resistances as $resistance) {
+                    $resistance = trim($resistance);
+                    if (!empty($resistance)) {
+                        $pest_query = "SELECT pest_resistance_id FROM pest_resistance WHERE pest_name ILIKE '$resistance'";
+                        $pest_result = pg_query($conn, $pest_query);
+                        if ($pest_result && pg_num_rows($pest_result) > 0) {
+                            $pest_row = pg_fetch_assoc($pest_result);
+                            $pest_resistance_id = $pest_row['pest_resistance_id'];
+                            $crop_pest_query = "INSERT INTO rootcrop_pest_resistance (root_crop_traits_id, pest_resistance_id) VALUES ($1, $2)";
+                            $crop_pest_values = array($root_crop_traits_id, $pest_resistance_id);
+                            $crop_pest_result = pg_query_params($conn, $crop_pest_query, $crop_pest_values);
+                            if (!$crop_pest_result) {
+                                echo "Error inserting pest resistance data for $resistance.<br>";
+                                continue;
+                            }
+                        } else {
+                            echo "Pest resistance '$resistance' not found in the database.<br>";
+                            continue;
+                        }
+                    }
+                }
+            }
+
+            // Insert data into the disease_resistance table
+            if (!empty($disease_resistance)) {
+                $disease_resistances = explode(",", $disease_resistance);
+                foreach ($disease_resistances as $resistance) {
+                    $resistance = trim($resistance);
+                    if (!empty($resistance)) {
+                        $disease_query = "SELECT disease_resistance_id FROM disease_resistance WHERE disease_name ILIKE '$resistance'";
+                        $disease_result = pg_query($conn, $disease_query);
+                        if ($disease_result && pg_num_rows($disease_result) > 0) {
+                            $disease_row = pg_fetch_assoc($disease_result);
+                            $disease_resistance_id = $disease_row['disease_resistance_id'];
+                            $crop_disease_query = "INSERT INTO rootcrop_disease_resistance (root_crop_traits_id, disease_resistance_id) VALUES ($1, $2)";
+                            $crop_disease_values = array($root_crop_traits_id, $disease_resistance_id);
+                            $crop_disease_result = pg_query_params($conn, $crop_disease_query, $crop_disease_values);
+                            if (!$crop_disease_result) {
+                                echo "Error inserting disease resistance data for $resistance.<br>";
+                                continue;
+                            }
+                        } else {
+                            echo "Disease resistance '$resistance' not found in the database.<br>";
+                            continue;
+                        }
+                    }
+                }
+            }
+
+            // Insert data into the abiotic_resistance table
+            if (!empty($abiotic_resistance)) {
+                $abiotic_resistances = explode(",", $abiotic_resistance);
+                foreach ($abiotic_resistances as $resistance) {
+                    $resistance = trim($resistance);
+                    if (!empty($resistance)) {
+                        $abiotic_query = "SELECT abiotic_resistance_id FROM abiotic_resistance WHERE abiotic_name ILIKE '$resistance'";
+                        $abiotic_result = pg_query($conn, $abiotic_query);
+                        if ($abiotic_result && pg_num_rows($abiotic_result) > 0) {
+                            $abiotic_row = pg_fetch_assoc($abiotic_result);
+                            $abiotic_resistance_id = $abiotic_row['abiotic_resistance_id'];
+                            $crop_abiotic_query = "INSERT INTO rootcrop_abiotic_resistance (root_crop_traits_id, abiotic_resistance_id) VALUES ($1, $2)";
+                            $crop_abiotic_values = array($root_crop_traits_id, $abiotic_resistance_id);
+                            $crop_abiotic_result = pg_query_params($conn, $crop_abiotic_query, $crop_abiotic_values);
+                            if (!$crop_abiotic_result) {
+                                echo "Error inserting abiotic resistance data for $resistance.<br>";
+                            }
+                        } else {
+                            echo "Abiotic resistance '$resistance' not found in the database.<br>";
+                        }
+                    }
+                }
+            }
         }
 
         fclose($handle);
-        echo "Data imported successfully.";
+        $_SESSION['message'] = "Data imported successfully.";
+        header("location: ../../crop.php");
+        die();
     } else {
-        echo "Error opening the file.";
+        $_SESSION['message'] = "Error opening the file.";
+        header("location: ../../crop.php");
         die();
     }
 } else {
-    echo "Error uploading file.";
+    $_SESSION['message'] = "Error uploading file.";
+    header("location: ../../crop.php");
+    die();
 }
-
-// Close the database connection
-pg_close($conn);
