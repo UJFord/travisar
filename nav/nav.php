@@ -542,7 +542,15 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                     <?php } ?>
                                     <?php foreach ($notifications_dataAdmin_user as $notification) { ?>
                                         <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
-                                            <div class="msg"><?= !empty($notification['email_verified']) ? 'Account verified ' . $notification['first_name'] . ' ' . $notification['last_name'] : 'Account' . $notification['first_name'] . ' ' . $notification['last_name'] . ' needs verification'; ?></div>
+                                            <div class="msg">
+                                                <?php
+                                                if ($notification['email_verified'] !== NULL && $notification['email_verified'] !== '') {
+                                                    echo 'Account verified ' . htmlspecialchars($notification['first_name']) . ' ' . htmlspecialchars($notification['last_name']);
+                                                } else {
+                                                    echo 'Account ' . htmlspecialchars($notification['first_name']) . ' ' . htmlspecialchars($notification['last_name']) . ' needs verification';
+                                                }
+                                                ?>
+                                            </div>
                                         </li>
                                     <?php } ?>
                                 <?php } else { ?>
@@ -553,7 +561,15 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                     <?php } ?>
                                     <?php foreach ($deactive_notifications_dumpAdmin_user as $notification) { ?>
                                         <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
-                                            <div class="msg"><?= !empty($notification['email_verified']) ? 'Account verified ' . $notification['first_name'] . ' ' . $notification['last_name'] : 'Account' . $notification['first_name'] . ' ' . $notification['last_name'] . ' needs verification'; ?></div>
+                                            <div class="msg">
+                                                <?php
+                                                if ($notification['email_verified'] !== NULL && $notification['email_verified'] !== '') {
+                                                    echo 'Account verified ' . htmlspecialchars($notification['first_name']) . ' ' . htmlspecialchars($notification['last_name']);
+                                                } else {
+                                                    echo 'Account ' . htmlspecialchars($notification['first_name']) . ' ' . htmlspecialchars($notification['last_name']) . ' needs verification';
+                                                }
+                                                ?>
+                                            </div>
                                         </li>
                                     <?php } ?>
                                 <?php } ?>

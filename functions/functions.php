@@ -1,6 +1,6 @@
 <script>
     <?php
-    //function for signup
+    // Function for signup
     function signup($data)
     {
         $errors = array();
@@ -14,22 +14,59 @@
             $account_type_id = $user['account_type_id'];
 
             // Save user data
-            if (count($errors) == 0) {
-                $arr['first_name'] = $data['first_name'];
-                $arr['last_name'] = $data['last_name'];
-                $arr['gender'] = $data['gender'];
-                $arr['username'] = $data['username'];
-                $arr['email'] = $data['email'];
-                $arr['contact_num'] = $data['contact_num'];
-                $arr['password'] = password_hash($data['password'], PASSWORD_DEFAULT);
-                $arr['affiliation'] = $data['affiliation'];
-                $arr['affiliated_email'] = $data['affiliated_email'];
-                $arr['affiliated_contact_num'] = $data['affiliated_contact_num'];
-                $arr['account_type_id'] = $account_type_id;
+            if (
+                count($errors) == 0
+            ) {
+                $arr = array(
+                    ':first_name' => $data['first_name'],
+                    ':last_name' => $data['last_name'],
+                    ':gender' => $data['gender'],
+                    ':username' => $data['username'],
+                    ':email' => $data['email'],
+                    ':contact_num' => $data['contact_num'],
+                    ':password' => password_hash($data['password'], PASSWORD_DEFAULT),
+                    ':affiliation' => $data['affiliation'],
+                    ':affiliated_email' => $data['affiliated_email'],
+                    ':affiliated_contact_num' => $data['affiliated_contact_num'],
+                    ':account_type_id' => $account_type_id
+                );
 
-                $query = "INSERT INTO users (first_name, last_name, gender, username, email, password, affiliation, account_type_id, contact_num, affiliated_email, affiliated_contact_num) 
-                    VALUES (:first_name, :last_name, :gender, :username, :email, :password, :affiliation, :account_type_id, :contact_num, :affiliated_email, :affiliated_contact_num)";
-                database_run($query, $arr);
+                $query = "
+                INSERT INTO users (first_name, last_name, gender, username, email, password, affiliation, account_type_id, contact_num, affiliated_email, affiliated_contact_num) 
+                VALUES (:first_name, :last_name, :gender, :username, :email, :password, :affiliation, :account_type_id, :contact_num, :affiliated_email, :affiliated_contact_num)
+                RETURNING user_id";
+
+                $result = database_run($query, $arr);
+
+                if ($result) {
+                    // Fetch the newly created user's ID
+                    $user_id = $result[0]['user_id'];
+
+                    // Prepare notification details
+                    $notification_name = 'User created need verification.';
+                    $message = 'User ' . $data['first_name'] . ' ' . $data['last_name'] . ' is created.';
+                    $active = '1';
+
+                    // Insert notification
+                    $notificationQuery = "
+                    INSERT INTO notification_user (notification_name, message, active, user_id)
+                    VALUES (:notification_name, :message, :active, :user_id)";
+
+                    $notificationData = array(
+                        ':notification_name' => $notification_name,
+                        ':message' => $message,
+                        ':active' => $active,
+                        ':user_id' => $user_id
+                    );
+
+                    $notificationResult = database_run($notificationQuery, $notificationData);
+
+                    if (!$notificationResult) {
+                        echo "Error inserting notification.";
+                    }
+                } else {
+                    $errors[] = "Error saving user data";
+                }
             }
         } else {
             $errors[] = "Error retrieving account type";
@@ -38,17 +75,21 @@
         return $errors;
     }
 
-    //function for login
+    // Function for login
     function login($data)
     {
         $errors = array();
 
-        // check
+        // Check
         if (count($errors) == 0) {
             $email = $data['email'];
             $providedPassword = $data['password'];
 
-            $query = "SELECT users.user_id, users.password, users.first_name, users.email, users.email_verified, account_type.type_name  FROM users LEFT JOIN account_type ON users.account_type_id = account_type.account_type_id WHERE email = :email LIMIT 1";
+            $query = "SELECT users.user_id, users.password, users.first_name, users.email, users.email_verified, account_type.type_name  
+                FROM users 
+                LEFT JOIN account_type ON users.account_type_id = account_type.account_type_id 
+                WHERE email = :email 
+                LIMIT 1";
 
             $row = database_run($query, array(':email' => $email));
 
@@ -74,7 +115,7 @@
         return $errors;
     }
 
-    //function to connect to db
+    // Function to connect to db and run queries
     function database_run($query, $vars = array())
     {
         $dsn = "pgsql:host=localhost dbname=farm_crops user=postgres password=123";
@@ -114,12 +155,11 @@
         // Previous page link
         $prevPage = ($current_page > 1) ? $current_page - 1 : 1;
         $urlPrev = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $prevPage, 'search' => $search]));
-        // echo '<li class="page-item"><a class="page-link small-font text-dark fw-semibold btn-light" href="' . $urlPrev . '" aria-label="Previous"><span aria-hidden="false"><i class="fa-solid fa-arrow-left-long"></i></span></a></li>';
         echo    '<li class="page-item">
-                    <a class="page-link bg-light small-font link-dark fw-semibold" href="' . $urlPrev . '" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>';
+                <a class="page-link bg-light small-font link-dark fw-semibold" href="' . $urlPrev . '" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>';
 
         // Page links
         for ($page = 1; $page <= $total_pages; $page++) {
@@ -131,12 +171,11 @@
         // Next page link
         $nextPage = ($current_page < $total_pages) ? $current_page + 1 : $total_pages;
         $urlNext = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $nextPage, 'search' => $search]));
-        // echo '<li class="page-item"><a class="page-link small-font text-dark fw-semibold btn-light" href="' . $urlNext . '" aria-label="Next"><span aria-hidden="false"><i class="fa-solid fa-arrow-right-long"></i></span></a></li>';
         echo    '<li class="page-item">
-                    <a class="page-link bg-light small-font link-dark fw-semibold" href="' . $urlNext . '" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>';
+                <a class="page-link bg-light small-font link-dark fw-semibold" href="' . $urlNext . '" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>';
 
         echo '</ul></div>';
     }
@@ -151,12 +190,11 @@
         // Previous page link
         $prevPage = ($current_page > 1) ? $current_page - 1 : 1;
         $urlPrev = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $prevPage, 'search' => $search]));
-        // echo '<li class="page-item"><a class="page-link small-font text-dark fw-semibold btn-light" href="' . $urlPrev . '" aria-label="Previous"><span aria-hidden="false"><i class="fa-solid fa-arrow-left-long"></i></span></a></li>';
         echo    '<li class="page-item">
-                    <a class="page-link bg-light small-font link-dark fw-semibold" href="' . $urlPrev . '" aria-label="Previous">
-                        <span aria-hidden="true">&laquo;</span>
-                    </a>
-                </li>';
+                <a class="page-link bg-light small-font link-dark fw-semibold" href="' . $urlPrev . '" aria-label="Previous">
+                    <span aria-hidden="true">&laquo;</span>
+                </a>
+            </li>';
 
         // Page links
         for ($page = 1; $page <= $total_pages; $page++) {
@@ -168,12 +206,11 @@
         // Next page link
         $nextPage = ($current_page < $total_pages) ? $current_page + 1 : $total_pages;
         $urlNext = '?' . http_build_query(array_merge($_GET, [$pageQueryParam => $nextPage, 'search' => $search]));
-        // echo '<li class="page-item"><a class="page-link small-font text-dark fw-semibold btn-light" href="' . $urlNext . '" aria-label="Next"><span aria-hidden="false"><i class="fa-solid fa-arrow-right-long"></i></span></a></li>';
         echo    '<li class="page-item">
-                    <a class="page-link bg-light small-font link-dark fw-semibold" href="' . $urlNext . '" aria-label="Next">
-                        <span aria-hidden="true">&raquo;</span>
-                    </a>
-                </li>';
+                <a class="page-link bg-light small-font link-dark fw-semibold" href="' . $urlNext . '" aria-label="Next">
+                    <span aria-hidden="true">&raquo;</span>
+                </a>
+            </li>';
 
         echo '</ul>';
     }
