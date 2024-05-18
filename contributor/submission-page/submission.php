@@ -66,6 +66,8 @@ require "../../functions/functions.php";
             <?php require "list.php"; ?>
 
             <!-- MODAL -->
+            <!-- import -->
+            <?php require "import.php"; ?>
             <!-- add -->
             <?php require "add.php"; ?>
             <!-- draft -->

@@ -1,5 +1,6 @@
 <?php
-require "../../../../functions/connections.php";
+session_start();
+require "../../../functions/connections.php";
 require "../../../functions/functions.php";
 
 if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
@@ -16,7 +17,11 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
             // Assuming the CSV has columns: category, crop variety, etc.
             // Set default values for missing columns
             $user_id = $_POST['user_id'];
-            $action = "Approved";
+            if (isset($_SESSION['rank']) && $_SESSION['rank'] == 'Contributor') {
+                $action = "Pending";
+            } else {
+                $action = "Approved";
+            }
             $category_name = isset($data[0]) ? pg_escape_string($data[0]) : '';
             $category_variety_name = isset($data[1]) ? pg_escape_string($data[1]) : '';
             $variety_name = isset($data[2]) ? pg_escape_string($data[2]) : '';
@@ -27,38 +32,21 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
             $barangay = isset($data[7]) ? pg_escape_string($data[7]) : '';
             $sitio = isset($data[8]) ? pg_escape_string($data[8]) : '';
             $coordinates = isset($data[9]) ? pg_escape_string($data[9]) : '';
-            $rice_plant_height = isset($data[10]) ? pg_escape_string($data[10]) : '';
-            $rice_leaf_width = isset($data[11]) ? pg_escape_string($data[11]) : '';
-            $rice_leaf_length = isset($data[12]) ? pg_escape_string($data[12]) : '';
-            $rice_tillering_ability = isset($data[13]) ? pg_escape_string($data[13]) : '';
-            $rice_maturity_time = isset($data[14]) ? pg_escape_string($data[14]) : '';
-            $panicle_length = isset($data[15]) ? pg_escape_string($data[15]) : '';
-            $panicle_width = isset($data[16]) ? pg_escape_string($data[16]) : '';
-            $panicle_enclosed_by = isset($data[17]) ? pg_escape_string($data[17]) : '';
-            $panicle_remarkable_features = isset($data[18]) ? pg_escape_string($data[18]) : '';
-            $flag_length = isset($data[19]) ? pg_escape_string($data[19]) : '';
-            $flag_width = isset($data[20]) ? pg_escape_string($data[20]) : '';
-            $pubescence = isset($data[21]) ? pg_escape_string($data[21]) : '';
-            $purplish_stripes = isset($data[22]) ? (strtolower($data[22]) === 'yes' ? 1 : 0) : '';
-            $flag_remarkable_features = isset($data[23]) ? pg_escape_string($data[23]) : '';
-            $rice_yield_capacity = isset($data[24]) ? pg_escape_string($data[24]) : '';
-            $seed_length = isset($data[25]) ? pg_escape_string($data[25]) : '';
-            $seed_width = isset($data[26]) ? pg_escape_string($data[26]) : '';
-            $seed_shape = isset($data[27]) ? pg_escape_string($data[27]) : '';
-            $seed_color = isset($data[28]) ? pg_escape_string($data[28]) : '';
-            $significance = isset($data[29]) ? pg_escape_string($data[29]) : '';
-            $use = isset($data[30]) ? pg_escape_string($data[30]) : '';
-            $indigenous_utilization = isset($data[31]) ? pg_escape_string($data[31]) : '';
-            $remarkable_features = isset($data[32]) ? pg_escape_string($data[32]) : '';
-            $aroma = isset($data[33]) ? pg_escape_string($data[33]) : '';
-            $quality_cooked_rice = isset($data[34]) ? pg_escape_string($data[34]) : '';
-            $quality_leftover_rice = isset($data[35]) ? pg_escape_string($data[35]) : '';
-            $volume_expansion = isset($data[36]) ? (strtolower($data[36]) === 'yes' ? 1 : 0) : '';
-            $glutinous = isset($data[37]) ? (strtolower($data[37]) === 'yes' ? 1 : 0) : '';
-            $texture = isset($data[38]) ? pg_escape_string($data[38]) : '';
-            $pest_resistance = isset($data[39]) ? pg_escape_string($data[39]) : '';
-            $disease_resistance = isset($data[40]) ? pg_escape_string($data[40]) : '';
-            $abiotic_resistance = isset($data[41]) ? pg_escape_string($data[41]) : '';
+            $rootcrop_plant_height = isset($data[10]) ? pg_escape_string($data[10]) : '';
+            $rootcrop_leaf_width = isset($data[11]) ? pg_escape_string($data[11]) : '';
+            $rootcrop_leaf_length = isset($data[12]) ? pg_escape_string($data[12]) : '';
+            $rootcrop_stem_leaf_desc = isset($data[13]) ? pg_escape_string($data[13]) : '';
+            $eating_quality = isset($data[14]) ? pg_escape_string($data[14]) : '';
+            $rootcrop_color = isset($data[15]) ? pg_escape_string($data[15]) : '';
+            $sweetness = isset($data[16]) ? pg_escape_string($data[16]) : '';
+            $rootcrop_remarkable_features = isset($data[17]) ? pg_escape_string($data[17]) : '';
+            $significance = isset($data[18]) ? pg_escape_string($data[18]) : '';
+            $use = isset($data[19]) ? pg_escape_string($data[19]) : '';
+            $indigenous_utilization = isset($data[20]) ? pg_escape_string($data[20]) : '';
+            $remarkable_features = isset($data[21]) ? pg_escape_string($data[21]) : '';
+            $pest_resistance = isset($data[22]) ? pg_escape_string($data[22]) : '';
+            $disease_resistance = isset($data[23]) ? pg_escape_string($data[23]) : '';
+            $abiotic_resistance = isset($data[24]) ? pg_escape_string($data[24]) : '';
 
             // Find the category_id for the given category name
             $category_query = "SELECT category_id FROM category WHERE category_name ILIKE '$category_name'";
@@ -227,86 +215,42 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                 continue;
             }
 
-            // Handle rice category traits
-            // seed traits
-            $query_seedTraits = "INSERT into seed_traits (seed_length, seed_width, seed_shape, seed_color) values ($1, $2, $3, $4) returning seed_traits_id";
-            $query_run_seedTraits = pg_query_params($conn, $query_seedTraits, array($seed_length, $seed_width, $seed_shape, $seed_color));
-            if ($query_run_seedTraits) {
-                $row_seedTraits = pg_fetch_row($query_run_seedTraits);
-                $seed_traits_id = $row_seedTraits[0];
+            // rootcrop traits
+            $query_rootcropTraits = "INSERT into rootcrop_traits (eating_quality, rootcrop_color, sweetness, rootcrop_remarkable_features) values ($1, $2, $3, $4) returning rootcrop_traits_id";
+            $query_run_rootcropTraits = pg_query_params($conn, $query_rootcropTraits, array($eating_quality, $rootcrop_color, $sweetness, $rootcrop_remarkable_features));
+            if ($query_run_rootcropTraits) {
+                $row_rootcropTraits = pg_fetch_row($query_run_rootcropTraits);
+                $rootcrop_traits_id = $row_rootcropTraits[0];
             } else {
-                echo "seed traits not saved in the database.<br>";
-                continue;
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../../submission.php");
+                exit(0);
             }
 
-            // panicle traits
-            $query_panicleTraits = "INSERT into panicle_traits_rice (panicle_length, panicle_width, panicle_enclosed_by, panicle_remarkable_features) values ($1, $2, $3, $4) returning panicle_traits_rice_id";
-            $query_run_panicleTraits = pg_query_params($conn, $query_panicleTraits, array($panicle_length, $panicle_width, $panicle_enclosed_by, $panicle_remarkable_features));
-            if ($query_run_panicleTraits) {
-                $row_panicleTraits = pg_fetch_row($query_run_panicleTraits);
-                $panicle_traits_rice_id = $row_panicleTraits[0];
-            } else {
-                echo "panicle traits not saved in the database.<br>";
-                continue;
-            }
-
-            // flag traits
-            $query_flagLeaf = "INSERT into flag_leaf_traits_rice (flag_length, flag_width, purplish_stripes, pubescence, flag_remarkable_features) values ($1, $2, $3, $4, $5) returning flag_leaf_traits_rice_id";
-            $query_run_flagLeaf = pg_query_params($conn, $query_flagLeaf, array($flag_length, $flag_width, $purplish_stripes, $pubescence, $flag_remarkable_features));
-            if ($query_run_flagLeaf) {
-                $row_flagLeaf = pg_fetch_row($query_run_flagLeaf);
-                $flag_leaf_traits_rice_id = $row_flagLeaf[0];
-            } else {
-                echo "flag leaf traits not saved in the database.<br>";
-                continue;
-            }
-
-            // reproductive state rice
-            $query_reproductiveState = "INSERT into reproductive_state_rice (rice_yield_capacity, seed_traits_id, panicle_traits_rice_id, flag_leaf_traits_rice_id) values ($1, $2, $3, $4) returning reproductive_state_rice_id";
-            $query_run_reproductiveState = pg_query_params($conn, $query_reproductiveState, array($rice_yield_capacity, $seed_traits_id, $panicle_traits_rice_id, $flag_leaf_traits_rice_id));
-            if ($query_run_reproductiveState) {
-                $row_reproductiveState = pg_fetch_row($query_run_reproductiveState);
-                $reproductive_state_rice_id = $row_reproductiveState[0];
-            } else {
-                echo "seed reproductive state saved in the database.<br>";
-                continue;
-            }
-
-            // vegetative state rice
-            $query_vegetativeState = "INSERT into vegetative_state_rice (rice_plant_height, rice_leaf_width, rice_leaf_length, rice_tillering_ability, rice_maturity_time) values ($1, $2, $3, $4, $5) returning vegetative_state_rice_id";
-            $query_run_vegetativeState = pg_query_params($conn, $query_vegetativeState, array($rice_plant_height, $rice_leaf_width, $rice_leaf_length, $rice_tillering_ability, $rice_maturity_time));
+            // vegetative state rootcrop
+            $query_vegetativeState = "INSERT into vegetative_state_rootcrop (rootcrop_plant_height, rootcrop_leaf_width, rootcrop_leaf_length, rootcrop_stem_leaf_desc, rootcrop_maturity_time) values ($1, $2, $3, $4, $5) returning vegetative_state_rootcrop_id";
+            $query_run_vegetativeState = pg_query_params($conn, $query_vegetativeState, array($rootcrop_plant_height, $rootcrop_leaf_width, $rootcrop_leaf_length, $rootcrop_stem_leaf_desc, $rootcrop_maturity_time));
             if ($query_run_vegetativeState) {
                 $row_vegetativeState = pg_fetch_row($query_run_vegetativeState);
-                $vegetative_state_rice_id = $row_vegetativeState[0];
+                $vegetative_state_rootcrop_id = $row_vegetativeState[0];
             } else {
-                echo "vegetative state not saved in the database.<br>";
-                continue;
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../../submission.php");
+                exit(0);
             }
 
-            // sensory traits rice
-            $query_sensoryTraits = "INSERT into sensory_traits_rice (aroma, quality_cooked_rice, quality_leftover_rice, volume_expansion, glutinous, texture) values ($1, $2, $3, $4, $5, $6) returning sensory_traits_rice_id";
-            $query_run_sensoryTraits = pg_query_params($conn, $query_sensoryTraits, array(
-                $aroma, $quality_cooked_rice, $quality_leftover_rice, $volume_expansion, $glutinous, $texture
+            // root crop traits
+            $query_root_CropTraits = "INSERT into root_crop_traits (crop_id, vegetative_state_rootcrop_id, rootcrop_traits_id) values ($1, $2, $3) returning root_crop_traits_id";
+            $query_run_root_CropTraits = pg_query_params($conn, $query_root_CropTraits, array(
+                $crop_id, $vegetative_state_rootcrop_id, $rootcrop_traits_id
             ));
-            if ($query_run_sensoryTraits) {
-                $row_sensoryTraits = pg_fetch_row($query_run_sensoryTraits);
-                $sensory_traits_rice_id = $row_sensoryTraits[0];
+            if ($query_run_root_CropTraits) {
+                $row_root_CropTraits = pg_fetch_row($query_run_root_CropTraits);
+                $root_crop_traits_id = $row_root_CropTraits[0];
             } else {
-                echo "sensory traits not saved in the database.<br>";
-                continue;
-            }
-
-            // rice traits
-            $query_riceTraits = "INSERT into rice_traits (crop_id, vegetative_state_rice_id, reproductive_state_rice_id, sensory_traits_rice_id) values ($1, $2, $3, $4) returning rice_traits_id";
-            $query_run_riceTraits = pg_query_params($conn, $query_riceTraits, array(
-                $crop_id, $vegetative_state_rice_id, $reproductive_state_rice_id, $sensory_traits_rice_id
-            ));
-            if ($query_run_riceTraits) {
-                $row_riceTraits = pg_fetch_row($query_run_riceTraits);
-                $rice_traits_id = $row_riceTraits[0];
-            } else {
-                echo "rice traits not saved in the database.<br>";
-                continue;
+                $_SESSION['message'] = "Failed to create crop.";
+                header("Location: ../../submission.php");
+                exit(0);
             }
 
             // Insert data into the pest_resistance table
@@ -320,8 +264,8 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                         if ($pest_result && pg_num_rows($pest_result) > 0) {
                             $pest_row = pg_fetch_assoc($pest_result);
                             $pest_resistance_id = $pest_row['pest_resistance_id'];
-                            $crop_pest_query = "INSERT INTO rice_pest_resistance (rice_traits_id, pest_resistance_id) VALUES ($1, $2)";
-                            $crop_pest_values = array($rice_traits_id, $pest_resistance_id);
+                            $crop_pest_query = "INSERT INTO rootcrop_pest_resistance (root_crop_traits_id, pest_resistance_id) VALUES ($1, $2)";
+                            $crop_pest_values = array($root_crop_traits_id, $pest_resistance_id);
                             $crop_pest_result = pg_query_params($conn, $crop_pest_query, $crop_pest_values);
                             if (!$crop_pest_result) {
                                 echo "Error inserting pest resistance data for $resistance.<br>";
@@ -346,8 +290,8 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                         if ($disease_result && pg_num_rows($disease_result) > 0) {
                             $disease_row = pg_fetch_assoc($disease_result);
                             $disease_resistance_id = $disease_row['disease_resistance_id'];
-                            $crop_disease_query = "INSERT INTO rice_disease_resistance (rice_traits_id, disease_resistance_id) VALUES ($1, $2)";
-                            $crop_disease_values = array($rice_traits_id, $disease_resistance_id);
+                            $crop_disease_query = "INSERT INTO rootcrop_disease_resistance (root_crop_traits_id, disease_resistance_id) VALUES ($1, $2)";
+                            $crop_disease_values = array($root_crop_traits_id, $disease_resistance_id);
                             $crop_disease_result = pg_query_params($conn, $crop_disease_query, $crop_disease_values);
                             if (!$crop_disease_result) {
                                 echo "Error inserting disease resistance data for $resistance.<br>";
@@ -372,16 +316,14 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                         if ($abiotic_result && pg_num_rows($abiotic_result) > 0) {
                             $abiotic_row = pg_fetch_assoc($abiotic_result);
                             $abiotic_resistance_id = $abiotic_row['abiotic_resistance_id'];
-                            $crop_abiotic_query = "INSERT INTO rice_abiotic_resistance (rice_traits_id, abiotic_resistance_id) VALUES ($1, $2)";
-                            $crop_abiotic_values = array($rice_traits_id, $abiotic_resistance_id);
+                            $crop_abiotic_query = "INSERT INTO rootcrop_abiotic_resistance (root_crop_traits_id, abiotic_resistance_id) VALUES ($1, $2)";
+                            $crop_abiotic_values = array($root_crop_traits_id, $abiotic_resistance_id);
                             $crop_abiotic_result = pg_query_params($conn, $crop_abiotic_query, $crop_abiotic_values);
                             if (!$crop_abiotic_result) {
                                 echo "Error inserting abiotic resistance data for $resistance.<br>";
-                                continue;
                             }
                         } else {
                             echo "Abiotic resistance '$resistance' not found in the database.<br>";
-                            continue;
                         }
                     }
                 }
@@ -390,15 +332,15 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
 
         fclose($handle);
         $_SESSION['message'] = "Data imported successfully.";
-        header("location: ../../crop.php");
+        header("location: ../submission.php");
         die();
     } else {
         $_SESSION['message'] = "Error opening the file.";
-        header("location: ../../crop.php");
+        header("location: ../submission.php");
         die();
     }
 } else {
     $_SESSION['message'] = "Error uploading file.";
-    header("location: ../../crop.php");
+    header("location: ../submission.php");
     die();
 }

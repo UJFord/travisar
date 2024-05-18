@@ -13,6 +13,10 @@
             <!-- add button -->
             <div class="z-1 dropdown">
                 <!-- dropdown -->
+                <button id="import-crop-btn" class="btn btn-secondary contributor-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#import-item-modal">
+                    Import Data
+                    <i class="ms-2 fa-solid fa-file-import"></i>
+                </button>
                 <button id="add-crop-btn" class="btn btn-secondary contributor-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#add-item-modal">
                     Add New
                     <i class="fa-solid fa-plus"></i>

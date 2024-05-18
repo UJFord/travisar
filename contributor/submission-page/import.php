@@ -51,7 +51,7 @@
                                                                     } ?>">
                         <!-- corn TAB -->
                         <div class="fade show active tab-pane" id="corn-tab-pane" role="tabpanel" aria-labelledby="corn-tab" tabindex="0">
-                            <form action="modals/crud-code/import-corn.php" method="post" enctype="multipart/form-data">
+                            <form action="crud-code/import-corn.php" method="post" enctype="multipart/form-data">
                                 <h6 class="fw-semibold mt-4 mb-3">Import Corn data</h6>
                                 <label class="upload-button">
                                     <?php
@@ -69,7 +69,7 @@
 
                         <!-- rice TAB -->
                         <div class="fade tab-pane" id="rice-tab-pane" role="tabpanel" aria-labelledby="rice-tab" tabindex="0">
-                            <form action="modals/crud-code/import-rice.php" method="post" enctype="multipart/form-data">
+                            <form action="crud-code/import-rice.php" method="post" enctype="multipart/form-data">
                                 <h6 class="fw-semibold mt-4 mb-3">Import Rice Data</h6>
                                 <label class="upload-button">
                                     <?php
@@ -87,7 +87,7 @@
 
                         <!-- rootCrop TAB -->
                         <div class="fade tab-pane" id="rootCrop-tab-pane" role="tabpanel" aria-labelledby="rootCrop-tab" tabindex="0">
-                            <form action="modals/crud-code/import-rootCrop.php" method="post" enctype="multipart/form-data">
+                            <form action="crud-code/import-rootCrop.php" method="post" enctype="multipart/form-data">
                                 <h6 class="fw-semibold mt-4 mb-3">Import Root Crop Data</h6>
                                 <label class="upload-button">
                                     <?php

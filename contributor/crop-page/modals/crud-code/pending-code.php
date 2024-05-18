@@ -1,4 +1,5 @@
 <?php
+session_start();
 require "../../../../functions/connections.php";
 
 // var_dump($_POST);
