@@ -1061,15 +1061,15 @@ require "../functions/functions.php";
         <!-- Bootstrap Modal -->
         <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
             <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
-                <div class="modal-content">
+                <div class="modal-content overflow-hidden">
                     <div class="modal-header position-relative">
-                        <h1 class="modal-title fs-6 text-center w-100" id="exampleModalLabel">
+                        <h1 class="modal-title fs-6 text-center w-100 fw-bolder" id="exampleModalLabel">
                             Image Preview
                         </h1>
                         <button type="button" class="btn-close position-absolute end-0 my-1 me-3 p-0" data-bs-dismiss="modal" aria-label="Close"></button>
                     </div>
-                    <div class="modal-body">
-                        <img src="" alt="Full-size Image" class="img-fluid" id="modalImage">
+                    <div class="modal-body bg-secondary bg-gradient">
+                        <img src="" alt="Full-size Image" class="img-fluid rounded" id="modalImage">
                     </div>
                 </div>
             </div>
