@@ -548,7 +548,9 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                     <?php foreach ($notifications_dataAdmin_crop as $notification) { ?>
                                         <li class="message" data-id="<?= htmlspecialchars($notification['notification_id']); ?>">
                                             <a href="" class="dropdown-item d-flex justify-content-between">
+                                                <!-- message -->
                                                 <div class="msg fw-normal small-font text-truncate"><span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span> crop added.</div>
+                                                <!-- date -->
                                                 <div class="small-font fw-normal p-1 text-secondary">2024-12-9 21:22</div>
                                             </a>
                                         </li>
@@ -556,7 +558,9 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         <?php foreach ($notifications_dataAdmin_user as $notification) { ?>
                                             <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
                                                 <a href="" class="dropdown-item d-flex justify-content-between">
+                                                    <!-- message -->
                                                     <div class="msg fw-normal small-font text-truncate"><?= !empty($notification['email_verified']) ? '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> verified.': '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> needs verification'; ?></div>
+                                                    <!-- date -->
                                                     <div class="small-font fw-normal p-1 text-secondary">2024-12-9 21:22</div>
                                             </a>
                                         </li>
@@ -565,7 +569,9 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                     <?php foreach ($deactive_notifications_dumpAdmin_crop as $notification) { ?>
                                         <li class="message" data-id="<?= htmlspecialchars($notification['notification_id']); ?>">
                                             <a href="" class="dropdown-item d-flex justify-content-between">
+                                                <!-- message -->
                                                 <div class="msg fw-normal small-font text-truncate"><span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span> crop added.</div>
+                                                <!-- date -->
                                                 <div class="small-font fw-normal p-1 text-secondary">2024-12-9 21:22</div>
                                             </a>
                                         </li>
@@ -573,7 +579,9 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         <?php foreach ($deactive_notifications_dumpAdmin_user as $notification) { ?>
                                             <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
                                                 <a href="" class="dropdown-item d-flex justify-content-between">
+                                                    <!-- message -->
                                                     <div class="msg fw-normal small-font text-truncate"><?= !empty($notification['email_verified']) ? '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> verified.': '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> needs verification'; ?></div>
+                                                    <!-- date -->
                                                     <div class="small-font fw-normal p-1 text-secondary">2024-12-9 21:22</div>
                                             </a>
                                         </li>
