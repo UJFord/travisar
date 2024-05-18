@@ -1,7 +1,7 @@
 // map center coordinates
 let latOnLoad = 5.901882;
 let lngOnLoad = 125.070641;
-let zoomOnLoad = 9;
+let zoomOnLoad = 10;
 // set map center on load
 let map = L.map('map').setView([latOnLoad, lngOnLoad], zoomOnLoad);
 
