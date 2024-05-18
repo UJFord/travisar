@@ -279,7 +279,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
         padding: 0 !important;
     }
 
-    .message>span {
+    /* .message>span {
         width: 100%;
         display: block;
         color: red;
@@ -293,11 +293,11 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
     }
 
     .message {
-        /* background:#ff7f50;
+        background:#ff7f50;
         margin:0.3rem 0.2rem !important;
         padding:0.2rem 0 !important;
         width:100%;
-        display:block; */
+        display:block;
     }
 
     .message>.msg {
@@ -309,7 +309,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
         display: block;
         word-wrap: break-word;
 
-    }
+    } */
 </style>
 <!-- NAVBAR -->
 <div class="navbar navbar-dark navbar-expand-md" id="main-nav">
@@ -378,12 +378,14 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
             <?php if (isset($_SESSION['LOGGED_IN']) && $_SESSION['LOGGED_IN']) : ?>
                 <!-- ADMIN -->
                 <ul class="navbar-nav">
+
                     <!-- my crops -->
                     <div class="nav-item fw-semibold me-2 contributor-only">
                         <a class="nav-link fw-bold me-2 <?php if ($current_page_isSubmission) {
                                                             echo "active";
                                                         } ?>" aria-current="page" href="<?php echo BASE_URL . '/' . 'contributor/submission-page/submission.php'; ?>">My Listings</a>
                     </div>
+
                     <!-- crop management -->
                     <div class="nav-item fw-semibold me-2 dropdown curator-only">
 
@@ -466,26 +468,30 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
 
                     <?php if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Contributor') : ?>
                         <!-- notification -->
-                        <div class="nav-item me-3">
-                            <a class="nav-link" role="button" id="notif" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="nav-item dropdown me-0">
+                            <a class="nav-link dropdown-toggle" role="button" id="notif" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-bell"></i>
                                 <?php if ($count_active != 0) { ?>
                                     <div class="round" data-value="<?= $count_active ?>"><?= $count_active ?></div>
                                 <?php } ?>
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="notif" id="list">
+                            <ul class="dropdown-menu dropdown-menu-md-end notif-menu" aria-labelledby="notif" id="list">
                                 <?php if (count($notifications_data) > 0) { ?>
                                     <?php foreach ($notifications_data as $notification) { ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
-                                            <span><?= $notification['notification_name'] ?></span>
-                                            <div class="msg"><?= $notification['message'] ?></div>
+                                            <a href="#" class="dropdown-item">
+                                                <span><?= $notification['notification_name'] ?></span>
+                                                <div class="msg"><?= $notification['message'] ?></div>
+                                            </a>
                                         </li>
                                     <?php } ?>
                                 <?php } else { ?>
                                     <?php foreach ($deactive_notifications_dump as $notification) { ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
-                                            <span><?= $notification['notification_name'] ?></span>
-                                            <div class="msg"><?= $notification['message'] ?></div>
+                                            <a href="" class="dropdown-item">
+                                                <span><?= $notification['notification_name'] ?></span>
+                                                <div class="msg"><?= $notification['message'] ?></div>
+                                            </a>
                                         </li>
                                     <?php } ?>
                                 <?php } ?>
@@ -495,26 +501,30 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
 
                     <?php if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Curator') : ?>
                         <!-- notification -->
-                        <div class="nav-item me-3">
-                            <a class="nav-link" role="button" id="notif" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="nav-item dropdown me-0">
+                            <a class="nav-link dropdown-toggle" role="button" id="notif" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-bell"></i>
                                 <?php if ($count_activeCurator != 0) { ?>
                                     <div class="round" data-value="<?= $count_activeCurator ?>"><?= $count_activeCurator ?></div>
                                 <?php } ?>
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="notif" id="list">
+                            <ul class="dropdown-menu dropdown-menu-md-end notif-menu" aria-labelledby="notif" id="list">
                                 <?php if (count($notifications_dataCurator) > 0) { ?>
                                     <?php foreach ($notifications_dataCurator as $notification) { ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
-                                            <span><?= $notification['crop_variety'] ?></span>
-                                            <div class="msg"><?= $notification['action'] ?></div>
+                                            <a href="" class="dropdown-item">
+                                                <span><?= $notification['crop_variety'] ?></span>
+                                                <div class="msg"><?= $notification['action'] ?></div>
+                                            </a>
                                         </li>
                                     <?php } ?>
                                 <?php } else { ?>
                                     <?php foreach ($deactive_notifications_dumpCurator as $notification) { ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
-                                            <span><?= $notification['crop_variety'] ?></span>
-                                            <div class="msg"><?= $notification['action'] ?></div>
+                                            <a href="" class="dropdown-item">
+                                                <span><?= $notification['crop_variety'] ?></span>
+                                                <div class="msg"><?= $notification['action'] ?></div>
+                                            </a>
                                         </li>
                                     <?php } ?>
                                 <?php } ?>
@@ -524,8 +534,8 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
 
                     <?php if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') : ?>
                         <!-- notification -->
-                        <div class="nav-item me-3">
-                            <a class="nav-link" role="button" id="notif" data-bs-toggle="dropdown" aria-expanded="false">
+                        <div class="nav-item dropdown me-0">
+                            <a class="nav-link dropdown-toggle" role="button" id="notif" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-bell"></i>
                                 <?php
                                 $total_notifications = $count_activeAdmin_crop + $count_activeAdmin_user;
@@ -533,43 +543,39 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                     <div class="round" data-value="<?= $total_notifications ?>"><?= $total_notifications ?></div>
                                 <?php } ?>
                             </a>
-                            <ul class="dropdown-menu" aria-labelledby="notif" id="list">
+                            <ul class="dropdown-menu dropdown-menu-md-end notif-menu" aria-labelledby="notif" id="list">
                                 <?php if (!empty($notifications_dataAdmin_crop) || !empty($notifications_dataAdmin_user)) { ?>
                                     <?php foreach ($notifications_dataAdmin_crop as $notification) { ?>
                                         <li class="message" data-id="<?= htmlspecialchars($notification['notification_id']); ?>">
-                                            <div class="msg">new crop <?= $notification['crop_variety'] ?> is added.</div>
+                                            <a href="" class="dropdown-item d-flex justify-content-between">
+                                                <div class="msg fw-normal small-font text-truncate"><span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span> crop added.</div>
+                                                <div class="small-font fw-normal p-1 text-secondary">2024-12-9 21:22</div>
+                                            </a>
                                         </li>
-                                    <?php } ?>
-                                    <?php foreach ($notifications_dataAdmin_user as $notification) { ?>
-                                        <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
-                                            <div class="msg">
-                                                <?php
-                                                if ($notification['email_verified'] !== NULL && $notification['email_verified'] !== '') {
-                                                    echo 'Account verified ' . htmlspecialchars($notification['first_name']) . ' ' . htmlspecialchars($notification['last_name']);
-                                                } else {
-                                                    echo 'Account ' . htmlspecialchars($notification['first_name']) . ' ' . htmlspecialchars($notification['last_name']) . ' needs verification';
-                                                }
-                                                ?>
-                                            </div>
+                                        <?php } ?>
+                                        <?php foreach ($notifications_dataAdmin_user as $notification) { ?>
+                                            <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
+                                                <a href="" class="dropdown-item d-flex justify-content-between">
+                                                    <div class="msg fw-normal small-font text-truncate"><?= !empty($notification['email_verified']) ? '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> verified.': '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> needs verification'; ?></div>
+                                                    <div class="small-font fw-normal p-1 text-secondary">2024-12-9 21:22</div>
+                                            </a>
                                         </li>
                                     <?php } ?>
                                 <?php } else { ?>
                                     <?php foreach ($deactive_notifications_dumpAdmin_crop as $notification) { ?>
                                         <li class="message" data-id="<?= htmlspecialchars($notification['notification_id']); ?>">
-                                            <div class="msg">new crop <?= $notification['crop_variety'] ?> is added.</div>
+                                            <a href="" class="dropdown-item d-flex justify-content-between">
+                                                <div class="msg fw-normal small-font text-truncate"><span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span> crop added.</div>
+                                                <div class="small-font fw-normal p-1 text-secondary">2024-12-9 21:22</div>
+                                            </a>
                                         </li>
-                                    <?php } ?>
-                                    <?php foreach ($deactive_notifications_dumpAdmin_user as $notification) { ?>
-                                        <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
-                                            <div class="msg">
-                                                <?php
-                                                if ($notification['email_verified'] !== NULL && $notification['email_verified'] !== '') {
-                                                    echo 'Account verified ' . htmlspecialchars($notification['first_name']) . ' ' . htmlspecialchars($notification['last_name']);
-                                                } else {
-                                                    echo 'Account ' . htmlspecialchars($notification['first_name']) . ' ' . htmlspecialchars($notification['last_name']) . ' needs verification';
-                                                }
-                                                ?>
-                                            </div>
+                                        <?php } ?>
+                                        <?php foreach ($deactive_notifications_dumpAdmin_user as $notification) { ?>
+                                            <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
+                                                <a href="" class="dropdown-item d-flex justify-content-between">
+                                                    <div class="msg fw-normal small-font text-truncate"><?= !empty($notification['email_verified']) ? '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> verified.': '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> needs verification'; ?></div>
+                                                    <div class="small-font fw-normal p-1 text-secondary">2024-12-9 21:22</div>
+                                            </a>
                                         </li>
                                     <?php } ?>
                                 <?php } ?>
@@ -632,9 +638,9 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
 <!-- script for notification bell -->
 <script>
     $(document).ready(function() {
-        $('#notif').on('click', function() {
-            $('#list').toggle();
-        });
+        // $('#notif').on('click', function() {
+        //     $('#list').toggle();
+        // });
 
         $('.message').on('click', function(e) {
             e.preventDefault();
