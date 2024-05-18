@@ -65,7 +65,7 @@ switch ($current_page_path) {
                         <!-- root -->
                         <a href="root.php?map=close&category_id=<?= $category_id ?>" class="col-1 bar-filter-categ border-bottom border-<?= ($isRoot) ? 'success' : 'light'; ?> border-5 link-opacity-50-hover link-dark py-2 px-3 d-flex flex-column justify-content-center align-items-center  link-underline link-underline-opacity-0">
                             <img class="categ-link-img" src="img/potato.svg" alt="" srcset="">
-                            <div class="fw-bold text-center">Root <span class="d-none d-lg-inline">Crop</span></div>
+                            <div class="fw-bold text-center d-flex flex-row">Root <span class="d-none d-xl-inline ms-1">Crop</span></div>
                         </a>
             <?php
                     }

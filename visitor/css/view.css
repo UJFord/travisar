@@ -52,3 +52,10 @@
     border-radius: 5px; /* Add rounded corners */
 }
 
+/* image in modal */
+#modalImage {
+    width: 100%;
+    height: auto;
+    cursor: move;
+}
+

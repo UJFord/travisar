@@ -977,6 +977,7 @@ require "../functions/functions.php";
                     </div>
 
                     <dic class="col-6 ps-4">
+                        <!-- MAP -->
                         <div class="row mb-4">
                             <!-- MAP -->
                             <div id="map" class="w-100 rounded"></div>
@@ -1055,6 +1056,26 @@ require "../functions/functions.php";
 
             ?>
         </div>
+
+        <!-- IMAGE MODAL -->
+        <!-- Bootstrap Modal -->
+        <div class="modal fade" id="imageModal" tabindex="-1" role="dialog" aria-labelledby="imageModalLabel" aria-hidden="true">
+            <div class="modal-dialog modal-dialog-centered modal-xl" role="document">
+                <div class="modal-content">
+                    <div class="modal-header position-relative">
+                        <h1 class="modal-title fs-6 text-center w-100" id="exampleModalLabel">
+                            Image Preview
+                        </h1>
+                        <button type="button" class="btn-close position-absolute end-0 my-1 me-3 p-0" data-bs-dismiss="modal" aria-label="Close"></button>
+                    </div>
+                    <div class="modal-body">
+                        <img src="" alt="Full-size Image" class="img-fluid" id="modalImage">
+                    </div>
+                </div>
+            </div>
+        </div>
+
+
     </div>
 
     <!-- SCRIPT -->
@@ -1067,6 +1088,8 @@ require "../functions/functions.php";
     <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
     <!-- bootstrap -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+    <!-- panzoom -->
+    <script src="https://unpkg.com/@panzoom/panzoom@4.5.1/dist/panzoom.min.js"></script>
     <!-- custom -->
     <script src="js/view.js"></script>
     <script src="js/nav.js"></script>

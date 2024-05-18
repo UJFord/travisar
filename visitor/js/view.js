@@ -56,3 +56,43 @@ if (latlng) {
         }
     }
 }
+
+// IMAGE MODAL HANDLING
+    document.querySelectorAll('.view-crop-image').forEach(function(image) {
+        image.addEventListener('click', function() {
+            var fullsizeImageUrl = this.src; // Get the source of the clicked image
+            var modalImage = document.getElementById('modalImage');
+            modalImage.src = fullsizeImageUrl;
+            $('#imageModal').modal('show');
+        });
+    });
+
+    // Initialize panzoom on the modal image when the modal is shown
+    var panzoomInstance;
+    $('#imageModal').on('shown.bs.modal', function () {
+        var modalImage = document.getElementById('modalImage');
+        panzoomInstance = Panzoom(modalImage, {
+            maxScale: 5,
+            minScale: 1,
+            contain: 'invert'
+        });
+
+        modalImage.addEventListener('wheel', panzoomInstance.zoomWithWheel);
+
+        // Add double-click event for zooming
+        modalImage.addEventListener('dblclick', function(event) {
+            // Check the current scale
+            var currentScale = panzoomInstance.getScale();
+            // Determine the new scale
+            var newScale = currentScale === 1 ? 2 : 1; // Toggle between 1 and 2
+            panzoomInstance.zoomToPoint(newScale, { clientX: event.clientX, clientY: event.clientY });
+        });
+    });
+
+    // Optional: Reset panzoom when the modal is hidden
+    $('#imageModal').on('hidden.bs.modal', function () {
+        if (panzoomInstance) {
+            panzoomInstance.destroy();
+            panzoomInstance = null;
+        }
+    });
