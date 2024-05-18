@@ -1,6 +1,6 @@
 <?php
+session_start();
 require "../../../../functions/connections.php";
-require "../../../functions/functions.php";
 
 if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
     // Get the file path
