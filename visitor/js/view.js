@@ -74,7 +74,7 @@ if (latlng) {
         panzoomInstance = Panzoom(modalImage, {
             maxScale: 5,
             minScale: 1,
-            contain: 'invert'
+            contain: 'outside'
         });
 
         modalImage.addEventListener('wheel', panzoomInstance.zoomWithWheel);
