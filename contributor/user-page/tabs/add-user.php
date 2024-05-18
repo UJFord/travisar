@@ -408,11 +408,11 @@
                 cache: false,
                 processData: false,
                 success: function(data) {
-                    //console.log(data);
+                    console.log(data);
                     // Reset the form
-                    form.reset();
+                    //form.reset();
                     // Reload the page or do other actions if needed
-                    location.reload();
+                    //location.reload();
                 },
                 error: function(jqXHR, textStatus, errorThrown) {
                     console.error("Form submission error:", textStatus, errorThrown);

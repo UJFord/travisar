@@ -23,17 +23,37 @@ if (isset($_POST['save'])) {
 
         // Perform the insertion query
         $query = "INSERT into users (first_name, last_name, gender, email, username, password, affiliation, account_type_id, email_verified, contact_num, affiliated_email, affiliated_contact_num) 
-        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12)";
+        VALUES ($1, $2, $3, $4, $5, $6, $7, $8, $9, $10, $11, $12) RETURNING user_id";
         $query_run = pg_query_params($conn, $query, array(
             $first_name, $last_name, $gender, $email, $username, $password, $affiliation, $account_type_id, $email_verify, $contact_num, $affiliated_email, $affiliated_contact_num
         ));
 
         if ($query_run) {
-            // Commit the transaction if successful
-            pg_query($conn, "COMMIT");
-            $_SESSION['message'] = "User created successfully";
-            //header("location: ../partners.php");
-            exit; // Ensure that the script stops executing after the redirect header
+            $row_user = pg_fetch_row($query_run);
+            $user_id = $row_user[0];
+
+            // Prepare notification details
+            $notification_name = 'User created.';
+            $message = 'User ' . $first_name . ' ' . $last_name . ' is created.';
+            $active = '1';
+
+            // Insert notification
+            $insert_queryNotif = "
+                INSERT INTO notification_user (notification_name, message, active, user_id)
+                VALUES ($1, $2, $3, $4)
+            ";
+            $insert_runNotif = pg_query_params($conn, $insert_queryNotif, array($notification_name, $message, $active, $user_id));
+
+            if ($insert_runNotif) {
+                // Commit the transaction if successful
+                pg_query($conn, "COMMIT");
+                $_SESSION['message'] = "User created successfully";
+                //header("location: ../partners.php");
+                exit; // Ensure that the script stops executing after the redirect header
+            } else {
+                // Log the error or display a more user-friendly message
+                echo "Error inserting notification: " . pg_last_error($conn);
+            }
         } else {
             // Rollback the transaction if an error occurs
             pg_query($conn, "ROLLBACK");
@@ -63,6 +83,24 @@ if (isset($_POST['approve'])) {
     if ($query_run !== false) {
         $affected_rows = pg_affected_rows($query_run);
         if ($affected_rows > 0) {
+            // Prepare notification details
+            $notification_name = 'User verified.';
+            $message = 'User ' . $first_name . ' ' . $last_name . ' is verified.';
+            $active = '1';
+
+            // Insert notification
+            $insert_queryNotif = "
+                INSERT INTO notification_user (notification_name, message, active, user_id)
+                VALUES ($1, $2, $3, $4)
+            ";
+            $insert_runNotif = pg_query_params($conn, $insert_queryNotif, array($notification_name, $message, $active, $user_id));
+
+            if ($insert_runNotif) {
+            } else {
+                // Log the error or display a more user-friendly message
+                echo "Error inserting notification: " . pg_last_error($conn);
+            }
+
             $_SESSION['messsage'] = "User Approved";
             header("location: ../verify-user.php");
             exit; // Ensure that the script stops executing after the redirect header

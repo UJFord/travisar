@@ -175,7 +175,7 @@
 
         // Fetch and populate barangay options for each selected municipality
         selectedMunicipalities.forEach(municipalityid => {
-            fetch('modals/fetch/fetch_filter-brgy.php?municipality_id=' + municipalityid)
+            fetch('fetch/fetch_filter-brgy.php?municipality_id=' + municipalityid)
                 .then(response => response.json())
                 .then(data => {
                     // Populate options
@@ -235,7 +235,7 @@
 
         // Fetch and populate variety options for each selected category
         selectedCategories.forEach(categoryId => {
-            fetch('modals/fetch/fetch_filter.php?category_id=' + categoryId)
+            fetch('fetch/fetch_filter.php?category_id=' + categoryId)
                 .then(response => response.json())
                 .then(data => {
                     // Populate options

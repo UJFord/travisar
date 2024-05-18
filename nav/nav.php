@@ -6,7 +6,6 @@ define('BASE_URL', 'http://localhost/travisar');
 // current page path
 $current_page_path = strtok($_SERVER['REQUEST_URI'], '?');
 
-
 // current page html boolean
 $current_page_isHome = false;
 $current_page_isCrop = false;
@@ -16,7 +15,6 @@ $current_page_isSettings = false;
 $current_page_isSubmission = false;
 $current_page_isManagement = false;
 $current_page_isProfile = false;
-
 
 switch ($current_page_path) {
     case "/travisar/visitor/home.php":
@@ -63,47 +61,163 @@ switch ($current_page_path) {
 // Fetch active notifications
 // para sa mga na approved ni na submission
 
-if(isset($_SESSION['USER']['user_id'])){
-    $user_id = $_SESSION['USER']['user_id'];
-    $find_notifications = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id WHERE active = true AND crop.user_id = $user_id";
-    $result = pg_query($conn, $find_notifications);
+if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Contributor') {
+    if (isset($_SESSION['USER']['user_id'])) {
+        $user_id = $_SESSION['USER']['user_id'];
+        $find_notifications = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id WHERE active = true AND crop.user_id = $user_id";
+        $result = pg_query($conn, $find_notifications);
+        if (!$result) {
+            die("Error in query: " . pg_last_error());
+        }
+    } else {
+        $find_notifications = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id WHERE active = true";
+        $result = pg_query($conn, $find_notifications);
+        if (!$result) {
+            die("Error in query: " . pg_last_error());
+        }
+    }
+
+    $count_active = '';
+    $notifications_data = array();
+    $deactive_notifications_dump = array();
+    $count_active = pg_num_rows($result);
+    while ($rows = pg_fetch_assoc($result)) {
+        $notifications_data[] = array(
+            "notification_id" => $rows['notification_id'],
+            "notification_name" => $rows['notification_name'],
+            "message" => $rows['message']
+        );
+    }
+
+    // Fetch only five specific posts with active = 0
+    $deactive_notifications = "SELECT * FROM notification WHERE active = false ORDER BY notification_id DESC LIMIT 5";
+    $result = pg_query($conn, $deactive_notifications);
     if (!$result) {
         die("Error in query: " . pg_last_error());
     }
-}else{
-    $find_notifications = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id WHERE active = true";
-    $result = pg_query($conn, $find_notifications);
-    if (!$result) {
-        die("Error in query: " . pg_last_error());
+
+    while ($rows = pg_fetch_assoc($result)) {
+        $deactive_notifications_dump[] = array(
+            "notification_id" => $rows['notification_id'],
+            "notification_name" => $rows['notification_name'],
+            "message" => $rows['message']
+        );
     }
 }
 
-$count_active = '';
-$notifications_data = array();
-$deactive_notifications_dump = array();
-$count_active = pg_num_rows($result);
-while ($rows = pg_fetch_assoc($result)) {
-    $notifications_data[] = array(
-        "notification_id" => $rows['notification_id'],
-        "notification_name" => $rows['notification_name'],
-        "message" => $rows['message']
-    );
+if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Curator') {
+    $find_notificationsCurator = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id left join status on crop.status_id = status.status_id WHERE action = 'Pending' AND active = true";
+    $resultCurator = pg_query($conn, $find_notificationsCurator);
+    if (!$resultCurator) {
+        die("Error in query: " . pg_last_error());
+    }
+
+    $count_activeCurator = '';
+    $notifications_dataCurator = array();
+    $deactive_notifications_dumpCurator = array();
+    $count_activeCurator = pg_num_rows($resultCurator);
+    while ($rows = pg_fetch_assoc($resultCurator)) {
+        $notifications_dataCurator[] = array(
+            "notification_id" => $rows['notification_id'],
+            "crop_id" => $rows['crop_id'],
+            "crop_variety" => $rows['crop_variety'],
+            "action" => $rows['action']
+        );
+    }
+
+    // Fetch only five specific posts with active = 0
+    $deactive_notificationsCurator = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id left join status on crop.status_id = status.status_id WHERE action = 'Pending' ORDER BY crop.crop_id DESC LIMIT 5";
+    $resultCurator = pg_query($conn, $deactive_notificationsCurator);
+    if (!$resultCurator) {
+        die("Error in query: " . pg_last_error());
+    }
+
+    while ($rows = pg_fetch_assoc($resultCurator)) {
+        $deactive_notifications_dumpCurator[] = array(
+            "notification_id" => $rows['notification_id'],
+            "crop_id" => $rows['crop_id'],
+            "crop_variety" => $rows['crop_variety'],
+            "action" => $rows['action']
+        );
+    }
 }
 
-// Fetch only five specific posts with active = 0
-$deactive_notifications = "SELECT * FROM notification WHERE active = false ORDER BY notification_id DESC LIMIT 5";
-$result = pg_query($conn, $deactive_notifications);
-if (!$result) {
-    die("Error in query: " . pg_last_error());
+if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
+    // New Crops
+    $find_notificationsAdmin_crop = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id WHERE active = true";
+    $resultAdmin_crop = pg_query($conn, $find_notificationsAdmin_crop);
+    if (!$resultAdmin_crop) {
+        die("Error in query: " . pg_last_error());
+    }
+
+    $count_activeAdmin_crop = '';
+    $notifications_dataAdmin_crop = array();
+    $deactive_notifications_dumpAdmin_crop = array();
+    $count_activeAdmin_crop = pg_num_rows($resultAdmin_crop);
+    while ($rows = pg_fetch_assoc($resultAdmin_crop)) {
+        $notifications_dataAdmin_crop[] = array(
+            "notification_id" => $rows['notification_id'],
+            "crop_id" => $rows['crop_id'],
+            "crop_variety" => $rows['crop_variety'],
+            "message" => $rows['message']
+        );
+    }
+
+    // Fetch only five specific posts with active = 0
+    $deactive_notificationsAdmin_crop = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id WHERE active = false ORDER BY notification_id DESC LIMIT 5";
+    $resultAdmin_crop = pg_query($conn, $deactive_notificationsAdmin_crop);
+    if (!$resultAdmin_crop) {
+        die("Error in query: " . pg_last_error());
+    }
+
+    while ($rows = pg_fetch_assoc($resultAdmin_crop)) {
+        $deactive_notifications_dumpAdmin_crop[] = array(
+            "notification_id" => $rows['notification_id'],
+            "crop_id" => $rows['crop_id'],
+            "crop_variety" => $rows['crop_variety'],
+            "message" => $rows['message']
+        );
+    }
+
+    // New Users
+    $find_notificationsAdmin_user = 'SELECT * FROM notification_user LEFT JOIN users ON users.user_id = notification_user.user_id WHERE notification_user.active = true';
+    $resultAdmin_user = pg_query($conn, $find_notificationsAdmin_user);
+    if (!$resultAdmin_user) {
+        die("Error in query: " . pg_last_error());
+    }
+
+    $count_activeAdmin_user = '';
+    $notifications_dataAdmin_user = array();
+    $deactive_notifications_dumpAdmin_user = array();
+    $count_activeAdmin_user = pg_num_rows($resultAdmin_user);
+    while ($rows = pg_fetch_assoc($resultAdmin_user)) {
+        $notifications_dataAdmin_user[] = array(
+            "notification_user_id" => $rows['notification_user_id'],
+            "user_id" => $rows['user_id'],
+            "first_name" => $rows['first_name'],
+            "last_name" => $rows['last_name'],
+            "email_verified" => $rows['email_verified']
+        );
+    }
+
+    // Fetch only five specific posts with active = 0
+    $deactive_notificationsAdmin_user = "SELECT * FROM notification_user left join users on users.user_id = notification_user.user_id WHERE notification_user.active = false ORDER BY notification_user_id DESC LIMIT 5";
+    $resultAdmin_user = pg_query($conn, $deactive_notificationsAdmin_user);
+    if (!$resultAdmin_user) {
+        die("Error in query: " . pg_last_error());
+    }
+
+    while ($rows = pg_fetch_assoc($resultAdmin_user)) {
+        $deactive_notifications_dumpAdmin_user[] = array(
+            "notification_user_id" => $rows['notification_user_id'],
+            "user_id" => $rows['user_id'],
+            "first_name" => $rows['first_name'],
+            "last_name" => $rows['last_name'],
+            "email_verified" => $rows['email_verified']
+        );
+    }
 }
 
-while ($rows = pg_fetch_assoc($result)) {
-    $deactive_notifications_dump[] = array(
-        "notification_id" => $rows['notification_id'],
-        "notification_name" => $rows['notification_name'],
-        "message" => $rows['message']
-    );
-}
 ?>
 <!-- Jquery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
@@ -377,7 +491,74 @@ while ($rows = pg_fetch_assoc($result)) {
                                 <?php } ?>
                             </ul>
                         </div>
+                    <?php endif; ?>
 
+                    <?php if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Curator') : ?>
+                        <!-- notification -->
+                        <div class="nav-item me-3">
+                            <a class="nav-link" role="button" id="notif" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-bell"></i>
+                                <?php if ($count_activeCurator != 0) { ?>
+                                    <div class="round" data-value="<?= $count_activeCurator ?>"><?= $count_activeCurator ?></div>
+                                <?php } ?>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="notif" id="list">
+                                <?php if (count($notifications_dataCurator) > 0) { ?>
+                                    <?php foreach ($notifications_dataCurator as $notification) { ?>
+                                        <li class="message" data-id="<?= $notification['notification_id']; ?>">
+                                            <span><?= $notification['crop_variety'] ?></span>
+                                            <div class="msg"><?= $notification['action'] ?></div>
+                                        </li>
+                                    <?php } ?>
+                                <?php } else { ?>
+                                    <?php foreach ($deactive_notifications_dumpCurator as $notification) { ?>
+                                        <li class="message" data-id="<?= $notification['notification_id']; ?>">
+                                            <span><?= $notification['crop_variety'] ?></span>
+                                            <div class="msg"><?= $notification['action'] ?></div>
+                                        </li>
+                                    <?php } ?>
+                                <?php } ?>
+                            </ul>
+                        </div>
+                    <?php endif; ?>
+
+                    <?php if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') : ?>
+                        <!-- notification -->
+                        <div class="nav-item me-3">
+                            <a class="nav-link" role="button" id="notif" data-bs-toggle="dropdown" aria-expanded="false">
+                                <i class="fa-solid fa-bell"></i>
+                                <?php
+                                $total_notifications = $count_activeAdmin_crop + $count_activeAdmin_user;
+                                if ($total_notifications != 0) { ?>
+                                    <div class="round" data-value="<?= $total_notifications ?>"><?= $total_notifications ?></div>
+                                <?php } ?>
+                            </a>
+                            <ul class="dropdown-menu" aria-labelledby="notif" id="list">
+                                <?php if (!empty($notifications_dataAdmin_crop) || !empty($notifications_dataAdmin_user)) { ?>
+                                    <?php foreach ($notifications_dataAdmin_crop as $notification) { ?>
+                                        <li class="message" data-id="<?= htmlspecialchars($notification['notification_id']); ?>">
+                                            <div class="msg">new crop <?= $notification['crop_variety'] ?> is added.</div>
+                                        </li>
+                                    <?php } ?>
+                                    <?php foreach ($notifications_dataAdmin_user as $notification) { ?>
+                                        <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
+                                            <div class="msg"><?= !empty($notification['email_verified']) ? 'Account verified ' . $notification['first_name'] . ' ' . $notification['last_name'] : 'Account' . $notification['first_name'] . ' ' . $notification['last_name'] . ' needs verification'; ?></div>
+                                        </li>
+                                    <?php } ?>
+                                <?php } else { ?>
+                                    <?php foreach ($deactive_notifications_dumpAdmin_crop as $notification) { ?>
+                                        <li class="message" data-id="<?= htmlspecialchars($notification['notification_id']); ?>">
+                                            <div class="msg">new crop <?= $notification['crop_variety'] ?> is added.</div>
+                                        </li>
+                                    <?php } ?>
+                                    <?php foreach ($deactive_notifications_dumpAdmin_user as $notification) { ?>
+                                        <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
+                                            <div class="msg"><?= !empty($notification['email_verified']) ? 'Account verified ' . $notification['first_name'] . ' ' . $notification['last_name'] : 'Account' . $notification['first_name'] . ' ' . $notification['last_name'] . ' needs verification'; ?></div>
+                                        </li>
+                                    <?php } ?>
+                                <?php } ?>
+                            </ul>
+                        </div>
                     <?php endif; ?>
 
                     <!-- user profile -->
@@ -445,6 +626,30 @@ while ($rows = pg_fetch_assoc($result)) {
 
             $.ajax({
                 url: '<?php echo BASE_URL . '/nav/deactivate.php'; ?>',
+                type: 'POST',
+                data: {
+                    id: notificationId
+                },
+                success: function(response) {
+                    console.log(response);
+                    if (response === 'success') {
+                        location.reload();
+                    } else {
+                        alert('Failed to update notification');
+                    }
+                },
+                error: function(xhr, status, error) {
+                    console.error('Error:', error);
+                }
+            });
+        });
+
+        $('.message_user').on('click', function(e) {
+            e.preventDefault();
+            let notificationId = $(this).data('id');
+
+            $.ajax({
+                url: '<?php echo BASE_URL . '/nav/deactivate_user.php'; ?>',
                 type: 'POST',
                 data: {
                     id: notificationId
