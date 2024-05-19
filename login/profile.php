@@ -45,7 +45,7 @@ require "../functions/functions.php";
         ?>
 
         <div class="container d-flex" style="flex-grow: 1;">
-            <div class="row w-100 ">
+            <div class="row w-100">
 
                 <!-- side nav -->
                 <div class="col-4 col-lg-2 border-end">

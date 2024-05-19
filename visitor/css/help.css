@@ -1,0 +1,8 @@
+#help-sidenav nav .nav-link.active{
+	background-color: var(--mainBrand); /* Change to your desired background color */
+      color: #fff; /* Change to your desired text color */
+}
+
+.help-sidenav-link:hover{
+    background: #016a702e;
+}

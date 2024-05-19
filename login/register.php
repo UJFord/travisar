@@ -180,6 +180,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         Already a Contributor?<a href="login.php" class="ms-1"> Login!</a>
                     </div>
 
+                    <!-- help -->
+                    <div class="d-flex justify-content-center align-items-center my-3">
+                        Check our <a href="../visitor/help/contribute.php" class="mx-1">Help</a> page for your questions.
+                    </div>
+
                     <!-- visitor page -->
                     <div class="d-flex justify-content-center align-items-center">
                         Back to<a href="../visitor/home.php" class="ms-1"> Visitor's Page</a>
