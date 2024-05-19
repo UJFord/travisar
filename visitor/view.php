@@ -519,15 +519,15 @@ require "../functions/functions.php";
                                                 <td class="w-75 fw-semibold"><?= $crops_rice['quality_leftover_rice'] ?></td>
                                             </tr>
                                             <tr>
-                                                <th scope="row" class="text-secondary w-25 fw-normal">Volume Expansion</th>
+                                                <th scope="row" class="text-secondary w-25 fw-normal">Does it rise?</th>
                                                 <td class="w-75 fw-semibold">
                                                     <?php
                                                     if (isset($crops_rice['volume_expansion']) && ($crops_rice['volume_expansion'] === false || $crops_rice['volume_expansion'] === 'f' || $crops_rice['volume_expansion'] === '0')) {
-                                                        echo "It rises: No";
+                                                        echo "No";
                                                     } elseif (isset($crops_rice['volume_expansion']) && ($crops_rice['volume_expansion'] === true || $crops_rice['volume_expansion'] === 't' || $crops_rice['volume_expansion'] === '1')) {
-                                                        echo "It rises: Yes";
+                                                        echo "Yes";
                                                     } else {
-                                                        echo "It rises: Unknown";
+                                                        echo "Unknown";
                                                     }
                                                     ?>
 
@@ -535,15 +535,15 @@ require "../functions/functions.php";
                                                 </td>
                                             </tr>
                                             <tr>
-                                                <th scope="row" class="text-secondary w-25 fw-normal">Glutinousity</th>
+                                                <th scope="row" class="text-secondary w-25 fw-normal">Is it glutinous?</th>
                                                 <td class="w-75 fw-semibold">
                                                     <?php
                                                     if (isset($crops_rice['glutinous']) && ($crops_rice['glutinous'] === false || $crops_rice['glutinous'] === 'f' || $crops_rice['glutinous'] === '0')) {
-                                                        echo "It is glutinous: No";
+                                                        echo "No";
                                                     } elseif (isset($crops_rice['glutinous']) && ($crops_rice['glutinous'] === true || $crops_rice['glutinous'] === 't' || $crops_rice['glutinous'] === '1')) {
-                                                        echo "It is glutinous: Yes";
+                                                        echo "Yes";
                                                     } else {
-                                                        echo "It is glutinous: Unknown";
+                                                        echo "Unknown";
                                                     }
                                                     ?>
 
