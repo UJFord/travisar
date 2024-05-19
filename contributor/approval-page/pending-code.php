@@ -56,7 +56,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
         $get_category_name = $row_categoryName['category_name'];
     } else {
         $_SESSION['message'] = "No category available, incomplete data";
-        //header("location: pending.php");
+        //header("location: ../../crop.php");
         exit();
     }
 
@@ -65,7 +65,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
     try {
         if ($get_category_name === 'Corn') {
             // Fetch data from the crop table and join with crop_location
-            $query = "SELECT DISTINCT crop.*, crop_location.*, municipality.*, users.*, barangay.*, province.*, category_variety.*, terrain.*, category.*, utilization_cultural_importance.*, corn_traits.*, vegetative_state_corn.*, reproductive_state_corn.*,
+            $query = "SELECT DISTINCT crop.*, crop_location.*, municipality.*, users.*, barangay.*, province.*, category_variety.*, terrain.*, category.*, utilization_cultural_importance.*, corn_traits.*, vegetative_state_corn.*, reproductive_state_corn.*, 
             ARRAY(SELECT DISTINCT corn_pest_resistance.pest_resistance_id FROM corn_pest_resistance WHERE corn_pest_resistance.corn_traits_id = corn_traits.corn_traits_id) AS pest_resistances,
             ARRAY(SELECT DISTINCT corn_disease_resistance.disease_resistance_id FROM corn_disease_resistance WHERE corn_disease_resistance.corn_traits_id = corn_traits.corn_traits_id) AS disease_resistances,
             ARRAY(SELECT DISTINCT corn_abiotic_resistance.abiotic_resistance_id FROM corn_abiotic_resistance WHERE corn_abiotic_resistance.corn_traits_id = corn_traits.corn_traits_id) AS abiotic_resistances,
@@ -163,9 +163,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                 $updateUniqueCode = str_replace("-UPDATING", "", $currentUniqueCode);
 
                 // get the crop that should be updated
-                $query_Crop = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join municipality
+                $query_Crop = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join municipality 
                 on crop_location.municipality_id = municipality.municipality_id left join barangay on crop_location.barangay_id = barangay.barangay_id
-                left join utilization_cultural_importance on crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id left join category on crop.category_id = category.category_id
+                left join utilization_cultural_importance on  crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id left join category on crop.category_id = category.category_id
                 left join corn_traits on crop.crop_id = corn_traits.crop_id left join reproductive_state_corn on corn_traits.reproductive_state_corn_id = reproductive_state_corn.reproductive_state_corn_id
                 left join corn_pest_resistance_other on corn_pest_resistance_other.corn_pest_other_id = corn_traits.corn_pest_other_id
                 left join corn_abiotic_resistance_other on corn_abiotic_resistance_other.corn_abiotic_other_id = corn_traits.corn_abiotic_other_id
@@ -209,8 +209,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     crop_seed_image = $4, crop_vegetative_image =$5, crop_reproductive_image = $6 where crop_id = $7";
 
                     $valueCrops = array(
-                        $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_vegetative_image, $crop_reproductive_image, $crop_id
-                    );
+                            $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_vegetative_image, $crop_reproductive_image, $crop_id
+                        );
                     $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
                     if ($query_run_Crop) {
@@ -223,8 +223,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP where status_id = $2";
 
                     $valueStatus = array(
-                        $action, $status_id
-                    );
+                            $action, $status_id
+                        );
                     $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 
                     if ($query_run_Status) {
@@ -447,6 +447,24 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                             }
                         }
                     }
+
+                    // Prepare notification details
+                    $notification_name = 'Submission updated.';
+                    $message = 'Your edited submission ' . $crop_variety . ' is approved.';
+                    $active = '1';
+
+                    // Insert notification
+                    $insert_queryNotif = "
+                        INSERT INTO notification (notification_name, message, active, crop_id)
+                        VALUES ($1, $2, $3, $4)
+                    ";
+                    $insert_runNotif = pg_query_params($conn, $insert_queryNotif, array($notification_name, $message, $active, $crop_id));
+
+                    if ($insert_runNotif) {
+                    } else {
+                        // Log the error or display a more user-friendly message
+                        echo "Error inserting notification: " . pg_last_error($conn);
+                    }
                 }
 
                 // Delete from Crop table
@@ -573,12 +591,12 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
             ARRAY(SELECT DISTINCT rice_disease_resistance.disease_resistance_id FROM rice_disease_resistance WHERE rice_disease_resistance.rice_traits_id = rice_traits.rice_traits_id) AS disease_resistances,
             ARRAY(SELECT DISTINCT rice_abiotic_resistance.abiotic_resistance_id FROM rice_abiotic_resistance WHERE rice_abiotic_resistance.rice_traits_id = rice_traits.rice_traits_id) AS abiotic_resistances,
             rice_pest_resistance_other.*, rice_abiotic_resistance_other.*, seed_traits.*, \"references\".*, \"status\".*, panicle_traits_rice.*, flag_leaf_traits_rice.*, sensory_traits_rice.*
-            FROM crop
-            LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id
+            FROM crop 
+            LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id 
             left join municipality on crop_location.municipality_id = municipality.municipality_id left join users on crop.user_id = users.user_id left join barangay
             on crop_location.barangay_id = barangay.barangay_id left join province on province.province_id = municipality.province_id
             left join category_variety on crop.category_variety_id = category_variety.category_variety_id left join terrain on terrain.terrain_id = crop.terrain_id
-            left join category on category.category_id = crop.category_id left join utilization_cultural_importance on crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id
+            left join category on category.category_id = crop.category_id left join utilization_cultural_importance on  crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id
             left join rice_traits on crop.crop_id = rice_traits.crop_id left join vegetative_state_rice on rice_traits.vegetative_state_rice_id = vegetative_state_rice.vegetative_state_rice_id
             left join reproductive_state_rice on rice_traits.reproductive_state_rice_id = reproductive_state_rice.reproductive_state_rice_id
             left join rice_pest_resistance on rice_traits.rice_traits_id = rice_pest_resistance.rice_traits_id left join pest_resistance on pest_resistance.pest_resistance_id = rice_pest_resistance.pest_resistance_id
@@ -689,9 +707,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                 $updateUniqueCode = str_replace("-UPDATING", "", $currentUniqueCode);
 
                 // get the crop that should be updated
-                $query_Crop = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join municipality
+                $query_Crop = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join municipality 
                 on crop_location.municipality_id = municipality.municipality_id left join barangay on crop_location.barangay_id = barangay.barangay_id
-                left join utilization_cultural_importance on crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id left join category on crop.category_id = category.category_id
+                left join utilization_cultural_importance on  crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id left join category on crop.category_id = category.category_id
                 left join rice_traits on crop.crop_id = rice_traits.crop_id left join reproductive_state_rice on rice_traits.reproductive_state_rice_id = reproductive_state_rice.reproductive_state_rice_id
                 left join rice_pest_resistance_other on rice_pest_resistance_other.rice_pest_other_id = rice_traits.rice_pest_other_id
                 left join rice_abiotic_resistance_other on rice_abiotic_resistance_other.rice_abiotic_other_id = rice_traits.rice_abiotic_other_id
@@ -722,7 +740,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
 
                     // update utilization cultural table
                     $query_utilCultural = "UPDATE utilization_cultural_importance SET significance = $1, \"use\" = $2, indigenous_utilization = $3,
-                remarkable_features = $4 WHERE utilization_cultural_id = $5";
+                    remarkable_features = $4 WHERE utilization_cultural_id = $5";
                     $value_utilCultural = array(
                         $significance, $use, $indigenous_utilization, $remarkable_features, $utilization_cultural_id
                     );
@@ -736,11 +754,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
 
                     // update crop table
                     $queryCrop = "UPDATE crop set crop_variety= $1, crop_description =$2, meaning_of_name = $3,
-                crop_seed_image = $4, crop_vegetative_image =$5, crop_reproductive_image = $6 where crop_id = $7";
+                    crop_seed_image = $4, crop_vegetative_image =$5, crop_reproductive_image = $6 where crop_id = $7";
 
                     $valueCrops = array(
-                        $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_vegetative_image, $crop_reproductive_image, $crop_id
-                    );
+                            $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_vegetative_image, $crop_reproductive_image, $crop_id
+                        );
                     $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
                     if ($query_run_Crop) {
@@ -753,8 +771,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP where status_id = $2";
 
                     $valueStatus = array(
-                        $action, $status_id
-                    );
+                            $action, $status_id
+                        );
                     $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 
                     if ($query_run_Status) {
@@ -1005,6 +1023,24 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                             }
                         }
                     }
+
+                    // Prepare notification details
+                    $notification_name = 'Submission updated.';
+                    $message = 'Your edited submission ' . $crop_variety . ' is approved.';
+                    $active = '1';
+
+                    // Insert notification
+                    $insert_queryNotif = "
+                        INSERT INTO notification (notification_name, message, active, crop_id)
+                        VALUES ($1, $2, $3, $4)
+                    ";
+                    $insert_runNotif = pg_query_params($conn, $insert_queryNotif, array($notification_name, $message, $active, $crop_id));
+
+                    if ($insert_runNotif) {
+                    } else {
+                        // Log the error or display a more user-friendly message
+                        echo "Error inserting notification: " . pg_last_error($conn);
+                    }
                 }
 
                 // Delete from Crop table
@@ -1154,15 +1190,15 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
             }
         } else if ($get_category_name === 'Root Crop') {
             // Fetch data from the crop table and join with crop_location
-            $query = "SELECT DISTINCT crop.*, crop_location.*, municipality.*, users.*, barangay.*, province.*, category_variety.*, terrain.*, category.*, utilization_cultural_importance.*, root_crop_traits.*, vegetative_state_rootcrop.*, rootcrop_traits.*,
+            $query = "SELECT DISTINCT crop.*, crop_location.*, municipality.*, users.*, barangay.*, province.*, category_variety.*, terrain.*, category.*, utilization_cultural_importance.*, root_crop_traits.*, vegetative_state_rootcrop.*, rootcrop_traits.*, 
             ARRAY(SELECT DISTINCT rootcrop_pest_resistance.pest_resistance_id FROM rootcrop_pest_resistance WHERE rootcrop_pest_resistance.root_crop_traits_id = root_crop_traits.root_crop_traits_id) AS pest_resistances,
             ARRAY(SELECT DISTINCT rootcrop_disease_resistance.disease_resistance_id FROM rootcrop_disease_resistance WHERE rootcrop_disease_resistance.root_crop_traits_id = root_crop_traits.root_crop_traits_id) AS disease_resistances,
             ARRAY(SELECT DISTINCT rootcrop_abiotic_resistance.abiotic_resistance_id FROM rootcrop_abiotic_resistance WHERE rootcrop_abiotic_resistance.root_crop_traits_id = root_crop_traits.root_crop_traits_id) AS abiotic_resistances,
             rootcrop_pest_resistance_other.*, rootcrop_abiotic_resistance_other.*, \"references\".*, \"status\".*
-            FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join municipality on crop_location.municipality_id = municipality.municipality_id left join users on crop.user_id = users.user_id
+            FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join municipality on crop_location.municipality_id = municipality.municipality_id left join users on crop.user_id = users.user_id 
             left join barangay on crop_location.barangay_id = barangay.barangay_id left join category_variety on crop.category_variety_id = category_variety.category_variety_id left join terrain on terrain.terrain_id = crop.terrain_id
             LEFT JOIN province ON province.province_id = municipality.province_id
-            left join category on category.category_id = crop.category_id left join utilization_cultural_importance on crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id
+            left join category on category.category_id = crop.category_id left join utilization_cultural_importance on  crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id
             left join root_crop_traits on crop.crop_id = root_crop_traits.crop_id left join vegetative_state_rootcrop on root_crop_traits.vegetative_state_rootcrop_id = vegetative_state_rootcrop.vegetative_state_rootcrop_id
             left join rootcrop_pest_resistance on root_crop_traits.root_crop_traits_id = rootcrop_pest_resistance.root_crop_traits_id left join pest_resistance on pest_resistance.pest_resistance_id = rootcrop_pest_resistance.pest_resistance_id
             left join rootcrop_disease_resistance on root_crop_traits.root_crop_traits_id = rootcrop_disease_resistance.root_crop_traits_id left join disease_resistance on disease_resistance.disease_resistance_id = rootcrop_disease_resistance.disease_resistance_id
@@ -1184,9 +1220,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                 $crop_seed_image = $crops['crop_seed_image'];
                 $crop_vegetative_image = $crops['crop_vegetative_image'];
                 $crop_reproductive_image = $crops['crop_reproductive_image'];
-
-                echo 'fuck';
-                //die();
 
                 // location
                 $province_id = $crops['province_id'];
@@ -1244,9 +1277,9 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                 $updateUniqueCode = str_replace("-UPDATING", "", $currentUniqueCode);
 
                 // get the crop that should be updated
-                $query_Crop = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join municipality
+                $query_Crop = "SELECT * FROM crop LEFT JOIN crop_location ON crop.crop_id = crop_location.crop_id left join municipality 
                 on crop_location.municipality_id = municipality.municipality_id left join barangay on crop_location.barangay_id = barangay.barangay_id
-                left join utilization_cultural_importance on crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id left join category on crop.category_id = category.category_id
+                left join utilization_cultural_importance on  crop.utilization_cultural_id = utilization_cultural_importance.utilization_cultural_id left join category on crop.category_id = category.category_id
                 left join root_crop_traits on crop.crop_id = root_crop_traits.crop_id left join rootcrop_traits on rootcrop_traits.rootcrop_traits_id = root_crop_traits.rootcrop_traits_id
                 left join rootcrop_pest_resistance_other on rootcrop_pest_resistance_other.rootcrop_pest_other_id = root_crop_traits.rootcrop_pest_other_id
                 left join rootcrop_abiotic_resistance_other on rootcrop_abiotic_resistance_other.rootcrop_abiotic_other_id = root_crop_traits.rootcrop_abiotic_other_id
@@ -1289,8 +1322,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     crop_seed_image = $4, crop_vegetative_image =$5, crop_reproductive_image = $6 where crop_id = $7";
 
                     $valueCrops = array(
-                        $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_vegetative_image, $crop_reproductive_image, $crop_id
-                    );
+                            $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_vegetative_image, $crop_reproductive_image, $crop_id
+                        );
                     $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
                     if ($query_run_Crop) {
@@ -1303,8 +1336,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP where status_id = $2";
 
                     $valueStatus = array(
-                        $action, $status_id
-                    );
+                            $action, $status_id
+                        );
                     $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 
                     if ($query_run_Status) {
@@ -1517,6 +1550,24 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                             }
                         }
                     }
+
+                    // Prepare notification details
+                    $notification_name = 'Submission updated.';
+                    $message = 'Your edited submission ' . $crop_variety . ' is approved.';
+                    $active = '1';
+
+                    // Insert notification
+                    $insert_queryNotif = "
+                        INSERT INTO notification (notification_name, message, active, crop_id)
+                        VALUES ($1, $2, $3, $4)
+                    ";
+                    $insert_runNotif = pg_query_params($conn, $insert_queryNotif, array($notification_name, $message, $active, $crop_id));
+
+                    if ($insert_runNotif) {
+                    } else {
+                        // Log the error or display a more user-friendly message
+                        echo "Error inserting notification: " . pg_last_error($conn);
+                    }
                 }
 
                 // Delete from Crop table
@@ -1632,7 +1683,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Update Approved";
         pg_query($conn, "COMMIT");
-        // header("Location: pending.php");
+        //header("location: ../../crop.php");
         exit(0);
     } catch (Exception $e) {
         // message for error
@@ -1645,9 +1696,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
         // Handle the error
         echo "Error: " . $e->getMessage();
         // Display the error message
-        echo "<script>
-    document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';
-</script>";
+        echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
         exit(0);
     }
 }
@@ -1675,7 +1724,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'reject') {
         $insert_run = pg_query_params($conn, $insert_query, array($notification_name, $message, $active, $crop_id));
 
         if ($insert_run) {
-            $_SESSION['message'] = "Submission Approved";
+            $_SESSION['message'] = "Submission Rejected";
             //header("Location: pending.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {

@@ -452,6 +452,24 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                             }
                         }
                     }
+
+                    // Prepare notification details
+                    $notification_name = 'Submission updated.';
+                    $message = 'Your edited submission ' . $crop_variety . ' is approved.';
+                    $active = '1';
+
+                    // Insert notification
+                    $insert_queryNotif = "
+                        INSERT INTO notification (notification_name, message, active, crop_id)
+                        VALUES ($1, $2, $3, $4)
+                    ";
+                    $insert_runNotif = pg_query_params($conn, $insert_queryNotif, array($notification_name, $message, $active, $crop_id));
+
+                    if ($insert_runNotif) {
+                    } else {
+                        // Log the error or display a more user-friendly message
+                        echo "Error inserting notification: " . pg_last_error($conn);
+                    }
                 }
 
                 // Delete from Crop table
@@ -1010,6 +1028,24 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                             }
                         }
                     }
+
+                    // Prepare notification details
+                    $notification_name = 'Submission updated.';
+                    $message = 'Your edited submission ' . $crop_variety . ' is approved.';
+                    $active = '1';
+
+                    // Insert notification
+                    $insert_queryNotif = "
+                        INSERT INTO notification (notification_name, message, active, crop_id)
+                        VALUES ($1, $2, $3, $4)
+                    ";
+                    $insert_runNotif = pg_query_params($conn, $insert_queryNotif, array($notification_name, $message, $active, $crop_id));
+
+                    if ($insert_runNotif) {
+                    } else {
+                        // Log the error or display a more user-friendly message
+                        echo "Error inserting notification: " . pg_last_error($conn);
+                    }
                 }
 
                 // Delete from Crop table
@@ -1519,6 +1555,24 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                             }
                         }
                     }
+
+                    // Prepare notification details
+                    $notification_name = 'Submission updated.';
+                    $message = 'Your edited submission ' . $crop_variety . ' is approved.';
+                    $active = '1';
+
+                    // Insert notification
+                    $insert_queryNotif = "
+                        INSERT INTO notification (notification_name, message, active, crop_id)
+                        VALUES ($1, $2, $3, $4)
+                    ";
+                    $insert_runNotif = pg_query_params($conn, $insert_queryNotif, array($notification_name, $message, $active, $crop_id));
+
+                    if ($insert_runNotif) {
+                    } else {
+                        // Log the error or display a more user-friendly message
+                        echo "Error inserting notification: " . pg_last_error($conn);
+                    }
                 }
 
                 // Delete from Crop table
@@ -1661,9 +1715,26 @@ if (isset($_POST['action']) && $_POST['action'] == 'reject') {
 
     $result = pg_query($conn, $select);
     if ($result) {
-        $_SESSION['message'] = "The submission is rejected.";
-        //header("location: ../../crop.php");
-        exit; // Ensure that the script stops executing after the redirect header
+        // Prepare notification details
+        $notification_name = 'Submission rejected.';
+        $message = 'Your submission ' . $crop_variety . ' is rejected.';
+        $active = '1';
+
+        // Insert notification
+        $insert_query = "
+            INSERT INTO notification (notification_name, message, active, crop_id)
+            VALUES ($1, $2, $3, $4)
+        ";
+        $insert_run = pg_query_params($conn, $insert_query, array($notification_name, $message, $active, $crop_id));
+
+        if ($insert_run) {
+            $_SESSION['message'] = "Submission Rejected";
+            //header("Location: ../..crop.php");
+            exit; // Ensure that the script stops executing after the redirect header
+        } else {
+            // Log the error or display a more user-friendly message
+            echo "Error inserting notification: " . pg_last_error($conn);
+        }
     } else {
         // Log the error or display a more user-friendly message
         echo "Error updating record: " . pg_last_error($conn);

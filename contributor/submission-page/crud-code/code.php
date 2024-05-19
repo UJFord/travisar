@@ -3848,6 +3848,24 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Contributor') {
             // For example, set a default category or display an error message
         }
 
+        // Prepare notification details
+        $notification_name = 'Submission updating.';
+        $message = 'Your submission ' . $crop_variety . ' is updating.';
+        $active = '1';
+
+        // Insert notification
+        $insert_queryNotif = "
+            INSERT INTO notification (notification_name, message, active, crop_id)
+            VALUES ($1, $2, $3, $4)
+        ";
+        $insert_runNotif = pg_query_params($conn, $insert_queryNotif, array($notification_name, $message, $active, $crop_id));
+
+        if ($insert_runNotif) {
+        } else {
+            // Log the error or display a more user-friendly message
+            echo "Error inserting notification: " . pg_last_error($conn);
+        }
+
         // Commit the transaction if everything is successful
         $_SESSION['message'] = "Crop updated successfully. Please wait for approval.";
         pg_query($conn, "COMMIT");
