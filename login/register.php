@@ -62,14 +62,14 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <div class="row d-flex justify-content-between mb-3">
                         <div class="col-6 form-floating">
                             <input type="text" class="fs-6 form-control rounded-4" id="f-name" name="first_name" placeholder="name@example.com" required>
-                            <label for="f-name" class="fs-6 ms-3">Firstname</label>
+                            <label for="f-name" class="fs-6 ms-3">Firstname <span class="text-danger ms-1">*</span></label>
                             <div class="invalid-feedback">
                                 Please provide first name.
                             </div>
                         </div>
                         <div class="col-6 form-floating ">
                             <input type="text" class="fs-6 form-control rounded-4" id="lname" name="last_name" placeholder="name@example.com" required>
-                            <label for="lname" class="fs-6 ms-3">Lastname</label>
+                            <label for="lname" class="fs-6 ms-3">Lastname <span class="text-danger ms-1">*</span></label>
                             <div class="invalid-feedback">
                                 Please provide last name.
                             </div>
@@ -78,31 +78,25 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <!-- gender -->
                     <div class="form-floating mb-3">
-                        <select name="gender" id="reg-gender" class="fs-6 form-select rounded-4" required>
+                        <select name="gender" id="reg-gender" class="fs-6 form-select rounded-4">
                             <option value="" selected disabled hidden></option>
                             <option value="Male">Male</option>
                             <option value="Female">Female</option>
                             <option value="Rather not say">Rather not say</option>
                         </select>
                         <label for="reg-gender" class="fs-6">Gender</label>
-                        <div class="invalid-feedback">
-                            Please select a gender.
-                        </div>
                     </div>
 
                     <!-- username -->
                     <div class="form-floating mb-3">
-                        <input type="text" class="fs-6 form-control rounded-4" id="reg-uname" name="username" placeholder="Username" required>
+                        <input type="text" class="fs-6 form-control rounded-4" id="reg-uname" name="username" placeholder="Username">
                         <label for="reg-uname" class="fs-6">Username</label>
-                        <div class="invalid-feedback">
-                            Please choose a username.
-                        </div>
                     </div>
 
                     <!-- email -->
                     <div class="form-floating mb-3">
                         <input type="email" class="fs-6 form-control rounded-4" id="reg-email" name="email" placeholder="Email" required>
-                        <label for="reg-email" class="fs-6">Email</label>
+                        <label for="reg-email" class="fs-6">Email <span class="text-danger ms-1">*</span></label>
                         <div id="email-error" class="invalid-feedback">
                             Please enter your email.
                         </div>
@@ -115,7 +109,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <!-- contact_num -->
                     <div class="form-floating mb-3">
                         <input type="tel" class="fs-6 form-control rounded-4" id="reg-contact_num" name="contact_num" placeholder="Contact Number" required>
-                        <label for="reg-contact_num" class="fs-6">Contact Number</label>
+                        <label for="reg-contact_num" class="fs-6">Contact Number <span class="text-danger ms-1">*</span></label>
                         <div id="contact_num-error" class="invalid-feedback">
                             Please enter your contact number.
                         </div>
@@ -124,7 +118,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <!-- password -->
                     <div class="form-floating mb-3">
                         <input type="password" class="fs-6 form-control rounded-4" id="reg-pass" name="password" placeholder="Password" required>
-                        <label for="reg-pass" class="fs-6">Password</label>
+                        <label for="reg-pass" class="fs-6">Password <span class="text-danger ms-1">*</span></label>
                         <div id="password-length-error" class="invalid-feedback">
                             Please enter password.
                         </div>
@@ -137,7 +131,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <!-- Confirm -->
                     <div class="form-floating mb-3">
                         <input type="password" class="fs-6 form-control rounded-4" id="reg-confirm" name="password2" placeholder="Confirm Password" required>
-                        <label for="reg-confirm" class="fs-6">Confirm Password</label>
+                        <label for="reg-confirm" class="fs-6">Confirm Password <span class="text-danger ms-1">*</span></label>
                         <div class="invalid-feedback">
                             The password must match.
                         </div>
@@ -146,7 +140,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <!-- affiliation -->
                     <div class="form-floating mb-3">
                         <input type="text" class="fs-6 form-control rounded-4" id="reg-affiliation" name="affiliation" placeholder="Affiliation" required>
-                        <label for="reg-affiliation" class="fs-6">Affiliation</label>
+                        <label for="reg-affiliation" class="fs-6">Affiliation <span class="text-danger ms-1">*</span></label>
                         <div class="invalid-feedback">
                             Please provide affiliation.
                         </div>
@@ -155,7 +149,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     <!-- affiliation email -->
                     <div class="form-floating mb-3">
                         <input type="email" class="fs-6 form-control rounded-4" id="reg-affiliation_email" name="affiliated_email" placeholder="Affiliated Organizational Email" required>
-                        <label for="reg-affiliation_email" class="fs-6">Affiliated Organizational Email</label>
+                        <label for="reg-affiliation_email" class="fs-6">Email of Affiliated Organization <span class="text-danger ms-1">*</span></label>
                         <div class="invalid-feedback">
                             Please provide email of affiliated organization.
                         </div>
@@ -163,11 +157,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <!-- affiliation contact number -->
                     <div class="form-floating mb-3">
-                        <input type="tel" class="fs-6 form-control rounded-4" id="reg-affiliation_contactNum" name="affiliated_contact_num" placeholder="Affiliated Contact Number" required>
-                        <label for="reg-affiliation_contactNum" class="fs-6">Affiliated Contact Number</label>
-                        <div class="invalid-feedback">
-                            Please provide contact number of affiliated organization.
-                        </div>
+                        <input type="tel" class="fs-6 form-control rounded-4" id="reg-affiliation_contactNum" name="affiliated_contact_num" placeholder="Affiliated Contact Number">
+                        <label for="reg-affiliation_contactNum" class="fs-6">Contact Number of Affiliated Organization</label>
                     </div>
 
                     <!-- Signup btn -->

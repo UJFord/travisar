@@ -85,7 +85,18 @@
                 <div class="modal-footer d-flex justify-content-end">
                     <div class="">
                         <button type="button" id="cancel-modal-btn" class="btn border bg-light">Cancel</button>
-                        <button type="submit" id="saveButton" name="save" class="btn btn-success">Save</button>
+                        <?php
+                        if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
+                        ?>
+                            <button type="submit" id="saveButton" name="save" class="btn btn-success">Save</button>
+                        <?php
+                        } else if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Contributor') {
+                        ?>
+                            <button type="submit" id="saveButton" name="save" class="btn btn-success">Submit</button>
+                        <?php
+                        }
+                        ?>
+
                     </div>
                 </div>
             </form>
