@@ -1,5 +1,5 @@
 <?php
-require "../functions/connections.php";
+require "../functions/connections.php"; // Ensure this path is correct
 
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     $id = intval($_POST['id']); // Ensure the ID is an integer
@@ -11,8 +11,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
 
         if (!$result) {
             echo "Error updating record: " . pg_last_error($conn);
+            error_log("Error updating record: " . pg_last_error($conn));
         } else {
-            echo "success"; // Return success
+            echo "success";
         }
     } else {
         echo "Invalid ID"; // Handle the case where ID is not valid

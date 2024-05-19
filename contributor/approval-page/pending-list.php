@@ -99,7 +99,7 @@
                         $query_user = "SELECT * FROM users WHERE user_id = $1";
                         $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
                 ?>
-                        <tr data-id="<?= $row['crop_id']; ?>" class="rowlink view_data admin-only" href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">
+                        <tr data-id="<?= $row['crop_id']; ?>" class="rowlink view_data curator-only" href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">
                             <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
                             <!-- hidden id for location to be used for filter function for location to be found -->
                             <input type="hidden" name="municipality_id" value="<?= $row['municipality_id']; ?>">

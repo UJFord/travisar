@@ -60,7 +60,6 @@ switch ($current_page_path) {
 
 // Fetch active notifications
 // para sa mga na approved ni na submission
-
 if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Contributor') {
     if (isset($_SESSION['USER']['user_id'])) {
         $user_id = $_SESSION['USER']['user_id'];
@@ -85,6 +84,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Contributor') {
         $notifications_data[] = array(
             "notification_id" => $rows['notification_id'],
             "notification_name" => $rows['notification_name'],
+            "notification_date" => $rows['notification_date'],
             "message" => $rows['message']
         );
     }
@@ -100,6 +100,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Contributor') {
         $deactive_notifications_dump[] = array(
             "notification_id" => $rows['notification_id'],
             "notification_name" => $rows['notification_name'],
+            "notification_date" => $rows['notification_date'],
             "message" => $rows['message']
         );
     }
@@ -121,6 +122,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Curator') {
             "notification_id" => $rows['notification_id'],
             "crop_id" => $rows['crop_id'],
             "crop_variety" => $rows['crop_variety'],
+            "notification_date" => $rows['notification_date'],
             "action" => $rows['action']
         );
     }
@@ -137,6 +139,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Curator') {
             "notification_id" => $rows['notification_id'],
             "crop_id" => $rows['crop_id'],
             "crop_variety" => $rows['crop_variety'],
+            "notification_date" => $rows['notification_date'],
             "action" => $rows['action']
         );
     }
@@ -159,6 +162,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
             "notification_id" => $rows['notification_id'],
             "crop_id" => $rows['crop_id'],
             "crop_variety" => $rows['crop_variety'],
+            "notification_date" => $rows['notification_date'],
             "message" => $rows['message']
         );
     }
@@ -175,6 +179,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
             "notification_id" => $rows['notification_id'],
             "crop_id" => $rows['crop_id'],
             "crop_variety" => $rows['crop_variety'],
+            "notification_date" => $rows['notification_date'],
             "message" => $rows['message']
         );
     }
@@ -196,6 +201,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
             "user_id" => $rows['user_id'],
             "first_name" => $rows['first_name'],
             "last_name" => $rows['last_name'],
+            "notification_date" => $rows['notification_date'],
             "email_verified" => $rows['email_verified']
         );
     }
@@ -213,6 +219,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
             "user_id" => $rows['user_id'],
             "first_name" => $rows['first_name'],
             "last_name" => $rows['last_name'],
+            "notification_date" => $rows['notification_date'],
             "email_verified" => $rows['email_verified']
         );
     }
@@ -221,7 +228,8 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
 ?>
 <!-- Jquery -->
 <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
-
+<!-- script for moment js -->
+<script src="https://cdnjs.cloudflare.com/ajax/libs/moment.js/2.29.1/moment.min.js"></script>
 <!-- function for notification for pending approval of crops and users -->
 <script>
     // Define the load_unseen_notification function globally
@@ -478,20 +486,48 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                             <ul class="dropdown-menu dropdown-menu-md-end notif-menu" aria-labelledby="notif" id="list">
                                 <?php if (count($notifications_data) > 0) { ?>
                                     <?php foreach ($notifications_data as $notification) { ?>
+                                        <?php
+                                        // Convert the string to a DateTime object
+                                        $date = new DateTime($notification['notification_date']);
+                                        // Format the date to display up to the minute
+                                        // Convert the string to a DateTime object
+                                        if (!empty($notification['notification_date'])) {
+                                            $date = new DateTime($notification['notification_date']);
+                                            // Format the date to display up to the minute
+                                            $formatted_date = $date->format('Y-m-d H:i');
+                                        }
+                                        ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
-                                            <a href="#" class="dropdown-item">
+                                            <div class="">
                                                 <span><?= $notification['notification_name'] ?></span>
-                                                <div class="msg"><?= $notification['message'] ?></div>
-                                            </a>
+                                            </div>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="msg fw-normal small-font text-truncate"><?= $notification['message'] ?></div>
+                                                <div class="small-font fw-normal text-secondary"><?= $formatted_date ?></div>
+                                            </div>
                                         </li>
                                     <?php } ?>
                                 <?php } else { ?>
                                     <?php foreach ($deactive_notifications_dump as $notification) { ?>
+                                        <?php
+                                        // Convert the string to a DateTime object
+                                        $date = new DateTime($notification['notification_date']);
+                                        // Format the date to display up to the minute
+                                        // Convert the string to a DateTime object
+                                        if (!empty($notification['notification_date'])) {
+                                            $date = new DateTime($notification['notification_date']);
+                                            // Format the date to display up to the minute
+                                            $formatted_date = $date->format('Y-m-d H:i');
+                                        }
+                                        ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
-                                            <a href="" class="dropdown-item">
+                                            <div class="">
                                                 <span><?= $notification['notification_name'] ?></span>
-                                                <div class="msg"><?= $notification['message'] ?></div>
-                                            </a>
+                                            </div>
+                                            <div class="dropdown-item d-flex justify-content-between">
+                                                <div class="msg fw-normal small-font text-truncate"><?= $notification['message'] ?></div>
+                                                <div class="small-font fw-normal text-secondary"><?= $formatted_date ?></div>
+                                            </div>
                                         </li>
                                     <?php } ?>
                                 <?php } ?>
@@ -511,20 +547,42 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                             <ul class="dropdown-menu dropdown-menu-md-end notif-menu" aria-labelledby="notif" id="list">
                                 <?php if (count($notifications_dataCurator) > 0) { ?>
                                     <?php foreach ($notifications_dataCurator as $notification) { ?>
+                                        <?php
+                                        // Convert the string to a DateTime object
+                                        $date = new DateTime($notification['notification_date']);
+                                        // Format the date to display up to the minute
+                                        // Convert the string to a DateTime object
+                                        if (!empty($notification['notification_date'])) {
+                                            $date = new DateTime($notification['notification_date']);
+                                            // Format the date to display up to the minute
+                                            $formatted_date = $date->format('Y-m-d H:i');
+                                        }
+                                        ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
-                                            <a href="" class="dropdown-item">
-                                                <span><?= $notification['crop_variety'] ?></span>
-                                                <div class="msg"><?= $notification['action'] ?></div>
-                                            </a>
+                                            <div class="d-flex justify-content-between">
+                                                <div class="msg fw-normal small-font text-truncate"><span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span> <?= $notification['action'] ?></div>
+                                                <div class="small-font fw-normal p-1 text-secondary"><?= $formatted_date ?></div>
+                                            </div>
                                         </li>
                                     <?php } ?>
                                 <?php } else { ?>
                                     <?php foreach ($deactive_notifications_dumpCurator as $notification) { ?>
+                                        <?php
+                                        // Convert the string to a DateTime object
+                                        $date = new DateTime($notification['notification_date']);
+                                        // Format the date to display up to the minute
+                                        // Convert the string to a DateTime object
+                                        if (!empty($notification['notification_date'])) {
+                                            $date = new DateTime($notification['notification_date']);
+                                            // Format the date to display up to the minute
+                                            $formatted_date = $date->format('Y-m-d H:i');
+                                        }
+                                        ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
-                                            <a href="" class="dropdown-item">
-                                                <span><?= $notification['crop_variety'] ?></span>
-                                                <div class="msg"><?= $notification['action'] ?></div>
-                                            </a>
+                                            <div class="dropdown-item d-flex justify-content-between">
+                                                <div class="msg fw-normal small-font text-truncate"><span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span> <?= $notification['action'] ?></div>
+                                                <div class="small-font fw-normal p-1 text-secondary"><?= $formatted_date ?></div>
+                                            </div>
                                         </li>
                                     <?php } ?>
                                 <?php } ?>
@@ -546,44 +604,88 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                             <ul class="dropdown-menu dropdown-menu-md-end notif-menu" aria-labelledby="notif" id="list">
                                 <?php if (!empty($notifications_dataAdmin_crop) || !empty($notifications_dataAdmin_user)) { ?>
                                     <?php foreach ($notifications_dataAdmin_crop as $notification) { ?>
+                                        <?php
+                                        // Convert the string to a DateTime object
+                                        $date = new DateTime($notification['notification_date']);
+                                        // Format the date to display up to the minute
+                                        // Convert the string to a DateTime object
+                                        if (!empty($notification['notification_date'])) {
+                                            $date = new DateTime($notification['notification_date']);
+                                            // Format the date to display up to the minute
+                                            $formatted_date = $date->format('Y-m-d H:i');
+                                        }
+                                        ?>
                                         <li class="message" data-id="<?= htmlspecialchars($notification['notification_id']); ?>">
-                                            <a href="" class="dropdown-item d-flex justify-content-between">
+                                            <div class="d-flex justify-content-between">
                                                 <!-- message -->
                                                 <div class="msg fw-normal small-font text-truncate"><span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span> crop added.</div>
                                                 <!-- date -->
-                                                <div class="small-font fw-normal p-1 text-secondary">2024-12-9 21:22</div>
-                                            </a>
+                                                <div class="small-font fw-normal p-1 text-secondary"><?= $formatted_date ?></div>
+                                            </div>
                                         </li>
-                                        <?php } ?>
-                                        <?php foreach ($notifications_dataAdmin_user as $notification) { ?>
-                                            <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
-                                                <a href="" class="dropdown-item d-flex justify-content-between">
-                                                    <!-- message -->
-                                                    <div class="msg fw-normal small-font text-truncate"><?= !empty($notification['email_verified']) ? '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> verified.': '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> needs verification'; ?></div>
-                                                    <!-- date -->
-                                                    <div class="small-font fw-normal p-1 text-secondary">2024-12-9 21:22</div>
-                                            </a>
+                                    <?php } ?>
+                                    <?php foreach ($notifications_dataAdmin_user as $notification) { ?>
+                                        <?php
+                                        // Convert the string to a DateTime object
+                                        $date = new DateTime($notification['notification_date']);
+                                        // Format the date to display up to the minute
+                                        // Convert the string to a DateTime object
+                                        if (!empty($notification['notification_date'])) {
+                                            $date = new DateTime($notification['notification_date']);
+                                            // Format the date to display up to the minute
+                                            $formatted_date = $date->format('Y-m-d H:i');
+                                        }
+                                        ?>
+                                        <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
+                                            <div class="d-flex justify-content-between">
+                                                <!-- message -->
+                                                <div class="msg fw-normal small-font text-truncate"><?= !empty($notification['email_verified']) ? '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> verified.' : '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> needs verification'; ?></div>
+                                                <!-- date -->
+                                                <div class="small-font fw-normal p-1 text-secondary"><?= $formatted_date ?></div>
+                                            </div>
                                         </li>
                                     <?php } ?>
                                 <?php } else { ?>
                                     <?php foreach ($deactive_notifications_dumpAdmin_crop as $notification) { ?>
+                                        <?php
+                                        // Convert the string to a DateTime object
+                                        $date = new DateTime($notification['notification_date']);
+                                        // Format the date to display up to the minute
+                                        // Convert the string to a DateTime object
+                                        if (!empty($notification['notification_date'])) {
+                                            $date = new DateTime($notification['notification_date']);
+                                            // Format the date to display up to the minute
+                                            $formatted_date = $date->format('Y-m-d H:i');
+                                        }
+                                        ?>
                                         <li class="message" data-id="<?= htmlspecialchars($notification['notification_id']); ?>">
-                                            <a href="" class="dropdown-item d-flex justify-content-between">
+                                            <div class="dropdown-item d-flex justify-content-between">
                                                 <!-- message -->
                                                 <div class="msg fw-normal small-font text-truncate"><span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span> crop added.</div>
                                                 <!-- date -->
-                                                <div class="small-font fw-normal p-1 text-secondary">2024-12-9 21:22</div>
-                                            </a>
+                                                <div class="small-font fw-normal p-1 text-secondary"><?= $formatted_date ?></div>
+                                            </div>
                                         </li>
-                                        <?php } ?>
-                                        <?php foreach ($deactive_notifications_dumpAdmin_user as $notification) { ?>
-                                            <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
-                                                <a href="" class="dropdown-item d-flex justify-content-between">
-                                                    <!-- message -->
-                                                    <div class="msg fw-normal small-font text-truncate"><?= !empty($notification['email_verified']) ? '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> verified.': '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> needs verification'; ?></div>
-                                                    <!-- date -->
-                                                    <div class="small-font fw-normal p-1 text-secondary">2024-12-9 21:22</div>
-                                            </a>
+                                    <?php } ?>
+                                    <?php foreach ($deactive_notifications_dumpAdmin_user as $notification) { ?>
+                                        <?php
+                                        // Convert the string to a DateTime object
+                                        $date = new DateTime($notification['notification_date']);
+                                        // Format the date to display up to the minute
+                                        // Convert the string to a DateTime object
+                                        if (!empty($notification['notification_date'])) {
+                                            $date = new DateTime($notification['notification_date']);
+                                            // Format the date to display up to the minute
+                                            $formatted_date = $date->format('Y-m-d H:i');
+                                        }
+                                        ?>
+                                        <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
+                                            <div class="dropdown-item d-flex justify-content-between">
+                                                <!-- message -->
+                                                <div class="msg fw-normal small-font text-truncate"><?= !empty($notification['email_verified']) ? '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> verified.' : '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> needs verification'; ?></div>
+                                                <!-- date -->
+                                                <div class="small-font fw-normal p-1 text-secondary"><?= $formatted_date ?></div>
+                                            </div>
                                         </li>
                                     <?php } ?>
                                 <?php } ?>
@@ -646,11 +748,17 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
 <!-- script for notification bell -->
 <script>
     $(document).ready(function() {
-        // $('#notif').on('click', function() {
-        //     $('#list').toggle();
-        // });
+        $(document).on('click', '.message', function(e) {
+            let notificationId = $(this).data('id');
+            console.log("yeah");
+            console.log(notificationId);
+            e.stopPropagation(); // Prevents the dropdown from closing if that's an issue
+        });
+    });
 
-        $('.message').on('click', function(e) {
+    $(document).ready(function() {
+        $(document).on('click', '.message', function(e) {
+            console.log("clicked");
             e.preventDefault();
             let notificationId = $(this).data('id');
 
@@ -662,7 +770,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                 },
                 success: function(response) {
                     console.log(response);
-                    if (response === 'success') {
+                    if (response.trim() === 'success') {
                         location.reload();
                     } else {
                         alert('Failed to update notification');
@@ -674,7 +782,8 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
             });
         });
 
-        $('.message_user').on('click', function(e) {
+        $(document).on('click', '.message_user', function(e) {
+            console.log("clicked user");
             e.preventDefault();
             let notificationId = $(this).data('id');
 
@@ -686,7 +795,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                 },
                 success: function(response) {
                     console.log(response);
-                    if (response === 'success') {
+                    if (response.trim() === 'success') {
                         location.reload();
                     } else {
                         alert('Failed to update notification');
