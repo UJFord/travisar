@@ -271,11 +271,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
         border-radius: 50%;
         position: relative;
         background: red;
-        display: inline-block;
-        padding: 0.3rem 0.2rem !important;
-        margin: 0.3rem 0.2rem !important;
-        left: -18px;
-        top: 10px;
+        display: inline-block;        
         z-index: 99 !important;
     }
 

@@ -88,15 +88,14 @@
                         <?php
                         if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                         ?>
-                            <button type="submit" id="saveButton" name="save" class="btn btn-success">Save</button>
+                            <button type="submit" name="save" class="btn btn-success">Save</button>
                         <?php
                         } else if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Contributor') {
                         ?>
-                            <button type="submit" id="saveButton" name="save" class="btn btn-success">Submit</button>
+                            <button type="submit" name="save" class="btn btn-success">Submit</button>
                         <?php
                         }
                         ?>
-
                     </div>
                 </div>
             </form>
