@@ -163,7 +163,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
             "crop_id" => $rows['crop_id'],
             "crop_variety" => $rows['crop_variety'],
             "notification_date" => $rows['notification_date'],
-            "message" => $rows['message']
+            "notification_name" => $rows['notification_name']
         );
     }
 
@@ -180,7 +180,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
             "crop_id" => $rows['crop_id'],
             "crop_variety" => $rows['crop_variety'],
             "notification_date" => $rows['notification_date'],
-            "message" => $rows['message']
+            "notification_name" => $rows['notification_name']
         );
     }
 
@@ -498,13 +498,13 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         }
                                         ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
-                                            <div class="">
+                                            <a href="<?php echo BASE_URL . '/nav/deactivate.php?notification_id=' . $notification['notification_id']; ?>" class="dropdown-item d-flex justify-content-between">
                                                 <span><?= $notification['notification_name'] ?></span>
-                                            </div>
-                                            <div class="d-flex justify-content-between">
+                                            </a>
+                                            <a href="<?php echo BASE_URL . '/nav/deactivate.php?notification_id=' . $notification['notification_id']; ?>" class="dropdown-item d-flex justify-content-between">
                                                 <div class="msg fw-normal small-font text-truncate"><?= $notification['message'] ?></div>
                                                 <div class="small-font fw-normal text-secondary"><?= $formatted_date ?></div>
-                                            </div>
+                                            </a>
                                         </li>
                                     <?php } ?>
                                 <?php } else { ?>
@@ -521,13 +521,13 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         }
                                         ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
-                                            <div class="">
+                                            <a href="#" class="dropdown-item d-flex justify-content-between">
                                                 <span><?= $notification['notification_name'] ?></span>
-                                            </div>
-                                            <div class="dropdown-item d-flex justify-content-between">
+                                            </a>
+                                            <a href="#" class="dropdown-item d-flex justify-content-between">
                                                 <div class="msg fw-normal small-font text-truncate"><?= $notification['message'] ?></div>
                                                 <div class="small-font fw-normal text-secondary"><?= $formatted_date ?></div>
-                                            </div>
+                                            </a>
                                         </li>
                                     <?php } ?>
                                 <?php } ?>
@@ -559,10 +559,13 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         }
                                         ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
-                                            <div class="d-flex justify-content-between">
-                                                <div class="msg fw-normal small-font text-truncate"><span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span> <?= $notification['action'] ?></div>
-                                                <div class="small-font fw-normal p-1 text-secondary"><?= $formatted_date ?></div>
-                                            </div>
+                                            <a href="<?php echo BASE_URL . '/nav/deactivate.php?notification_id=' . $notification['notification_id']; ?>" class="dropdown-item d-flex justify-content-between">
+                                                <span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span>
+                                            </a>
+                                            <a href="<?php echo BASE_URL . '/nav/deactivate.php?notification_id=' . $notification['notification_id']; ?>" class="dropdown-item d-flex justify-content-between">
+                                                <div class="msg fw-normal small-font text-truncate"><?= $notification['action'] ?></div>
+                                                <div class="small-font fw-normal text-secondary"><?= $formatted_date ?></div>
+                                            </a>
                                         </li>
                                     <?php } ?>
                                 <?php } else { ?>
@@ -579,10 +582,13 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         }
                                         ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
-                                            <div class="dropdown-item d-flex justify-content-between">
-                                                <div class="msg fw-normal small-font text-truncate"><span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span> <?= $notification['action'] ?></div>
-                                                <div class="small-font fw-normal p-1 text-secondary"><?= $formatted_date ?></div>
-                                            </div>
+                                            <a href="#" class="dropdown-item d-flex justify-content-between">
+                                                <span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span>
+                                            </a>
+                                            <a href="#" class="dropdown-item d-flex justify-content-between">
+                                                <div class="msg fw-normal small-font text-truncate"><?= $notification['action'] ?></div>
+                                                <div class="small-font fw-normal text-secondary"><?= $formatted_date ?></div>
+                                            </a>
                                         </li>
                                     <?php } ?>
                                 <?php } ?>
@@ -616,12 +622,15 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         }
                                         ?>
                                         <li class="message" data-id="<?= htmlspecialchars($notification['notification_id']); ?>">
-                                            <div class="d-flex justify-content-between">
+                                            <a href="<?php echo BASE_URL . '/nav/deactivate.php?notification_id=' . $notification['notification_id']; ?>" class="dropdown-item d-flex justify-content-between">
+                                                <span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span>
+                                            </a>
+                                            <a href="<?php echo BASE_URL . '/nav/deactivate.php?notification_id=' . $notification['notification_id']; ?>" class="dropdown-item d-flex justify-content-between">
                                                 <!-- message -->
-                                                <div class="msg fw-normal small-font text-truncate"><span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span> crop added.</div>
+                                                <div class="msg fw-normal small-font text-truncate"> <?= $notification['notification_name'] ?></div>
                                                 <!-- date -->
-                                                <div class="small-font fw-normal p-1 text-secondary"><?= $formatted_date ?></div>
-                                            </div>
+                                                <div class="small-font fw-normal text-secondary"><?= $formatted_date ?></div>
+                                            </a>
                                         </li>
                                     <?php } ?>
                                     <?php foreach ($notifications_dataAdmin_user as $notification) { ?>
@@ -637,12 +646,15 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         }
                                         ?>
                                         <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
-                                            <div class="d-flex justify-content-between">
+                                            <a href="<?php echo BASE_URL . '/nav/deactivate_user.php?notification_user_id=' . $notification['notification_user_id']; ?>" class="dropdown-item d-flex justify-content-between">
+                                                <span class=" fw-bold fs-6"><?= $notification['first_name'] . ' ' . $notification['last_name'] ?></span>">
+                                            </a>
+                                            <a href="<?php echo BASE_URL . '/nav/deactivate_user.php?notification_user_id=' . $notification['notification_user_id']; ?>" class="dropdown-item d-flex justify-content-between">
                                                 <!-- message -->
-                                                <div class="msg fw-normal small-font text-truncate"><?= !empty($notification['email_verified']) ? '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> verified.' : '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> needs verification'; ?></div>
+                                                <div class="msg fw-normal small-font text-truncate"><?= !empty($notification['email_verified']) ? ' verified.' : ' needs verification'; ?></div>
                                                 <!-- date -->
-                                                <div class="small-font fw-normal p-1 text-secondary"><?= $formatted_date ?></div>
-                                            </div>
+                                                <div class="small-font fw-normal text-secondary"><?= $formatted_date ?></div>
+                                            </a>
                                         </li>
                                     <?php } ?>
                                 <?php } else { ?>
@@ -659,12 +671,15 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         }
                                         ?>
                                         <li class="message" data-id="<?= htmlspecialchars($notification['notification_id']); ?>">
-                                            <div class="dropdown-item d-flex justify-content-between">
-                                                <!-- message -->
-                                                <div class="msg fw-normal small-font text-truncate"><span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span> crop added.</div>
+                                            <!-- message -->
+                                            <a href="#" class="dropdown-item dropdown-item d-flex justify-content-between">
+                                                <span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span>
+                                            </a>
+                                            <a href="#" class="dropdown-item dropdown-item d-flex justify-content-between">
+                                                <div class="msg fw-normal small-font text-truncate"><?= $notification['notification_name'] ?></div>
                                                 <!-- date -->
-                                                <div class="small-font fw-normal p-1 text-secondary"><?= $formatted_date ?></div>
-                                            </div>
+                                                <div class="small-font fw-normal text-secondary"><?= $formatted_date ?></div>
+                                            </a>
                                         </li>
                                     <?php } ?>
                                     <?php foreach ($deactive_notifications_dumpAdmin_user as $notification) { ?>
@@ -680,12 +695,15 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         }
                                         ?>
                                         <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
-                                            <div class="dropdown-item d-flex justify-content-between">
+                                            <a href="#" class="dropdown-item dropdown-item d-flex justify-content-between">
+                                                <span class="fw-bold fs-6"><?= $notification['first_name'] . ' ' . $notification['last_name'] ?></span>
+                                            </a>
+                                            <a href="#" class="dropdown-item dropdown-item d-flex justify-content-between">
                                                 <!-- message -->
-                                                <div class="msg fw-normal small-font text-truncate"><?= !empty($notification['email_verified']) ? '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> verified.' : '<span class="fw-bold fs-6">"' . $notification['first_name'] . ' ' . $notification['last_name'] . '"</span> needs verification'; ?></div>
+                                                <div class="msg fw-normal small-font text-truncate"><?= !empty($notification['email_verified']) ? ' verified.' : ' needs verification'; ?></div>
                                                 <!-- date -->
-                                                <div class="small-font fw-normal p-1 text-secondary"><?= $formatted_date ?></div>
-                                            </div>
+                                                <div class="small-font fw-normal text-secondary"><?= $formatted_date ?></div>
+                                            </a>
                                         </li>
                                     <?php } ?>
                                 <?php } ?>
