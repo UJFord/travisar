@@ -26,18 +26,18 @@
             <!-- dropdown -->
             <div class="actions-container">
 
-                <a href="modals/crud-code/download.php" class="me-4">Export<i class="ms-2 fa-solid fa-file-export"></i></a>
-                <button id="export-crop-btn" class="btn btn-secondary contributor-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#export-item-modal">
-                    Export Data
+                <!-- <a href="modals/crud-code/download.php" class="me-4">Export<i class="ms-2 fa-solid fa-file-export"></i></a> -->
+                <button id="add-crop-btn" class="btn btn-secondary contributor-only mb-2" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#add-item-modal">
+                    Add New
+                    <i class="ms-1 small-font fa-solid fa-plus"></i>
+                </button>
+                <button id="export-crop-btn" class="btn btn-secondary contributor-only mb-2" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#export-item-modal">
+                    Export
                     <i class="ms-2 fa-solid fa-file-export"></i>
                 </button>
-                <button id="import-crop-btn" class="btn btn-secondary contributor-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#import-item-modal">
-                    Import Data
-                    <i class="ms-2 fa-solid fa-file-import"></i>
-                </button>
-                <button id="add-crop-btn" class="btn btn-secondary contributor-only" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#add-item-modal">
-                    Add New
-                    <i class="small-font fa-solid fa-plus"></i>
+                <button id="import-crop-btn" class="btn btn-secondary contributor-only mb-2" type="button" data-bs-toggle="modal" aria-expanded="false" data-bs-target="#import-item-modal">
+                    Import
+                    <i class="ms-2 fa-solid fa-file-arrow-down"></i>
                 </button>
 
                 <!-- download button -->

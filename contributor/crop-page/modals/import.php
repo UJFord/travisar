@@ -1,18 +1,10 @@
 <!-- STYLE -->
 <!-- STYLE -->
 <style>
-    .btn-selected {
+    /* .btn-selected-import {
         background-color: #000;
         color: white;
-    }
-
-    .modal-tab:hover {
-        color: grey;
-    }
-
-    .modal-header {
-        position: relative;
-    }
+    } */
 </style>
 
 <!-- HTML -->
@@ -22,7 +14,7 @@
         <div class="modal-content">
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title small-font" id="add-label">Import Crops</h5>
+                <h6 class="modal-title" id="add-label">Import Crops</h6>
                 <div>
                     <button type="button" class="btn-close navbar" aria-label="Close" id="navbar-example2" class="navbar navbar-light bg-light px-3" data-bs-dismiss="modal"></button>
                 </div>
@@ -35,12 +27,25 @@
             <div class="modal-body">
 
                 <!-- category filter -->
-                <h5 class="fw-bold">Choose Category</h5>
                 <div class="row">
-                    <div class="input-group flex-nowrap">
-                        <button class="btn btn-dark flex-fill">Rice</button>
-                        <button class="btn btn-dark flex-fill">Corn</button>
-                        <button class="btn btn-dark flex-fill">Root <span class="d-block">Crops</span></button>
+                    <!-- category filter -->
+                    <h6 class=" mb-3 fw-bold">Select Category</h6>
+                    <div class="row mb-3 d-flex justify-content-center">
+                        <div class="btn-group align-item-center border p-0 w-75" role="group" aria-label="Basic radio toggle button group">
+                            <input type="radio" class="btn-check btn-import" name="options" id="corn-import" autocomplete="off" checked>
+                            <label class="btn fw-bolder border-end-0 d-flex flex-column justify-content-center align-items-center btn-success" for="corn-import"><span>Corn</span></label>
+                            <input type="radio" class="btn-check btn-import" name="options" id="rice-import" autocomplete="off">
+                            <label class="btn fw-bolder d-flex flex-column justify-content-center align-items-center" for="rice-import"><span>Rice</span></label>
+                            <input type="radio" class="btn-check btn-import" name="options" id="root-crops-import" autocomplete="off">
+                            <label class="btn fw-bolder border-start-0 d-flex flex-column justify-content-center align-items-center" for="root-crops-import"><span>Root</span> <span class="">Crops</span></label>
+                        </div>
+                    </div>
+
+                    <!-- file input -->
+                    <h6 class="mb-3 fw-bold">Upload Files</h6>
+                    <div class="mb-3">
+                        <!-- <label for="formFile" class="form-label">Default file input example</label> -->
+                        <input class="form-control" type="file" id="formFile" accept=".xlsx, .xls, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
                     </div>
                 </div>
 
@@ -50,7 +55,7 @@
             <div class="modal-footer d-flex justify-content-end">
                 <div class="">
                     <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" id="" name="" class="btn btn-success">Import<i class="fa-solid fa-file-import"></i></button>
+                    <button type="submit" id="" name="" class="btn btn-success">Import<i class="ms-2 fa-solid fa-file-import"></i></button>
                 </div>
             </div>
         </div>
@@ -60,29 +65,29 @@
 <!-- SCRIPT -->
 <script>
     // keep the modal on
-    window.onload = function() {
-        const dataModal = new bootstrap.Modal(document.getElementById('export-item-modal'), {
-            keyboard: false
-        });
-        dataModal.show();
-    };
+    // window.onload = function() {
+    //     const dataModal = new bootstrap.Modal(document.getElementById('import-item-modal'), {
+    //         keyboard: false
+    //     });
+    //     dataModal.show();
+    // };
 
-    // $(document).ready(function() {
-    //     function updateButtonStyles() {
-    //         $('.btn-check').each(function() {
-    //             var label = $('label[for="' + $(this).attr('id') + '"]');
-    //             if ($(this).is(':checked')) {
-    //                 label.addClass('btn-selected text-white').addClass('btn-success');
-    //             } else {
-    //                 label.removeClass('btn-selected text-white').removeClass('btn-success');
-    //             }
-    //         });
-    //     }
+    $(document).ready(function() {
+        function updateButtonStylesImport() {
+            $('.btn-check.btn-import').each(function() {
+                var label = $('label[for="' + $(this).attr('id') + '"]');
+                if ($(this).is(':checked')) {
+                    label.addClass('btn-success');
+                } else {
+                    label.removeClass('btn-success');
+                }
+            });
+        }
 
-    //     // Initial check to apply the class to the default checked button
-    //     updateButtonStyles();
+        // Initial check to apply the class to the default checked button
+        // updateButtonStylesImport();
 
-    //     // Change event to update styles
-    //     $('.btn-check').change(updateButtonStyles);
-    // });
+        // Change event to update styles
+        $('.btn-check btn-import').change(updateButtonStylesImport);
+    });
 </script>

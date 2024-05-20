@@ -1,7 +1,7 @@
 <!-- STYLE -->
 <style>
     .btn-selected {
-        background-color: #000;
+        /* background-color: #000; */
         color: white;
     }
 
@@ -29,16 +29,18 @@
             <!-- body -->
             <div class="modal-body">
                 <div class="container">
+                    <form action="modals/crud-code/">
 
+                    </form>
                     <!-- category filter -->
                     <h6 class=" mb-3 fw-bold">Select Category</h6>
                     <div class="row mb-3 d-flex justify-content-center">
                         <div class="btn-group align-item-center border p-0 w-75" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" class="btn-check" name="options" id="corn" autocomplete="off" checked>
-                            <label class="btn fw-bolder border-end-0 d-flex flex-column justify-content-center align-items-center" for="corn"><span>Corn</span></label>
-                            <input type="radio" class="btn-check" name="options" id="rice" autocomplete="off">
+                            <input type="radio" class="btn-check btn-export" name="options" id="corn" autocomplete="off" checked>
+                            <label class="btn fw-bolder border-end-0 d-flex flex-column justify-content-center align-items-center btn-success" for="corn"><span>Corn</span></label>
+                            <input type="radio" class="btn-check btn-export" name="options" id="rice" autocomplete="off">
                             <label class="btn fw-bolder d-flex flex-column justify-content-center align-items-center" for="rice"><span>Rice</span></label>
-                            <input type="radio" class="btn-check" name="options" id="root-crops" autocomplete="off">
+                            <input type="radio" class="btn-check btn-export" name="options" id="root-crops" autocomplete="off">
                             <label class="btn fw-bolder border-start-0 d-flex flex-column justify-content-center align-items-center" for="root-crops"><span>Root</span> <span class="">Crops</span></label>
                         </div>
                     </div>
@@ -166,7 +168,7 @@
     // };
 
     $(document).ready(function() {
-        function updateButtonStyles() {
+        function updateButtonStylesEx() {
             $('.btn-check').each(function() {
                 var label = $('label[for="' + $(this).attr('id') + '"]');
                 if ($(this).is(':checked')) {
@@ -178,9 +180,9 @@
         }
 
         // Initial check to apply the class to the default checked button
-        updateButtonStyles();
+        // updateButtonStylesEx();
 
         // Change event to update styles
-        $('.btn-check').change(updateButtonStyles);
+        $('.btn-check').change(updateButtonStylesEx);
     });
 </script>
