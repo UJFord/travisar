@@ -134,7 +134,7 @@
             <?php
                 }
             } else {
-                echo "No category found";
+                echo "No municipality found";
             }
             ?>
         </div>

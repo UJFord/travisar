@@ -673,7 +673,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         ?>
                                         <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
                                             <a href="<?php echo BASE_URL . '/nav/deactivate_user.php?notification_user_id=' . $notification['notification_user_id']; ?>" class="dropdown-item d-flex justify-content-between">
-                                                <span class=" fw-bold fs-6"><?= $notification['first_name'] . ' ' . $notification['last_name'] ?></span>">
+                                                <span class=" fw-bold fs-6"><?= $notification['first_name'] . ' ' . $notification['last_name'] ?></span>
                                             </a>
                                             <a href="<?php echo BASE_URL . '/nav/deactivate_user.php?notification_user_id=' . $notification['notification_user_id']; ?>" class="dropdown-item d-flex justify-content-between">
                                                 <!-- message -->
