@@ -5,11 +5,24 @@ require "../../../../functions/connections.php";
 if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
     // Get the file path
     $file_tmp = $_FILES['file']['tmp_name'];
-    $category_name = $_POST['options'];
+    $category_id = $_POST['category_id'];
+
+    // get category_name
+    $get_categoryName = "SELECT category_name from category where category_id = $1";
+    $query_run_categoryName = pg_query_params($conn, $get_categoryName, array($category_id));
+
+    if ($query_run_categoryName) {
+        $row_categoryName = pg_fetch_assoc(($query_run_categoryName));
+        $get_category_name = $row_categoryName['category_name'];
+    } else {
+        $_SESSION['message'] = "No category selected";
+        header("location: ../../crop.php");
+        exit();
+    }
     // Read the file and import the data into PostgreSQL
     $handle = fopen($file_tmp, 'r');
 
-    if($category_name === "Corn"){
+    if($get_category_name === "Corn"){
         if ($handle !== FALSE) {
             // Skip the header row
             fgetcsv($handle, 1000, ",");
@@ -295,7 +308,7 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
             header("location: ../../crop.php");
             die();
         }
-    }else if($category_name === "Rice") {
+    }else if($get_category_name === "Rice") {
         if ($handle !== FALSE) {
             // Skip the header row
             fgetcsv($handle, 1000, ",");
@@ -685,7 +698,7 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
             header("location: ../../crop.php");
             die();
         }
-    } else if ($category_name === "Root Crop") {
+    } else if ($get_category_name === "Root Crop") {
         if ($handle !== FALSE) {
             // Skip the header row
             fgetcsv($handle, 1000, ",");

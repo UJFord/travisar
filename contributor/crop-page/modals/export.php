@@ -2,7 +2,7 @@
 <style>
     .btn-selected {
         /* background-color: #000; */
-        color: white;
+        /* color: white; */
     }
 
     .modal-tab:hover {
@@ -25,22 +25,63 @@
                     <button type="button" class="btn-close navbar" aria-label="Close" id="navbar-example2" class="navbar navbar-light bg-light px-3" data-bs-dismiss="modal"></button>
                 </div>
             </div>
-            <div id="message-error"></div>
             <form id="form-panel-export" name="Form" action="modals/crud-code/download.php" autocomplete="off" method="POST">
 
                 <!-- body -->
                 <div class="modal-body">
                     <div class="container">
                         <!-- category filter -->
-                        <h6 class=" mb-3 fw-bold">Select Category</h6>
-                        <div class="row mb-3 d-flex justify-content-center">
-                            <div class="btn-group align-item-center border p-0 w-75" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" class="btn-check btn-export crop-filter-export" name="options" value="4" id="corn" autocomplete="off" checked>
-                                <label class="btn fw-bolder border-end-0 d-flex flex-column justify-content-center align-items-center btn-success" for="corn"><span>Corn</span></label>
-                                <input type="radio" class="btn-check btn-export crop-filter-export" name="options" value="1" id="rice" autocomplete="off">
-                                <label class="btn fw-bolder d-flex flex-column justify-content-center align-items-center" for="rice"><span>Rice</span></label>
-                                <input type="radio" class="btn-check btn-export crop-filter-export" name="options" value="2" id="root-crops" autocomplete="off">
-                                <label class="btn fw-bolder border-start-0 d-flex flex-column justify-content-center align-items-center" for="root-crops"><span>Root</span> <span class="">Crops</span></label>
+                        <h6 class=" mb-3 fw-bold">Select Category <span class="text-danger ms-1">*</span></h6>
+                        <div class="row mb-3 px-3">
+                            <?php
+                            $query = "SELECT * FROM category order by category_name ASC";
+                            $query_run = pg_query($conn, $query);
+
+                            if ($query_run) {
+                                while ($row = pg_fetch_array($query_run)) {
+                            ?>
+                                    <!-- crops filters -->
+                                    <div class="form-check col-4">
+                                        <input class="form-check-input" type="radio" name="category_id" value="<?= $row['category_id'] ?>" id="category_id<?= $row['category_id'] ?>">
+                                        <label class="form-check-label" for="category_id<?= $row['category_id'] ?>">
+                                            <?= $row['category_name'] ?>
+                                        </label>
+                                    </div>
+                            <?php
+                                }
+                            } else {
+                                echo "No category found";
+                            }
+                            ?>
+                            <div id="message-error" class="error-message" style="color: red;"></div>
+                        </div>
+
+                        <!-- status filter -->
+                        <h6 class=" mb-3 fw-bold">Select Status</h6>
+                        <div class="row mb-3 px-3">
+                            <div class="form-check col">
+                                <input class="form-check-input" type="checkbox" name="status_name" value="Approved" id="Approved">
+                                <label class="form-check-label" for="Approved">
+                                    Approved
+                                </label>
+                            </div>
+                            <div class="form-check col">
+                                <input class="form-check-input" type="checkbox" name="status_name" value="Pending" id="Pending">
+                                <label class="form-check-label" for="Pending">
+                                    Pending
+                                </label>
+                            </div>
+                            <div class="form-check col">
+                                <input class="form-check-input" type="checkbox" name="status_name" value="Updating" id="Updating">
+                                <label class="form-check-label" for="Updating">
+                                    Updating
+                                </label>
+                            </div>
+                            <div class="form-check col">
+                                <input class="form-check-input" type="checkbox" name="status_name" value="Rejected" id="Rejected">
+                                <label class="form-check-label" for="Rejected">
+                                    Rejected
+                                </label>
                             </div>
                         </div>
 
@@ -49,31 +90,6 @@
                         <div id="variety-filters-export" class="row mb-5 px-3">
 
                         </div> -->
-
-                        <!-- terrain -->
-                        <h6 class="mb-3 fw-bold">Select Terrain</h6>
-                        <div class="row mb-5 px-3">
-                            <?php
-                            $query_terrain = "SELECT * FROM terrain order by terrain_name ASC";
-                            $query_run_terrain = pg_query($conn, $query_terrain);
-
-                            if ($query_run_terrain) {
-                                while ($row = pg_fetch_array($query_run_terrain)) {
-                            ?>
-                                    <!-- terrains filters -->
-                                    <div class="form-check col-4">
-                                        <input class="form-check-input" type="checkbox" name="terrain_id" value="<?= $row['terrain_id'] ?>" id="terrain_id-<?= $row['terrain_id'] ?>">
-                                        <label class="form-check-label" for="terrain_id-<?= $row['terrain_id'] ?>">
-                                            <?= $row['terrain_name'] ?>
-                                        </label>
-                                    </div>
-                            <?php
-                                }
-                            } else {
-                                echo "No terrain found";
-                            }
-                            ?>
-                        </div>
 
                         <!-- municipality -->
                         <h6 class="mb-3 fw-bold">Select Municipality</h6>
@@ -100,9 +116,36 @@
                         </div>
 
                         <!-- barangay -->
-                        <h6 id="barangay-div-export" class="mb-3 fw-bold">Select Barangay</h6>
-                        <div id="brgy-filters-export" class="row mb-5 px-3">
+                        <div id="barangay-div-export">
+                            <h6 class="mb-3 fw-bold">Select Barangay</h6>
+                            <div id="brgy-filters-export" class="row mb-5 px-3">
 
+                            </div>
+                        </div>
+
+                        <!-- terrain -->
+                        <h6 class="mb-3 fw-bold">Select Terrain</h6>
+                        <div class="row mb-5 px-3">
+                            <?php
+                            $query_terrain = "SELECT * FROM terrain order by terrain_name ASC";
+                            $query_run_terrain = pg_query($conn, $query_terrain);
+
+                            if ($query_run_terrain) {
+                                while ($row = pg_fetch_array($query_run_terrain)) {
+                            ?>
+                                    <!-- terrains filters -->
+                                    <div class="form-check col-4">
+                                        <input class="form-check-input" type="checkbox" name="terrain_id" value="<?= $row['terrain_id'] ?>" id="terrain_id-<?= $row['terrain_id'] ?>">
+                                        <label class="form-check-label" for="terrain_id-<?= $row['terrain_id'] ?>">
+                                            <?= $row['terrain_name'] ?>
+                                        </label>
+                                    </div>
+                            <?php
+                                }
+                            } else {
+                                echo "No terrain found";
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -125,24 +168,28 @@
     //     });
     //     dataModal.show();
     // };
+</script>
+<!-- script for checking category radio -->
+<script>
+    // script for form validation
+    document.getElementById('form-panel-export').addEventListener('submit', function(event) {
+        const categoryInputs = document.querySelectorAll('input[name="category_id"]');
+        let categorySelected = false;
 
-    $(document).ready(function() {
-        function updateButtonStylesEx() {
-            $('.btn-check').each(function() {
-                var label = $('label[for="' + $(this).attr('id') + '"]');
-                if ($(this).is(':checked')) {
-                    label.addClass('btn-selected text-white').addClass('btn-success');
-                } else {
-                    label.removeClass('btn-selected text-white').removeClass('btn-success');
-                }
+        categoryInputs.forEach(input => {
+            if (input.checked) {
+                categorySelected = true;
+            }
+        });
+
+        if (!categorySelected) {
+            event.preventDefault(); // Prevent form submission
+            const errorMessageElement = document.getElementById('message-error');
+            errorMessageElement.textContent = 'Please select a category before exporting.';
+            errorMessageElement.scrollIntoView({
+                behavior: 'smooth'
             });
         }
-
-        // Initial check to apply the class to the default checked button
-        // updateButtonStylesEx();
-
-        // Change event to update styles
-        $('.btn-check').change(updateButtonStylesEx);
     });
 </script>
 

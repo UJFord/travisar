@@ -88,32 +88,6 @@
             </div>
         </div>
 
-        <!-- terrain -->
-        <div class="py-2 px-3">
-            <div id="terrain-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#terrain-filters" role="button" aria-expanded="true" aria-controls="terrain-filters">
-                <i id="terrainChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">Terrains</a>
-            </div>
-            <?php
-            $query = "SELECT * FROM terrain order by terrain_name ASC";
-            $query_run = pg_query($conn, $query);
-
-            if ($query_run) {
-                while ($row = pg_fetch_array($query_run)) {
-            ?>
-                    <!-- terrains filters -->
-                    <div id="terrain-filters" class="collapse ps-4 my-2">
-                        <input class="form-check-input terrain-filter" type="checkbox" id="terrain<?= $row['terrain_id']; ?>" value="<?= $row['terrain_id']; ?>">
-                        <label for="terrain<?= $row['terrain_id']; ?>"><?= $row['terrain_name']; ?></label>
-                    </div>
-            <?php
-                }
-            } else {
-                echo "No terrain found";
-            }
-            ?>
-        </div>
-
         <!-- all municipalities -->
         <div class="pt-2 pb-1 px-3">
             <div id="mun-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#municipality-filters" role="button" aria-expanded="true" aria-controls="municipalty-filters">
@@ -147,6 +121,32 @@
             </div>
             <div id="brgy-filters" class="collapse ps-4 mb-2">
             </div>
+        </div>
+
+        <!-- terrain -->
+        <div class="py-2 px-3">
+            <div id="terrain-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#terrain-filters" role="button" aria-expanded="true" aria-controls="terrain-filters">
+                <i id="terrainChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
+                <a class="fw-bold text-success col text-decoration-none" href="">Terrains</a>
+            </div>
+            <?php
+            $query = "SELECT * FROM terrain order by terrain_name ASC";
+            $query_run = pg_query($conn, $query);
+
+            if ($query_run) {
+                while ($row = pg_fetch_array($query_run)) {
+            ?>
+                    <!-- terrains filters -->
+                    <div id="terrain-filters" class="collapse ps-4 my-2">
+                        <input class="form-check-input terrain-filter" type="checkbox" id="terrain<?= $row['terrain_id']; ?>" value="<?= $row['terrain_id']; ?>">
+                        <label for="terrain<?= $row['terrain_id']; ?>"><?= $row['terrain_name']; ?></label>
+                    </div>
+            <?php
+                }
+            } else {
+                echo "No terrain found";
+            }
+            ?>
         </div>
 
         <!-- button to submit filter -->

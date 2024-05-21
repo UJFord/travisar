@@ -54,7 +54,6 @@
                 <i id="cropChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">Crops</a>
             </div>
-
             <?php
             $query = "SELECT * FROM category order by category_name ASC";
             $query_run = pg_query($conn, $query);
@@ -73,6 +72,41 @@
                 echo "No category found";
             }
             ?>
+        </div>
+
+        <!-- all municipalities -->
+        <div class="pt-2 pb-1 px-3">
+            <div id="mun-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#municipality-filters" role="button" aria-expanded="true" aria-controls="municipalty-filters">
+                <i id="munChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1 rotate-chevron"></i>
+                <a class="fw-bold text-success col text-decoration-none" href="">Municipalities</a>
+            </div>
+            <?php
+            $query = "SELECT * FROM municipality order by municipality_name ASC";
+            $query_run = pg_query($conn, $query);
+
+            if ($query_run) {
+                while ($row = pg_fetch_array($query_run)) {
+            ?>
+                    <div id="municipality-filters" class="collapse ps-4 my-2">
+                        <input class="form-check-input municipality-filter" type="checkbox" id="municipality<?= $row['municipality_id']; ?>" value="<?= $row['municipality_id']; ?>">
+                        <label for="municipality<?= $row['municipality_id']; ?>"><?= $row['municipality_name']; ?></label>
+                    </div>
+            <?php
+                }
+            } else {
+                echo "No municipality found";
+            }
+            ?>
+        </div>
+
+        <!-- all barangay -->
+        <div class="pt-2 pb-1 px-3" id="barangay-div">
+            <div id="brgy-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#brgy-filters" role="button" aria-expanded="true" aria-controls="brgy-filters">
+                <i id="brgyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1 rotate-chevron"></i>
+                <a class="fw-bold text-success col text-decoration-none" href="">Barangay</a>
+            </div>
+            <div id="brgy-filters" class="collapse ps-4 mb-2">
+            </div>
         </div>
 
         <!-- Varieties -->
@@ -112,41 +146,6 @@
                 echo "No terrain found";
             }
             ?>
-        </div>
-
-        <!-- all municipalities -->
-        <div class="pt-2 pb-1 px-3">
-            <div id="mun-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#municipality-filters" role="button" aria-expanded="true" aria-controls="municipalty-filters">
-                <i id="munChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1 rotate-chevron"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">Municipalities</a>
-            </div>
-            <?php
-            $query = "SELECT * FROM municipality order by municipality_name ASC";
-            $query_run = pg_query($conn, $query);
-
-            if ($query_run) {
-                while ($row = pg_fetch_array($query_run)) {
-            ?>
-                    <div id="municipality-filters" class="collapse ps-4 my-2">
-                        <input class="form-check-input municipality-filter" type="checkbox" id="municipality<?= $row['municipality_id']; ?>" value="<?= $row['municipality_id']; ?>">
-                        <label for="municipality<?= $row['municipality_id']; ?>"><?= $row['municipality_name']; ?></label>
-                    </div>
-            <?php
-                }
-            } else {
-                echo "No municipality found";
-            }
-            ?>
-        </div>
-
-        <!-- all barangay -->
-        <div class="pt-2 pb-1 px-3" id="barangay-div">
-            <div id="brgy-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#brgy-filters" role="button" aria-expanded="true" aria-controls="brgy-filters">
-                <i id="brgyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark col-1 rotate-chevron"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">Barangay</a>
-            </div>
-            <div id="brgy-filters" class="collapse ps-4 mb-2">
-            </div>
         </div>
 
         <!-- button to submit filter -->

@@ -28,18 +28,30 @@
                 <div class="modal-body">
 
                     <!-- category filter -->
-                    <div class="row">
+                    <div class="container">
                         <!-- category filter -->
-                        <h6 class=" mb-3 fw-bold">Select Category</h6>
-                        <div class="row mb-3 d-flex justify-content-center">
-                            <div class="btn-group align-item-center border p-0 w-75" role="group" aria-label="Basic radio toggle button group">
-                                <input type="radio" class="btn-check btn-import" name="options" value="Corn" id="corn-import" autocomplete="off" checked>
-                                <label class="btn fw-bolder border-end-0 d-flex flex-column justify-content-center align-items-center btn-success" for="corn-import"><span>Corn</span></label>
-                                <input type="radio" class="btn-check btn-import" name="options" value="Rice" id="rice-import" autocomplete="off">
-                                <label class="btn fw-bolder d-flex flex-column justify-content-center align-items-center" for="rice-import"><span>Rice</span></label>
-                                <input type="radio" class="btn-check btn-import" name="options" value="Root Crop" id="root-crops-import" autocomplete="off">
-                                <label class="btn fw-bolder border-start-0 d-flex flex-column justify-content-center align-items-center" for="root-crops-import"><span>Root</span> <span class="">Crops</span></label>
-                            </div>
+                        <h6 class=" mb-3 fw-bold">Select Category <span class="text-danger ms-1">*</span></h6>
+                        <div class="row mb-3 px-3">
+                            <?php
+                            $query = "SELECT * FROM category order by category_name ASC";
+                            $query_run = pg_query($conn, $query);
+
+                            if ($query_run) {
+                                while ($row = pg_fetch_array($query_run)) {
+                            ?>
+                                    <!-- crops filters -->
+                                    <div class="form-check col-4">
+                                        <input class="form-check-input" type="radio" name="category_id" value="<?= $row['category_id'] ?>" id="category_id<?= $row['category_id'] ?>">
+                                        <label class="form-check-label" for="category_id<?= $row['category_id'] ?>">
+                                            <?= $row['category_name'] ?>
+                                        </label>
+                                    </div>
+                            <?php
+                                }
+                            } else {
+                                echo "No category found";
+                            }
+                            ?>
                         </div>
 
                         <!-- file input -->
@@ -71,31 +83,12 @@
 </div>
 
 <!-- SCRIPT -->
-<script>
+<!-- <script>
     // keep the modal on
-    // window.onload = function() {
-    //     const dataModal = new bootstrap.Modal(document.getElementById('import-item-modal'), {
-    //         keyboard: false
-    //     });
-    //     dataModal.show();
-    // };
-
-    $(document).ready(function() {
-        function updateButtonStylesImport() {
-            $('.btn-check.btn-import').each(function() {
-                var label = $('label[for="' + $(this).attr('id') + '"]');
-                if ($(this).is(':checked')) {
-                    label.addClass('btn-success');
-                } else {
-                    label.removeClass('btn-success');
-                }
-            });
-        }
-
-        // Initial check to apply the class to the default checked button
-        // updateButtonStylesImport();
-
-        // Change event to update styles
-        $('.btn-check btn-import').change(updateButtonStylesImport);
-    });
-</script>
+    window.onload = function() {
+        const dataModal = new bootstrap.Modal(document.getElementById('import-item-modal'), {
+            keyboard: false
+        });
+        dataModal.show();
+    };
+</script> -->
