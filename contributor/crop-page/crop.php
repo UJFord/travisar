@@ -74,8 +74,13 @@ require "../../functions/functions.php";
             <?php require "list.php"; ?>
 
             <!-- MODAL -->
+            <!-- export -->
+            <?php require "modals/export.php"; ?>
             <!-- import -->
             <?php require "modals/import.php"; ?>
+
+
+
             <!-- add -->
             <?php require "modals/add.php"; ?>
             <!-- add -->

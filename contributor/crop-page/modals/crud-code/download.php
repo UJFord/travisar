@@ -2,6 +2,8 @@
 session_start();
 require "../../../../functions/connections.php";
 
+var_dump($_POST);
+die();
 // Query data
 $query = "SELECT * FROM crop";
 $result = pg_query($conn, $query);
