@@ -79,7 +79,7 @@ require "../../functions/functions.php";
             <!-- import -->
             <?php require "modals/import.php"; ?>
 
-            
+
 
             <!-- add -->
             <?php require "modals/add.php"; ?>
