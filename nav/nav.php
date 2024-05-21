@@ -10,6 +10,7 @@ $current_page_path = strtok($_SERVER['REQUEST_URI'], '?');
 $current_page_isHome = false;
 $current_page_isCrop = false;
 $current_page_isAbout = false;
+$current_page_isHelp = false;
 $current_page_isCrop_page = false;
 $current_page_isSettings = false;
 $current_page_isSubmission = false;
@@ -32,6 +33,12 @@ switch ($current_page_path) {
     case "/travisar/visitor/root.php":
     case "/travisar/visitor/view.php":
         $current_page_isCrop = true;
+        break;
+    case "/travisar/visitor/help/content.php":
+    case "/travisar/visitor/help/contribute.php":
+    case "/travisar/visitor/help/intro.php":
+    case "/travisar/visitor/help/submission.php":
+        $current_page_isHelp = true;
         break;
     case "/travisar/contributor/crop-page/category-variety.php":
     case "/travisar/contributor/crop-page/crop-category.php":
@@ -390,6 +397,14 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                         </li>
 
                     </ul>
+                </div>
+
+                <!-- help -->
+                <div class="nav-item">
+                    <!-- add active class when at home.php -->
+                    <a class="nav-link fw-bold me-2 <?php if ($current_page_isHelp) {
+                                                        echo "active";
+                                                    } ?>" aria-current="page" href="<?php echo BASE_URL . '/' . 'visitor/help/intro.php'; ?>">Help</a>
                 </div>
 
             </div>
