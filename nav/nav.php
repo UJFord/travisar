@@ -265,19 +265,27 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
 </script>
 
 <style>
-    .round {
-        width: 20px;
-        height: 20px;
-        border-radius: 50%;
+    .fa-solid.fa-bell {
         position: relative;
+        /* Ensure the parent of the absolute element is positioned */
+    }
+
+    .round {
+        width: 15px;
+        height: 15px;
+        border-radius: 50%;
+        position: absolute;
+        /* This is the crucial change */
         background: red;
-        display: inline-block;        
+        display: inline-block;
         z-index: 99 !important;
+        text-align: center;
+        font-size: 0.8rem;
+        /* left: 0 !important; */
     }
 
     .round>span {
         color: white;
-        display: block;
         text-align: center;
         font-size: 1rem !important;
         padding: 0 !important;
@@ -480,6 +488,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                         <!-- notification -->
                         <div class="nav-item dropdown me-0">
                             <a class="nav-link dropdown-toggle" role="button" id="notif" data-bs-toggle="dropdown" aria-expanded="false">
+
                                 <i class="fa-solid fa-bell"></i>
                                 <?php if ($count_active != 0) { ?>
                                     <div class="round" data-value="<?= $count_active ?>"><?= $count_active ?></div>
