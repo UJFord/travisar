@@ -23,41 +23,49 @@
             <div id="message-error">
             </div>
 
-            <!-- body -->
-            <div class="modal-body">
+            <form action="modals/crud-code/import.php" method="post" enctype="multipart/form-data">
+                <!-- body -->
+                <div class="modal-body">
 
-                <!-- category filter -->
-                <div class="row">
                     <!-- category filter -->
-                    <h6 class=" mb-3 fw-bold">Select Category</h6>
-                    <div class="row mb-3 d-flex justify-content-center">
-                        <div class="btn-group align-item-center border p-0 w-75" role="group" aria-label="Basic radio toggle button group">
-                            <input type="radio" class="btn-check btn-import" name="options" id="corn-import" autocomplete="off" checked>
-                            <label class="btn fw-bolder border-end-0 d-flex flex-column justify-content-center align-items-center btn-success" for="corn-import"><span>Corn</span></label>
-                            <input type="radio" class="btn-check btn-import" name="options" id="rice-import" autocomplete="off">
-                            <label class="btn fw-bolder d-flex flex-column justify-content-center align-items-center" for="rice-import"><span>Rice</span></label>
-                            <input type="radio" class="btn-check btn-import" name="options" id="root-crops-import" autocomplete="off">
-                            <label class="btn fw-bolder border-start-0 d-flex flex-column justify-content-center align-items-center" for="root-crops-import"><span>Root</span> <span class="">Crops</span></label>
+                    <div class="row">
+                        <!-- category filter -->
+                        <h6 class=" mb-3 fw-bold">Select Category</h6>
+                        <div class="row mb-3 d-flex justify-content-center">
+                            <div class="btn-group align-item-center border p-0 w-75" role="group" aria-label="Basic radio toggle button group">
+                                <input type="radio" class="btn-check btn-import" name="options" value="Corn" id="corn-import" autocomplete="off" checked>
+                                <label class="btn fw-bolder border-end-0 d-flex flex-column justify-content-center align-items-center btn-success" for="corn-import"><span>Corn</span></label>
+                                <input type="radio" class="btn-check btn-import" name="options" value="Rice" id="rice-import" autocomplete="off">
+                                <label class="btn fw-bolder d-flex flex-column justify-content-center align-items-center" for="rice-import"><span>Rice</span></label>
+                                <input type="radio" class="btn-check btn-import" name="options" value="Root Crop" id="root-crops-import" autocomplete="off">
+                                <label class="btn fw-bolder border-start-0 d-flex flex-column justify-content-center align-items-center" for="root-crops-import"><span>Root</span> <span class="">Crops</span></label>
+                            </div>
+                        </div>
+
+                        <!-- file input -->
+                        <h6 class="mb-3 fw-bold">Upload Files</h6>
+                        <div class="mb-3">
+                            <?php
+                            if (isset($_SESSION['USER']['user_id'])) {
+                                $user_id = $_SESSION['USER']['user_id'];
+                            }
+                            ?>
+                            <input type="hidden" name="user_id" value="<?= $user_id ?>">
+                            <!-- <label for="formFile" class="form-label">Default file input example</label> -->
+                            <input class="form-control" type="file" name="file" id="formFile" accept=".csv">
                         </div>
                     </div>
 
-                    <!-- file input -->
-                    <h6 class="mb-3 fw-bold">Upload Files</h6>
-                    <div class="mb-3">
-                        <!-- <label for="formFile" class="form-label">Default file input example</label> -->
-                        <input class="form-control" type="file" id="formFile" accept=".xlsx, .xls, application/vnd.openxmlformats-officedocument.spreadsheetml.sheet, application/vnd.ms-excel">
+                </div>
+
+                <!-- footer -->
+                <div class="modal-footer d-flex justify-content-end">
+                    <div class="">
+                        <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
+                        <button type="submit" id="" name="" value="Upload CSV" class="btn btn-success upload-button">Import<i class="ms-2 fa-solid fa-file-import"></i></button>
                     </div>
                 </div>
-
-            </div>
-
-            <!-- footer -->
-            <div class="modal-footer d-flex justify-content-end">
-                <div class="">
-                    <button type="button" class="btn border bg-light" data-bs-dismiss="modal">Cancel</button>
-                    <button type="submit" id="" name="" class="btn btn-success">Import<i class="ms-2 fa-solid fa-file-import"></i></button>
-                </div>
-            </div>
+            </form>
         </div>
     </div>
 </div>

@@ -1,6 +1,6 @@
 <?php
 session_start();
-require "../../../../functions/connections.php";
+require "../../../functions/connections.php";
 
 
 if(isset($_POST['export'])){
@@ -168,5 +168,8 @@ if(isset($_POST['export'])){
         // Close connection
         pg_close($conn);
     }
+
+    $_SESSION = "Data downloaded sucessfully.";
+    exit();
 }
 ?>
