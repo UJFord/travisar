@@ -70,10 +70,20 @@
 
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-end">
-                    <button type="button" id="deleteButton" class="btn btn-danger" data-id="delete">Delete</i></button>
+                    <button type="button" id="deleteButton" class="btn btn-danger admin-only" data-id="delete">Delete</i></button>
                     <div class="">
                         <button type="button" id="cancel-modal-btn-edit" class="btn border bg-light">Cancel</button>
-                        <button type="submit" id="editButton" name="edit" class="btn btn-success">Save</button>
+                        <?php
+                        if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin' || $_SESSION['rank'] === 'Curator') {
+                        ?>
+                            <button type="submit" id="editButton" name="edit" class="btn btn-success">Save</button>
+                        <?php
+                        } else if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Contributor') {
+                        ?>
+                            <button type="submit" id="editButton" name="edit" class="btn btn-success">Submit</button>
+                        <?php
+                        }
+                        ?>
                     </div>
                 </div>
             </form>
@@ -210,6 +220,17 @@
                         $('#previewSeedEdit').empty();
                         $('#previewVegEdit').empty();
                         $('#previewReproductiveEdit').empty();
+
+                        if (value['action'] === 'Pending') {
+                            $('#deleteButton').hide();
+                            $('#editButton').hide();
+                        } else if (value['action'] === 'Updating') {
+                            $('#deleteButton').hide();
+                            $('#editButton').hide();
+                        } else if (value['action'] === 'Rejected') {
+                            $('#deleteButton').hide();
+                            $('#editButton').hide();
+                        }
 
                         // Fetch the old image and pass it to the fetchOldImage function
                         fetchOldImageSeed(value.crop_seed_image);
@@ -651,6 +672,7 @@
                         }
 
                         // crop_id
+                        $('#status_action').val(value['action']);
                         $('#crop_id').val(id);
                         // statusID
                         $('#statusID').val(value['status_id']);
@@ -1089,7 +1111,8 @@
                     success: function(data) {
                         console.log("Form Edit submitted successfully", data);
                         // Reset the form
-                        //form.reset();
+                        form.reset();
+                        location.reload();
                         // Reload unseen notifications
                         //load_unseen_notification();
                     },

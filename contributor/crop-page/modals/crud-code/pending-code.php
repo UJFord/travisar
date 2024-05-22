@@ -225,7 +225,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     }
 
                     // update Status table
-                    $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP where status_id = $2";
+                    $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP, remarks = '' where status_id = $2";
 
                     $valueStatus = array(
                         $action, $status_id
@@ -773,7 +773,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     }
 
                     // update Status table
-                    $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP where status_id = $2";
+                    $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP, remarks = '' where status_id = $2";
 
                     $valueStatus = array(
                         $action, $status_id
@@ -1338,7 +1338,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     }
 
                     // update Status table
-                    $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP where status_id = $2";
+                    $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP, remarks = '' where status_id = $2";
 
                     $valueStatus = array(
                         $action, $status_id
@@ -1745,7 +1745,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'resubmit') {
     $crop_id = $_POST['crop_id'];
     $remarks = $_POST['resubmit_remarks'];
     $select = "UPDATE status
-    SET action = 'Resubmit', remarks = '$remarks', status_date = CURRENT_TIMESTAMP
+    SET action = 'For Resubmition', remarks = '$remarks', status_date = CURRENT_TIMESTAMP
     WHERE status_id IN (SELECT status_id FROM crop WHERE crop_id = '$crop_id')";
 
     $result = pg_query($conn, $select);

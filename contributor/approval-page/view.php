@@ -61,13 +61,14 @@
                     <input type="hidden" id="actionInput" name="action" value="">
 
                     <button type="button" id="rejectButton" class="btn btn-danger">Reject</i></button>
+                    <button type="button" id="resubmitButton-View" class="btn btn-danger">Request Resubmission</i></button>
                     <div class="approveButton">
                         <button type="button" id="cancel-modal-btn" class="btn border bg-light">Cancel</button>
                         <button type="submit" name="approve" id="approveButton" class="btn btn-success me-2">Approve</i></button>
                     </div>
                     <div class="updateButton">
                         <button type="button" id="cancel-modal-btn-update" class="btn border bg-light">Cancel</button>
-                        <button type="submit" name="update" id="updateButton" class="btn btn-success me-2">Update</i></button>
+                        <button type="submit" name="update" id="updateButton" class="btn btn-success me-2">Approve</i></button>
                     </div>
                 </div>
             </form>
@@ -92,6 +93,12 @@
 
         document.getElementById('confirmRejectBtn').addEventListener('click', function() {
             document.getElementById('actionInput').value = 'reject';
+            event.preventDefault();
+            submitForm();
+        });
+
+        document.getElementById('confirmResubmitBtn').addEventListener('click', function() {
+            document.getElementById('actionInput').value = 'resubmit';
             event.preventDefault();
             submitForm();
         });
@@ -631,6 +638,7 @@
         document.getElementById('cancel-modal-btn').removeEventListener('click', closeModal);
         document.getElementById('cancel-modal-btn-update').removeEventListener('click', closeModal);
         document.getElementById('rejectButton').removeEventListener('click', rejectModalEdit);
+        document.getElementById('resubmitButton-View').removeEventListener('click', resubmitModalView);
 
         // Event listener for the close button
         document.getElementById('close-modal-btn').addEventListener('click', closeModal);
@@ -639,6 +647,7 @@
         document.getElementById('cancel-modal-btn').addEventListener('click', closeModal);
         document.getElementById('cancel-modal-btn-update').addEventListener('click', closeModal);
         document.getElementById('rejectButton').addEventListener('click', rejectModalEdit);
+        document.getElementById('resubmitButton-View').addEventListener('click', resubmitModalView);
 
     }
 
@@ -674,6 +683,32 @@
         document.getElementById('confirmRejectBtn').style.display = 'block';
         // to show which label should show on the confirm modal
         document.getElementById('reject-label').style.display = 'block';
+    }
+
+
+    function resubmitModalView(event) {
+        // Prevent the default behavior of the button (e.g., form submission)
+        event.preventDefault();
+
+        // Get the modal element
+        var confirmModal = document.getElementById('confirmModal');
+
+        // Create a new Bootstrap modal instance if it doesn't exist
+        if (!confirmModalInstance) {
+            confirmModalInstance = new bootstrap.Modal(confirmModal);
+        }
+
+        // Show the confirmation modal
+        confirmModalInstance.show();
+
+        // to show which button should show on the confirm modal
+        document.getElementById('confirmRejectBtn').style.display = 'none';
+        document.getElementById('confirmResubmitBtn').style.display = 'block';
+
+        // to show which label should show on the confirm modal
+        document.getElementById('reject-label').style.display = 'none';
+        document.getElementById('resubmit-label').style.display = 'block';
+
     }
 
     // Event listener for when the modal is shown

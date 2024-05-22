@@ -1,19 +1,24 @@
 <?php
 session_start();
 require "../../functions/connections.php";
-//var_dump($_POST);
-// Ensure POST request contains the expected action
+
+// var_dump($_POST);
+// die();
 if (isset($_POST['action']) && $_POST['action'] == 'approve') {
     $crop_id = $_POST['crop_id'];
     $crop_variety = $_POST['current_crop_variety'];
-    //die();
+
     // Update the status
     $update_query = "
         UPDATE status
-        SET action = 'Approved', status_date = CURRENT_TIMESTAMP
+        SET action = 'Approved', status_date = CURRENT_TIMESTAMP, remarks = ''
         WHERE status_id IN (SELECT status_id FROM crop WHERE crop_id = $1)
     ";
-    $result = pg_query_params($conn, $update_query, array($crop_id));
+    $result = pg_query_params(
+        $conn,
+        $update_query,
+        array($crop_id)
+    );
 
     if ($result) {
         // Prepare notification details
@@ -209,8 +214,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     crop_seed_image = $4, crop_vegetative_image =$5, crop_reproductive_image = $6 where crop_id = $7";
 
                     $valueCrops = array(
-                            $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_vegetative_image, $crop_reproductive_image, $crop_id
-                        );
+                        $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_vegetative_image, $crop_reproductive_image, $crop_id
+                    );
                     $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
                     if ($query_run_Crop) {
@@ -220,11 +225,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     }
 
                     // update Status table
-                    $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP where status_id = $2";
+                    $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP, remarks = '' where status_id = $2";
 
                     $valueStatus = array(
-                            $action, $status_id
-                        );
+                        $action, $status_id
+                    );
                     $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 
                     if ($query_run_Status) {
@@ -757,8 +762,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     crop_seed_image = $4, crop_vegetative_image =$5, crop_reproductive_image = $6 where crop_id = $7";
 
                     $valueCrops = array(
-                            $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_vegetative_image, $crop_reproductive_image, $crop_id
-                        );
+                        $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_vegetative_image, $crop_reproductive_image, $crop_id
+                    );
                     $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
                     if ($query_run_Crop) {
@@ -768,11 +773,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     }
 
                     // update Status table
-                    $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP where status_id = $2";
+                    $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP, remarks = '' where status_id = $2";
 
                     $valueStatus = array(
-                            $action, $status_id
-                        );
+                        $action, $status_id
+                    );
                     $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 
                     if ($query_run_Status) {
@@ -1322,8 +1327,8 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     crop_seed_image = $4, crop_vegetative_image =$5, crop_reproductive_image = $6 where crop_id = $7";
 
                     $valueCrops = array(
-                            $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_vegetative_image, $crop_reproductive_image, $crop_id
-                        );
+                        $crop_variety, $crop_description, $meaning_of_name, $crop_seed_image, $crop_vegetative_image, $crop_reproductive_image, $crop_id
+                    );
                     $query_run_Crop = pg_query_params($conn, $queryCrop, $valueCrops);
 
                     if ($query_run_Crop) {
@@ -1333,11 +1338,11 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
                     }
 
                     // update Status table
-                    $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP where status_id = $2";
+                    $queryStatus = "UPDATE status set action =$1, status_date = CURRENT_TIMESTAMP, remarks = '' where status_id = $2";
 
                     $valueStatus = array(
-                            $action, $status_id
-                        );
+                        $action, $status_id
+                    );
                     $query_run_Status = pg_query_params($conn, $queryStatus, $valueStatus);
 
                     if ($query_run_Status) {
@@ -1702,7 +1707,6 @@ if (isset($_POST['action']) && $_POST['action'] == 'update') {
 }
 
 if (isset($_POST['action']) && $_POST['action'] == 'reject') {
-    $crop_variety = $_POST['current_crop_variety'];
     $crop_id = $_POST['crop_id'];
     $remarks = $_POST['remarks'];
     $select = "UPDATE status
@@ -1725,7 +1729,42 @@ if (isset($_POST['action']) && $_POST['action'] == 'reject') {
 
         if ($insert_run) {
             $_SESSION['message'] = "Submission Rejected";
-            //header("Location: pending.php");
+            //header("Location: ../..crop.php");
+            exit; // Ensure that the script stops executing after the redirect header
+        } else {
+            // Log the error or display a more user-friendly message
+            echo "Error inserting notification: " . pg_last_error($conn);
+        }
+    } else {
+        // Log the error or display a more user-friendly message
+        echo "Error updating record: " . pg_last_error($conn);
+    }
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'resubmit') {
+    $crop_id = $_POST['crop_id'];
+    $remarks = $_POST['resubmit_remarks'];
+    $select = "UPDATE status
+    SET action = 'For Resubmition', remarks = '$remarks', status_date = CURRENT_TIMESTAMP
+    WHERE status_id IN (SELECT status_id FROM crop WHERE crop_id = '$crop_id')";
+
+    $result = pg_query($conn, $select);
+    if ($result) {
+        // Prepare notification details
+        $notification_name = 'Submission is returned for revision.';
+        $message = 'Your submission ' . $crop_variety . ' is rejected.';
+        $active = '1';
+
+        // Insert notification
+        $insert_query = "
+            INSERT INTO notification (notification_name, message, active, crop_id)
+            VALUES ($1, $2, $3, $4)
+        ";
+        $insert_run = pg_query_params($conn, $insert_query, array($notification_name, $message, $active, $crop_id));
+
+        if ($insert_run) {
+            $_SESSION['message'] = "Submission is set for resubmission.";
+            //header("Location: ../..crop.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
             // Log the error or display a more user-friendly message

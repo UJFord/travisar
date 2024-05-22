@@ -86,7 +86,7 @@
                     <div class="">
                         <button type="button" id="cancel-modal-btn" class="btn border bg-light">Cancel</button>
                         <?php
-                        if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
+                        if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin' || $_SESSION['rank'] === 'Curator') {
                         ?>
                             <button type="submit" name="save" class="btn btn-success">Save</button>
                         <?php
