@@ -111,6 +111,9 @@
 <div class="fade show active tab-pane" id="edit-gen-tab-pane" role="tabpanel" aria-labelledby="edit-gen-tab" tabindex="0">
     <!-- hidden data -->
     <div>
+        <!-- status -->
+        <input id="status_action" type="hidden" name="status_action" class="form-control">
+
         <!-- common id's -->
         <!-- crop_id -->
         <input id="crop_id" type="hidden" name="crop_id" class="form-control">

@@ -15,14 +15,14 @@
                 <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
             </div>
             <div class="modal-body" id="reject-labelView">
-                Are you sure you want to reject the submission?. State the reason.
+                Are you sure you want to reject the submission? State the reason.
                 <div class="">
                     <input id="Remarks" type="text" name="remarks" class="form-control">
                 </div>
             </div>
 
             <div class="modal-body" id="resubmit-labelView">
-                Are you sure you want to ask for resubmission?. State the reason.
+                Are you sure you want to ask for resubmission? State the reason.
                 <div class="">
                     <input id="Remarks" type="text" name="resubmit_remarks" class="form-control">
                 </div>

@@ -230,6 +230,9 @@
                                     case 'Updating':
                                         $statusClass = 'text-warning'; //  text for Updating
                                         break;
+                                    case 'For Resubmition':
+                                        $statusClass = 'text-warning'; //  text for Updating
+                                        break;
                                     default:
                                         $statusClass = 'text-dark'; // Default text color
                                         break;

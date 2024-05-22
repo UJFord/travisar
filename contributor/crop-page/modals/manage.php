@@ -61,14 +61,14 @@
                     <input type="hidden" id="actionInput" name="action" value="">
 
                     <button type="button" id="rejectButton-View" class="btn btn-danger">Reject</i></button>
-                    <button type="button" id="resubmitButton-View" class="btn btn-danger">Resubmit</i></button>
+                    <button type="button" id="resubmitButton-View" class="btn btn-danger">Request Resubmission</i></button>
                     <div class="approveButtonView">
                         <button type="button" id="cancel-modal-btn-View" class="btn border bg-light">Cancel</button>
                         <button type="button" name="approve" id="approveButton" class="btn btn-success me-2">Approve</i></button>
                     </div>
                     <div class="updateButtonView">
                         <button type="button" id="cancel-modal-btn-update" class="btn border bg-light">Cancel</button>
-                        <button type="button" name="update" id="updateButton" class="btn btn-success me-2">Update</i></button>
+                        <button type="button" name="update" id="updateButton" class="btn btn-success me-2">Approve</i></button>
                     </div>
                 </div>
             </form>
