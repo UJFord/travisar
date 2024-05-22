@@ -74,6 +74,19 @@
             ?>
         </div>
 
+        <!-- Varieties -->
+        <div class="py-2 px-3" id="variety-div">
+            <div id="variety-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#variety-filters" role="button" aria-expanded="true" aria-controls="variety-filters">
+                <i id="varietyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
+                <a class="fw-bold text-success col text-decoration-none" href="">Variety</a>
+            </div>
+
+            <!-- crops filters -->
+            <div id="variety-filters" class="collapse  mb-2">
+
+            </div>
+        </div>
+
         <!-- all municipalities -->
         <div class="pt-2 pb-1 px-3">
             <div id="mun-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#municipality-filters" role="button" aria-expanded="true" aria-controls="municipalty-filters">
@@ -106,19 +119,6 @@
                 <a class="fw-bold text-success col text-decoration-none" href="">Barangay</a>
             </div>
             <div id="brgy-filters" class="collapse ps-4 mb-2">
-            </div>
-        </div>
-
-        <!-- Varieties -->
-        <div class="py-2 px-3" id="variety-div">
-            <div id="variety-filter-dropdown-toggler" class="row d-flex align-items-center text-decoration-none text-dark" data-bs-toggle="collapse" href="#variety-filters" role="button" aria-expanded="true" aria-controls="variety-filters">
-                <i id="varietyChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
-                <a class="fw-bold text-success col text-decoration-none" href="">Variety</a>
-            </div>
-
-            <!-- crops filters -->
-            <div id="variety-filters" class="collapse  mb-2">
-
             </div>
         </div>
 
