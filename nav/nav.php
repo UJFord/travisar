@@ -389,12 +389,6 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                 TRAVIS
                             </a>
                         </li>
-                        <!-- help -->
-                        <li>
-                            <a href="<?= BASE_URL . '/' . 'visitor/help/intro.php' ?>" class="dropdown-item">
-                                Help
-                            </a>
-                        </li>
 
                     </ul>
                 </div>
