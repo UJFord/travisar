@@ -116,8 +116,8 @@ $(document).ready(function () {
         // Extract category and variety
         let category = row.querySelector('.category').textContent.trim();
         let variety = row.querySelector('.variety').textContent.trim();
-        let address = row.querySelector('.addr').textContent.trim();
-        let terrain = row.querySelector('.terrain').textContent.trim();
+        // let address = row.querySelector('.addr').textContent.trim();
+        // let terrain = row.querySelector('.terrain').textContent.trim();
         let viewLink = row.getAttribute('data-href');
         
 
