@@ -70,7 +70,7 @@ switch ($current_page_path) {
 if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Contributor') {
     if (isset($_SESSION['USER']['user_id'])) {
         $user_id = $_SESSION['USER']['user_id'];
-        $find_notifications = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id WHERE active = true AND crop.user_id = $user_id";
+        $find_notifications = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id WHERE active = true AND crop.user_id = $user_id ORDER BY notification_date DESC";
         $result = pg_query($conn, $find_notifications);
         if (!$result) {
             die("Error in query: " . pg_last_error());
@@ -114,7 +114,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Contributor') {
 }
 
 if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Curator') {
-    $find_notificationsCurator = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id left join status on crop.status_id = status.status_id WHERE action = 'Pending' AND active = true";
+    $find_notificationsCurator = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id left join status on crop.status_id = status.status_id WHERE action = 'Pending' AND active = true ORDER BY notification_date DESC";
     $resultCurator = pg_query($conn, $find_notificationsCurator);
     if (!$resultCurator) {
         die("Error in query: " . pg_last_error());
@@ -154,7 +154,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Curator') {
 
 if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
     // New Crops
-    $find_notificationsAdmin_crop = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id WHERE active = true";
+    $find_notificationsAdmin_crop = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id WHERE active = true ORDER BY notification_date DESC";
     $resultAdmin_crop = pg_query($conn, $find_notificationsAdmin_crop);
     if (!$resultAdmin_crop) {
         die("Error in query: " . pg_last_error());
@@ -192,7 +192,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
     }
 
     // New Users
-    $find_notificationsAdmin_user = 'SELECT * FROM notification_user LEFT JOIN users ON users.user_id = notification_user.user_id WHERE notification_user.active = true';
+    $find_notificationsAdmin_user = 'SELECT * FROM notification_user LEFT JOIN users ON users.user_id = notification_user.user_id WHERE notification_user.active = true ORDER BY notification_date DESC';
     $resultAdmin_user = pg_query($conn, $find_notificationsAdmin_user);
     if (!$resultAdmin_user) {
         die("Error in query: " . pg_last_error());
@@ -642,14 +642,15 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         }
                                         ?>
                                         <li class="message" data-id="<?= htmlspecialchars($notification['notification_id']); ?>">
-                                            <a href="<?php echo BASE_URL . '/nav/deactivate.php?notification_id=' . $notification['notification_id']; ?>" class="dropdown-item d-flex justify-content-between">
-                                                <span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span>
-                                            </a>
-                                            <a href="<?php echo BASE_URL . '/nav/deactivate.php?notification_id=' . $notification['notification_id']; ?>" class="dropdown-item d-flex justify-content-between">
+                                            <a href="<?php echo BASE_URL . '/nav/deactivate.php?notification_id=' . $notification['notification_id']; ?>" class="row dropdown-item d-flex flex-column p-0 m-0">
+                                                <span class="fw-bold fs-6 col-12">"<?= $notification['crop_variety'] ?>"</span>
                                                 <!-- message -->
-                                                <div class="msg fw-normal small-font text-truncate"> <?= $notification['notification_name'] ?></div>
-                                                <!-- date -->
-                                                <div class="small-font fw-normal text-secondary"><?= $formatted_date ?></div>
+                                                <div class="d-flex justify-content-between ">
+
+                                                    <div class="msg fw-normal small-font text-truncate"> <?= $notification['notification_name'] ?></div>
+                                                    <!-- date -->
+                                                    <div class="small-font fw-normal text-secondary"><?= $formatted_date ?></div>
+                                                </div>
                                             </a>
                                         </li>
                                     <?php } ?>
@@ -666,7 +667,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         }
                                         ?>
                                         <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
-                                            <a href="<?php echo BASE_URL . '/nav/deactivate_user.php?notification_user_id=' . $notification['notification_user_id']; ?>" class="dropdown-item d-flex justify-content-between">
+                                            <a href="<?php echo BASE_URL . '/nav/deactivate_user.php?notification_user_id=' . $notification['notification_user_id']; ?>" class="dropdown-item d-flex flex-colum">
                                                 <span class=" fw-bold fs-6"><?= $notification['first_name'] . ' ' . $notification['last_name'] ?></span>
                                             </a>
                                             <a href="<?php echo BASE_URL . '/nav/deactivate_user.php?notification_user_id=' . $notification['notification_user_id']; ?>" class="dropdown-item d-flex justify-content-between">

@@ -19,12 +19,20 @@
                 <div class="">
                     <input id="Remarks" type="text" name="remarks" class="form-control">
                 </div>
+            </div>
 
+            <div class="modal-body" id="resubmit-labelView">
+                Are you sure you want to ask for resubmission?. State the reason.
+                <div class="">
+                    <input id="Remarks" type="text" name="resubmit_remarks" class="form-control">
+                </div>
             </div>
 
             <div class="modal-footer">
                 <button type="button" class="btn btn-secondary" data-bs-dismiss="modal">Cancel</button>
                 <button type="submit" name="rejected" class="btn btn-success" id="confirmRejectBtnView">Confirm</button>
+                <button type="submit" name="resubmit" class="btn btn-success" id="confirmResubmitBtnView">Confirm</button>
+
             </div>
         </div>
     </div>

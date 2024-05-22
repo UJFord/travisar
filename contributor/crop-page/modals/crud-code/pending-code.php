@@ -11,7 +11,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'approve') {
     // Update the status
     $update_query = "
         UPDATE status
-        SET action = 'Approved', status_date = CURRENT_TIMESTAMP
+        SET action = 'Approved', status_date = CURRENT_TIMESTAMP, remarks = ''
         WHERE status_id IN (SELECT status_id FROM crop WHERE crop_id = $1)
     ";
     $result = pg_query_params(
@@ -1729,6 +1729,41 @@ if (isset($_POST['action']) && $_POST['action'] == 'reject') {
 
         if ($insert_run) {
             $_SESSION['message'] = "Submission Rejected";
+            //header("Location: ../..crop.php");
+            exit; // Ensure that the script stops executing after the redirect header
+        } else {
+            // Log the error or display a more user-friendly message
+            echo "Error inserting notification: " . pg_last_error($conn);
+        }
+    } else {
+        // Log the error or display a more user-friendly message
+        echo "Error updating record: " . pg_last_error($conn);
+    }
+}
+
+if (isset($_POST['action']) && $_POST['action'] == 'resubmit') {
+    $crop_id = $_POST['crop_id'];
+    $remarks = $_POST['resubmit_remarks'];
+    $select = "UPDATE status
+    SET action = 'Resubmit', remarks = '$remarks', status_date = CURRENT_TIMESTAMP
+    WHERE status_id IN (SELECT status_id FROM crop WHERE crop_id = '$crop_id')";
+
+    $result = pg_query($conn, $select);
+    if ($result) {
+        // Prepare notification details
+        $notification_name = 'Submission is returned for revision.';
+        $message = 'Your submission ' . $crop_variety . ' is rejected.';
+        $active = '1';
+
+        // Insert notification
+        $insert_query = "
+            INSERT INTO notification (notification_name, message, active, crop_id)
+            VALUES ($1, $2, $3, $4)
+        ";
+        $insert_run = pg_query_params($conn, $insert_query, array($notification_name, $message, $active, $crop_id));
+
+        if ($insert_run) {
+            $_SESSION['message'] = "Submission is set for resubmission.";
             //header("Location: ../..crop.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {

@@ -5,25 +5,38 @@ require "../../../functions/connections.php";
 if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
     // Get the file path
     $file_tmp = $_FILES['file']['tmp_name'];
-    $category_name = $_POST['options'];
+    $category_id = $_POST['category_id'];
+
+    // get category_name
+    $get_categoryName = "SELECT category_name from category where category_id = $1";
+    $query_run_categoryName = pg_query_params($conn, $get_categoryName, array($category_id));
+
+    if ($query_run_categoryName) {
+        $row_categoryName = pg_fetch_assoc(($query_run_categoryName));
+        $get_category_name = $row_categoryName['category_name'];
+    } else {
+        $_SESSION['message'] = "No category selected";
+        header("location: ../submission.php");
+        exit();
+    }
     // Read the file and import the data into PostgreSQL
     $handle = fopen($file_tmp, 'r');
 
-    if ($category_name === "Corn") {
+    if ($get_category_name === "Corn") {
         if ($handle !== FALSE) {
             // Skip the header row
             fgetcsv($handle, 1000, ",");
 
             while (($data = fgetcsv($handle, 1000, ",")) !== FALSE) {
                 // Assuming the CSV has columns: category, crop variety, etc.
+                // Set default values for missing columns
                 $user_id = $_POST['user_id'];
                 if (isset($_SESSION['rank']) && $_SESSION['rank'] == 'Contributor') {
                     $action = "Pending";
                 } else {
                     $action = "Approved";
                 }
-                // Set default values for missing columns
-                $user_id = $_POST['user_id'];
+
                 $category_name = isset($data[0]) ? pg_escape_string($data[0]) : '';
                 $category_variety_name = isset($data[1]) ? pg_escape_string($data[1]) : '';
                 $variety_name = isset($data[2]) ? pg_escape_string($data[2]) : '';
@@ -143,20 +156,6 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                     $row_utilCultural = pg_fetch_row($query_run_utilCultural);
                     $utilization_cultural_id = $row_utilCultural[0];
                 } else {
-                    continue;
-                }
-
-                //insert into status table
-                $query_Status = "INSERT INTO status (action)
-                VALUES ($1) RETURNING status_id";
-                $value_Status = array($action);
-                $query_run_Status = pg_query_params($conn, $query_Status, $value_Status);
-
-                if ($query_run_Status) {
-                    $row_Status = pg_fetch_row($query_run_Status);
-                    $status_id = $row_Status[0];
-                } else {
-                    echo "Status not saved in the database.<br>";
                     continue;
                 }
 
@@ -314,7 +313,7 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
             header("location: ../submission.php");
             die();
         }
-    } else if ($category_name === "Rice") {
+    } else if ($get_category_name === "Rice") {
         if ($handle !== FALSE) {
             // Skip the header row
             fgetcsv($handle, 1000, ",");
@@ -323,11 +322,7 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                 // Assuming the CSV has columns: category, crop variety, etc.
                 // Set default values for missing columns
                 $user_id = $_POST['user_id'];
-                if (isset($_SESSION['rank']) && $_SESSION['rank'] == 'Contributor') {
-                    $action = "Pending";
-                } else {
-                    $action = "Approved";
-                }
+                $action = "Approved";
                 $category_name = isset($data[0]) ? pg_escape_string($data[0]) : '';
                 $category_variety_name = isset($data[1]) ? pg_escape_string($data[1]) : '';
                 $variety_name = isset($data[2]) ? pg_escape_string($data[2]) : '';
@@ -698,6 +693,7 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                     }
                 }
             }
+
             fclose($handle);
             $_SESSION['message'] = "Data imported successfully.";
             header("location: ../submission.php");
@@ -707,7 +703,7 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
             header("location: ../submission.php");
             die();
         }
-    } else if ($category_name === "Root Crop") {
+    } else if ($get_category_name === "Root Crop") {
         if ($handle !== FALSE) {
             // Skip the header row
             fgetcsv($handle, 1000, ",");
@@ -716,11 +712,7 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                 // Assuming the CSV has columns: category, crop variety, etc.
                 // Set default values for missing columns
                 $user_id = $_POST['user_id'];
-                if (isset($_SESSION['rank']) && $_SESSION['rank'] == 'Contributor') {
-                    $action = "Pending";
-                } else {
-                    $action = "Approved";
-                }
+                $action = "Approved";
                 $category_name = isset($data[0]) ? pg_escape_string($data[0]) : '';
                 $category_variety_name = isset($data[1]) ? pg_escape_string($data[1]) : '';
                 $variety_name = isset($data[2]) ? pg_escape_string($data[2]) : '';
@@ -922,7 +914,7 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                     $rootcrop_traits_id = $row_rootcropTraits[0];
                 } else {
                     $_SESSION['message'] = "Failed to create crop.";
-                    header("Location: ../../submission.php");
+                    header("Location: ../submission.php");
                     exit(0);
                 }
 
@@ -934,7 +926,7 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                     $vegetative_state_rootcrop_id = $row_vegetativeState[0];
                 } else {
                     $_SESSION['message'] = "Failed to create crop.";
-                    header("Location: ../../submission.php");
+                    header("Location: ../submission.php");
                     exit(0);
                 }
 
@@ -948,7 +940,7 @@ if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
                     $root_crop_traits_id = $row_root_CropTraits[0];
                 } else {
                     $_SESSION['message'] = "Failed to create crop.";
-                    header("Location: ../../submission.php");
+                    header("Location: ../submission.php");
                     exit(0);
                 }
 
