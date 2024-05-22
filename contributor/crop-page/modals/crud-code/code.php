@@ -1006,7 +1006,7 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
         echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
         exit(0);
     }
-} else if (isset($_POST['save']) && $_SESSION['rank'] == 'Admin') {
+} else if (isset($_POST['save']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator')) {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {
@@ -2950,7 +2950,7 @@ if (isset($_POST['draft'])) {
     }
 }
 
-if (isset($_POST['edit']) && $_SESSION['rank'] == 'Admin') {
+if (isset($_POST['edit']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator')) {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {
@@ -4107,7 +4107,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Admin') {
         echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
         exit(0);
     }
-} else if (isset($_POST['edit']) && $_SESSION['rank'] == 'Contributor' || $_SESSION['rank'] == 'Curator') {
+} else if (isset($_POST['edit']) && ($_SESSION['rank'] == 'Curator')) {
     $_SESSION['message'] = "Not Enough Authority";
     header('Location: ../../crop.php');
     exit();

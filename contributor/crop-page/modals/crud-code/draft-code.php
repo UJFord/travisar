@@ -3,7 +3,7 @@ session_start();
 require "../../../../functions/connections.php";
 // var_dump($_POST);
 // die();
-if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Admin') {
+if (isset($_POST['save_draft']) && $_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator') {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {

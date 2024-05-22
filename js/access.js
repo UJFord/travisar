@@ -16,7 +16,7 @@ document.addEventListener("DOMContentLoaded", function () {
         if (userRole === "Curator") {
             setVisibility(curatorElements, true);
             setVisibility(adminElements, false);
-            setVisibility(encoderElements, false);
+            setVisibility(encoderElements, true);
         } else if (userRole === "Admin") {
             setVisibility(curatorElements, true);
             setVisibility(adminElements, true);

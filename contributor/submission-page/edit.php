@@ -70,11 +70,11 @@
 
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-end">
-                    <button type="button" id="deleteButton" class="btn btn-danger" data-id="delete">Delete</i></button>
+                    <button type="button" id="deleteButton" class="btn btn-danger admin-only" data-id="delete">Delete</i></button>
                     <div class="">
                         <button type="button" id="cancel-modal-btn-edit" class="btn border bg-light">Cancel</button>
                         <?php
-                        if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
+                        if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin' || $_SESSION['rank'] === 'Curator') {
                         ?>
                             <button type="submit" id="editButton" name="edit" class="btn btn-success">Save</button>
                         <?php
@@ -1111,7 +1111,8 @@
                     success: function(data) {
                         console.log("Form Edit submitted successfully", data);
                         // Reset the form
-                        //form.reset();
+                        form.reset();
+                        location.reload();
                         // Reload unseen notifications
                         //load_unseen_notification();
                     },
