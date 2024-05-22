@@ -1,4 +1,3 @@
-// LIST
 $(document).ready(function () {
 
     let mapState = false;
@@ -108,48 +107,47 @@ $(document).ready(function () {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
 
-    // draw markers
-    // loop through each table row and draw markers
-    // Iterate over each table row
-    document.querySelectorAll('#crop-list-tbody tr').forEach(row => {
+    // create a dictionary to hold crops for each coordinate
+    let locations = {};
 
-        // Extract category and variety
+    // collect crop data for each coordinate
+    document.querySelectorAll('#crop-list-tbody tr').forEach(row => {
         let category = row.querySelector('.category').textContent.trim();
         let variety = row.querySelector('.variety').textContent.trim();
-        // let address = row.querySelector('.addr').textContent.trim();
-        // let terrain = row.querySelector('.terrain').textContent.trim();
         let viewLink = row.getAttribute('data-href');
-        
-
-        // MAP SCRIPTS
-
-        // bindPopup
-        let popup = `
-            <div class="container">
-                <h6 class="row d-flex justify-content-center fw-semibold">${variety}</h6>
-                <div class="row d-flex justify-content-center"><a class="small-font w-auto" href="${viewLink}">View Crop</a></div>
-            </div>
-        `;
-
-        // Extract latitude and longitude from latlng attribute
         let latLng = row.getAttribute('latlng');
+
         if (latLng) {
             let [lat, lng] = latLng.split(',').map(coord => parseFloat(coord.trim()));
-
-            // Check if latitude and longitude values are valid
             if (!isNaN(lat) && !isNaN(lng)) {
-                // Choose icon based on category
-                let icon = icons[category];
-
-                // Create marker and add to map
-                if (icon) {
-                    L.marker([lat, lng], { icon: icon })
-                        .bindPopup(popup)
-                        .addTo(map);
-                } else {
-                    console.error(`Icon for category "${category}" is not defined.`);
+                let key = `${lat},${lng}`;
+                if (!locations[key]) {
+                    locations[key] = [];
                 }
+                locations[key].push({ category, variety, viewLink });
             }
+        }
+    });
+
+    // create markers for each coordinate with combined popup
+    Object.keys(locations).forEach(latLng => {
+        let [lat, lng] = latLng.split(',').map(coord => parseFloat(coord.trim()));
+        let popupContent = `<div class="container">`;
+        locations[latLng].forEach(crop => {
+            popupContent += `
+                <h6 class="row d-flex fw-semibold">${crop.variety} (${crop.category})</h6>
+                <div class="row d-flex justify-content-center"><a class="small-font w-auto mb-2" href="${crop.viewLink}">View Crop</a></div>
+            `;
+        });
+        popupContent += `</div>`;
+
+        let icon = icons[locations[latLng][0].category];  // use the first category's icon
+        if (icon) {
+            L.marker([lat, lng], { icon: icon })
+                .bindPopup(popupContent)
+                .addTo(map);
+        } else {
+            console.error(`Icon for category "${locations[latLng][0].category}" is not defined.`);
         }
     });
 
