@@ -203,7 +203,7 @@
                                     case 'Updating':
                                         $statusClass = 'text-warning'; //  text for Updating
                                         break;
-                                    case 'For Resubmition':
+                                    case 'For Resubmission':
                                         $statusClass = 'text-warning'; //  text for Updating
                                         break;
                                     default:

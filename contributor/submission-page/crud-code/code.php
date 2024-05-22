@@ -942,7 +942,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Contributor') {
             pg_query($conn, "COMMIT");
             header("Location: ../submission.php");
             exit(0);
-        } else if ($action === 'For Resubmition') {
+        } else if ($action === 'For Resubmission') {
 
             // Function to handle empty values
             function handleEmpty($value)

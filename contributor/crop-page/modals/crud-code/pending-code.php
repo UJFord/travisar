@@ -1745,7 +1745,7 @@ if (isset($_POST['action']) && $_POST['action'] == 'resubmit') {
     $crop_id = $_POST['crop_id'];
     $remarks = $_POST['resubmit_remarks'];
     $select = "UPDATE status
-    SET action = 'For Resubmition', remarks = '$remarks', status_date = CURRENT_TIMESTAMP
+    SET action = 'For Resubmission', remarks = '$remarks', status_date = CURRENT_TIMESTAMP
     WHERE status_id IN (SELECT status_id FROM crop WHERE crop_id = '$crop_id')";
 
     $result = pg_query($conn, $select);
