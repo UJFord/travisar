@@ -171,7 +171,7 @@ require "../../functions/functions.php";
                                         // Convert the string to a DateTime object
                                         $date = new DateTime($row['municipality_date']);
                                         // Format the date to display up to the minute
-                                        $formatted_date = $date->format('Y-m-d H:i');
+                                        $formatted_date = $date->format('m-d-Y H:i');
 
                                 ?>
                                         <tr id="row1">

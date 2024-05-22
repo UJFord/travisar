@@ -89,7 +89,7 @@
                         // Convert the string to a DateTime object
                         $date = new DateTime($row['status_date']);
                         // Format the date to display up to the minute
-                        $formatted_date = $date->format('Y-m-d H:i');
+                        $formatted_date = $date->format('m-d-Y H:i');
 
                         // Fetch category name
                         $query_category = "SELECT * FROM category WHERE category_id = $1";

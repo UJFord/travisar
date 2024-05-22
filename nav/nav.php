@@ -520,7 +520,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         if (!empty($notification['notification_date'])) {
                                             $date = new DateTime($notification['notification_date']);
                                             // Format the date to display up to the minute
-                                            $formatted_date = $date->format('Y-m-d H:i');
+                                            $formatted_date = $date->format('m-d-Y H:i');
                                         }
                                         ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
@@ -543,7 +543,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         if (!empty($notification['notification_date'])) {
                                             $date = new DateTime($notification['notification_date']);
                                             // Format the date to display up to the minute
-                                            $formatted_date = $date->format('Y-m-d H:i');
+                                            $formatted_date = $date->format('m-d-Y H:i');
                                         }
                                         ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
@@ -581,7 +581,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         if (!empty($notification['notification_date'])) {
                                             $date = new DateTime($notification['notification_date']);
                                             // Format the date to display up to the minute
-                                            $formatted_date = $date->format('Y-m-d H:i');
+                                            $formatted_date = $date->format('m-d-Y H:i');
                                         }
                                         ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
@@ -604,7 +604,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         if (!empty($notification['notification_date'])) {
                                             $date = new DateTime($notification['notification_date']);
                                             // Format the date to display up to the minute
-                                            $formatted_date = $date->format('Y-m-d H:i');
+                                            $formatted_date = $date->format('m-d-Y H:i');
                                         }
                                         ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
@@ -644,7 +644,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         if (!empty($notification['notification_date'])) {
                                             $date = new DateTime($notification['notification_date']);
                                             // Format the date to display up to the minute
-                                            $formatted_date = $date->format('Y-m-d H:i');
+                                            $formatted_date = $date->format('m-d-Y H:i');
                                         }
                                         ?>
                                         <li class="message" data-id="<?= htmlspecialchars($notification['notification_id']); ?>">
@@ -668,7 +668,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         if (!empty($notification['notification_date'])) {
                                             $date = new DateTime($notification['notification_date']);
                                             // Format the date to display up to the minute
-                                            $formatted_date = $date->format('Y-m-d H:i');
+                                            $formatted_date = $date->format('m-d-Y H:i');
                                         }
                                         ?>
                                         <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
@@ -693,7 +693,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         if (!empty($notification['notification_date'])) {
                                             $date = new DateTime($notification['notification_date']);
                                             // Format the date to display up to the minute
-                                            $formatted_date = $date->format('Y-m-d H:i');
+                                            $formatted_date = $date->format('m-d-Y H:i');
                                         }
                                         ?>
                                         <li class="message" data-id="<?= htmlspecialchars($notification['notification_id']); ?>">
@@ -717,7 +717,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         if (!empty($notification['notification_date'])) {
                                             $date = new DateTime($notification['notification_date']);
                                             // Format the date to display up to the minute
-                                            $formatted_date = $date->format('Y-m-d H:i');
+                                            $formatted_date = $date->format('m-d-Y H:i');
                                         }
                                         ?>
                                         <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
