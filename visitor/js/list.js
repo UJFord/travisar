@@ -88,8 +88,9 @@ $(document).ready(function () {
         attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
     }).addTo(map);
 
-    // Create a marker cluster group
+    // Create a marker cluster group without spiderfyOnMaxZoom option
     let markers = L.markerClusterGroup();
+
 
     // Icons
     let icons = {
@@ -139,8 +140,19 @@ $(document).ready(function () {
     // Add marker cluster group to the map
     map.addLayer(markers);
 
+    // Listen for the animationend event to ensure the spiderfy animation has completed
+    markers.once('animationend', function () {
+        // Trigger spiderfy event after a delay
+        setTimeout(function() {
+            markers.spiderfy();
+        }, 500); // Adjust the delay time as needed
+    });
+
     // send resize event to browser to load map tiles
     setInterval(function() {
         window.dispatchEvent(new Event("resize"));
     }, 1000);
+
+
+
 });
