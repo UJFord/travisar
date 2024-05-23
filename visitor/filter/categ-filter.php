@@ -80,7 +80,7 @@ switch ($current_page_path) {
             <div class="col-sm-5 col-md-4 col-lg-3 col-xl-2 d-flex justify-content-end align-items-center">
                 <div class="row w-100 d-flex justify-content-end align-items-center pe-2">
 
-                    <button id="map-toggler" class="col-8 h-100 btn btn-light border ms-2 py-2">
+                    <button id="map-toggler" class="col-8 h-100 btn btn-light border ms-2 py-2 d-flex justify-content-center">
                         <span class="map-toggle d-flex"><i class="fa-solid fa-map me-2"></i><span class="small-font fw-bold">Map View</span></span>
                         <span class="list-toggle d-flex d-none"><i class="fa-solid fa-list me-2"></i><span class="small-font fw-bold">List View</span></span>
                     </button>

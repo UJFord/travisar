@@ -121,7 +121,8 @@
                             <!-- Variety name -->
                             <td data-col="variety">
                                 <!-- Variety name -->
-                                <a class="small-font" href="#" target=”_blank”><?= $row['crop_variety']; ?></a>
+                                <h6 class="small-font m-0"><?= $row['crop_variety']; ?></h6>
+
                             </td>
 
                             <!-- Location -->

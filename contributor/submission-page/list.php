@@ -79,12 +79,12 @@
                             All
                         </label>
                     </th>
-                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="date">Date Created</th>
-                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="category">Category</th>
-                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="variety">Variety Name</th>
-                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="location">Location</th>
-                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="date">Date and Time of Action</th>
-                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="status">Status</th>
+                    <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="date">Date Created</th>
+                    <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="category">Category</th>
+                    <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="variety">Variety Name</th>
+                    <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="location">Location</th>
+                    <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="date">Date and Time of Action</th>
+                    <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="status">Status</th>
                     <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="remarks">Remarks</th>
                     <th class="col text-dark-emphasis text-end" scope="col">
                         <div class="dropdown">
@@ -163,12 +163,12 @@
                             </th>
 
                             <!-- date created -->
-                            <td data-col="date">
+                            <td class="text-center" data-col="date">
                                 <h6 class="small-font m-0"><?= $formatted_date_created; ?></h6>
                             </td>
 
                             <!-- category -->
-                            <td data-col="category">
+                            <td class="text-center" data-col="category">
                                 <div>
                                     <?php
                                     if (pg_num_rows($query_run_category)) {
@@ -182,22 +182,26 @@
                             </td>
 
                             <!-- Variety name -->
-                            <td data-col="variety">
+                            <td class="text-center" data-col="variety">
                                 <!-- Variety name -->
-                                <a class="small-font" href="#" target=”_blank”><?= $row['crop_variety']; ?></a>
+                                <?php if ($row['action'] === 'Approved') : ?>
+                                    <a class="small-font" href="#" target="_blank"><?= $row['crop_variety']; ?></a>
+                                <?php else : ?>
+                                    <h6 class="small-font m-0"><?= $row['crop_variety']; ?></h6>
+                                <?php endif; ?>
                             </td>
 
                             <!-- Location -->
-                            <td class="" data-col="location">
+                            <td class="text-center" data-col="location">
                                 <h6 class="small-font m-0"><?= $row['municipality_name']; ?></h6>
                             </td>
 
                             <!-- date and time of action -->
-                            <td data-col="date">
+                            <td class="text-center" data-col="date">
                                 <h6 class="small-font m-0"><?= $formatted_date_status; ?></h6>
                             </td>
 
-                            <td data-col="status">
+                            <td class="text-center" data-col="status">
                                 <?php
                                 $statusClass = '';
                                 switch ($row['action']) {
@@ -224,7 +228,7 @@
                                         break;
                                 }
                                 ?>
-                                <span class="w-auto py-1 px-2 rounded small-font <?= $statusClass; ?>">
+                                <span class="small-font <?= $statusClass; ?>">
                                     <?= $row['action']; ?>
                                 </span>
                             </td>

@@ -61,7 +61,7 @@
                     <input type="hidden" id="actionInput" name="action" value="">
 
                     <button type="button" id="rejectButton" class="btn btn-danger">Reject</i></button>
-                    <button type="button" id="resubmitButton-View" class="btn btn-danger">Request Resubmission</i></button>
+                    <button type="button" id="resubmitButton-View" class="btn btn-warning">Request Resubmission</i></button>
                     <div class="approveButton">
                         <button type="button" id="cancel-modal-btn" class="btn border bg-light">Cancel</button>
                         <button type="submit" name="approve" id="approveButton" class="btn btn-success me-2">Approve</i></button>

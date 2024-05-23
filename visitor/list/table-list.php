@@ -8,7 +8,7 @@
                 <th scope="col" class="col-2 small-font text-secondary">Barangay</th>
                 <th scope="col" class="col-2 small-font text-secondary">Municipality</th>
                 <th scope="col" class="col-1 small-font text-secondary">Terrain</th>
-                <th scope="col" class="col-1 small-font text-secondary">Status</th>
+                <!-- <th scope="col" class="col-1 small-font text-secondary">Status</th> -->
 
             </tr>
         </thead>
@@ -107,7 +107,7 @@
                         <td class="text-truncate" style="max-width: 5rem;"><?= $row['barangay_name'] ?></td>
                         <td class="addr text-truncate" style="max-width: 5rem;"><?= $row['municipality_name'] ?></td>
                         <td class="terrain text-truncate" style="max-width: 5rem;"><span class="text-truncate" style="max-width: 300px;"><?= $row['terrain_name'] ?></td>
-                        <td class="terrain text-truncate" style="max-width: 5rem;"><span class="text-truncate" style="max-width: 300px;"><?= $row['action'] ?></td>
+                        <!-- <td class="terrain text-truncate" style="max-width: 5rem;"><span class="text-truncate" style="max-width: 300px;"><?= $row['action'] ?></td> -->
                     </tr>
             <?php
                 }

@@ -1,4 +1,3 @@
-// LIST
 $(document).ready(function () {
 
     let mapState = false;
@@ -45,7 +44,7 @@ $(document).ready(function () {
         $('#view-type-button').toggleClass('d-none');
 
         // set category filters link "map" parameter to the map state
-        let newMapValue = mapState? 'open': 'close';
+        let newMapValue = mapState ? 'open' : 'close';
         $('.bar-filter-categ').each(function(){
             let hrefValue = $(this).attr('href');
             hrefValue = hrefValue.replace(/(\?|&)map=[^&]*/, `$1map=${newMapValue}`);
@@ -82,7 +81,17 @@ $(document).ready(function () {
     // set map center on load
     let map = L.map('mapList').setView([latOnLoad, lngOnLoad], zoomOnLoad);
 
-    // icons
+    // Add tile layer to the map
+    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
+        maxZoom: 19,
+        minZoom: 10,
+        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
+    }).addTo(map);
+
+    // Create a marker cluster group
+    let markers = L.markerClusterGroup();
+
+    // Icons
     let icons = {
         "Corn": L.icon({
             iconUrl: 'img/corn-circle.png',
@@ -101,57 +110,34 @@ $(document).ready(function () {
         })
     };
 
-    // draw map
-    L.tileLayer('https://tile.openstreetmap.org/{z}/{x}/{y}.png', {
-        maxZoom: 19,
-        minZoom: 10,
-        attribution: '&copy; <a href="http://www.openstreetmap.org/copyright">OpenStreetMap</a>',
-    }).addTo(map);
-
-    // draw markers
-    // loop through each table row and draw markers
-    // Iterate over each table row
+    // Iterate over each table row and create markers
     document.querySelectorAll('#crop-list-tbody tr').forEach(row => {
-
-        // Extract category and variety
         let category = row.querySelector('.category').textContent.trim();
         let variety = row.querySelector('.variety').textContent.trim();
-        // let address = row.querySelector('.addr').textContent.trim();
-        // let terrain = row.querySelector('.terrain').textContent.trim();
         let viewLink = row.getAttribute('data-href');
-        
-
-        // MAP SCRIPTS
-
-        // bindPopup
         let popup = `
             <div class="container">
                 <h6 class="row d-flex justify-content-center fw-semibold">${variety}</h6>
                 <div class="row d-flex justify-content-center"><a class="small-font w-auto" href="${viewLink}">View Crop</a></div>
             </div>
         `;
-
-        // Extract latitude and longitude from latlng attribute
         let latLng = row.getAttribute('latlng');
         if (latLng) {
             let [lat, lng] = latLng.split(',').map(coord => parseFloat(coord.trim()));
-
-            // Check if latitude and longitude values are valid
             if (!isNaN(lat) && !isNaN(lng)) {
-                // Choose icon based on category
                 let icon = icons[category];
-
-                // Create marker and add to map
                 if (icon) {
-                    L.marker([lat, lng], { icon: icon })
-                        .bindPopup(popup)
-                        .addTo(map);
+                    let marker = L.marker([lat, lng], { icon: icon }).bindPopup(popup);
+                    markers.addLayer(marker);
                 } else {
                     console.error(`Icon for category "${category}" is not defined.`);
                 }
             }
         }
     });
+
+    // Add marker cluster group to the map
+    map.addLayer(markers);
 
     // send resize event to browser to load map tiles
     setInterval(function() {

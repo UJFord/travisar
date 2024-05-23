@@ -99,13 +99,13 @@
                             All
                         </label>
                     </th>
-                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="date">Date Created</th>
-                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="category">Category</th>
-                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="variety">Variety Name</th>
-                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="location">Location</th>
-                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="date">Date and Time of Action</th>
-                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="status">Status</th>
-                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="remarks">Remarks</th>
+                    <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="date">Date Created</th>
+                    <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="category">Category</th>
+                    <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="variety">Variety Name</th>
+                    <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="location">Location</th>
+                    <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="date">Date and Time of Action</th>
+                    <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="status">Status</th>
+                    <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="remarks">Remarks</th>
                     <!-- <th class="col text-dark-emphasis small-font text-center" scope="col">
                         <a href="modals/crud-code/download.php">Downloadad</a>
                     </th> -->
