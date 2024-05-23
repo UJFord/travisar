@@ -139,14 +139,15 @@ $(document).ready(function () {
 
     // Add marker cluster group to the map
     map.addLayer(markers);
+    // markers.spiderfy();
 
     // Listen for the animationend event to ensure the spiderfy animation has completed
-    markers.once('animationend', function () {
-        // Trigger spiderfy event after a delay
-        setTimeout(function() {
-            markers.spiderfy();
-        }, 500); // Adjust the delay time as needed
-    });
+    // markers.once('animationend', function () {
+    //     // Trigger spiderfy event after a delay
+    //     setTimeout(function() {
+    //         markers.spiderfy();
+    //     }, 500); // Adjust the delay time as needed
+    // });
 
     // send resize event to browser to load map tiles
     setInterval(function() {
