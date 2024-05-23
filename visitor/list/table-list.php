@@ -8,6 +8,8 @@
                 <th scope="col" class="col-2 small-font text-secondary">Barangay</th>
                 <th scope="col" class="col-2 small-font text-secondary">Municipality</th>
                 <th scope="col" class="col-1 small-font text-secondary">Terrain</th>
+                <th scope="col" class="col-1 small-font text-secondary">Status</th>
+
             </tr>
         </thead>
         <tbody id="crop-list-tbody" class="table-light">
@@ -24,9 +26,9 @@
             // If category_id is not empty, add it to the WHERE clause
             if (!empty($category_id)) {
                 $where_clause .= " AND crop.category_id = $category_id";
-            } else { // If category_id is empty or null, select all crops
-                $where_clause .= " AND status.action = 'Approved'";
             }
+
+            $status_action = " AND status.action = 'Approved'";
 
             // Get the search query from the session or URL parameter
             $search = isset($_GET['search']) ? $_GET['search'] : '';
@@ -45,7 +47,7 @@
             $brgy_filter = !empty($_GET['barangay']) ? "AND barangay.barangay_id IN (" . implode(',', explode(',', $_GET['barangay'])) . ")" : '';
 
             // Add all filters to the WHERE clause
-            $where_clause .= " $category_filter $municipality_filter $variety_filter $terrain_filter $brgy_filter";
+            $where_clause .= " $status_action $category_filter $municipality_filter $variety_filter $terrain_filter $brgy_filter";
 
             // Set the number of items to display per page
             $items_per_page = 10;
@@ -94,7 +96,7 @@
                     // Convert the string to a DateTime object
                     $date = new DateTime($row['input_date']);
                     // Format the date to display up to the minute
-                    $formatted_date = $date->format('Y-m-d H:i');
+                    $formatted_date = $date->format('m-d-Y H:i');
 
                     // Display the data
             ?>
@@ -105,6 +107,7 @@
                         <td class="text-truncate" style="max-width: 5rem;"><?= $row['barangay_name'] ?></td>
                         <td class="addr text-truncate" style="max-width: 5rem;"><?= $row['municipality_name'] ?></td>
                         <td class="terrain text-truncate" style="max-width: 5rem;"><span class="text-truncate" style="max-width: 300px;"><?= $row['terrain_name'] ?></td>
+                        <td class="terrain text-truncate" style="max-width: 5rem;"><span class="text-truncate" style="max-width: 300px;"><?= $row['action'] ?></td>
                     </tr>
             <?php
                 }
