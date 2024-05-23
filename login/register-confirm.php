@@ -53,7 +53,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <!-- heading -->
                     <div class="row d-flex justify-content-center align-items-center py-4">
-                        <h3 class="text-center">Registration Completed. Please wait for 1-2 days for verification.</h3>
+                        <h3 class="text-center">Registration Completed. Please wait for your account to be verified.</h3>
                     </div>
 
                     <!-- Signup btn -->

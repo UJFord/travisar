@@ -1,6 +1,8 @@
 <?php
 session_start();
 require "../../../functions/connections.php";
+require "../../../functions/mail.php";
+
 // var_dump($_POST);
 // die();
 if (isset($_POST['save'])) {
@@ -96,9 +98,15 @@ if (isset($_POST['approve'])) {
             $insert_runNotif = pg_query_params($conn, $insert_queryNotif, array($notification_name, $message, $active, $user_id));
 
             if ($insert_runNotif) {
+                $message = "Thank you for creating an account. Your account is now verified.";
+                $subject = "Email verification";
+                $recipient = $email;
+
+                send_mail($recipient, $subject, $message);
             } else {
                 // Log the error or display a more user-friendly message
                 echo "Error inserting notification: " . pg_last_error($conn);
+                die();
             }
 
             $_SESSION['messsage'] = "User Approved";
@@ -117,6 +125,7 @@ if (isset($_POST['approve'])) {
 // for verify delete
 if (isset($_POST['delete'])) {
     $user_id = $_POST['user_id'];
+    $email = $_POST['email'];
 
     $query = "DELETE FROM users WHERE user_id = $1";
     $query_run = pg_query_params($conn, $query, array($user_id));
@@ -124,6 +133,11 @@ if (isset($_POST['delete'])) {
     if ($query_run !== false) {
         $affected_rows = pg_affected_rows($query_run);
         if ($affected_rows > 0) {
+            $message = "Your account has been rejected.";
+            $subject = "Email verification";
+            $recipient = $email;
+
+            send_mail($recipient, $subject, $message);
             $_SESSION['message'] = "User rejected";
             header("location: ../verify-user.php");
             exit; // Ensure that the script stops executing after the redirect header

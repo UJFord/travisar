@@ -148,8 +148,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <!-- affiliation email -->
                     <div class="form-floating mb-3">
-                        <input type="email" class="fs-6 form-control rounded-4" id="reg-affiliation_email" name="affiliated_email" placeholder="Affiliated Organizational Email" required>
-                        <label for="reg-affiliation_email" class="fs-6">Email of Affiliated Organization <span class="text-danger ms-1">*</span></label>
+                        <input type="email" class="fs-6 form-control rounded-4" id="reg-affiliation_email" name="affiliated_email" placeholder="Affiliated Organizational Email">
+                        <label for="reg-affiliation_email" class="fs-6">Email of Affiliated Organization</label>
                         <div class="invalid-feedback">
                             Please provide email of affiliated organization.
                         </div>
