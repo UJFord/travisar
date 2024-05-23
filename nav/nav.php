@@ -153,81 +153,66 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Curator') {
 }
 
 if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
-    // New Crops
-    $find_notificationsAdmin_crop = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id WHERE active = true ORDER BY notification_date DESC";
-    $resultAdmin_crop = pg_query($conn, $find_notificationsAdmin_crop);
-    if (!$resultAdmin_crop) {
+    // Combined notifications for active entries
+    $find_notificationsAdmin = "
+        SELECT notification.notification_id AS id, crop.crop_variety AS name, notification.notification_date, notification.notification_name
+        FROM notification
+        LEFT JOIN crop ON crop.crop_id = notification.crop_id
+        WHERE notification.active = true
+
+        UNION
+
+        SELECT notification_user.notification_user_id AS id, CONCAT(users.first_name, ' ', users.last_name) AS name, notification_user.notification_date, 'User notification' AS notification_name
+        FROM notification_user
+        LEFT JOIN users ON users.user_id = notification_user.user_id
+        WHERE notification_user.active = true
+
+        ORDER BY notification_date DESC
+    ";
+    $resultAdmin = pg_query($conn, $find_notificationsAdmin);
+    if (!$resultAdmin) {
         die("Error in query: " . pg_last_error());
     }
 
-    $count_activeAdmin_crop = '';
-    $notifications_dataAdmin_crop = array();
-    $deactive_notifications_dumpAdmin_crop = array();
-    $count_activeAdmin_crop = pg_num_rows($resultAdmin_crop);
-    while ($rows = pg_fetch_assoc($resultAdmin_crop)) {
-        $notifications_dataAdmin_crop[] = array(
-            "notification_id" => $rows['notification_id'],
-            "crop_id" => $rows['crop_id'],
-            "crop_variety" => $rows['crop_variety'],
+    $notifications_dataAdmin = array();
+    while ($rows = pg_fetch_assoc($resultAdmin)) {
+        $notifications_dataAdmin[] = array(
+            "id" => $rows['id'],
+            "name" => $rows['name'],
             "notification_date" => $rows['notification_date'],
             "notification_name" => $rows['notification_name']
         );
     }
 
-    // Fetch only five specific posts with active = 0
-    $deactive_notificationsAdmin_crop = "SELECT * FROM notification left join crop on crop.crop_id = notification.crop_id WHERE active = false ORDER BY notification_id DESC LIMIT 5";
-    $resultAdmin_crop = pg_query($conn, $deactive_notificationsAdmin_crop);
-    if (!$resultAdmin_crop) {
+    // Fetch deactivated notifications
+    $deactive_notificationsAdmin = "
+        SELECT notification.notification_id AS id, crop.crop_variety AS name, notification.notification_date, notification.notification_name
+        FROM notification
+        LEFT JOIN crop ON crop.crop_id = notification.crop_id
+        WHERE notification.active = false
+
+        UNION
+
+        SELECT notification_user.notification_user_id AS id, CONCAT(users.first_name, ' ', users.last_name) AS name, notification_user.notification_date, 'User notification' AS notification_name
+        FROM notification_user
+        LEFT JOIN users ON users.user_id = notification_user.user_id
+        WHERE notification_user.active = false
+
+        ORDER BY notification_date DESC
+        LIMIT 5
+    ";
+    $resultAdmin = pg_query($conn, $deactive_notificationsAdmin);
+    if (!$resultAdmin) {
         die("Error in query: " . pg_last_error());
     }
 
-    while ($rows = pg_fetch_assoc($resultAdmin_crop)) {
-        $deactive_notifications_dumpAdmin_crop[] = array(
-            "notification_id" => $rows['notification_id'],
-            "crop_id" => $rows['crop_id'],
-            "crop_variety" => $rows['crop_variety'],
+    $deactive_notifications_dumpAdmin = array();
+    while ($rows = pg_fetch_assoc($resultAdmin)) {
+        $deactive_notifications_dumpAdmin[] = array(
+            "id" => $rows['id'],
+            "name" => $rows['name'],
             "notification_date" => $rows['notification_date'],
             "notification_name" => $rows['notification_name']
-        );
-    }
-
-    // New Users
-    $find_notificationsAdmin_user = 'SELECT * FROM notification_user LEFT JOIN users ON users.user_id = notification_user.user_id WHERE notification_user.active = true ORDER BY notification_date DESC';
-    $resultAdmin_user = pg_query($conn, $find_notificationsAdmin_user);
-    if (!$resultAdmin_user) {
-        die("Error in query: " . pg_last_error());
-    }
-
-    $count_activeAdmin_user = '';
-    $notifications_dataAdmin_user = array();
-    $deactive_notifications_dumpAdmin_user = array();
-    $count_activeAdmin_user = pg_num_rows($resultAdmin_user);
-    while ($rows = pg_fetch_assoc($resultAdmin_user)) {
-        $notifications_dataAdmin_user[] = array(
-            "notification_user_id" => $rows['notification_user_id'],
-            "user_id" => $rows['user_id'],
-            "first_name" => $rows['first_name'],
-            "last_name" => $rows['last_name'],
-            "notification_date" => $rows['notification_date'],
-            "email_verified" => $rows['email_verified']
-        );
-    }
-
-    // Fetch only five specific posts with active = 0
-    $deactive_notificationsAdmin_user = "SELECT * FROM notification_user left join users on users.user_id = notification_user.user_id WHERE notification_user.active = false ORDER BY notification_user_id DESC LIMIT 5";
-    $resultAdmin_user = pg_query($conn, $deactive_notificationsAdmin_user);
-    if (!$resultAdmin_user) {
-        die("Error in query: " . pg_last_error());
-    }
-
-    while ($rows = pg_fetch_assoc($resultAdmin_user)) {
-        $deactive_notifications_dumpAdmin_user[] = array(
-            "notification_user_id" => $rows['notification_user_id'],
-            "user_id" => $rows['user_id'],
-            "first_name" => $rows['first_name'],
-            "last_name" => $rows['last_name'],
-            "notification_date" => $rows['notification_date'],
-            "email_verified" => $rows['email_verified']
         );
     }
 }
@@ -622,108 +607,43 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                             <a class="nav-link dropdown-toggle" role="button" id="notif" data-bs-toggle="dropdown" aria-expanded="false">
                                 <i class="fa-solid fa-bell"></i>
                                 <?php
-                                $total_notifications = $count_activeAdmin_crop + $count_activeAdmin_user;
+                                $total_notifications = count($notifications_dataAdmin);
                                 if ($total_notifications != 0) { ?>
                                     <div class="round" data-value="<?= $total_notifications ?>"><?= $total_notifications ?></div>
                                 <?php } ?>
                             </a>
                             <ul class="dropdown-menu dropdown-menu-md-end notif-menu" aria-labelledby="notif" id="list">
-                                <?php if (!empty($notifications_dataAdmin_crop) || !empty($notifications_dataAdmin_user)) { ?>
-                                    <?php foreach ($notifications_dataAdmin_crop as $notification) { ?>
+                                <?php if (!empty($notifications_dataAdmin)) { ?>
+                                    <?php foreach ($notifications_dataAdmin as $notification) { ?>
                                         <?php
                                         // Convert the string to a DateTime object
                                         $date = new DateTime($notification['notification_date']);
                                         // Format the date to display up to the minute
-                                        // Convert the string to a DateTime object
-                                        if (!empty($notification['notification_date'])) {
-                                            $date = new DateTime($notification['notification_date']);
-                                            // Format the date to display up to the minute
-                                            $formatted_date = $date->format('m-d-Y H:i');
-                                        }
+                                        $formatted_date = $date->format('m-d-Y H:i');
                                         ?>
-                                        <li class="message" data-id="<?= htmlspecialchars($notification['notification_id']); ?>">
-                                            <a href="<?php echo BASE_URL . '/nav/deactivate.php?notification_id=' . $notification['notification_id']; ?>" class="row dropdown-item d-flex flex-column p-0 m-0">
-                                                <span class="fw-bold fs-6 col-12">"<?= $notification['crop_variety'] ?>"</span>
-                                                <!-- message -->
+                                        <li class="message" data-id="<?= htmlspecialchars($notification['id']); ?>">
+                                            <a href="<?php echo BASE_URL . '/nav/deactivate.php?notification_id=' . $notification['id']; ?>" class="row dropdown-item d-flex flex-column p-0 m-0">
+                                                <span class="fw-bold fs-6"><?= htmlspecialchars($notification['name']); ?></span>
                                                 <div class="d-flex justify-content-between ">
-
-                                                    <div class="msg fw-normal small-font text-truncate"> <?= $notification['notification_name'] ?></div>
-                                                    <!-- date -->
-                                                    <div class="small-font fw-normal text-secondary"><?= $formatted_date ?></div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    <?php } ?>
-                                    <?php foreach ($notifications_dataAdmin_user as $notification) { ?>
-                                        <?php
-                                        // Convert the string to a DateTime object
-                                        $date = new DateTime($notification['notification_date']);
-                                        // Format the date to display up to the minute
-                                        // Convert the string to a DateTime object
-                                        if (!empty($notification['notification_date'])) {
-                                            $date = new DateTime($notification['notification_date']);
-                                            // Format the date to display up to the minute
-                                            $formatted_date = $date->format('m-d-Y H:i');
-                                        }
-                                        ?>
-                                        <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
-                                            <a href="<?php echo BASE_URL . '/nav/deactivate_user.php?notification_user_id=' . $notification['notification_user_id']; ?>" class=" row dropdown-item d-flex flex-column">
-                                                <span class=" fw-bold fs-6"><?= $notification['first_name'] . ' ' . $notification['last_name'] ?></span>
-
-                                                <div class="d-flex justify-content-between">
-                                                    <!-- message -->
-                                                    <div class="msg fw-normal small-font text-truncate"><?= !empty($notification['email_verified']) ? ' verified.' : ' needs verification'; ?></div>
-                                                    <!-- date -->
+                                                    <div class="msg fw-normal small-font text-truncate"><?= htmlspecialchars($notification['notification_name']); ?></div>
                                                     <div class="small-font fw-normal text-secondary"><?= $formatted_date ?></div>
                                                 </div>
                                             </a>
                                         </li>
                                     <?php } ?>
                                 <?php } else { ?>
-                                    <?php foreach ($deactive_notifications_dumpAdmin_crop as $notification) { ?>
+                                    <?php foreach ($deactive_notifications_dumpAdmin as $notification) { ?>
                                         <?php
                                         // Convert the string to a DateTime object
                                         $date = new DateTime($notification['notification_date']);
                                         // Format the date to display up to the minute
-                                        // Convert the string to a DateTime object
-                                        if (!empty($notification['notification_date'])) {
-                                            $date = new DateTime($notification['notification_date']);
-                                            // Format the date to display up to the minute
-                                            $formatted_date = $date->format('m-d-Y H:i');
-                                        }
+                                        $formatted_date = $date->format('m-d-Y H:i');
                                         ?>
-                                        <li class="message" data-id="<?= htmlspecialchars($notification['notification_id']); ?>">
-                                            <!-- message -->
+                                        <li class="message" data-id="<?= htmlspecialchars($notification['id']); ?>">
                                             <a href="#" class="dropdown-item d-flex flex-column">
-                                                <span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span>
-
+                                                <span class="fw-bold fs-6"><?= htmlspecialchars($notification['name']); ?></span>
                                                 <div class="d-flex justify-content-between">
-                                                    <div class="msg fw-normal small-font text-truncate"><?= $notification['notification_name'] ?></div>
-                                                    <!-- date -->
-                                                    <div class="small-font fw-normal text-secondary"><?= $formatted_date ?></div>
-                                                </div>
-                                            </a>
-                                        </li>
-                                    <?php } ?>
-                                    <?php foreach ($deactive_notifications_dumpAdmin_user as $notification) { ?>
-                                        <?php
-                                        // Convert the string to a DateTime object
-                                        $date = new DateTime($notification['notification_date']);
-                                        // Format the date to display up to the minute
-                                        // Convert the string to a DateTime object
-                                        if (!empty($notification['notification_date'])) {
-                                            $date = new DateTime($notification['notification_date']);
-                                            // Format the date to display up to the minute
-                                            $formatted_date = $date->format('m-d-Y H:i');
-                                        }
-                                        ?>
-                                        <li class="message_user" data-id="<?= htmlspecialchars($notification['notification_user_id']); ?>">
-                                            <a href="#" class="dropdown-item dropdown-item d-flex flex-column">
-                                                <span class="fw-bold fs-6"><?= $notification['first_name'] . ' ' . $notification['last_name'] ?></span>
-                                                <div class="d-flex justify-content-between">
-                                                    <!-- message -->
-                                                    <div class="msg fw-normal small-font text-truncate"><?= !empty($notification['email_verified']) ? ' verified.' : ' needs verification'; ?></div>
-                                                    <!-- date -->
+                                                    <div class="msg fw-normal small-font text-truncate"><?= htmlspecialchars($notification['notification_name']); ?></div>
                                                     <div class="small-font fw-normal text-secondary"><?= $formatted_date ?></div>
                                                 </div>
                                             </a>
@@ -733,6 +653,8 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                             </ul>
                         </div>
                     <?php endif; ?>
+
+
 
                     <!-- user profile -->
                     <div class="nav-item fw-semibold me-2 dropdown">
