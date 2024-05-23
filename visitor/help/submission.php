@@ -109,11 +109,11 @@ require "../../functions/functions.php";
                             <!-- navigate crops page -->
                             <p>When logged in, clicking the <a href="<?php echo BASE_URL . '/' . 'contributor/submission-page/submission.php'; ?>" class="link-info" target="_blank">My Listings</a> tab directs you to the contributor's page where we can sumbit and check the status of our sumbissions.</p>
                             <img src="img/myListings.PNG" alt="" class="w-75 img-thumbnail mb-4">
-                            
+
                             <!-- side filter -->
                             <p>In the left side of "My Listings" page is the filter section to filter our submissions.</p>
                             <img src="img/myListingsFilter.PNG" alt="" class="w-75 img-thumbnail mb-4">
-                            
+
                             <!-- table list -->
                             <p>On the right we can see our table lists. Listed are our crop submissions list based to the applied filter.</p>
                             <img src="img/myListingsList.PNG" alt="" class="w-75 img-thumbnail mb-4">
@@ -133,6 +133,21 @@ require "../../functions/functions.php";
                             <!-- save btns -->
                             <p>Clicking "Save" submits the entry. It may take days to wait for the approval of the crop by the curators. You will receive a notif on your notification tab located on the right part of the navbar about the status changes of your submissions.</p>
                             <img src="img/saveBtn.PNG" alt="" class="w-75 img-thumbnail mb-4">
+
+                            <!-- inport btns -->
+                            <p>On the top-right part of our list in the "Import" button.</p>
+                            <img src="img/importBtn.PNG" alt="" class="w-75 img-thumbnail mb-4">
+
+                            <!-- inport modal tabs -->
+                            <p>This tab is for importing data and this require you to select a category as they have different data values.</p>
+                            <img src="img/importModal.PNG" alt="" class="w-75 img-thumbnail mb-4">
+
+                            <!-- inport template -->
+                            <p>This is a csv excel file. A template for import Corn data.</p>
+                            <a href="corn.csv">Corn Template</a>
+                            <a href="rice.csv">Rice Template</a>
+                            <a href="rootCrop.csv">Root Crop Template</a>
+                            <img src="img/importTemplate.PNG" alt="" class="w-75 img-thumbnail mb-4">
 
                         </div>
                     </div>

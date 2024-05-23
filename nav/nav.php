@@ -155,14 +155,14 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Curator') {
 if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
     // Combined notifications for active entries
     $find_notificationsAdmin = "
-        SELECT notification.notification_id AS id, crop.crop_variety AS name, notification.notification_date, notification.notification_name
+        SELECT notification.notification_id AS id, crop.crop_variety AS name, notification.notification_date, notification.notification_name, 'crop' AS type
         FROM notification
         LEFT JOIN crop ON crop.crop_id = notification.crop_id
         WHERE notification.active = true
 
         UNION
 
-        SELECT notification_user.notification_user_id AS id, CONCAT(users.first_name, ' ', users.last_name) AS name, notification_user.notification_date, 'User notification' AS notification_name
+        SELECT notification_user.notification_user_id AS id, CONCAT(users.first_name, ' ', users.last_name) AS name, notification_user.notification_date, 'User notification' AS notification_name, 'user' AS type
         FROM notification_user
         LEFT JOIN users ON users.user_id = notification_user.user_id
         WHERE notification_user.active = true
@@ -180,20 +180,21 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
             "id" => $rows['id'],
             "name" => $rows['name'],
             "notification_date" => $rows['notification_date'],
-            "notification_name" => $rows['notification_name']
+            "notification_name" => $rows['notification_name'],
+            "type" => $rows['type']
         );
     }
 
     // Fetch deactivated notifications
     $deactive_notificationsAdmin = "
-        SELECT notification.notification_id AS id, crop.crop_variety AS name, notification.notification_date, notification.notification_name
+        SELECT notification.notification_id AS id, crop.crop_variety AS name, notification.notification_date, notification.notification_name, 'crop' AS type
         FROM notification
         LEFT JOIN crop ON crop.crop_id = notification.crop_id
         WHERE notification.active = false
 
         UNION
 
-        SELECT notification_user.notification_user_id AS id, CONCAT(users.first_name, ' ', users.last_name) AS name, notification_user.notification_date, 'User notification' AS notification_name
+        SELECT notification_user.notification_user_id AS id, CONCAT(users.first_name, ' ', users.last_name) AS name, notification_user.notification_date, 'User notification' AS notification_name, 'user' AS type
         FROM notification_user
         LEFT JOIN users ON users.user_id = notification_user.user_id
         WHERE notification_user.active = false
@@ -212,10 +213,12 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
             "id" => $rows['id'],
             "name" => $rows['name'],
             "notification_date" => $rows['notification_date'],
-            "notification_name" => $rows['notification_name']
+            "notification_name" => $rows['notification_name'],
+            "type" => $rows['type']
         );
     }
 }
+
 
 ?>
 <!-- Jquery -->
@@ -620,9 +623,16 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         $date = new DateTime($notification['notification_date']);
                                         // Format the date to display up to the minute
                                         $formatted_date = $date->format('m-d-Y H:i');
+
+                                        // Determine the link based on the notification type
+                                        if ($notification['type'] === 'crop') {
+                                            $link = BASE_URL . '/nav/deactivate.php?notification_id=' . $notification['id'];
+                                        } else {
+                                            $link = BASE_URL . '/nav/deactivate_user.php?notification_user_id=' . $notification['id'];
+                                        }
                                         ?>
                                         <li class="message" data-id="<?= htmlspecialchars($notification['id']); ?>">
-                                            <a href="<?php echo BASE_URL . '/nav/deactivate.php?notification_id=' . $notification['id']; ?>" class="row dropdown-item d-flex flex-column p-0 m-0">
+                                            <a href="<?= $link ?>" class="row dropdown-item d-flex flex-column p-0 m-0">
                                                 <span class="fw-bold fs-6"><?= htmlspecialchars($notification['name']); ?></span>
                                                 <div class="d-flex justify-content-between ">
                                                     <div class="msg fw-normal small-font text-truncate"><?= htmlspecialchars($notification['notification_name']); ?></div>
@@ -638,9 +648,16 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         $date = new DateTime($notification['notification_date']);
                                         // Format the date to display up to the minute
                                         $formatted_date = $date->format('m-d-Y H:i');
+
+                                        // Determine the link based on the notification type
+                                        if ($notification['type'] === 'crop') {
+                                            $link = '#'; // Adjust as necessary for deactivated crop notifications
+                                        } else {
+                                            $link = '#'; // Adjust as necessary for deactivated user notifications
+                                        }
                                         ?>
                                         <li class="message" data-id="<?= htmlspecialchars($notification['id']); ?>">
-                                            <a href="#" class="dropdown-item d-flex flex-column">
+                                            <a href="<?= $link ?>" class="dropdown-item d-flex flex-column">
                                                 <span class="fw-bold fs-6"><?= htmlspecialchars($notification['name']); ?></span>
                                                 <div class="d-flex justify-content-between">
                                                     <div class="msg fw-normal small-font text-truncate"><?= htmlspecialchars($notification['notification_name']); ?></div>
@@ -653,7 +670,6 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                             </ul>
                         </div>
                     <?php endif; ?>
-
 
 
                     <!-- user profile -->

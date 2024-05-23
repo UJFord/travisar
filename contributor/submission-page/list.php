@@ -79,10 +79,11 @@
                             All
                         </label>
                     </th>
+                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="date">Date Created</th>
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="category">Category</th>
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="variety">Variety Name</th>
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="location">Location</th>
-                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="date">Date of action</th>
+                    <th class="col text-dark-emphasis small-font" scope="col" data-sort="date">Date and Time of Action</th>
                     <th class="col text-dark-emphasis small-font" scope="col" data-sort="status">Status</th>
                     <th class="col text-dark-emphasis small-font text-center" scope="col" data-sort="remarks">Remarks</th>
                     <th class="col text-dark-emphasis text-end" scope="col">
@@ -116,10 +117,17 @@
 
                 if ($query_run) {
                     while ($row = pg_fetch_array($query_run)) {
+                        // date created
                         // Convert the string to a DateTime object
-                        $date = new DateTime($row['input_date']);
+                        $date_created = new DateTime($row['input_date']);
                         // Format the date to display up to the minute
-                        $formatted_date = $date->format('m-d-Y H:i');
+                        $formatted_date_created = $date_created->format('m-d-Y H:i');
+
+                        // date and time of action
+                        // Convert the string to a DateTime object
+                        $date_status = new DateTime($row['status_date']);
+                        // Format the date to display up to the minute
+                        $formatted_date_status = $date_status->format('m-d-Y H:i');
 
                         // Fetch category name
                         $query_category = "SELECT * FROM category WHERE category_id = $1";
@@ -154,6 +162,11 @@
                                 <input class="row-checkbox form-check-input small-font" type="checkbox">
                             </th>
 
+                            <!-- date created -->
+                            <td data-col="date">
+                                <h6 class="small-font m-0"><?= $formatted_date_created; ?></h6>
+                            </td>
+
                             <!-- category -->
                             <td data-col="category">
                                 <div>
@@ -179,9 +192,9 @@
                                 <h6 class="small-font m-0"><?= $row['municipality_name']; ?></h6>
                             </td>
 
-                            <!-- date created -->
+                            <!-- date and time of action -->
                             <td data-col="date">
-                                <h6 class="small-font m-0"><?= $formatted_date; ?></h6>
+                                <h6 class="small-font m-0"><?= $formatted_date_status; ?></h6>
                             </td>
 
                             <td data-col="status">
