@@ -7,7 +7,7 @@
     </div>
 
     <div class="row mb-3">
-        <div class="col-12">
+        <div class="col-12" id="add-ref">
             <div class="text-primary">
                 <i class="fa-solid fa-circle-plus me-1"></i>
                 <a href="javascript:void(0)" id="add-new-reference-Edit" class="link-underline-primary">New Reference</a>

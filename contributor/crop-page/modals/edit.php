@@ -217,6 +217,14 @@
                         // Fetch the old image and pass it to the fetchOldImage function
                         fetchOldImageRepro(value.crop_reproductive_image);
 
+                        if (value['action'] === 'Pending' || value['action'] === 'Updating' || value['action'] === 'Rejected') {
+                            $('input, textarea, select').prop('readonly', true);
+                            $('select').prop('disabled', true); // For select elements, 'readonly' is not a valid property, so we use 'disabled'
+                            $('input[type="file"]').prop('disabled', true); // Disable file input elements
+                            $('input[type="checkbox"]').prop('disabled', true);
+                            $('input[type="radio"]').prop('disabled', true);
+                        }
+
                         if (value['crop_seed_image'] != null && value['crop_seed_image'] != '') {
                             // Split the image filenames by comma
                             var imageFilenamesSeed = value['crop_seed_image'].split(',');
