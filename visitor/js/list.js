@@ -130,14 +130,28 @@ $(document).ready(function () {
     // Add marker cluster group to the map
     map.addLayer(markers);
 
-    // Trigger spiderfy event on each cluster layer
+    // Add an event listener to spiderfy clusters
+    markers.on('clustermouseover', function(event) {
+        event.layer.spiderfy();
+    });
+
+    // Ensure spiderfy is triggered on clusters after markers have been added
     setTimeout(function () {
-        markers.eachLayer(function (layer) {
-            if (layer instanceof L.MarkerCluster) {
-                layer.spiderfy();
+        map.eachLayer(function (layer) {
+            if (layer instanceof L.MarkerClusterGroup) {
+                layer._featureGroup.eachLayer(function (cluster) {
+                    if (cluster instanceof L.MarkerCluster) {
+                        cluster.spiderfy();
+                    }
+                });
+            }else{
+                if (layer instanceof L.MarkerCluster) {
+                layer.fire('mouseover');
+            }
             }
         });
     }, 1000); // Adjust the delay time as needed
+
 
     // send resize event to browser to load map tiles
     setInterval(function () {
