@@ -12,7 +12,7 @@
 
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="edit-label">Edit</h5>
+                <h5 class="modal-title" id="edit-label"></h5>
                 <button type="button" id="close-modal-btn-edit" class="btn-close" aria-label="Close"></button>
             </div>
 
@@ -221,15 +221,18 @@
                         $('#previewVegEdit').empty();
                         $('#previewReproductiveEdit').empty();
 
-                        if (value['action'] === 'Pending') {
+                        if (value['action'] === 'Pending' || value['action'] === 'Updating' || value['action'] === 'Rejected') {
+                            $('#edit-label').text("View");
                             $('#deleteButton').hide();
                             $('#editButton').hide();
-                        } else if (value['action'] === 'Updating') {
-                            $('#deleteButton').hide();
-                            $('#editButton').hide();
-                        } else if (value['action'] === 'Rejected') {
-                            $('#deleteButton').hide();
-                            $('#editButton').hide();
+                            $('#add-ref').hide();
+                            $('input, textarea, select').prop('readonly', true);
+                            $('select').prop('disabled', true); // For select elements, 'readonly' is not a valid property, so we use 'disabled'
+                            $('input[type="file"]').prop('disabled', true); // Disable file input elements
+                            $('input[type="checkbox"]').prop('disabled', true);
+                            $('input[type="radio"]').prop('disabled', true);
+                        } else {
+                            $('#edit-label').text("Edit");
                         }
 
                         // Fetch the old image and pass it to the fetchOldImage function

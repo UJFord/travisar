@@ -271,7 +271,17 @@
                                         <!-- <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye text-center" style="width: 20px;"></i> View</a></li> -->
                                         <?php if ($row['action'] === 'Approved' || $row['action'] === 'Rejected') : ?>
                                             <li>
-                                                <a class="dropdown-item edit_data curator-only" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1 curator-only" style="width: 20px;"></i>Edit</a>
+                                                <?php
+                                                if ($row['action'] === 'Pending' || $row['action'] === 'Updating' || $row['action'] === 'Rejected') {
+                                                ?>
+                                                    <a class="dropdown-item edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1" style="width: 20px;"></i>View</a>
+                                                <?php
+                                                } else {
+                                                ?>
+                                                    <a class="dropdown-item edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1" style="width: 20px;"></i>Edit</a>
+                                                <?php
+                                                }
+                                                ?>
                                             </li>
                                         <?php endif; ?>
                                         <li>
