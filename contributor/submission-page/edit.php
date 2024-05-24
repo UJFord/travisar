@@ -12,7 +12,7 @@
 
             <!-- header -->
             <div class="modal-header">
-                <h5 class="modal-title" id="edit-label">Edit</h5>
+                <h5 class="modal-title" id="edit-label"></h5>
                 <button type="button" id="close-modal-btn-edit" class="btn-close" aria-label="Close"></button>
             </div>
 
@@ -222,6 +222,7 @@
                         $('#previewReproductiveEdit').empty();
 
                         if (value['action'] === 'Pending' || value['action'] === 'Updating' || value['action'] === 'Rejected') {
+                            $('#edit-label').text("View");
                             $('#deleteButton').hide();
                             $('#editButton').hide();
                             $('#add-ref').hide();
@@ -230,6 +231,8 @@
                             $('input[type="file"]').prop('disabled', true); // Disable file input elements
                             $('input[type="checkbox"]').prop('disabled', true);
                             $('input[type="radio"]').prop('disabled', true);
+                        } else {
+                            $('#edit-label').text("Edit");
                         }
 
                         // Fetch the old image and pass it to the fetchOldImage function
