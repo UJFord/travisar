@@ -1,5 +1,4 @@
 $(document).ready(function () {
-
     let mapState = false;
     let mapToggler = document.querySelector('#map-toggler');
 
@@ -10,58 +9,50 @@ $(document).ready(function () {
 
     // map toggle function
     let mapToggle = () => {
-        
         mapState = !mapState;
 
         // toggle the map parameter
-        if(mapState){
+        if (mapState) {
             urlParams.set('map', 'open');
-        }else{
+        } else {
             urlParams.set('map', 'close');
         }
 
         // Replace the current URL with the modified parameters
         window.history.replaceState({}, '', `${window.location.pathname}?${urlParams}`);
 
-
         $('#crop-list-map').toggleClass('d-none');
 
         // when map is toggled
-        if(mapState){
+        if (mapState) {
             $('#crop-list-table').addClass('d-none');
-
-            $('#view-type-button .bi-list-ul').removeClass('d-none')
-        }else{
+            $('#view-type-button .bi-list-ul').removeClass('d-none');
+        } else {
             $('#crop-list-table').removeClass('d-none');
-
             $('#view-type-button .bi-grid-fill').addClass('d-none');
-
         }
 
         $('#map-toggler .list-toggle').toggleClass('d-none');
         $('#map-toggler .map-toggle').toggleClass('d-none');
-
         $('#view-type-button').toggleClass('d-none');
 
         // set category filters link "map" parameter to the map state
         let newMapValue = mapState ? 'open' : 'close';
-        $('.bar-filter-categ').each(function(){
+        $('.bar-filter-categ').each(function () {
             let hrefValue = $(this).attr('href');
             hrefValue = hrefValue.replace(/(\?|&)map=[^&]*/, `$1map=${newMapValue}`);
-            console.log(hrefValue)
+            console.log(hrefValue);
             $(this).attr('href', hrefValue);
-        })
+        });
     };
 
     // open map if url's map value is open
-    if(toggleMap){
-        mapToggle()
-    };
-
+    if (toggleMap) {
+        mapToggle();
+    }
 
     // map or list toggler
     $(mapToggler).on("click", mapToggle);
-
 
     // LIST TABLE
     // make rows clickable
@@ -90,7 +81,6 @@ $(document).ready(function () {
 
     // Create a marker cluster group without spiderfyOnMaxZoom option
     let markers = L.markerClusterGroup();
-
 
     // Icons
     let icons = {
@@ -139,21 +129,18 @@ $(document).ready(function () {
 
     // Add marker cluster group to the map
     map.addLayer(markers);
-    // markers.spiderfy();
 
-    // Listen for the animationend event to ensure the spiderfy animation has completed
-    // markers.once('animationend', function () {
-    //     // Trigger spiderfy event after a delay
-    //     setTimeout(function() {
-    //         markers.spiderfy();
-    //     }, 500); // Adjust the delay time as needed
-    // });
+    // Trigger spiderfy event on each cluster layer
+    setTimeout(function () {
+        markers.eachLayer(function (layer) {
+            if (layer instanceof L.MarkerCluster) {
+                layer.spiderfy();
+            }
+        });
+    }, 1000); // Adjust the delay time as needed
 
     // send resize event to browser to load map tiles
-    setInterval(function() {
+    setInterval(function () {
         window.dispatchEvent(new Event("resize"));
     }, 1000);
-
-
-
 });
