@@ -1958,7 +1958,6 @@ if (isset($_POST['save']) && $_SESSION['rank'] == 'Contributor') {
         $insert_runNotif = pg_query_params($conn, $insert_queryNotif, array($notification_name, $message, $active, $crop_id));
 
         if ($insert_runNotif) {
-
         } else {
             // Log the error or display a more user-friendly message
             echo "Error inserting notification: " . pg_last_error($conn);
@@ -2950,7 +2949,7 @@ if (isset($_POST['draft'])) {
     }
 }
 
-if (isset($_POST['edit']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] == 'Curator')) {
+if (isset($_POST['edit']) && ($_SESSION['rank'] == 'Admin')) {
     // Begin the database transaction
     pg_query($conn, "BEGIN");
     try {
@@ -2969,6 +2968,9 @@ if (isset($_POST['edit']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
         $current_image_veg = handleEmpty($_POST['current_image_veg']);
         $current_image_rep = handleEmpty($_POST['current_image_rep']);
         $current_crop_variety = handleEmpty($_POST['current_crop_variety']);
+
+        // var_dump($_POST);
+        // die();
 
         // loc.php
         $province_id = $_POST['province'];
@@ -3338,8 +3340,9 @@ if (isset($_POST['edit']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'] 
 
         if ($query_run_CropLoc) {
         } else {
+            echo "error: " . pg_last_error($conn);
             $_SESSION['message'] = "Failed to update crop.";
-            header("location: ../../crop.php");
+            // header("location: ../../crop.php");
             exit(0);
         }
 
