@@ -191,36 +191,37 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
 <script>
     (() => {
-        'use strict'
+        'use strict';
 
         // Fetch all the forms we want to apply custom Bootstrap validation styles to
-        const forms = document.querySelectorAll('.needs-validation')
+        const forms = document.querySelectorAll('.needs-validation');
 
         // Loop over them and prevent submission
         Array.from(forms).forEach(form => {
             form.addEventListener('submit', async event => {
+                event.preventDefault(); // Always prevent the default form submission
+                event.stopPropagation();
+
+                let isValid = true; // Flag to track the form's validity
+
                 if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
+                    isValid = false;
                 }
 
                 // Add custom validation for password match
                 if (form.checkValidity() && form.querySelector('#reg-pass').value !== form.querySelector('#reg-confirm').value) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                    form.querySelector('#reg-confirm').classList.add('is-invalid')
+                    form.querySelector('#reg-confirm').classList.add('is-invalid');
+                    isValid = false;
                 }
 
                 // Add custom validation for password length
                 if (form.checkValidity() && form.querySelector('#reg-pass').value.length < 8) {
-                    event.preventDefault()
-                    event.stopPropagation()
-                    form.querySelector('#reg-pass').classList.add('is-invalid')
-                    document.getElementById('password-length-length').style.display = 'block'; // Display the error message
-                    document.getElementById('password-length-error').style.display = 'none'; // Display the error message
-                } else {
-                    document.getElementById('password-length-length').style.display = 'none'; // Hide the error message if password length is valid
+                    form.querySelector('#reg-pass').classList.add('is-invalid');
                     document.getElementById('password-length-error').style.display = 'block'; // Display the error message
+                    document.getElementById('password-length-length').style.display = 'block'; // Display the length message
+                    isValid = false;
+                } else {
+                    document.getElementById('password-length-length').style.display = 'none'; // Hide the length message if password length is valid
                 }
 
                 // Check if email already exists in the database
@@ -235,23 +236,27 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                 const data = await response.json();
 
+                // Checking if email exists
                 if (data.exists) {
-                    event.preventDefault();
-                    event.stopPropagation();
                     form.querySelector('#reg-email').classList.add('is-invalid');
                     document.getElementById('email-exists-feedback').style.display = 'block'; // Display the error message
                     document.getElementById('email-error').style.display = 'none'; // Display the error message
+                    isValid = false;
                 } else {
                     form.querySelector('#reg-email').classList.remove('is-invalid');
                     document.getElementById('email-exists-feedback').style.display = 'none'; // Hide the error message if email doesn't exist
-                    document.getElementById('email-error').style.display = 'block'; // Display the error message
                 }
 
-                form.classList.add('was-validated')
-            }, false)
-        })
-    })()
+                form.classList.add('was-validated');
+
+                if (isValid) {
+                    form.submit(); // Manually submit the form if all validations pass
+                }
+            }, false);
+        });
+    })();
 </script>
+
 
 <!-- for making user that the contact number is only number and limited to 11 -->
 <script>
