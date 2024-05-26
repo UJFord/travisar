@@ -1590,7 +1590,6 @@ require "../../functions/functions.php";
         const barangaySelectEdit = document.getElementById('BarangaySelect');
 
         let initialMunicipality = '';
-        let initialBarangay = '';
 
         // Function to populate municipalities dropdown based on selected province
         // const populateMunicipalitiesEdit = async (selectedProvince, initialVal) => {
@@ -1657,20 +1656,9 @@ require "../../functions/functions.php";
             populateMunicipalitiesEdit(selectedProvince, initialMunicipality);
         });
 
-        //! kanang automatic mag populate ang barangay biskang wala paka ni select og municipality
-        // Call the populateBarangay function when the municipality dropdown value changes
-        document.getElementById('MunicipalitySelect').addEventListener('change', function() {
-            var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
-            populateBarangayEdit(selectedMunicipality, initialBarangay);
-        });
-
         //Call the populateMunicipalities function initially to populate the municipalities dropdown based on the default selected province
         // var selectedProvince = document.getElementById('ProvinceEdit').value;
         // populateMunicipalitiesEdit(selectedProvince, initialMunicipality);
-
-        // Call the populateBarangay function initially to populate the municipalities dropdown based on the default selected municipality
-        var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
-        populateBarangayEdit(selectedMunicipality, initialBarangay);
 
         // Event listener for input changes
         coordInputEdit.addEventListener('input', handleInputChangeEdit);
