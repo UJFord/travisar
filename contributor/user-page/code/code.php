@@ -78,6 +78,8 @@ if (isset($_POST['save'])) {
 if (isset($_POST['approve'])) {
     $user_id = $_POST['user_id'];
     $email = $_POST['email'];
+    $first_name = $_POST['first_name'];
+    $last_name = $_POST['last_name'];
 
     $query = "UPDATE users set email_verified = $1 where user_id = $2";
     $query_run = pg_query_params($conn, $query, array($email, $user_id));
@@ -109,7 +111,7 @@ if (isset($_POST['approve'])) {
                 die();
             }
 
-            $_SESSION['messsage'] = "User Approved";
+            $_SESSION['message'] = "User Approved";
             header("location: ../verify-user.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
@@ -142,7 +144,7 @@ if (isset($_POST['delete'])) {
             header("location: ../verify-user.php");
             exit; // Ensure that the script stops executing after the redirect header
         } else {
-            $_SESSION['error'] = "User not found";
+            $_SESSION['message'] = "User not found";
             header("location: ../verify-user.php");
             exit;
         }
