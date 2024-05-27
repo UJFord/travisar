@@ -6,7 +6,7 @@ error_log("fetch.php accessed");
 if (isset($_POST["view"])) {
     include('../functions/connections.php');
 
-    $query_1 = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE status.action='Pending'";
+    $query_1 = "SELECT * FROM crop left join status on status.status_id = crop.status_id WHERE status.action in ('Pending', 'Updating')";
     $result_1 = pg_query($conn, $query_1);
     $count = pg_num_rows($result_1);
     $output = '';

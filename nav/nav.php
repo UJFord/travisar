@@ -529,7 +529,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         }
                                         ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
-                                            <a href="#" class="dropdown-item d-flex flex-column">
+                                            <a href="<?php echo BASE_URL . '/' . 'contributor/submission-page/submission.php'; ?>" class="dropdown-item d-flex flex-column">
                                                 <span><?= $notification['notification_name'] ?></span>
                                                 <div class="d-flex justify-content-between">
                                                     <div class="msg fw-normal small-font text-truncate"><?= $notification['message'] ?></div>
@@ -590,7 +590,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                                         }
                                         ?>
                                         <li class="message" data-id="<?= $notification['notification_id']; ?>">
-                                            <a href="#" class="dropdown-item d-flex flex-column">
+                                            <a href="<?php echo BASE_URL . '/' . 'contributor/crop-page/crop.php'; ?>" class="dropdown-item d-flex flex-column">
                                                 <span class="fw-bold fs-6">"<?= $notification['crop_variety'] ?>"</span>
                                                 <div class="d-flex justify-content-between">
                                                     <div class="msg fw-normal small-font text-truncate"><?= $notification['action'] ?></div>
@@ -651,9 +651,9 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
 
                                         // Determine the link based on the notification type
                                         if ($notification['type'] === 'crop') {
-                                            $link = '#'; // Adjust as necessary for deactivated crop notifications
+                                            $link = BASE_URL . '/' . 'contributor/crop-page/crop.php'; // Adjust as necessary for deactivated crop notifications
                                         } else {
-                                            $link = '#'; // Adjust as necessary for deactivated user notifications
+                                            $link = BASE_URL . '/' . 'contributor/user-page/partners.php'; // Adjust as necessary for deactivated user notifications
                                         }
                                         ?>
                                         <li class="message" data-id="<?= htmlspecialchars($notification['id']); ?>">

@@ -1,5 +1,7 @@
 <?php
+session_start();
 require "../functions/connections.php";
+define('BASE_URL', 'http://localhost/travisar');
 
 if ($_SERVER['REQUEST_METHOD'] === 'GET') {
     $id = intval($_GET['notification_user_id']); // Ensure the ID is an integer
@@ -13,7 +15,9 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             echo "Error updating record: " . pg_last_error($conn);
         } else {
             echo "success"; // Return success
-            header("Location: {$_SERVER['HTTP_REFERER']}");
+            if (isset($_SESSION['rank']) && ($_SESSION['rank'] === 'Admin' || $_SESSION['rank'] === 'Curator')) {
+                header('Location: ' . BASE_URL . '/contributor/user-page/partners.php');
+            }
             exit; // Ensure script execution stops here
         }
     } else {
