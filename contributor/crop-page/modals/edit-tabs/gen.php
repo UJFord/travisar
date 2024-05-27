@@ -1,5 +1,4 @@
 <!-- STYLE -->
-
 <style>
     .image-upload-container {
         /* Adjust width and height as needed */

@@ -18,6 +18,8 @@
                     <!-- hidden id's -->
                     <input type="hidden" name="user_id" id="user_idVerify">
                     <input type="hidden" name="email" id="emailVerify">
+                    <input type="hidden" name="first_name" id="fnameVerify">
+                    <input type="hidden" name="last_name" id="lnameVerify">
 
                     <div class="container">
                         <div id="UserData">
@@ -217,7 +219,8 @@
                 success: function(data) {
                     console.log("Form submitted successfully", data);
                     // Reset the form
-                    // form.reset();
+                    //form.reset();
+                    //location.reload();
                     // // Reload unseen notifications
                     // load_unseen_notification();
                 },

@@ -2,7 +2,7 @@
 <style>
     .btn-selected {
         /* background-color: #000; */
-        color: white;
+        /* color: white; */
     }
 
     .modal-tab:hover {
@@ -31,10 +31,10 @@
                 <div class="modal-body">
                     <div class="container">
                         <!-- category filter -->
-                        <h6 class=" mb-3 fw-bold">Select Category <span class="text-danger ms-1">*</span></h6>
+                        <h6 class="mb-3 fw-bold">Select Category <span class="text-danger ms-1">*</span></h6>
                         <div class="row mb-3 px-3">
                             <?php
-                            $query = "SELECT * FROM category order by category_name ASC";
+                            $query = "SELECT * FROM category ORDER BY category_name ASC";
                             $query_run = pg_query($conn, $query);
 
                             if ($query_run) {
@@ -42,7 +42,7 @@
                             ?>
                                     <!-- crops filters -->
                                     <div class="form-check col-4">
-                                        <input class="form-check-input" type="radio" name="category_id" value="<?= $row['category_id'] ?>" id="category_id<?= $row['category_id'] ?>">
+                                        <input class="form-check-input crop-filter-export" type="radio" name="category_id" value="<?= $row['category_id'] ?>" id="category_id<?= $row['category_id'] ?>">
                                         <label class="form-check-label" for="category_id<?= $row['category_id'] ?>">
                                             <?= $row['category_name'] ?>
                                         </label>
@@ -55,6 +55,14 @@
                             ?>
                             <div id="message-error" class="error-message" style="color: red;"></div>
                         </div>
+
+                        <!-- variety -->
+                        <div id="variety-div-export" class="hidden">
+                            <h6 class="mb-3 fw-bold">Select Variety</h6>
+                            <div id="variety-filters-export" class="row mb-5 px-3">
+                            </div>
+                        </div>
+
 
                         <!-- status filter -->
                         <h6 class=" mb-3 fw-bold">Select Status</h6>
@@ -85,37 +93,6 @@
                             </div>
                         </div>
 
-                        <!-- variety -->
-                        <!-- <h6 id="variety-div-export" class="mb-3 fw-bold">Select Variety</h6>
-                        <div id="variety-filters-export" class="row mb-5 px-3">
-
-                        </div> -->
-
-                        <!-- terrain -->
-                        <h6 class="mb-3 fw-bold">Select Terrain</h6>
-                        <div class="row mb-5 px-3">
-                            <?php
-                            $query_terrain = "SELECT * FROM terrain order by terrain_name ASC";
-                            $query_run_terrain = pg_query($conn, $query_terrain);
-
-                            if ($query_run_terrain) {
-                                while ($row = pg_fetch_array($query_run_terrain)) {
-                            ?>
-                                    <!-- terrains filters -->
-                                    <div class="form-check col-4">
-                                        <input class="form-check-input" type="checkbox" name="terrain_id" value="<?= $row['terrain_id'] ?>" id="terrain_id-<?= $row['terrain_id'] ?>">
-                                        <label class="form-check-label" for="terrain_id-<?= $row['terrain_id'] ?>">
-                                            <?= $row['terrain_name'] ?>
-                                        </label>
-                                    </div>
-                            <?php
-                                }
-                            } else {
-                                echo "No terrain found";
-                            }
-                            ?>
-                        </div>
-
                         <!-- municipality -->
                         <h6 class="mb-3 fw-bold">Select Municipality</h6>
                         <div class="row mb-5 px-3">
@@ -141,9 +118,36 @@
                         </div>
 
                         <!-- barangay -->
-                        <h6 id="barangay-div-export" class="mb-3 fw-bold">Select Barangay</h6>
-                        <div id="brgy-filters-export" class="row mb-5 px-3">
+                        <div id="barangay-div-export">
+                            <h6 class="mb-3 fw-bold">Select Barangay</h6>
+                            <div id="brgy-filters-export" class="row mb-5 px-3">
 
+                            </div>
+                        </div>
+
+                        <!-- terrain -->
+                        <h6 class="mb-3 fw-bold">Select Terrain</h6>
+                        <div class="row mb-5 px-3">
+                            <?php
+                            $query_terrain = "SELECT * FROM terrain order by terrain_name ASC";
+                            $query_run_terrain = pg_query($conn, $query_terrain);
+
+                            if ($query_run_terrain) {
+                                while ($row = pg_fetch_array($query_run_terrain)) {
+                            ?>
+                                    <!-- terrains filters -->
+                                    <div class="form-check col-4">
+                                        <input class="form-check-input" type="checkbox" name="terrain_id" value="<?= $row['terrain_id'] ?>" id="terrain_id-<?= $row['terrain_id'] ?>">
+                                        <label class="form-check-label" for="terrain_id-<?= $row['terrain_id'] ?>">
+                                            <?= $row['terrain_name'] ?>
+                                        </label>
+                                    </div>
+                            <?php
+                                }
+                            } else {
+                                echo "No terrain found";
+                            }
+                            ?>
                         </div>
                     </div>
                 </div>
@@ -166,27 +170,7 @@
     //     });
     //     dataModal.show();
     // };
-
-    $(document).ready(function() {
-        function updateButtonStylesEx() {
-            $('.btn-check').each(function() {
-                var label = $('label[for="' + $(this).attr('id') + '"]');
-                if ($(this).is(':checked')) {
-                    label.addClass('btn-selected text-white').addClass('btn-success');
-                } else {
-                    label.removeClass('btn-selected text-white').removeClass('btn-success');
-                }
-            });
-        }
-
-        // Initial check to apply the class to the default checked button
-        // updateButtonStylesEx();
-
-        // Change event to update styles
-        $('.btn-check').change(updateButtonStylesEx);
-    });
 </script>
-
 <!-- script for checking category radio -->
 <script>
     // script for form validation
@@ -274,67 +258,69 @@
         });
     });
 
-    // let selectedCategories_export = [];
+    let selectedCategories_export = [];
 
-    // // Function to fetch and populate the variety filter based on the selected categories
-    // function populateVarietyFilter_export() {
-    //     let varietyFilter_export = document.getElementById('variety-filters-export');
+    // Function to fetch and populate the variety filter based on the selected categories
+    function populateVarietyFilter_export() {
+        let varietyFilter_export = document.getElementById('variety-filters-export');
 
-    //     // Clear existing options
-    //     varietyFilter_export.innerHTML = '';
+        // Clear existing options
+        varietyFilter_export.innerHTML = '';
 
-    //     // Fetch and populate variety options for each selected category
-    //     selectedCategories_export.forEach(categoryId => {
-    //         fetch('fetch/fetch_filter.php?category_id=' + categoryId)
-    //             .then(response => response.json())
-    //             .then(data => {
-    //                 // Populate options
-    //                 data.forEach(variety => {
-    //                     varietyFilter_export.innerHTML += `
-    //                         <div class="form-check col-4">
-    //                         <input class="form-check-input" type="checkbox" value="${variety.category_variety_id}" id="variety${variety.category_variety_id}">
-    //                         <label class="form-check-label" for="variety${variety.category_variety_id}">
-    //                             ${variety.category_variety_name}
-    //                         </label>
-    //                     </div>
-    //                     `;
-    //                 });
-    //                 // Show the variety filter
-    //                 varietyFilter_export.classList.add('show');
-    //             })
-    //             .catch(error => console.error('Error:', error));
-    //     });
-    // }
-    // // Function to show or hide the variety filter based on the selected categories
-    // function toggleVarietyFilterVisibility_export() {
-    //     let varietyFilter_export = document.getElementById('variety-div-export');
-    //     let selectedCategoryCheckboxes_export = document.querySelectorAll('.crop-filter-export:checked');
+        // Fetch and populate variety options for each selected category
+        selectedCategories_export.forEach(categoryId => {
+            fetch('fetch/fetch_filter.php?category_id=' + categoryId)
+                .then(response => response.json())
+                .then(data => {
+                    // Populate options
+                    data.forEach(variety => {
+                        varietyFilter_export.innerHTML += `
+                        <div class="form-check col-4">
+                            <input class="form-check-input" type="checkbox" name="category_variety_id" value="${variety.category_variety_id}" id="variety${variety.category_variety_id}">
+                            <label class="form-check-label" for="variety${variety.category_variety_id}">
+                                ${variety.category_variety_name}
+                            </label>
+                        </div>
+                    `;
+                    });
+                    // Show the variety filter
+                    varietyFilter_export.classList.add('show');
+                })
+                .catch(error => console.error('Error:', error));
+        });
+    }
 
-    //     if (selectedCategoryCheckboxes_export.length > 0) {
-    //         // Show the variety filter
-    //         varietyFilter_export.classList.remove('hidden');
-    //     } else {
-    //         // Hide the variety filter
-    //         varietyFilter_export.classList.add('hidden');
-    //     }
-    // }
+    // Function to show or hide the variety filter based on the selected categories
+    function toggleVarietyFilterVisibility_export() {
+        let varietyFilter_export = document.getElementById('variety-div-export');
+        let selectedCategoryCheckboxes_export = document.querySelectorAll('.crop-filter-export:checked');
+
+        if (selectedCategoryCheckboxes_export.length > 0) {
+            // Show the variety filter
+            varietyFilter_export.classList.remove('hidden');
+        } else {
+            // Hide the variety filter
+            varietyFilter_export.classList.add('hidden');
+        }
+    }
 
     // Add event listeners to category checkboxes
-    // document.querySelectorAll('.crop-filter-export').forEach(checkbox => {
-    //     checkbox.addEventListener('change', function() {
-    //         if (!this.checked) {
-    //             // Remove unchecked category from the array
-    //             selectedCategories_export = selectedCategories_export.filter(id => id !== this.value);
-    //         } else {
-    //             // Add checked category to the array
-    //             selectedCategories_export.push(this.value);
-    //         }
-    //         populateVarietyFilter_export();
-    //         toggleVarietyFilterVisibility_export();
-    //     });
-    // });
+    document.querySelectorAll('.crop-filter-export').forEach(radio => {
+        radio.addEventListener('change', function() {
+            // Clear the array since radio buttons allow only one selection at a time
+            selectedCategories_export = [];
 
-    //document.getElementById('variety-div-export').classList.add('hidden');
+            if (this.checked) {
+                // Add checked category to the array
+                selectedCategories_export.push(this.value);
+            }
+            populateVarietyFilter_export();
+            toggleVarietyFilterVisibility_export();
+        });
+    });
+
+    document.getElementById('variety-div-export').classList.add('hidden');
+
     document.getElementById('barangay-div-export').classList.add('hidden');
 
     // Check if all category checkboxes are unchecked

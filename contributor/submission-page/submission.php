@@ -1340,7 +1340,6 @@ require "../../functions/functions.php";
         const barangaySelectEdit = document.getElementById('BarangaySelect');
 
         let initialMunicipality = '';
-        let initialBarangay = '';
 
         // Function to populate municipalities dropdown based on selected province
         // const populateMunicipalitiesEdit = async (selectedProvince, initialVal) => {
@@ -1382,12 +1381,12 @@ require "../../functions/functions.php";
                 // console.log(data);
 
                 const barangayDropdown = document.getElementById('BarangaySelect');
-                barangayDropdown.innerHTML = '';
+                barangayDropdown.innerHTML = '<option value="" disabled selected hidden class="colorize">Select One</option>'; // Clear existing options
 
                 data.forEach((barangay) => {
                     const option = document.createElement('option');
-                    option.value = barangay;
-                    option.text = barangay;
+                    option.value = barangay['barangay_id'];
+                    option.text = barangay['barangay_name'];
                     barangayDropdown.appendChild(option);
                 });
 
@@ -1407,20 +1406,12 @@ require "../../functions/functions.php";
             populateMunicipalitiesEdit(selectedProvince, initialMunicipality);
         });
 
-        //! kanang automatic mag populate ang barangay biskang wala paka ni select og municipality
-        // Call the populateBarangay function when the municipality dropdown value changes
-        document.getElementById('MunicipalitySelect').addEventListener('change', function() {
-            var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
-            populateBarangayEdit(selectedMunicipality, initialBarangay);
-        });
-
         //Call the populateMunicipalities function initially to populate the municipalities dropdown based on the default selected province
         // var selectedProvince = document.getElementById('ProvinceEdit').value;
         // populateMunicipalitiesEdit(selectedProvince, initialMunicipality);
 
-        // Call the populateBarangay function initially to populate the municipalities dropdown based on the default selected municipality
-        var selectedMunicipality = document.getElementById('MunicipalitySelect').value;
-        populateBarangayEdit(selectedMunicipality, initialBarangay);
+        // Event listener for input changes
+        coordInputEdit.addEventListener('input', handleInputChangeEdit);
 
         // Call the populateBarangay function when the municipality dropdown value changes
         // to automatically go to the coordinated of the municipality
@@ -1444,6 +1435,34 @@ require "../../functions/functions.php";
                             updateMapAndPinEdit(latitude, longitude);
                             // Set the map view to the marker's location
                             mapEdit.setView([latitude, longitude], 12); // Zoom level 12
+                            coordInputEdit.value = latitude.toFixed(6) + ', ' + longitude.toFixed(6);
+                        }
+                    }
+                });
+        });
+
+        // Call the populateBarangay function when the Barangay dropdown value changes
+        document.getElementById('BarangaySelect').addEventListener('change', function() {
+            var selectedBarangay = document.getElementById('BarangaySelect').value;
+
+            // Fetch coordinates for the selected barangay
+            fetch('fetch/fetch_location-edit.php?pin_barangay=' + selectedBarangay)
+                .then(response => response.json())
+                .then(data => {
+                    if (data.length > 0) {
+                        var coordinatesString = data[0]['barangay_coordinates'];
+                        var coordinatesArray = coordinatesString.split(',').map(coord => parseFloat(coord.trim()));
+
+                        if (coordinatesArray.length === 2) {
+                            var latitude = coordinatesArray[0];
+                            var longitude = coordinatesArray[1];
+
+                            // Update the map and pin marker with the selected coordinates
+                            updateMapAndPinEdit(latitude, longitude);
+                            // Set the map view to the marker's location
+                            mapEdit.setView([latitude, longitude], 12); // Zoom level 12
+                            // Update the coordinates input field with the selected barangay's coordinates
+                            coordInputEdit.value = latitude.toFixed(6) + ', ' + longitude.toFixed(6);
                         }
                     }
                 });
@@ -1472,4 +1491,5 @@ if (!isset($_SESSION['LOGGED_IN'])) {
     exit();
 }
 ?>
+
 </html>

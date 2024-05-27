@@ -1,5 +1,7 @@
 <?php
+session_start();
 require "../functions/connections.php"; // Ensure this path is correct
+define('BASE_URL', 'http://localhost/travisar');
 
 // var_dump($_GET);
 // exit();
@@ -16,9 +18,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'GET') {
             echo "Error updating record: " . pg_last_error($conn);
             error_log("Error updating record: " . pg_last_error($conn));
         } else {
-            echo "succeess";
-            // Operation was successful, redirect to previous page
-            header("Location: {$_SERVER['HTTP_REFERER']}");
+            echo "success";
+            if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Contributor') {
+                header('Location: ' . BASE_URL . '/contributor/submission-page/submission.php');
+            } elseif (isset($_SESSION['rank']) && ($_SESSION['rank'] === 'Admin' || $_SESSION['rank'] === 'Curator')) {
+                header('Location: ' . BASE_URL . '/contributor/crop-page/crop.php');
+            }
             exit; // Ensure script execution stops here
         }
     } else {

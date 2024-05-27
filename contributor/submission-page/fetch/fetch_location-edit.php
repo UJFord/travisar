@@ -28,13 +28,13 @@ if (isset($_GET['province']) && !empty($_GET['province'])) {
     $municipality_id = $_GET['municipality'];
 
     // Use prepared statements to prevent SQL injection
-    $queryBarangay = "SELECT DISTINCT barangay_name FROM barangay WHERE municipality_id = $1 ORDER BY barangay_name ASC";
+    $queryBarangay = "SELECT DISTINCT barangay_name, barangay_id FROM barangay WHERE municipality_id = $1 ORDER BY barangay_name ASC";
     $resultBarangay = pg_query_params($conn, $queryBarangay, array($municipality_id));
 
     if ($resultBarangay) {
         $barangay = array();
-        while ($row = pg_fetch_array($resultBarangay, null, PGSQL_ASSOC)) {
-            $barangay[] = $row['barangay_name'];
+        while ($row = pg_fetch_assoc($resultBarangay)) {
+            $barangay[] = $row;
         }
 
         // Return barangay as JSON
@@ -60,6 +60,24 @@ if (isset($_GET['province']) && !empty($_GET['province'])) {
     } else {
         // Handle database query error
         error_log("Error fetching municipality coordinates: " . pg_last_error());
+        echo json_encode(array()); // Return an empty array as JSON
+    }
+} else if (isset($_GET['pin_barangay']) && !empty($_GET['pin_barangay'])) {
+    $barangay_id = $_GET['pin_barangay'];
+
+    // Fetch barangay coordinates from the database
+    $queryCoordinates = "SELECT barangay_coordinates FROM barangay WHERE barangay_id = $1";
+    $resultCoordinates = pg_query_params($conn, $queryCoordinates, array($barangay_id));
+
+    if ($resultCoordinates) {
+        $rowCoordinates = pg_fetch_assoc($resultCoordinates);
+        $barangayCoordinates = isset($rowCoordinates['barangay_coordinates']) ? $rowCoordinates['barangay_coordinates'] : '';
+
+        // Return the barangay coordinates as JSON
+        echo json_encode(array(array('barangay_coordinates' => $barangayCoordinates)));
+    } else {
+        // Handle database query error
+        error_log("Error fetching barangay coordinates: " . pg_last_error());
         echo json_encode(array()); // Return an empty array as JSON
     }
 }else {

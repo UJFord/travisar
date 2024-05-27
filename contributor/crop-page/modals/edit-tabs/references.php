@@ -42,7 +42,7 @@
             referenceNumberEdit++;
         }
         referenceNumbersEdit.push(referenceNumberEdit); // Track used number
-        label.textContent = `Reference ${referenceNumberEdit}`;
+        //label.textContent = `Reference ${referenceNumberEdit}`;
 
         const inputWrapper = document.createElement('div');
         inputWrapper.classList.add('d-flex');

@@ -112,7 +112,7 @@ require "../../functions/functions.php";
             tab.addEventListener('click', resetSearchInput);
         });
     </script>
-    <!-- script for viewing -->
+    <!-- script for viewing data -->
     <script>
         // View SCRIPT
         const tableRowsView = document.querySelectorAll('.view-item-modal-partners');
@@ -152,6 +152,8 @@ require "../../functions/functions.php";
                             $('#affiliation_contact_numView').text(value['affiliated_contact_num']);
                             $('#user_idVerify').val(id);
                             $('#emailVerify').val(value['email']);
+                            $('#fnameVerify').val(value['first_name']);
+                            $('#lnameVerify').val(value['last_name']);
 
                         });
                         // Clear any existing rows in the Contributed Data table

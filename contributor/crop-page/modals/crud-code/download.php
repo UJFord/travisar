@@ -4,6 +4,7 @@ require "../../../../functions/connections.php";
 
 if (isset($_POST['export'])) {
     $category_id = $_POST['category_id'];
+    $variety_filter = !empty($_POST['category_variety_id']) ? "AND category_variety.category_variety_id IN (" . implode(',', explode(',', $_POST['category_variety_id'])) . ")" : '';
     $municipality_filter = !empty($_POST['municipality_id']) ? "AND municipality.municipality_id IN (" . implode(',', explode(',', $_POST['municipality_id'])) . ")" : '';
     $terrain_filter = !empty($_POST['terrain_id']) ? "AND terrain.terrain_id IN (" . implode(',', explode(',', $_POST['terrain_id'])) . ")" : '';
     $brgy_filter = !empty($_POST['barangay_id']) ? "AND barangay_id.barangay_id IN (" . implode(',', explode(',', $_POST['barangay_id'])) . ")" : '';
@@ -50,7 +51,7 @@ if (isset($_POST['export'])) {
         LEFT JOIN seed_traits ON seed_traits.seed_traits_id = reproductive_state_corn.seed_traits_id
         LEFT JOIN \"references\" ON \"references\".crop_id = crop.crop_id
         LEFT JOIN \"status\" ON \"status\".status_id = crop.status_id
-        WHERE 1=1 AND category.category_id = $1 $status_filter $municipality_filter $terrain_filter $brgy_filter";
+        WHERE 1=1 AND category.category_id = $1 $status_filter $variety_filter $municipality_filter $terrain_filter $brgy_filter";
 
         $query_run = pg_query_params($conn, $query, array($category_id));
     } else if ($get_category_name === 'Rice') {
@@ -83,7 +84,7 @@ if (isset($_POST['export'])) {
         LEFT JOIN sensory_traits_rice ON sensory_traits_rice.sensory_traits_rice_id = rice_traits.sensory_traits_rice_id
         LEFT JOIN \"references\" ON \"references\".crop_id = crop.crop_id
         LEFT JOIN \"status\" ON \"status\".status_id = crop.status_id
-        WHERE 1=1 AND category.category_id = $1 $status_filter $municipality_filter $terrain_filter $brgy_filter";
+        WHERE 1=1 AND category.category_id = $1 $status_filter $variety_filter $municipality_filter $terrain_filter $brgy_filter";
 
         $query_run = pg_query_params($conn, $query, array($category_id));
     } else if ($get_category_name === 'Root Crop') {
@@ -112,7 +113,7 @@ if (isset($_POST['export'])) {
         LEFT JOIN rootcrop_traits ON rootcrop_traits.rootcrop_traits_id = root_crop_traits.rootcrop_traits_id
         LEFT JOIN \"references\" ON \"references\".crop_id = crop.crop_id
         LEFT JOIN \"status\" ON \"status\".status_id = crop.status_id
-        WHERE 1=1 AND category.category_id = $1 $status_filter $municipality_filter $terrain_filter $brgy_filter";
+        WHERE 1=1 AND category.category_id = $1 $status_filter $variety_filter $municipality_filter $terrain_filter $brgy_filter";
 
         $query_run = pg_query_params($conn, $query, array($category_id));
     }
