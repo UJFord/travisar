@@ -671,7 +671,6 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
                         </div>
                     <?php endif; ?>
 
-
                     <!-- user profile -->
                     <div class="nav-item fw-semibold me-2 dropdown">
                         <a href="" id="profile-btn" class="nav-link dropdown-toggle  <?php if ($current_page_isProfile) {
