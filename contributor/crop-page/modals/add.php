@@ -16,7 +16,6 @@
 
 <!-- HTML -->
 <div class="modal fade" id="add-item-modal" tabindex="-1" aria-labelledby="add-label" aria-hidden="true" data-bs-backdrop="static" data-bs-keyboard="false">
-
     <div class="modal-dialog modal-lg">
         <div class="modal-content">
             <!-- header -->
@@ -176,13 +175,13 @@
 
     // Function to validate input
     function validateForm(event) {
-        var categoryID = document.forms["Form"]["category_id"].value;
-        var category_varietyID = document.forms["Form"]["category_variety_id"].value;
-        var cropVariety = document.forms["Form"]["crop_variety"].value;
-        var terrainID = document.forms["Form"]["terrain_id"].value;
-        var province = document.forms["Form"]["province"].value;
-        var municipality = document.forms["Form"]["municipality"].value;
-        var barangay = document.forms["Form"]["barangay"].value;
+        var categoryID = document.getElementById('Category').value;
+        var category_varietyID = document.getElementById('categoryVariety').value;
+        var cropVariety = document.getElementById('Variety-Name').value;
+        var terrainID = document.getElementById('terrain').value;
+        var province = document.getElementById('Province').value;
+        var municipality = document.getElementById('Municipality').value;
+        var barangay = document.getElementById('Barangay').value;
 
         var isValid = true;
 
@@ -271,7 +270,7 @@
             document.getElementById('barangay-error').innerText = "";
         }
 
-        // Check if the image size exceeds the limit (5MB) for the seed image
+        // Check if the image size exceeds the limit (3MB) for the seed image
         if (seedImage.files.length > 0) {
             var isValidImageSeed = validateImagesSeed();
             if (!isValidImageSeed) {
@@ -280,7 +279,7 @@
             }
         }
 
-        // Check if the image size exceeds the limit (5MB) for the seed image
+        // Check if the image size exceeds the limit (3MB) for the seed image
         if (vegImage.files.length > 0) {
             var isValidImageVeg = validateImagesVeg();
             if (!isValidImageVeg) {
@@ -289,7 +288,7 @@
             }
         }
 
-        // Check if the image size exceeds the limit (5MB) for the seed image
+        // Check if the image size exceeds the limit (3MB) for the seed image
         if (reproImage.files.length > 0) {
             var isValidImageRepro = validateImagesRepro();
             if (!isValidImageRepro) {
@@ -351,7 +350,7 @@
             var file = files[i];
             if (file.size > 3 * 1024 * 1024) {
                 inputElementSeed.classList.add('is-invalid');
-                document.getElementById('imageInputSeed-error').innerText = "Image must not exceed 5MB.";
+                document.getElementById('imageInputSeed-error').innerText = "Image must not exceed 3MB.";
                 isValid = false;
                 if (!firstErrorElement) {
                     firstErrorElement = document.getElementById('imageInputSeed');
@@ -376,7 +375,7 @@
             var file = files[i];
             if (file.size > 3 * 1024 * 1024) {
                 inputElementVeg.classList.add('is-invalid');
-                document.getElementById('imageInputVegetative-error').innerText = "Image must not exceed 5MB.";
+                document.getElementById('imageInputVegetative-error').innerText = "Image must not exceed 3MB.";
                 isValid = false;
                 if (!firstErrorElement) {
                     firstErrorElement = document.getElementById('imageInputVegetative');
@@ -401,7 +400,7 @@
             var file = files[i];
             if (file.size > 3 * 1024 * 1024) {
                 inputElementRepro.classList.add('is-invalid');
-                document.getElementById('imageInputReproductive-error').innerText = "Image must not exceed 5MB.";
+                document.getElementById('imageInputReproductive-error').innerText = "Image must not exceed 3MB.";
                 isValid = false;
                 if (!firstErrorElement) {
                     firstErrorElement = document.getElementById('imageInputReproductive');
