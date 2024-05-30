@@ -162,7 +162,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
 
         UNION
 
-        SELECT notification_user.notification_user_id AS id, CONCAT(users.first_name, ' ', users.last_name) AS name, notification_user.notification_date, 'User notification' AS notification_name, 'user' AS type
+        SELECT notification_user.notification_user_id AS id, CONCAT(users.first_name, ' ', users.last_name) AS name, notification_user.notification_date, notification_user.notification_name AS notification_name, 'user' AS type
         FROM notification_user
         LEFT JOIN users ON users.user_id = notification_user.user_id
         WHERE notification_user.active = true
@@ -194,7 +194,7 @@ if (isset($_SESSION['rank']) && $_SESSION['rank'] === 'Admin') {
 
         UNION
 
-        SELECT notification_user.notification_user_id AS id, CONCAT(users.first_name, ' ', users.last_name) AS name, notification_user.notification_date, 'User notification' AS notification_name, 'user' AS type
+        SELECT notification_user.notification_user_id AS id, CONCAT(users.first_name, ' ', users.last_name) AS name, notification_user.notification_date, notification_user.notification_name AS notification_name, 'user' AS type
         FROM notification_user
         LEFT JOIN users ON users.user_id = notification_user.user_id
         WHERE notification_user.active = false
