@@ -186,13 +186,13 @@
 
     // Function to validate input
     function validateForm(event) {
-        var categoryID = document.forms["Form"]["category_id"].value;
-        var category_varietyID = document.forms["Form"]["category_variety_id"].value;
-        var cropVariety = document.forms["Form"]["crop_variety"].value;
-        var terrainID = document.forms["Form"]["terrain_id"].value;
-        var province = document.forms["Form"]["province"].value;
-        var municipality = document.forms["Form"]["municipality"].value;
-        var barangay = document.forms["Form"]["barangay"].value;
+        var categoryID = document.getElementById('Category').value;
+        var category_varietyID = document.getElementById('categoryVariety').value;
+        var cropVariety = document.getElementById('Variety-Name').value;
+        var terrainID = document.getElementById('terrain').value;
+        var province = document.getElementById('Province').value;
+        var municipality = document.getElementById('Municipality').value;
+        var barangay = document.getElementById('Barangay').value;
 
         var isValid = true;
 
