@@ -94,12 +94,14 @@ require "../functions/functions.php";
             </nav>
         </div> -->
 
-        <!-- Pagination -->
-        <div class="row mt-2">
-            <nav class="d-flex justify-content-end">
-                <?php generatePaginationLinksHome($total_pages, $current_page, 'page'); ?>
-            </nav>
-        </div>
+        <?php if (!empty($category_id)) { ?>
+            <!-- Pagination -->
+            <div class="row mt-2">
+                <nav class="d-flex justify-content-end">
+                    <?php generatePaginationLinksHome($total_pages, $current_page, 'page'); ?>
+                </nav>
+            </div>
+        <?php } ?>
     </div>
 
     <!-- SCRIPT -->

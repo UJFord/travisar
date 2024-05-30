@@ -49,13 +49,8 @@
             // Add all filters to the WHERE clause
             $where_clause .= " $status_action $category_filter $municipality_filter $variety_filter $terrain_filter $brgy_filter";
 
-            // Set the number of items to display per page
-            $items_per_page = 10;
-
-            // Get the current page number
+            $items_per_page = !empty($category_id) ? 10 : PHP_INT_MAX; // Set the number of items to display per page
             $current_page = isset($_GET['page']) ? $_GET['page'] : 1;
-
-            // Calculate the offset based on the current page and items per page
             $offset = ($current_page - 1) * $items_per_page;
 
             // Count the total number of rows for pagination
@@ -72,10 +67,8 @@
             $total_rows_result = pg_query($conn, $total_rows_query);
             $total_rows = pg_fetch_row($total_rows_result)[0];
 
-            // Calculate the total number of pages based on filtered data
-            $total_pages = ceil($total_rows / $items_per_page);
+            $total_pages = !empty($category_id) ? ceil($total_rows / $items_per_page) : 1; // Calculate total pages based on filtered data
 
-            // Build the SQL query
             $query = "SELECT * FROM crop 
             LEFT JOIN crop_location ON crop_location.crop_id = crop.crop_id 
             LEFT JOIN status ON status.status_id = crop.status_id 
@@ -88,17 +81,12 @@
             ORDER BY crop.crop_id DESC 
             LIMIT $items_per_page OFFSET $offset";
 
-            // Execute the SQL query
             $query_run = pg_query($conn, $query);
 
             if ($query_run) {
                 while ($row = pg_fetch_assoc($query_run)) {
-                    // Convert the string to a DateTime object
                     $date = new DateTime($row['input_date']);
-                    // Format the date to display up to the minute
                     $formatted_date = $date->format('m-d-Y H:i');
-
-                    // Display the data
             ?>
                     <tr class="crop-li" latlng="<?= $row['barangay_coordinates'] ?>" data-href="view.php?crop_id=<?= $row['crop_id'] ?>">
                         <td class="category text-truncate" style="max-width:5rem;"><?= $row['category_name'] ?></td>
@@ -107,13 +95,12 @@
                         <td class="text-truncate" style="max-width: 5rem;"><?= $row['barangay_name'] ?></td>
                         <td class="addr text-truncate" style="max-width: 5rem;"><?= $row['municipality_name'] ?></td>
                         <td class="terrain text-truncate" style="max-width: 5rem;"><span class="text-truncate" style="max-width: 300px;"><?= $row['terrain_name'] ?></td>
-                        <!-- <td class="terrain text-truncate" style="max-width: 5rem;"><span class="text-truncate" style="max-width: 300px;"><?= $row['action'] ?></td> -->
                     </tr>
             <?php
                 }
             }
-
             ?>
+
         </tbody>
     </table>
 </div>
