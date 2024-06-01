@@ -34,9 +34,9 @@
                             <h4 class="mb-3 fw-bold">Step 1</h4>
                             <h6 class="fw-bold">Download the template</h6>
                             <ul>
-                                <li><a href="../../../visitor/help/corn.csv">Corn Template</a></li>
-                                <li><a href="../../../visitor/help/rice.csv">Rice Template</a></li>
-                                <li><a href="../../../visitor/help/rootCrop.csv">Root Crop Template</a></li>
+                                <li><a href="../../visitor/help/corn.csv">Corn Template</a></li>
+                                <li><a href="../../visitor/help/rice.csv">Rice Template</a></li>
+                                <li><a href="../../visitor/help/rootCrop.csv">Root Crop Template</a></li>
                             </ul>
                         </div>
 
