@@ -43,65 +43,60 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <body class="py-5">
 
     <div class="container">
-        <div class="row vh-100 d-flex justify-content-center align-items-center">
+        <div class="row d-flex justify-content-center align-items-center">
             <!-- form -->
-            <div class="col-6">
-                <form action="" method="POST" class="border rounded-4 bg-light py-5 px-5 needs-validation" novalidate>
+            <div class="col-10">
+                <form action="" method="POST" class="border rounded-4 bg-light p-5 needs-validation" novalidate>
 
                     <!-- logo -->
                     <div class="row d-flex justify-content-center align-items-center">
-                        <img class="col-6" src="../img/travis.svg" alt="" srcset="">
+                        <img class="col-4" src="../img/travis.svg" alt="" srcset="">
                     </div>
 
                     <!-- heading -->
-                    <div class="row d-flex justify-content-center align-items-center py-4">
-                        <h3 class="text-center">Register</h3>
+                    <div class="row d-flex justify-content-center align-items-center py-3">
+                        <h4 class="text-center">Register</h4>
                     </div>
 
-                    <!-- firstname -->
-                    <div class="row d-flex justify-content-between mb-3">
-                        <div class="col-6 form-floating">
-                            <input type="text" class="fs-6 form-control rounded-4" id="f-name" name="first_name" placeholder="name@example.com" required>
-                            <label for="f-name" class="fs-6 ms-3">Firstname <span class="text-danger ms-1">*</span></label>
+                    <!-- name -->
+                    <div class="row mb-4">
+                        <div class="col-5">
+                            <label for="f-name" class="form-label small-font">Firstname <span class="text-danger ms-1">*</span></label>
+                            <input type="text" class="form-control rounded-3" id="f-name" name="first_name" placeholder="" required>
                             <div class="invalid-feedback">
                                 Please provide first name.
                             </div>
                         </div>
-                        <div class="col-6 form-floating ">
-                            <input type="text" class="fs-6 form-control rounded-4" id="lname" name="last_name" placeholder="name@example.com" required>
-                            <label for="lname" class="fs-6 ms-3">Lastname <span class="text-danger ms-1">*</span></label>
+                        <div class="col-5">
+                            <label for="lname" class="form-label small-font">Lastname <span class="text-danger ms-1">*</span></label>
+                            <input type="text" class="fs-6 form-control rounded-3" id="lname" name="last_name" placeholder="" required>
                             <div class="invalid-feedback">
                                 Please provide last name.
                             </div>
                         </div>
-                    </div>
 
-                    <!-- gender and username -->
-                    <div class="row d-flex justify-content-between mb-3">
-                        <!-- gender -->
-                        <div class="col-6 form-floating">
-                            <select name="gender" id="reg-gender" class="fs-6 form-select rounded-4">
+                        <div class="col-2">
+                            <label for="reg-gender" class="form-label small-font">Gender</label>
+                            <select name="gender" id="reg-gender" class="fs-6 form-select rounded-3">
                                 <option value="" selected disabled hidden></option>
                                 <option value="Male">Male</option>
                                 <option value="Female">Female</option>
                                 <option value="Rather not say">Rather not say</option>
                             </select>
-                            <label for="reg-gender" class="fs-6 ms-3">Gender</label>
-                        </div>
-
-                        <!-- username -->
-                        <div class="col-6 form-floating">
-                            <input type="text" class="fs-6 form-control rounded-4" id="reg-uname" name="username" placeholder="Username">
-                            <label for="reg-uname" class="fs-6 ms-3">Username</label>
                         </div>
                     </div>
 
-                    <!-- email and contact number -->
-                    <div class="row d-flex justify-content-between mb-3">
+                    <div class="row mb-4">
+                        <!-- username -->
+                        <div class="col-6 mb-2">
+                            <label for="reg-uname" class="form-label small-font">Username</label>
+                            <input type="text" class="fs-6 form-control rounded-3" id="reg-uname" name="username" placeholder="">
+                        </div>
+
                         <!-- email -->
-                        <div class="form-floating col-6">
-                            <input type="email" class="fs-6 form-control rounded-4" id="reg-email" name="email" placeholder="Email" required>
-                            <label for="reg-email" class="fs-6 ms-3">Email <span class="text-danger ms-1">*</span></label>
+                        <div class="col-6">
+                            <label for="reg-email" class="form-label small-font">Email <span class="text-danger ms-1">*</span></label>
+                            <input type="email" class="fs-6 form-control rounded-3" id="reg-email" name="email" placeholder="" required>
                             <div id="email-error" class="invalid-feedback">
                                 Please enter your email.
                             </div>
@@ -111,10 +106,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                             </div>
                         </div>
 
-                        <!-- contact_num -->
-                        <div class="form-floating col-6">
-                            <input type="tel" class="fs-6 form-control rounded-4" id="reg-contact_num" name="contact_num" placeholder="Contact Number" required>
-                            <label for="reg-contact_num" class="fs-6 ms-3">Contact Number <span class="text-danger ms-1">*</span></label>
+                        <!-- number -->
+                        <div class="col-6">
+                            <label for="reg-contact_num" class="form-label small-font">Contact Number <span class="text-danger ms-1">*</span></label>
+                            <input type="tel" class="fs-6 form-control rounded-3" id="reg-contact_num" name="contact_num" placeholder="" required>
                             <div id="contact_num-error" class="invalid-feedback">
                                 Please enter your contact number.
                             </div>
@@ -122,11 +117,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
                     <!-- password and confirm password -->
-                    <div class="row d-flex justify-content-between mb-3">
+                    <div class="row mb-4">
                         <!-- password -->
-                        <div class="form-floating col-6">
-                            <input type="password" class="fs-6 form-control rounded-4" id="reg-pass" name="password" placeholder="Password" required>
-                            <label for="reg-pass" class="fs-6 ms-3">Password <span class="text-danger ms-1">*</span></label>
+                        <div class="col-6">
+                            <label for="reg-pass" class="form-label small-font">Password <span class="text-danger ms-1">*</span></label>
+                            <input type="password" class="fs-6 form-control rounded-3" id="reg-pass" name="password" placeholder="" required>
                             <div id="password-length-error" class="invalid-feedback">
                                 Please enter password.
                             </div>
@@ -135,61 +130,63 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                                 Password must be at least 8 characters long.
                             </div>
                         </div>
-
                         <!-- Confirm -->
-                        <div class="form-floating col-6">
-                            <input type="password" class="fs-6 form-control rounded-4" id="reg-confirm" name="password2" placeholder="Confirm Password" required>
-                            <label for="reg-confirm" class="fs-6 ms-3">Confirm Password <span class="text-danger ms-1">*</span></label>
+                        <div class="col-6">
+                            <label for="reg-confirm" class="form-label small-font">Confirm Password <span class="text-danger ms-1">*</span></label>
+                            <input type="password" class="fs-6 form-control rounded-3" id="reg-confirm" name="password2" placeholder="" required>
                             <div class="invalid-feedback">
                                 The password must match.
                             </div>
                         </div>
                     </div>
 
+
                     <!-- affiliation -->
-                    <div class="form-floating mb-3">
-                        <input type="text" class="fs-6 form-control rounded-4" id="reg-affiliation" name="affiliation" placeholder="Affiliation" required>
-                        <label for="reg-affiliation" class="fs-6">Affiliation <span class="text-danger ms-1">*</span></label>
-                        <div class="invalid-feedback">
-                            Please provide affiliation.
+                    <div class="row mb-2">
+                        <div class="col-6">
+                            <label for="reg-affiliation" class="form-label small-font">Affiliation <span class="text-danger ms-1">*</span></label>
+                            <input type="text" class="fs-6 form-control rounded-3" id="reg-affiliation" name="affiliation" placeholder="" required>
+                            <div class="invalid-feedback">
+                                Please provide affiliation.
+                            </div>
                         </div>
                     </div>
 
-                    <div class="row d-flex justify-content-between mb-3">
+                    <div class="row mb-4">
                         <!-- affiliation email -->
-                        <div class="form-floating col-6">
-                            <input type="email" class="fs-6 form-control rounded-4" id="reg-affiliation_email" name="affiliated_email" placeholder="Affiliated Organizational Email">
-                            <label for="reg-affiliation_email" class="fs-6 ms-3">Organization Email</label>
+                        <div class="col-6">
+                            <label for="reg-affiliation_email" class="form-label small-font">Organization Email</label>
+                            <input type="email" class="fs-6 form-control rounded-3" id="reg-affiliation_email" name="affiliated_email" placeholder="">
                             <div class="invalid-feedback">
                                 Please provide email of affiliated organization.
                             </div>
                         </div>
 
                         <!-- affiliation contact number -->
-                        <div class="form-floating col-6">
-                            <input type="tel" class="fs-6 form-control rounded-4" id="reg-affiliation_contactNum" name="affiliated_contact_num" placeholder="Affiliated Contact Number">
-                            <label for="reg-affiliation_contactNum" class="fs-6 ms-3">Organization Contact</label>
+                        <div class="col-6">
+                            <label for="reg-affiliation_contactNum" class="form-label small-font">Organization Contact</label>
+                            <input type="tel" class="fs-6 form-control rounded-3" id="reg-affiliation_contactNum" name="affiliated_contact_num" placeholder="">
                         </div>
                     </div>
 
 
                     <!-- Signup btn -->
-                    <div class="d-flex justify-content-center align-items-center my-3">
-                        <button class="btn btn-success rounded-4 fw-bold w-100 py-3" type="submit" value="Signup" class="submit">Sign Up!</button>
+                    <div class="row d-flex justify-content-center align-items-center my-3">
+                        <button class="col-6 btn btn-success rounded-3 fw-bold py-3" type="submit" value="Signup" class="submit">Sign Up!</button>
                     </div>
 
                     <!-- sign up -->
-                    <div class="d-flex justify-content-center align-items-center my-3">
+                    <div class="d-flex justify-content-center align-items-center my-1 small-font">
                         Already a Contributor?<a href="login.php" class="ms-1"> Login!</a>
                     </div>
 
                     <!-- help -->
-                    <div class="d-flex justify-content-center align-items-center my-3">
+                    <div class="d-flex justify-content-center align-items-center my-1 small-font">
                         Check our <a href="../visitor/help/contribute.php" class="mx-1">Help</a> page for your questions.
                     </div>
 
                     <!-- visitor page -->
-                    <div class="d-flex justify-content-center align-items-center">
+                    <div class="d-flex justify-content-center align-items-center small-font">
                         Back to<a href="../visitor/home.php" class="ms-1"> Visitor's Page</a>
                     </div>
                 </form>
