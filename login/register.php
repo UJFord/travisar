@@ -40,13 +40,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="../js/window.js"></script>
 </head>
 
-<body class="py-5">
+<body class="py-3">
 
     <div class="container">
-        <div class="row d-flex justify-content-center align-items-center">
+        <div class="row vh-100 d-flex justify-content-center align-items-center">
             <!-- form -->
             <div class="col-10">
-                <form action="" method="POST" class="border rounded-4 bg-light p-5 needs-validation" novalidate>
+                <form action="" method="POST" class="border rounded-4 bg-light p-5 pb-4 needs-validation" novalidate>
 
                     <!-- logo -->
                     <div class="row d-flex justify-content-center align-items-center">
@@ -87,14 +87,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
                     <div class="row mb-4">
-                        <!-- username -->
-                        <div class="col-6 mb-2">
-                            <label for="reg-uname" class="form-label small-font">Username</label>
-                            <input type="text" class="fs-6 form-control rounded-3" id="reg-uname" name="username" placeholder="">
-                        </div>
-
+                        
                         <!-- email -->
-                        <div class="col-6">
+                        <div class="col-4">
                             <label for="reg-email" class="form-label small-font">Email <span class="text-danger ms-1">*</span></label>
                             <input type="email" class="fs-6 form-control rounded-3" id="reg-email" name="email" placeholder="" required>
                             <div id="email-error" class="invalid-feedback">
@@ -107,12 +102,18 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
 
                         <!-- number -->
-                        <div class="col-6">
+                        <div class="col-4">
                             <label for="reg-contact_num" class="form-label small-font">Contact Number <span class="text-danger ms-1">*</span></label>
                             <input type="tel" class="fs-6 form-control rounded-3" id="reg-contact_num" name="contact_num" placeholder="" required>
                             <div id="contact_num-error" class="invalid-feedback">
                                 Please enter your contact number.
                             </div>
+                        </div>
+
+                        <!-- username -->
+                        <div class="col-4 mb-2">
+                            <label for="reg-uname" class="form-label small-font">Username</label>
+                            <input type="text" class="fs-6 form-control rounded-3" id="reg-uname" name="username" placeholder="">
                         </div>
                     </div>
 
@@ -140,22 +141,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
 
+                    <div class="row mb-4">
 
-                    <!-- affiliation -->
-                    <div class="row mb-2">
-                        <div class="col-6">
+                        <!-- affiliation -->
+                        <div class="col-4">
                             <label for="reg-affiliation" class="form-label small-font">Affiliation <span class="text-danger ms-1">*</span></label>
                             <input type="text" class="fs-6 form-control rounded-3" id="reg-affiliation" name="affiliation" placeholder="" required>
                             <div class="invalid-feedback">
                                 Please provide affiliation.
                             </div>
                         </div>
-                    </div>
 
-                    <div class="row mb-4">
                         <!-- affiliation email -->
-                        <div class="col-6">
-                            <label for="reg-affiliation_email" class="form-label small-font">Organization Email</label>
+                        <div class="col-4">
+                            <label for="reg-affiliation_email" class="form-label small-font">Email of Affiliated Organization</label>
                             <input type="email" class="fs-6 form-control rounded-3" id="reg-affiliation_email" name="affiliated_email" placeholder="">
                             <div class="invalid-feedback">
                                 Please provide email of affiliated organization.
@@ -163,8 +162,8 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
 
                         <!-- affiliation contact number -->
-                        <div class="col-6">
-                            <label for="reg-affiliation_contactNum" class="form-label small-font">Organization Contact</label>
+                        <div class="col-4">
+                            <label for="reg-affiliation_contactNum" class="form-label small-font">Contanct Number of Affiliated Organization</label>
                             <input type="tel" class="fs-6 form-control rounded-3" id="reg-affiliation_contactNum" name="affiliated_contact_num" placeholder="">
                         </div>
                     </div>
@@ -187,7 +186,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <!-- visitor page -->
                     <div class="d-flex justify-content-center align-items-center small-font">
-                        Back to<a href="../visitor/home.php" class="ms-1"> Visitor's Page</a>
+                        Return to<a href="../visitor/home.php" class="ms-1"> Home Page</a>
                     </div>
                 </form>
             </div>
