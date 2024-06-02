@@ -76,64 +76,73 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
 
-                    <!-- gender -->
-                    <div class="form-floating mb-3">
-                        <select name="gender" id="reg-gender" class="fs-6 form-select rounded-4">
-                            <option value="" selected disabled hidden></option>
-                            <option value="Male">Male</option>
-                            <option value="Female">Female</option>
-                            <option value="Rather not say">Rather not say</option>
-                        </select>
-                        <label for="reg-gender" class="fs-6">Gender</label>
-                    </div>
-
-                    <!-- username -->
-                    <div class="form-floating mb-3">
-                        <input type="text" class="fs-6 form-control rounded-4" id="reg-uname" name="username" placeholder="Username">
-                        <label for="reg-uname" class="fs-6">Username</label>
-                    </div>
-
-                    <!-- email -->
-                    <div class="form-floating mb-3">
-                        <input type="email" class="fs-6 form-control rounded-4" id="reg-email" name="email" placeholder="Email" required>
-                        <label for="reg-email" class="fs-6">Email <span class="text-danger ms-1">*</span></label>
-                        <div id="email-error" class="invalid-feedback">
-                            Please enter your email.
+                    <!-- gender and username -->
+                    <div class="row d-flex justify-content-between mb-3">
+                        <!-- gender -->
+                        <div class="col-6 form-floating">
+                            <select name="gender" id="reg-gender" class="fs-6 form-select rounded-4">
+                                <option value="" selected disabled hidden></option>
+                                <option value="Male">Male</option>
+                                <option value="Female">Female</option>
+                                <option value="Rather not say">Rather not say</option>
+                            </select>
+                            <label for="reg-gender" class="fs-6 ms-3">Gender</label>
                         </div>
-                        <!-- Add this <div> for displaying password length error message -->
-                        <div id="email-exists-feedback" class="invalid-feedback">
-                            Email already exists.
+
+                        <!-- username -->
+                        <div class="col-6 form-floating">
+                            <input type="text" class="fs-6 form-control rounded-4" id="reg-uname" name="username" placeholder="Username">
+                            <label for="reg-uname" class="fs-6 ms-3">Username</label>
                         </div>
                     </div>
 
-                    <!-- contact_num -->
-                    <div class="form-floating mb-3">
-                        <input type="tel" class="fs-6 form-control rounded-4" id="reg-contact_num" name="contact_num" placeholder="Contact Number" required>
-                        <label for="reg-contact_num" class="fs-6">Contact Number <span class="text-danger ms-1">*</span></label>
-                        <div id="contact_num-error" class="invalid-feedback">
-                            Please enter your contact number.
+                    <!-- email and contact number -->
+                    <div class="row d-flex justify-content-between mb-3">
+                        <!-- email -->
+                        <div class="form-floating col-6">
+                            <input type="email" class="fs-6 form-control rounded-4" id="reg-email" name="email" placeholder="Email" required>
+                            <label for="reg-email" class="fs-6 ms-3">Email <span class="text-danger ms-1">*</span></label>
+                            <div id="email-error" class="invalid-feedback">
+                                Please enter your email.
+                            </div>
+                            <!-- Add this <div> for displaying password length error message -->
+                            <div id="email-exists-feedback" class="invalid-feedback">
+                                Email already exists.
+                            </div>
+                        </div>
+
+                        <!-- contact_num -->
+                        <div class="form-floating col-6">
+                            <input type="tel" class="fs-6 form-control rounded-4" id="reg-contact_num" name="contact_num" placeholder="Contact Number" required>
+                            <label for="reg-contact_num" class="fs-6 ms-3">Contact Number <span class="text-danger ms-1">*</span></label>
+                            <div id="contact_num-error" class="invalid-feedback">
+                                Please enter your contact number.
+                            </div>
                         </div>
                     </div>
 
-                    <!-- password -->
-                    <div class="form-floating mb-3">
-                        <input type="password" class="fs-6 form-control rounded-4" id="reg-pass" name="password" placeholder="Password" required>
-                        <label for="reg-pass" class="fs-6">Password <span class="text-danger ms-1">*</span></label>
-                        <div id="password-length-error" class="invalid-feedback">
-                            Please enter password.
+                    <!-- password and confirm password -->
+                    <div class="row d-flex justify-content-between mb-3">
+                        <!-- password -->
+                        <div class="form-floating col-6">
+                            <input type="password" class="fs-6 form-control rounded-4" id="reg-pass" name="password" placeholder="Password" required>
+                            <label for="reg-pass" class="fs-6 ms-3">Password <span class="text-danger ms-1">*</span></label>
+                            <div id="password-length-error" class="invalid-feedback">
+                                Please enter password.
+                            </div>
+                            <!-- Add this <div> for displaying password length error message -->
+                            <div id="password-length-length" class="invalid-feedback">
+                                Password must be at least 8 characters long.
+                            </div>
                         </div>
-                        <!-- Add this <div> for displaying password length error message -->
-                        <div id="password-length-length" class="invalid-feedback">
-                            Password must be at least 8 characters long.
-                        </div>
-                    </div>
 
-                    <!-- Confirm -->
-                    <div class="form-floating mb-3">
-                        <input type="password" class="fs-6 form-control rounded-4" id="reg-confirm" name="password2" placeholder="Confirm Password" required>
-                        <label for="reg-confirm" class="fs-6">Confirm Password <span class="text-danger ms-1">*</span></label>
-                        <div class="invalid-feedback">
-                            The password must match.
+                        <!-- Confirm -->
+                        <div class="form-floating col-6">
+                            <input type="password" class="fs-6 form-control rounded-4" id="reg-confirm" name="password2" placeholder="Confirm Password" required>
+                            <label for="reg-confirm" class="fs-6 ms-3">Confirm Password <span class="text-danger ms-1">*</span></label>
+                            <div class="invalid-feedback">
+                                The password must match.
+                            </div>
                         </div>
                     </div>
 
@@ -146,20 +155,23 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
 
-                    <!-- affiliation email -->
-                    <div class="form-floating mb-3">
-                        <input type="email" class="fs-6 form-control rounded-4" id="reg-affiliation_email" name="affiliated_email" placeholder="Affiliated Organizational Email">
-                        <label for="reg-affiliation_email" class="fs-6">Email of Affiliated Organization</label>
-                        <div class="invalid-feedback">
-                            Please provide email of affiliated organization.
+                    <div class="row d-flex justify-content-between mb-3">
+                        <!-- affiliation email -->
+                        <div class="form-floating col-6">
+                            <input type="email" class="fs-6 form-control rounded-4" id="reg-affiliation_email" name="affiliated_email" placeholder="Affiliated Organizational Email">
+                            <label for="reg-affiliation_email" class="fs-6 ms-3">Organization Email</label>
+                            <div class="invalid-feedback">
+                                Please provide email of affiliated organization.
+                            </div>
+                        </div>
+
+                        <!-- affiliation contact number -->
+                        <div class="form-floating col-6">
+                            <input type="tel" class="fs-6 form-control rounded-4" id="reg-affiliation_contactNum" name="affiliated_contact_num" placeholder="Affiliated Contact Number">
+                            <label for="reg-affiliation_contactNum" class="fs-6 ms-3">Organization Contact</label>
                         </div>
                     </div>
 
-                    <!-- affiliation contact number -->
-                    <div class="form-floating mb-3">
-                        <input type="tel" class="fs-6 form-control rounded-4" id="reg-affiliation_contactNum" name="affiliated_contact_num" placeholder="Affiliated Contact Number">
-                        <label for="reg-affiliation_contactNum" class="fs-6">Contact Number of Affiliated Organization</label>
-                    </div>
 
                     <!-- Signup btn -->
                     <div class="d-flex justify-content-center align-items-center my-3">
