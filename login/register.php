@@ -5,7 +5,6 @@ require('../functions/functions.php');
 $errors = array();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
-
     $errors = signup($_POST);
 
     if (count($errors) == 0) {
@@ -15,7 +14,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         exit();
     }
 }
-
 ?>
 <style>
     .error-mode .form-control.is-invalid,
@@ -34,7 +32,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 <head>
     <meta charset="utf-8">
     <meta name="viewport" content="width=device-width, initial-scale=1">
-    <title>Tavisar | Login</title>
+    <title>Travis | Register</title>
 
     <!-- ROBOTO -->
     <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -51,14 +49,13 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="../js/window.js"></script>
 </head>
 
-<body class="py-3">
+<body class="" style="overflow:hidden">
 
     <div class="container">
         <div class="row vh-100 d-flex justify-content-center align-items-center">
             <!-- form -->
             <div class="col-10">
                 <form action="" method="POST" class="border rounded-4 bg-light p-5 pb-4 needs-validation" novalidate>
-
                     <!-- logo -->
                     <div class="row d-flex justify-content-center align-items-center">
                         <img class="col-4" src="../img/travis.svg" alt="" srcset="">
@@ -98,7 +95,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
                     <div class="row mb-4">
-
                         <!-- email -->
                         <div class="col-4">
                             <label for="reg-email" class="form-label small-font">Email <span class="text-danger ms-1">*</span></label>
@@ -153,7 +149,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
                     <div class="row mb-4">
-
                         <!-- affiliation -->
                         <div class="col-4">
                             <label for="reg-affiliation" class="form-label small-font">Affiliation <span class="text-danger ms-1">*</span></label>
@@ -174,11 +169,10 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                         <!-- affiliation contact number -->
                         <div class="col-4">
-                            <label for="reg-affiliation_contactNum" class="form-label small-font">Contanct Number of Affiliated Organization</label>
+                            <label for="reg-affiliation_contactNum" class="form-label small-font">Contact Number of Affiliated Organization</label>
                             <input type="tel" class="fs-6 form-control rounded-3" id="reg-affiliation_contactNum" name="affiliated_contact_num" placeholder="">
                         </div>
                     </div>
-
 
                     <!-- Signup btn -->
                     <div class="row d-flex justify-content-center align-items-center my-3">
@@ -281,7 +275,6 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         });
     })();
 </script>
-
 
 <!-- for making user that the contact number is only number and limited to 11 -->
 <script>
