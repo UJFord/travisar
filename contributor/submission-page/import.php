@@ -93,12 +93,12 @@
 <!-- SCRIPT -->
 <script>
     // keep the modal on
-    window.onload = function() {
-        const dataModal = new bootstrap.Modal(document.getElementById('import-item-modal'), {
-            keyboard: false
-        });
-        dataModal.show();
-    };
+    // window.onload = function() {
+    //     const dataModal = new bootstrap.Modal(document.getElementById('import-item-modal'), {
+    //         keyboard: false
+    //     });
+    //     dataModal.show();
+    // };
 
     $(document).ready(function() {
         // Set initial crop-chosen text
