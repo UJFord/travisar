@@ -49,7 +49,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="../js/window.js"></script>
 </head>
 
-<body class="" style="overflow:hidden">
+<body class="">
 
     <div class="container">
         <div class="row vh-100 d-flex justify-content-center align-items-center">
