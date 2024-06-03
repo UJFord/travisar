@@ -41,7 +41,7 @@
                                     while ($row = pg_fetch_array($query_run)) {
                                 ?>
                                         <div class="form-check col-4">
-                                            <input class="form-check-input radio-input" type="radio" name="category_id" value="<?= htmlspecialchars($row['category_name'], ENT_QUOTES, 'UTF-8') ?>" id="category_id<?= $row['category_id'] ?>">
+                                            <input class="form-check-input radio-input" type="radio" name="category_name" value="<?= htmlspecialchars($row['category_name'], ENT_QUOTES, 'UTF-8') ?>" id="category_id<?= $row['category_id'] ?>">
                                             <label class="form-check-label radio-label" for="category_id<?= $row['category_id'] ?>">
                                                 <?= htmlspecialchars($row['category_name'], ENT_QUOTES, 'UTF-8') ?>
                                             </label>

@@ -5,11 +5,11 @@ require "../../../functions/connections.php";
 if ($_FILES['file']['error'] === UPLOAD_ERR_OK) {
     // Get the file path
     $file_tmp = $_FILES['file']['tmp_name'];
-    $category_id = $_POST['category_id'];
+    $category_name = $_POST['category_name'];
 
     // get category_name
-    $get_categoryName = "SELECT category_name from category where category_id = $1";
-    $query_run_categoryName = pg_query_params($conn, $get_categoryName, array($category_id));
+    $get_categoryName = "SELECT category_name FROM category WHERE category_name ILIKE $1";
+    $query_run_categoryName = pg_query_params($conn, $get_categoryName, array($category_name));
 
     if ($query_run_categoryName) {
         $row_categoryName = pg_fetch_assoc(($query_run_categoryName));

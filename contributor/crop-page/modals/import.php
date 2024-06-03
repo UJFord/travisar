@@ -28,42 +28,37 @@
                 <div class="modal-body">
 
                     <!-- category filter -->
-                    <div class="container">
-
-                        <div class="mb-3">
-                            <h4 class="mb-3 fw-bold">Step 1</h4>
-                            <h6 class="fw-bold">Download the template</h6>
-                            <ul>
-                                <li><a href="../../visitor/help/corn.csv">Corn Template</a></li>
-                                <li><a href="../../visitor/help/rice.csv">Rice Template</a></li>
-                                <li><a href="../../visitor/help/rootCrop.csv">Root Crop Template</a></li>
-                            </ul>
-                        </div>
-
-                        <h4 class=" mb-3 fw-bold">Step 2</h4>
+                    <div class="row">
                         <!-- category filter -->
-                        <h6 class=" mb-3 fw-bold">Select Category <span class="text-danger ms-1">*</span></h6>
-                        <div class="row mb-3 px-3">
-                            <?php
-                            $query = "SELECT * FROM category order by category_name ASC";
-                            $query_run = pg_query($conn, $query);
+                        <div class="row">
+                            <h6 class="mb-3 fw-bold">Select Category</h6>
+                            <div class="row mb-3 px-4">
+                                <?php
+                                $query = "SELECT * FROM category ORDER BY category_name ASC";
+                                $query_run = pg_query($conn, $query);
 
-                            if ($query_run) {
-                                while ($row = pg_fetch_array($query_run)) {
-                            ?>
-                                    <!-- crops filters -->
-                                    <div class="form-check col-4">
-                                        <input class="form-check-input" type="radio" name="category_id" value="<?= $row['category_id'] ?>" id="category_id<?= $row['category_id'] ?>">
-                                        <label class="form-check-label" for="category_id<?= $row['category_id'] ?>">
-                                            <?= $row['category_name'] ?>
-                                        </label>
-                                    </div>
-                            <?php
+                                if ($query_run) {
+                                    while ($row = pg_fetch_array($query_run)) {
+                                ?>
+                                        <div class="form-check col-4">
+                                            <input class="form-check-input radio-input" type="radio" name="category_name" value="<?= htmlspecialchars($row['category_name'], ENT_QUOTES, 'UTF-8') ?>" id="category_id<?= $row['category_id'] ?>">
+                                            <label class="form-check-label radio-label" for="category_id<?= $row['category_id'] ?>">
+                                                <?= htmlspecialchars($row['category_name'], ENT_QUOTES, 'UTF-8') ?>
+                                            </label>
+                                        </div>
+                                <?php
+                                    }
+                                } else {
+                                    echo "No category found";
                                 }
-                            } else {
-                                echo "No category found";
-                            }
-                            ?>
+                                ?>
+                            </div>
+                            <div id="template-info" class="row ms-1 mb-3" style="display: none;">
+                                <p class="small-font col-12 m-0 mb-1 p-0"><span class="crop-chosen">Corn</span> template downloadable below</p>
+                                <a id="dl-link" href="" class="col-6 btn btn-primary">
+                                    <span class="crop-chosen">Corn</span> template<i class="ms-1 fa-solid fa-download"></i>
+                                </a>
+                            </div>
                         </div>
 
                         <!-- file input -->
@@ -95,12 +90,72 @@
 </div>
 
 <!-- SCRIPT -->
-<!-- <script>
+<script>
     // keep the modal on
-    window.onload = function() {
-        const dataModal = new bootstrap.Modal(document.getElementById('import-item-modal'), {
-            keyboard: false
+    // window.onload = function() {
+    //     const dataModal = new bootstrap.Modal(document.getElementById('import-item-modal'), {
+    //         keyboard: false
+    //     });
+    //     dataModal.show();
+    // };
+
+    $(document).ready(function() {
+        // Set initial crop-chosen text
+        $('.crop-chosen').text('Select a category');
+
+        // Handle radio button change to update crop
+        $('.radio-input').change(function(event) {
+            // Get category name from the label text
+            var categoryName = $(this).closest('.radio-label').text();
+            $('.crop-chosen').text(categoryName);
+            $('#template-info').show(); // Always show template after update
+            // console.log(categoryName)
         });
-        dataModal.show();
-    };
-</script> -->
+
+        // Prevent label click from triggering change
+        $('.radio-label').click(function(event) {
+            event.preventDefault();
+        });
+
+        // Hide #template-info initially
+        $('#template-info').hide();
+
+        // Ensure #template-info visibility on page load based on checked radio button
+        if ($('.radio-input:checked').length > 0) {
+            var selectedCrop = $('.radio-input:checked').val();
+            $('.crop-chosen').text(selectedCrop);
+            $('#template-info').show();
+            changeLink(selectedCrop);
+        }
+
+        // Handle the radio button change event
+        $('.radio-input').change(function() {
+            if ($('.radio-input:checked').length) {
+                var selectedCrop = $('.radio-input:checked').val();
+                $('.crop-chosen').text(selectedCrop);
+                $('#template-info').show();
+                changeLink(selectedCrop);
+            } else {
+                $('#template-info').hide();
+            }
+        });
+
+        function changeLink(categ) {
+
+            var link = ''
+            switch (categ) {
+                case 'Corn':
+                    link = '../../visitor/help/corn.csv'
+                    break;
+                case 'Rice':
+                    link = '../../visitor/help/rice.csv'
+                    break;
+                case 'Root Crop':
+                    link = '../../visitor/help/rootCrop.csv'
+            }
+
+            $('#dl-link').attr('href', link);
+            console.log($('#dl-link').attr)
+        }
+    });
+</script>
