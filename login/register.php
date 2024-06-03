@@ -17,6 +17,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 }
 
 ?>
+<style>
+    .error-mode .form-control.is-invalid,
+    .error-mode .was-validated .form-control:invalid {
+        border-color: var(--bs-form-invalid-border-color) !important;
+        padding-right: calc(1.5em + .75rem) !important;
+        background-image: url('data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 12 12\' width=\'12\' height=\'12\' fill=\'none\' stroke=\'%23dc3545\'%3e%3ccircle cx=\'6\' cy=\'6\' r=\'4.5\'/%3e%3cpath stroke-linejoin=\'round\' d=\'M5.8 3.6h.4L6 6.5z\'/%3e%3ccircle cx=\'6\' cy=\'8.2\' r=\'.6\' fill=\'%23dc3545\' stroke=\'none\'/%3e%3c/svg%3e') !important;
+        background-repeat: no-repeat !important;
+        background-position: right calc(.375em + .1875rem) center !important;
+        background-size: calc(.75em + .375rem) calc(.75em + .375rem) !important;
+    }
+</style>
 <!doctype html>
 <html lang="en">
 
@@ -87,7 +98,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     </div>
 
                     <div class="row mb-4">
-                        
+
                         <!-- email -->
                         <div class="col-4">
                             <label for="reg-email" class="form-label small-font">Email <span class="text-danger ms-1">*</span></label>
@@ -220,16 +231,21 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 if (form.checkValidity() && form.querySelector('#reg-pass').value !== form.querySelector('#reg-confirm').value) {
                     form.querySelector('#reg-confirm').classList.add('is-invalid');
                     isValid = false;
+                } else {
+                    form.querySelector('#reg-confirm').classList.remove('is-invalid');
                 }
 
                 // Add custom validation for password length
                 if (form.checkValidity() && form.querySelector('#reg-pass').value.length < 8) {
                     form.querySelector('#reg-pass').classList.add('is-invalid');
-                    document.getElementById('password-length-error').style.display = 'block'; // Display the error message
+                    document.getElementById('password-length-error').style.display = 'none'; // Display the error message
                     document.getElementById('password-length-length').style.display = 'block'; // Display the length message
                     isValid = false;
+                    document.body.classList.add('error-mode');
                 } else {
+                    form.querySelector('#reg-pass').classList.remove('is-invalid');
                     document.getElementById('password-length-length').style.display = 'none'; // Hide the length message if password length is valid
+                    document.getElementById('password-length-error').style.display = 'none'; // Display the error message
                 }
 
                 // Check if email already exists in the database
@@ -250,6 +266,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     document.getElementById('email-exists-feedback').style.display = 'block'; // Display the error message
                     document.getElementById('email-error').style.display = 'none'; // Display the error message
                     isValid = false;
+                    document.body.classList.add('error-mode');
                 } else {
                     form.querySelector('#reg-email').classList.remove('is-invalid');
                     document.getElementById('email-exists-feedback').style.display = 'none'; // Hide the error message if email doesn't exist
