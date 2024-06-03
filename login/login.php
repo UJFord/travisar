@@ -14,6 +14,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     }
 }
 ?>
+<style>
+    .error-mode .form-control.is-invalid,
+    .error-mode .was-validated .form-control:invalid {
+        border-color: var(--bs-form-invalid-border-color) !important;
+        padding-right: calc(1.5em + .75rem) !important;
+        background-image: url('data:image/svg+xml,%3csvg xmlns=\'http://www.w3.org/2000/svg\' viewBox=\'0 0 12 12\' width=\'12\' height=\'12\' fill=\'none\' stroke=\'%23dc3545\'%3e%3ccircle cx=\'6\' cy=\'6\' r=\'4.5\'/%3e%3cpath stroke-linejoin=\'round\' d=\'M5.8 3.6h.4L6 6.5z\'/%3e%3ccircle cx=\'6\' cy=\'8.2\' r=\'.6\' fill=\'%23dc3545\' stroke=\'none\'/%3e%3c/svg%3e') !important;
+        background-repeat: no-repeat !important;
+        background-position: right calc(.375em + .1875rem) center !important;
+        background-size: calc(.75em + .375rem) calc(.75em + .375rem) !important;
+    }
+</style>
 <!doctype html>
 <html lang="en">
 
@@ -82,7 +93,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
 
                     <!-- login btn -->
                     <div class="d-flex justify-content-center align-items-center my-3">
-                        <button class="btn btn-success rounded-4 fw-bold w-100 py-3" type="submit" name="submit" value="login">Login</button>
+                        <button class="btn btn-success rounded-4 fw-bold w-100 py-3" type="submit" name="login-submit" value="login">Login</button>
                     </div>
                     <!-- sign up -->
                     <div class="d-flex justify-content-center align-items-center my-3">
@@ -110,9 +121,12 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Loop over them and prevent submission
         Array.from(forms).forEach(form => {
             form.addEventListener('submit', async event => { // Make the function async
+                event.preventDefault()
+                event.stopPropagation()
+
                 if (!form.checkValidity()) {
-                    event.preventDefault()
-                    event.stopPropagation()
+                    form.classList.add('was-validated')
+                    return;
                 }
                 // Check if email already exists in the database
                 const email = form.querySelector('#login-email').value;
@@ -131,18 +145,19 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                 //console.log('Response:', response);
                 const data = await response.json();
 
-                if (data.exists && data.exists === true) {
-                    event.preventDefault();
-                    event.stopPropagation();
-                    form.querySelector('#login-email').classList.add('is-invalid');
-                    form.querySelector('#login-password').classList.add('is-invalid');
-                    document.getElementById('email-exists-feedback').style.display = 'block'; // Display the error message
-                    document.getElementById('email-error').style.display = 'none'; // Hide the error message if email doesn't exist
-                    document.getElementById('pass-error').style.display = 'none'; // Hide the error message if email doesn't exist
-                } else {
+                if (data.exists) {
                     form.querySelector('#login-email').classList.remove('is-invalid');
                     form.querySelector('#login-password').classList.remove('is-invalid');
-                    document.getElementById('email-exists-feedback').style.display = 'none'; // Hide the error message if email exists
+                    document.getElementById('email-exists-feedback').style.display = 'none';
+
+                    form.submit();
+                } else {
+                    form.querySelector('#login-email').classList.add('is-invalid');
+                    form.querySelector('#login-password').classList.add('is-invalid');
+                    document.getElementById('email-exists-feedback').style.display = 'block';
+                    document.getElementById('email-error').style.display = 'none';
+                    document.getElementById('pass-error').style.display = 'none';
+                    document.body.classList.add('error-mode');
                 }
 
                 form.classList.add('was-validated')
