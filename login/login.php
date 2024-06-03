@@ -6,17 +6,12 @@ require('../functions/connections.php');
 $errors = array();
 
 if ($_SERVER['REQUEST_METHOD'] == 'POST') {
+
     $errors = login($_POST);
     if (count($errors) == 0) {
         header("location: ../visitor/home.php");
         die();
-        //echo json_encode(array('exists' => true));
-    } else {
-        //echo json_encode(array('exists' => false, 'errors' => $errors));
     }
-} else {
-    //http_response_code(400);
-    //echo json_encode(array('error' => 'Invalid request'));
 }
 ?>
 <style>
@@ -53,14 +48,17 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <script src="../js/window.js"></script>
 </head>
 
-<body>
+<body class="">
+
     <div class="container">
         <div class="row vh-100 d-flex justify-content-center align-items-center">
             <?php
             include "../functions/message.php";
             ?>
+            <!-- form -->
             <div class="col-4">
                 <form method="POST" class="border rounded-4 bg-light py-5 px-5 needs-validation" novalidate>
+
                     <!-- logo -->
                     <div class="row d-flex justify-content-center align-items-center">
                         <img class="col-6" src="../img/travis.svg" alt="" srcset="">
@@ -71,10 +69,11 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         <h3 class="text-center">Login</h3>
                     </div>
 
-                    <div id="email-exists-feedback" class="alert alert-danger rounded-4 invalid-feedback" role="alert" style="display: none;">
+                    <div id="email-exists-feedback" class="alert alert-danger rounded-4 invalid-feedback" role="alert">
                         Email or password does not exist.
                     </div>
 
+                    <!-- email -->
                     <div class="form-floating mb-3">
                         <input type="email" name="email" class="fs-6 form-control rounded-4" id="login-email" placeholder="name@example.com" required>
                         <label for="login-email" class="fs-6">Email</label>
@@ -83,6 +82,7 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
 
+                    <!-- password -->
                     <div class="form-floating">
                         <input type="password" name="password" class="fs-6 form-control rounded-4" id="login-password" placeholder="Password" required>
                         <label for="login-password" class="fs-6">Password</label>
@@ -91,14 +91,16 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                         </div>
                     </div>
 
+                    <!-- login btn -->
                     <div class="d-flex justify-content-center align-items-center my-3">
-                        <button class="btn btn-success rounded-4 fw-bold w-100 py-3" type="submit" name="submit" value="login">Login</button>
+                        <button class="btn btn-success rounded-4 fw-bold w-100 py-3" type="submit" name="login-submit" value="login">Login</button>
                     </div>
-
+                    <!-- sign up -->
                     <div class="d-flex justify-content-center align-items-center my-3">
                         Be a Contributor.<a href="register.php" class="ms-1"> Sign Up!</a>
                     </div>
 
+                    <!-- visitor page -->
                     <div class="d-flex justify-content-center align-items-center">
                         Back to<a href="../visitor/home.php" class="ms-1"> Visitor's Page</a>
                     </div>
@@ -106,38 +108,41 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
             </div>
         </div>
     </div>
-
     <!-- BOOTSTRAP -->
     <script src="https://cdn.jsdelivr.net/npm/bootstrap@5.3.3/dist/js/bootstrap.bundle.min.js" integrity="sha384-YvpcrYf0tY3lHB60NNkmXc5s9fDVZLESaAA55NDzOxhy9GkcIdslK1eN7N6jIeHz" crossorigin="anonymous"></script>
+</body>
+<script>
+    (() => {
+        'use strict'
 
-    <script>
-        (() => {
-            'use strict';
+        // Fetch all the forms we want to apply custom Bootstrap validation styles to
+        const forms = document.querySelectorAll('.needs-validation')
 
-            const forms = document.querySelectorAll('.needs-validation');
-
-            const handleSubmit = async event => {
-                event.preventDefault();
-                event.stopPropagation();
-
-                const form = event.target;
+        // Loop over them and prevent submission
+        Array.from(forms).forEach(form => {
+            form.addEventListener('submit', async event => { // Make the function async
+                event.preventDefault()
+                event.stopPropagation()
 
                 if (!form.checkValidity()) {
-                    form.classList.add('was-validated');
+                    form.classList.add('was-validated')
                     return;
                 }
-
+                // Check if email already exists in the database
                 const email = form.querySelector('#login-email').value;
                 const password = form.querySelector('#login-password').value;
                 const formData = new FormData();
-                formData.append('email', email);
-                formData.append('password', password);
+                formData.append('email', email); // Append email
+                formData.append('password', password); // Append password
+
+                // console.log('FormData:', formData); // Log the FormData object
 
                 const response = await fetch('fetch/check_login.php', {
                     method: 'POST',
                     body: formData
                 });
-
+                //const responseText = await response.text();
+                //console.log('Response:', response);
                 const data = await response.json();
 
                 if (data.exists) {
@@ -145,26 +150,20 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
                     form.querySelector('#login-password').classList.remove('is-invalid');
                     document.getElementById('email-exists-feedback').style.display = 'none';
 
-                    // This submits the form after the async check
-                    form.removeEventListener('submit', handleSubmit);
+                    form.submit();
                 } else {
                     form.querySelector('#login-email').classList.add('is-invalid');
                     form.querySelector('#login-password').classList.add('is-invalid');
                     document.getElementById('email-exists-feedback').style.display = 'block';
-                    document.getElementById('email-error').style.display = 'none'; // Hide the error message if email doesn't exist
-                    document.getElementById('pass-error').style.display = 'none'; // Hide the error message if email doesn't exist
-                    // Add class to apply invalid styles
+                    document.getElementById('email-error').style.display = 'none';
+                    document.getElementById('pass-error').style.display = 'none';
                     document.body.classList.add('error-mode');
                 }
 
-                form.classList.add('was-validated');
-            };
-
-            Array.from(forms).forEach(form => {
-                form.addEventListener('submit', handleSubmit, false);
-            });
-        })();
-    </script>
-</body>
+                form.classList.add('was-validated')
+            }, false)
+        })
+    })()
+</script>
 
 </html>
