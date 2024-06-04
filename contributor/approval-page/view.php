@@ -681,8 +681,12 @@
 
         // to show which button should show on the confirm modal
         document.getElementById('confirmRejectBtn').style.display = 'block';
+        document.getElementById('confirmResubmitBtn').style.display = 'none';
+
         // to show which label should show on the confirm modal
         document.getElementById('reject-label').style.display = 'block';
+        document.getElementById('resubmit-label').style.display = 'none';
+
     }
 
 

@@ -203,7 +203,7 @@ if (isset($_POST['click_edit_btn'])) {
     if ($result) {
         echo $_SESSION['message'] = "User edited.";
         echo 'saved';
-        header("location: ../partners.php");
+        //header("location: ../partners.php");
         exit; // Ensure that the script stops executing after the redirect header
     } else {
 

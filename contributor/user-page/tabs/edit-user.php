@@ -73,7 +73,7 @@
 
                                 <!-- affiliated org Email -->
                                 <div class="col">
-                                    <label for="affiliated_company_EmailEdit" class="form-label small-font">Email of Affiliated Organization<span class="text-danger ms-1">*</span></label>
+                                    <label for="affiliated_company_EmailEdit" class="form-label small-font">Email of Affiliated Organization</label>
                                     <input type="text" id="affiliated_company_EmailEdit" name="affiliated_emailEdit" class="form-control">
                                     <div id="error-messages-affiliatedEmail"></div>
                                 </div>

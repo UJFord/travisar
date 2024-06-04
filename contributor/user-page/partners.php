@@ -74,8 +74,8 @@ require "../../functions/functions.php";
     <!-- to Capitalized all first letter in all inputs and textarea -->
     <script>
         $(document).ready(function() {
-            // Capitalize the initial values of input fields
-            $("input[type='text'], textarea").each(function() {
+            // Capitalize the initial values of input fields except the email field
+            $("input[type='text']:not(#Email), textarea").each(function() {
                 var currentValue = $(this).val();
                 if (currentValue.length > 0) {
                     var modifiedValue = currentValue.charAt(0).toUpperCase() + currentValue.slice(1);
@@ -83,8 +83,8 @@ require "../../functions/functions.php";
                 }
             });
 
-            // Update the value as the user types
-            $("input[type='text'], textarea").on('input', function() {
+            // Update the value as the user types, excluding the email field
+            $("input[type='text']:not(#Email), textarea").on('input', function() {
                 var start = this.selectionStart,
                     end = this.selectionEnd;
                 var newValue = $(this).val();
