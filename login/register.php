@@ -47,6 +47,9 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
     <link rel="stylesheet" href="css/login.css">
     <!-- script for the window alert -->
     <script src="../js/window.js"></script>
+    <!-- jquery -->
+    <script src="https://code.jquery.com/jquery-3.7.1.js" integrity="sha256-eKhayi8LEQwp4NKxN+CfCh+3qOVUtJn3QNZ0TciWLP4=" crossorigin="anonymous"></script>
+
 </head>
 
 <body class="">
@@ -296,6 +299,31 @@ if ($_SERVER['REQUEST_METHOD'] == 'POST') {
         // Add spaces after the 4th and 7th digits
         value = value.replace(/(\d{4})(\d{3})(\d{0,4})/, '$1 $2 $3').trim();
         e.target.value = value;
+    });
+</script>
+
+<script>
+    $(document).ready(function() {
+        // Capitalize the initial values of input fields except the email field
+        $("input[type='text']:not(#Email), textarea").each(function() {
+            var currentValue = $(this).val();
+            if (currentValue.length > 0) {
+                var modifiedValue = currentValue.charAt(0).toUpperCase() + currentValue.slice(1);
+                $(this).val(modifiedValue);
+            }
+        });
+
+        // Update the value as the user types, excluding the email field
+        $("input[type='text']:not(#Email), textarea").on('input', function() {
+            var start = this.selectionStart,
+                end = this.selectionEnd;
+            var newValue = $(this).val();
+            if (newValue.length > 0) {
+                newValue = newValue.charAt(0).toUpperCase() + newValue.slice(1);
+            }
+            $(this).val(newValue);
+            this.setSelectionRange(start, end);
+        });
     });
 </script>
 

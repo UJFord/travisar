@@ -35,10 +35,15 @@
                                     <label for="last-NameEdit" class="form-label small-font">Last Name<span style="color: red;">*</span></label>
                                     <input type="text" id="last-NameEdit" name="last_nameEdit" class="form-control">
                                 </div>
+
                                 <!-- Gender -->
                                 <div class="col">
                                     <label for="GenderEdit" class="form-label small-font">Gender</label>
-                                    <input type="text" id="GenderEdit" name="genderEdit" class="form-control">
+                                    <select name="genderEdit" id="GenderEdit" class="form-select">
+                                        <option value="" selected disabled hidden>Select an option</option>
+                                        <option value="Male">Male</option>
+                                        <option value="Female">Female</option>
+                                    </select>
                                 </div>
                             </div>
 

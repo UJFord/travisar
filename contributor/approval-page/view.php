@@ -191,6 +191,7 @@
                             // show update button
                             $('.updateButton').hide();
                             $('#rejectButton').hide();
+                            $('#resubmitButton-View').hide();
                         }
 
                         if (value['crop_seed_image'] != null && value['crop_seed_image'] != '') {

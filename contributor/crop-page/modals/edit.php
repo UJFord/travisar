@@ -67,10 +67,11 @@
 
                 <!-- footer -->
                 <div class="modal-footer d-flex justify-content-end">
-                    <button type="button" id="deleteButton" class="btn btn-danger" data-id="delete">Delete</i></button>
+
+                    <button type="button" id="deleteButton" class="btn btn-danger admin-only" data-id="delete">Delete</i></button>
                     <div class="">
                         <button type="button" id="cancel-modal-btn-edit" class="btn border bg-light">Cancel</button>
-                        <button type="submit" id="editButton" name="edit" class="btn btn-success">Save</button>
+                        <button type="submit" id="editButton" name="edit" class="btn btn-success admin-only">Save</button>
                     </div>
                 </div>
             </form>
@@ -217,8 +218,16 @@
                         // Fetch the old image and pass it to the fetchOldImage function
                         fetchOldImageRepro(value.crop_reproductive_image);
 
-                        if (value['action'] === 'Pending' || value['action'] === 'Updating' || value['action'] === 'Rejected') {
+                        if (value['action'] === 'Pending' || value['action'] === 'Updating') {
                             $('#edit-label').text("View");
+                            $('input, textarea, select').prop('readonly', true);
+                            $('select').prop('disabled', true); // For select elements, 'readonly' is not a valid property, so we use 'disabled'
+                            $('input[type="file"]').prop('disabled', true); // Disable file input elements
+                            $('input[type="checkbox"]').prop('disabled', true);
+                            $('input[type="radio"]').prop('disabled', true);
+                        } else if (value['action'] === 'Rejected') {
+                            $('#edit-label').text("View");
+                            $('#editButton').hide();
                             $('input, textarea, select').prop('readonly', true);
                             $('select').prop('disabled', true); // For select elements, 'readonly' is not a valid property, so we use 'disabled'
                             $('input[type="file"]').prop('disabled', true); // Disable file input elements

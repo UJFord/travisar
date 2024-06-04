@@ -99,7 +99,7 @@
                         $query_user = "SELECT * FROM users WHERE user_id = $1";
                         $query_run_user = pg_query_params($conn, $query_user, array($row['user_id']));
                 ?>
-                        <tr data-id="<?= $row['crop_id']; ?>" class="rowlink view_data admin-only" href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">
+                        <tr data-id="<?= $row['crop_id']; ?>" class="rowlink view_data curator-only" href="#" data-bs-toggle="modal" data-bs-target="#view-item-modal">
                             <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
                             <!-- hidden id for location to be used for filter function for location to be found -->
                             <input type="hidden" name="municipality_id" value="<?= $row['municipality_id']; ?>">
@@ -177,9 +177,9 @@
                                     <!-- <ul class="dropdown-menu">
                                         <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye text-center" style="width: 20px;"></i> View</a></li>
                                         <li>
-                                            <a class="dropdown-item edit_data admin-only" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1 admin-only" style="width: 20px;"></i>Edit</a>
+                                            <a class="dropdown-item edit_data curator-only" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1 curator-only" style="width: 20px;"></i>Edit</a>
                                         </li>
-                                        <li><a class="dropdown-item admin-only" href="#"><i class="fa-solid fa-trash text-danger text-center me-1 admin-only" style="width: 20px;"></i>Delete</a></li>
+                                        <li><a class="dropdown-item curator-only" href="#"><i class="fa-solid fa-trash text-danger text-center me-1 curator-only" style="width: 20px;"></i>Delete</a></li>
                                     </ul> -->
                                 </div>
                             </td>

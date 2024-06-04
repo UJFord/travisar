@@ -272,7 +272,7 @@
                                         <?php if ($row['action'] === 'Approved' || $row['action'] === 'Rejected') : ?>
                                             <li>
                                                 <?php
-                                                if ($row['action'] === 'Pending' || $row['action'] === 'Updating' || $row['action'] === 'Rejected') {
+                                                if ($row['action'] === 'Updating' || $row['action'] === 'Rejected') {
                                                 ?>
                                                     <a class="dropdown-item edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1" style="width: 20px;"></i>View</a>
                                                 <?php
@@ -289,7 +289,20 @@
                                                 <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
                                                 <input type="hidden" name="delete_row" value="1">
                                                 <button class="dropdown-item admin-only" type="submit" name="delete_row" id="deleteRow">
-                                                    <i class="fa-solid fa-trash text-danger text-center me-1 admin-only" style="width: 20px;"></i>Delete
+                                                    <?php
+                                                    if ($row['action'] === 'Updating' || $row['action'] === 'Rejected') {
+                                                    ?>
+                                                        <a class="dropdown-item edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1" style="width: 20px;"></i>View</a>
+                                                    <?php
+                                                    } else if ($row['action'] === 'Pending') {
+                                                    ?>
+                                                    <?php
+                                                    } else {
+                                                    ?>
+                                                        <i class="fa-solid fa-trash text-danger text-center me-1 admin-only" style="width: 20px;"></i>Delete
+                                                    <?php
+                                                    }
+                                                    ?>
                                                 </button>
                                             </form>
                                         </li>

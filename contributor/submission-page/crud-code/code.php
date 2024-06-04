@@ -1289,7 +1289,7 @@ if (isset($_POST['edit']) && $_SESSION['rank'] == 'Contributor') {
             }
 
             //insert into status table
-            $query_Status = "UPDATE status set action = 'Pending', remarks = '' where status_id = $1";
+            $query_Status = "UPDATE status set action = 'Pending' where status_id = $1";
 
             $value_Status = array($status_id);
             $query_run_Status = pg_query_params($conn, $query_Status, $value_Status);
