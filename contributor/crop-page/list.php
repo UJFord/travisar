@@ -290,7 +290,7 @@
                                                 <input type="hidden" name="delete_row" value="1">
                                                 <button class="dropdown-item admin-only" type="submit" name="delete_row" id="deleteRow">
                                                     <?php
-                                                    if ($row['action'] === 'Updating' || $row['action'] === 'Rejected') {
+                                                    if ($row['action'] === 'Updating') {
                                                     ?>
                                                         <a class="dropdown-item edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1" style="width: 20px;"></i>View</a>
                                                     <?php

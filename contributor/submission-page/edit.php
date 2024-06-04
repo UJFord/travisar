@@ -233,6 +233,14 @@
                             $('input[type="radio"]').prop('disabled', true);
                         } else {
                             $('#edit-label').text("Edit");
+                            $('#editButton').show();
+                            $('#add-ref').show();
+                            $('input, textarea, select').prop('readonly', false);
+                            $('select').prop('disabled', false); // For select elements, 'readonly' is not a valid property, so we use 'disabled'
+                            $('input[type="file"]').prop('disabled', false); // Disable file input elements
+                            $('input[type="checkbox"]').prop('disabled', false);
+                            $('input[type="radio"]').prop('disabled', false);
+
                         }
 
                         // Fetch the old image and pass it to the fetchOldImage function
