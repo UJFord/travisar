@@ -27,13 +27,13 @@
                             <div class="row mb-3 location-brgy">
                                 <!-- first name -->
                                 <div class="col-5">
-                                    <label for="first_nameView" class="form-label small-font"><strong>First Name:</strong></label>
+                                    <label for="first_nameView" class="form-label"><strong>First Name:</strong></label>
                                     <h6 id="first_nameView"></h6>
                                 </div>
 
                                 <!-- last name -->
                                 <div class="col-5">
-                                    <label for="last_nameView" class="form-label small-font"><strong>Last Name:</strong></label>
+                                    <label for="last_nameView" class="form-label"><strong>Last Name:</strong></label>
                                     <h6 id="last_nameView"></h6>
                                 </div>
                             </div>

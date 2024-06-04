@@ -100,7 +100,7 @@ if (isset($_POST['approve'])) {
             $insert_runNotif = pg_query_params($conn, $insert_queryNotif, array($notification_name, $message, $active, $user_id));
 
             if ($insert_runNotif) {
-                $message = "Thank you for creating an account. Your account is now verified.";
+                $message = "Welcome to TRAVIS!\n\nThank you for creating an account. Your account is now verified.";
                 $subject = "Email verification";
                 $recipient = $email;
 

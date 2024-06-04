@@ -101,14 +101,23 @@
     function closeModalEdit() {
         // Get the modal element
         var confirmModal = document.getElementById('confirmModalEdit');
+        var form = document.getElementById('form-panel-edit');
 
         // Create a new Bootstrap modal instance if it doesn't exist
         if (!confirmModalInstanceEdit) {
             confirmModalInstanceEdit = new bootstrap.Modal(confirmModal);
         }
 
+        form.reset();
+
         // Show the confirmation modal
         confirmModalInstanceEdit.show();
+        // Enabling input fields
+        $('input, textarea, select').prop('readonly', false);
+        $('select').prop('disabled', false);
+        $('input[type="file"]').prop('disabled', false);
+        $('input[type="checkbox"]').prop('disabled', false);
+        $('input[type="radio"]').prop('disabled', false);
 
         // to show which button should show on the confirm modal
         document.getElementById('confirmCloseBtnEdit').style.display = 'block';
@@ -218,7 +227,7 @@
                         // Fetch the old image and pass it to the fetchOldImage function
                         fetchOldImageRepro(value.crop_reproductive_image);
 
-                        if (value['action'] === 'Pending' || value['action'] === 'Updating') {
+                        if (value['action'] === 'Pending' || value['action'] === 'Updating' || value['action'] === 'For Resubmission') {
                             $('#edit-label').text("View");
                             $('input, textarea, select').prop('readonly', true);
                             $('select').prop('disabled', true); // For select elements, 'readonly' is not a valid property, so we use 'disabled'
@@ -979,7 +988,6 @@
 
         return isValidEdit;
     }
-
 
     // Validation function
     function validateImagesSeedEdit() {

@@ -316,12 +316,11 @@
             success: function(response) {
                 // Handle the response from the server
                 console.log('Category deleted:', response);
-
                 // Close the confirmation modal
                 //confirmModalInstanceEdit.hide();
 
                 // Optionally, you can reload the page or update the UI
-                //location.reload();
+                location.reload();
             },
             error: function(xhr, status, error) {
                 // Handle errors

@@ -121,6 +121,11 @@
 
         // Show the confirmation modal
         confirmModalInstanceEdit.show();
+        $('input, textarea, select').prop('readonly', false);
+        $('select').prop('disabled', false);
+        $('input[type="file"]').prop('disabled', false);
+        $('input[type="checkbox"]').prop('disabled', false);
+        $('input[type="radio"]').prop('disabled', false);
 
         // to show which button should show on the confirm modal
         document.getElementById('confirmCloseBtnEdit').style.display = 'block';

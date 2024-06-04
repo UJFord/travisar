@@ -267,12 +267,12 @@
                                     <button class="btn tranparent dropdown-toggle row-action-btn p-0 action-btn" type="button" data-bs-toggle="dropdown" aria-expanded="false">
                                         <i class="row-btn fa-solid fa-ellipsis-vertical px-3 py-2 m-0 rounded"></i>
                                     </button>
-                                    <ul class="dropdown-menu">
-                                        <!-- <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye text-center" style="width: 20px;"></i> View</a></li> -->
-                                        <?php if ($row['action'] === 'Approved' || $row['action'] === 'Rejected') : ?>
+                                    <?php if ($row['action'] === 'Approved' || $row['action'] === 'Rejected' || $row['action'] === 'For Resubmission') : ?>
+                                        <ul class="dropdown-menu">
+                                            <!-- <li><a class="dropdown-item" href="#"><i class="fa-solid fa-eye text-center" style="width: 20px;"></i> View</a></li> -->
                                             <li>
                                                 <?php
-                                                if ($row['action'] === 'Updating' || $row['action'] === 'Rejected') {
+                                                if ($row['action'] === 'Updating' || $row['action'] === 'Rejected'|| $row['action'] === 'For Resubmission') {
                                                 ?>
                                                     <a class="dropdown-item edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1" style="width: 20px;"></i>View</a>
                                                 <?php
@@ -283,30 +283,30 @@
                                                 }
                                                 ?>
                                             </li>
-                                        <?php endif; ?>
-                                        <li>
-                                            <form action="modals/crud-code/massDelete-code.php" method="post" id="deleteForm">
-                                                <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
-                                                <input type="hidden" name="delete_row" value="1">
-                                                <button class="dropdown-item admin-only" type="submit" name="delete_row" id="deleteRow">
-                                                    <?php
-                                                    if ($row['action'] === 'Updating') {
-                                                    ?>
-                                                        <a class="dropdown-item edit_data" href="#" data-bs-toggle="modal" data-bs-target="#edit-item-modal" data-id="<?= $row['crop_id']; ?>"><i class="fa-solid fa-pen-to-square text-center me-1" style="width: 20px;"></i>View</a>
-                                                    <?php
-                                                    } else if ($row['action'] === 'Pending') {
-                                                    ?>
-                                                    <?php
-                                                    } else {
-                                                    ?>
-                                                        <i class="fa-solid fa-trash text-danger text-center me-1 admin-only" style="width: 20px;"></i>Delete
-                                                    <?php
-                                                    }
-                                                    ?>
-                                                </button>
-                                            </form>
-                                        </li>
-                                    </ul>
+                                            <li>
+                                                <form action="modals/crud-code/massDelete-code.php" method="post" id="deleteForm">
+                                                    <input type="hidden" name="crop_id" value="<?= $row['crop_id']; ?>">
+                                                    <input type="hidden" name="delete_row" value="1">
+                                                    <button class="dropdown-item admin-only" type="submit" name="delete_row" id="deleteRow">
+                                                        <?php
+                                                        if ($row['action'] === 'Updating') {
+                                                        ?>
+                                                        <?php
+                                                        } else if ($row['action'] === 'Pending') {
+                                                        ?>
+                                                        <?php
+                                                        } else {
+                                                        ?>
+                                                            <i class="fa-solid fa-trash text-danger text-center me-1 admin-only" style="width: 20px;"></i>Delete
+                                                        <?php
+                                                        }
+                                                        ?>
+                                                    </button>
+                                                </form>
+                                            </li>
+                                        </ul>
+                                    <?php endif; ?>
+
                                 </div>
                             </td>
                             </tr>
