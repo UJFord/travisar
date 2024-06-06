@@ -267,7 +267,7 @@
                 success: function(data) {
                     if (data.exists) {
                         // Municipality name already exists, show error message
-                        document.getElementById("error-messages-name").innerHTML += "<div class='error text-center' style='color:red;'>Municipality name, " + municipalityName + " already exists for Row " + (index + 1) + "</div>";
+                        document.getElementById("error-messages-name").innerHTML += "<div class='error text-center' style='color:red;'>Municipality name, " + municipalityName + " already exists" + "</div>";
                         hasError = true; // Set flag to true if error occurs
                         event.preventDefault();
                     } else {
