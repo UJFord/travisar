@@ -114,7 +114,7 @@ if (isset($_POST['delete']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'
             exit();
         } else {
             $_SESSION['message'] = "Failed to delete terrain.";
-            exit(0);
+            exit();
         }
     } catch (Exception $e) {
         // message for error
@@ -127,6 +127,6 @@ if (isset($_POST['delete']) && ($_SESSION['rank'] == 'Admin' || $_SESSION['rank'
         echo "Error: " . $e->getMessage();
         // Display the error message
         echo "<script>document.getElementById('error-container').innerHTML = '" . $e->getMessage() . "';</script>";
-        exit(0);
+        exit();
     }
 }

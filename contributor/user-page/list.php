@@ -135,7 +135,7 @@
                         u.last_name,
                         u.email_verified
                     ORDER BY
-                        u.user_id ASC
+                        u.registration_date DESC
                     LIMIT $items_per_page
                     OFFSET $offset;
                     ";
