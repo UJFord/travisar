@@ -26,7 +26,6 @@
                 <i id="cropChev" class="chevron-dropdown-btn fas fa-chevron-down text-dark text-center col-1 rotate-chevron"></i>
                 <a class="fw-bold text-success col text-decoration-none" href="">Crops</a>
             </div>
-
             <?php
             $query = "SELECT * FROM category order by category_name ASC";
             $query_run = pg_query($conn, $query);
